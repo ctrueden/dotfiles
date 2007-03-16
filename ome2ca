@@ -1,0 +1,2 @@
+#!/bin/bash
+xsltproc ~/cvs/OME/src/xml/xslt/OME2OME-CA.xslt $1 > $1.omeca
