@@ -1,0 +1,2 @@
+#!/bin/bash
+jarsigner -storepass uwloci -keypass uwloci $* loci

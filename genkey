@@ -1,0 +1,2 @@
+#!/bin/bash
+keytool -genkey -keypass uwloci -storepass uwloci -alias loci

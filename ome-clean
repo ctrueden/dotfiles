@@ -1,0 +1,9 @@
+#!/bin/bash
+cd ~curtis/ome
+sudo apache2ctl restart
+sudo ome data restore -a OME-backup.tar
+sudo rm -rf /OME/OMEIS/Files /OME/OMEIS/Pixels
+sudo cp -r Files /OME/OMEIS/Files
+sudo cp -r Pixels /OME/OMEIS/Pixels
+sudo chown -R www-data /OME/OMEIS/Files /OME/OMEIS/Pixels
+cd -

@@ -1,0 +1,58 @@
+#!/bin/bash
+
+echo "This command will build LOCI Tools from the latest source,"
+echo "copy it to the web site and tag the release in Subversion."
+echo "Please be sure 'ant dev-clean dev-compile' works before proceeding."
+echo -n "Are you sure you want to continue [y/n]? "
+read reply
+if echo "$reply" | grep -q "^[Yy]"
+then
+  echo -n
+else
+  exit
+fi
+
+echo
+echo Checking out latest source...
+cd ~/svn/java
+svn up
+
+echo
+echo Building jars...
+ant clean tools
+
+echo
+echo Copying results to website...
+cd build/jar
+scp bio-formats.jar www.loci.wisc.edu:software
+scp loci_tools.jar www.loci.wisc.edu:software
+
+echo
+echo Tagging release...
+cd ~/tags
+svn up
+DIR=`date +loci-tools-%Y-%b-%d`
+mkdir $DIR
+mkdir $DIR/loci
+svn add $DIR
+date +%Y\ %b\ %d\ release\ of\ LOCI\ Tools > msg.tmp
+svn ci $DIR -F msg.tmp
+svn copy https://skyking.microscopy.wisc.edu/svn/java/trunk/build.properties https://skyking.microscopy.wisc.edu/svn/java/tags/$DIR -F msg.tmp
+svn copy https://skyking.microscopy.wisc.edu/svn/java/trunk/build.xml https://skyking.microscopy.wisc.edu/svn/java/tags/$DIR -F msg.tmp
+svn copy https://skyking.microscopy.wisc.edu/svn/java/trunk/checkstyle.xml https://skyking.microscopy.wisc.edu/svn/java/tags/$DIR -F msg.tmp
+svn copy https://skyking.microscopy.wisc.edu/svn/java/trunk/jar https://skyking.microscopy.wisc.edu/svn/java/tags/$DIR -F msg.tmp
+svn copy https://skyking.microscopy.wisc.edu/svn/java/trunk/loci/formats https://skyking.microscopy.wisc.edu/svn/java/tags/$DIR/loci -F msg.tmp
+svn copy https://skyking.microscopy.wisc.edu/svn/java/trunk/loci/ome https://skyking.microscopy.wisc.edu/svn/java/tags/$DIR/loci -F msg.tmp
+svn copy https://skyking.microscopy.wisc.edu/svn/java/trunk/loci/plugins https://skyking.microscopy.wisc.edu/svn/java/tags/$DIR/loci -F msg.tmp
+svn up
+
+echo
+echo Results:
+cd ~/svn/java/build/jar
+ls -l bio-formats.jar loci_tools.jar
+echo
+echo Don\'t forget to update the web site:
+echo web/ome/browser.html
+echo web/ome/formats.html
+echo web/ome/imagej.html
+echo web/software/index.html

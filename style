@@ -1,0 +1,2 @@
+#!/bin/bash
+java -cp $CLASSPATH:/home/curtis/svn/java/jar/checkstyle-all-4.2.jar com.puppycrawl.tools.checkstyle.Main -c ~/svn/java/checkstyle.xml $*

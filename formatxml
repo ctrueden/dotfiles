@@ -1,0 +1,9 @@
+#!/usr/bin/perl
+use XML::LibXML;
+$file = $ARGV[0];
+$parser = XML::LibXML->new();
+die "Cannot create XML parser" unless defined $parser;
+$parser->validation(0);
+if (defined $file) { $doc = $parser->parse_file($file); }
+else { $doc = $parser->parse_fh(STDIN); }
+print $doc->toString(1);

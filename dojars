@@ -1,0 +1,13 @@
+#!/bin/sh
+
+cd ~
+
+echo Updating ImageJ plugins...
+cp -v svn/java/loci/*.jar apps/ImageJ/plugins 2> /dev/null
+echo
+
+echo Updating JAR folder...
+cp -v svn/java/loci/*.jar java/jar 2> /dev/null
+echo
+
+cd - > /dev/null

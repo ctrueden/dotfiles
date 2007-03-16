@@ -1,0 +1,7 @@
+#!/bin/bash
+FILES=""
+for i in `grep -l $*`;
+do
+  FILES="$FILES $i"
+done
+vi $FILES

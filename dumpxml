@@ -1,0 +1,14 @@
+#!/bin/bash
+for f in $*
+do
+  echo "$f -> $f.xml"
+  java TiffComment "$f" > "$f.tmp"
+  formatxml < "$f.tmp" > "$f.xml"
+  if [ -s "$f.xml" ];
+  then
+    rm "$f.tmp"
+  else
+    rm "$f.xml"
+    mv "$f.tmp" "$f.xml"
+  fi
+done
