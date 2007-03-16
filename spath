@@ -1,2 +1,2 @@
 #!/bin/bash
-echo $*|sed -e 's/:/\n/g'|sed -e 's/^/   /g'
+echo $@|sed -e 's/:/\n/g'|sed -e 's/^/   /g'

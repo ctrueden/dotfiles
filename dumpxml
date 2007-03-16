@@ -1,5 +1,5 @@
 #!/bin/bash
-for f in $*
+for f in $@
 do
   echo "$f -> $f.xml"
   java TiffComment "$f" > "$f.tmp"
