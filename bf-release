@@ -44,6 +44,7 @@ svn copy https://skyking.microscopy.wisc.edu/svn/java/trunk/jar https://skyking.
 svn copy https://skyking.microscopy.wisc.edu/svn/java/trunk/loci/formats https://skyking.microscopy.wisc.edu/svn/java/tags/$DIR/loci -F msg.tmp
 svn copy https://skyking.microscopy.wisc.edu/svn/java/trunk/loci/ome https://skyking.microscopy.wisc.edu/svn/java/tags/$DIR/loci -F msg.tmp
 svn copy https://skyking.microscopy.wisc.edu/svn/java/trunk/loci/plugins https://skyking.microscopy.wisc.edu/svn/java/tags/$DIR/loci -F msg.tmp
+rm msg.tmp
 svn up
 
 echo
