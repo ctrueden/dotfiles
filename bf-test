@@ -1,19 +1,15 @@
 #!/bin/bash
 cd ~/svn/java
-echo svn update:
-svn up
-echo ant dev-compile:
-ant dev-compile
-cd - > /dev/null
-for f in data/*
+for f in /Users/curtis/data/*
 do
-  if [ -d "$f" ]
+  if [ -d $f ] &&
+    [ "${f:(-10)}" != "lost+found" ] &&
+    [ "${f:(-11)}" != "screencasts" ] &&
+    [ "${f:(-8)}" != "software" ] &&
+    [ "${f:(-5)}" != "specs" ] &&
+    [ "${f:(-4)}" != "test" ];
   then
-    export dir=`echo $f | sed -e 's/data\///'`
-    echo Processing $dir...
-    export date=`date | sed -e 's/:/-/g'`
-    java -mx512m loci.formats.test.ReaderTest $f -debug -time 2.3 \
-      > "bio-formats-test-$date-$dir.out" 2> "bio-formats-test-$date-$dir.err"
+    echo --------=========== Testing $f ===========--------
+    ant -Dtestng.directory="$f" test-all
   fi
 done
-cd - > /dev/null
