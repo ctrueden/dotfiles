@@ -1,6 +1,9 @@
 #!/bin/bash
+DIR=/Users/curtis/data
+echo --------=========== Sorting directories ===========--------
+DIRS=`du -s /Users/curtis/data/* | sort -n | sed -e 's/^[0-9]*\s*//g'`
 cd ~/svn/java
-for f in /Users/curtis/data/*
+for f in $DIRS
 do
   if [ -d $f ] &&
     [ "${f:(-10)}" != "lost+found" ] &&
