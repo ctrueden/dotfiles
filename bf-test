@@ -13,6 +13,7 @@ do
     [ "${f:(-4)}" != "test" ];
   then
     echo --------=========== Testing $f ===========--------
+    svn up
     ant -Dtestng.directory="$f" test-all
   fi
 done
