@@ -1,2 +1,9 @@
 #!/bin/bash
-spath $CLASSPATH
+if [ $CLASSPATH ];
+then
+  echo CLASSPATH =
+  spath $CLASSPATH
+else
+  echo CP =
+  spath $CP
+fi
