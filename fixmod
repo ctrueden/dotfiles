@@ -2,15 +2,5 @@
 
 # fixmod: a script for doing recursive chmod for files to 644 and dirs to 755
 
-for a in $@
-do
-  echo $a
-  if [ -d "$a" ]
-  then
-    chmod 755 "$a"
-    # doesn't work for filenames with spaces...
-    $0 "$a"/*
-  else
-    chmod 644 "$a"
-  fi
-done
+find . -type d -exec chmod 755 {} \;
+find . -type f -exec chmod 644 {} \;
