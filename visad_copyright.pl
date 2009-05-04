@@ -7,7 +7,7 @@
 # To use:
 #
 #       cd ~/src/visad
-#       fix_copyright.pl
+#       visad_copyright.pl
 
 use strict;
 
