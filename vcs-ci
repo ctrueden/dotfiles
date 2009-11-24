@@ -1,0 +1,54 @@
+#!/bin/bash
+
+# vcs-ci - a helper script for committing and/or pushing code to a repository
+#          works for CVS, Git, Mercurial and Subversion repositories
+
+# Author: Curtis Rueden <ctrueden@wisc.edu>
+
+dir="$1"
+if [ "$dir" == "" ]
+then
+  dir="."
+fi
+if [ -d "$dir" ]
+then
+  cd "$dir"
+else
+  echo "=== Directory not found: '$dir' ==="
+  exit -1
+fi
+
+# do a CVS commit
+if [ -e CVS ]
+then
+  echo "=== Committing '$dir' to CVS repository ==="
+  cvs commit
+
+# do a Git commit & push
+elif [ -e .git ]
+then
+  echo "=== Committing code and pushing '$dir' to Git master server ==="
+  git commit -a
+  git push
+
+# do a Mercurial commit & push
+elif [ -e .hg ]
+then
+  echo "=== Committing code and pushing '$dir' to Mercurial master server ==="
+  hg commit
+  hg pull
+
+# do an SVN commit
+elif [ -e .svn ]
+then
+  echo "=== Committing '$dir' to Subversion repository ==="
+  svn commit
+
+else
+  echo "=== No working copy found in '$dir' ==="
+fi
+
+if [ "$dir" != "" ]
+then
+  cd - > /dev/null
+fi
