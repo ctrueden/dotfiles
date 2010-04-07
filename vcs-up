@@ -13,6 +13,10 @@ fi
 if [ -d "$dir" ]
 then
   cd "$dir"
+elif [ -e "$dir" ]
+then
+  echo "=== Not a directory: '$dir' ==="
+  exit -1
 else
   echo "=== Directory not found: '$dir' ==="
   exit -1
@@ -27,14 +31,15 @@ then
 # do a Git pull
 elif [ -e .git ]
 then
-  echo "=== Updating '$dir' from Git master server ==="
+  echo "=== Updating '$dir' from Git origin server ==="
   git pull
 
 # do a Mercurial pull
 elif [ -e .hg ]
 then
-  echo "=== Updating '$dir' from Mercurial master server ==="
+  echo "=== Updating '$dir' from Mercurial origin server ==="
   hg pull
+  hg update
 
 # do an SVN update
 elif [ -e .svn ]
