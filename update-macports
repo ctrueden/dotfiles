@@ -1,0 +1,26 @@
+#!/bin/bash
+
+# Updates MacPorts to the latest version, upgrades all installed ports,
+# cleans intermediate files and removes old port versions.
+# Must be run as root.
+
+# Thanks to: http://simenhag.blogspot.com/2008/11/cleaning-up-macports.html
+
+set -e
+set -u
+
+WHO=`whoami`
+if [ "$WHO" != "root" ]
+then
+  echo "Please run as root (e.g., 'sudo update-macports')."
+	exit 1
+fi
+
+BEFORE=`du -sh /opt`
+port -d selfupdate
+port upgrade outdated
+port clean --all installed
+port -f uninstall inactive
+AFTER=`du -sh /opt`
+echo "Before:	$BEFORE"
+echo "After:	$AFTER"
