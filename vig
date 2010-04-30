@@ -2,6 +2,6 @@
 FILES=""
 for i in `grep -l $@`;
 do
-  FILES="$FILES $i"
+  FILES="$FILES $(echo "$i" | sed "s/[\"' ]/\\&/g")"
 done
 vi $FILES
