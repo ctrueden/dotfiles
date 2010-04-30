@@ -24,7 +24,7 @@ set autoindent
 set smartindent
 
 " Use two spaces for indentation, and eschew tabs
-"set expandtab
+set expandtab
 set shiftwidth=2
 set tabstop=2
 
