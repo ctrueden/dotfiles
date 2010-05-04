@@ -34,6 +34,7 @@ export VISUAL=$EDITOR
 export HOME_JAVA=~/code/Home/java
 export LOCI_JAVA=~/code/LOCI/java
 export IJ_HOME=~/code/LOCI/imagej
+export IMGLIB_HOME=~/code/LOCI/imglib
 export FIJI_HOME=~/code/Fiji/fiji
 export CELLPROFILER_HOME=~/code/Other/CellProfiler/CellProfiler
 export VISAD=~/code/VisAD
@@ -138,7 +139,7 @@ alias ldd='otool -L'
 alias start='nautilus'
 alias hex='/Applications/Hex\ Fiend.app/Contents/MacOS/Hex\ Fiend'
 alias slim='j -mx512m loci.slim.SlimPlotter'
-alias visbio='j -mx1024m loci.visbio.VisBio'
+alias visbio='j -mx1024m -Dswing.defaultlaf=com.jgoodies.plaf.plastic.Plastic3DLookAndFeel loci.visbio.VisBio'
 
 # useful aliases - navigation
 alias up='cd ..'
@@ -162,6 +163,7 @@ alias gov='cd $LOCI_JAVA/components/visbio/src/loci/visbio'
 alias gox='cd $LOCI_JAVA/components/ome-xml/src/ome/xml'
 alias god='cd ~/data'
 alias goij='cd $IJ_HOME'
+alias goil='cd $IMGLIB_HOME'
 alias gofi='cd $FIJI_HOME'
 alias gocp='cd $CELLPROFILER_HOME'
 alias goconfig='cd $CONFIG_DIR'
