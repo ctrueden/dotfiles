@@ -1,4 +1,9 @@
 #!/bin/bash
+
+#
+# vig - greps for a particular string and opens all matching files in vi
+#
+
 FILES=""
 for i in `grep -l $@`;
 do

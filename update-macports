@@ -1,5 +1,9 @@
 #!/bin/bash
 
+#
+# update-macports
+#
+
 # Updates MacPorts to the latest version, upgrades all installed ports,
 # cleans intermediate files and removes old port versions.
 # Must be run as root.

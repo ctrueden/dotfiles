@@ -1,2 +1,7 @@
 #!/bin/bash
+
+#
+# path: a script for pretty printing the path variable
+#
+
 spath $PATH

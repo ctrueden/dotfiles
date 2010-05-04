@@ -1,4 +1,0 @@
-#!/bin/bash
-cd ~/apps/ImageJ
-./run $@
-cd - > /dev/null

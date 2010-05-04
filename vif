@@ -1,0 +1,7 @@
+#!/bin/bash
+
+#
+# vif - searches for the given filename in the current subtree and opens in vi
+#
+
+find . -name "$@" | xargs -o vi

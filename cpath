@@ -1,4 +1,9 @@
 #!/bin/bash
+
+#
+# cpath: a script for pretty printing the Java class path
+#
+
 if [ $CLASSPATH ];
 then
   echo CLASSPATH =
