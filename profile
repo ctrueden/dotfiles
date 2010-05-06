@@ -121,6 +121,7 @@ export CPLUS_INCLUDE_PATH=$C_INCLUDE_PATH
 
 # useful functions
 goto() { cd $(dirname "`find . -name $*`"); }
+govi() { vi "`find . -name $*`"; }
 
 # useful aliases - Java
 alias j='java -cp $CP:.'
