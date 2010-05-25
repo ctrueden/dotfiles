@@ -88,6 +88,7 @@ $JAVA_HOME/bin:\
 ~/bin:\
 ~/code/LOCI/misc/curtis/bin:\
 $LOCI_JAVA/tools:\
+$FIJI_HOME/bin:\
 /usr/local/bin:\
 $PATH
 
@@ -162,6 +163,7 @@ alias gos='cd $LOCI_JAVA/components/slim-plotter/src/loci/slim'
 alias got='cd $LOCI_JAVA/components/test-suite/src/loci/tests/testng'
 alias gov='cd $LOCI_JAVA/components/visbio/src/loci/visbio'
 alias gox='cd $LOCI_JAVA/components/ome-xml/src/ome/xml'
+alias gobfcpp='cd $BF_CPP_DIR'
 alias god='cd ~/data'
 alias goij='cd $IJ_HOME'
 alias goil='cd $IMGLIB_HOME'
