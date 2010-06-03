@@ -1,10 +1,13 @@
-# ~/.profile
+# ~/.profile or ~/.bashrc
+
+# On Mac OS X, alias to ~/.profile or ~/.bash_profile.
+
+# On Ubuntu, alias to ~/.bashrc.
+# See /usr/share/doc/bash/examples/startup-files
+# (in the package bash-doc) for examples
 
 # If not running interactively, don't do anything
 [ -z "$PS1" ] && return
-
-# don't put duplicate lines in the history. See bash(1) for more options
-#export HISTCONTROL=ignoredups
 
 # check the window size after each command and, if necessary,
 # update the values of LINES and COLUMNS.
@@ -13,17 +16,38 @@ shopt -s checkwinsize
 # make less more friendly for non-text input files, see lesspipe(1)
 [ -x /usr/bin/lesspipe ] && eval "$(lesspipe)"
 
-# color prompt
-PS1='\[\033[01;32m\]\u@${HOSTNAME}\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
-
-# programmatic completion features
-if [ -f /opt/local/etc/bash_completion ]; then
-    . /opt/local/etc/bash_completion
+# set variable identifying the chroot you work in (used in the prompt below)
+if [ -z "$debian_chroot" -a -r /etc/debian_chroot ]; then
+  debian_chroot=$(cat /etc/debian_chroot)
 fi
 
-# Terminal title
-export TERM_TITLE="Terminal"
-echo -n -e "\033]0;$TERM_TITLE\007"
+# don't put duplicate lines in the history. See bash(1) for more options
+#export HISTCONTROL=ignoredups
+
+# color prompt
+PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@${HOSTNAME}\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
+
+# programmatic completion features
+if [ -f /etc/bash_completion ]; then
+  # Ubuntu Linux
+  . /etc/bash_completion
+fi
+if [ -f /opt/local/etc/bash_completion ]; then
+  # Mac OS X with MacPorts ("sudo port install bash-completion" first)
+  . /opt/local/etc/bash_completion
+fi
+
+# update terminal title as appropriate
+case "$TERM" in
+  xterm*|rxvt*)
+    PROMPT_COMMAND='echo -ne "\033]0;${USER}@${HOSTNAME}: ${PWD/$HOME/~}\007"'
+    ;;
+  *)
+    ;;
+esac
+
+# setup - operating system (Darwin, Linux, etc.)
+export OS_NAME=`uname`
 
 # setup - CVS/SVN
 export CVS_RSH=ssh
@@ -60,7 +84,11 @@ export PYTHONPATH=\
 $PYTHONPATH
 
 # setup - Java
-export JAVA_HOME=/Library/Java/Home
+if [ "$OS_NAME" == "Darwin" ]; then
+  export JAVA_HOME=/Library/Java/Home
+elif [ "$OS_NAME" == "Linux" ]; then
+  export JAVA_HOME=/usr/lib/jvm/java-6-sun
+fi
 
 # setup - Java classpath
 unset CLASSPATH
@@ -93,32 +121,42 @@ $FIJI_HOME/bin:\
 $PATH
 
 # setup - MacPorts
-export PATH=/opt/local/bin:/opt/local/sbin:$PATH
-export MANPATH=/opt/local/share/man:$MANPATH
+if [ "$OS_NAME" == "Darwin" ]; then
+  export PATH=/opt/local/bin:/opt/local/sbin:$PATH
+  export MANPATH=/opt/local/share/man:$MANPATH
+fi
 
 # setup - jikes
-export JRELIB=/System/Library/Frameworks/JavaVM.framework/Classes
-export JREEXTLIB=/System/Library/Java/Extensions
-export BOOTCLASSPATH=\
-$JRELIB/classes.jar:\
-$JRELIB/ui.jar:\
-$JREEXTLIB/j3dcore.jar:\
-$JREEXTLIB/j3dutils.jar:\
-$JREEXTLIB/vecmath.jar
-export JIKESARGS='-target 1.4 -source 1.4 +Pmodifier-order +Predundant-modifiers +Pnaming-convention +Pno-effective-java +Punused-type-imports +Punused-package-imports'
+#export JRELIB=/System/Library/Frameworks/JavaVM.framework/Classes
+#export JREEXTLIB=/System/Library/Java/Extensions
+#export BOOTCLASSPATH=\
+#$JRELIB/classes.jar:\
+#$JRELIB/ui.jar:\
+#$JREEXTLIB/j3dcore.jar:\
+#$JREEXTLIB/j3dutils.jar:\
+#$JREEXTLIB/vecmath.jar
+#export JIKESARGS='-target 1.4 -source 1.4 +Pmodifier-order +Predundant-modifiers +Pnaming-convention +Pno-effective-java +Punused-type-imports +Punused-package-imports'
 #alias jc='jikes $JIKESARGS'
 
 # setup - jmp
-export LD_LIBRARY_PATH=/usr/local/lib
-alias jmp='java -Xrunjmp'
+#export LD_LIBRARY_PATH=/usr/local/lib
+#alias jmp='java -Xrunjmp'
 
 # setup - jni
-export C_INCLUDE_PATH=$JAVA_HOME/include
-export CPLUS_INCLUDE_PATH=$C_INCLUDE_PATH
+#export C_INCLUDE_PATH=$JAVA_HOME/include
+#export CPLUS_INCLUDE_PATH=$C_INCLUDE_PATH
+
+# setup - MeVisLab + Bio-Formats module
+#source /home/curtis/apps/MeVisLab/bin/init.sh
+#export MLAB_JNI_LIB=$JAVA_HOME/jre/lib/i386/server/libjvm.so
 
 # setup - ls
+if [ "$OS_NAME" == "Linux" ]; then
+  alias ls='ls -AFG --color=auto'
+else
+  alias ls='ls -AFG'
+fi
 #export LSCOLORS="GxGxFxdxCxDxDxhbadGxGx";
-#alias ls='ls -AFG'
 
 # useful functions
 goto() { cd $(dirname "`find . -name $*`"); }
@@ -129,17 +167,32 @@ alias j='java -cp $CP:.'
 alias jc='javac -cp $CP:.'
 
 # useful aliases - shell
-alias ls='ls -AFG'
 alias mv='mv -i'
 alias cls='clear;pwd;ls'
 alias cdiff='colordiff 2> /dev/null'
 alias grep='grep --colour=auto'
 alias rgrep='grep -IR --exclude="*\.svn*"'
-alias ldd='otool -L'
 
-# useful aliases - apps
-alias start='nautilus'
-alias hex='/Applications/Hex\ Fiend.app/Contents/MacOS/Hex\ Fiend'
+# useful aliases - start
+if [ "$OS_NAME" == "Darwin" ]; then
+  alias start='open'
+elif [ "$OS_NAME" == "Linux" ]; then
+  alias start='nautilus'
+fi
+
+# useful aliases - ldd
+if [ ! -x "`which ldd`" ]; then
+  alias ldd='otool -L'
+fi
+
+# useful aliases - hex editor
+if [ "$OS_NAME" == "Darwin" ]; then
+  alias hex='/Applications/Hex\ Fiend.app/Contents/MacOS/Hex\ Fiend'
+else
+  alias hex='ghex2'
+fi
+
+# useful aliases - LOCI apps
 alias slim='j -mx512m loci.slim.SlimPlotter'
 alias visbio='j -mx1024m -Dswing.defaultlaf=com.jgoodies.plaf.plastic.Plastic3DLookAndFeel loci.visbio.VisBio'
 
@@ -188,7 +241,7 @@ alias daily='scp drupal@skynet.loci.wisc.edu:software/daily/loci_tools.jar $LOCI
 # conflict). The -a flag is used to specify the archive file.
 #alias ome-update='cd ~/cvs && sudo rm -rf OME && cvs -d :ext:ctrueden@cvs.openmicroscopy.org.uk:/home/cvs/ome co OME && cd OME'
 
-# fiji setup (Fake fails if JAVA_HOME is set)
+# setup - Fiji (Fake fails if JAVA_HOME is set)
 unset JAVA_HOME
 
 #export LOCI_DEVEL=1 # for LOCI command line tools
