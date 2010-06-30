@@ -61,12 +61,13 @@ export IJ_HOME=~/code/LOCI/imagej
 export IMGLIB_HOME=~/code/LOCI/imglib
 export FIJI_HOME=~/code/Fiji/fiji
 export CELLPROFILER_HOME=~/code/Other/CellProfiler/CellProfiler
-export VISAD=~/code/VisAD
+export VISAD=~/code/Other/VisAD
 export BF_CPP_DIR=$LOCI_JAVA/components/native/bf-cpp
 export BF_ITK_DIR=$LOCI_JAVA/components/native/bf-itk
 export FARSIGHT_DIR=~/code/Other/farsight
 export NUCLEUS_DIR=$FARSIGHT_DIR/build/ftk/NuclearSegmentation/NucleusEditor
 export CONFIG_DIR=~/code/LOCI/misc/curtis/config
+export LOCI_TRUNK=http://skyking.microscopy.wisc.edu/svn/java/trunk
 
 # setup - Bio-Formats ITK plugin
 #export ITK_AUTOLOAD_PATH=$BF_ITK_DIR/build/lib/ITKFactories
