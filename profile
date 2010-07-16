@@ -153,7 +153,7 @@ fi
 
 # setup - ls
 if [ "$OS_NAME" == "Linux" ]; then
-  alias ls='ls -AFG --color=auto'
+  alias ls='ls -AF --color=auto'
 else
   alias ls='ls -AFG'
 fi
