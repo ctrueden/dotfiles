@@ -227,11 +227,11 @@ alias goconfig='cd $CONFIG_DIR'
 alias gen='cd $LOCI_JAVA && svn up && ant dev-clean dev-compile clean tools'
 
 # useful aliases - machines
-alias skyking='ssh skyking.microscopy.wisc.edu'
-alias skynet='ssh skynet.loci.wisc.edu'
 alias drupal='ssh drupal@skynet.loci.wisc.edu'
+alias ome='ssh open.microscopy.wisc.edu'
 alias pacific='ssh rueden@pacific.mpi-cbg.de'
-alias daily='scp drupal@skynet.loci.wisc.edu:software/daily/loci_tools.jar $LOCI_ROOT/artifacts/'
+alias server='ssh server.microscopy.wisc.edu'
+alias skynet='ssh skynet.loci.wisc.edu'
 
 # useful aliases - OME
 #alias ome-backup='cd ~ && sudo ome data backup -q -a OME-backup && cd -'
