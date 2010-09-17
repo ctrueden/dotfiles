@@ -56,18 +56,18 @@ export VISUAL=$EDITOR
 
 # useful dirs
 export HOME_JAVA=~/code/Home/java
-export LOCI_JAVA=~/code/LOCI/java
+export LOCI_SOFTWARE=~/code/LOCI/software
 export IJ_HOME=~/code/LOCI/imagej
 export IMGLIB_HOME=~/code/LOCI/imglib
 export FIJI_HOME=~/code/Fiji/fiji
 export CELLPROFILER_HOME=~/code/Other/CellProfiler/CellProfiler
 export VISAD=~/code/Other/VisAD
-export BF_CPP_DIR=$LOCI_JAVA/components/native/bf-cpp
-export BF_ITK_DIR=$LOCI_JAVA/components/native/bf-itk
+export BF_CPP_DIR=$LOCI_SOFTWARE/components/native/bf-cpp
+export BF_ITK_DIR=$LOCI_SOFTWARE/components/native/bf-itk
 export FARSIGHT_DIR=~/code/Other/farsight
 export NUCLEUS_DIR=$FARSIGHT_DIR/build/ftk/NuclearSegmentation/NucleusEditor
 export CONFIG_DIR=~/code/LOCI/misc/curtis/config
-export LOCI_TRUNK=http://skyking.microscopy.wisc.edu/svn/java/trunk
+export LOCI_TRUNK=http://dev.loci.wisc.edu/svn/software/trunk
 
 # setup - Bio-Formats ITK plugin
 #export ITK_AUTOLOAD_PATH=$BF_ITK_DIR/build/lib/ITKFactories
@@ -97,12 +97,12 @@ export CP=\
 ~/java:\
 $HOME_JAVA:\
 $LOCI_$HOME_JAVA/utils:\
-$LOCI_JAVA/utils
-for dir in $LOCI_JAVA/components/*/utils
+$LOCI_SOFTWARE/utils
+for dir in $LOCI_SOFTWARE/components/*/utils
 do
   export CP=$CP:$dir
 done
-for jar in $LOCI_JAVA/artifacts/*.jar
+for jar in $LOCI_SOFTWARE/artifacts/*.jar
 do
   if [ ${jar: -14} != 'loci_tools.jar' ] && [ ${jar: -13} != 'ome_tools.jar' ]
   then
@@ -116,7 +116,7 @@ export PATH=\
 $JAVA_HOME/bin:\
 ~/bin:\
 ~/code/LOCI/misc/curtis/bin:\
-$LOCI_JAVA/tools:\
+$LOCI_SOFTWARE/tools:\
 $FIJI_HOME/bin:\
 /usr/local/bin:\
 $PATH
@@ -206,17 +206,17 @@ alias up5='cd ../../../../..'
 alias up6='cd ../../../../../..'
 alias up7='cd ../../../../../../..'
 alias up8='cd ../../../../../../../..'
-alias go='cd $LOCI_JAVA'
-alias goa='cd $LOCI_JAVA/components/autogen/src'
-alias goc='cd $LOCI_JAVA/components/common/src/loci/common'
-alias gof='cd $LOCI_JAVA/components/bio-formats/src/loci/formats'
-alias gon='cd $LOCI_JAVA/components/legacy/ome-notes/src/loci/ome/notes'
-alias goo='cd $LOCI_JAVA/components/ome-plugins/src/loci/plugins/ome'
-alias gop='cd $LOCI_JAVA/components/loci-plugins/src/loci/plugins'
-alias gos='cd $LOCI_JAVA/components/slim-plotter/src/loci/slim'
-alias got='cd $LOCI_JAVA/components/test-suite/src/loci/tests/testng'
-alias gov='cd $LOCI_JAVA/components/visbio/src/loci/visbio'
-alias gox='cd $LOCI_JAVA/components/ome-xml/src/ome/xml'
+alias go='cd $LOCI_SOFTWARE'
+alias goa='cd $LOCI_SOFTWARE/components/autogen/src'
+alias goc='cd $LOCI_SOFTWARE/components/common/src/loci/common'
+alias gof='cd $LOCI_SOFTWARE/components/bio-formats/src/loci/formats'
+alias gon='cd $LOCI_SOFTWARE/components/legacy/ome-notes/src/loci/ome/notes'
+alias goo='cd $LOCI_SOFTWARE/components/ome-plugins/src/loci/plugins/ome'
+alias gop='cd $LOCI_SOFTWARE/components/loci-plugins/src/loci/plugins'
+alias gos='cd $LOCI_SOFTWARE/components/slim-plotter/src/loci/slim'
+alias got='cd $LOCI_SOFTWARE/components/test-suite/src/loci/tests/testng'
+alias gov='cd $LOCI_SOFTWARE/components/visbio/src/loci/visbio'
+alias gox='cd $LOCI_SOFTWARE/components/ome-xml/src/ome/xml'
 alias gobfcpp='cd $BF_CPP_DIR'
 alias god='cd ~/data'
 alias goij='cd $IJ_HOME'
@@ -224,7 +224,6 @@ alias goil='cd $IMGLIB_HOME'
 alias gofi='cd $FIJI_HOME'
 alias gocp='cd $CELLPROFILER_HOME'
 alias goconfig='cd $CONFIG_DIR'
-alias gen='cd $LOCI_JAVA && svn up && ant dev-clean dev-compile clean tools'
 
 # useful aliases - machines
 alias dev='ssh dev.loci.wisc.edu'
