@@ -5,3 +5,12 @@
 [user]
 	name = Curtis Rueden
 	email = ctrueden@wisc.edu
+[alias]
+	ci = commit
+	co = checkout
+	di = diff
+	ren = mv
+	rename = mv
+	st = status
+	up = update
+  move = mv
