@@ -24,8 +24,11 @@ fi
 # don't put duplicate lines in the history. See bash(1) for more options
 #export HISTCONTROL=ignoredups
 
+# include git completion
+source /opt/local/share/doc/git-core/contrib/completion/git-completion.bash
+
 # color prompt
-PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@${HOSTNAME}\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
+PS1=': ${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@${HOSTNAME}\[\033[00m\] \[\033[01;34m\]\w\[\033[01;32m\]$(__git_ps1)\[\033[00m\]\n'
 
 # programmatic completion features
 if [ -f /etc/bash_completion ]; then
@@ -57,8 +60,8 @@ export VISUAL=$EDITOR
 # useful dirs
 export HOME_JAVA=~/code/Home/java
 export LOCI_SOFTWARE=~/code/LOCI/software
-export IJ_HOME=~/code/LOCI/imagej
-export IMGLIB_HOME=~/code/LOCI/imglib
+export IJ_HOME=~/code/ImageJ/imagej
+export IMGLIB_HOME=~/code/ImageJ/imglib
 export FIJI_HOME=~/code/Fiji/fiji
 export CELLPROFILER_HOME=~/code/Other/CellProfiler/CellProfiler
 export VISAD=~/code/Other/VisAD
@@ -195,7 +198,7 @@ fi
 
 # useful aliases - LOCI apps
 alias slim='j -mx512m loci.slim.SlimPlotter'
-alias visbio='j -mx1024m -Dswing.defaultlaf=com.jgoodies.plaf.plastic.Plastic3DLookAndFeel loci.visbio.VisBio'
+alias visbio='j -mx1024m -Dswing.defaultlaf=com.jgoodies.looks.plastic.Plastic3DLookAndFeel loci.visbio.VisBio'
 
 # useful aliases - navigation
 alias up='cd ..'
