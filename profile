@@ -25,7 +25,10 @@ fi
 #export HISTCONTROL=ignoredups
 
 # include git completion
-source /opt/local/share/doc/git-core/contrib/completion/git-completion.bash
+if [ -f /opt/local/share/doc/git-core/contrib/completion/git-completion.bash ]
+then
+  source /opt/local/share/doc/git-core/contrib/completion/git-completion.bash
+fi
 
 # color prompt
 PS1=': ${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@${HOSTNAME}\[\033[00m\] \[\033[01;34m\]\w\[\033[01;32m\]$(__git_ps1)\[\033[00m\]\n'
