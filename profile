@@ -60,6 +60,9 @@ export CVS_RSH=ssh
 export EDITOR=vi
 export VISUAL=$EDITOR
 
+# setup - Maven
+export MAVEN_OPTS=-Xmx1024m
+
 # useful dirs
 export HOME_JAVA=~/code/Home/java
 export LOCI_SOFTWARE=~/code/LOCI/software
@@ -67,7 +70,7 @@ export IJ_HOME=~/code/ImageJ/imagej
 export IMGLIB_HOME=~/code/ImageJ/imglib
 export FIJI_HOME=~/code/Fiji/fiji
 export CELLPROFILER_HOME=~/code/Other/CellProfiler/CellProfiler
-export VISAD=~/code/Other/VisAD
+export VISAD=~/code/Other/visad
 export BF_CPP_DIR=$LOCI_SOFTWARE/components/native/bf-cpp
 export BF_ITK_DIR=$LOCI_SOFTWARE/components/native/bf-itk
 export FARSIGHT_DIR=~/code/Other/farsight
