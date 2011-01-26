@@ -28,6 +28,9 @@ set expandtab
 set shiftwidth=2
 set tabstop=2
 
+" When using gq, do not put two spaces after a period
+set nojoinspaces
+
 filetype plugin on
 
 " Press F2 to wrap a long line under the cursor at 80 chars
@@ -42,6 +45,13 @@ set foldlevel=1
 set foldmethod=indent
 "set foldnestmax=2
 let &fen=!&fen
+
+" Press ,= to format XML document with xmllint
+map ,= :1,$!xmllint --format -<CR>
+"au FileType xml exe ":silent 1,$!xmllint --format --recover - 2>/dev/null"
+
+" Why use colon when semicolon is faster?
+map ; :
 
 """ COMPILATION, EXECUTION, ETC.
 

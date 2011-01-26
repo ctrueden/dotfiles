@@ -168,6 +168,12 @@ else
 fi
 #export LSCOLORS="GxGxFxdxCxDxDxhbadGxGx";
 
+# setup - maven
+export MAVEN_OPTS=-Xmx512m
+
+# setup - xmllint
+export XMLLINT_INDENT=$'\t'
+
 # useful functions
 goto() { cd $(dirname "`find . -name $*`"); }
 govi() { vi "`find . -name $*`"; }
@@ -241,15 +247,6 @@ alias ome='ssh open.microscopy.wisc.edu'
 alias pacific='ssh rueden@pacific.mpi-cbg.de'
 alias server='ssh server.microscopy.wisc.edu'
 alias skynet='ssh skynet.loci.wisc.edu'
-
-# useful aliases - OME
-#alias ome-backup='cd ~ && sudo ome data backup -q -a OME-backup && cd -'
-#alias ome-restore='cd ~ && sudo apache2ctl restart && sudo ome data restore -a OME-backup.tar && cd -'
-# Without the q flag, it will backup OMEIS (which will take quite some time).
-# You can back that up separately. OMEIS doesn't care how many back-ends use it
-# as a repository (it never reuses its IDs, so there's no possibility of
-# conflict). The -a flag is used to specify the archive file.
-#alias ome-update='cd ~/cvs && sudo rm -rf OME && cvs -d :ext:ctrueden@cvs.openmicroscopy.org.uk:/home/cvs/ome co OME && cd OME'
 
 # setup - Fiji (Fake fails if JAVA_HOME is set)
 unset JAVA_HOME
