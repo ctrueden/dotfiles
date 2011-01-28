@@ -13,4 +13,4 @@
 	rename = mv
 	st = status
 	up = update
-  move = mv
+	move = mv

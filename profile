@@ -61,11 +61,12 @@ export EDITOR=vi
 export VISUAL=$EDITOR
 
 # setup - Maven
-export MAVEN_OPTS=-Xmx1024m
+#export MAVEN_OPTS=-Xmx1536m -J-Xmx1536m
 
 # useful dirs
 export HOME_JAVA=~/code/Home/java
 export LOCI_SOFTWARE=~/code/LOCI/software
+export BIO_FORMATS=~/code/LOCI/bio-formats
 export IJ_HOME=~/code/ImageJ/imagej
 export IMGLIB_HOME=~/code/ImageJ/imglib
 export FIJI_HOME=~/code/Fiji/fiji
@@ -222,16 +223,16 @@ alias up6='cd ../../../../../..'
 alias up7='cd ../../../../../../..'
 alias up8='cd ../../../../../../../..'
 alias go='cd $LOCI_SOFTWARE'
-alias goa='cd $LOCI_SOFTWARE/components/autogen/src'
-alias goc='cd $LOCI_SOFTWARE/components/common/src/loci/common'
-alias gof='cd $LOCI_SOFTWARE/components/bio-formats/src/loci/formats'
-alias gon='cd $LOCI_SOFTWARE/components/legacy/ome-notes/src/loci/ome/notes'
-alias goo='cd $LOCI_SOFTWARE/components/ome-plugins/src/loci/plugins/ome'
-alias gop='cd $LOCI_SOFTWARE/components/loci-plugins/src/loci/plugins'
+alias goa='cd $BIO_FORMATS/components/autogen/src'
+alias goc='cd $BIO_FORMATS/components/common/src/loci/common'
+alias gof='cd $BIO_FORMATS/components/bio-formats/src/loci/formats'
+alias gon='cd $BIO_FORMATS/components/legacy/ome-notes/src/loci/ome/notes'
+alias goo='cd $BIO_FORMATS/components/ome-plugins/src/loci/plugins/ome'
+alias gop='cd $BIO_FORMATS/components/loci-plugins/src/loci/plugins'
 alias gos='cd $LOCI_SOFTWARE/components/slim-plotter/src/loci/slim'
-alias got='cd $LOCI_SOFTWARE/components/test-suite/src/loci/tests/testng'
+alias got='cd $BIO_FORMATS/components/test-suite/src/loci/tests/testng'
 alias gov='cd $LOCI_SOFTWARE/components/visbio/src/loci/visbio'
-alias gox='cd $LOCI_SOFTWARE/components/ome-xml/src/ome/xml'
+alias gox='cd $BIO_FORMATS/components/ome-xml/src/ome/xml'
 alias gobfcpp='cd $BF_CPP_DIR'
 alias god='cd ~/data'
 alias goij='cd $IJ_HOME'
