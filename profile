@@ -126,7 +126,7 @@ export PATH=\
 $JAVA_HOME/bin:\
 ~/bin:\
 ~/code/LOCI/misc/curtis/bin:\
-$LOCI_SOFTWARE/tools:\
+$BIO_FORMATS/tools:\
 $FIJI_HOME/bin:\
 /usr/local/bin:\
 $PATH
