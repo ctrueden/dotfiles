@@ -106,13 +106,16 @@ unset CLASSPATH
 export CP=\
 ~/java:\
 $HOME_JAVA:\
-$LOCI_$HOME_JAVA/utils:\
-$LOCI_SOFTWARE/utils
-for dir in $LOCI_SOFTWARE/components/*/utils
+$HOME_JAVA/utils
+for jar in $LOCI_SOFTWARE/projects/*/target/*.jar
+do
+  export CP=$CP:$jar
+done
+for dir in $BIO_FORMATS/components/*/utils
 do
   export CP=$CP:$dir
 done
-for jar in $LOCI_SOFTWARE/artifacts/*.jar
+for jar in $BIO_FORMATS/artifacts/*.jar
 do
   if [ ${jar: -14} != 'loci_tools.jar' ] && [ ${jar: -13} != 'ome_tools.jar' ]
   then

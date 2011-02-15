@@ -14,3 +14,4 @@
 	st = status
 	up = update
 	move = mv
+	newcommits = log HEAD@{u}..
