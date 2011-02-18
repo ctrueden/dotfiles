@@ -51,7 +51,6 @@ case "$TERM" in
   *)
     ;;
 esac
-
 # setup - operating system (Darwin, Linux, etc.)
 export OS_NAME=`uname`
 
@@ -60,8 +59,12 @@ export CVS_RSH=ssh
 export EDITOR=vi
 export VISUAL=$EDITOR
 
+# setup - bash
+# do not autocomplete .svn folders
+export FIGNORE=.svn
+
 # setup - Maven
-#export MAVEN_OPTS=-Xmx1536m -J-Xmx1536m
+export MAVEN_OPTS=-Xmx1536m
 
 # useful dirs
 export HOME_JAVA=~/code/Home/java
@@ -172,9 +175,6 @@ else
 fi
 #export LSCOLORS="GxGxFxdxCxDxDxhbadGxGx";
 
-# setup - maven
-export MAVEN_OPTS=-Xmx512m
-
 # setup - xmllint
 export XMLLINT_INDENT=$'\t'
 
@@ -237,6 +237,7 @@ alias got='cd $BIO_FORMATS/components/test-suite/src/loci/tests/testng'
 alias gov='cd $LOCI_SOFTWARE/projects/visbio/src/main/java/loci/visbio'
 alias gox='cd $BIO_FORMATS/components/ome-xml/src/ome/xml'
 alias gobfcpp='cd $BF_CPP_DIR'
+alias gobfitk='cd $BF_ITK_DIR'
 alias god='cd ~/data'
 alias goij='cd $IJ_HOME'
 alias goil='cd $IMGLIB_HOME'
