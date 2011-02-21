@@ -1,2 +1,2 @@
 #!/bin/sh
-find . -name '*.java' -exec grep -H $@ {} \;
+find . -name '*.java' -exec grep -H "$@" {} \;

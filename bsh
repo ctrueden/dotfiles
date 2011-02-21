@@ -1,0 +1,5 @@
+#!/bin/sh
+
+# Executes the Beanshell command line interpreter.
+
+java -cp /opt/local/share/java/bsh.jar:$CP bsh.Interpreter
