@@ -24,14 +24,15 @@ fi
 # don't put duplicate lines in the history. See bash(1) for more options
 #export HISTCONTROL=ignoredups
 
+# color prompt
+PS1=': ${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@${HOSTNAME}\[\033[00m\] \[\033[01;34m\]\w\[\033[01;32m\]\n'
+
 # include git completion
 if [ -f /opt/local/share/doc/git-core/contrib/completion/git-completion.bash ]
 then
   source /opt/local/share/doc/git-core/contrib/completion/git-completion.bash
+  PS1=': ${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@${HOSTNAME}\[\033[00m\] \[\033[01;34m\]\w\[\033[01;32m\]$(__git_ps1)\[\033[00m\]\n'
 fi
-
-# color prompt
-PS1=': ${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@${HOSTNAME}\[\033[00m\] \[\033[01;34m\]\w\[\033[01;32m\]$(__git_ps1)\[\033[00m\]\n'
 
 # programmatic completion features
 if [ -f /etc/bash_completion ]; then
