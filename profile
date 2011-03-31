@@ -3,6 +3,7 @@
 # On Mac OS X, alias to ~/.profile or ~/.bash_profile.
 
 # On Ubuntu, alias to ~/.bashrc.
+
 # See /usr/share/doc/bash/examples/startup-files
 # (in the package bash-doc) for examples
 
@@ -194,11 +195,18 @@ alias cdiff='colordiff 2> /dev/null'
 alias grep='grep --colour=auto'
 alias rgrep='grep -IR --exclude="*\.svn*"'
 
+# useful aliases - cygwin
+if [ "${OS_NAME:0:6}" == 'CYGWIN' ]; then
+  alias clear='cmd /c cls'
+fi
+
 # useful aliases - start
 if [ "$OS_NAME" == "Darwin" ]; then
   alias start='open'
 elif [ "$OS_NAME" == "Linux" ]; then
   alias start='nautilus'
+elif [ "${OS_NAME:0:6}" == 'CYGWIN' ]; then
+  alias start='cmd /c start'
 fi
 
 # useful aliases - ldd
