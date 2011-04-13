@@ -1,0 +1,49 @@
+#!/bin/bash
+
+# git-to-svn: A simple script to clone an SVN repository into a Git one,
+# including conversion of all SVN branches and tags into Git structures.
+
+# Note: A better script can be found at: https://github.com/nirvdrum/svn2git
+
+set -e
+
+SVN_PATH="$1"
+GIT_REPO="$2"
+#AUTHORS_FILE=$3
+
+if [ -z "$GIT_REPO" ];
+then
+  echo "Usage: git2svn http://path/to/svn git-repo"
+  exit 1
+fi
+
+TMP_REPO=tmp-$GIT_REPO
+
+git svn init "$SVN_PATH" "$TMP_REPO" -s
+#git config svn.authorsfile "$AUTHORS_FILE"
+cd "$TMP_REPO"
+git svn fetch
+
+# Remove unnecessary "trunk" branch
+git branch -r -d trunk
+
+# Transfer tags from SVN to Git
+tags=`git for-each-ref --format='%(refname)' refs/remotes/tags/`
+for t in $tags;
+do
+  git tag "${t#refs/remotes/tags/}" "${t#refs/remotes/}"
+  git branch -r -d "${t#refs/remotes/}"
+done
+
+# Transfer branches from SVN to Git
+branches=`git for-each-ref --format='%(refname)' refs/remotes/`
+for b in $branches;
+do
+  git branch -t "${b#refs/remotes/}" "${b#refs/}"
+  git branch -r -d "${b#refs/remotes/}"
+done
+
+# Clone Git repository again to eliminate git-svn cruft
+cd ..
+git clone --bare $TMP_REPO $GIT_REPO.git
+rm -rf $TMP_REPO
