@@ -81,7 +81,7 @@ export BF_CPP_DIR=$BIO_FORMATS/components/native/bf-cpp
 export BF_ITK_DIR=$BIO_FORMATS/components/native/bf-itk
 export FARSIGHT_DIR=~/code/Other/farsight
 export NUCLEUS_DIR=$FARSIGHT_DIR/build/ftk/NuclearSegmentation/NucleusEditor
-export CONFIG_DIR=~/code/LOCI/misc/curtis/config
+export CONFIG_DIR=$SCRIPTS_DIR/config
 export LOCI_TRUNK=http://dev.loci.wisc.edu/svn/software/trunk
 
 # setup - Bio-Formats ITK plugin
@@ -129,11 +129,14 @@ do
 done
 #export CP=$CP:$VISAD
 
+# setup - scripts
+export SCRIPTS_DIR=~/code/Dropbox/scripts
+
 # setup - path
 export PATH=\
 $JAVA_HOME/bin:\
 ~/bin:\
-~/code/LOCI/misc/curtis/bin:\
+$SCRIPTS_DIR/bin:\
 $BIO_FORMATS/tools:\
 $FIJI_HOME/bin:\
 /usr/local/bin:\
@@ -258,7 +261,7 @@ alias goconfig='cd $CONFIG_DIR'
 alias dev='ssh dev.loci.wisc.edu'
 alias drupal='ssh drupal@skynet.loci.wisc.edu'
 alias ome='ssh open.microscopy.wisc.edu'
-alias pacific='ssh rueden@pacific.mpi-cbg.de'
+alias pacific='ssh pacific.mpi-cbg.de'
 alias server='ssh server.microscopy.wisc.edu'
 alias skynet='ssh skynet.loci.wisc.edu'
 
