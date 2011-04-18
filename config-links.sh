@@ -15,12 +15,17 @@ FILES=(
 .gitconfig
 .keystore
 .plan
-.profile
 .vim
 .vimrc
 .ssh/config
 Library/KeyBindings
 )
+
+if [ "$OS_NAME" == "Linux" ]; then
+  FILES=("${FILES[@]}" .bashrc)
+else
+  FILES=("${FILES[@]}" .profile)
+fi
 
 for f in ${FILES[@]}
 do
