@@ -12,6 +12,7 @@ STAMP=`date +%Y%m%dT%H%M%S`
 
 FILES=(
 .ant-global.properties
+.forward
 .gitconfig
 .keystore
 .plan
@@ -41,6 +42,7 @@ done
 (
   set -x
   ln -s $LINK_DIR/ant-global.properties .ant-global.properties
+  ln -s $LINK_DIR/forward .forward
   ln -s $LINK_DIR/gitconfig .gitconfig
   ln -s $LINK_DIR/restless.keystore .keystore
   ln -s $LINK_DIR/plan .plan
@@ -63,4 +65,3 @@ if [ "$OS_NAME" == "Darwin" ]; then
   (set -x; ln -s ../$LINK_DIR/KeyBindings)
   cd ..
 fi
-
