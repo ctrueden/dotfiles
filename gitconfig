@@ -15,3 +15,6 @@
 	up = update
 	move = mv
 	newcommits = log HEAD@{u}..
+	pl = pull
+	pr = pull --rebase
+	ps = push
