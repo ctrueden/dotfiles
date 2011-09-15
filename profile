@@ -257,6 +257,7 @@ alias goil='cd $IMGLIB_HOME'
 alias gofi='cd $FIJI_HOME'
 alias gocp='cd $CELLPROFILER_HOME'
 alias goconfig='cd $CONFIG_DIR'
+alias asdf='cd ~ && clear'
 
 # useful aliases - machines
 alias dev='ssh dev.loci.wisc.edu'
