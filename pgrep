@@ -1,0 +1,2 @@
+#!/bin/sh
+find . -name 'pom.xml' -exec grep -H "$@" {} \;
