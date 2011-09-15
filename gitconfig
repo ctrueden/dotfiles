@@ -9,6 +9,7 @@
 	ci = commit
 	co = checkout
 	di = diff
+	dis = diff --staged
 	ren = mv
 	rename = mv
 	st = status
