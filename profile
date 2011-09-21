@@ -267,6 +267,12 @@ alias pacific='ssh pacific.mpi-cbg.de'
 alias server='ssh server.microscopy.wisc.edu'
 alias skynet='ssh skynet.loci.wisc.edu'
 
+# HACK - workaround for Mac OS X vi/vim return code bug (http://bit.ly/cC0ZFN)
+if [ "$OS_NAME" == "Darwin" ]; then
+  alias vi=`which vi`
+  alias vim=`which vim`
+fi
+
 # setup - Fiji (Fake fails if JAVA_HOME is set)
 unset JAVA_HOME
 
