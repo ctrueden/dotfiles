@@ -53,6 +53,8 @@ if [ "$GIT_COMPLETION" ]; then
   PS1=': ${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@${HOSTNAME}\[\033[00m\] \[\033[01;34m\]\w\[\033[01;32m\]$(__git_ps1)\[\033[00m\]\n'
 fi
 
+# setup - xterm
+alias xterm='xterm -geometry 80x60 -fg white -bg black'
 # update terminal title as appropriate
 case "$TERM" in
   xterm*|rxvt*)
