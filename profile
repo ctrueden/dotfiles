@@ -25,24 +25,32 @@ fi
 # don't put duplicate lines in the history. See bash(1) for more options
 #export HISTCONTROL=ignoredups
 
-# color prompt
-PS1=': ${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@${HOSTNAME}\[\033[00m\] \[\033[01;34m\]\w\[\033[00m\]\n'
-
-# include git completion
-if [ -f /opt/local/share/doc/git-core/contrib/completion/git-completion.bash ]
-then
-  source /opt/local/share/doc/git-core/contrib/completion/git-completion.bash
-  PS1=': ${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@${HOSTNAME}\[\033[00m\] \[\033[01;34m\]\w\[\033[01;32m\]$(__git_ps1)\[\033[00m\]\n'
-fi
-
 # programmatic completion features
 if [ -f /etc/bash_completion ]; then
   # Ubuntu Linux
   . /etc/bash_completion
 fi
 if [ -f /opt/local/etc/bash_completion ]; then
-  # Mac OS X with MacPorts ("sudo port install bash-completion" first)
+  # Mac OS X with MacPorts ("sudo port install bash-completion")
   . /opt/local/etc/bash_completion
+fi
+
+# color prompt
+PS1=': ${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@${HOSTNAME}\[\033[00m\] \[\033[01;34m\]\w\[\033[00m\]\n'
+
+# include git completion
+if [ -f /etc/bash_completion.d/git ]; then
+  # Ubuntu Linux with bash completion ("sudo aptitude install bash-completion")
+  export GIT_COMPLETION=1
+fi
+if [ -f /opt/local/share/doc/git-core/contrib/completion/git-completion.bash ]
+then
+  # Mac OS X with MacPorts ("sudo port install git-core +bash_completion")
+  source /opt/local/share/doc/git-core/contrib/completion/git-completion.bash
+  export GIT_COMPLETION=1
+fi
+if [ "$GIT_COMPLETION" ]; then
+  PS1=': ${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@${HOSTNAME}\[\033[00m\] \[\033[01;34m\]\w\[\033[01;32m\]$(__git_ps1)\[\033[00m\]\n'
 fi
 
 # update terminal title as appropriate
