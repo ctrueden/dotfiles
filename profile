@@ -207,6 +207,7 @@ alias cls='clear;pwd;ls'
 alias cdiff='colordiff 2> /dev/null'
 alias grep='grep --colour=auto'
 alias rgrep='grep -IR --exclude="*\.svn*"'
+alias f='find . -name'
 
 # useful aliases - cygwin
 if [ "${OS_NAME:0:6}" == 'CYGWIN' ]; then
