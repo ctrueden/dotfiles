@@ -81,14 +81,14 @@ export MAVEN_OPTS=-Xmx1536m
 # useful dirs
 export HOME_JAVA=~/code/Home/java
 export LOCI_SOFTWARE=~/code/LOCI/software
-export BIO_FORMATS=~/code/LOCI/bio-formats
+export SCIFIO=~/code/LOCI/scifio
 export IJ_HOME=~/code/ImageJ/imagej
 export IMGLIB_HOME=~/code/ImageJ/imglib
 export FIJI_HOME=~/code/ImageJ/fiji
 export CELLPROFILER_HOME=~/code/Other/CellProfiler/CellProfiler
 export VISAD=~/code/Other/visad
-export BF_CPP_DIR=$BIO_FORMATS/components/bio-formats/cppwrap
-export BF_ITK_DIR=$BIO_FORMATS/components/native/bf-itk-pipe
+export BF_CPP_DIR=$SCIFIO/components/bio-formats/cppwrap
+export BF_ITK_DIR=$SCIFIO/components/native/bf-itk-pipe
 export FARSIGHT_DIR=~/code/Other/farsight
 export NUCLEUS_DIR=$FARSIGHT_DIR/build/ftk/NuclearSegmentation/NucleusEditor
 export CONFIG_DIR=$SCRIPTS_DIR/config
@@ -126,11 +126,11 @@ for jar in $LOCI_SOFTWARE/projects/*/target/*.jar
 do
   export CP=$CP:$jar
 done
-for dir in $BIO_FORMATS/components/*/utils
+for dir in $SCIFIO/components/*/utils
 do
   export CP=$CP:$dir
 done
-for jar in $BIO_FORMATS/artifacts/*.jar
+for jar in $SCIFIO/artifacts/*.jar
 do
   if [ ${jar: -14} != 'loci_tools.jar' ] && [ ${jar: -13} != 'ome_tools.jar' ]
   then
@@ -147,7 +147,7 @@ export PATH=\
 $JAVA_HOME/bin:\
 ~/bin:\
 $SCRIPTS_DIR/bin:\
-$BIO_FORMATS/tools:\
+$SCIFIO/tools:\
 $FIJI_HOME/bin:\
 /usr/local/bin:\
 $PATH
@@ -249,17 +249,17 @@ alias up6='cd ../../../../../..'
 alias up7='cd ../../../../../../..'
 alias up8='cd ../../../../../../../..'
 alias go='cd $LOCI_SOFTWARE'
-alias goa='cd $BIO_FORMATS/components/autogen/src'
-alias goc='cd $BIO_FORMATS/components/common/src/loci/common'
-alias gof='cd $BIO_FORMATS/components/bio-formats/src/loci/formats'
+alias goa='cd $SCIFIO/components/autogen/src'
+alias goc='cd $SCIFIO/components/common/src/loci/common'
+alias gof='cd $SCIFIO/components/bio-formats/src/loci/formats'
 alias goj2l='cd $LOCI_SOFTWARE/projects/jar2lib/src/main/resources'
-alias gon='cd $BIO_FORMATS/components/legacy/ome-notes/src/loci/ome/notes'
-alias goo='cd $BIO_FORMATS/components/ome-plugins/src/loci/plugins/ome'
-alias gop='cd $BIO_FORMATS/components/loci-plugins/src/loci/plugins'
-alias gos='cd $BIO_FORMATS/components/scifio/src/loci/formats'
-alias got='cd $BIO_FORMATS/components/test-suite/src/loci/tests/testng'
+alias gon='cd $SCIFIO/components/legacy/ome-notes/src/loci/ome/notes'
+alias goo='cd $SCIFIO/components/ome-plugins/src/loci/plugins/ome'
+alias gop='cd $SCIFIO/components/loci-plugins/src/loci/plugins'
+alias gos='cd $SCIFIO'
+alias got='cd $SCIFIO/components/test-suite/src/loci/tests/testng'
 alias gov='cd $LOCI_SOFTWARE/projects/visbio/src/main/java/loci/visbio'
-alias gox='cd $BIO_FORMATS/components/ome-xml/src/ome/xml'
+alias gox='cd $SCIFIO/components/ome-xml/src/ome/xml'
 alias gobfcpp='cd $BF_CPP_DIR'
 alias gobfitk='cd $BF_ITK_DIR'
 alias god='cd ~/data'
