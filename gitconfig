@@ -6,16 +6,15 @@
 	name = Curtis Rueden
 	email = ctrueden@wisc.edu
 [alias]
-	ci = commit
 	co = checkout
+	ci = commit
 	di = diff
+	dif = diff
 	dis = diff --staged
+	move = mv
 	ren = mv
 	rename = mv
-	st = status
-	up = update
-	move = mv
-	newcommits = log HEAD@{u}..
+	ps = push
 	pl = pull
 	pr = pull --rebase
-	ps = push
+	st = status
