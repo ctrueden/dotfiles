@@ -274,7 +274,7 @@ alias asdf='cd ~ && clear'
 alias dev='ssh dev.loci.wisc.edu'
 alias drupal='ssh drupal@skynet.loci.wisc.edu'
 alias ome='ssh open.microscopy.wisc.edu'
-alias pacific='ssh pacific.mpi-cbg.de'
+alias pacific='ssh fiji.sc'
 alias server='ssh server.microscopy.wisc.edu'
 alias skynet='ssh skynet.loci.wisc.edu'
 
