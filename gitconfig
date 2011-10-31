@@ -19,3 +19,4 @@
 	pr = pull --rebase
 	st = status
 	graph = log --date-order --graph --decorate --oneline
+	ws = rebase --whitespace=strip
