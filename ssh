@@ -1,8 +1,0 @@
-#!/bin/bash
-
-#
-# ssh - a hack to reset the Terminal title after an SSH session
-#
-
-/usr/bin/ssh $@
-echo -n -e "\033]0;$TERM_TITLE\007"
