@@ -190,6 +190,9 @@ else
 fi
 #export LSCOLORS="GxGxFxdxCxDxDxhbadGxGx";
 
+# setup - diff
+alias diff='git diff --no-index'
+
 # setup - xmllint
 export XMLLINT_INDENT=$'\t'
 
