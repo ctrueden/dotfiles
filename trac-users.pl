@@ -85,6 +85,7 @@ sub cmdSet() {
   else {
     print STDERR "Error: invalid arguments: @ARGV\n\n";
     cmdUsage();
+    return;
   }
 
   harvestUserInfo();
