@@ -28,7 +28,9 @@ elsif ($cmd eq '--fix') {
 elsif ($cmd eq '--set') {
   cmdSet();
 }
-# TODO: add --delete command
+elsif ($cmd eq '--delete') {
+  cmdDelete();
+}
 else {
   if ($cmd ne '--help') {
     print "Unknown command: $cmd\n";
@@ -96,6 +98,24 @@ sub cmdSet() {
   }
 }
 
+sub cmdDelete() {
+  my $id;
+  if (@ARGV == 2) {
+    $id = $ARGV[1];
+  }
+  else {
+    print STDERR "Error: invalid arguments: @ARGV\n\n";
+    cmdUsage();
+    return;
+  }
+
+  @tracs = <$tracPrefix/*>;
+  foreach my $trac (@tracs) {
+    dbDelete($trac, $id);
+  }
+  print "DELETE $id\n";
+}
+
 sub cmdUsage() {
   print "Usage:\n";
   print "  trac-users.pl [--show]\n";
@@ -106,6 +126,9 @@ sub cmdUsage() {
   print "\n";
   print "  trac-users.pl --set username 'New Name' 'new\@email.address'\n";
   print "    Sets info for the given username\n";
+  print "\n";
+  print "  trac-users.pl --delete username\n";
+  print "    Deletes info for the given username\n";
   exit 1;
 }
 
@@ -192,6 +215,13 @@ sub dbAssign($$$$) {
     print "\t$trac: UPDATE email\n";
     dbUpdate($trac, $id, 'email', $email);
   }
+}
+
+sub dbDelete($$) {
+  my $trac = shift;
+  my $id = shift;
+  my $cmd = "delete from session_attribute where sid='$id';";
+  dbCommand($trac, $cmd);
 }
 
 sub dbUpdate($$$$) {
