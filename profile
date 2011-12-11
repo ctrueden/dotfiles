@@ -25,14 +25,16 @@ fi
 # don't put duplicate lines in the history. See bash(1) for more options
 #export HISTCONTROL=ignoredups
 
+export BREW=~/brew
+
 # programmatic completion features
 if [ -f /etc/bash_completion ]; then
   # Ubuntu Linux
   . /etc/bash_completion
 fi
-if [ -f /opt/local/etc/bash_completion ]; then
-  # Mac OS X with MacPorts ("sudo port install bash-completion")
-  . /opt/local/etc/bash_completion
+if [ -f "$BREW/etc/bash_completion" ]; then
+  # Mac OS X with Homebrew ("brew install bash-completion")
+  . $BREW/etc/bash_completion
 fi
 
 # color prompt
@@ -43,10 +45,9 @@ if [ -f /etc/bash_completion.d/git ]; then
   # Ubuntu Linux with bash completion ("sudo aptitude install bash-completion")
   export GIT_COMPLETION=1
 fi
-if [ -f /opt/local/share/doc/git-core/contrib/completion/git-completion.bash ]
+if [ -f "$BREW/etc/bash_completion.d/git-completion.bash" ]
 then
-  # Mac OS X with MacPorts ("sudo port install git-core +bash_completion")
-  source /opt/local/share/doc/git-core/contrib/completion/git-completion.bash
+  # Mac OS X with Homebrew ("brew install git bash-completion")
   export GIT_COMPLETION=1
 fi
 if [ "$GIT_COMPLETION" ]; then
@@ -149,13 +150,11 @@ $JAVA_HOME/bin:\
 $SCRIPTS_DIR/bin:\
 $SCIFIO/tools:\
 $FIJI_HOME/bin:\
-/usr/local/bin:\
 $PATH
 
-# setup - MacPorts
+# setup - Homebrew
 if [ "$OS_NAME" == "Darwin" ]; then
-  export PATH=/opt/local/bin:/opt/local/sbin:$PATH
-  export MANPATH=/opt/local/share/man:$MANPATH
+  export PATH=~/brew/bin:$PATH
 fi
 
 # setup - jikes
@@ -203,6 +202,9 @@ govi() { vi "`find . -name $*`"; }
 # useful aliases - Java
 alias j='java -cp $CP:.'
 alias jc='javac -cp $CP:.'
+
+# useful aliases - vim
+alias vi='vim'
 
 # useful aliases - shell
 alias mv='mv -i'
