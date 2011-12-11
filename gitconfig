@@ -20,3 +20,5 @@
 	st = status
 	graph = log --date-order --graph --decorate --oneline
 	ws = rebase --whitespace=strip
+[push]
+	default = upstream
