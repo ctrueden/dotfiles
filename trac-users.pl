@@ -25,6 +25,9 @@ if ($cmd eq '--show') {
 elsif ($cmd eq '--fix') {
   cmdFix();
 }
+elsif ($cmd eq '--purge') {
+  cmdPurge();
+}
 elsif ($cmd eq '--set') {
   cmdSet();
 }
@@ -77,6 +80,21 @@ sub cmdFix() {
   }
 }
 
+sub cmdPurge() {
+  harvestUserInfo();
+
+  foreach my $id (sort keys %userNames) {
+    if ($id !~ /^[0-9a-f]{24}$/) {
+      # skip legitimate users
+      next;
+    }
+    foreach my $trac (@tracs) {
+      dbDelete($trac, $id);
+    }
+    print "DELETE $id\n";
+  }
+}
+
 sub cmdSet() {
   my $id, my $newName, my $newEmail;
   if (@ARGV == 4) {
@@ -123,6 +141,9 @@ sub cmdUsage() {
   print "\n";
   print "  trac-users.pl --fix\n";
   print "    Standardizes user info across all Trac environments\n";
+  print "\n";
+  print "  trac-users.pl --purge\n";
+  print "    Deletes invalid/spam users\n";
   print "\n";
   print "  trac-users.pl --set username 'New Name' 'new\@email.address'\n";
   print "    Sets info for the given username\n";
