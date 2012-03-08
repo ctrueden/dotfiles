@@ -50,7 +50,7 @@ sub cmdShow() {
     }
   }
 
-  foreach my $id (keys %userNames) {
+  foreach my $id (sort keys %userNames) {
     print "$id = $userNames{$id}";
     if (defined $userEmails{$id}) {
       print " <$userEmails{$id}>";
@@ -62,7 +62,7 @@ sub cmdShow() {
 sub cmdFix() {
   harvestUserInfo();
 
-  foreach my $id (keys %userNames) {
+  foreach my $id (sort keys %userNames) {
     my $name = $userNames{$id};
     my $email = $userEmails{$id};
     if (defined $email) {
@@ -159,13 +159,13 @@ sub harvestUserInfo() {
     }
   }
 
-  foreach my $id (keys %userNames) {
+  foreach my $id (sort keys %userNames) {
     if (not defined $userEmails{$id}) {
       print STDERR "Warning: no email for $id ($userNames{$id})\n";
     }
   }
 
-  foreach my $id (keys %userEmails) {
+  foreach my $id (sort keys %userEmails) {
     if (not defined $userNames{$id}) {
       print STDERR "Warning: no name for $id ($userEmails{$id})\n";
     }
