@@ -11,6 +11,7 @@
 	di = diff
 	dif = diff
 	dis = diff --staged
+	fa = fetch --all --prune
 	move = mv
 	ren = mv
 	rename = mv
