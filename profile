@@ -82,7 +82,7 @@ export MAVEN_OPTS=-Xmx1536m
 # useful dirs
 export HOME_JAVA=~/code/Home/java
 export LOCI_SOFTWARE=~/code/LOCI/software
-export SCIFIO=~/code/LOCI/scifio
+export SCIFIO=~/code/OME/scifio
 export IJ_HOME=~/code/ImageJ/imagej
 export IMGLIB_HOME=~/code/ImageJ/imglib
 export FIJI_HOME=~/code/ImageJ/fiji
