@@ -82,6 +82,7 @@ export MAVEN_OPTS=-Xmx1536m
 # useful dirs
 export HOME_JAVA=~/code/Home/java
 export LOCI_SOFTWARE=~/code/LOCI/software
+export LOCI_INTERNAL=~/code/LOCI/internal
 export SCIFIO=~/code/OME/scifio
 export IJ_HOME=~/code/ImageJ/imagej
 export IMGLIB_HOME=~/code/ImageJ/imglib
@@ -264,6 +265,7 @@ alias gop='cd $SCIFIO/components/loci-plugins/src/loci/plugins'
 alias gos='cd $SCIFIO'
 alias got='cd $SCIFIO/components/test-suite/src/loci/tests/testng'
 alias gov='cd $LOCI_SOFTWARE/projects/visbio/src/main/java/loci/visbio'
+alias gow='cd $LOCI_INTERNAL/WiscScan'
 alias gox='cd $SCIFIO/components/ome-xml/src/ome/xml'
 alias gobfcpp='cd $BF_CPP_DIR'
 alias gobfitk='cd $BF_ITK_DIR'
