@@ -12,6 +12,7 @@
 	ren = mv
 	rename = mv
 	pl = pull
+	pop = stash pop --index
 	pr = pull --rebase
 	ps = push
 	ws = rebase --whitespace=strip
