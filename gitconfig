@@ -12,6 +12,7 @@
 	dif = diff
 	dis = diff --staged
 	fa = fetch --all --prune
+	lns = log --name-status
 	move = mv
 	ren = mv
 	rename = mv
