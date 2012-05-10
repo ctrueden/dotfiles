@@ -1,26 +1,27 @@
-[ui]
-	color = auto
-[diff]
-	color = auto
-[user]
-	name = Curtis Rueden
-	email = ctrueden@wisc.edu
 [alias]
 	co = checkout
+	cl = clone
 	ci = commit
 	di = diff
 	dif = diff
 	dis = diff --staged
 	fa = fetch --all --prune
+	graph = log --date-order --graph --decorate --oneline
 	lns = log --name-status
 	move = mv
 	ren = mv
 	rename = mv
-	ps = push
 	pl = pull
 	pr = pull --rebase
-	st = status
-	graph = log --date-order --graph --decorate --oneline
+	ps = push
 	ws = rebase --whitespace=strip
+	st = status
+[diff]
+	color = auto
 [push]
 	default = upstream
+[ui]
+	color = auto
+[user]
+	name = Curtis Rueden
+	email = ctrueden@wisc.edu
