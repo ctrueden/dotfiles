@@ -34,7 +34,7 @@ if [ -f /etc/bash_completion ]; then
 fi
 if [ -f "$BREW/etc/bash_completion" ]; then
   # Mac OS X with Homebrew ("brew install bash-completion")
-  . $BREW/etc/bash_completion
+  . "$BREW/etc/bash_completion"
 fi
 
 # color prompt
@@ -45,8 +45,7 @@ if [ -f /etc/bash_completion.d/git ]; then
   # Ubuntu Linux with bash completion ("sudo aptitude install bash-completion")
   export GIT_COMPLETION=1
 fi
-if [ -f "$BREW/etc/bash_completion.d/git-completion.bash" ]
-then
+if [ -f "$BREW/etc/bash_completion.d/git-completion.bash" ]; then
   # Mac OS X with Homebrew ("brew install git bash-completion")
   export GIT_COMPLETION=1
 fi
@@ -64,13 +63,21 @@ case "$TERM" in
   *)
     ;;
 esac
+
 # setup - operating system (Darwin, Linux, etc.)
 export OS_NAME=`uname`
+if [ "$OS_NAME" == "Darwin" ]; then
+  export IS_MACOSX=1
+elif [ "$OS_NAME" == "Linux" ]; then
+  export IS_LINUX=1
+elif [ "${OS_NAME:0:6}" == 'CYGWIN' ]; then
+  export IS_WINDOWS=1
+fi
 
 # setup - CVS/SVN
 export CVS_RSH=ssh
 export EDITOR=vi
-export VISUAL=$EDITOR
+export VISUAL="$EDITOR"
 
 # setup - bash
 # do not autocomplete .svn folders
@@ -80,39 +87,34 @@ export FIGNORE=.svn
 export MAVEN_OPTS=-Xmx1536m
 
 # useful dirs
-export HOME_JAVA=~/code/Home/java
-export LOCI_SOFTWARE=~/code/LOCI
-export LOCI_INTERNAL=~/code/LOCI/internal
-export SCIFIO=~/code/OME/scifio
-export IJ_HOME=~/code/ImageJ/imagej
-export IMGLIB_HOME=~/code/ImageJ/imglib
-export FIJI_HOME=~/code/ImageJ/fiji
-export CELLPROFILER_HOME=~/code/Other/CellProfiler/CellProfiler
-export VISAD=~/code/Other/visad
-export BF_CPP_DIR=$SCIFIO/components/bio-formats/cppwrap
-export BF_ITK_DIR=$SCIFIO/components/native/bf-itk-pipe
-export CONFIG_DIR=$SCRIPTS_DIR/config
-export LOCI_TRUNK=http://dev.loci.wisc.edu/svn/software/trunk
+export CODE_DIR=~/code
+export HOME_JAVA="$CODE_DIR/Home/java"
+export LOCI_SOFTWARE="$CODE_DIR/LOCI"
+export LOCI_INTERNAL="$CODE_DIR/LOCI/internal"
+export SCIFIO="$CODE_DIR/OME/scifio"
+export IJ_HOME="$CODE_DIR/ImageJ/imagej"
+export IMGLIB_HOME="$CODE_DIR/ImageJ/imglib"
+export FIJI_HOME="$CODE_DIR/ImageJ/fiji"
+export CELLPROFILER_HOME="$CODE_DIR/Other/CellProfiler/CellProfiler"
+export VISAD="$CODE_DIR/Other/visad"
+export BF_CPP_DIR="$SCIFIO/components/bio-formats/cppwrap"
+export BF_ITK_DIR="$SCIFIO/components/native/bf-itk-pipe"
+export CONFIG_DIR="$SCRIPTS_DIR/config"
 
 # setup - Bio-Formats ITK plugin
 #export ITK_AUTOLOAD_PATH=$BF_ITK_DIR/build/lib/ITKFactories
 
-# setup - OME perl
-export OME=~/code/OME/ome
-export OMEJAVA=$OME/src/java
-export PERL5LIB=$OME/src/perl2
-
 # setup - WrapITK
-export DYLD_LIBRARY_PATH=/usr/lib/InsightToolkit/:$DYLD_LIBRARY_PATH
+export DYLD_LIBRARY_PATH="/usr/lib/InsightToolkit:$DYLD_LIBRARY_PATH"
 export PYTHONPATH=\
 /Users/curtis/code/Other/CellProfiler/CellProfiler:\
-/usr/lib/InsightToolkit/WrapITK/Python/:\
+/usr/lib/InsightToolkit/WrapITK/Python:\
 $PYTHONPATH
 
 # setup - Java
-if [ "$OS_NAME" == "Darwin" ]; then
+if [ "$IS_MACOSX" ]; then
   export JAVA_HOME=/Library/Java/Home
-elif [ "$OS_NAME" == "Linux" ]; then
+elif [ "$IS_LINUX" ]; then
   export JAVA_HOME=/usr/lib/jvm/java-6-sun
 fi
 
@@ -122,25 +124,25 @@ export CP=\
 ~/java:\
 $HOME_JAVA:\
 $HOME_JAVA/utils
-for jar in $LOCI_SOFTWARE/projects/*/target/*.jar
+for jar in $LOCI_SOFTWARE/*/target/*.jar
 do
-  export CP=$CP:$jar
+  export CP="$CP:$jar"
 done
 for dir in $SCIFIO/components/*/utils
 do
-  export CP=$CP:$dir
+  export CP="$CP:$dir"
 done
 for jar in $SCIFIO/artifacts/*.jar
 do
   if [ ${jar: -14} != 'loci_tools.jar' ] && [ ${jar: -13} != 'ome_tools.jar' ]
   then
-    export CP=$CP:$jar
+    export CP="$CP:$jar"
   fi
 done
-#export CP=$CP:$VISAD
+#export CP="$CP:$VISAD"
 
 # setup - scripts
-export SCRIPTS_DIR=~/code/Dropbox/scripts
+export SCRIPTS_DIR="$CODE_DIR/Dropbox/scripts"
 
 # setup - path
 export PATH=\
@@ -152,8 +154,8 @@ $FIJI_HOME/bin:\
 $PATH
 
 # setup - Homebrew
-if [ "$OS_NAME" == "Darwin" ]; then
-  export PATH=~/brew/bin:$PATH
+if [ -d "$BREW/bin" ]; then
+  export PATH="$BREW/bin:$PATH"
 fi
 
 # setup - jikes
@@ -181,7 +183,7 @@ fi
 #export MLAB_JNI_LIB=$JAVA_HOME/jre/lib/i386/server/libjvm.so
 
 # setup - ls
-if [ "$OS_NAME" == "Linux" ]; then
+if [ "$IS_LINUX" ]; then
   alias ls='ls -AF --color=auto'
 else
   alias ls='ls -AFG'
@@ -214,16 +216,16 @@ alias rgrep='grep -IR --exclude="*\.svn*"'
 alias f='find . -name'
 
 # useful aliases - cygwin
-if [ "${OS_NAME:0:6}" == 'CYGWIN' ]; then
+if [ "$IS_WINDOWS" ]; then
   alias clear='cmd /c cls'
 fi
 
 # useful aliases - start
-if [ "$OS_NAME" == "Darwin" ]; then
+if [ "$IS_MACOSX" ]; then
   alias start='open'
-elif [ "$OS_NAME" == "Linux" ]; then
+elif [ "$IS_LINUX" ]; then
   alias start='nautilus'
-elif [ "${OS_NAME:0:6}" == 'CYGWIN' ]; then
+elif [ "$IS_WINDOWS" ]; then
   alias start='cmd /c start'
 fi
 
@@ -233,15 +235,15 @@ if [ ! -x "`which ldd`" ]; then
 fi
 
 # useful aliases - hex editor
-if [ "$OS_NAME" == "Darwin" ]; then
+if [ "$IS_MACOSX" ]; then
   alias hex='/Applications/Hex\ Fiend.app/Contents/MacOS/Hex\ Fiend'
 else
   alias hex='ghex2'
 fi
 
 # useful aliases - Maven
-if [ "$OS_NAME" == "Darwin" ]; then
-  alias mvn2='~/brew/Cellar/maven2/2.2.1/bin/mvn'
+if [ -d "$BREW/Cellar/maven2" ]; then
+  alias mvn2="$BREW/Cellar/maven2/2.2.1/bin/mvn"
 fi
 
 # useful aliases - LOCI apps
@@ -296,6 +298,7 @@ alias server='ssh server.microscopy.wisc.edu'
 alias skynet='ssh skynet.loci.wisc.edu'
 
 # setup - Fiji (Fake fails if JAVA_HOME is set)
+export J_HOME="$JAVA_HOME"
 unset JAVA_HOME
 
 #export LOCI_DEVEL=1 # for LOCI command line tools
