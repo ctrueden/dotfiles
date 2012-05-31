@@ -81,7 +81,7 @@ export MAVEN_OPTS=-Xmx1536m
 
 # useful dirs
 export HOME_JAVA=~/code/Home/java
-export LOCI_SOFTWARE=~/code/LOCI/software
+export LOCI_SOFTWARE=~/code/LOCI
 export LOCI_INTERNAL=~/code/LOCI/internal
 export SCIFIO=~/code/OME/scifio
 export IJ_HOME=~/code/ImageJ/imagej
@@ -91,8 +91,6 @@ export CELLPROFILER_HOME=~/code/Other/CellProfiler/CellProfiler
 export VISAD=~/code/Other/visad
 export BF_CPP_DIR=$SCIFIO/components/bio-formats/cppwrap
 export BF_ITK_DIR=$SCIFIO/components/native/bf-itk-pipe
-export FARSIGHT_DIR=~/code/Other/farsight
-export NUCLEUS_DIR=$FARSIGHT_DIR/build/ftk/NuclearSegmentation/NucleusEditor
 export CONFIG_DIR=$SCRIPTS_DIR/config
 export LOCI_TRUNK=http://dev.loci.wisc.edu/svn/software/trunk
 
@@ -251,6 +249,7 @@ alias slim='j -mx512m loci.slim.SlimPlotter'
 alias visbio='j -mx1024m -Dswing.defaultlaf=com.jgoodies.looks.plastic.Plastic3DLookAndFeel loci.visbio.VisBio'
 
 # useful aliases - navigation
+alias asdf='cd ~ && clear'
 alias up='cd ..'
 alias up2='cd ../..'
 alias up3='cd ../../..'
@@ -259,28 +258,34 @@ alias up5='cd ../../../../..'
 alias up6='cd ../../../../../..'
 alias up7='cd ../../../../../../..'
 alias up8='cd ../../../../../../../..'
+alias up9='cd ../../../../../../../../..'
+alias upa='cd ../../../../../../../../../..'
+alias upb='cd ../../../../../../../../../../..'
+alias upc='cd ../../../../../../../../../../../..'
+alias upd='cd ../../../../../../../../../../../../..'
+alias upe='cd ../../../../../../../../../../../../../..'
+alias upf='cd ../../../../../../../../../../../../../../..'
 alias go='cd $LOCI_SOFTWARE'
 alias goa='cd $SCIFIO/components/autogen/src'
+alias gobfcpp='cd $BF_CPP_DIR'
+alias gobfitk='cd $BF_ITK_DIR'
 alias goc='cd $SCIFIO/components/common/src/loci/common'
+alias gocfg='cd $CONFIG_DIR'
+alias gocp='cd $CELLPROFILER_HOME'
+alias god='cd ~/data'
 alias gof='cd $SCIFIO/components/bio-formats/src/loci/formats'
-alias goj2l='cd $LOCI_SOFTWARE/projects/jar2lib/src/main/resources'
+alias gofi='cd $FIJI_HOME'
+alias goij='cd $IJ_HOME'
+alias goil='cd $IMGLIB_HOME'
+alias goj2l='cd $LOCI_SOFTWARE/jar2lib/src/main/resources'
 alias gon='cd $SCIFIO/components/legacy/ome-notes/src/loci/ome/notes'
 alias goo='cd $SCIFIO/components/ome-plugins/src/loci/plugins/ome'
 alias gop='cd $SCIFIO/components/loci-plugins/src/loci/plugins'
 alias gos='cd $SCIFIO'
 alias got='cd $SCIFIO/components/test-suite/src/loci/tests/testng'
-alias gov='cd $LOCI_SOFTWARE/projects/visbio/src/main/java/loci/visbio'
+alias gov='cd $LOCI_SOFTWARE/visbio/src/main/java/loci/visbio'
 alias gow='cd $LOCI_INTERNAL/WiscScan'
 alias gox='cd $SCIFIO/components/ome-xml/src/ome/xml'
-alias gobfcpp='cd $BF_CPP_DIR'
-alias gobfitk='cd $BF_ITK_DIR'
-alias god='cd ~/data'
-alias goij='cd $IJ_HOME'
-alias goil='cd $IMGLIB_HOME'
-alias gofi='cd $FIJI_HOME'
-alias gocp='cd $CELLPROFILER_HOME'
-alias goconfig='cd $CONFIG_DIR'
-alias asdf='cd ~ && clear'
 
 # useful aliases - machines
 alias dev='ssh dev.loci.wisc.edu'
