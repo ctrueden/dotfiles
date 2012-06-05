@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# git-to-svn: A simple script to clone an SVN repository into a Git one,
+# svn-to-git: A simple script to clone an SVN repository into a Git one,
 # including conversion of all SVN branches and tags into Git structures.
 
 # Note: A better script can be found at: https://github.com/nirvdrum/svn2git
@@ -13,7 +13,7 @@ GIT_REPO="$2"
 
 if [ -z "$GIT_REPO" ];
 then
-  echo "Usage: git2svn http://path/to/svn git-repo"
+  echo "Usage: svn-to-git http://path/to/svn git-repo"
   exit 1
 fi
 
