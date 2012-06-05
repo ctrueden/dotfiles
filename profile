@@ -197,8 +197,9 @@ alias diff='git diff --no-index'
 export XMLLINT_INDENT=$'\t'
 
 # useful functions
-goto() { cd $(dirname "`find . -name $*`"); }
-govi() { vi "`find . -name $*`"; }
+where() { find . -name $* | grep -v 'build/'; }
+goto() { cd $(dirname $(where $*)); }
+govi() { vi $(where $*); }
 
 # useful aliases - Java
 alias j='java -cp $CP:.'
