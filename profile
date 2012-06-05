@@ -88,15 +88,15 @@ export MAVEN_OPTS=-Xmx1536m
 
 # useful dirs
 export CODE_DIR=~/code
-export HOME_JAVA="$CODE_DIR/Home/java"
-export LOCI_SOFTWARE="$CODE_DIR/LOCI"
-export LOCI_INTERNAL="$CODE_DIR/LOCI/internal"
-export SCIFIO="$CODE_DIR/OME/scifio"
-export IJ_HOME="$CODE_DIR/ImageJ/imagej"
-export IMGLIB_HOME="$CODE_DIR/ImageJ/imglib"
-export FIJI_HOME="$CODE_DIR/ImageJ/fiji"
-export CELLPROFILER_HOME="$CODE_DIR/Other/CellProfiler/CellProfiler"
-export VISAD="$CODE_DIR/Other/visad"
+export HOME_JAVA="$CODE_DIR/home/java"
+export LOCI_SOFTWARE="$CODE_DIR/loci"
+export LOCI_INTERNAL="$LOCI_SOFWARE/internal"
+export SCIFIO="$CODE_DIR/ome/scifio"
+export IJ_HOME="$CODE_DIR/imagej/imagej"
+export IMGLIB_HOME="$CODE_DIR/imagej/imglib"
+export FIJI_HOME="$CODE_DIR/imagej/fiji"
+export CELLPROFILER_HOME="$CODE_DIR/other/CellProfiler/CellProfiler"
+export VISAD="$CODE_DIR/other/visad"
 export BF_CPP_DIR="$SCIFIO/components/bio-formats/cppwrap"
 export BF_ITK_DIR="$SCIFIO/components/native/bf-itk-pipe"
 export CONFIG_DIR="$SCRIPTS_DIR/config"
@@ -107,7 +107,7 @@ export CONFIG_DIR="$SCRIPTS_DIR/config"
 # setup - WrapITK
 export DYLD_LIBRARY_PATH="/usr/lib/InsightToolkit:$DYLD_LIBRARY_PATH"
 export PYTHONPATH=\
-/Users/curtis/code/Other/CellProfiler/CellProfiler:\
+$CELLPROFILER_HOME:\
 /usr/lib/InsightToolkit/WrapITK/Python:\
 $PYTHONPATH
 
@@ -142,7 +142,7 @@ done
 #export CP="$CP:$VISAD"
 
 # setup - scripts
-export SCRIPTS_DIR="$CODE_DIR/Dropbox/scripts"
+export SCRIPTS_DIR="$CODE_DIR/dropbox/scripts"
 
 # setup - path
 export PATH=\
