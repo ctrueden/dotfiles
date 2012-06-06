@@ -6,6 +6,7 @@
 	dif = diff
 	dis = diff --staged
 	fa = fetch --all --prune
+	fb = filter-branch -f --prune-empty
 	graph = log --date-order --graph --decorate --oneline
 	lns = log --name-status
 	move = mv
@@ -15,6 +16,8 @@
 	pop = stash pop --index
 	pr = pull --rebase
 	ps = push
+	ra = rebase --abort
+	rc = rebase --continue
 	ws = rebase --whitespace=strip
 	st = status
 [diff]
