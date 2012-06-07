@@ -8,6 +8,8 @@
 	dis = diff --staged
 	fa = fetch --all --prune
 	fb = filter-branch -f --prune-empty
+	fbs = filter-branch -f --prune-empty --subdirectory-filter
+	fbt = filter-branch -f --prune-empty --tree-filter
 	graph = log --date-order --graph --decorate --oneline
 	lns = log --name-status
 	move = mv
