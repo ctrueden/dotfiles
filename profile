@@ -123,7 +123,8 @@ unset CLASSPATH
 export CP=\
 ~/java:\
 $HOME_JAVA:\
-$HOME_JAVA/utils
+$HOME_JAVA/utils:\
+~/.m2/repository/loci/utils/1.0.0-SNAPSHOT/utils-1.0.0-SNAPSHOT.jar
 for jar in $LOCI_SOFTWARE/*/target/*.jar
 do
   export CP="$CP:$jar"
