@@ -15,6 +15,7 @@ FILES=(
 .forward
 .gitconfig
 .keystore
+.mrconfig
 .plan
 .vim
 .vimrc
@@ -45,6 +46,7 @@ done
   ln -s $LINK_DIR/forward .forward
   ln -s $LINK_DIR/gitconfig .gitconfig
   ln -s $LINK_DIR/restless.keystore .keystore
+  ln -s $LINK_DIR/mrconfig .mrconfig
   ln -s $LINK_DIR/plan .plan
   ln -s $LINK_DIR/vim .vim
   ln -s $LINK_DIR/vimrc .vimrc

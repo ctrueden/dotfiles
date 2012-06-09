@@ -1,0 +1,115 @@
+# mr configuration file
+
+# Install mr on Mac OS X using Homebrew, or on Debian/Ubuntu using apt.
+
+# -- GitHub --
+
+[code/loci/4d-software-suite]
+checkout = git clone git@github.com:uw-loci/4d-software-suite
+
+[code/loci/adaptive-gridding]
+checkout = git clone git@github.com:uw-loci/adaptive-gridding.git
+
+[code/loci/adaptive-optics]
+checkout = git clone git@github.com:uw-loci/adaptive-optics.git
+
+[code/loci/collagen-alignment-analysis]
+checkout = git clone git@github.com:uw-loci/collagen-alignment-analysis.git
+
+[code/loci/cppwrap-maven-plugin]
+checkout = git clone git@github.com:uw-loci/cppwrap-maven-plugin.git
+
+[code/loci/curve-fitter]
+checkout = git clone git@github.com:uw-loci/curve-fitter.git
+
+[code/loci/curvelets]
+checkout = git clone git@github.com:uw-loci/curvelets.git
+
+[code/loci/deep-zoom-plugin]
+checkout = git clone git@github.com:uw-loci/deep-zoom-plugin.git
+
+[code/loci/ejb-hessian-fht]
+checkout = git clone git@github.com:uw-loci/ejb-hessian-fht.git
+
+[code/loci/fiber-extraction]
+checkout = git clone git@github.com:uw-loci/fiber-extraction.git
+
+[code/loci/flim-tool]
+checkout = git clone git@github.com:uw-loci/flim-tool.git
+
+[code/loci/flow-cytometry]
+checkout = git clone git@github.com:uw-loci/flow-cytometry.git
+
+[code/loci/forward-cron-job]
+checkout = git clone git@github.com:uw-loci/forward-cron-job.git
+
+[code/loci/fusion-events]
+checkout = git clone git@github.com:uw-loci/fusion-events.git
+
+[code/loci/jar2lib]
+checkout = git clone git@github.com:uw-loci/jar2lib.git
+
+[code/loci/jexperiment]
+checkout = git clone git@github.com:uw-loci/jexperiment.git
+
+[code/loci/jvmlink]
+checkout = git clone git@github.com:uw-loci/jvmlink.git
+
+[code/loci/loci-checkstyle]
+checkout = git clone git@github.com:uw-loci/loci-checkstyle.git
+
+[code/loci/loci-utils]
+checkout = git clone git@github.com:uw-loci/loci-utils.git
+
+[code/loci/misc-plugins]
+checkout = git clone git@github.com:uw-loci/misc-plugins.git
+
+[code/loci/multi-lut]
+checkout = git clone git@github.com:uw-loci/multi-lut.git
+
+[code/loci/ome-server-search]
+checkout = git clone git@github.com:uw-loci/ome-server-search.git
+
+[code/loci/op-props-mc]
+checkout = git clone git@github.com:uw-loci/op-props-mc.git
+
+[code/loci/opencl-decon]
+checkout = git clone git@github.com:uw-loci/opencl-decon.git
+
+[code/loci/pom-loci]
+checkout = git clone git@github.com:uw-loci/pom-loci.git
+
+[code/loci/prairie-ome-tiff]
+checkout = git clone git@github.com:uw-loci/prairie-ome-tiff.git
+
+[code/loci/slim-curve]
+checkout = git clone git@github.com:uw-loci/slim-curve.git
+
+[code/loci/slim-plotter]
+checkout = git clone git@github.com:uw-loci/slim-plotter.git
+
+[code/loci/slim-plugin]
+checkout = git clone git@github.com:uw-loci/slim-plugin.git
+
+[code/loci/visbio]
+checkout = git clone git@github.com:uw-loci/visbio.git
+
+[code/loci/visbio-imagej]
+checkout = git clone git@github.com:uw-loci/visbio-imagej.git
+
+[code/loci/wid-3dniche]
+checkout = git clone git@github.com:uw-loci/wid-3dniche.git
+
+[code/loci/wiscscan-java]
+checkout = git clone git@github.com:uw-loci/wiscscan-java.git
+
+# -- Gitosis --
+
+[code/loci/gitolite-admin]
+checkout = git clone git@dev.loci.wisc.edu:gitolite-admin.git
+
+# -- SVN --
+
+[code/loci/internal]
+checkout = svn co http://dev.loci.wisc.edu/svn/internal/trunk internal
+
