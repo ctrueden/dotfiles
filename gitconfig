@@ -6,7 +6,7 @@
 	di = diff
 	dif = diff
 	dis = diff --staged
-	fa = fetch --all --prune
+	fa = fetch --all --tags --prune
 	fb = filter-branch -f --prune-empty
 	fbs = filter-branch -f --prune-empty --subdirectory-filter
 	fbt = filter-branch -f --prune-empty --tree-filter
