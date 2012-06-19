@@ -206,6 +206,9 @@ govi() { vi $(where $*); }
 alias j='java -cp $CP:.'
 alias jc='javac -cp $CP:.'
 
+# useful aliases - git
+alias got='git'
+
 # useful aliases - vim
 alias vi='vim'
 
@@ -286,7 +289,6 @@ alias gon='cd $SCIFIO/components/legacy/ome-notes/src/loci/ome/notes'
 alias goo='cd $SCIFIO/components/ome-plugins/src/loci/plugins/ome'
 alias gop='cd $SCIFIO/components/loci-plugins/src/loci/plugins'
 alias gos='cd $SCIFIO'
-alias got='cd $SCIFIO/components/test-suite/src/loci/tests/testng'
 alias gov='cd $LOCI_SOFTWARE/visbio/src/main/java/loci/visbio'
 alias gow='cd $LOCI_INTERNAL/WiscScan'
 alias gox='cd $SCIFIO/components/ome-xml/src/ome/xml'
