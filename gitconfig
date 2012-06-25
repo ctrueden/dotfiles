@@ -3,6 +3,7 @@
 	co = checkout
 	cl = clone
 	ci = commit
+	cia = commit --amend
 	di = diff
 	dif = diff
 	dis = diff --staged
