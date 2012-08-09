@@ -103,7 +103,7 @@ checkout = git clone git@github.com:uw-loci/wid-3dniche.git
 [code/loci/wiscscan-java]
 checkout = git clone git@github.com:uw-loci/wiscscan-java.git
 
-# -- Gitosis --
+# -- Gitolite --
 
 [code/loci/gitolite-admin]
 checkout = git clone git@dev.loci.wisc.edu:gitolite-admin.git
@@ -112,4 +112,3 @@ checkout = git clone git@dev.loci.wisc.edu:gitolite-admin.git
 
 [code/loci/internal]
 checkout = svn co http://dev.loci.wisc.edu/svn/internal/trunk internal
-
