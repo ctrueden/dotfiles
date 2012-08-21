@@ -76,7 +76,7 @@ fi
 
 # setup - CVS/SVN
 export CVS_RSH=ssh
-export EDITOR=vi
+export EDITOR=vim
 export VISUAL="$EDITOR"
 
 # setup - bash
