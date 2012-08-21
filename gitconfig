@@ -25,6 +25,7 @@
 	ra = rebase --abort
 	rc = rebase --continue
 	ws = rebase --whitespace=strip
+	spop = !git checkout 'stash^{tree}' -- . && git stash drop
 	st = status
 [diff]
 	color = auto
