@@ -295,12 +295,12 @@ alias gow='cd $LOCI_INTERNAL/WiscScan'
 alias gox='cd $SCIFIO/components/ome-xml/src/ome/xml'
 
 # useful aliases - machines
-alias dev='ssh dev.loci.wisc.edu'
-alias drupal='ssh drupal@skynet.loci.wisc.edu'
-alias ome='ssh open.microscopy.wisc.edu'
-alias pacific='ssh fiji.sc'
-alias server='ssh server.microscopy.wisc.edu'
-alias skynet='ssh skynet.loci.wisc.edu'
+alias dev='ssh dev'
+alias drupal='ssh drupal'
+alias ome='ssh ome'
+alias pacific='ssh fiji'
+alias server='ssh server'
+alias skynet='ssh skynet'
 
 # setup - Fiji (Fake fails if JAVA_HOME is set)
 export J_HOME="$JAVA_HOME"
