@@ -235,6 +235,15 @@ elif [ "$IS_WINDOWS" ]; then
   alias start='cmd /c start'
 fi
 
+# useful aliases - version
+if [ "$IS_MACOSX" ]; then
+  alias version='sw_vers'
+elif [ "$IS_LINUX" ]; then
+  alias version='lsb_release -a'
+elif [ "$IS_WINDOWS" ]; then
+  alias version='ver'
+fi
+
 # useful aliases - ldd
 if [ ! -x "`which ldd`" ]; then
   alias ldd='otool -L'
