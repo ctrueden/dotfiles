@@ -4,6 +4,9 @@
 	cl = clone
 	ci = commit
 	cia = commit --amend
+	cp = cherry-pick
+	cpo = cherry-pick --strategy=recursive --strategy-option=ours
+	cpt = cherry-pick --strategy=recursive --strategy-option=theirs
 	di = diff
 	dif = diff
 	dis = diff --staged
