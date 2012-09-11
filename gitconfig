@@ -1,12 +1,12 @@
 [alias]
 	br = branch
 	co = checkout
-	cl = clone
-	ci = commit
-	cia = commit --amend
 	cp = cherry-pick
 	cpo = cherry-pick --strategy=recursive --strategy-option=ours
 	cpt = cherry-pick --strategy=recursive --strategy-option=theirs
+	cl = clone
+	ci = commit
+	cia = commit --amend
 	di = diff
 	dif = diff
 	dis = diff --staged
@@ -21,15 +21,15 @@
 	move = mv
 	ren = mv
 	rename = mv
-	pl = pull
 	pop = stash pop --index
+	pl = pull
 	pr = pull --rebase
 	ps = push
 	ra = rebase --abort
 	rc = rebase --continue
 	ws = rebase --whitespace=strip
-	spop = !git checkout 'stash^{tree}' -- . && git stash drop
 	st = status
+	spop = !git checkout 'stash^{tree}' -- . && git stash drop
 [diff]
 	color = auto
 [push]
