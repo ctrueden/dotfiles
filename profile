@@ -211,7 +211,7 @@ export XMLLINT_INDENT=$'\t'
 # useful functions
 where() { find . -name $* | grep -v 'build/'; }
 goto() { cd $(dirname $(where $*)); }
-govi() { vi $(where $*); }
+govi() { vim $(where $*); }
 
 # useful aliases - Java
 alias j='java -cp $CP:.'
