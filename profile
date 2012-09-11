@@ -15,7 +15,9 @@
 shopt -s checkwinsize
 
 # make less more friendly for non-text input files, see lesspipe(1)
-[ -x /usr/bin/lesspipe ] && eval "$(lesspipe)"
+# NB: We use source-highlight below. Should this be disabled?
+# http://blog.tersmitten.nl/how-to-enable-syntax-highlighting-in-less.html
+# [ -x /usr/bin/lesspipe ] && eval "$(lesspipe)"
 
 # set variable identifying the chroot you work in (used in the prompt below)
 if [ -z "$debian_chroot" ] && [ -r /etc/debian_chroot ]; then
@@ -194,6 +196,14 @@ fi
 
 # setup - diff
 alias diff='git diff --no-index'
+
+# setup - less
+export LESS=' -R '
+if [ -d /usr/share/source-highlight ]; then
+  export LESSOPEN="| /usr/share/source-highlight/src-hilite-lesspipe.sh %s"
+elif [ -d ~/brew/Cellar/source-highlight ]; then
+  export LESSOPEN="| ~/brew/Cellar/source-highlight/*/bin/src-hilite-lesspipe.sh %s"
+fi
 
 # setup - xmllint
 export XMLLINT_INDENT=$'\t'
