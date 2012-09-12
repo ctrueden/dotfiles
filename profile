@@ -255,10 +255,10 @@ fi
 # useful aliases - version
 if [ "$IS_MACOSX" ]; then
   alias version='sw_vers'
-elif [ "$IS_LINUX" ]; then
-  alias version='lsb_release -a'
 elif [ "$IS_WINDOWS" ]; then
   alias version='ver'
+else
+  alias version='if [ -e /proc/version ]; then cat /proc/version; fi; if which lsb_release > /dev/null 2>&1; then lsb_release -a; fi; if [ -e /etc/redhat-release ]; then cat /etc/redhat-release; fi'
 fi
 
 # useful aliases - ldd
