@@ -5,9 +5,9 @@
 #              present in the current working directory
 #
 
-base=$1
+base="$1"
 
-if [ "$base" == "" ]
+if [ -z "$base" ]
 then
   echo "Usage: check-repos user"
   echo
@@ -18,10 +18,9 @@ find . -type d -depth 1 | \
   sed 's_^\./__' | \
   sort > cur.txt
 
-curl -s "http://github.com/api/v2/json/repos/show/$base" | \
-  tr "," "\n" | \
-  grep '^"url":' |
-  sed "s_\"url\":\"https://github.com/$base/\(.*\)\"_\1_" | \
+curl -s "https://api.github.com/users/$base/repos?per_page=1000" | \
+  grep '^    "html_url":' |
+  sed "s_.*/$base/\(.*\)\",_\1_" | \
   sort > all.txt
 
 git diff cur.txt all.txt
