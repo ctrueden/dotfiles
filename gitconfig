@@ -8,8 +8,10 @@
 	ci = commit
 	cia = commit --amend
 	di = diff
+	dic = diff --color-words
 	dif = diff
 	dis = diff --staged
+	disc = diff --staged --color-words
 	fa = fetch --all --tags --prune
 	fb = filter-branch -f --prune-empty
 	fbs = filter-branch -f --prune-empty --subdirectory-filter
