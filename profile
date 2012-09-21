@@ -121,30 +121,6 @@ elif [ "$IS_LINUX" ]; then
   export JAVA_HOME=/usr/lib/jvm/java-6-sun
 fi
 
-# setup - Java classpath
-unset CLASSPATH
-export CP=\
-~/java:\
-$HOME_JAVA:\
-$HOME_JAVA/utils:\
-~/.m2/repository/loci/utils/1.0.0-SNAPSHOT/utils-1.0.0-SNAPSHOT.jar
-for jar in $LOCI_SOFTWARE/*/target/*.jar
-do
-  export CP="$CP:$jar"
-done
-for dir in $SCIFIO/components/*/utils
-do
-  export CP="$CP:$dir"
-done
-for jar in $SCIFIO/artifacts/*.jar
-do
-  if [ ${jar: -14} != 'loci_tools.jar' ] && [ ${jar: -13} != 'ome_tools.jar' ]
-  then
-    export CP="$CP:$jar"
-  fi
-done
-#export CP="$CP:$VISAD"
-
 # setup - scripts
 export SCRIPTS_DIR="$CODE_DIR/dropbox/scripts"
 
@@ -156,6 +132,22 @@ $SCRIPTS_DIR/bin:\
 $SCIFIO/tools:\
 $FIJI_HOME/bin:\
 $PATH
+
+# setup - Java classpath
+unset CLASSPATH
+export CP=\
+~/java:\
+$HOME_JAVA:\
+$HOME_JAVA/utils
+
+export CP=$CP:$(maven-cp.pl \
+  loci:bio-formats:4.4-SNAPSHOT \
+  loci:utils:1.0.0-SNAPSHOT)
+
+for dir in $SCIFIO/components/*/utils
+do
+  export CP="$CP:$dir"
+done
 
 # setup - xpra
 if [ -d "/Applications/Window-Switch.app/Contents/Helpers" ]; then
