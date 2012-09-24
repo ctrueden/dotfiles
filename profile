@@ -140,9 +140,14 @@ export CP=\
 $HOME_JAVA:\
 $HOME_JAVA/utils
 
-export CP=$CP:$(maven-cp.pl \
-  loci:bio-formats:4.4-SNAPSHOT \
-  loci:utils:1.0.0-SNAPSHOT)
+cpFile="$HOME/.java-classpath"
+if [ ! -e "$cpFile" ]; then
+  # generate classpath cache
+  maven-cp.pl \
+    loci:bio-formats:4.4-SNAPSHOT \
+    loci:utils:1.0.0-SNAPSHOT > $cpFile
+fi
+export CP="$CP:`cat $cpFile`"
 
 for dir in $SCIFIO/components/*/utils
 do
