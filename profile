@@ -145,7 +145,8 @@ if [ ! -e "$cpFile" ]; then
   # generate classpath cache
   maven-cp.pl \
     loci:bio-formats:4.4-SNAPSHOT \
-    loci:utils:1.0.0-SNAPSHOT > $cpFile
+    loci:utils:1.0.0-SNAPSHOT \
+    org.beanshell:bsh:2.0b4 > $cpFile
 fi
 export CP="$CP:`cat $cpFile`"
 
