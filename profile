@@ -259,6 +259,9 @@ else
   alias version='if [ -e /proc/version ]; then cat /proc/version; fi; if which lsb_release > /dev/null 2>&1; then lsb_release -a; fi; if [ -e /etc/redhat-release ]; then cat /etc/redhat-release; fi'
 fi
 
+# useful aliases - history
+alias histime='HISTTIMEFORMAT="%F %T " history'
+
 # useful aliases - ldd
 if [ ! -x "`which ldd`" ]; then
   alias ldd='otool -L'
