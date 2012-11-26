@@ -212,6 +212,10 @@ fi
 # setup - xmllint
 export XMLLINT_INDENT=$'\t'
 
+# setup - hub (if installed)
+command -v hub >/dev/null 2>&1 && \
+  alias git='hub'
+
 # useful functions
 where() { find . -name $* | grep -v 'build/'; }
 goto() { cd $(dirname $(where $*)); }
