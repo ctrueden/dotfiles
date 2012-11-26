@@ -128,6 +128,7 @@ export SCRIPTS_DIR="$CODE_DIR/dropbox/scripts"
 export PATH=\
 $JAVA_HOME/bin:\
 ~/bin:\
+$SCIJAVA/bin:\
 $SCRIPTS_DIR/bin:\
 $SCIFIO/tools:\
 $FIJI_HOME/bin:\
