@@ -41,3 +41,5 @@
 [user]
 	name = Curtis Rueden
 	email = ctrueden@wisc.edu
+[rebase]
+	autosquash = true
