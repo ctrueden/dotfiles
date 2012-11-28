@@ -1,0 +1,7 @@
+#!/bin/bash
+
+# github-token.sh - Creates an OAuth token for GitHub.
+# https://help.github.com/articles/creating-an-oauth-token-for-command-line-use
+
+curl -u 'ctrueden' -d '{"scopes":["repo"],"note":"Command line"}' \
+  https://api.github.com/authorizations
