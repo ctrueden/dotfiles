@@ -2,8 +2,8 @@
 
 # fix-github-remotes.pl
 
-# This script updates GitHub remotes to use the more performant
-# git:// protocol when fetching (while leaving the push URLs alone).
+# This script ensures that GitHub remotes use the more performant git://
+# protocol when fetching, and SSH (git@...) protocol when pushing.
 
 use strict;
 
@@ -26,13 +26,20 @@ for my $remote (@remotes) {
   }
 }
 
-my $pushPattern = '^git@github.com:';
+my $pushPattern = 'git@github.com:';
 my $fetchPattern = 'git://github.com/';
 
 for my $name (keys %fetch) {
   if (not defined $push{$name}) { next; }
   my $pushURL = $push{$name};
-  if ($pushURL !~ /$pushPattern/) { next; }
+
+  if ($pushURL =~ /^$fetchPattern/) {
+    print "$name : detected fetch URL\n";
+    # convert push URL to proper protocol
+    $pushURL =~ s/$fetchPattern/$pushPattern/;
+  }
+
+  if ($pushURL !~ /^$pushPattern/) { next; }
   if ($pushURL !~ /\.git/) {
     # append missing .git suffix
     $pushURL .= '.git';
