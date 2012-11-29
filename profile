@@ -226,9 +226,10 @@ alias j='java -cp $CP:.'
 alias jc='javac -cp $CP:.'
 
 # useful aliases - git
-alias got='git'
-alias goit='git'
 alias giot='git'
+alias goit='git'
+alias got='git'
+alias gti='git'
 
 # useful aliases - vim
 alias vi='vim'
