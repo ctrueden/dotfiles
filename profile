@@ -90,6 +90,10 @@ export MAVEN_OPTS=-Xmx1536m
 
 # useful dirs
 export CODE_DIR=~/code
+export SCRIPTS_DIR="$CODE_DIR/github/ctr-scripts"
+export PRIVATE_DIR="$CODE_DIR/dropbox/private"
+export CONFIG_DIR="$PRIVATE_DIR/config"
+
 export HOME_JAVA="$CODE_DIR/home/java"
 export LOCI_SOFTWARE="$CODE_DIR/loci"
 export LOCI_INTERNAL="$LOCI_SOFTWARE/internal"
@@ -102,7 +106,6 @@ export CELLPROFILER_HOME="$CODE_DIR/other/CellProfiler/CellProfiler"
 export VISAD="$CODE_DIR/other/visad"
 export BF_CPP_DIR="$SCIFIO/components/bio-formats/cppwrap"
 export BF_ITK_DIR="$SCIFIO/components/native/bf-itk-pipe"
-export CONFIG_DIR="$SCRIPTS_DIR/config"
 
 # setup - Bio-Formats ITK plugin
 #export ITK_AUTOLOAD_PATH=$BF_ITK_DIR/build/lib/ITKFactories
@@ -120,9 +123,6 @@ if [ "$IS_MACOSX" ]; then
 elif [ "$IS_LINUX" ]; then
   export JAVA_HOME=/usr/lib/jvm/java-6-sun
 fi
-
-# setup - scripts
-export SCRIPTS_DIR="$CODE_DIR/dropbox/scripts"
 
 # setup - path
 export PATH=\
@@ -314,7 +314,6 @@ alias goc='cd $SCIFIO/components/common/src/loci/common'
 alias gocfg='cd $CONFIG_DIR'
 alias gocp='cd $CELLPROFILER_HOME'
 alias god='cd ~/data'
-alias gods='cd $SCRIPTS_DIR'
 alias gof='cd $SCIFIO/components/bio-formats/src/loci/formats'
 alias gofi='cd $FIJI_HOME'
 alias goij='cd $IJ_HOME'
@@ -324,7 +323,8 @@ alias gon='cd $SCIFIO/components/legacy/ome-notes/src/loci/ome/notes'
 alias goo='cd $SCIFIO/components/ome-plugins/src/loci/plugins/ome'
 alias gop='cd $SCIFIO/components/loci-plugins/src/loci/plugins'
 alias gos='cd $SCIFIO'
-alias gosc='cd $SCIJAVA'
+alias gosc='cd $SCRIPTS_DIR'
+alias gosj='cd $SCIJAVA'
 alias gov='cd $LOCI_SOFTWARE/visbio/src/main/java/loci/visbio'
 alias gow='cd $LOCI_INTERNAL/WiscScan'
 alias gox='cd $SCIFIO/components/ome-xml/src/ome/xml'
