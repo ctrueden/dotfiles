@@ -12,7 +12,7 @@
 	dif = diff
 	dis = diff --staged
 	disc = diff --staged --color-words
-	fa = fetch --all --tags --prune
+	fa = !git fetch --all --prune && git fetch --all --tags
 	fb = filter-branch -f --prune-empty
 	fbs = filter-branch -f --prune-empty --subdirectory-filter
 	fbt = filter-branch -f --prune-empty --tree-filter
@@ -29,6 +29,7 @@
 	ps = push
 	ra = rebase --abort
 	rc = rebase --continue
+	ru = remote update --prune
 	ws = rebase --whitespace=strip
 	st = status
 	spop = !git checkout 'stash^{tree}' -- . && git stash drop
