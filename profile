@@ -126,10 +126,10 @@ fi
 
 # setup - path
 export PATH=\
-$JAVA_HOME/bin:\
 ~/bin:\
+$SCRIPTS_DIR:\
 $SCIJAVA/bin:\
-$SCRIPTS_DIR/bin:\
+$JAVA_HOME/bin:\
 $SCIFIO/tools:\
 $FIJI_HOME/bin:\
 $PATH
