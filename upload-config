@@ -6,7 +6,7 @@
 
 SERVER="$@"
 
-if [ -z $SERVER ]
+if [ -z "$SERVER" ]
 then
   echo "Please specify destination server."
   exit 1
