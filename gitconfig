@@ -29,8 +29,8 @@
 	ps = push
 	ra = rebase --abort
 	rc = rebase --continue
-	ru = remote update --prune
 	ws = rebase --whitespace=strip
+	ru = remote update --prune
 	st = status
 	spop = !git checkout 'stash^{tree}' -- . && git stash drop
 [diff]
