@@ -1,8 +1,0 @@
-#!/bin/bash
-
-#
-# style - a script to run Checkstyle manually on Java source code
-#
-
-java -cp $CP com.puppycrawl.tools.checkstyle.Main \
-     -c $LOCI_JAVA/checkstyle.xml $@
