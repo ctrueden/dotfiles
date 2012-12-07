@@ -12,7 +12,6 @@ then
   exit 1
 fi
 
-DIR=`dirname "$0"`
-cd "$DIR/.."
+cd "$PRIVATE_DIR"
 scp -r config "$SERVER:"
 ssh "$SERVER" "bash config/config-links.sh"
