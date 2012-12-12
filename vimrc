@@ -94,8 +94,7 @@ set autowrite
 "endfunction
 " -- End Melissa's Ant-based compilation --
 
-" Press F5 to use jikes to compile the current file with QuickFix
-"set makeprg=jikes\ +D\ $JIKESARGS\ %
+" Press F5 to use javac to compile the current file with QuickFix
 set makeprg=javac\ -cp\ $CP:.\ %
 set errorformat=%A%f:%l:\ %m,%+Z%p^,%+C%.%#,%-G%.%#
 map <F5> :mak<cr>
