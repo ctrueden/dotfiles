@@ -102,8 +102,8 @@ map <F5> :mak<cr>
 " Press F6 to execute the current packageless class with no args
 map <F6> :!java -cp $CP:. %<<cr>
 
-" Press F7 to diff this file against the one in the repository
-map <F7> :!svn diff %<cr>
+" Press F7 to format the HTML in the current buffer
+map <F7> :%!fix-html<cr>
 
 """ INTERFILE NAVIGATION
 
