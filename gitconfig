@@ -25,7 +25,9 @@
 	rename = mv
 	pop = stash pop --index
 	pl = pull
-	pr = pull --rebase
+	prb = pull --rebase
+	prdev = !git pull-request -b openmicroscopy:develop
+	pr44 = !git pull-request -b openmicroscopy:dev_4_4
 	ps = push
 	ra = rebase --abort
 	rc = rebase --continue
