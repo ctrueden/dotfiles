@@ -342,4 +342,6 @@ alias skynet='ssh skynet'
 export J_HOME="$JAVA_HOME"
 unset JAVA_HOME
 
+# setup - Bio-Formats
 #export LOCI_DEVEL=1 # for LOCI command line tools
+export DATA=$HOME/share/data
