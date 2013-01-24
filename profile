@@ -218,6 +218,9 @@ export XMLLINT_INDENT=$'\t'
 command -v hub >/dev/null 2>&1 && \
   alias git='hub'
 
+# setup - ITK
+export ITK_HOME=~/code/kitware/ITK
+
 # useful functions
 where() { find . -name $* | grep -v 'build/'; }
 goto() { cd $(dirname $(where $*)); }
@@ -320,6 +323,7 @@ alias gof='cd $SCIFIO/components/bio-formats/src/loci/formats'
 alias gofi='cd $FIJI_HOME'
 alias goij='cd $IJ_HOME'
 alias goil='cd $IMGLIB_HOME'
+alias goitk='cd $ITK_HOME'
 alias goj2l='cd $LOCI_SOFTWARE/jar2lib/src/main/resources'
 alias gon='cd $SCIFIO/components/legacy/ome-notes/src/loci/ome/notes'
 alias goo='cd $SCIFIO/components/ome-plugins/src/loci/plugins/ome'
