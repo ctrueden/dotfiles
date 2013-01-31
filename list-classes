@@ -1,0 +1,5 @@
+#!/bin/sh
+for f in "$@"
+do
+  jar tf "$f" | sed -e "s:^:$f\: :"
+done
