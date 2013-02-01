@@ -290,6 +290,15 @@ if [ -d "$BREW/Cellar/maven2" ]; then
   alias mvn2="$BREW/Cellar/maven2/2.2.1/bin/mvn"
 fi
 
+# useful aliases - remove tabs from source files
+if [ "$IS_MACOSX" ]; then
+  # BSD sed requires a space after -i argument
+  alias detab="sed -i '' -e 's/	/  /g'"
+else
+  # GNU sed requires no space after -i argument
+  alias detab="sed -i'' -e 's/	/  /g'"
+fi
+
 # useful aliases - LOCI apps
 alias slim='j -mx512m loci.slim.SlimPlotter'
 alias visbio='j -mx1024m -Dswing.defaultlaf=com.jgoodies.looks.plastic.Plastic3DLookAndFeel loci.visbio.VisBio'
