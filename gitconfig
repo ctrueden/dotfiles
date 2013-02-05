@@ -16,6 +16,7 @@
 	fb = filter-branch -f --prune-empty
 	fbs = filter-branch -f --prune-empty --subdirectory-filter
 	fbt = filter-branch -f --prune-empty --tree-filter
+	fix = !fixup-rebase
 	follow = log --name-status --follow
 	graph = log --date-order --graph --decorate --oneline
 	lns = log --name-status
