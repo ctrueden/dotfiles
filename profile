@@ -85,6 +85,8 @@ export VISUAL="$EDITOR"
 # setup - bash
 # do not autocomplete .svn folders
 export FIGNORE=.svn
+# use vi commands for advanced editing (hit ESC to enter command mode)
+set -o vi
 
 # setup - Maven
 export MAVEN_OPTS=-Xmx1536m
