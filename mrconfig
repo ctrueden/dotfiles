@@ -93,6 +93,12 @@ checkout = svn checkout https://farsight-svn.ee.uh.edu/repos/farsight/trunk fars
 [code/knime/nodes4knime]
 checkout = git svn clone --authors-file="$SVN_AUTHORS" -s https://tech.knime.org/svn/nodes4knime
 
+[code/leonardo/amino]
+checkout = hg clone https://amino.leonardosketch.googlecode.com/hg/ amino
+
+[code/leonardo/leonardosketch]
+checkout = hg clone https://leonardosketch.googlecode.com/hg/ leonardosketch
+
 [code/loci/4d-software-suite]
 checkout = git clone git://github.com/uw-loci/4d-software-suite
 
