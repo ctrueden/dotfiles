@@ -1,9 +1,10 @@
 #!/bin/bash
 
-# gen-mr - Lame script to generate .mrconfig entries for git repositories.
+# gen-mr - Hacky script to generate .mrconfig entries for git repositories.
 
 for f in $@
 do (
+	[ -d $f ] || continue
 	cd $f
 
 	dir=$(pwd | sed -e "s/.*$USER\///")
