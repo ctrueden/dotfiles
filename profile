@@ -160,11 +160,6 @@ do
   export CP="$CP:$dir"
 done
 
-# setup - xpra
-if [ -d "/Applications/Window-Switch.app/Contents/Helpers" ]; then
-  export PATH=/Applications/Window-Switch.app/Contents/Helpers:$PATH
-fi
-
 # setup - Homebrew
 if [ -d "$BREW/bin" ]; then
   export PATH="$BREW/bin:$PATH"
