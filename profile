@@ -205,6 +205,9 @@ fi
 # setup - diff
 alias diff='git diff --no-index'
 
+# setup - git svn
+SVN_AUTHORS="$HOME/code/dropbox/private/authors.txt"
+
 # setup - less
 export LESS=' -R '
 if [ -d /usr/share/source-highlight ]; then
