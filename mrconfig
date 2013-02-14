@@ -45,6 +45,9 @@ checkout = git clone git://github.com/imagej/image5d.git
 [code/imagej/imagej]
 checkout = git clone git://github.com/imagej/imagej.git
 
+[code/imagej/imagej-maven-plugin]
+checkout = git clone git://github.com/imagej/imagej-maven-plugin.git
+
 [code/imagej/imagej-tutorials]
 checkout = git clone git://github.com/imagej/imagej-tutorials.git
 
@@ -53,6 +56,9 @@ checkout = git clone ssh://ctrueden@repo.or.cz/srv/git/imageja.git
 
 [code/imagej/imglib]
 checkout = git clone git://github.com/imagej/imglib.git
+
+[code/imagej/spring4ij2]
+checkout = git clone git://github.com/joshmoore/spring4ij2.git
 
 [code/imagej/visad-plugin]
 checkout = git clone git://github.com/imagej/visad-plugin.git
@@ -68,6 +74,9 @@ checkout = git clone git://github.com/imagej/zoomviewer.git
 
 [code/kitware/ITK]
 checkout = git clone git://itk.org/ITK.git
+
+[code/kitware/KWStyle]
+checkout = git clone git://public.kitware.com/KWStyle.git
 
 [code/kitware/SimpleITK]
 checkout = git clone git://github.com/luisibanez/SimpleITK.git
@@ -249,6 +258,9 @@ checkout = git clone git://github.com/shaunew/Pac-Man.git
 [code/other/addama]
 checkout = svn checkout http://addama.googlecode.com/svn/trunk addama
 
+[code/other/bioimagexd]
+checkout = git clone git://fiji.sc/bioimagexd.git
+
 [code/other/bisque]
 checkout = hg clone http://biodev.ece.ucsb.edu/hg/bisquik-stable bisque
 
@@ -273,23 +285,23 @@ checkout = git clone git://pixlib.git.sourceforge.net/gitroot/pixlib/pixlib
 [code/other/rootbeer1]
 checkout = git clone git://github.com/pcpratts/rootbeer1.git
 
+[code/other/sezpoz]
+checkout = git clone git://fiji.sc/sezpoz/.git
+
 [code/other/thredds]
 checkout = git clone git://github.com/Unidata/thredds.git
 
 [code/other/vaa3d]
-checkout = svn checkout https://svn.janelia.org/penglab/projects/vaa3d/trunk vaa3d
+checkout = git clone git://fiji.sc/vaa3d.git
 
 [code/other/visad]
-checkout = svn checkout https://svn.ssec.wisc.edu/repos/visad/trunk visad
+checkout = git clone git://fiji.sc/visad.git
 
 [code/other/xdma]
 checkout = hg clone http://biodev.ece.ucsb.edu/hg/xdma xdma
 
 [code/other/xuvtools]
 checkout = svn checkout svn://tim.informatik.uni-freiburg.de/lmbsoft/trunk xuvtools
-
-[code/scijava/cpptasks-parallel]
-checkout = git clone git://github.com/scijava/cpptasks-parallel.git
 
 [code/scijava/native-lib-loader]
 checkout = git clone git://github.com/scijava/native-lib-loader.git
