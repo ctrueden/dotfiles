@@ -6,18 +6,6 @@
 include = cat /Users/curtis/brew/Cellar/mr/1.02/share/mr/git-svn
 git_svn_update = git svn rebase
 
-[code/cruft/imagej]
-checkout = svn co http://code.imagej.net/svn/imagej/trunk
-
-[code/cruft/internal]
-checkout = svn co http://dev.loci.wisc.edu/svn/internal/trunk
-
-[code/cruft/misc]
-checkout = svn co http://dev.loci.wisc.edu/svn/misc/trunk
-
-[code/cruft/software]
-checkout = svn co http://dev.loci.wisc.edu/svn/software/trunk
-
 [code/dropbox/private]
 checkout = git clone $HOME/Dropbox/Git/private
 
