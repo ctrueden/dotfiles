@@ -252,8 +252,8 @@ checkout = git clone git://github.com/openmicroscopy/bioformats.git
 [code/ome/scifio-devel]
 checkout = git clone git://github.com/openmicroscopy/bioformats.git
 
-[code/other/Pac-Man]
-checkout = git clone git://github.com/shaunew/Pac-Man.git
+#[code/other/Pac-Man]
+#checkout = git clone git://github.com/shaunew/Pac-Man.git
 
 [code/other/addama]
 checkout = svn checkout http://addama.googlecode.com/svn/trunk addama
