@@ -1,0 +1,10 @@
+#!/bin/bash
+
+# remove-blanks - removes duplicate blank lines
+
+for f in $@
+do
+	cat -s "$f" > "$f.new"
+	rm "$f"
+	mv "$f.new" "$f"
+done
