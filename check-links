@@ -1,7 +1,7 @@
 #!/usr/bin/perl
 
 #
-# check-links.pl
+# check-links
 #
 
 # Simple script to check for broken URLs.

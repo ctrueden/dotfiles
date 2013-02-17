@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # original credit to http://stackoverflow.com/questions/372506#372654
-# usage: "git-find.sh <regex>"
+# usage: "git-find <regex>"
 
 LOC=refs/remotes/origin
 #LOC=refs/heads  # to search local branches only

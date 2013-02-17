@@ -1,6 +1,6 @@
 #!/usr/bin/perl
 
-# fix-github-remotes.pl
+# fix-github-remotes
 
 # This script ensures that GitHub remotes use the more performant git://
 # protocol when fetching, and SSH (git@...) protocol when pushing.

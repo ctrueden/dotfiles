@@ -1,7 +1,7 @@
 #!/usr/bin/perl
 
 #
-# maven-cp.pl
+# maven-cp
 #
 
 # A script to output a Java classpath for the given Maven GAVs,
@@ -10,7 +10,7 @@
 # Requires command line mvn to be installed.
 
 # Example of usage:
-#   maven-cp.pl edu.ucar:netcdf:4.2.20
+#   maven-cp edu.ucar:netcdf:4.2.20
 
 use strict;
 
