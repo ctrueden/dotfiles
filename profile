@@ -148,7 +148,7 @@ cpFile="$HOME/.java-classpath"
 if [ ! -e "$cpFile" ]; then
   # generate classpath cache
   echo "Regenerating $cpFile"
-  maven-cp.pl \
+  maven-cp \
     loci:bio-formats:4.5-SNAPSHOT \
     loci:utils:1.0.0-SNAPSHOT \
     org.beanshell:bsh:2.0b4 > $cpFile
