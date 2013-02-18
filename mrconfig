@@ -297,6 +297,9 @@ checkout = git clone git://fiji.sc/vaa3d.git
 [code/other/visad]
 checkout = git clone git://fiji.sc/visad.git
 
+[code/other/waterloo]
+checkout = git clone git://git.code.sf.net/p/waterloo/code
+
 [code/other/xdma]
 checkout = hg clone http://biodev.ece.ucsb.edu/hg/xdma xdma
 
