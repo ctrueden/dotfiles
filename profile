@@ -224,7 +224,6 @@ export ITK_HOME=~/code/kitware/ITK
 # useful functions
 where() { find . -name $* | grep -v 'build/'; }
 goto() { cd $(dirname $(where $*)); }
-govi() { vim $(where $*); }
 
 # useful aliases - Java
 alias j='java -cp $CP:.'
