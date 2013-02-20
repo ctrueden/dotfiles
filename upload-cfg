@@ -1,7 +1,7 @@
 #!/bin/bash
 
 #
-# upload-config: a script to clone console configuration to a remote server.
+# upload-cfg: a script to clone console configuration to a remote server.
 #
 
 SERVER="$@"
