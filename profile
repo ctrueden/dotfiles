@@ -113,13 +113,6 @@ export BF_ITK_DIR="$SCIFIO/components/native/bf-itk-pipe"
 # setup - Bio-Formats ITK plugin
 #export ITK_AUTOLOAD_PATH=$BF_ITK_DIR/build/lib/ITKFactories
 
-# setup - WrapITK
-export DYLD_LIBRARY_PATH="/usr/lib/InsightToolkit:$DYLD_LIBRARY_PATH"
-export PYTHONPATH=\
-$CELLPROFILER_HOME:\
-/usr/lib/InsightToolkit/WrapITK/Python:\
-$PYTHONPATH
-
 # setup - Java
 if [ "$IS_MACOSX" ]; then
   export JAVA_HOME=/Library/Java/Home
