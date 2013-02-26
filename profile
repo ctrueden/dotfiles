@@ -81,6 +81,12 @@ fi
 export CVS_RSH=ssh
 export EDITOR=vim
 export VISUAL="$EDITOR"
+alias viq="vi \
+  +'set tw=72' \
+  +'normal! \"+p' \
+  +':silent :1g/^$/d' \
+  +':silent :g/^/s//> /' \
+  +'normal! 1GVGgq1G\"+yG'"
 
 # setup - bash
 # do not autocomplete .svn folders
