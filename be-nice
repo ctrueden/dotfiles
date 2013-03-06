@@ -12,4 +12,6 @@
 #
 # and it will automatically be reniced to +10. Music sounds good again!
 
-renice +10 -p $(ps x | grep "$@" | grep -v ' grep ' | grep -v 'be-nice ' | cut -d ' ' -f 1)
+ps="$(ps x)"
+pid="$(echo "$ps" | grep "$@" | grep -v 'be-nice ' | cut -d \  -f 1)"
+renice +10 -p "$pid"
