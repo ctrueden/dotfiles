@@ -99,9 +99,8 @@ export MAVEN_OPTS=-Xmx1536m
 
 # useful dirs
 export CODE_DIR=~/code
-export SCRIPTS_DIR="$CODE_DIR/github/ctr-scripts"
-export PRIVATE_DIR="$CODE_DIR/dropbox/private"
-export CONFIG_DIR="$PRIVATE_DIR/config"
+export CONFIG_DIR="$CODE_DIR/ctrueden/ctr-config"
+export SCRIPTS_DIR="$CODE_DIR/ctrueden/ctr-scripts"
 
 export HOME_JAVA="$CODE_DIR/home/java"
 export LOCI_SOFTWARE="$CODE_DIR/loci"
@@ -200,7 +199,7 @@ fi
 alias diff='git diff --no-index'
 
 # setup - git svn
-SVN_AUTHORS="$HOME/code/dropbox/private/authors.txt"
+SVN_AUTHORS="$CONFIG_DIR/authors.txt"
 
 # setup - less
 export LESS=' -R '

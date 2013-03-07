@@ -6,25 +6,28 @@
 include = cat /Users/curtis/brew/Cellar/mr/1.02/share/mr/git-svn
 git_svn_update = git svn rebase
 
-[code/dropbox/private]
-checkout = git clone $HOME/Dropbox/Git/private
+[code/ctrueden/ctr-config]
+checkout = git clone git@bitbucket.org:ctrueden/ctr-config.git
 
-[code/github/ctr-scripts]
+[code/ctrueden/ctr-private]
+checkout = git clone git@bitbucket.org:ctrueden/ctr-private.git
+
+[code/ctrueden/ctr-scripts]
 checkout = git clone git://github.com/ctrueden/ctr-scripts.git
 
-[code/github/fixbe]
+[code/ctrueden/fixbe]
 checkout = git clone git://github.com/ctrueden/fixbe.git
 
-[code/github/jcurses-maven]
+[code/ctrueden/jcurses-maven]
 checkout = git clone git://github.com/ctrueden/jcurses-maven.git
 
-#[code/github/productivity]
+#[code/ctrueden/productivity]
 #checkout = git clone git://github.com/ctrueden/productivity.git
 
-[code/github/ucar-units]
+[code/ctrueden/ucar-units]
 checkout = git clone git://github.com/ctrueden/ucar-units.git
 
-[code/github/web-toys]
+[code/ctrueden/web-toys]
 checkout = git clone git://github.com/ctrueden/web-toys.git
 
 [code/imagej/active-cells-ij2]
