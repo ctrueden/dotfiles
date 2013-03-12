@@ -13,5 +13,6 @@
 # and it will automatically be reniced to +10. Music sounds good again!
 
 ps="$(ps x)"
-pid="$(echo "$ps" | grep "$@" | grep -v 'be-nice ' | cut -d \  -f 1)"
+pid="$(echo "$ps" | grep "$@" | grep -v 'be-nice ' | sed -e 's/^ *//' | cut -d ' ' -f 1)"
+echo "Renicing Eclipse PID: $pid"
 renice +10 -p "$pid"
