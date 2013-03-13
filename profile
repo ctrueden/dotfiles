@@ -348,6 +348,7 @@ alias ome='ssh ome'
 alias pacific='ssh fiji'
 alias server='ssh server'
 alias skynet='ssh skynet'
+alias tera='ssh tera'
 
 # setup - Fiji (Fake fails if JAVA_HOME is set)
 export J_HOME="$JAVA_HOME"
