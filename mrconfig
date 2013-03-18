@@ -274,7 +274,7 @@ checkout = git clone http://condor-git.cs.wisc.edu/repos/condor.git
 checkout = git clone https://github.com/imagejs/imagejs.github.com.git
 
 [code/other/jace]
-checkout = svn checkout https://jace.svn.sourceforge.net/svnroot/jace/trunk jace
+checkout = hg clone https://code.google.com/p/jace/
 
 [code/other/jhotdraw]
 checkout = svn checkout https://jhotdraw.svn.sourceforge.net/svnroot/jhotdraw/trunk jhotdraw
