@@ -6,11 +6,7 @@
 include = if [ -d /Users/curtis/brew/Cellar/mr/1.02 ]; then cat /Users/curtis/brew/Cellar/mr/1.02/share/mr/git-svn; fi
 git_svn_update = git svn rebase
 
-[code/ctrueden/ctr-config]
-checkout = git clone git@bitbucket.org:ctrueden/ctr-config.git
-
-[code/ctrueden/ctr-private]
-checkout = git clone git@bitbucket.org:ctrueden/ctr-private.git
+# -- Public repositories on GitHub --
 
 [code/ctrueden/ctr-scripts]
 checkout = git clone git://github.com/ctrueden/ctr-scripts
@@ -55,7 +51,7 @@ checkout = git clone git://github.com/imagej/imagej-maven-plugin
 checkout = git clone git://github.com/imagej/imagej-tutorials
 
 [code/imagej/imageja]
-checkout = git clone ssh://ctrueden@repo.or.cz/srv/git/imageja.git
+checkout = git clone git://github.com/fiji/ImageJA imageja
 
 [code/imagej/imglib]
 checkout = git clone git://github.com/imagej/imglib
@@ -76,28 +72,16 @@ checkout = git clone git://github.com/imagej/workflow-pipes
 checkout = git clone git://github.com/imagej/zoomviewer
 
 [code/kitware/ITK]
-checkout = git clone git://itk.org/ITK.git
-
-[code/kitware/KWStyle]
-checkout = git clone git://public.kitware.com/KWStyle.git
+checkout = git clone git://github.com/Kitware/ITK
 
 [code/kitware/SimpleITK]
-checkout = git clone git://github.com/luisibanez/SimpleITK
+checkout = git clone git://github.com/SimpleITK/SimpleITK
 
 [code/kitware/VTK]
-checkout = git clone git://vtk.org/VTK.git
+checkout = git clone git://github.com/Kitware/VTK
 
 [code/kitware/farsight]
-checkout = svn checkout https://farsight-svn.ee.uh.edu/repos/farsight/trunk farsight
-
-[code/knime/nodes4knime]
-checkout = git svn clone --authors-file="$SVN_AUTHORS" -s https://tech.knime.org/svn/nodes4knime
-
-[code/leonardo/amino]
-checkout = hg clone https://amino.leonardosketch.googlecode.com/hg/ amino
-
-[code/leonardo/leonardosketch]
-checkout = hg clone https://leonardosketch.googlecode.com/hg/ leonardosketch
+checkout = git clone git://github.com/hocheung20/farsight
 
 [code/loci/4d-software-suite]
 checkout = git clone git://github.com/uw-loci/4d-software-suite
@@ -141,12 +125,6 @@ checkout = git clone git://github.com/uw-loci/forward-cron-job
 [code/loci/fusion-events]
 checkout = git clone git://github.com/uw-loci/fusion-events
 
-[code/loci/gitolite-admin]
-checkout = git clone git@dev.loci.wisc.edu:gitolite-admin.git
-
-[code/loci/internal]
-checkout = git svn clone --authors-file="$SVN_AUTHORS" -s http://dev.loci.wisc.edu/svn/internal
-
 [code/loci/jar2lib]
 checkout = git clone git://github.com/uw-loci/jar2lib
 
@@ -164,9 +142,6 @@ checkout = git clone git://github.com/uw-loci/loci-scripts
 
 [code/loci/loci-utils]
 checkout = git clone git://github.com/uw-loci/loci-utils
-
-[code/loci/matlab-plugins-in-imagej]
-checkout = git clone git://code.imagej.net/matlab-plugins-in-imagej.git
 
 [code/loci/misc-plugins]
 checkout = git clone git://github.com/uw-loci/misc-plugins
@@ -222,17 +197,11 @@ checkout = git clone git://github.com/ctrueden/license-maven-plugin
 [code/maven/maven]
 checkout = git clone git://github.com/apache/maven
 
-[code/maven/maven-java-formatter-plugin]
-checkout = svn checkout http://maven-java-formatter-plugin.googlecode.com/svn/trunk maven-java-formatter-plugin
-
 [code/maven/maven-plugins]
 checkout = git clone git://github.com/apache/maven-plugins
 
 [code/maven/maven-wagon]
 checkout = git clone git://github.com/apache/maven-wagon
-
-[code/maven/mojo]
-checkout = svn checkout http://svn.codehaus.org/mojo/trunk mojo
 
 [code/nar/cpptasks-parallel]
 checkout = git clone git://github.com/maven-nar/cpptasks-parallel
@@ -242,9 +211,6 @@ checkout = git clone git://github.com/maven-nar/maven-nar-plugin
 
 [code/nar/maven-nar.github.com]
 checkout = git clone git://github.com/maven-nar/maven-nar.github.com
-
-[code/ome/ome-server]
-checkout = git svn clone --authors-file="$SVN_AUTHORS" -s svn+ssh://crueden-x@svn.openmicroscopy.org.uk/home/svn/ome ome-server
 
 [code/ome/openmicroscopy]
 checkout = git clone git://github.com/openmicroscopy/openmicroscopy
@@ -258,56 +224,20 @@ checkout = git clone git://github.com/openmicroscopy/bioformats
 #[code/other/Pac-Man]
 #checkout = git clone git://github.com/shaunew/Pac-Man
 
-[code/other/addama]
-checkout = svn checkout http://addama.googlecode.com/svn/trunk addama
-
-[code/other/bioimagexd]
-checkout = git clone git://fiji.sc/bioimagexd.git
-
-[code/other/bisque]
-checkout = hg clone http://biodev.ece.ucsb.edu/hg/bisquik-stable bisque
-
-[code/other/condor]
-checkout = git clone http://condor-git.cs.wisc.edu/repos/condor.git
-
 [code/other/imagejs.github.com]
 checkout = git clone https://github.com/imagejs/imagejs.github.com
-
-[code/other/jace]
-checkout = hg clone https://code.google.com/p/jace/
-
-[code/other/jhotdraw]
-checkout = svn checkout https://jhotdraw.svn.sourceforge.net/svnroot/jhotdraw/trunk jhotdraw
 
 [code/other/object-inspector]
 checkout = git clone https://github.com/sbridges/object-inspector
 
-[code/other/pixlib]
-checkout = git clone git://pixlib.git.sourceforge.net/gitroot/pixlib/pixlib
-
 [code/other/rootbeer1]
 checkout = git clone git://github.com/pcpratts/rootbeer1
-
-[code/other/sezpoz]
-checkout = git clone git://fiji.sc/sezpoz/.git
 
 [code/other/thredds]
 checkout = git clone git://github.com/Unidata/thredds
 
-[code/other/vaa3d]
-checkout = git clone git://fiji.sc/vaa3d.git
-
 [code/other/visad]
-checkout = git clone git://fiji.sc/visad.git
-
-[code/other/waterloo]
-checkout = git clone git://git.code.sf.net/p/waterloo/code
-
-[code/other/xdma]
-checkout = hg clone http://biodev.ece.ucsb.edu/hg/xdma xdma
-
-[code/other/xuvtools]
-checkout = svn checkout svn://tim.informatik.uni-freiburg.de/lmbsoft/trunk xuvtools
+checkout = git clone git://github.com/visad/visad
 
 [code/scijava/native-lib-loader]
 checkout = git clone git://github.com/scijava/native-lib-loader
@@ -317,3 +247,91 @@ checkout = git clone git://github.com/scijava/scijava-common
 
 [code/scijava/scijava.github.com]
 checkout = git clone git://github.com/scijava/scijava.github.com
+
+# -- Fiji Git repositories --
+
+[code/other/bioimagexd]
+checkout = git clone git://fiji.sc/bioimagexd.git
+
+[code/other/jhotdraw]
+checkout = git clone git://fiji.sc/jhotdraw.git
+
+[code/other/mipav]
+checkout = git clone git://fiji.sc/mipav.git
+
+[code/other/sezpoz]
+checkout = git clone git://fiji.sc/sezpoz/.git
+
+[code/other/vaa3d]
+checkout = git clone git://fiji.sc/vaa3d.git
+
+
+# -- Other Git repositories --
+
+[code/kitware/KWStyle]
+checkout = git clone git://public.kitware.com/KWStyle.git
+
+[code/loci/matlab-plugins-in-imagej]
+checkout = git clone git://code.imagej.net/matlab-plugins-in-imagej.git
+
+[code/other/condor]
+checkout = git clone http://condor-git.cs.wisc.edu/repos/condor.git
+
+[code/other/pixlib]
+checkout = git clone git://pixlib.git.sourceforge.net/gitroot/pixlib/pixlib
+
+[code/other/waterloo]
+checkout = git clone git://git.code.sf.net/p/waterloo/code
+
+# -- Mercurial repositories --
+
+[code/leonardo/amino]
+checkout = hg clone https://amino.leonardosketch.googlecode.com/hg/ amino
+
+[code/leonardo/leonardosketch]
+checkout = hg clone https://leonardosketch.googlecode.com/hg/ leonardosketch
+
+[code/other/bisque]
+checkout = hg clone http://biodev.ece.ucsb.edu/hg/bisquik-stable bisque
+
+[code/other/jace]
+checkout = hg clone https://code.google.com/p/jace/
+
+[code/other/xdma]
+checkout = hg clone http://biodev.ece.ucsb.edu/hg/xdma xdma
+
+# -- Git-SVN repositories --
+
+[code/ome/ome-server]
+checkout = git svn clone --authors-file="$SVN_AUTHORS" -s svn+ssh://crueden-x@svn.openmicroscopy.org.uk/home/svn/ome ome-server
+
+# -- Subversion repositories --
+
+[code/maven/maven-java-formatter-plugin]
+checkout = svn checkout http://maven-java-formatter-plugin.googlecode.com/svn/trunk maven-java-formatter-plugin
+
+[code/maven/mojo]
+checkout = svn checkout http://svn.codehaus.org/mojo/trunk mojo
+
+[code/other/addama]
+checkout = svn checkout http://addama.googlecode.com/svn/trunk addama
+
+[code/other/xuvtools]
+checkout = svn checkout svn://tim.informatik.uni-freiburg.de/lmbsoft/trunk xuvtools
+
+# -- Private repositories --
+
+[code/ctrueden/ctr-config]
+checkout = git clone git@bitbucket.org:ctrueden/ctr-config.git
+
+[code/ctrueden/ctr-private]
+checkout = git clone git@bitbucket.org:ctrueden/ctr-private.git
+
+[code/knime/nodes4knime]
+checkout = git svn clone --authors-file="$SVN_AUTHORS" -s https://tech.knime.org/svn/nodes4knime
+
+[code/loci/gitolite-admin]
+checkout = git clone git@dev.loci.wisc.edu:gitolite-admin.git
+
+[code/loci/internal]
+checkout = git svn clone --authors-file="$SVN_AUTHORS" -s http://dev.loci.wisc.edu/svn/internal
