@@ -13,67 +13,67 @@ checkout = git clone git@bitbucket.org:ctrueden/ctr-config.git
 checkout = git clone git@bitbucket.org:ctrueden/ctr-private.git
 
 [code/ctrueden/ctr-scripts]
-checkout = git clone git://github.com/ctrueden/ctr-scripts.git
+checkout = git clone git://github.com/ctrueden/ctr-scripts
 
 [code/ctrueden/fixbe]
-checkout = git clone git://github.com/ctrueden/fixbe.git
+checkout = git clone git://github.com/ctrueden/fixbe
 
 [code/ctrueden/jcurses-maven]
-checkout = git clone git://github.com/ctrueden/jcurses-maven.git
+checkout = git clone git://github.com/ctrueden/jcurses-maven
 
 #[code/ctrueden/productivity]
-#checkout = git clone git://github.com/ctrueden/productivity.git
+#checkout = git clone git://github.com/ctrueden/productivity
 
 [code/ctrueden/ucar-units]
-checkout = git clone git://github.com/ctrueden/ucar-units.git
+checkout = git clone git://github.com/ctrueden/ucar-units
 
 [code/ctrueden/web-toys]
-checkout = git clone git://github.com/ctrueden/web-toys.git
+checkout = git clone git://github.com/ctrueden/web-toys
 
 [code/imagej/active-cells-ij2]
-checkout = git clone git://github.com/RicardDelgado/active-cells-ij2.git
+checkout = git clone git://github.com/RicardDelgado/active-cells-ij2
 
 [code/imagej/envisaje]
-checkout = git clone git://github.com/imagej/envisaje.git
+checkout = git clone git://github.com/imagej/envisaje
 
 [code/imagej/fiji]
-checkout = git clone git://github.com/fiji/fiji.git
+checkout = git clone git://github.com/fiji/fiji
 
 [code/imagej/ij1-tests]
-checkout = git clone git://github.com/imagej/ij1-tests.git
+checkout = git clone git://github.com/imagej/ij1-tests
 
 [code/imagej/image5d]
-checkout = git clone git://github.com/imagej/image5d.git
+checkout = git clone git://github.com/imagej/image5d
 
 [code/imagej/imagej]
-checkout = git clone git://github.com/imagej/imagej.git
+checkout = git clone git://github.com/imagej/imagej
 
 [code/imagej/imagej-maven-plugin]
-checkout = git clone git://github.com/imagej/imagej-maven-plugin.git
+checkout = git clone git://github.com/imagej/imagej-maven-plugin
 
 [code/imagej/imagej-tutorials]
-checkout = git clone git://github.com/imagej/imagej-tutorials.git
+checkout = git clone git://github.com/imagej/imagej-tutorials
 
 [code/imagej/imageja]
 checkout = git clone ssh://ctrueden@repo.or.cz/srv/git/imageja.git
 
 [code/imagej/imglib]
-checkout = git clone git://github.com/imagej/imglib.git
+checkout = git clone git://github.com/imagej/imglib
 
 [code/imagej/spring4ij2]
-checkout = git clone git://github.com/joshmoore/spring4ij2.git
+checkout = git clone git://github.com/joshmoore/spring4ij2
 
 [code/imagej/visad-plugin]
-checkout = git clone git://github.com/imagej/visad-plugin.git
+checkout = git clone git://github.com/imagej/visad-plugin
 
 [code/imagej/workflow]
-checkout = git clone git://github.com/imagej/workflow.git
+checkout = git clone git://github.com/imagej/workflow
 
 [code/imagej/workflow-pipes]
-checkout = git clone git://github.com/imagej/workflow-pipes.git
+checkout = git clone git://github.com/imagej/workflow-pipes
 
 [code/imagej/zoomviewer]
-checkout = git clone git://github.com/imagej/zoomviewer.git
+checkout = git clone git://github.com/imagej/zoomviewer
 
 [code/kitware/ITK]
 checkout = git clone git://itk.org/ITK.git
@@ -82,7 +82,7 @@ checkout = git clone git://itk.org/ITK.git
 checkout = git clone git://public.kitware.com/KWStyle.git
 
 [code/kitware/SimpleITK]
-checkout = git clone git://github.com/luisibanez/SimpleITK.git
+checkout = git clone git://github.com/luisibanez/SimpleITK
 
 [code/kitware/VTK]
 checkout = git clone git://vtk.org/VTK.git
@@ -103,43 +103,43 @@ checkout = hg clone https://leonardosketch.googlecode.com/hg/ leonardosketch
 checkout = git clone git://github.com/uw-loci/4d-software-suite
 
 [code/loci/adaptive-gridding]
-checkout = git clone git://github.com/uw-loci/adaptive-gridding.git
+checkout = git clone git://github.com/uw-loci/adaptive-gridding
 
 [code/loci/adaptive-optics]
-checkout = git clone git://github.com/uw-loci/adaptive-optics.git
+checkout = git clone git://github.com/uw-loci/adaptive-optics
 
 [code/loci/collagen-alignment-analysis]
-checkout = git clone git://github.com/uw-loci/collagen-alignment-analysis.git
+checkout = git clone git://github.com/uw-loci/collagen-alignment-analysis
 
 [code/loci/cppwrap-maven-plugin]
-checkout = git clone git://github.com/uw-loci/cppwrap-maven-plugin.git
+checkout = git clone git://github.com/uw-loci/cppwrap-maven-plugin
 
 [code/loci/curve-fitter]
-checkout = git clone git://github.com/uw-loci/curve-fitter.git
+checkout = git clone git://github.com/uw-loci/curve-fitter
 
 [code/loci/curvelets]
-checkout = git clone git://github.com/uw-loci/curvelets.git
+checkout = git clone git://github.com/uw-loci/curvelets
 
 [code/loci/deep-zoom-plugin]
-checkout = git clone git://github.com/uw-loci/deep-zoom-plugin.git
+checkout = git clone git://github.com/uw-loci/deep-zoom-plugin
 
 [code/loci/ejb-hessian-fht]
-checkout = git clone git://github.com/uw-loci/ejb-hessian-fht.git
+checkout = git clone git://github.com/uw-loci/ejb-hessian-fht
 
 [code/loci/fiber-extraction]
-checkout = git clone git://github.com/uw-loci/fiber-extraction.git
+checkout = git clone git://github.com/uw-loci/fiber-extraction
 
 [code/loci/flim-tool]
-checkout = git clone git://github.com/uw-loci/flim-tool.git
+checkout = git clone git://github.com/uw-loci/flim-tool
 
 [code/loci/flow-cytometry]
-checkout = git clone git://github.com/uw-loci/flow-cytometry.git
+checkout = git clone git://github.com/uw-loci/flow-cytometry
 
 [code/loci/forward-cron-job]
-checkout = git clone git://github.com/uw-loci/forward-cron-job.git
+checkout = git clone git://github.com/uw-loci/forward-cron-job
 
 [code/loci/fusion-events]
-checkout = git clone git://github.com/uw-loci/fusion-events.git
+checkout = git clone git://github.com/uw-loci/fusion-events
 
 [code/loci/gitolite-admin]
 checkout = git clone git@dev.loci.wisc.edu:gitolite-admin.git
@@ -148,76 +148,76 @@ checkout = git clone git@dev.loci.wisc.edu:gitolite-admin.git
 checkout = git svn clone --authors-file="$SVN_AUTHORS" -s http://dev.loci.wisc.edu/svn/internal
 
 [code/loci/jar2lib]
-checkout = git clone git://github.com/uw-loci/jar2lib.git
+checkout = git clone git://github.com/uw-loci/jar2lib
 
 [code/loci/jexperiment]
-checkout = git clone git://github.com/uw-loci/jexperiment.git
+checkout = git clone git://github.com/uw-loci/jexperiment
 
 [code/loci/jvmlink]
-checkout = git clone git://github.com/uw-loci/jvmlink.git
+checkout = git clone git://github.com/uw-loci/jvmlink
 
 [code/loci/loci-checkstyle]
-checkout = git clone git://github.com/uw-loci/loci-checkstyle.git
+checkout = git clone git://github.com/uw-loci/loci-checkstyle
 
 [code/loci/loci-scripts]
-checkout = git clone git://github.com/uw-loci/loci-scripts.git
+checkout = git clone git://github.com/uw-loci/loci-scripts
 
 [code/loci/loci-utils]
-checkout = git clone git://github.com/uw-loci/loci-utils.git
+checkout = git clone git://github.com/uw-loci/loci-utils
 
 [code/loci/matlab-plugins-in-imagej]
 checkout = git clone git://code.imagej.net/matlab-plugins-in-imagej.git
 
 [code/loci/misc-plugins]
-checkout = git clone git://github.com/uw-loci/misc-plugins.git
+checkout = git clone git://github.com/uw-loci/misc-plugins
 
 [code/loci/multi-lut]
-checkout = git clone git://github.com/uw-loci/multi-lut.git
+checkout = git clone git://github.com/uw-loci/multi-lut
 
 [code/loci/ome-server-search]
-checkout = git clone git://github.com/uw-loci/ome-server-search.git
+checkout = git clone git://github.com/uw-loci/ome-server-search
 
 [code/loci/ome-versioning]
-checkout = git clone git://github.com/uw-loci/ome-versioning.git
+checkout = git clone git://github.com/uw-loci/ome-versioning
 
 [code/loci/op-props-mc]
-checkout = git clone git://github.com/uw-loci/op-props-mc.git
+checkout = git clone git://github.com/uw-loci/op-props-mc
 
 [code/loci/opencl-decon]
-checkout = git clone git://github.com/uw-loci/opencl-decon.git
+checkout = git clone git://github.com/uw-loci/opencl-decon
 
 [code/loci/opencl-demo]
-checkout = git clone git://github.com/uw-loci/opencl-demo.git
+checkout = git clone git://github.com/uw-loci/opencl-demo
 
 [code/loci/pom-loci]
-checkout = git clone git://github.com/uw-loci/pom-loci.git
+checkout = git clone git://github.com/uw-loci/pom-loci
 
 [code/loci/prairie-ome-tiff]
-checkout = git clone git://github.com/uw-loci/prairie-ome-tiff.git
+checkout = git clone git://github.com/uw-loci/prairie-ome-tiff
 
 [code/loci/slim-curve]
-checkout = git clone git://github.com/uw-loci/slim-curve.git
+checkout = git clone git://github.com/uw-loci/slim-curve
 
 [code/loci/slim-plotter]
-checkout = git clone git://github.com/uw-loci/slim-plotter.git
+checkout = git clone git://github.com/uw-loci/slim-plotter
 
 [code/loci/slim-plugin]
-checkout = git clone git://github.com/uw-loci/slim-plugin.git
+checkout = git clone git://github.com/uw-loci/slim-plugin
 
 [code/loci/visbio]
-checkout = git clone git://github.com/uw-loci/visbio.git
+checkout = git clone git://github.com/uw-loci/visbio
 
 [code/loci/visbio-imagej]
-checkout = git clone git://github.com/uw-loci/visbio-imagej.git
+checkout = git clone git://github.com/uw-loci/visbio-imagej
 
 [code/loci/wid-3dniche]
-checkout = git clone git://github.com/uw-loci/wid-3dniche.git
+checkout = git clone git://github.com/uw-loci/wid-3dniche
 
 [code/loci/wiscscan-java]
-checkout = git clone git://github.com/uw-loci/wiscscan-java.git
+checkout = git clone git://github.com/uw-loci/wiscscan-java
 
 [code/maven/license-maven-plugin]
-checkout = git clone git://github.com/ctrueden/license-maven-plugin.git
+checkout = git clone git://github.com/ctrueden/license-maven-plugin
 
 [code/maven/maven]
 checkout = git clone git://github.com/apache/maven
@@ -235,28 +235,28 @@ checkout = git clone git://github.com/apache/maven-wagon
 checkout = svn checkout http://svn.codehaus.org/mojo/trunk mojo
 
 [code/nar/cpptasks-parallel]
-checkout = git clone git://github.com/maven-nar/cpptasks-parallel.git
+checkout = git clone git://github.com/maven-nar/cpptasks-parallel
 
 [code/nar/maven-nar-plugin]
-checkout = git clone git://github.com/maven-nar/maven-nar-plugin.git
+checkout = git clone git://github.com/maven-nar/maven-nar-plugin
 
 [code/nar/maven-nar.github.com]
-checkout = git clone git://github.com/maven-nar/maven-nar.github.com.git
+checkout = git clone git://github.com/maven-nar/maven-nar.github.com
 
 [code/ome/ome-server]
 checkout = git svn clone --authors-file="$SVN_AUTHORS" -s svn+ssh://crueden-x@svn.openmicroscopy.org.uk/home/svn/ome ome-server
 
 [code/ome/openmicroscopy]
-checkout = git clone git://github.com/openmicroscopy/openmicroscopy.git
+checkout = git clone git://github.com/openmicroscopy/openmicroscopy
 
 [code/ome/scifio]
-checkout = git clone git://github.com/openmicroscopy/bioformats.git
+checkout = git clone git://github.com/openmicroscopy/bioformats
 
 [code/ome/scifio-devel]
-checkout = git clone git://github.com/openmicroscopy/bioformats.git
+checkout = git clone git://github.com/openmicroscopy/bioformats
 
 #[code/other/Pac-Man]
-#checkout = git clone git://github.com/shaunew/Pac-Man.git
+#checkout = git clone git://github.com/shaunew/Pac-Man
 
 [code/other/addama]
 checkout = svn checkout http://addama.googlecode.com/svn/trunk addama
@@ -271,7 +271,7 @@ checkout = hg clone http://biodev.ece.ucsb.edu/hg/bisquik-stable bisque
 checkout = git clone http://condor-git.cs.wisc.edu/repos/condor.git
 
 [code/other/imagejs.github.com]
-checkout = git clone https://github.com/imagejs/imagejs.github.com.git
+checkout = git clone https://github.com/imagejs/imagejs.github.com
 
 [code/other/jace]
 checkout = hg clone https://code.google.com/p/jace/
@@ -280,19 +280,19 @@ checkout = hg clone https://code.google.com/p/jace/
 checkout = svn checkout https://jhotdraw.svn.sourceforge.net/svnroot/jhotdraw/trunk jhotdraw
 
 [code/other/object-inspector]
-checkout = git clone https://github.com/sbridges/object-inspector.git
+checkout = git clone https://github.com/sbridges/object-inspector
 
 [code/other/pixlib]
 checkout = git clone git://pixlib.git.sourceforge.net/gitroot/pixlib/pixlib
 
 [code/other/rootbeer1]
-checkout = git clone git://github.com/pcpratts/rootbeer1.git
+checkout = git clone git://github.com/pcpratts/rootbeer1
 
 [code/other/sezpoz]
 checkout = git clone git://fiji.sc/sezpoz/.git
 
 [code/other/thredds]
-checkout = git clone git://github.com/Unidata/thredds.git
+checkout = git clone git://github.com/Unidata/thredds
 
 [code/other/vaa3d]
 checkout = git clone git://fiji.sc/vaa3d.git
@@ -310,10 +310,10 @@ checkout = hg clone http://biodev.ece.ucsb.edu/hg/xdma xdma
 checkout = svn checkout svn://tim.informatik.uni-freiburg.de/lmbsoft/trunk xuvtools
 
 [code/scijava/native-lib-loader]
-checkout = git clone git://github.com/scijava/native-lib-loader.git
+checkout = git clone git://github.com/scijava/native-lib-loader
 
 [code/scijava/scijava-common]
-checkout = git clone git://github.com/scijava/scijava-common.git
+checkout = git clone git://github.com/scijava/scijava-common
 
 [code/scijava/scijava.github.com]
-checkout = git clone git://github.com/scijava/scijava.github.com.git
+checkout = git clone git://github.com/scijava/scijava.github.com
