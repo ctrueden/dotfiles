@@ -330,9 +330,6 @@ checkout = git clone git@bitbucket.org:ctrueden/ctr-config.git
 [code/ctrueden/ctr-private]
 checkout = git clone git@bitbucket.org:ctrueden/ctr-private.git
 
-[code/knime/nodes4knime]
-checkout = git svn clone --authors-file="$SVN_AUTHORS" -s https://tech.knime.org/svn/nodes4knime
-
 [code/loci/gitolite-admin]
 checkout = git clone git@dev.loci.wisc.edu:gitolite-admin.git
 
