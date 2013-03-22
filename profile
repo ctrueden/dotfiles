@@ -118,7 +118,7 @@ export BF_ITK_DIR="$SCIFIO/components/native/bf-itk"
 # setup - OMERO
 export ICE_HOME=/usr/share/Ice-3.4.2
 export POSTGRES_HOME=/usr/lib/postgresql/9.1
-export OMERO_HOME="$CODE_DIR/ome/openmicroscopy"
+export OMERO_HOME="$CODE_DIR/ome/openmicroscopy/dist"
 export PYTHONPATH=/usr/lib/pymodules/python2.7:$PYTHONPATH
 export LD_LIBRARY_PATH=/usr/share/java:/usr/lib:$LD_LIBRARY_PATH
 
