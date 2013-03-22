@@ -115,9 +115,6 @@ export VISAD="$CODE_DIR/other/visad"
 export BF_CPP_DIR="$SCIFIO/components/scifio/cppwrap"
 export BF_ITK_DIR="$SCIFIO/components/native/bf-itk"
 
-# setup - Bio-Formats ITK plugin
-#export ITK_AUTOLOAD_PATH=$BF_ITK_DIR/build/lib/ITKFactories
-
 # setup - Java
 if [ "$IS_MACOSX" ]; then
   export JAVA_HOME=/Library/Java/Home
@@ -163,37 +160,12 @@ if [ -d "$BREW/bin" ]; then
   export PATH="$BREW/bin:$PATH"
 fi
 
-# setup - jikes
-#export JRELIB=/System/Library/Frameworks/JavaVM.framework/Classes
-#export JREEXTLIB=/System/Library/Java/Extensions
-#export BOOTCLASSPATH=\
-#$JRELIB/classes.jar:\
-#$JRELIB/ui.jar:\
-#$JREEXTLIB/j3dcore.jar:\
-#$JREEXTLIB/j3dutils.jar:\
-#$JREEXTLIB/vecmath.jar
-#export JIKESARGS='-target 1.4 -source 1.4 +Pmodifier-order +Predundant-modifiers +Pnaming-convention +Pno-effective-java +Punused-type-imports +Punused-package-imports'
-#alias jc='jikes $JIKESARGS'
-
-# setup - jmp
-#export LD_LIBRARY_PATH=/usr/local/lib
-#alias jmp='java -Xrunjmp'
-
-# setup - jni
-#export C_INCLUDE_PATH=$JAVA_HOME/include
-#export CPLUS_INCLUDE_PATH=$C_INCLUDE_PATH
-
-# setup - MeVisLab + Bio-Formats module
-#source /home/curtis/apps/MeVisLab/bin/init.sh
-#export MLAB_JNI_LIB=$JAVA_HOME/jre/lib/i386/server/libjvm.so
-
 # setup - ls
 if [ "$IS_LINUX" ]; then
   alias ls='ls -AF --color=auto'
 else
   alias ls='ls -AFG'
 fi
-#export LSCOLORS="GxGxFxdxCxDxDxhbadGxGx";
 
 # setup - diff
 alias diff='git diff --no-index'
@@ -355,5 +327,4 @@ export J_HOME="$JAVA_HOME"
 unset JAVA_HOME
 
 # setup - Bio-Formats
-#export LOCI_DEVEL=1 # for LOCI command line tools
 export DATA=$HOME/share/data
