@@ -293,7 +293,7 @@ checkout = git clone http://condor-git.cs.wisc.edu/repos/condor.git
 checkout = git clone git://pixlib.git.sourceforge.net/gitroot/pixlib/pixlib
 
 [code/other/waterloo]
-checkout = git clone git://git.code.sf.net/p/waterloo/code
+checkout = git clone git://git.code.sf.net/p/waterloo/code waterloo
 
 # -- Mercurial repositories --
 
