@@ -328,9 +328,6 @@ checkout = svn checkout http://svn.codehaus.org/mojo/trunk mojo
 [code/other/addama]
 checkout = svn checkout http://addama.googlecode.com/svn/trunk addama
 
-[code/other/xuvtools]
-checkout = svn checkout svn://tim.informatik.uni-freiburg.de/lmbsoft/trunk xuvtools
-
 # -- Private repositories --
 
 [code/ctrueden/ctr-config]
