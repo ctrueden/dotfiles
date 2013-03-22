@@ -115,19 +115,12 @@ export VISAD="$CODE_DIR/other/visad"
 export BF_CPP_DIR="$SCIFIO/components/scifio/cppwrap"
 export BF_ITK_DIR="$SCIFIO/components/native/bf-itk"
 
-# setup - Java
-if [ "$IS_MACOSX" ]; then
-  export JAVA_HOME=/Library/Java/Home
-elif [ "$IS_LINUX" ]; then
-  export JAVA_HOME=/usr/lib/jvm/java-6-sun
-fi
 
 # setup - path
 export PATH=\
 ~/bin:\
 $SCRIPTS_DIR:\
 $SCIJAVA/bin:\
-$JAVA_HOME/bin:\
 $SCIFIO/tools:\
 $FIJI_HOME/bin:\
 $PATH
@@ -321,10 +314,6 @@ alias pacific='ssh fiji'
 alias server='ssh server'
 alias skynet='ssh skynet'
 alias tera='ssh tera'
-
-# setup - Fiji (Fake fails if JAVA_HOME is set)
-export J_HOME="$JAVA_HOME"
-unset JAVA_HOME
 
 # setup - Bio-Formats
 export DATA=$HOME/share/data
