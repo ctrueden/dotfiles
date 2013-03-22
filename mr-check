@@ -26,6 +26,14 @@ for my $line (@lines) {
 my $errors = 0;
 for my $dir (keys %repos) {
 	my $repo = $repos{$dir};
+	if (not -d "$home/$dir") {
+		# skip uninitialized directory
+		next;
+	}
+	if (not -d "$home/$dir/.git") {
+		print "$dir: not a Git repository as expected!\n";
+		next;
+	}
 	my $remote = `cd $home/$dir && git remote -v | grep '^origin.*(fetch)\$'`;
 	chop $remote;
 	$remote =~ s/^origin\s+(.*)\s+\(fetch\)$/$1/;
