@@ -1,0 +1,37 @@
+#!/usr/bin/perl
+
+# mr-check - Hacky script to check .mrconfig entries against git remotes.
+
+use strict;
+
+my $home = $ENV{'HOME'};
+open MRCONFIG, "$home/.mrconfig" or die $!;
+my @lines = <MRCONFIG>;
+close MRCONFIG;
+
+# harvest list of git repositories from mr config file
+my %repos = ();
+my $dir = '';
+for my $line (@lines) {
+	chop $line;
+	if ($line =~ /^\[(.*)\]$/) {
+		$dir = $1;
+	}
+	if ($line =~ /^checkout\s*=\s*git\s+clone\s+([^\s]*)/) {
+		$repos{$dir} = $1;
+	}
+}
+
+# compare each git repo from mrconfig with the clone's actual origin remote
+my $errors = 0;
+for my $dir (keys %repos) {
+	my $repo = $repos{$dir};
+	my $remote = `cd $home/$dir && git remote -v | grep '^origin.*(fetch)\$'`;
+	chop $remote;
+	$remote =~ s/^origin\s+(.*)\s+\(fetch\)$/$1/;
+	if ($repo ne $remote) {
+		print "$dir: '$repo' != '$remote'\n";
+		$errors++;
+	}
+}
+exit $errors;
