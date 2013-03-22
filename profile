@@ -115,6 +115,12 @@ export VISAD="$CODE_DIR/other/visad"
 export BF_CPP_DIR="$SCIFIO/components/scifio/cppwrap"
 export BF_ITK_DIR="$SCIFIO/components/native/bf-itk"
 
+# setup - OMERO
+export ICE_HOME=/usr/share/Ice-3.4.2
+export POSTGRES_HOME=/usr/lib/postgresql/9.1
+export OMERO_HOME="$CODE_DIR/ome/openmicroscopy"
+export PYTHONPATH=/usr/lib/pymodules/python2.7:$PYTHONPATH
+export LD_LIBRARY_PATH=/usr/share/java:/usr/lib:$LD_LIBRARY_PATH
 
 # setup - path
 export PATH=\
@@ -123,6 +129,7 @@ $SCRIPTS_DIR:\
 $SCIJAVA/bin:\
 $SCIFIO/tools:\
 $FIJI_HOME/bin:\
+$OMERO_HOME/bin:\
 $PATH
 
 # setup - Java classpath
@@ -298,6 +305,7 @@ alias goitk='cd $ITK_HOME'
 alias goj2l='cd $LOCI_SOFTWARE/jar2lib/src/main/resources'
 alias gon='cd $SCIFIO/components/legacy/ome-notes/src/loci/ome/notes'
 alias goo='cd $SCIFIO/components/ome-plugins/src/loci/plugins/ome'
+alias goome='cd $OMERO_HOME'
 alias gop='cd $SCIFIO/components/loci-plugins/src/loci/plugins'
 alias gos='cd $SCIFIO'
 alias gosc='cd $SCRIPTS_DIR'
