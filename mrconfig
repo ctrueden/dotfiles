@@ -334,10 +334,10 @@ checkout = svn checkout svn://tim.informatik.uni-freiburg.de/lmbsoft/trunk xuvto
 # -- Private repositories --
 
 [code/ctrueden/ctr-config]
-checkout = git clone git@bitbucket.org:ctrueden/ctr-config.git
+checkout = git clone git@bitbucket.org:ctrueden/ctr-config
 
 [code/ctrueden/ctr-private]
-checkout = git clone git@bitbucket.org:ctrueden/ctr-private.git
+checkout = git clone git@bitbucket.org:ctrueden/ctr-private
 
 [code/loci/gitolite-admin]
 checkout = git clone git@dev.loci.wisc.edu:gitolite-admin.git
