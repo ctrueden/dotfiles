@@ -102,7 +102,7 @@ export CODE_DIR=~/code
 export CONFIG_DIR="$CODE_DIR/ctrueden/ctr-config"
 export SCRIPTS_DIR="$CODE_DIR/ctrueden/ctr-scripts"
 
-export HOME_JAVA="$CODE_DIR/home/java"
+export HOME_JAVA="$CODE_DIR/ctrueden/ctr-private/java"
 export LOCI_SOFTWARE="$CODE_DIR/loci"
 export LOCI_INTERNAL="$LOCI_SOFTWARE/internal"
 export SCIFIO="$CODE_DIR/ome/scifio"
@@ -110,10 +110,10 @@ export IJ_HOME="$CODE_DIR/imagej/imagej"
 export IMGLIB_HOME="$CODE_DIR/imagej/imglib"
 export FIJI_HOME="$CODE_DIR/imagej/fiji"
 export SCIJAVA="$CODE_DIR/scijava/scijava-common"
-export CELLPROFILER_HOME="$CODE_DIR/other/CellProfiler/CellProfiler"
+export CELLPROFILER_HOME="$CODE_DIR/cellprofiler/CellProfiler"
 export VISAD="$CODE_DIR/other/visad"
-export BF_CPP_DIR="$SCIFIO/components/bio-formats/cppwrap"
-export BF_ITK_DIR="$SCIFIO/components/native/bf-itk-pipe"
+export BF_CPP_DIR="$SCIFIO/components/scifio/cppwrap"
+export BF_ITK_DIR="$SCIFIO/components/native/bf-itk"
 
 # setup - Bio-Formats ITK plugin
 #export ITK_AUTOLOAD_PATH=$BF_ITK_DIR/build/lib/ITKFactories
