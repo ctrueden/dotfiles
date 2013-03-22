@@ -237,10 +237,10 @@ checkout = git clone git://github.com/openmicroscopy/bioformats
 #checkout = git clone git://github.com/shaunew/Pac-Man
 
 [code/other/imagejs.github.com]
-checkout = git clone https://github.com/imagejs/imagejs.github.com
+checkout = git clone git://github.com/imagejs/imagejs.github.com
 
 [code/other/object-inspector]
-checkout = git clone https://github.com/sbridges/object-inspector
+checkout = git clone git://github.com/sbridges/object-inspector
 
 [code/other/rootbeer1]
 checkout = git clone git://github.com/pcpratts/rootbeer1
