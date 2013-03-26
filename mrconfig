@@ -224,6 +224,9 @@ checkout = git clone git://github.com/maven-nar/maven-nar-plugin
 [code/nar/maven-nar.github.com]
 checkout = git clone git://github.com/maven-nar/maven-nar.github.com
 
+[code/ome/ome-documentation]
+checkout = git clone git://github.com/openmicroscopy/ome-documentation
+
 [code/ome/openmicroscopy]
 checkout = git clone git://github.com/openmicroscopy/openmicroscopy
 
