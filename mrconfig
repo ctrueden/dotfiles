@@ -248,9 +248,6 @@ checkout = git clone git://github.com/pcpratts/rootbeer1
 [code/other/thredds]
 checkout = git clone git://github.com/Unidata/thredds
 
-[code/other/visad]
-checkout = git clone git://github.com/visad/visad
-
 [code/scijava/native-lib-loader]
 checkout = git clone git://github.com/scijava/native-lib-loader
 
@@ -259,6 +256,12 @@ checkout = git clone git://github.com/scijava/scijava-common
 
 [code/scijava/scijava.github.com]
 checkout = git clone git://github.com/scijava/scijava.github.com
+
+[code/visad/visad]
+checkout = git clone git://github.com/visad/visad
+
+[code/visad/visad.github.com]
+checkout = git clone git://github.com/visad/visad.github.com
 
 # -- Fiji Git repositories --
 
