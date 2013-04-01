@@ -239,6 +239,9 @@ checkout = git clone git://github.com/openmicroscopy/bioformats
 [code/other/imagejs.github.com]
 checkout = git clone git://github.com/imagejs/imagejs.github.com
 
+[code/other/labis]
+checkout = git clone git://labinfsyst.git.sourceforge.net/gitroot/labinfsyst/labinfsyst labis
+
 [code/other/object-inspector]
 checkout = git clone git://github.com/sbridges/object-inspector
 
