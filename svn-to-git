@@ -5,6 +5,9 @@
 
 # Note: A better script can be found at: https://github.com/nirvdrum/svn2git
 
+# However, these days, such scripts are rarely necessary. Instead, use:
+#    git svn clone -s http://path.to/my/svn/repo
+
 set -e
 
 SVN_PATH="$1"
