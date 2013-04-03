@@ -4,9 +4,4 @@
 # vig - greps for a particular string and opens all matching files in vi
 #
 
-FILES=""
-for i in `grep -l $@`;
-do
-  FILES="$FILES $(echo "$i" | sed "s/[\"' ]/\\&/g")"
-done
-vi $FILES
+vi $(grep -l $@)
