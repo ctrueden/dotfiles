@@ -10,6 +10,10 @@
 
 # Thanks to: http://simenhag.blogspot.com/2008/11/cleaning-up-macports.html
 
+# Note: I suggest using Homebrew rather than MacPorts:
+# - Everything is installed cleanly into one place.
+# - Everything is driven by Git, and you can add your own formulae.
+
 set -e
 set -u
 
