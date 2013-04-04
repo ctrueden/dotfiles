@@ -12,6 +12,6 @@ then
   exit 1
 fi
 
-cd "$PRIVATE_DIR"
-scp -r config "$SERVER:"
+ssh "$SERVER" "mkdir -p config && rm -rf config/*"
+(cd "$CONFIG_DIR" && scp -r * "$SERVER:config/")
 ssh "$SERVER" "bash config/config-links.sh"
