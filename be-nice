@@ -14,5 +14,5 @@
 
 ps="$(ps x)"
 pid="$(echo "$ps" | grep "$@" | grep -v 'be-nice ' | sed -e 's/^ *//' | cut -d ' ' -f 1)"
-echo "Renicing Eclipse PID: $pid"
+echo "Renicing PID: $pid"
 renice +10 -p "$pid"
