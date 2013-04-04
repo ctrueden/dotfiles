@@ -19,6 +19,7 @@ FILES=(
 .plan
 .vim
 .vimrc
+.ssh/authorized_keys
 .ssh/config
 Library/KeyBindings
 )
@@ -59,7 +60,11 @@ else
 fi
 
 cd .ssh
-(set -x; ln -s ../$LINK_DIR/ssh-config config)
+(
+  set -x
+  ln -s ../$LINK_DIR/ssh-authorized_keys authorized_keys
+  ln -s ../$LINK_DIR/ssh-config config
+)
 cd ..
 
 if [ "$OS_NAME" == "Darwin" ]; then
