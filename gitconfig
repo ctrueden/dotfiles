@@ -34,6 +34,7 @@
 	rc = rebase --continue
 	ws = rebase --whitespace=strip
 	ru = remote update --prune
+	rhup = reset --hard 'HEAD@{u}'
 	st = status
 	spop = !git checkout 'stash^{tree}' -- . && git stash drop
 [diff]
