@@ -1,2 +1,2 @@
-#!/bin/sh
-find . -name 'pom.xml' -exec grep -H "$@" {} \;
+#!/bin/bash
+grep "$@" $(find . -name 'pom.xml')
