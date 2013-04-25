@@ -1,0 +1,27 @@
+#/bin/sh
+
+# java-info - spits out reminders about the zillion different locations
+#             where Java-relevant things are stashed on OS X.
+
+echo === Which versions of Apple Java are installed? ===
+(set -x && ls -l /System/Library/Java/JavaVirtualMachines/)
+
+echo
+echo === Which versions of Oracle Java are installed? ===
+(set -x && ls -l /Library/Java/JavaVirtualMachines/)
+
+echo
+echo === Where is the Java framework stuff? ===
+(set -x && ls -l /System/Library/Frameworks/JavaVM.framework/Versions/)
+
+echo
+echo === Which java executable is in my path? ===
+(set -x && which java)
+
+echo
+echo === And where do those symlinks go? ===
+(which_java=$(which java) && set -x && ls -l $which_java*)
+
+echo
+echo === Tell me more about my Javas! ===
+(set -x && /usr/libexec/java_home -V)
