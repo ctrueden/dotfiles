@@ -65,6 +65,9 @@ checkout = git clone git://github.com/fiji/ImageJA imageja
 [code/imagej/imglib]
 checkout = git clone git://github.com/imagej/imglib
 
+[code/imagej/spimviewer]
+checkout = git clone git://github.com/tpietzsch/spimviewer.git
+
 [code/imagej/spring4ij2]
 checkout = git clone git://github.com/joshmoore/spring4ij2
 
