@@ -7,7 +7,7 @@ echo === Which versions of Apple Java are installed? ===
 (set -x && ls -l /System/Library/Java/JavaVirtualMachines/)
 
 echo
-echo === Which versions of Oracle Java are installed? ===
+echo === Which non-Apple Javas (e.g., Oracle, OpenJDK) are installed? ===
 (set -x && ls -l /Library/Java/JavaVirtualMachines/)
 
 echo
