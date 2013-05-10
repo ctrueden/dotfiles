@@ -354,3 +354,6 @@ checkout = git clone git@dev.loci.wisc.edu:gitolite-admin.git
 
 [code/loci/internal]
 checkout = git svn clone --authors-file="$SVN_AUTHORS" -s http://dev.loci.wisc.edu/svn/internal
+
+[code/loci/jenkins-scripts]
+checkout = git clone git@dev.loci.wisc.edu:jenkins-scripts.git
