@@ -327,7 +327,8 @@ checkout = hg clone http://biodev.ece.ucsb.edu/hg/xdma xdma
 # -- Git-SVN repositories --
 
 [code/ome/ome-server]
-checkout = git svn clone --authors-file="$SVN_AUTHORS" -s svn+ssh://crueden-x@svn.openmicroscopy.org.uk/home/svn/ome ome-server
+checkout = git clone git://dev.loci.wisc.edu/ome-server.git
+#checkout = git svn clone --authors-file="$SVN_AUTHORS" -s svn+ssh://crueden-x@svn.openmicroscopy.org.uk/home/svn/ome ome-server
 
 # -- Subversion repositories --
 
