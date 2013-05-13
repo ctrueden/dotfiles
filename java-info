@@ -1,27 +1,59 @@
-#/bin/sh
+#/bin/bash
 
 # java-info - spits out reminders about the zillion different locations
 #             where Java-relevant things are stashed on OS X.
 
 echo '=== Which versions of Apple Java are installed? ==='
-(set -x && ls -l /System/Library/Java/JavaVirtualMachines/)
+apple_jdks=$(find \
+  /System/Library/Java/JavaVirtualMachines \
+  /Library/Java/JavaVirtualMachines \
+  -type d -name '1*.jdk')
+for jdk in $apple_jdks
+do
+  echo
+  (set -x && $jdk/Contents/Home/bin/java -version)
+  du -hs $jdk
+done
 
 echo
 echo '=== Which non-Apple Javas (e.g., Oracle, OpenJDK) are installed? ==='
-(set -x && ls -l /Library/Java/JavaVirtualMachines/)
+other_jdks=$(find \
+  /System/Library/Java/JavaVirtualMachines \
+  /Library/Java/JavaVirtualMachines \
+  -type d -name 'jdk*.jdk')
+for jdk in $other_jdks
+do
+  echo
+  (set -x && $jdk/Contents/Home/bin/java -version)
+  du -hs $jdk
+done
 
 echo
 echo '=== Where is the Java framework stuff? ==='
+echo
 (set -x && ls -l /System/Library/Frameworks/JavaVM.framework/Versions/)
 
 echo
+echo '=== Which version is the Current JRE framework? ==='
+echo
+(set -x && /System/Library/Frameworks/JavaVM.framework/Versions/Current/Commands/java -version)
+
+echo
+echo '=== Which version is the Current JDK framework? ==='
+echo
+(set -x && /System/Library/Frameworks/JavaVM.framework/Versions/CurrentJDK/Commands/java -version)
+
+echo
 echo '=== Which java executable is in my path? ==='
+echo
 (set -x && which java)
 
 echo
 echo '=== And where do those symlinks go? ==='
+echo
 (which_java=$(which java) && set -x && ls -l $which_java*)
 
 echo
 echo '=== Tell me more about my Javas! ==='
+echo
 (set -x && /usr/libexec/java_home -V)
