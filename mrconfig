@@ -98,9 +98,6 @@ checkout = git clone git://github.com/Kitware/VTK
 [code/kitware/farsight]
 checkout = git clone git://github.com/hocheung20/farsight
 
-[code/kitware/scifio-imageio]
-checkout = git clone git://github.com/ctrueden/scifio-imageio
-
 [code/loci/4d-software-suite]
 checkout = git clone git://github.com/uw-loci/4d-software-suite
 
@@ -230,17 +227,14 @@ checkout = git clone git://github.com/maven-nar/maven-nar-plugin
 [code/nar/maven-nar.github.com]
 checkout = git clone git://github.com/maven-nar/maven-nar.github.com
 
+[code/ome/bioformats]
+checkout = git clone git://github.com/openmicroscopy/bioformats
+
 [code/ome/ome-documentation]
 checkout = git clone git://github.com/openmicroscopy/ome-documentation
 
 [code/ome/openmicroscopy]
 checkout = git clone git://github.com/openmicroscopy/openmicroscopy
-
-[code/ome/scifio]
-checkout = git clone git://github.com/openmicroscopy/bioformats
-
-[code/ome/scifio-devel]
-checkout = git clone git://github.com/openmicroscopy/bioformats
 
 [code/other/imagejs.github.com]
 checkout = git clone git://github.com/imagejs/imagejs.github.com
@@ -256,6 +250,12 @@ checkout = git clone git://github.com/pcpratts/rootbeer1
 
 [code/other/thredds]
 checkout = git clone git://github.com/Unidata/thredds
+
+[code/scifio/scifio]
+checkout = git clone git://github.com/hinerm/bioformats
+
+[code/scifio/scifio-imageio]
+checkout = git clone git://github.com/ctrueden/scifio-imageio
 
 [code/scijava/native-lib-loader]
 checkout = git clone git://github.com/scijava/native-lib-loader

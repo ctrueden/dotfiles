@@ -105,15 +105,14 @@ export SCRIPTS_DIR="$CODE_DIR/ctrueden/ctr-scripts"
 export HOME_JAVA="$CODE_DIR/ctrueden/ctr-private/java"
 export LOCI_SOFTWARE="$CODE_DIR/loci"
 export LOCI_INTERNAL="$LOCI_SOFTWARE/internal"
-export SCIFIO="$CODE_DIR/ome/scifio"
+export SCIFIO_HOME="$CODE_DIR/scifio/scifio"
+export BF_HOME="$CODE_DIR/ome/bioformats"
 export IJ_HOME="$CODE_DIR/imagej/imagej"
 export IMGLIB_HOME="$CODE_DIR/imagej/imglib"
 export FIJI_HOME="$CODE_DIR/imagej/fiji"
 export SCIJAVA="$CODE_DIR/scijava/scijava-common"
 export CELLPROFILER_HOME="$CODE_DIR/cellprofiler/CellProfiler"
 export VISAD="$CODE_DIR/other/visad"
-export BF_CPP_DIR="$SCIFIO/components/scifio/cppwrap"
-export BF_ITK_DIR="$SCIFIO/components/native/bf-itk"
 
 # setup - OMERO
 export ICE_HOME=/usr/share/Ice-3.4.2
@@ -127,7 +126,7 @@ export PATH=\
 ~/bin:\
 $SCRIPTS_DIR:\
 $SCIJAVA/bin:\
-$SCIFIO/tools:\
+$BF_HOME/tools:\
 $FIJI_HOME/bin:\
 $OMERO_HOME/bin:\
 $PATH
@@ -150,7 +149,7 @@ if [ ! -e "$cpFile" ]; then
 fi
 export CP="$CP:`cat $cpFile`"
 
-for dir in $SCIFIO/components/*/utils
+for dir in $BF_HOME/components/*/utils
 do
   export CP="$CP:$dir"
 done
@@ -290,29 +289,26 @@ alias upd='cd ../../../../../../../../../../../../..'
 alias upe='cd ../../../../../../../../../../../../../..'
 alias upf='cd ../../../../../../../../../../../../../../..'
 alias go='cd $LOCI_SOFTWARE'
-alias goa='cd $SCIFIO/components/autogen/src'
-alias gobfcpp='cd $BF_CPP_DIR'
-alias gobfitk='cd $BF_ITK_DIR'
-alias goc='cd $SCIFIO/components/common/src/loci/common'
+alias goa='cd $BF_HOME/components/autogen/src'
+alias gobf='cd $BF_HOME'
+alias goc='cd $BF_HOME/components/common/src/loci/common'
 alias gocfg='cd $CONFIG_DIR'
 alias gocp='cd $CELLPROFILER_HOME'
 alias god='cd ~/data'
-alias gof='cd $SCIFIO/components/bio-formats/src/loci/formats'
+alias gof='cd $BF_HOME/components/bio-formats/src/loci/formats'
 alias gofi='cd $FIJI_HOME'
 alias goij='cd $IJ_HOME'
 alias goil='cd $IMGLIB_HOME'
 alias goitk='cd $ITK_HOME'
 alias goj2l='cd $LOCI_SOFTWARE/jar2lib/src/main/resources'
-alias gon='cd $SCIFIO/components/legacy/ome-notes/src/loci/ome/notes'
-alias goo='cd $SCIFIO/components/ome-plugins/src/loci/plugins/ome'
 alias goome='cd $OMERO_HOME'
-alias gop='cd $SCIFIO/components/loci-plugins/src/loci/plugins'
-alias gos='cd $SCIFIO'
+alias gop='cd $BF_HOME/components/loci-plugins/src/loci/plugins'
+alias gos='cd $SCIFIO_HOME'
 alias gosc='cd $SCRIPTS_DIR'
 alias gosj='cd $SCIJAVA'
 alias gov='cd $LOCI_SOFTWARE/visbio/src/main/java/loci/visbio'
 alias gow='cd $LOCI_INTERNAL/WiscScan'
-alias gox='cd $SCIFIO/components/ome-xml/src/ome/xml'
+alias gox='cd $BF_HOME/components/ome-xml/src/ome/xml'
 
 # useful aliases - machines
 alias dev='ssh dev'
