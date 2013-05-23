@@ -255,7 +255,10 @@ checkout = git clone git://github.com/Unidata/thredds
 checkout = git clone git://github.com/scifio/scifio
 
 [code/scifio/scifio-imageio]
-checkout = git clone git://github.com/ctrueden/scifio-imageio
+checkout = git clone git://github.com/scifio/scifio-imageio
+
+[code/scifio/scifio-itk-bridge]
+checkout = git clone git://github.com/scifio/scifio-itk-bridge
 
 [code/scijava/native-lib-loader]
 checkout = git clone git://github.com/scijava/native-lib-loader
