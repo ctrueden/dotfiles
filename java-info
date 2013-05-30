@@ -3,25 +3,12 @@
 # java-info - spits out reminders about the zillion different locations
 #             where Java-relevant things are stashed on OS X.
 
-echo '=== Which versions of Apple Java are installed? ==='
-apple_jdks=$(find \
+echo '=== Which versions of Java are installed? ==='
+jdks=$(find \
   /System/Library/Java/JavaVirtualMachines \
   /Library/Java/JavaVirtualMachines \
-  -type d -name '1*.jdk')
-for jdk in $apple_jdks
-do
-  echo
-  (set -x && $jdk/Contents/Home/bin/java -version)
-  du -hs $jdk
-done
-
-echo
-echo '=== Which non-Apple Javas (e.g., Oracle, OpenJDK) are installed? ==='
-other_jdks=$(find \
-  /System/Library/Java/JavaVirtualMachines \
-  /Library/Java/JavaVirtualMachines \
-  -type d -name 'jdk*.jdk')
-for jdk in $other_jdks
+  -type d -name '*.jdk')
+for jdk in $jdks
 do
   echo
   (set -x && $jdk/Contents/Home/bin/java -version)
