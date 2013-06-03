@@ -102,7 +102,7 @@ export CODE_DIR=~/code
 export CONFIG_DIR="$CODE_DIR/ctrueden/ctr-config"
 export SCRIPTS_DIR="$CODE_DIR/ctrueden/ctr-scripts"
 
-export HOME_JAVA="$CODE_DIR/ctrueden/ctr-private/java"
+export PRIVATE_JAVA="$CODE_DIR/ctrueden/ctr-private/java"
 export LOCI_SOFTWARE="$CODE_DIR/loci"
 export LOCI_INTERNAL="$LOCI_SOFTWARE/internal"
 export SCIFIO_HOME="$CODE_DIR/scifio/scifio"
@@ -136,8 +136,8 @@ $PATH
 unset CLASSPATH
 export CP=\
 ~/java:\
-$HOME_JAVA:\
-$HOME_JAVA/utils
+$PRIVATE_JAVA:\
+$PRIVATE_JAVA/utils
 
 cpFile="$HOME/.java-classpath"
 if [ ! -e "$cpFile" ]; then
