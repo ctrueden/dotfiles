@@ -111,6 +111,7 @@ export IJ_HOME="$CODE_DIR/imagej/imagej"
 export IMGLIB_HOME="$CODE_DIR/imagej/imglib"
 export FIJI_HOME="$CODE_DIR/imagej/fiji"
 export SCIJAVA="$CODE_DIR/scijava/scijava-common"
+export NAR_HOME="$CODE_DIR/nar/maven-nar-plugin"
 export CELLPROFILER_HOME="$CODE_DIR/cellprofiler/CellProfiler"
 export VISAD="$CODE_DIR/other/visad"
 
@@ -302,6 +303,7 @@ alias goil='cd $IMGLIB_HOME'
 alias goitk='cd $ITK_HOME'
 alias goj2l='cd $LOCI_SOFTWARE/jar2lib/src/main/resources'
 alias goome='cd $OMERO_HOME'
+alias gonar='cd $NAR_HOME'
 alias gop='cd $BF_HOME/components/loci-plugins/src/loci/plugins'
 alias gos='cd $SCIFIO_HOME'
 alias gosc='cd $SCRIPTS_DIR'
