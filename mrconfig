@@ -304,9 +304,6 @@ checkout = git clone git://public.kitware.com/KWStyle.git
 [code/loci/matlab-plugins-in-imagej]
 checkout = git clone git://code.imagej.net/matlab-plugins-in-imagej.git
 
-[code/other/condor]
-checkout = git clone http://condor-git.cs.wisc.edu/repos/condor.git
-
 [code/other/pixlib]
 checkout = git clone git://pixlib.git.sourceforge.net/gitroot/pixlib/pixlib
 
