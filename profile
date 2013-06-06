@@ -43,9 +43,13 @@ fi
 PS1=': ${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@${HOSTNAME}\[\033[00m\] \[\033[01;34m\]\w\[\033[00m\]\n'
 
 # include git completion
-if [ -f /etc/bash_completion.d/git ]; then
-  # Ubuntu Linux with bash completion ("sudo aptitude install bash-completion")
-  . /etc/bash_completion.d/git # necessary if /etc/bash_completion is missing
+if [ -f /etc/bash_completion.d/git-prompt ]; then
+  # newer Ubuntu Linux ("sudo aptitude install bash-completion")
+  . /etc/bash_completion.d/git-prompt # in case of no /etc/bash_completion
+  export GIT_COMPLETION=1
+elif [ -f /etc/bash_completion.d/git ]; then
+  # older Ubuntu Linux ("sudo aptitude install bash-completion")
+  . /etc/bash_completion.d/git # in case of no /etc/bash_completion
   export GIT_COMPLETION=1
 fi
 if [ -f "$BREW/etc/bash_completion.d/git-completion.bash" ]; then
