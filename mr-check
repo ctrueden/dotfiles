@@ -4,6 +4,9 @@
 
 use strict;
 
+# Change this folder to the subdirectory where you keep your source code.
+my $codeFolder = 'code';
+
 my $home = $ENV{'HOME'};
 open MRCONFIG, "$home/.mrconfig" or die $!;
 my @lines = <MRCONFIG>;
@@ -42,4 +45,15 @@ for my $dir (keys %repos) {
 		$errors++;
 	}
 }
+
+# check actual repositories beneath code folder against .mrconfig entries
+my @actualRepos = `find "$home/$codeFolder" -name '.git' -type d`;
+for my $actualRepo (@actualRepos) {
+	chop $actualRepo;
+	$actualRepo =~ s/^$home\/(.*)\/\.git$/\1/;
+	if (not defined $repos{$actualRepo}) {
+		print "[WARNING] $actualRepo: not in .mrconfig\n";
+	}
+}
+
 exit $errors;
