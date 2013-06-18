@@ -68,6 +68,9 @@ checkout = git clone git://github.com/fiji/ImageJA imageja
 [code/imagej/imglib]
 checkout = git clone git://github.com/imagej/imglib
 
+[code/imagej/irc-bot]
+checkout = git clone git://github.com/imagej/irc-bot
+
 [code/imagej/spimviewer]
 checkout = git clone git://github.com/tpietzsch/spimviewer
 
