@@ -99,7 +99,7 @@ export FIGNORE=.svn
 set -o vi
 
 # setup - Maven
-export MAVEN_OPTS=-Xmx1536m
+export MAVEN_OPTS="-Xmx1536m -XX:MaxPermSize=256m"
 
 # useful dirs
 export CODE_DIR=~/code
