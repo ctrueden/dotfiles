@@ -59,6 +59,12 @@ checkout = git clone git://github.com/imagej/imagej-launcher
 [code/imagej/imagej-maven-plugin]
 checkout = git clone git://github.com/imagej/imagej-maven-plugin
 
+[code/imagej/imagej-omero]
+checkout = git clone git://github.com/imagej/imagej-omero
+
+[code/imagej/imagej-server]
+checkout = git clone git://github.com/imagej/imagej-server
+
 [code/imagej/imagej-tutorials]
 checkout = git clone git://github.com/imagej/imagej-tutorials
 
