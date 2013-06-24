@@ -170,6 +170,9 @@ if [ "$IS_LINUX" ]; then
 else
   alias ls='ls -AFG'
 fi
+if [ "$IS_MACOSX" ]; then
+  export LSCOLORS="ExGxBxDxCxEgEdxbxgxcxd"
+fi
 
 # setup - diff
 alias diff='git diff --no-index'
