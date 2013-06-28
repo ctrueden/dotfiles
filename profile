@@ -103,10 +103,11 @@ export MAVEN_OPTS="-Xmx1536m -XX:MaxPermSize=256m"
 
 # useful dirs
 export CODE_DIR=~/code
-export CONFIG_DIR="$CODE_DIR/ctrueden/ctr-config"
-export SCRIPTS_DIR="$CODE_DIR/ctrueden/ctr-scripts"
+export PERSONAL_DIR="$CODE_DIR/ctrueden"
+export CONFIG_DIR="$PERSONAL_DIR/ctr-config"
+export SCRIPTS_DIR="$PERSONAL_DIR/ctr-scripts"
 
-export PRIVATE_JAVA="$CODE_DIR/ctrueden/ctr-private/java"
+export PRIVATE_JAVA="$PERSONAL_DIR/ctr-private/java"
 export LOCI_SOFTWARE="$CODE_DIR/loci"
 export LOCI_INTERNAL="$LOCI_SOFTWARE/internal"
 export SCIFIO_HOME="$CODE_DIR/scifio/scifio"
@@ -302,6 +303,7 @@ alias gobf='cd $BF_HOME'
 alias goc='cd $BF_HOME/components/common/src/loci/common'
 alias gocfg='cd $CONFIG_DIR'
 alias gocp='cd $CELLPROFILER_HOME'
+alias goctr='cd $PERSONAL_DIR'
 alias god='cd ~/data'
 alias gof='cd $BF_HOME/components/bio-formats/src/loci/formats'
 alias gofi='cd $FIJI_HOME'
