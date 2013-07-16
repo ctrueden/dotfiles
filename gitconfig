@@ -20,7 +20,7 @@
 	follow = log --name-status --follow
 	graph = log --date-order --graph --decorate --oneline
 	lns = log --name-status
-	ff = merge 'HEAD@{u}'
+	ff = merge --ff 'HEAD@{u}'
 	move = mv
 	ren = mv
 	rename = mv
@@ -39,6 +39,8 @@
 	spop = !git checkout 'stash^{tree}' -- . && git stash drop
 [diff]
 	color = auto
+[merge]
+	ff = false
 [push]
 	default = upstream
 [ui]
