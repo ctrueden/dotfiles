@@ -255,9 +255,6 @@ checkout = git clone git://github.com/openmicroscopy/openmicroscopy
 [code/other/imagejs.github.com]
 checkout = git clone git://github.com/imagejs/imagejs.github.com
 
-[code/other/labis]
-checkout = git clone git://labinfsyst.git.sourceforge.net/gitroot/labinfsyst/labinfsyst labis
-
 [code/other/object-inspector]
 checkout = git clone git://github.com/sbridges/object-inspector
 
@@ -317,6 +314,13 @@ checkout = git clone git://public.kitware.com/KWStyle.git
 [code/loci/matlab-plugins-in-imagej]
 checkout = git clone git://code.imagej.net/matlab-plugins-in-imagej.git
 
+[code/ome/ome-server]
+checkout = git clone git://dev.loci.wisc.edu/ome-server.git
+#checkout = git svn clone --authors-file="$SVN_AUTHORS" -s svn+ssh://crueden-x@svn.openmicroscopy.org.uk/home/svn/ome ome-server
+
+[code/other/labis]
+checkout = git clone git://labinfsyst.git.sourceforge.net/gitroot/labinfsyst/labinfsyst labis
+
 [code/other/pixlib]
 checkout = git clone git://pixlib.git.sourceforge.net/gitroot/pixlib/pixlib
 
@@ -339,12 +343,6 @@ checkout = hg clone https://code.google.com/p/jace/
 
 [code/other/xdma]
 checkout = hg clone http://biodev.ece.ucsb.edu/hg/xdma xdma
-
-# -- Git-SVN repositories --
-
-[code/ome/ome-server]
-checkout = git clone git://dev.loci.wisc.edu/ome-server.git
-#checkout = git svn clone --authors-file="$SVN_AUTHORS" -s svn+ssh://crueden-x@svn.openmicroscopy.org.uk/home/svn/ome ome-server
 
 # -- Subversion repositories --
 
