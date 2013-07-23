@@ -39,8 +39,6 @@
 	spop = !git checkout 'stash^{tree}' -- . && git stash drop
 [diff]
 	color = auto
-[merge]
-	ff = false
 [push]
 	default = upstream
 [ui]
