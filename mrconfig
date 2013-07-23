@@ -5,6 +5,7 @@
 [DEFAULT]
 include = if [ -d /Users/curtis/brew/Cellar/mr/1.02 ]; then cat /Users/curtis/brew/Cellar/mr/1.02/share/mr/git-svn; fi
 git_svn_update = git svn rebase
+git_update = git fetch --all && git fetch --tags && git merge --ff 'HEAD@{u}'
 
 # -- Public repositories on GitHub --
 
