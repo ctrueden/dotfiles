@@ -1,6 +1,7 @@
 [alias]
 	br = branch
 	co = checkout
+	cm = cherry -v master
 	cp = cherry-pick
 	cpo = cherry-pick --strategy=recursive --strategy-option=ours
 	cpt = cherry-pick --strategy=recursive --strategy-option=theirs
