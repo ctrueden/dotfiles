@@ -273,6 +273,15 @@ else
   alias hex='ghex2'
 fi
 
+# useful aliases - Fiji
+if [ "$IS_MACOSX" ]; then
+  alias fiji='/Applications/Science/Fiji.app/Contents/MacOS/ImageJ-macosx'
+elif [ "$IS_WINDOWS" ]; then
+  alias fiji='$HOME/Applications/Fiji.app/ImageJ-win64'
+else
+  alias fiji='$HOME/Applications/Fiji.app/ImageJ-linux64'
+fi
+
 # useful aliases - Maven
 if [ -d "$BREW/Cellar/maven2" ]; then
   alias mvn2="$BREW/Cellar/maven2/2.2.1/bin/mvn"
