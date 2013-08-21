@@ -27,7 +27,7 @@ fi
 # don't put duplicate lines in the history. See bash(1) for more options
 #export HISTCONTROL=ignoredups
 
-export BREW=~/brew
+export BREW="$HOME/brew"
 
 # programmatic completion features
 if [ -f /etc/bash_completion ]; then
@@ -108,7 +108,7 @@ set -o vi
 export MAVEN_OPTS="-Xmx1536m -XX:MaxPermSize=256m"
 
 # useful dirs
-export CODE_DIR=~/code
+export CODE_DIR="$HOME/code"
 export PERSONAL_DIR="$CODE_DIR/ctrueden"
 export CONFIG_DIR="$PERSONAL_DIR/ctr-config"
 export SCRIPTS_DIR="$PERSONAL_DIR/ctr-scripts"
@@ -135,7 +135,7 @@ export LD_LIBRARY_PATH=/usr/share/java:/usr/lib:$LD_LIBRARY_PATH
 
 # setup - path
 export PATH=\
-~/bin:\
+$HOME/bin:\
 $SCRIPTS_DIR:\
 $SCIJAVA/bin:\
 $BF_HOME/tools:\
@@ -146,7 +146,7 @@ $PATH
 # setup - Java classpath
 unset CLASSPATH
 export CP=\
-~/java:\
+$HOME/java:\
 $PRIVATE_JAVA:\
 $PRIVATE_JAVA/utils
 
@@ -196,8 +196,8 @@ SVN_AUTHORS="$CONFIG_DIR/authors.txt"
 export LESS=' -R '
 if [ -d /usr/share/source-highlight ]; then
   export LESSOPEN="| /usr/share/source-highlight/src-hilite-lesspipe.sh %s"
-elif [ -d ~/brew/Cellar/source-highlight ]; then
-  export LESSOPEN="| ~/brew/Cellar/source-highlight/*/bin/src-hilite-lesspipe.sh %s"
+elif [ -d $HOME/brew/Cellar/source-highlight ]; then
+  export LESSOPEN="| $HOME/brew/Cellar/source-highlight/*/bin/src-hilite-lesspipe.sh %s"
 fi
 
 # setup - xmllint
@@ -208,7 +208,7 @@ command -v hub >/dev/null 2>&1 && \
   alias git='hub'
 
 # setup - ITK
-export ITK_HOME=~/code/kitware/ITK
+export ITK_HOME="$HOME/code/kitware/ITK"
 
 # useful functions
 where() { find . -name $* | grep -v 'build/'; }
@@ -292,7 +292,7 @@ alias slim='j -mx512m loci.slim.SlimPlotter'
 alias visbio='j -mx1024m -Dswing.defaultlaf=com.jgoodies.looks.plastic.Plastic3DLookAndFeel loci.visbio.VisBio'
 
 # useful aliases - navigation
-alias asdf='cd ~ && clear'
+alias asdf='cd $HOME && clear'
 alias up='cd ..'
 alias up2='cd ../..'
 alias up3='cd ../../..'
@@ -315,7 +315,7 @@ alias goc='cd $BF_HOME/components/common/src/loci/common'
 alias gocfg='cd $CONFIG_DIR'
 alias gocp='cd $CELLPROFILER_HOME'
 alias goctr='cd $PERSONAL_DIR'
-alias god='cd ~/data'
+alias god='cd $HOME/data'
 alias gof='cd $BF_HOME/components/bio-formats/src/loci/formats'
 alias gofi='cd $FIJI_HOME'
 alias goij='cd $IJ_HOME'
