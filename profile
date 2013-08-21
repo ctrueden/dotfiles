@@ -33,6 +33,12 @@ export BREW=~/brew
 if [ -f /etc/bash_completion ]; then
   # Ubuntu Linux
   . /etc/bash_completion
+
+	# NB: Workaround for environment variable expansion bug in bash 4.2+.
+	# See: http://askubuntu.com/q/41891
+	if ((BASH_VERSINFO[0] >= 4)) && ((BASH_VERSINFO[1] >= 2))
+			then shopt -s direxpand
+	fi
 fi
 if [ -f "$BREW/etc/bash_completion" ]; then
   # Mac OS X with Homebrew ("brew install bash-completion")
