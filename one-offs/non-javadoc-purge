@@ -12,6 +12,8 @@
 
 use strict;
 
+use constant DEBUG => 0;
+
 foreach my $arg (@ARGV) {
 	process($arg);
 }
@@ -36,11 +38,11 @@ sub process($) {
 		}
 		if (not $comment) {
 			# line outside comment; append to output
-			print "Non-comment: $line";
+			if (DEBUG) { print "Non-comment: $line"; }
 			push(@out, $line);
 			next;
 		}
-		print "    Comment: $line";
+		if (DEBUG) { print "    Comment: $line"; }
 		# line inside comment; append to comment buffer
 		push(@buffer, $line);
 		if ($comment && $line =~ /\* \@see /) {
