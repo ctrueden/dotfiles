@@ -210,6 +210,9 @@ command -v hub >/dev/null 2>&1 && \
 # setup - ITK
 export ITK_HOME="$HOME/code/kitware/ITK"
 
+# setup - Python sphinx
+export SPHINXOPTS=-W
+
 # useful functions
 where() { find . -name $* | grep -v 'build/'; }
 goto() { cd $(dirname $(where $*)); }
