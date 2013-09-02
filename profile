@@ -27,7 +27,7 @@ fi
 # don't put duplicate lines in the history. See bash(1) for more options
 #export HISTCONTROL=ignoredups
 
-export BREW="$HOME/brew"
+export BREW="/usr/local"
 
 # programmatic completion features
 if [ -f /etc/bash_completion ]; then
