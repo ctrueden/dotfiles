@@ -167,11 +167,6 @@ do
 done
 
 # setup - Homebrew
-if [ -d "$BREW/share/python" ]; then
-  # HACK: workaround for Mercurial being installed to the wrong place.
-  # See: https://github.com/mxcl/homebrew/issues/20620
-  export PATH="$BREW/share/python:$PATH"
-fi
 if [ -d "$BREW/bin" ]; then
   export PATH="$BREW/bin:$PATH"
 fi
