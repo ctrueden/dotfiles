@@ -168,7 +168,7 @@ done
 
 # setup - Homebrew
 if [ -d "$BREW/bin" ]; then
-  export PATH="$BREW/bin:$PATH"
+  export PATH="$BREW/bin:$BREW/sbin:$PATH"
 fi
 
 # setup - ls
