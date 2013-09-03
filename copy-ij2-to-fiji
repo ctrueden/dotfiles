@@ -1,0 +1,40 @@
+#!/bin/sh
+
+# Updates a Fiji installation to use the newest
+# available SNAPSHOT builds of ImageJ2 and ImgLib2.
+
+# You will need to "mvn clean install" in your local
+# imagej.git and imglib.git clones first.
+
+# You will also need to "touch" any new JAR files that
+# need to copied from the local Maven repository cache.
+
+# Warning: this is a VERY hacky script. Caveat emptor.
+
+fiji_dir=$HOME/apps/fiji
+
+ij_prefix=$HOME/.m2/repository/net/imagej
+for f in "$fiji_dir"/jars/ij-[a-z]*
+do
+	file="$(basename $f)"
+	artifact="$(echo "$file" | sed 's/-[0-9].*//')"
+	version="$(ls $ij_prefix/$artifact/ | \
+		grep SNAPSHOT | sort -V | tail -n 1)"
+	echo "$artifact: $file -> $version"
+	rm $f
+	cp "$ij_prefix/$artifact/$version/$artifact-$version".[jn]ar \
+		"$fiji_dir/jars/$artifact-$version.jar"
+done
+
+imglib2_prefix=$HOME/.m2/repository/net/imglib2
+for f in "$fiji_dir"/jars/imglib2*
+do
+	file="$(basename $f)"
+	artifact="$(echo "$file" | sed 's/-[0-9].*//')"
+	version="$(ls $imglib2_prefix/$artifact/ | \
+		grep SNAPSHOT | sort -V | tail -n 1)"
+	echo "$artifact: $file -> $version"
+	rm $f
+	cp "$imglib2_prefix/$artifact/$version/$artifact-$version".[jn]ar \
+		"$fiji_dir/jars/$artifact-$version.jar"
+done
