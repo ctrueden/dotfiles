@@ -325,13 +325,13 @@ checkout = git clone git://dev.loci.wisc.edu/ome-server.git
 #checkout = git svn clone --authors-file="$SVN_AUTHORS" -s svn+ssh://crueden-x@svn.openmicroscopy.org.uk/home/svn/ome ome-server
 
 [code/other/labis]
-checkout = git clone git://labinfsyst.git.sourceforge.net/gitroot/labinfsyst/labinfsyst labis
+checkout = git clone git://git.code.sf.net/p/labinfsyst/code labis
 
 [code/other/pixlib]
-checkout = git clone git://pixlib.git.sourceforge.net/gitroot/pixlib/pixlib
+checkout = git clone git://git.code.sf.net/p/pixlib/code pixlib
 
 [code/other/waterloo]
-checkout = git clone git://git.code.sf.net/p/waterloo/code waterloo
+checkout = git clone git://git.code.sf.net/p/waterloo/beta waterloo
 
 # -- Mercurial repositories --
 
