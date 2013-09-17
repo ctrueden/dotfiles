@@ -267,6 +267,9 @@ checkout = git clone git://github.com/pcpratts/rootbeer1
 [code/other/thredds]
 checkout = git clone git://github.com/Unidata/thredds
 
+[code/scifio/ome-formats]
+checkout = git clone git://github.com/scifio/ome-formats
+
 [code/scifio/scifio]
 checkout = git clone git://github.com/scifio/scifio
 
