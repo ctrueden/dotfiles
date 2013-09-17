@@ -20,8 +20,8 @@ set ruler
 set backspace=indent,eol,start
 
 " Use smart indenting
-set autoindent
-set smartindent
+set cindent
+" set smartindent "" NB: 'smartindent' is actually not very smart.
 
 " Use two spaces for indentation, and eschew tabs
 set expandtab
