@@ -282,6 +282,9 @@ checkout = git clone git://github.com/scifio/scifio-imageio
 [code/scifio/scifio-itk-bridge]
 checkout = git clone git://github.com/scifio/scifio-itk-bridge
 
+[code/scifio/scifio-tutorials]
+checkout = git clone git://github.com/scifio/scifio-tutorials
+
 [code/scijava/native-lib-loader]
 checkout = git clone git://github.com/scijava/native-lib-loader
 
