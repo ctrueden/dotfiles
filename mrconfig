@@ -39,6 +39,9 @@ checkout = git clone git://github.com/ctrueden/ucar-units
 [code/ctrueden/web-toys]
 checkout = git clone git://github.com/ctrueden/web-toys
 
+[code/imagej/TrakEM2]
+checkout = git clone git://github.com/fiji/TrakEM2
+
 [code/imagej/active-cells-ij2]
 checkout = git clone git://github.com/RicardDelgado/active-cells-ij2
 
@@ -53,6 +56,9 @@ checkout = git clone git://github.com/imagej/ij1-tests
 
 [code/imagej/image5d]
 checkout = git clone git://github.com/imagej/image5d
+
+[code/imagej/imagej1]
+checkout = git clone git://github.com/fiji/imagej1
 
 [code/imagej/imagej]
 checkout = git clone git://github.com/imagej/imagej
@@ -117,8 +123,26 @@ checkout = git clone git://github.com/Kitware/VTK
 [code/kitware/farsight]
 checkout = git clone git://github.com/hocheung20/farsight
 
+[code/knime/knip]
+checkout = git clone git://github.com/knime-ip/knip
+
+[code/knime/knip-imagej2]
+checkout = git clone git://github.com/knime-ip/knip-imagej2
+
+[code/knime/knip-tess4j]
+checkout = git clone git://github.com/knime-ip/knip-tess4j
+
+[code/knime/knip-vtk]
+checkout = git clone git://github.com/knime-ip/knip-vtk
+
+[code/knime/util]
+checkout = git clone git://github.com/knime-ip/util
+
 [code/loci/4d-software-suite]
 checkout = git clone git://github.com/uw-loci/4d-software-suite
+
+[code/loci/SETI]
+checkout = git clone git://github.com/uw-loci/SETI
 
 [code/loci/adaptive-gridding]
 checkout = git clone git://github.com/uw-loci/adaptive-gridding
@@ -207,6 +231,9 @@ checkout = git clone git://github.com/uw-loci/prairie-ome-tiff
 [code/loci/slim-curve]
 checkout = git clone git://github.com/uw-loci/slim-curve
 
+[code/loci/slim-curve-java]
+checkout = git clone git://github.com/uw-loci/slim-curve-java
+
 [code/loci/slim-plotter]
 checkout = git clone git://github.com/uw-loci/slim-plotter
 
@@ -218,6 +245,9 @@ checkout = git clone git://github.com/uw-loci/visbio
 
 [code/loci/visbio-imagej]
 checkout = git clone git://github.com/uw-loci/visbio-imagej
+
+[code/loci/wavefrontRSA]
+checkout = git clone git://github.com/uw-loci/wavefrontRSA
 
 [code/loci/wid-3dniche]
 checkout = git clone git://github.com/uw-loci/wid-3dniche
@@ -264,6 +294,9 @@ checkout = git clone git://github.com/sbridges/object-inspector
 [code/other/rootbeer1]
 checkout = git clone git://github.com/pcpratts/rootbeer1
 
+[code/other/sezpoz]
+checkout = git clone git://github.com/jglick/sezpoz
+
 [code/other/thredds]
 checkout = git clone git://github.com/Unidata/thredds
 
@@ -281,6 +314,12 @@ checkout = git clone git://github.com/scifio/scifio-imageio
 
 [code/scifio/scifio-itk-bridge]
 checkout = git clone git://github.com/scifio/scifio-itk-bridge
+
+[code/scifio/scifio-jai-imageio-core]
+checkout = git clone git://github.com/scifio/scifio-jai-imageio-core
+
+[code/scifio/scifio-omero]
+checkout = git clone git://github.com/scifio/scifio-omero
 
 [code/scifio/scifio-tutorials]
 checkout = git clone git://github.com/scifio/scifio-tutorials
@@ -311,12 +350,8 @@ checkout = git clone git://fiji.sc/jhotdraw.git
 [code/other/mipav]
 checkout = git clone git://fiji.sc/mipav.git
 
-[code/other/sezpoz]
-checkout = git clone git://fiji.sc/sezpoz/.git
-
 [code/other/vaa3d]
 checkout = git clone git://fiji.sc/vaa3d.git
-
 
 # -- Other Git repositories --
 
