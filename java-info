@@ -31,9 +31,9 @@ echo
 (set -x && /System/Library/Frameworks/JavaVM.framework/Versions/CurrentJDK/Commands/java -version)
 
 echo
-echo '=== Which java executable is in my path? ==='
+echo '=== Which java executables are in my path? ==='
 echo
-(set -x && which java)
+(set -x && which java javac)
 
 echo
 echo '=== And where do those symlinks go? ==='
