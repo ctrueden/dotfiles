@@ -122,7 +122,7 @@ export IJ_HOME="$CODE_DIR/imagej/imagej"
 export IMGLIB_HOME="$CODE_DIR/imagej/imglib"
 export FIJI_HOME="$CODE_DIR/imagej/fiji"
 export SCIJAVA="$CODE_DIR/scijava/scijava-common"
-export NAR_HOME="$CODE_DIR/nar/maven-nar-plugin"
+export NAR_HOME="$CODE_DIR/nar/nar-maven-plugin"
 export CELLPROFILER_HOME="$CODE_DIR/cellprofiler/CellProfiler"
 export VISAD="$CODE_DIR/other/visad"
 
