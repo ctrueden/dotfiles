@@ -7,7 +7,7 @@ echo '=== Which versions of Java are installed? ==='
 jdks=$(find \
   /System/Library/Java/JavaVirtualMachines \
   /Library/Java/JavaVirtualMachines \
-  -type d -name '*.jdk')
+  -type d -name '*.jdk' 2> /dev/null)
 for jdk in $jdks
 do
   echo
