@@ -179,7 +179,7 @@ else
   alias ls='ls -AFG'
 fi
 if [ "$IS_MACOSX" ]; then
-  export LSCOLORS="ExGxBxDxCxEgEdxbxgxcxd"
+  export LSCOLORS="ExGxBxDxCxEgedabagacad"
 fi
 
 # setup - diff
