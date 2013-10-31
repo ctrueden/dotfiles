@@ -175,6 +175,7 @@ fi
 # setup - ls
 if [ "$IS_LINUX" ]; then
   alias ls='ls -AF --color=auto'
+  export LS_COLORS="ow=30;42"
 else
   alias ls='ls -AFG'
 fi
