@@ -6,6 +6,7 @@
 include = if [ -d /Users/curtis/brew/Cellar/mr/1.02 ]; then cat /Users/curtis/brew/Cellar/mr/1.02/share/mr/git-svn; fi
 git_svn_update = git svn rebase
 git_update = git remote update --prune && git fetch --tags && git merge --ff 'HEAD@{u}'
+hg_update = hg pull --insecure "$@"; hg update "$@"
 
 # -- Public repositories on GitHub --
 
@@ -383,19 +384,19 @@ checkout = git clone git://git.code.sf.net/p/waterloo/beta waterloo
 # -- Mercurial repositories --
 
 [code/leonardo/amino]
-checkout = hg clone https://amino.leonardosketch.googlecode.com/hg/ amino
+checkout = hg clone --insecure https://amino.leonardosketch.googlecode.com/hg/ amino
 
 [code/leonardo/leonardosketch]
-checkout = hg clone https://leonardosketch.googlecode.com/hg/ leonardosketch
+checkout = hg clone --insecure https://leonardosketch.googlecode.com/hg/ leonardosketch
 
 [code/other/bisque]
-checkout = hg clone http://biodev.ece.ucsb.edu/hg/bisquik-stable bisque
+checkout = hg clone --insecure http://biodev.ece.ucsb.edu/hg/bisquik-stable bisque
 
 [code/other/jace]
-checkout = hg clone https://code.google.com/p/jace/
+checkout = hg clone --insecure https://code.google.com/p/jace/
 
 [code/other/xdma]
-checkout = hg clone http://biodev.ece.ucsb.edu/hg/xdma xdma
+checkout = hg clone --insecure http://biodev.ece.ucsb.edu/hg/xdma xdma
 
 # -- Subversion repositories --
 
