@@ -148,7 +148,7 @@ $PATH
 
 # setup - Java classpath
 unset CLASSPATH
-export CP=\
+export JAVA_CP=\
 $HOME/java:\
 $PRIVATE_JAVA:\
 $PRIVATE_JAVA/utils
@@ -162,11 +162,11 @@ if [ ! -e "$cpFile" ]; then
     loci:utils:1.0.0-SNAPSHOT \
     org.beanshell:bsh:2.0b4 > $cpFile
 fi
-export CP="$CP:`cat $cpFile`"
+export JAVA_CP="$JAVA_CP:`cat $cpFile`"
 
 for dir in $BF_HOME/components/*/utils
 do
-  export CP="$CP:$dir"
+  export JAVA_CP="$JAVA_CP:$dir"
 done
 
 # setup - Homebrew
@@ -217,8 +217,8 @@ where() { find . -name $* | grep -v 'build/'; }
 goto() { cd $(dirname $(where $*)); }
 
 # useful aliases - Java
-alias j='java -cp $CP:.'
-alias jc='javac -cp $CP:.'
+alias j='java -cp $JAVA_CP:.'
+alias jc='javac -cp $JAVA_CP:.'
 
 # useful aliases - git
 alias giot='git'
