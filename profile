@@ -92,6 +92,9 @@ fi
 export CVS_RSH=ssh
 export EDITOR=vim
 export VISUAL="$EDITOR"
+# do not autocomplete .svn folders
+export FIGNORE=.svn
+
 alias viq="vi \
   +'set tw=72' \
   +'normal! \"+p' \
@@ -100,8 +103,6 @@ alias viq="vi \
   +'normal! 1GVGgq1G\"+yG'"
 
 # setup - bash
-# do not autocomplete .svn folders
-export FIGNORE=.svn
 # use vi commands for advanced editing (hit ESC to enter command mode)
 set -o vi
 
