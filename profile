@@ -118,60 +118,93 @@ export MAVEN_OPTS="-Xmx1536m -XX:MaxPermSize=256m"
 
 # --== source code directories ==--
 
+# base directory for all projects
 export CODE_DIR="$HOME/code"
-export PERSONAL_DIR="$CODE_DIR/ctrueden"
-export CONFIG_DIR="$PERSONAL_DIR/ctr-config"
-export SCRIPTS_DIR="$PERSONAL_DIR/ctr-scripts"
-export PRIVATE_JAVA="$PERSONAL_DIR/ctr-private/java"
-export LOCI_SOFTWARE="$CODE_DIR/loci"
-export LOCI_INTERNAL="$LOCI_SOFTWARE/internal"
-export SCIFIO_HOME="$CODE_DIR/scifio/scifio"
-export BF_HOME="$CODE_DIR/ome/bioformats"
-export IJ_HOME="$CODE_DIR/imagej/imagej"
-export IMGLIB_HOME="$CODE_DIR/imagej/imglib"
-export ITK_HOME="$HOME/code/kitware/ITK"
-export FIJI_HOME="$CODE_DIR/imagej/fiji"
-export SCIJAVA="$CODE_DIR/scijava/scijava-common"
-export OPS_HOME="$CODE_DIR/scijava/scijava-ops"
-export NAR_HOME="$CODE_DIR/nar/nar-maven-plugin"
-export CELLPROFILER_HOME="$CODE_DIR/cellprofiler/CellProfiler"
-export VISAD="$CODE_DIR/other/visad"
 
-# navigation aliases for source code directories
-alias go='cd $LOCI_SOFTWARE'
-alias goa='cd $BF_HOME/components/autogen/src'
-alias gobf='cd $BF_HOME'
-alias goc='cd $BF_HOME/components/common/src/loci/common'
-alias gocfg='cd $CONFIG_DIR'
-alias gocp='cd $CELLPROFILER_HOME'
+# personal projects - https://github.com/ctrueden
+export PERSONAL_DIR="$CODE_DIR/ctrueden"
 alias goctr='cd $PERSONAL_DIR'
-alias god='cd $HOME/data'
-alias gof='cd $BF_HOME/components/bio-formats/src/loci/formats'
-alias gofi='cd $FIJI_HOME'
+
+# configuration files
+export CONFIG_DIR="$PERSONAL_DIR/ctr-config"
+alias gocfg='cd $CONFIG_DIR'
+
+# useful scripts
+export SCRIPTS_DIR="$PERSONAL_DIR/ctr-scripts"
+alias gosc='cd $SCRIPTS_DIR'
+
+# private projects
+export PRIVATE_JAVA="$PERSONAL_DIR/ctr-private/java"
+
+# LOCI projects - https://github.com/uw-loci
+export LOCI_SOFTWARE="$CODE_DIR/loci"
+alias go='cd $LOCI_SOFTWARE'
+alias goj2l='cd $LOCI_SOFTWARE/jar2lib/src/main/resources'
+alias gov='cd $LOCI_SOFTWARE/visbio/src/main/java/loci/visbio'
+
+# LOCI internal repository
+export LOCI_INTERNAL="$LOCI_SOFTWARE/internal"
+alias gow='cd $LOCI_INTERNAL/WiscScan'
+
+# SCIFIO - https://github.com/scifio
+export SCIFIO_HOME="$CODE_DIR/scifio/scifio"
+alias gos='cd $SCIFIO_HOME'
+alias goso='cd $SCIFIO_HOME/../scifio-omero'
+alias gost='cd $SCIFIO_HOME/../scifio-tutorials'
+
+# Bio-Formats - https://github.com/openmicroscopy/bioformats
+export BF_HOME="$CODE_DIR/ome/bioformats"
+alias gobf='cd $BF_HOME'
+alias gobfa='cd $BF_HOME/components/autogen/src'
+alias gobfc='cd $BF_HOME/components/common/src/loci/common'
+alias gobff='cd $BF_HOME/components/bio-formats/src/loci/formats'
+alias gobfp='cd $BF_HOME/components/loci-plugins/src/loci/plugins'
+alias gobfx='cd $BF_HOME/components/ome-xml/src/ome/xml'
+
+# ImageJ - https://github.com/imagej
+export IJ_HOME="$CODE_DIR/imagej/imagej"
 alias goij='cd $IJ_HOME'
 alias goij1='cd $IJ_HOME/../imageja'
 alias goijl='cd $IJ_HOME/../imagej-launcher'
 alias goijo='cd $IJ_HOME/../imagej-omero'
 alias goijs='cd $IJ_HOME/../imagej-server'
 alias goijt='cd $IJ_HOME/../imagej-tutorials'
+
+# ImgLib2 - https://github.com/imagej/imglib
+export IMGLIB_HOME="$CODE_DIR/imagej/imglib"
 alias goil='cd $IMGLIB_HOME'
+
+# ITK - https://github.com/Kitware/ITK
+export ITK_HOME="$HOME/code/kitware/ITK"
 alias goitk='cd $ITK_HOME'
-alias goj2l='cd $LOCI_SOFTWARE/jar2lib/src/main/resources'
-alias goome='cd $OMERO_HOME'
-alias goops='cd $OPS_HOME'
-alias gonar='cd $NAR_HOME'
-alias gop='cd $BF_HOME/components/loci-plugins/src/loci/plugins'
-alias gos='cd $SCIFIO_HOME'
-alias gosc='cd $SCRIPTS_DIR'
+
+# Fiji - https://github.com/fiji
+export FIJI_HOME="$CODE_DIR/imagej/fiji"
+alias gofi='cd $FIJI_HOME'
+
+# SciJava - https://github.com/scijava
+export SCIJAVA="$CODE_DIR/scijava/scijava-common"
 alias gosj='cd $SCIJAVA'
-alias goso='cd $SCIFIO_HOME/../scifio-omero'
-alias gost='cd $SCIFIO_HOME/../scifio-tutorials'
-alias gov='cd $LOCI_SOFTWARE/visbio/src/main/java/loci/visbio'
-alias gow='cd $LOCI_INTERNAL/WiscScan'
-alias gox='cd $BF_HOME/components/ome-xml/src/ome/xml'
-# --== other directories ==--
+
+# SciJava OPS - https://github.com/scijava/scijava-ops
+export OPS_HOME="$SCIJAVA/../scijava-ops"
+alias goops='cd $OPS_HOME'
+
+# NAR - https://github.com/maven-nar/nar-maven-plugin
+export NAR_HOME="$CODE_DIR/nar/nar-maven-plugin"
+alias gonar='cd $NAR_HOME'
+
+# CellProfiler - https://github.com/CellProfiler/CellProfiler
+export CELLPROFILER_HOME="$CODE_DIR/cellprofiler/CellProfiler"
+alias gocp='cd $CELLPROFILER_HOME'
+
+# VisAD
+export VISAD="$CODE_DIR/other/visad"
+
+# -- image data directories --
 
 export DATA="$HOME/share/data"
+alias god='cd $HOME/data'
 
 # --== OMERO ==--
 
@@ -182,6 +215,7 @@ if [ "$IS_LINUX" ]; then
 	export PYTHONPATH=/usr/lib/pymodules/python2.7:$PYTHONPATH
 	export LD_LIBRARY_PATH=/usr/share/java:/usr/lib:$LD_LIBRARY_PATH
 fi
+alias goome='cd $OMERO_HOME'
 
 # --== path ==--
 
