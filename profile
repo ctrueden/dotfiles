@@ -12,7 +12,7 @@ shopt -s checkwinsize
 
 # set variable identifying the chroot you work in (used in the prompt below)
 if [ -z "$debian_chroot" ] && [ -r /etc/debian_chroot ]; then
-  debian_chroot=$(cat /etc/debian_chroot)
+	debian_chroot=$(cat /etc/debian_chroot)
 fi
 
 # path to Homebrew (if installed)
@@ -21,36 +21,36 @@ export BREW="/usr/local"
 # --== bash completion ==--
 
 if [ -f /etc/bash_completion ]; then
-  # Ubuntu Linux
-  . /etc/bash_completion
+	# Ubuntu Linux
+	. /etc/bash_completion
 
-  # NB: Workaround for environment variable expansion bug in bash 4.2+.
-  # See: http://askubuntu.com/q/41891
-  if ((BASH_VERSINFO[0] >= 4)) && ((BASH_VERSINFO[1] >= 2))
-  then
-    shopt -s direxpand
-  fi
+	# NB: Workaround for environment variable expansion bug in bash 4.2+.
+	# See: http://askubuntu.com/q/41891
+	if ((BASH_VERSINFO[0] >= 4)) && ((BASH_VERSINFO[1] >= 2))
+	then
+		shopt -s direxpand
+	fi
 fi
 if [ -f "$BREW/etc/bash_completion" ]; then
-  # Mac OS X with Homebrew ("brew install bash-completion")
-  . "$BREW/etc/bash_completion"
+	# Mac OS X with Homebrew ("brew install bash-completion")
+	. "$BREW/etc/bash_completion"
 fi
 
 # --== git ==--
 
 # enable bash completion of git commands
 if [ -f /etc/bash_completion.d/git-prompt ]; then
-  # newer Ubuntu Linux ("sudo aptitude install bash-completion")
-  . /etc/bash_completion.d/git-prompt # in case of no /etc/bash_completion
-  export GIT_COMPLETION=1
+	# newer Ubuntu Linux ("sudo aptitude install bash-completion")
+	. /etc/bash_completion.d/git-prompt # in case of no /etc/bash_completion
+	export GIT_COMPLETION=1
 elif [ -f /etc/bash_completion.d/git ]; then
-  # older Ubuntu Linux ("sudo aptitude install bash-completion")
-  . /etc/bash_completion.d/git # in case of no /etc/bash_completion
-  export GIT_COMPLETION=1
+	# older Ubuntu Linux ("sudo aptitude install bash-completion")
+	. /etc/bash_completion.d/git # in case of no /etc/bash_completion
+	export GIT_COMPLETION=1
 fi
 if [ -f "$BREW/etc/bash_completion.d/git-completion.bash" ]; then
-  # Mac OS X with Homebrew ("brew install git bash-completion")
-  export GIT_COMPLETION=1
+	# Mac OS X with Homebrew ("brew install git bash-completion")
+	export GIT_COMPLETION=1
 fi
 
 # tell git-svn where to find SVN authors
@@ -67,10 +67,10 @@ alias gti='git'
 SHELL_PROMPT=': ${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@${HOSTNAME}\[\033[00m\] \[\033[01;34m\]\w'
 
 if [ "$GIT_COMPLETION" ]; then
-  # make shell prompt reflect current git status+branch
-  PS1="$SHELL_PROMPT"'\[\033[01;32m\]$(__git_ps1)\[\033[00m\]\n'
+	# make shell prompt reflect current git status+branch
+	PS1="$SHELL_PROMPT"'\[\033[01;32m\]$(__git_ps1)\[\033[00m\]\n'
 else
-  PS1="$SHELL_PROMPT"'\[\033[00m\]\n'
+	PS1="$SHELL_PROMPT"'\[\033[00m\]\n'
 fi
 
 # --== xterm ==--
@@ -78,22 +78,22 @@ fi
 alias xterm='xterm -geometry 80x60 -fg white -bg black'
 # update terminal title as appropriate
 case "$TERM" in
-  xterm*|rxvt*)
-    PROMPT_COMMAND='echo -ne "\033]0;${USER}@${HOSTNAME}: ${PWD/$HOME/~}\007"'
-    ;;
-  *)
-    ;;
+	xterm*|rxvt*)
+		PROMPT_COMMAND='echo -ne "\033]0;${USER}@${HOSTNAME}: ${PWD/$HOME/~}\007"'
+		;;
+	*)
+		;;
 esac
 
 # --== operating system (Darwin, Linux, etc.) ==--
 
 export OS_NAME=`uname`
 if [ "$OS_NAME" == "Darwin" ]; then
-  export IS_MACOSX=1
+	export IS_MACOSX=1
 elif [ "$OS_NAME" == "Linux" ]; then
-  export IS_LINUX=1
+	export IS_LINUX=1
 elif [ "${OS_NAME:0:6}" == 'CYGWIN' ]; then
-  export IS_WINDOWS=1
+	export IS_WINDOWS=1
 fi
 
 # --== CVS/SVN ==--
@@ -163,7 +163,7 @@ $PATH
 
 # prepend Homebrew bin directories to the path, if applicable
 if [ -d "$BREW/bin" ]; then
-  export PATH="$BREW/bin:$BREW/sbin:$PATH"
+	export PATH="$BREW/bin:$BREW/sbin:$PATH"
 fi
 
 # --== Java ==--
@@ -180,19 +180,19 @@ $PRIVATE_JAVA/utils
 # generate classpath for desired Maven artifacts
 cpFile="$HOME/.java-classpath"
 if [ ! -e "$cpFile" ]; then
-  # generate classpath cache
-  echo "Regenerating $cpFile"
-  maven-cp \
-    loci:bio-formats:4.5-SNAPSHOT \
-    loci:utils:1.0.0-SNAPSHOT \
-    org.beanshell:bsh:2.0b4 > $cpFile
+	# generate classpath cache
+	echo "Regenerating $cpFile"
+	maven-cp \
+		loci:bio-formats:4.5-SNAPSHOT \
+		loci:utils:1.0.0-SNAPSHOT \
+		org.beanshell:bsh:2.0b4 > $cpFile
 fi
 export JAVA_CP="$JAVA_CP:`cat $cpFile`"
 
 # add Bio-Formats utils folders to the classpath
 for dir in $BF_HOME/components/*/utils
 do
-  export JAVA_CP="$JAVA_CP:$dir"
+	export JAVA_CP="$JAVA_CP:$dir"
 done
 
 # add aliases for launching Java with the JAVA_CP classpath
@@ -203,13 +203,13 @@ alias jc='javac -cp $JAVA_CP:.'
 
 # use readable ls colors
 if [ "$IS_LINUX" ]; then
-  alias ls='ls -AF --color=auto'
-  export LS_COLORS="ow=30;42"
+	alias ls='ls -AF --color=auto'
+	export LS_COLORS="ow=30;42"
 else
-  alias ls='ls -AFG'
+	alias ls='ls -AFG'
 fi
 if [ "$IS_MACOSX" ]; then
-  export LSCOLORS="ExGxBxDxCxEgedabagacad"
+	export LSCOLORS="ExGxBxDxCxEgedabagacad"
 fi
 
 # --== diff ==--
@@ -222,9 +222,9 @@ alias diff='git diff --no-index'
 # enable syntax highlighting in less
 export LESS=' -R '
 if [ -d /usr/share/source-highlight ]; then
-  export LESSOPEN="| /usr/share/source-highlight/src-hilite-lesspipe.sh %s"
+	export LESSOPEN="| /usr/share/source-highlight/src-hilite-lesspipe.sh %s"
 elif [ -d $HOME/brew/Cellar/source-highlight ]; then
-  export LESSOPEN="| $HOME/brew/Cellar/source-highlight/*/bin/src-hilite-lesspipe.sh %s"
+	export LESSOPEN="| $HOME/brew/Cellar/source-highlight/*/bin/src-hilite-lesspipe.sh %s"
 fi
 
 # --== xmllint ==--
@@ -235,7 +235,7 @@ export XMLLINT_INDENT=$'\t'
 # --== hub (http://hub.github.com/) ==--
 
 command -v hub >/dev/null 2>&1 && \
-  alias git='hub'
+	alias git='hub'
 
 # --== Python sphinx ==--
 
@@ -251,11 +251,11 @@ goto() { cd $(dirname $(where $*)); }
 
 # viq - format the clipboard as an email quote
 alias viq="vi \
-  +'set tw=72' \
-  +'normal! \"+p' \
-  +':silent :1g/^$/d' \
-  +':silent :g/^/s//> /' \
-  +'normal! 1GVGgq1G\"+yG'"
+	+'set tw=72' \
+	+'normal! \"+p' \
+	+':silent :1g/^$/d' \
+	+':silent :g/^/s//> /' \
+	+'normal! 1GVGgq1G\"+yG'"
 
 # --== vim ==--
 alias vi='vim'
@@ -271,29 +271,29 @@ alias f='find . -name'
 # --== cygwin ==--
 
 if [ "$IS_WINDOWS" ]; then
-  alias clear='cmd /c cls'
+	alias clear='cmd /c cls'
 fi
 
 # --== start ==--
 
 # open a UI browser for the specified folder using 'start'
 if [ "$IS_MACOSX" ]; then
-  alias start='open'
+	alias start='open'
 elif [ "$IS_LINUX" ]; then
-  alias start='nautilus'
+	alias start='nautilus'
 elif [ "$IS_WINDOWS" ]; then
-  alias start='cmd /c start'
+	alias start='cmd /c start'
 fi
 
 # --== version reporting ==--
 
 # report details of the OS using 'ver'
 if [ "$IS_MACOSX" ]; then
-  alias version='sw_vers'
+	alias version='sw_vers'
 elif [ "$IS_WINDOWS" ]; then
-  alias version='ver'
+	alias version='ver'
 else
-  alias version='if [ -e /proc/version ]; then cat /proc/version; fi; if which lsb_release > /dev/null 2>&1; then lsb_release -a; fi; if [ -e /etc/redhat-release ]; then cat /etc/redhat-release; fi'
+	alias version='if [ -e /proc/version ]; then cat /proc/version; fi; if which lsb_release > /dev/null 2>&1; then lsb_release -a; fi; if [ -e /etc/redhat-release ]; then cat /etc/redhat-release; fi'
 fi
 
 # --== history ==--
@@ -303,46 +303,46 @@ alias histime='HISTTIMEFORMAT="%F %T " history'
 # --== ldd ==--
 
 if [ ! -x "`which ldd`" ]; then
-  # make 'ldd' work on OS X
-  alias ldd='otool -L'
+	# make 'ldd' work on OS X
+	alias ldd='otool -L'
 fi
 
 # --== hex editor ==--
 
 # open a graphical hex editor using 'hex'
 if [ "$IS_MACOSX" ]; then
-  alias hex='/Applications/Hex\ Fiend.app/Contents/MacOS/Hex\ Fiend'
+	alias hex='/Applications/Hex\ Fiend.app/Contents/MacOS/Hex\ Fiend'
 else
-  alias hex='ghex2'
+	alias hex='ghex2'
 fi
 
 # --== Fiji ==--
 
 # launch Fiji with 'fiji'
 if [ "$IS_MACOSX" ]; then
-  alias fiji='/Applications/Science/Fiji.app/Contents/MacOS/ImageJ-macosx'
+	alias fiji='/Applications/Science/Fiji.app/Contents/MacOS/ImageJ-macosx'
 elif [ "$IS_WINDOWS" ]; then
-  alias fiji='$HOME/Applications/Fiji.app/ImageJ-win64'
+	alias fiji='$HOME/Applications/Fiji.app/ImageJ-win64'
 else
-  alias fiji='$HOME/Applications/Fiji.app/ImageJ-linux64'
+	alias fiji='$HOME/Applications/Fiji.app/ImageJ-linux64'
 fi
 
 # --== Maven ==--
 
 # launch Maven 2.x with 'mvn2'
 if [ -d "$BREW/Cellar/maven2" ]; then
-  alias mvn2="$BREW/Cellar/maven2/2.2.1/bin/mvn"
+	alias mvn2="$BREW/Cellar/maven2/2.2.1/bin/mvn"
 fi
 
 # --== tab removal ==--
 
 # remove tabs from files using 'detab'
 if [ "$IS_MACOSX" ]; then
-  # BSD sed requires a space after -i argument
-  alias detab="sed -i '' -e 's/	/  /g'"
+	# BSD sed requires a space after -i argument
+	alias detab="sed -i '' -e 's/	/  /g'"
 else
-  # GNU sed requires no space after -i argument
-  alias detab="sed -i'' -e 's/	/  /g'"
+	# GNU sed requires no space after -i argument
+	alias detab="sed -i'' -e 's/	/  /g'"
 fi
 
 # --== LOCI apps ==--
