@@ -26,7 +26,9 @@ if [ -f /etc/bash_completion ]; then
 
 	# NB: Workaround for environment variable expansion bug in bash 4.2+.
 	# See: http://askubuntu.com/q/41891
-	if ((BASH_VERSINFO[0] >= 4)) && ((BASH_VERSINFO[1] >= 2))
+	if ((BASH_VERSINFO[0] >= 4)) && \
+		((BASH_VERSINFO[1] >= 2)) && \
+		((BASH_VERSINFO[2] >= 29))
 	then
 		shopt -s direxpand
 	fi
