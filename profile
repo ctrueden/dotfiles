@@ -95,6 +95,7 @@ export VISUAL="$EDITOR"
 # do not autocomplete .svn folders
 export FIGNORE=.svn
 
+# viq - format the clipboard as an email quote
 alias viq="vi \
   +'set tw=72' \
   +'normal! \"+p' \
