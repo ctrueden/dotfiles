@@ -128,6 +128,7 @@ export OPS_HOME="$CODE_DIR/scijava/scijava-ops"
 export NAR_HOME="$CODE_DIR/nar/nar-maven-plugin"
 export CELLPROFILER_HOME="$CODE_DIR/cellprofiler/CellProfiler"
 export VISAD="$CODE_DIR/other/visad"
+export DATA="$HOME/share/data"
 
 # setup - OMERO
 export OMERO_HOME="$CODE_DIR/ome/openmicroscopy/dist"
@@ -361,6 +362,3 @@ alias rook='ssh rook'
 alias server='ssh server'
 alias skynet='ssh skynet'
 alias tera='ssh tera'
-
-# setup - Bio-Formats
-export DATA=$HOME/share/data
