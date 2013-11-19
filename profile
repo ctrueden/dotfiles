@@ -334,16 +334,21 @@ if [ -d "$BREW/Cellar/maven2" ]; then
 	alias mvn2="$BREW/Cellar/maven2/2.2.1/bin/mvn"
 fi
 
+# --== sed ==--
+
+# make in-place sed editing consistent across OSes
+if [ "$IS_MACOSX" ]; then
+	# BSD sed requires a space after -i argument
+	alias sedi="sed -i ''"
+else
+	# GNU sed requires no space after -i argument
+	alias sedi="sed -i''"
+fi
+
 # --== tab removal ==--
 
 # remove tabs from files using 'detab'
-if [ "$IS_MACOSX" ]; then
-	# BSD sed requires a space after -i argument
-	alias detab="sed -i '' -e 's/	/  /g'"
-else
-	# GNU sed requires no space after -i argument
-	alias detab="sed -i'' -e 's/	/  /g'"
-fi
+alias detab="sedi -e 's/	/  /g'"
 
 # --== LOCI apps ==--
 
