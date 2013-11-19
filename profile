@@ -134,7 +134,8 @@ export SCRIPTS_DIR="$PERSONAL_DIR/ctr-scripts"
 alias gosc='cd $SCRIPTS_DIR'
 
 # private projects
-export PRIVATE_JAVA_DIR="$PERSONAL_DIR/ctr-private/java"
+export PRIVATE_DIR="$PERSONAL_DIR/ctr-private"
+alias gop='cd $PRIVATE_DIR'
 
 # LOCI projects - https://github.com/uw-loci
 export LOCI_DIR="$CODE_DIR/loci"
@@ -238,8 +239,8 @@ unset CLASSPATH
 # add some basic directories to the classpath
 export JAVA_CP=\
 $HOME/java:\
-$PRIVATE_JAVA_DIR:\
-$PRIVATE_JAVA_DIR/utils
+$PRIVATE_DIR/java:\
+$PRIVATE_DIR/java/utils
 
 # generate classpath for desired Maven artifacts
 cpFile="$HOME/.java-classpath"
