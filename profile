@@ -115,7 +115,6 @@ export CODE_DIR="$HOME/code"
 export PERSONAL_DIR="$CODE_DIR/ctrueden"
 export CONFIG_DIR="$PERSONAL_DIR/ctr-config"
 export SCRIPTS_DIR="$PERSONAL_DIR/ctr-scripts"
-
 export PRIVATE_JAVA="$PERSONAL_DIR/ctr-private/java"
 export LOCI_SOFTWARE="$CODE_DIR/loci"
 export LOCI_INTERNAL="$LOCI_SOFTWARE/internal"
