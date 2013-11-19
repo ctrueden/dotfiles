@@ -113,6 +113,7 @@ export FIGNORE=.svn
 set -o vi
 
 # --== Maven ==--
+
 export MAVEN_OPTS="-Xmx1536m -XX:MaxPermSize=256m"
 
 # --== source code directories ==--
