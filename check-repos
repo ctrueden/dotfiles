@@ -14,7 +14,7 @@ then
   exit 1
 fi
 
-find . -type d -depth 1 | \
+find . -maxdepth 1 -type d | \
   sed 's_^\./__' | \
   sort > cur.txt
 
