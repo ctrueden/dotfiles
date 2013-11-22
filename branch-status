@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 #
 # branch-status - scan for branches with unpushed commits
