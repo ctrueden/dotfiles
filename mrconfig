@@ -413,6 +413,9 @@ checkout = git clone git@bitbucket.org:ctrueden/ctr-config
 [code/ctrueden/ctr-private]
 checkout = git clone git@bitbucket.org:ctrueden/ctr-private
 
+[code/ctrueden/loci-cron]
+checkout = git clone git@bitbucket.org:ctrueden/loci-cron
+
 [code/ctrueden/logos]
 checkout = git clone git@bitbucket.org:ctrueden/logos
 
