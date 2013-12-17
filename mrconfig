@@ -81,17 +81,11 @@ checkout = git clone git://github.com/imagej/imagej-tutorials
 [code/imagej/imageja]
 checkout = git clone git://github.com/fiji/ImageJA imageja
 
-[code/imagej/imglib]
-checkout = git clone git://github.com/imagej/imglib
-
 [code/imagej/irc-bot]
 checkout = git clone git://github.com/imagej/irc-bot
 
 [code/imagej/minimal-ij1-plugin]
 checkout = git clone git://github.com/imagej/minimal-ij1-plugin
-
-[code/imagej/spimviewer]
-checkout = git clone git://github.com/tpietzsch/spimviewer
 
 [code/imagej/spring4ij2]
 checkout = git clone git://github.com/joshmoore/spring4ij2
@@ -107,6 +101,12 @@ checkout = git clone git://github.com/imagej/workflow-pipes
 
 [code/imagej/zoomviewer]
 checkout = git clone git://github.com/imagej/zoomviewer
+
+[code/imglib/imglib]
+checkout = git clone git://github.com/imglib/imglib
+
+[code/imglib/spimviewer]
+checkout = git clone git://github.com/tpietzsch/spimviewer
 
 [code/kitware/CMake]
 checkout = git clone git://github.com/Kitware/CMake
