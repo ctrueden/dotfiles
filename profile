@@ -367,6 +367,12 @@ fi
 
 alias histime='HISTTIMEFORMAT="%F %T " history'
 
+# --== eject ==--
+
+if [ "$IS_MACOSX" ]; then
+  alias eject='diskutil eject'
+fi
+
 # --== ldd ==--
 
 if [ ! -x "`which ldd`" ]; then
