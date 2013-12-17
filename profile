@@ -170,8 +170,8 @@ alias goijo='cd $IJ_DIR/../imagej-omero'
 alias goijs='cd $IJ_DIR/../imagej-server'
 alias goijt='cd $IJ_DIR/../imagej-tutorials'
 
-# ImgLib2 - https://github.com/imagej/imglib
-export IMGLIB_DIR="$CODE_DIR/imagej/imglib"
+# ImgLib2 - https://github.com/imglib/imglib
+export IMGLIB_DIR="$CODE_DIR/imglib/imglib"
 alias goil='cd $IMGLIB_DIR'
 
 # ITK - https://github.com/Kitware/ITK
