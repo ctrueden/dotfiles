@@ -4,7 +4,7 @@ files=`find . -name '*.jar'`
 for f in $files
 do
   result=`jar tf "$f" 2>&1`
-  if [ "${result:0:26}" == "java.util.zip.ZipException" ];
+  if [ "${result:0:26}" == "java.util.zip.ZipException" ]
   then
     echo $f: $result
   fi

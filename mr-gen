@@ -11,15 +11,15 @@ do (
 	name=$(basename "$dir")
 	echo [$dir]
 
-	if [ -e .git ];
+	if [ -e .git ]
 	then
 		remote=$(git remote -v | grep origin | grep fetch | sed -e 's/^origin	//' -e 's/ (fetch)//')
 		echo "checkout = git clone $remote"
-	elif [ -e .hg ];
+	elif [ -e .hg ]
 	then
 		repo=$(hg showconfig | grep ^paths.default | sed -e 's/paths.default=//')
 		echo "checkout = hg clone $repo $name"
-	elif [ -e .svn ];
+	elif [ -e .svn ]
 	then
 		repo=$(svn info | grep '^URL' | sed -e 's/URL: '//)
 		echo "checkout = svn checkout $repo $name"

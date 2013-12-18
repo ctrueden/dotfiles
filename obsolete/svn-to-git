@@ -14,7 +14,7 @@ SVN_PATH="$1"
 GIT_REPO="$2"
 #AUTHORS_FILE=$3
 
-if [ -z "$GIT_REPO" ];
+if [ -z "$GIT_REPO" ]
 then
   echo "Usage: svn-to-git http://path/to/svn git-repo"
   exit 1
