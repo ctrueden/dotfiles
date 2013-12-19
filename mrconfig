@@ -39,6 +39,9 @@ checkout = git clone git://github.com/ctrueden/ucar-units
 [code/ctrueden/web-toys]
 checkout = git clone git://github.com/ctrueden/web-toys
 
+[code/imagej/TrackMate]
+checkout = git clone git://github.com/fiji/TrackMate
+
 [code/imagej/TrakEM2]
 checkout = git clone git://github.com/fiji/TrakEM2
 
