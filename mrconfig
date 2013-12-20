@@ -48,6 +48,9 @@ checkout = git clone git://github.com/fiji/TrakEM2
 [code/imagej/active-cells-ij2]
 checkout = git clone git://github.com/RicardDelgado/active-cells-ij2
 
+[code/imagej/cookbook]
+checkout = git clone git://github.com/fiji/cookbook
+
 [code/imagej/envisaje]
 checkout = git clone git://github.com/imagej/envisaje
 

@@ -182,6 +182,7 @@ alias goitk='cd $ITK_DIR'
 export FIJI_DIR="$CODE_DIR/imagej/fiji"
 alias gofi='cd $FIJI_DIR'
 alias gotm='cd $FIJI_DIR/../TrackMate'
+alias gocb='cd $FIJI_DIR/../cookbook'
 
 # SciJava - https://github.com/scijava
 export SCIJAVA_DIR="$CODE_DIR/scijava/scijava-common"
