@@ -30,12 +30,6 @@ checkout = git clone git://github.com/ctrueden/fixbe
 [code/ctrueden/jcurses-maven]
 checkout = git clone git://github.com/ctrueden/jcurses-maven
 
-#[code/ctrueden/productivity]
-#checkout = git clone git://github.com/ctrueden/productivity
-
-[code/ctrueden/ucar-units]
-checkout = git clone git://github.com/ctrueden/ucar-units
-
 [code/ctrueden/web-toys]
 checkout = git clone git://github.com/ctrueden/web-toys
 
@@ -260,9 +254,6 @@ checkout = git clone git://github.com/uw-loci/wid-3dniche
 
 [code/loci/wiscscan-java]
 checkout = git clone git://github.com/uw-loci/wiscscan-java
-
-[code/maven/license-maven-plugin]
-checkout = git clone git://github.com/ctrueden/license-maven-plugin
 
 [code/maven/maven]
 checkout = git clone git://github.com/apache/maven
