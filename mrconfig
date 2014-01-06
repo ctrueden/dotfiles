@@ -51,6 +51,9 @@ checkout = git clone git://github.com/imagej/envisaje
 [code/imagej/fiji]
 checkout = git clone git://github.com/fiji/fiji
 
+[code/imagej/ij-scripting-scala]
+checkout = git clone git://github.com/imagej/ij-scripting-scala
+
 [code/imagej/ij1-tests]
 checkout = git clone git://github.com/imagej/ij1-tests
 
