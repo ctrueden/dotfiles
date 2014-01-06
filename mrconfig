@@ -315,6 +315,9 @@ checkout = git clone git://github.com/scifio/scifio-itk-bridge
 [code/scifio/scifio-jai-imageio-core]
 checkout = git clone git://github.com/scifio/scifio-jai-imageio-core
 
+[code/scifio/scifio-lifesci]
+checkout = git clone git://github.com/scifio/scifio-lifesci
+
 [code/scifio/scifio-omero]
 checkout = git clone git://github.com/scifio/scifio-omero
 
