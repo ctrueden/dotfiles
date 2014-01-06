@@ -359,7 +359,7 @@ checkout = git clone git://fiji.sc/vaa3d.git
 checkout = git clone git://public.kitware.com/KWStyle.git
 
 [code/loci/matlab-plugins-in-imagej]
-checkout = git clone git://code.imagej.net/matlab-plugins-in-imagej.git
+checkout = git clone git://code.imagej.net/matlab-plugins-in-imagej
 
 [code/ome/ome-server]
 checkout = git clone git://dev.loci.wisc.edu/ome-server.git
@@ -417,10 +417,10 @@ checkout = git clone git@bitbucket.org:ctrueden/loci-cron
 checkout = git clone git@bitbucket.org:ctrueden/logos
 
 [code/loci/gitolite-admin]
-checkout = git clone git@dev.loci.wisc.edu:gitolite-admin.git
+checkout = git clone git@dev.loci.wisc.edu:gitolite-admin
 
 [code/loci/internal]
 checkout = git svn clone --authors-file="$SVN_AUTHORS" -s http://dev.loci.wisc.edu/svn/internal
 
 [code/loci/jenkins-scripts]
-checkout = git clone git@dev.loci.wisc.edu:jenkins-scripts.git
+checkout = git clone git@dev.loci.wisc.edu:jenkins-scripts
