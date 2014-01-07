@@ -416,8 +416,8 @@ checkout = git clone git@bitbucket.org:ctrueden/ctr-private
 [code/ctrueden/interviews]
 checkout = git clone git@bitbucket.org:ctrueden/interviews
 
-[code/ctrueden/loci-cron]
-checkout = git clone git@bitbucket.org:ctrueden/loci-cron
+[code/ctrueden/loci-servers]
+checkout = git clone git@bitbucket.org:ctrueden/loci-servers
 
 [code/ctrueden/logos]
 checkout = git clone git@bitbucket.org:ctrueden/logos
