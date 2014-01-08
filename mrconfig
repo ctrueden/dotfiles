@@ -36,23 +36,23 @@ checkout = git clone git://github.com/ctrueden/web-toys
 [code/fiji/Stitching]
 checkout = git clone git://github.com/fiji/Stitching
 
-[code/imagej/TrackMate]
+[code/fiji/TrackMate]
 checkout = git clone git://github.com/fiji/TrackMate
 
-[code/imagej/TrakEM2]
+[code/fiji/TrakEM2]
 checkout = git clone git://github.com/fiji/TrakEM2
+
+[code/fiji/cookbook]
+checkout = git clone git://github.com/fiji/cookbook
+
+[code/fiji/fiji]
+checkout = git clone git://github.com/fiji/fiji
 
 [code/imagej/active-cells-ij2]
 checkout = git clone git://github.com/RicardDelgado/active-cells-ij2
 
-[code/imagej/cookbook]
-checkout = git clone git://github.com/fiji/cookbook
-
 [code/imagej/envisaje]
 checkout = git clone git://github.com/imagej/envisaje
-
-[code/imagej/fiji]
-checkout = git clone git://github.com/fiji/fiji
 
 [code/imagej/ij-scripting-scala]
 checkout = git clone git://github.com/imagej/ij-scripting-scala

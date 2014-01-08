@@ -179,7 +179,7 @@ export ITK_DIR="$HOME/code/kitware/ITK"
 alias goitk='cd $ITK_DIR'
 
 # Fiji - https://github.com/fiji
-export FIJI_DIR="$CODE_DIR/imagej/fiji"
+export FIJI_DIR="$CODE_DIR/fiji/fiji"
 alias gofi='cd $FIJI_DIR'
 alias gotm='cd $FIJI_DIR/../TrackMate'
 alias gocb='cd $FIJI_DIR/../cookbook'
