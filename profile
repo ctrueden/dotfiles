@@ -164,7 +164,7 @@ alias gobfx='cd $BF_DIR/components/ome-xml/src/ome/xml'
 # ImageJ - https://github.com/imagej
 export IJ_DIR="$CODE_DIR/imagej/imagej"
 alias goij='cd $IJ_DIR'
-alias goij1='cd $IJ_DIR/../imageja'
+alias goij1='cd $IJ_DIR/../ImageJA'
 alias goijl='cd $IJ_DIR/../imagej-launcher'
 alias goijo='cd $IJ_DIR/../imagej-omero'
 alias goijs='cd $IJ_DIR/../imagej-server'

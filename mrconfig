@@ -64,7 +64,7 @@ checkout = git clone git://github.com/imagej/ij1-tests
 checkout = git clone git://github.com/imagej/image5d
 
 [code/imagej/imagej1]
-checkout = git clone git://github.com/fiji/imagej1
+checkout = git clone git://github.com/imagej/imagej1
 
 [code/imagej/imagej]
 checkout = git clone git://github.com/imagej/imagej
@@ -84,8 +84,8 @@ checkout = git clone git://github.com/imagej/imagej-server
 [code/imagej/imagej-tutorials]
 checkout = git clone git://github.com/imagej/imagej-tutorials
 
-[code/imagej/imageja]
-checkout = git clone git://github.com/fiji/ImageJA imageja
+[code/imagej/ImageJA]
+checkout = git clone git://github.com/imagej/ImageJA
 
 [code/imagej/irc-bot]
 checkout = git clone git://github.com/imagej/irc-bot
