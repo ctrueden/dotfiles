@@ -1,2 +1,2 @@
 #!/bin/bash
-grep "$@" $(find . -name 'pom.xml')
+find . -name 'pom.xml' -print0 | xargs -0 grep $@
