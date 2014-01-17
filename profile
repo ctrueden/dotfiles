@@ -224,7 +224,7 @@ alias goome='cd $OMERO_DIR'
 export PATH=\
 $HOME/bin:\
 $SCRIPTS_DIR:\
-$SCIJAVA_DIR/bin:\
+$SCIJAVA_DIR/../scijava-scripts:\
 $BF_DIR/tools:\
 $FIJI_DIR/bin:\
 $OMERO_DIR/bin:\
