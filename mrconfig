@@ -94,9 +94,6 @@ checkout = git clone git://github.com/imagej/irc-bot
 [code/imagej/minimal-ij1-plugin]
 checkout = git clone git://github.com/imagej/minimal-ij1-plugin
 
-[code/imagej/spring4ij2]
-checkout = git clone git://github.com/joshmoore/spring4ij2
-
 [code/imagej/visad-plugin]
 checkout = git clone git://github.com/imagej/visad-plugin
 
