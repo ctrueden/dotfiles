@@ -162,6 +162,10 @@ let java_allow_cpp_keywords=1
 highlight WhiteSpaceEOL ctermbg=lightgreen
 match WhiteSpaceEOL /\s\+$/
 
+" Highlight leading tab/space mixtures
+highlight LeadingTabSpaceMix ctermbg=lightgreen
+match LeadingTabSpaceMix /^\s*\(\t \)\|\( \t\)\s*/
+
 " Not yet implemented:
 " 1) Use javac instead of jikes to compile 1.5+ source files
 " 2) Use ant instead of jikes to compile more 'thoroughly'
