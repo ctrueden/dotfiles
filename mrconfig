@@ -352,16 +352,16 @@ checkout = git clone git://github.com/visad/visad.github.com
 # -- Fiji Git repositories --
 
 [code/other/bioimagexd]
-checkout = git clone git://fiji.sc/bioimagexd.git
+checkout = git clone git://fiji.sc/bioimagexd
 
 [code/other/jhotdraw]
-checkout = git clone git://fiji.sc/jhotdraw.git
+checkout = git clone git://fiji.sc/jhotdraw
 
 [code/other/mipav]
-checkout = git clone git://fiji.sc/mipav.git
+checkout = git clone git://fiji.sc/mipav
 
 [code/other/vaa3d]
-checkout = git clone git://fiji.sc/vaa3d.git
+checkout = git clone git://fiji.sc/vaa3d
 
 # -- Other Git repositories --
 
@@ -372,7 +372,7 @@ checkout = git clone git://public.kitware.com/KWStyle.git
 checkout = git clone git://code.imagej.net/matlab-plugins-in-imagej
 
 [code/ome/ome-server]
-checkout = git clone git://dev.loci.wisc.edu/ome-server.git
+checkout = git clone git://dev.loci.wisc.edu/ome-server
 #checkout = git svn clone --authors-file="$SVN_AUTHORS" -s svn+ssh://crueden-x@svn.openmicroscopy.org.uk/home/svn/ome ome-server
 
 [code/other/labis]
