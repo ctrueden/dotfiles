@@ -409,6 +409,9 @@ if [ -d "$BREW/Cellar/maven2" ]; then
 	alias mvn2="$BREW/Cellar/maven2/2.2.1/bin/mvn"
 fi
 
+# license-maven-plugin
+alias lic='mvn license:update-project-license license:update-file-header'
+
 # --== sed ==--
 
 # make in-place sed editing consistent across OSes
