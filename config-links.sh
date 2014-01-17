@@ -11,7 +11,6 @@ OS_NAME=`uname`
 STAMP=`date +%Y%m%dT%H%M%S`
 
 FILES=(
-.ant-global.properties
 .forward
 .gitconfig
 .keystore
@@ -43,7 +42,6 @@ done
 
 (
   set -x
-  ln -s $LINK_DIR/ant-global.properties .ant-global.properties
   ln -s $LINK_DIR/forward .forward
   ln -s $LINK_DIR/gitconfig .gitconfig
   ln -s $LINK_DIR/restless.keystore .keystore
