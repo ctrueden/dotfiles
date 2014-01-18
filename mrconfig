@@ -279,6 +279,9 @@ checkout = git clone git://github.com/openmicroscopy/ome-documentation
 [code/ome/openmicroscopy]
 checkout = git clone git://github.com/openmicroscopy/openmicroscopy
 
+[code/other/bnd]
+checkout = git clone git://github.com/bndtools/bnd
+
 [code/other/imagejs.github.com]
 checkout = git clone git://github.com/imagejs/imagejs.github.com
 
