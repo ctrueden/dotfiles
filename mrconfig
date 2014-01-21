@@ -360,6 +360,9 @@ checkout = git clone git://fiji.sc/jhotdraw
 [code/other/mipav]
 checkout = git clone git://fiji.sc/mipav
 
+[code/other/scripting]
+checkout = git clone git://fiji.sc/scripting
+
 [code/other/vaa3d]
 checkout = git clone git://fiji.sc/vaa3d
 
