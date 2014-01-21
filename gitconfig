@@ -38,6 +38,8 @@
 	rhup = reset --hard 'HEAD@{u}'
 	st = status
 	spop = !git checkout 'stash^{tree}' -- . && git stash drop
+[core]
+	pager = less -FX
 [diff]
 	color = auto
 [push]
