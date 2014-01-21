@@ -1,11 +1,12 @@
 # mr configuration file
 
-# Install mr on Mac OS X using Homebrew, or on Debian/Ubuntu using apt.
+# Install myrepos on Mac OS X using Homebrew, or on Debian/Ubuntu using apt.
 
 [DEFAULT]
-include = if [ -d /Users/curtis/brew/Cellar/mr/1.02 ]; then cat /Users/curtis/brew/Cellar/mr/1.02/share/mr/git-svn; fi
+include = if [ -d /usr/local/Cellar/mr ]; then cat /usr/local/Cellar/mr/*/share/mr/git-svn; fi
 git_update = git remote update --prune && git fetch --tags && git merge --ff 'HEAD@{u}'
 hg_update = hg pull --insecure "$@"; hg update "$@"
+git_svn_update = git svn rebase
 
 # -- Public repositories on GitHub --
 
@@ -433,7 +434,6 @@ checkout = git clone git@dev.loci.wisc.edu:gitolite-admin
 
 [code/loci/internal]
 checkout = git svn clone --authors-file="$SVN_AUTHORS" -s http://dev.loci.wisc.edu/svn/internal
-update = git svn rebase
 
 [code/loci/jenkins-scripts]
 checkout = git clone git@dev.loci.wisc.edu:jenkins-scripts
