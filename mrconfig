@@ -283,8 +283,8 @@ checkout = git clone git://github.com/openmicroscopy/openmicroscopy
 [code/other/bnd]
 checkout = git clone git://github.com/bndtools/bnd
 
-[code/other/imagejs.github.com]
-checkout = git clone git://github.com/imagejs/imagejs.github.com
+[code/other/imagejs]
+checkout = git clone git://github.com/imagejs/imagejs.github.com imagejs
 
 [code/other/object-inspector]
 checkout = git clone git://github.com/sbridges/object-inspector
