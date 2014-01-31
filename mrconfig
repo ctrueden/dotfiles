@@ -436,7 +436,7 @@ checkout = git clone git@bitbucket.org:ctrueden/interviews
 checkout = git clone git@bitbucket.org:ctrueden/loci-servers
 
 [code/ctrueden/loci-servers-wiki]
-checkout = git clone git@bitbucket.org:ctrueden/loci-servers/wiki
+checkout = git clone git@bitbucket.org:ctrueden/loci-servers/wiki loci-servers-wiki
 
 [code/ctrueden/logos]
 checkout = git clone git@bitbucket.org:ctrueden/logos
