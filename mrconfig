@@ -187,9 +187,6 @@ checkout = git clone git://github.com/uw-loci/fusion-events
 [code/loci/jar2lib]
 checkout = git clone git://github.com/uw-loci/jar2lib
 
-[code/loci/jexperiment]
-checkout = git clone git://github.com/uw-loci/jexperiment
-
 [code/loci/jvmlink]
 checkout = git clone git://github.com/uw-loci/jvmlink
 
@@ -353,6 +350,9 @@ checkout = git clone git://github.com/visad/visad.github.com
 
 [code/other/bioimagexd]
 checkout = git clone git://fiji.sc/bioimagexd
+
+[code/other/jex]
+checkout = git clone git://fiji.sc/jex
 
 [code/other/jhotdraw]
 checkout = git clone git://fiji.sc/jhotdraw
