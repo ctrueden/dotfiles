@@ -200,6 +200,10 @@ alias gonar='cd $NAR_DIR'
 export CELLPROFILER_DIR="$CODE_DIR/cellprofiler/CellProfiler"
 alias gocp='cd $CELLPROFILER_DIR'
 
+# SLIM Curve - https://github.com/slim-curve
+export SLIM_DIR="$CODE_DIR/slim"
+alias goslim='cd $SLIM_DIR'
+
 # VisAD
 export VISAD_DIR="$CODE_DIR/other/visad"
 

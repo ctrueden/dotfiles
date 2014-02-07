@@ -157,9 +157,6 @@ checkout = git clone git://github.com/uw-loci/collagen-alignment-analysis
 [code/loci/cppwrap-maven-plugin]
 checkout = git clone git://github.com/uw-loci/cppwrap-maven-plugin
 
-[code/loci/curve-fitter]
-checkout = git clone git://github.com/uw-loci/curve-fitter
-
 [code/loci/curvelets]
 checkout = git clone git://github.com/uw-loci/curvelets
 
@@ -226,17 +223,8 @@ checkout = git clone git://github.com/uw-loci/pom-loci
 [code/loci/prairie-ome-tiff]
 checkout = git clone git://github.com/uw-loci/prairie-ome-tiff
 
-[code/loci/slim-curve]
-checkout = git clone git://github.com/uw-loci/slim-curve
-
-[code/loci/slim-curve-java]
-checkout = git clone git://github.com/uw-loci/slim-curve-java
-
 [code/loci/slim-plotter]
 checkout = git clone git://github.com/uw-loci/slim-plotter
-
-[code/loci/slim-plugin]
-checkout = git clone git://github.com/uw-loci/slim-plugin
 
 [code/loci/visbio]
 checkout = git clone git://github.com/uw-loci/visbio
@@ -339,6 +327,24 @@ checkout = git clone git://github.com/scijava/scijava-scripts
 
 [code/scijava/scijava.github.com]
 checkout = git clone git://github.com/scijava/scijava.github.com
+
+[code/slim/curve-fitter]
+checkout = git clone git://github.com/slim-curve/curve-fitter
+
+[code/slim/slim-curve]
+checkout = git clone git://github.com/slim-curve/slim-curve
+
+[code/slim/slim-curve-java]
+checkout = git clone git://github.com/slim-curve/slim-curve-java
+
+[code/slim/slim-curve-java-test]
+checkout = git clone git://github.com/slim-curve/slim-curve-java-test
+
+[code/slim/slim-curve-test]
+checkout = git clone git://github.com/slim-curve/slim-curve-test
+
+[code/slim/slim-plugin]
+checkout = git clone git://github.com/slim-curve/slim-plugin
 
 [code/visad/visad]
 checkout = git clone git://github.com/visad/visad
