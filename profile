@@ -184,6 +184,10 @@ alias gofi='cd $FIJI_DIR'
 alias gotm='cd $FIJI_DIR/../TrackMate'
 alias gocb='cd $FIJI_DIR/../cookbook'
 
+# JEX
+export JEX_DIR="$CODE/DIR/other/jex"
+alias gojex='cd $JEX_DIR'
+
 # SciJava - https://github.com/scijava
 export SCIJAVA_DIR="$CODE_DIR/scijava/scijava-common"
 alias gosj='cd $SCIJAVA_DIR'
