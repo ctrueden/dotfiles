@@ -153,7 +153,7 @@ alias goso='cd $SCIFIO_DIR/../scifio-omero'
 alias gost='cd $SCIFIO_DIR/../scifio-tutorials'
 
 # Bio-Formats - https://github.com/openmicroscopy/bioformats
-export BF_DIR="$CODE_DIR/ome/bioformats"
+export BF_DIR="$CODE_DIR/ome/bf5"
 alias gobf='cd $BF_DIR'
 alias gobfa='cd $BF_DIR/components/autogen/src'
 alias gobfc='cd $BF_DIR/components/common/src/loci/common'
