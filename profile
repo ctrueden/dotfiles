@@ -420,6 +420,9 @@ fi
 # license-maven-plugin
 alias lic='mvn license:update-project-license license:update-file-header'
 
+# build it!
+alias b='mvn clean install'
+
 # --== sed ==--
 
 # make in-place sed editing consistent across OSes
