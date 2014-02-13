@@ -1,4 +1,5 @@
 [alias]
+	# shortcuts
 	br = branch
 	co = checkout
 	cm = cherry -v master
@@ -9,45 +10,55 @@
 	ci = commit
 	cia = commit --amend
 	di = diff
-	dic = diff --color-words
 	dif = diff
+	dic = diff --color-words
 	dis = diff --staged
 	disc = diff --staged --color-words
 	fa = !git fetch --all --prune && git fetch --all --tags
 	fb = filter-branch -f --prune-empty
 	fbs = filter-branch -f --prune-empty --subdirectory-filter
 	fbt = filter-branch -f --prune-empty --tree-filter
-	fix = !fixup-rebase
-	follow = log --name-status --follow
 	graph = log --date-order --graph --decorate --oneline
 	lns = log --name-status
+	follow = log --name-status --follow
 	ff = merge --ff 'HEAD@{u}'
 	move = mv
 	ren = mv
 	rename = mv
-	pop = stash pop --index
 	pl = pull
 	prb = pull --rebase
-	prdev = !git pull-request -b openmicroscopy:develop
-	pr44 = !git pull-request -b openmicroscopy:dev_4_4
 	ps = push
 	ra = rebase --abort
 	rc = rebase --continue
 	ws = rebase --whitespace=strip
 	ru = remote update --prune
 	rhup = reset --hard 'HEAD@{u}'
+	pop = stash pop --index
 	st = status
+
+	# hub
+	pr4 = !git pull-request -b openmicroscopy:dev_4_4
+	pr5 = !git pull-request -b openmicroscopy:develop
+
+	# new functions
+	fix = !fixup-rebase
 	spop = !git checkout 'stash^{tree}' -- . && git stash drop
+
 [core]
 	pager = less -FX
+
 [diff]
 	color = auto
+
 [push]
 	default = upstream
+
 [ui]
 	color = auto
+
 [user]
 	name = Curtis Rueden
 	email = ctrueden@wisc.edu
+
 [rebase]
 	autosquash = true
