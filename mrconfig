@@ -325,6 +325,9 @@ checkout = git clone git://github.com/scijava/native-lib-loader
 [code/scijava/pom-scijava]
 checkout = git clone git://github.com/scijava/pom-scijava
 
+[code/scijava/pom-scijava-wiki]
+checkout = git clone git://github.com/scijava/pom-scijava.wiki pom-scijava-wiki
+
 [code/scijava/scijava-common]
 checkout = git clone git://github.com/scijava/scijava-common
 
