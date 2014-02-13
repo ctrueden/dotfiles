@@ -245,6 +245,21 @@ fi
 
 # --== Java ==--
 
+# set locations of Java
+if [ "$IS_MACOSX" ]; then
+  jvmdir=/Library/Java/JavaVirtualMachines
+	export J6="$( \
+		find $jvmdir -mindepth 1 -maxdepth 1 | \
+		grep '1.6' |\
+		sort -r |\
+		head -n 1)/Contents/Home"
+	export J7="$( \
+		find $jvmdir -mindepth 1 -maxdepth 1 |\
+		grep '1.7' |\
+		sort -r |\
+		head -n 1)/Contents/Home"
+fi
+
 # unset the actual classpath, since some programs play badly with it
 unset CLASSPATH
 
