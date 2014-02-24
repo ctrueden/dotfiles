@@ -115,6 +115,18 @@ checkout = git clone git://github.com/imagej/zoomviewer
 [code/imglib/imglib]
 checkout = git clone git://github.com/imglib/imglib
 
+[code/imglib/imglib-ij]
+checkout = git clone git://github.com/imglib/imglib-ij
+
+[code/imglib/imglib-scripting]
+checkout = git clone git://github.com/imglib/imglib-scripting
+
+[code/imglib/imglib-tests]
+checkout = git clone git://github.com/imglib/imglib-tests
+
+[code/imglib/imglib-tutorials]
+checkout = git clone git://github.com/imglib/imglib-tutorials
+
 [code/imglib/spimviewer]
 checkout = git clone git://github.com/tpietzsch/spimviewer
 
