@@ -3,8 +3,8 @@
 # vcs - a simple, agnostic version control system script
 #       works for CVS, Git, Mercurial and Subversion repositories
 
-# If you think you need something like this, try mr!
-# https://github.com/joeyh/mr
+# If you think you need something like this, try myrepos!
+# https://github.com/joeyh/myrepos
 
 # Author: Curtis Rueden <ctrueden@wisc.edu>
 
