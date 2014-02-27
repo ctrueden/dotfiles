@@ -189,11 +189,14 @@ export JEX_DIR="$CODE/DIR/other/jex"
 alias gojex='cd $JEX_DIR'
 
 # SciJava - https://github.com/scijava
-export SCIJAVA_DIR="$CODE_DIR/scijava/scijava-common"
-alias gosj='cd $SCIJAVA_DIR'
+export SCIJAVA_DIR="$CODE_DIR/scijava"
+alias gopsj='cd $SCIJAVA_DIR/pom-scijava'
+alias gosjc='cd $SCIJAVA_DIR/scijava-common'
+alias gosjs='cd $SCIJAVA_DIR/scijava-scripts'
+alias gosjo='cd $SCIJAVA_DIR/scijava-scripts'
 
 # SciJava OPS - https://github.com/scijava/scijava-ops
-export OPS_DIR="$SCIJAVA_DIR/../scijava-ops"
+export OPS_DIR="$SCIJAVA_DIR/scijava-ops"
 alias goops='cd $OPS_DIR'
 
 # NAR - https://github.com/maven-nar/nar-maven-plugin
@@ -240,7 +243,7 @@ fi
 export PATH=\
 $HOME/bin:\
 $SCRIPTS_DIR:\
-$SCIJAVA_DIR/../scijava-scripts:\
+$SCIJAVA_DIR/scijava-scripts:\
 $BF_DIR/tools:\
 $FIJI_DIR/bin:\
 $PATH
