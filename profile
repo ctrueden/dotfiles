@@ -374,9 +374,11 @@ alias viq="vi \
 	+'normal! 1GVGgq1G\"+yG'"
 
 # --== vim ==--
+
 alias vi='vim'
 
 # --== shell ==--
+
 alias mv='mv -i'
 alias cls='clear;pwd;ls'
 alias cdiff='colordiff 2> /dev/null'
