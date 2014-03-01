@@ -386,12 +386,6 @@ alias grep='grep --colour=auto'
 alias rgrep='grep -IR --exclude="*\.svn*"'
 alias f='find . -name'
 
-# --== cygwin ==--
-
-if [ "$IS_WINDOWS" ]; then
-	alias clear='cmd /c cls'
-fi
-
 # --== start ==--
 
 # open a UI browser for the specified folder using 'start'
