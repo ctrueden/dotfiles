@@ -61,8 +61,11 @@ checkout = git clone git://github.com/fiji/spimreconstruction
 [code/imagej/active-cells-ij2]
 checkout = git clone git://github.com/RicardDelgado/active-cells-ij2
 
-[code/imagej/ij-scripting-scala]
-checkout = git clone git://github.com/imagej/ij-scripting-scala
+[code/imagej/imagej-scripting-r]
+checkout = git clone git://github.com/imagej/imagej-scripting-r
+
+[code/imagej/imagej-scripting-scala]
+checkout = git clone git://github.com/imagej/imagej-scripting-scala
 
 [code/imagej/ij1-tests]
 checkout = git clone git://github.com/imagej/ij1-tests
@@ -304,9 +307,6 @@ checkout = git clone git://github.com/pcpratts/rootbeer1
 [code/other/thredds]
 checkout = git clone git://github.com/Unidata/thredds
 
-[code/scifio/ome-formats]
-checkout = git clone git://github.com/scifio/ome-formats
-
 [code/scifio/scifio]
 checkout = git clone git://github.com/scifio/scifio
 
@@ -324,6 +324,9 @@ checkout = git clone git://github.com/scifio/scifio-jai-imageio-core
 
 [code/scifio/scifio-lifesci]
 checkout = git clone git://github.com/scifio/scifio-lifesci
+
+[code/scifio/scifio-ome-xml]
+checkout = git clone git://github.com/scifio/scifio-ome-xml
 
 [code/scifio/scifio-omero]
 checkout = git clone git://github.com/scifio/scifio-omero
