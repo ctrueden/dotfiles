@@ -184,6 +184,10 @@ alias goijo='cd $IJ_DIR/../imagej-omero'
 alias goijs='cd $IJ_DIR/../imagej-server'
 alias goijt='cd $IJ_DIR/../imagej-tutorials'
 
+# ImageJ OPS - https://github.com/imagej/imagej-ops
+export OPS_DIR="$IJ_DIR/../imagej-ops"
+alias goops='cd $OPS_DIR'
+
 # ImgLib2 - https://github.com/imglib/imglib
 export IMGLIB_DIR="$CODE_DIR/imglib/imglib"
 alias goil='cd $IMGLIB_DIR'
@@ -208,10 +212,6 @@ alias gopsj='cd $SCIJAVA_DIR/pom-scijava'
 alias gosjc='cd $SCIJAVA_DIR/scijava-common'
 alias gosjs='cd $SCIJAVA_DIR/scijava-scripts'
 alias gosjo='cd $SCIJAVA_DIR/scijava-scripts'
-
-# SciJava OPS - https://github.com/scijava/scijava-ops
-export OPS_DIR="$SCIJAVA_DIR/scijava-ops"
-alias goops='cd $OPS_DIR'
 
 # NAR - https://github.com/maven-nar/nar-maven-plugin
 export NAR_DIR="$CODE_DIR/nar/nar-maven-plugin"
