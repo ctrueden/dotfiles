@@ -4,20 +4,28 @@
 # branch-status - scan for branches with unpushed commits
 #
 
-repos=$(grep '^\[.*\]$' ~/.mrconfig | sed -e 's/^\[\(.*\)\]$/\1/')
+repos=$(grep '^\[.*\]$' ~/.mrconfig |
+	sed -e 's/^\[\(.*\)\]$/\1/')
 for repo in $repos
 do (
-	if [ "$repo" == "DEFAULT" ]
-	then
-		continue
-	fi
+	test "$repo" != "DEFAULT" || continue
 	cd "$HOME/$repo"
-	if [ -d .git ]
-	then
-		branches=$(git branch -v | grep '\[ahead' | sed -e 's/^[* ] \([^ ]*\) .*/\1/')
-		for branch in $branches
-		do
-			echo $repo: $branch
-		done
-	fi
+	test -d .git || continue
+	repo="$(echo "$repo" | sed 's/.*\///')"
+
+	# check for dirty working copy
+	test "$(git diff --shortstat 2> /dev/null | tail -n1)" == "" ||
+		printf "%20s : %s\n" "$repo" "{DIRTY}"
+
+	# check for unpushed branches
+	branches=$(git branch -vv |
+		grep -v '\[[a-zA-Z0-9_\-\/]*\]' |
+		sed -E 's/^\*? *//' |
+		sed -E 's/  */~/g' )
+	for branch in $branches
+	do
+		branch="$(echo "$branch" | sed 's/~/ /g')"
+		test "$branch" == "" ||
+			printf "%20s : %s\n" "$repo" "$branch"
+	done
 ) done
