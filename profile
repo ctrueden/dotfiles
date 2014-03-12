@@ -237,8 +237,6 @@ alias god='cd $HOME/data'
 # --== OMERO ==--
 
 export OMERO_DIR="$CODE_DIR/ome/openmicroscopy/dist"
-alias goome='cd $OMERO_DIR'
-
 if [ "$IS_LINUX" ]; then
 	export ICE_HOME=/usr/share/Ice-3.4.2
 	export POSTGRES_HOME=/usr/lib/postgresql/9.1
@@ -252,6 +250,7 @@ elif [ "$IS_MACOSX" ]; then
 	export PYTHONPATH="$OMERO_HOME/lib/python:/usr/local/lib/python2.7/site-packages"
 	export PATH="$OMERO_HOME/bin:$PATH"
 fi
+alias goome='if [ -d "$OMERO_DIR" ]; then cd "$OMERO_DIR"; else cd "$OMERO_HOME"; fi'
 
 # --== path ==--
 
