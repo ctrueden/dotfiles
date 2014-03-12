@@ -1,0 +1,18 @@
+#!/bin/sh
+
+# fix-authors: example script for updating SVN authors to Git style.
+# Useful when converting SVN repositories to Git using git-svn.
+
+git filter-branch -f --commit-filter '
+        if [ "$GIT_AUTHOR_NAME" = "curtis" ];
+        then
+                GIT_COMMITTER_NAME="Curtis Rueden";
+                GIT_AUTHOR_NAME="Curtis Rueden";
+                GIT_COMMITTER_EMAIL="ctrueden@wisc.edu";
+                GIT_AUTHOR_EMAIL="ctrueden@wisc.edu";
+                git commit-tree "$@";
+        fi' HEAD
+
+git filter-branch -f --msg-filter '
+        sed -e "/^git-svn-id:/d"
+'
