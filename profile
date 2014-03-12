@@ -247,6 +247,7 @@ elif [ "$IS_MACOSX" ]; then
 	export OMERO_HOME="$HOME/apps/OMERO.server-5.0.0-rc2-ice35-b14"
 	export ICE_CONFIG="$OMERO_HOME/etc/ice.config"
 	export ICE_HOME="$(brew --prefix ice)"
+	export SLICEPATH="$ICE_HOME/share/Ice-3.5/slice"
 	export PYTHONPATH="$OMERO_HOME/lib/python:/usr/local/lib/python2.7/site-packages"
 	export PATH="$OMERO_HOME/bin:$PATH"
 fi
