@@ -17,6 +17,10 @@ do (
 	test "$(git diff --shortstat 2> /dev/null | tail -n1)" == "" ||
 		printf "%20s : %s\n" "$repo" "{DIRTY}"
 
+	# check for stashes
+	test "$(git stash list | tail -n1)" == "" ||
+		printf "%20s : %s\n" "$repo" "{STASH}"
+
 	# check for unpushed branches
 	branches=$(git branch -vv |
 		grep -v '\[[a-zA-Z0-9_\-\/]*\]' |
