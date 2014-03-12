@@ -174,6 +174,7 @@ alias gobfc='cd $BF_DIR/components/formats-common/src/loci/common'
 alias gobff='cd $BF_DIR/components/formats-api/src/loci/formats'
 alias gobfp='cd $BF_DIR/components/bio-formats-plugins/src/loci/plugins'
 alias gobfx='cd $BF_DIR/components/ome-xml/src/ome/xml'
+export PATH="$BF5_DIR/tools:$PATH"
 
 # ImageJ - https://github.com/imagej
 export IJ_DIR="$CODE_DIR/imagej/imagej"
@@ -258,7 +259,6 @@ export PATH=\
 $HOME/bin:\
 $SCRIPTS_DIR:\
 $SCIJAVA_DIR/scijava-scripts:\
-$BF_DIR/tools:\
 $FIJI_DIR/bin:\
 $PATH
 
