@@ -4,4 +4,4 @@
 # vif - searches for the given filename in the current subtree and opens in vi
 #
 
-vi $(find . -name "$@")
+vi $(wi "$@")
