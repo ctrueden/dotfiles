@@ -111,6 +111,10 @@ export FIGNORE=.svn
 # use vi commands for advanced editing (hit ESC to enter command mode)
 set -o vi
 
+# --== useful commands ==--
+
+goto() { cd "$(dirname "$(echo "$(where "$@")" | head -n 1)")"; }
+
 # --== Maven ==--
 
 export MAVEN_OPTS="-Xmx1536m -XX:MaxPermSize=256m"
@@ -354,11 +358,6 @@ command -v hub >/dev/null 2>&1 && \
 
 # fail the sphinx build when there are warnings
 export SPHINXOPTS=-W
-
-# useful functions
-
-where() { find . -name $* | grep -v 'build/'; }
-goto() { cd $(dirname $(where $*)); }
 
 # --== email ==--
 
