@@ -287,7 +287,7 @@ checkout = git clone git://github.com/maven-nar/maven-nar.github.com
 checkout = git clone -b dev_4_4 git://github.com/openmicroscopy/bioformats bf4
 
 [code/ome/bf5]
-checkout = git clone git://github.com/openmicroscopy/bioformats bf5
+checkout = git clone -b dev_5_0 git://github.com/openmicroscopy/bioformats bf5
 
 [code/ome/ome-documentation]
 checkout = git clone git://github.com/openmicroscopy/ome-documentation
