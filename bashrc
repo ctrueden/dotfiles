@@ -243,16 +243,20 @@ if [ "$IS_LINUX" ]; then
 	export POSTGRES_HOME=/usr/lib/postgresql/9.1
 	export PYTHONPATH=/usr/lib/pymodules/python2.7:$PYTHONPATH
 	export LD_LIBRARY_PATH=/usr/share/java:/usr/lib:$LD_LIBRARY_PATH
-	export PATH="$OMERO_DIR/bin:$PATH"
 elif [ "$IS_MACOSX" ]; then
-	export OMERO_HOME="$HOME/apps/OMERO.server-5.0.0-rc2-ice35-b14"
 	export ICE_CONFIG="$OMERO_HOME/etc/ice.config"
 	export ICE_HOME="$(brew --prefix ice)"
 	export SLICEPATH="$ICE_HOME/share/Ice-3.5/slice"
 	export PYTHONPATH="$OMERO_HOME/lib/python:/usr/local/lib/python2.7/site-packages"
-	export PATH="$OMERO_HOME/bin:$PATH"
 fi
-alias goome='if [ -d "$OMERO_DIR" ]; then cd "$OMERO_DIR"; else cd "$OMERO_HOME"; fi'
+if [ -d "$OMERO_DIR" ]
+then
+	export OMERO_HOME="$OMERO_DIR"
+else
+	export OMERO_HOME="$HOME/apps/OMERO.server-5.0.0-rc2-ice35-b14"
+fi
+export PATH="$OMERO_HOME/bin:$PATH"
+alias goome='cd "$OMERO_HOME"'
 
 # --== path ==--
 
