@@ -1,7 +1,4 @@
-# ~/.profile or ~/.bashrc
-
-# On Mac OS X, alias to ~/.profile or ~/.bash_profile.
-# On Ubuntu, alias to ~/.bashrc.
+# ~/.bashrc
 
 # if not running interactively, don't do anything
 [ -z "$PS1" ] && return

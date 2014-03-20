@@ -11,6 +11,7 @@ OS_NAME=`uname`
 STAMP=`date +%Y%m%dT%H%M%S`
 
 FILES=(
+.bashrc
 .forward
 .gitconfig
 .keystore
@@ -22,12 +23,6 @@ FILES=(
 .ssh/config
 Library/KeyBindings
 )
-
-if [ "$OS_NAME" == "Linux" ]; then
-  FILES=("${FILES[@]}" .bashrc)
-else
-  FILES=("${FILES[@]}" .profile)
-fi
 
 for f in ${FILES[@]}
 do
@@ -42,6 +37,7 @@ done
 
 (
   set -x
+  ln -s $LINK_DIR/bashrc .bashrc
   ln -s $LINK_DIR/forward .forward
   ln -s $LINK_DIR/gitconfig .gitconfig
   ln -s $LINK_DIR/restless.keystore .keystore
@@ -50,12 +46,6 @@ done
   ln -s $LINK_DIR/vim .vim
   ln -s $LINK_DIR/vimrc .vimrc
 )
-
-if [ "$OS_NAME" == "Linux" ]; then
-  (set -x; ln -s $LINK_DIR/profile .bashrc)
-else
-  (set -x; ln -s $LINK_DIR/profile .profile)
-fi
 
 cd .ssh
 (
