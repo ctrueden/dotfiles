@@ -457,6 +457,7 @@ alias lic='mvn license:update-project-license license:update-file-header'
 
 # build it!
 alias b='mvn clean install'
+alias bs='mvn -DskipTests clean install'
 
 # --== sed ==--
 
