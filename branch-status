@@ -13,6 +13,9 @@ do (
 	test -d .git || continue
 	repo="$(echo "$repo" | sed 's/.*\///')"
 
+	# NB: Portions of the following were stolen from:
+	# http://stackoverflow.com/a/2658301
+
 	# check for dirty working copy
 	test "$(git diff --shortstat 2> /dev/null | tail -n1)" == "" ||
 		printf "%20s : %s\n" "$repo" "{DIRTY}"
