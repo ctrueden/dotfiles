@@ -30,7 +30,7 @@ do (
 
 	# check for unpushed branches
 	branches=$(git branch -vv |
-		grep -v '\[[a-zA-Z0-9_\-\/]*\]' |
+		grep -v '\[[a-zA-Z0-9_/-]*\]' |
 		sed -E 's/^\*? *//' |
 		sed -E 's/  */~/g' )
 	for branch in $branches
