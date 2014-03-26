@@ -20,6 +20,10 @@ do (
 	test "$(git diff --shortstat 2> /dev/null | tail -n1)" == "" ||
 		printf "%20s : %s\n" "$repo" "{DIRTY}"
 
+	# check for untracked files
+	test "$(git status --porcelain 2> /dev/null | grep "^??")" &&
+		printf "%20s : %s\n" "$repo" "{UNTRACKED}"
+
 	# check for stashes
 	test "$(git stash list | tail -n1)" == "" ||
 		printf "%20s : %s\n" "$repo" "{STASH}"
