@@ -34,9 +34,9 @@ do (
 		sed -E 's/^\*? *//' |
 		sed -E 's/  */~/g' )
 	for branch in $branches
-	do
+	do (
 		branch="$(echo "$branch" | sed 's/~/ /g')"
 		test "$branch" == "" ||
 			printf "%20s : %s\n" "$repo" "$branch"
-	done
+	) done
 ) done
