@@ -400,24 +400,24 @@ checkout = git clone git://github.com/visad/visad
 [code/visad/visad.github.com]
 checkout = git clone git://github.com/visad/visad.github.com
 
-# -- Fiji Git repositories --
+# -- Fiji Git repository mirrors --
 
-[code/other/bioimagexd]
+[code/mirrors/bioimagexd]
 checkout = git clone git://fiji.sc/bioimagexd
 
-[code/other/jex]
+[code/mirrors/jex]
 checkout = git clone git://fiji.sc/jex
 
-[code/other/jhotdraw]
+[code/mirrors/jhotdraw]
 checkout = git clone git://fiji.sc/jhotdraw
 
-[code/other/mipav]
+[code/mirrors/mipav]
 checkout = git clone git://fiji.sc/mipav
 
-[code/other/scripting]
+[code/mirrors/scripting]
 checkout = git clone git://fiji.sc/scripting
 
-[code/other/vaa3d]
+[code/mirrors/vaa3d]
 checkout = git clone git://fiji.sc/vaa3d
 
 # -- ImageJ Git repositories --
