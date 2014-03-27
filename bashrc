@@ -120,6 +120,7 @@ set -o vi
 
 # --== useful commands ==--
 
+# jump to the folder containing the searched-for argument
 goto() { cd "$(dirname "$(echo "$(wi "$@")" | head -n 1)")"; }
 
 # --== Maven ==--
