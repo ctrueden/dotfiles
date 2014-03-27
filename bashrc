@@ -158,7 +158,7 @@ export LOCI_DIR="$CODE_DIR/loci"
 alias go='cd $LOCI_DIR'
 alias goj2l='cd $LOCI_DIR/jar2lib/src/main/resources'
 alias gov='cd $LOCI_DIR/visbio/src/main/java/loci/visbio'
-alias gow='cd $LOCI_DIR/internal/WiscScan'
+alias gow='cd $LOCI_DIR/wiscscan'
 
 # SCIFIO - https://github.com/scifio
 export SCIFIO_DIR="$CODE_DIR/scifio/scifio"
