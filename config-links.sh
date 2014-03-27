@@ -14,13 +14,10 @@ FILES=(
 .bashrc
 .forward
 .gitconfig
-.keystore
 .mrconfig
 .plan
 .vim
 .vimrc
-.ssh/authorized_keys
-.ssh/config
 Library/KeyBindings
 )
 
@@ -40,20 +37,11 @@ done
   ln -s $LINK_DIR/bashrc .bashrc
   ln -s $LINK_DIR/forward .forward
   ln -s $LINK_DIR/gitconfig .gitconfig
-  ln -s $LINK_DIR/restless.keystore .keystore
   ln -s $LINK_DIR/mrconfig .mrconfig
   ln -s $LINK_DIR/plan .plan
   ln -s $LINK_DIR/vim .vim
   ln -s $LINK_DIR/vimrc .vimrc
 )
-
-cd .ssh
-(
-  set -x
-  ln -s ../$LINK_DIR/ssh-authorized_keys authorized_keys
-  ln -s ../$LINK_DIR/ssh-config config
-)
-cd ..
 
 if [ "$OS_NAME" == "Darwin" ]; then
   cd Library
