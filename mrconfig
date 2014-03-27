@@ -316,6 +316,9 @@ checkout = git clone git://github.com/bndtools/bnd
 [code/other/imagejs]
 checkout = git clone git://github.com/imagejs/imagejs.github.com imagejs
 
+[code/other/jex]
+checkout = git clone git://github.com/jwarrick/jex
+
 [code/other/object-inspector]
 checkout = git clone git://github.com/sbridges/object-inspector
 
@@ -404,9 +407,6 @@ checkout = git clone git://github.com/visad/visad.github.com
 
 [code/mirrors/bioimagexd]
 checkout = git clone git://fiji.sc/bioimagexd
-
-[code/mirrors/jex]
-checkout = git clone git://fiji.sc/jex
 
 [code/mirrors/jhotdraw]
 checkout = git clone git://fiji.sc/jhotdraw
