@@ -497,8 +497,8 @@ checkout = git clone git@bitbucket.org:ctrueden/logos
 [code/loci/gitolite-admin]
 checkout = git clone git@dev.loci.wisc.edu:gitolite-admin
 
-[code/loci/internal]
-checkout = git svn clone --authors-file="$SVN_AUTHORS" -s http://dev.loci.wisc.edu/svn/internal
+[code/loci/wiscscan]
+checkout = git clone git@dev.loci.wisc.edu:wiscscan
 
 # -- Private OME repositories --
 
