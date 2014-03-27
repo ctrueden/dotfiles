@@ -428,7 +428,6 @@ checkout = git clone git://code.imagej.net/matlab-plugins-in-imagej
 
 [code/ome/ome-server]
 checkout = git clone git://dev.loci.wisc.edu/ome-server
-#checkout = git svn clone --authors-file="$SVN_AUTHORS" -s svn+ssh://crueden-x@svn.openmicroscopy.org.uk/home/svn/ome ome-server
 
 [code/kitware/KWStyle]
 checkout = git clone git://public.kitware.com/KWStyle.git
