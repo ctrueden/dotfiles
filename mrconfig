@@ -423,7 +423,7 @@ checkout = git clone git://fiji.sc/vaa3d
 # -- Other Git repositories --
 
 
-[code/loci/matlab-plugins-in-imagej]
+[code/imagej/matlab-plugins-in-imagej]
 checkout = git clone git://code.imagej.net/matlab-plugins-in-imagej
 
 [code/ome/ome-server]
