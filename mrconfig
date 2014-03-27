@@ -67,6 +67,9 @@ checkout = git clone git://github.com/fiji/spimreconstruction
 [code/imagej/IJ-guide]
 checkout = git clone git://github.com/tferr/IJ-guide
 
+[code/imagej/ImageJA]
+checkout = git clone git://github.com/imagej/ImageJA
+
 [code/imagej/active-cells-ij2]
 checkout = git clone git://github.com/RicardDelgado/active-cells-ij2
 
@@ -105,9 +108,6 @@ checkout = git clone git://github.com/imagej/imagej-server
 
 [code/imagej/imagej-tutorials]
 checkout = git clone git://github.com/imagej/imagej-tutorials
-
-[code/imagej/ImageJA]
-checkout = git clone git://github.com/imagej/ImageJA
 
 [code/imagej/irc-bot]
 checkout = git clone git://github.com/imagej/irc-bot
@@ -422,8 +422,6 @@ checkout = git clone git://fiji.sc/vaa3d
 
 # -- Other Git repositories --
 
-[code/kitware/KWStyle]
-checkout = git clone git://public.kitware.com/KWStyle.git
 
 [code/loci/matlab-plugins-in-imagej]
 checkout = git clone git://code.imagej.net/matlab-plugins-in-imagej
@@ -431,6 +429,9 @@ checkout = git clone git://code.imagej.net/matlab-plugins-in-imagej
 [code/ome/ome-server]
 checkout = git clone git://dev.loci.wisc.edu/ome-server
 #checkout = git svn clone --authors-file="$SVN_AUTHORS" -s svn+ssh://crueden-x@svn.openmicroscopy.org.uk/home/svn/ome ome-server
+
+[code/kitware/KWStyle]
+checkout = git clone git://public.kitware.com/KWStyle.git
 
 [code/other/labis]
 checkout = git clone git://git.code.sf.net/p/labinfsyst/code labis
