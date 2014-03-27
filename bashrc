@@ -131,6 +131,8 @@ alias goctr='cd $PERSONAL_DIR'
 # configuration files
 export CONFIG_DIR="$PERSONAL_DIR/ctr-config"
 alias gocfg='cd $CONFIG_DIR'
+export CFG_PRIVATE_DIR="$PERSONAL_DIR/ctr-cfg-private"
+alias gocfp='cd $CFG_PRIVATE_DIR'
 
 # useful scripts
 export SCRIPTS_DIR="$PERSONAL_DIR/ctr-scripts"
