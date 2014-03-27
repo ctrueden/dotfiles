@@ -22,6 +22,9 @@ checkout = git clone git://github.com/CellProfiler/subimager
 [code/ctrueden/contrib-hacker]
 checkout = git clone git://github.com/ctrueden/contrib-hacker
 
+[code/ctrueden/ctr-config]
+checkout = git clone git://github.com/ctrueden/ctr-config
+
 [code/ctrueden/ctr-scripts]
 checkout = git clone git://github.com/ctrueden/ctr-scripts
 
@@ -452,9 +455,6 @@ checkout = svn checkout http://svn.codehaus.org/mojo/trunk mojo
 checkout = svn checkout http://addama.googlecode.com/svn/trunk addama
 
 # -- Private repositories --
-
-[code/ctrueden/ctr-config]
-checkout = git clone git@bitbucket.org:ctrueden/ctr-config
 
 [code/ctrueden/ctr-private]
 checkout = git clone git@bitbucket.org:ctrueden/ctr-private
