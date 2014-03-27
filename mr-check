@@ -20,8 +20,8 @@ for my $line (@lines) {
 	if ($line =~ /^\[(.*)\]$/) {
 		$dir = $1;
 	}
-	if ($line =~ /^checkout\s*=\s*git\s+clone\s+([^\s]*)/) {
-		$repos{$dir} = $1;
+	if ($line =~ /^checkout\s*=\s*git\s+clone\s+(-b\s+[^\s]+\s+)?([^\s]*)/) {
+		$repos{$dir} = $2;
 	}
 }
 
