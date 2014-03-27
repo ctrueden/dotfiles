@@ -58,8 +58,14 @@ checkout = git clone git://github.com/fiji/cookbook
 [code/fiji/fiji]
 checkout = git clone git://github.com/fiji/fiji
 
+[code/fiji/legacy-imglib1]
+checkout = git clone git://github.com/fiji/legacy-imglib1
+
 [code/fiji/spimreconstruction]
 checkout = git clone git://github.com/fiji/spimreconstruction
+
+[code/imagej/IJ-guide]
+checkout = git clone git://github.com/tferr/IJ-guide
 
 [code/imagej/active-cells-ij2]
 checkout = git clone git://github.com/RicardDelgado/active-cells-ij2
@@ -108,6 +114,9 @@ checkout = git clone git://github.com/imagej/irc-bot
 
 [code/imagej/minimal-ij1-plugin]
 checkout = git clone git://github.com/imagej/minimal-ij1-plugin
+
+[code/imagej/minimaven]
+checkout = git clone git://github.com/imagej/minimaven
 
 [code/imagej/visad-plugin]
 checkout = git clone git://github.com/imagej/visad-plugin
@@ -286,6 +295,9 @@ checkout = git clone git://github.com/maven-nar/nar-maven-plugin
 [code/nar/maven-nar.github.com]
 checkout = git clone git://github.com/maven-nar/maven-nar.github.com
 
+[code/ome/Imperial-FLIMfit]
+checkout = git clone git://github.com/openmicroscopy/Imperial-FLIMfit
+
 [code/ome/bf4]
 checkout = git clone -b dev_4_4 git://github.com/openmicroscopy/bioformats bf4
 
@@ -376,6 +388,9 @@ checkout = git clone git://github.com/slim-curve/slim-curve-java-test
 [code/slim/slim-curve-test]
 checkout = git clone git://github.com/slim-curve/slim-curve-test
 
+[code/slim/slim-curve.github.io]
+checkout = git clone git://github.com/slim-curve/slim-curve.github.io
+
 [code/slim/slim-plugin]
 checkout = git clone git://github.com/slim-curve/slim-plugin
 
@@ -456,6 +471,9 @@ checkout = svn checkout http://addama.googlecode.com/svn/trunk addama
 
 # -- Private repositories --
 
+[code/ctrueden/ctr-cfg-private]
+checkout = git clone git@bitbucket.org:ctrueden/ctr-cfg-private
+
 [code/ctrueden/ctr-private]
 checkout = git clone git@bitbucket.org:ctrueden/ctr-private
 
@@ -479,3 +497,15 @@ checkout = git svn clone --authors-file="$SVN_AUTHORS" -s http://dev.loci.wisc.e
 
 [code/loci/jenkins-scripts]
 checkout = git clone git@dev.loci.wisc.edu:jenkins-scripts
+
+[code/ome/ome-internal]
+checkout = git clone git@github.com:openmicroscopy/ome-internal
+
+[code/ome/ome-movie]
+checkout = git clone git@github.com:openmicroscopy/ome-movie
+
+[code/ome/qa]
+checkout = git clone git@github.com:openmicroscopy/qa
+
+[code/ome/samples]
+checkout = git clone git@github.com:openmicroscopy/samples
