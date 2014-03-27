@@ -120,7 +120,7 @@ set -o vi
 
 # --== useful commands ==--
 
-goto() { cd "$(dirname "$(echo "$(where "$@")" | head -n 1)")"; }
+goto() { cd "$(dirname "$(echo "$(wi "$@")" | head -n 1)")"; }
 
 # --== Maven ==--
 
