@@ -123,6 +123,9 @@ set -o vi
 # jump to the folder containing the searched-for argument
 goto() { cd "$(dirname "$(echo "$(wi "$@")" | head -n 1)")"; }
 
+# change the title of the current xterm
+tt() { TERM_TITLE="$@"; }
+
 # --== Maven ==--
 
 export MAVEN_OPTS="-Xmx1536m -XX:MaxPermSize=256m"
