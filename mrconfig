@@ -420,14 +420,17 @@ checkout = git clone git://fiji.sc/scripting
 [code/other/vaa3d]
 checkout = git clone git://fiji.sc/vaa3d
 
-# -- Other Git repositories --
-
+# -- ImageJ Git repositories --
 
 [code/imagej/matlab-plugins-in-imagej]
 checkout = git clone git://code.imagej.net/matlab-plugins-in-imagej
 
+# -- LOCI Git repositories --
+
 [code/ome/ome-server]
 checkout = git clone git://dev.loci.wisc.edu/ome-server
+
+# -- Other Git repositories --
 
 [code/kitware/KWStyle]
 checkout = git clone git://public.kitware.com/KWStyle.git
@@ -469,7 +472,7 @@ checkout = svn checkout http://svn.codehaus.org/mojo/trunk mojo
 [code/other/addama]
 checkout = svn checkout http://addama.googlecode.com/svn/trunk addama
 
-# -- Private repositories --
+# -- Private ctrueden repositories --
 
 [code/ctrueden/ctr-cfg-private]
 checkout = git clone git@bitbucket.org:ctrueden/ctr-cfg-private
@@ -489,6 +492,8 @@ checkout = git clone git@bitbucket.org:ctrueden/loci-servers/wiki loci-servers-w
 [code/ctrueden/logos]
 checkout = git clone git@bitbucket.org:ctrueden/logos
 
+# -- Private LOCI repositories --
+
 [code/loci/gitolite-admin]
 checkout = git clone git@dev.loci.wisc.edu:gitolite-admin
 
@@ -497,6 +502,8 @@ checkout = git svn clone --authors-file="$SVN_AUTHORS" -s http://dev.loci.wisc.e
 
 [code/loci/jenkins-scripts]
 checkout = git clone git@dev.loci.wisc.edu:jenkins-scripts
+
+# -- Private OME repositories --
 
 [code/ome/ome-internal]
 checkout = git clone git@github.com:openmicroscopy/ome-internal
