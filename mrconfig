@@ -500,9 +500,6 @@ checkout = git clone git@dev.loci.wisc.edu:gitolite-admin
 [code/loci/internal]
 checkout = git svn clone --authors-file="$SVN_AUTHORS" -s http://dev.loci.wisc.edu/svn/internal
 
-[code/loci/jenkins-scripts]
-checkout = git clone git@dev.loci.wisc.edu:jenkins-scripts
-
 # -- Private OME repositories --
 
 [code/ome/ome-internal]
