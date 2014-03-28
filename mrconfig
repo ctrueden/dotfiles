@@ -458,9 +458,6 @@ checkout = hg clone --insecure http://biodev.ece.ucsb.edu/hg/bisquik-stable bisq
 [code/other/jace]
 checkout = hg clone --insecure https://code.google.com/p/jace/
 
-[code/other/xdma]
-checkout = hg clone --insecure http://biodev.ece.ucsb.edu/hg/xdma xdma
-
 # -- Subversion repositories --
 
 [code/maven/maven-java-formatter-plugin]
