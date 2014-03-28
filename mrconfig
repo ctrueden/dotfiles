@@ -184,9 +184,6 @@ checkout = git clone git://github.com/uw-loci/4d-software-suite
 [code/loci/SETI]
 checkout = git clone git://github.com/uw-loci/SETI
 
-[code/loci/adaptive-gridding]
-checkout = git clone git://github.com/uw-loci/adaptive-gridding
-
 [code/loci/adaptive-optics]
 checkout = git clone git://github.com/uw-loci/adaptive-optics
 
@@ -426,6 +423,9 @@ checkout = git clone git://fiji.sc/vaa3d
 checkout = git clone git://code.imagej.net/matlab-plugins-in-imagej
 
 # -- LOCI Git repositories --
+
+[code/loci/adaptive-gridding]
+checkout = git clone git://dev.loci.wisc.edu/adaptive-gridding
 
 [code/ome/ome-server]
 checkout = git clone git://dev.loci.wisc.edu/ome-server
