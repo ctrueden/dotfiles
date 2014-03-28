@@ -497,6 +497,12 @@ checkout = git clone git@bitbucket.org:ctrueden/logos
 [code/loci/gitolite-admin]
 checkout = git clone git@dev.loci.wisc.edu:gitolite-admin
 
+[code/loci/spectral-analysis]
+checkout = git clone git@dev.loci.wisc.edu:spectral-analysis
+
+[code/loci/transient-lighting]
+checkout = git clone git@dev.loci.wisc.edu:transient-lighting
+
 [code/loci/wiscscan]
 checkout = git clone git@dev.loci.wisc.edu:wiscscan
 
