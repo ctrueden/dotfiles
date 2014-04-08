@@ -574,6 +574,9 @@ checkout = git clone -b dev_5_0 git://github.com/openmicroscopy/openmicroscopy
 [code/other/bnd]
 checkout = git clone git://github.com/bndtools/bnd
 
+[code/other/gentyref]
+checkout = git clone git://github.com/coekie/gentyref
+
 [code/other/imagejs]
 checkout = git clone git://github.com/imagejs/imagejs.github.com imagejs
 
