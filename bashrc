@@ -61,6 +61,10 @@ alias goit='git'
 alias got='git'
 alias gti='git'
 
+# --== myrepos ==--
+
+alias mr='mr --stats'
+
 # --== shell prompt ==--
 
 SHELL_PROMPT=': ${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@${HOSTNAME}\[\033[00m\] \[\033[01;34m\]\w'
