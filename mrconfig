@@ -235,6 +235,9 @@ checkout = git clone git://github.com/fiji/Reconstruct_Reader
 [code/fiji/Refresh_Javas]
 checkout = git clone git://github.com/fiji/Refresh_Javas
 
+[code/fiji/SPIM-Reconstruction]
+checkout = git clone git://github.com/fiji/SPIM-Reconstruction
+
 [code/fiji/SPIM_Opener]
 checkout = git clone git://github.com/fiji/SPIM_Opener
 
@@ -253,14 +256,50 @@ checkout = git clone git://github.com/fiji/Series_Labeler
 [code/fiji/SheppLogan]
 checkout = git clone git://github.com/fiji/SheppLogan
 
+[code/fiji/Sholl-Analysis]
+checkout = git clone git://github.com/fiji/Sholl-Analysis
+
 [code/fiji/Simple_Neurite_Tracer]
 checkout = git clone git://github.com/fiji/Simple_Neurite_Tracer
 
 [code/fiji/Siox_Segmentation]
 checkout = git clone git://github.com/fiji/Siox_Segmentation
 
+[code/fiji/Skeletonize3D]
+checkout = git clone git://github.com/fiji/Skeletonize3D
+
+[code/fiji/Snakuscule]
+checkout = git clone git://github.com/fiji/Snakuscule
+
+[code/fiji/SplineDeformationGenerator]
+checkout = git clone git://github.com/fiji/SplineDeformationGenerator
+
+[code/fiji/StackReg]
+checkout = git clone git://github.com/fiji/StackReg
+
+[code/fiji/Stack_Manipulation]
+checkout = git clone git://github.com/fiji/Stack_Manipulation
+
+[code/fiji/Statistical_Region_Merging]
+checkout = git clone git://github.com/fiji/Statistical_Region_Merging
+
 [code/fiji/Stitching]
 checkout = git clone git://github.com/fiji/Stitching
+
+[code/fiji/Sync_Win]
+checkout = git clone git://github.com/fiji/Sync_Win
+
+[code/fiji/Thread_Killer]
+checkout = git clone git://github.com/fiji/Thread_Killer
+
+[code/fiji/Threshold_Colour]
+checkout = git clone git://github.com/fiji/Threshold_Colour
+
+[code/fiji/Time_Stamper]
+checkout = git clone git://github.com/fiji/Time_Stamper
+
+[code/fiji/ToAST]
+checkout = git clone git://github.com/fiji/ToAST
 
 [code/fiji/TopoJ]
 checkout = git clone git://github.com/fiji/TopoJ
@@ -277,11 +316,50 @@ checkout = git clone git://github.com/fiji/Trainable_Segmentation
 [code/fiji/TrakEM2]
 checkout = git clone git://github.com/fiji/TrakEM2
 
+[code/fiji/TrakEM2_Archipelago]
+checkout = git clone git://github.com/fiji/TrakEM2_Archipelago
+
+[code/fiji/TransformJ]
+checkout = git clone git://github.com/fiji/TransformJ
+
+[code/fiji/TurboReg]
+checkout = git clone git://github.com/fiji/TurboReg
+
+[code/fiji/UnwarpJ]
+checkout = git clone git://github.com/fiji/UnwarpJ
+
+[code/fiji/VIB]
+checkout = git clone git://github.com/fiji/VIB
+
+[code/fiji/VIB-lib]
+checkout = git clone git://github.com/fiji/VIB-lib
+
+[code/fiji/Vaa3d_Reader]
+checkout = git clone git://github.com/fiji/Vaa3d_Reader
+
 [code/fiji/Vaa3d_Writer]
 checkout = git clone git://github.com/fiji/Vaa3d_Writer
 
+[code/fiji/Video_Editing]
+checkout = git clone git://github.com/fiji/Video_Editing
+
+[code/fiji/View5D]
+checkout = git clone git://github.com/fiji/View5D
+
+[code/fiji/Volume_Calculator]
+checkout = git clone git://github.com/fiji/Volume_Calculator
+
+[code/fiji/Volume_Viewer]
+checkout = git clone git://github.com/fiji/Volume_Viewer
+
+[code/fiji/Windows-Fiji-launcher-with-icons]
+checkout = git clone git://github.com/fiji/Windows-Fiji-launcher-with-icons
+
 [code/fiji/bUnwarpJ]
 checkout = git clone git://github.com/fiji/bUnwarpJ
+
+[code/fiji/blockmatching]
+checkout = git clone git://github.com/fiji/blockmatching
 
 [code/fiji/cookbook]
 checkout = git clone git://github.com/fiji/cookbook
@@ -294,6 +372,15 @@ checkout = git clone git://github.com/fiji/fiji
 
 [code/fiji/fiji.github.com]
 checkout = git clone git://github.com/fiji/fiji.github.com
+
+[code/fiji/fiji-compat]
+checkout = git clone git://github.com/fiji/fiji-compat
+
+[code/fiji/fiji-lib]
+checkout = git clone git://github.com/fiji/fiji-lib
+
+[code/fiji/fiji-scripting]
+checkout = git clone git://github.com/fiji/fiji-scripting
 
 [code/fiji/imagescience]
 checkout = git clone git://github.com/fiji/imagescience
@@ -316,14 +403,26 @@ checkout = git clone git://github.com/fiji/mij
 [code/fiji/pal-optimization]
 checkout = git clone git://github.com/fiji/pal-optimization
 
+[code/fiji/panorama]
+checkout = git clone git://github.com/fiji/panorama
+
 [code/fiji/profilers]
 checkout = git clone git://github.com/fiji/profilers
+
+[code/fiji/register_virtual_stack_slices]
+checkout = git clone git://github.com/fiji/register_virtual_stack_slices
+
+[code/fiji/registration_3d]
+checkout = git clone git://github.com/fiji/registration_3d
 
 [code/fiji/spimreconstruction]
 checkout = git clone git://github.com/fiji/spimreconstruction
 
 [code/fiji/wavelets]
 checkout = git clone git://github.com/fiji/wavelets
+
+[code/fiji/weave_jy2java]
+checkout = git clone git://github.com/fiji/weave_jy2java
 
 [code/fiji/winrun4j]
 checkout = git clone git://github.com/fiji/winrun4j
