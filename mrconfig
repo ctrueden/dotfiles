@@ -235,9 +235,6 @@ checkout = git clone git://github.com/fiji/Reconstruct_Reader
 [code/fiji/Refresh_Javas]
 checkout = git clone git://github.com/fiji/Refresh_Javas
 
-[code/fiji/SPIM-Reconstruction]
-checkout = git clone git://github.com/fiji/SPIM-Reconstruction
-
 [code/fiji/SPIM_Opener]
 checkout = git clone git://github.com/fiji/SPIM_Opener
 
@@ -255,9 +252,6 @@ checkout = git clone git://github.com/fiji/Series_Labeler
 
 [code/fiji/SheppLogan]
 checkout = git clone git://github.com/fiji/SheppLogan
-
-[code/fiji/Sholl-Analysis]
-checkout = git clone git://github.com/fiji/Sholl-Analysis
 
 [code/fiji/Simple_Neurite_Tracer]
 checkout = git clone git://github.com/fiji/Simple_Neurite_Tracer
@@ -351,9 +345,6 @@ checkout = git clone git://github.com/fiji/Volume_Calculator
 
 [code/fiji/Volume_Viewer]
 checkout = git clone git://github.com/fiji/Volume_Viewer
-
-[code/fiji/Windows-Fiji-launcher-with-icons]
-checkout = git clone git://github.com/fiji/Windows-Fiji-launcher-with-icons
 
 [code/fiji/bUnwarpJ]
 checkout = git clone git://github.com/fiji/bUnwarpJ
