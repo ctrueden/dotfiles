@@ -373,6 +373,12 @@ checkout = git clone git://github.com/imagej/imagej-server
 [code/imagej/imagej-tutorials]
 checkout = git clone git://github.com/imagej/imagej-tutorials
 
+[code/imagej/imagej-ui-pivot]
+checkout = git clone git://github.com/imagej/imagej-ui-pivot
+
+[code/imagej/imagej-ui-swt]
+checkout = git clone git://github.com/imagej/imagej-ui-swt
+
 [code/imagej/irc-bot]
 checkout = git clone git://github.com/imagej/irc-bot
 
