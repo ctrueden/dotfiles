@@ -337,12 +337,6 @@ checkout = git clone git://github.com/imagej/ImageJA
 [code/imagej/active-cells-ij2]
 checkout = git clone git://github.com/RicardDelgado/active-cells-ij2
 
-[code/imagej/imagej-scripting-r]
-checkout = git clone git://github.com/imagej/imagej-scripting-r
-
-[code/imagej/imagej-scripting-scala]
-checkout = git clone git://github.com/imagej/imagej-scripting-scala
-
 [code/imagej/ij1-tests]
 checkout = git clone git://github.com/imagej/ij1-tests
 
@@ -366,6 +360,12 @@ checkout = git clone git://github.com/imagej/imagej-omero
 
 [code/imagej/imagej-ops]
 checkout = git clone git://github.com/imagej/imagej-ops
+
+[code/imagej/imagej-scripting-r]
+checkout = git clone git://github.com/imagej/imagej-scripting-r
+
+[code/imagej/imagej-scripting-scala]
+checkout = git clone git://github.com/imagej/imagej-scripting-scala
 
 [code/imagej/imagej-server]
 checkout = git clone git://github.com/imagej/imagej-server
