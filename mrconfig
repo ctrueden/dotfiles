@@ -361,6 +361,9 @@ checkout = git clone git://github.com/imagej/imagej-omero
 [code/imagej/imagej-ops]
 checkout = git clone git://github.com/imagej/imagej-ops
 
+[code/imagej/imagej-scripting-cli]
+checkout = git clone git://github.com/imagej/imagej-scripting-cli
+
 [code/imagej/imagej-scripting-r]
 checkout = git clone git://github.com/imagej/imagej-scripting-r
 
