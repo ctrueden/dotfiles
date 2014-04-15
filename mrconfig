@@ -424,6 +424,9 @@ checkout = git clone git://github.com/imagej/ImageJA
 [code/imagej/active-cells-ij2]
 checkout = git clone git://github.com/RicardDelgado/active-cells-ij2
 
+[code/imagej/ij1-patcher]
+checkout = git clone git://github.com/imagej/ij1-patcher
+
 [code/imagej/ij1-tests]
 checkout = git clone git://github.com/imagej/ij1-tests
 
