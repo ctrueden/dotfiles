@@ -783,6 +783,11 @@ checkout = git clone git://fiji.sc/scripting
 [code/mirrors/vaa3d]
 checkout = git clone git://fiji.sc/vaa3d
 
+# -- Fiji Git repositories --
+
+[code/fiji/fiji-historical]
+checkout = git clone git://fiji.sc/fiji-historical
+
 # -- ImageJ Git repositories --
 
 [code/imagej/matlab-plugins-in-imagej]
