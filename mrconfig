@@ -748,12 +748,6 @@ checkout = git clone git://github.com/slim-curve/curve-fitter
 [code/slim/slim-curve]
 checkout = git clone git://github.com/slim-curve/slim-curve
 
-[code/slim/slim-curve-java]
-checkout = git clone git://github.com/slim-curve/slim-curve-java
-
-[code/slim/slim-curve-java-test]
-checkout = git clone git://github.com/slim-curve/slim-curve-java-test
-
 [code/slim/slim-curve-test]
 checkout = git clone git://github.com/slim-curve/slim-curve-test
 
