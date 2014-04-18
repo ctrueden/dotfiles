@@ -198,6 +198,7 @@ export PATH="$BF5_DIR/tools:$PATH"
 export IJ_DIR="$CODE_DIR/imagej/imagej"
 alias goij='cd $IJ_DIR'
 alias goij1='cd $IJ_DIR/../ImageJA'
+alias goijc='cd $IJ_DIR/../imagej-common'
 alias goijl='cd $IJ_DIR/../imagej-launcher'
 alias goijo='cd $IJ_DIR/../imagej-omero'
 alias goijs='cd $IJ_DIR/../imagej-server'
