@@ -745,6 +745,9 @@ checkout = git clone git://github.com/scijava/scijava-scripts
 [code/scijava/scijava.github.com]
 checkout = git clone git://github.com/scijava/scijava.github.com
 
+[code/scijava/swing-checkbox-tree]
+checkout = git clone git://github.com/scijava/swing-checkbox-tree
+
 [code/slim/curve-fitter]
 checkout = git clone git://github.com/slim-curve/curve-fitter
 
