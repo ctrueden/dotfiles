@@ -469,11 +469,11 @@ checkout = git clone git://github.com/imagej/imagej-server
 [code/imagej/imagej-tutorials]
 checkout = git clone git://github.com/imagej/imagej-tutorials
 
-[code/imagej/imagej-ui-pivot]
-checkout = git clone git://github.com/imagej/imagej-ui-pivot
+[code/imagej/imagej-ui-awt]
+checkout = git clone git://github.com/imagej/imagej-ui-awt
 
-[code/imagej/imagej-ui-swt]
-checkout = git clone git://github.com/imagej/imagej-ui-swt
+[code/imagej/imagej-ui-swing]
+checkout = git clone git://github.com/imagej/imagej-ui-swing
 
 [code/imagej/irc-bot]
 checkout = git clone git://github.com/imagej/irc-bot
@@ -720,6 +720,18 @@ checkout = git clone git://github.com/scifio/scifio-omero
 
 [code/scifio/scifio-tutorials]
 checkout = git clone git://github.com/scifio/scifio-tutorials
+
+[code/scijava/scijava-ui-awt]
+checkout = git clone git://github.com/scijava/scijava-ui-awt
+
+[code/scijava/scijava-ui-pivot]
+checkout = git clone git://github.com/scijava/scijava-ui-pivot
+
+[code/scijava/scijava-ui-swing]
+checkout = git clone git://github.com/scijava/scijava-ui-swing
+
+[code/scijava/scijava-ui-swt]
+checkout = git clone git://github.com/scijava/scijava-ui-swt
 
 [code/scijava/native-lib-loader]
 checkout = git clone git://github.com/scijava/native-lib-loader
