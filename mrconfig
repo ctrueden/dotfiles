@@ -481,9 +481,6 @@ checkout = git clone git://github.com/imagej/irc-bot
 [code/imagej/minimal-ij1-plugin]
 checkout = git clone git://github.com/imagej/minimal-ij1-plugin
 
-[code/imagej/minimaven]
-checkout = git clone git://github.com/imagej/minimaven
-
 [code/imagej/visad-plugin]
 checkout = git clone git://github.com/imagej/visad-plugin
 
@@ -732,6 +729,9 @@ checkout = git clone git://github.com/scijava/scijava-ui-swing
 
 [code/scijava/scijava-ui-swt]
 checkout = git clone git://github.com/scijava/scijava-ui-swt
+
+[code/scijava/minimaven]
+checkout = git clone git://github.com/scijava/minimaven
 
 [code/scijava/native-lib-loader]
 checkout = git clone git://github.com/scijava/native-lib-loader
