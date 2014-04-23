@@ -727,18 +727,6 @@ checkout = git clone git://github.com/scifio/scifio-omero
 [code/scifio/scifio-tutorials]
 checkout = git clone git://github.com/scifio/scifio-tutorials
 
-[code/scijava/scijava-ui-awt]
-checkout = git clone git://github.com/scijava/scijava-ui-awt
-
-[code/scijava/scijava-ui-pivot]
-checkout = git clone git://github.com/scijava/scijava-ui-pivot
-
-[code/scijava/scijava-ui-swing]
-checkout = git clone git://github.com/scijava/scijava-ui-swing
-
-[code/scijava/scijava-ui-swt]
-checkout = git clone git://github.com/scijava/scijava-ui-swt
-
 [code/scijava/minimaven]
 checkout = git clone git://github.com/scijava/minimaven
 
@@ -762,6 +750,18 @@ checkout = git clone git://github.com/scijava/scijava-maven-plugin
 
 [code/scijava/scijava-scripts]
 checkout = git clone git://github.com/scijava/scijava-scripts
+
+[code/scijava/scijava-ui-awt]
+checkout = git clone git://github.com/scijava/scijava-ui-awt
+
+[code/scijava/scijava-ui-pivot]
+checkout = git clone git://github.com/scijava/scijava-ui-pivot
+
+[code/scijava/scijava-ui-swing]
+checkout = git clone git://github.com/scijava/scijava-ui-swing
+
+[code/scijava/scijava-ui-swt]
+checkout = git clone git://github.com/scijava/scijava-ui-swt
 
 [code/scijava/scijava.github.com]
 checkout = git clone git://github.com/scijava/scijava.github.com
