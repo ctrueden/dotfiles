@@ -454,6 +454,9 @@ checkout = git clone git://github.com/imagej/imagej-omero
 [code/imagej/imagej-ops]
 checkout = git clone git://github.com/imagej/imagej-ops
 
+[code/imagej/imagej-plugins-commands]
+checkout = git clone git://github.com/imagej/imagej-plugins-commands
+
 [code/imagej/imagej-scripting-cli]
 checkout = git clone git://github.com/imagej/imagej-scripting-cli
 
@@ -747,6 +750,9 @@ checkout = git clone git://github.com/scijava/scijava-log-slf4j
 
 [code/scijava/scijava-maven-plugin]
 checkout = git clone git://github.com/scijava/scijava-maven-plugin
+
+[code/scijava/scijava-plugins-commands]
+checkout = git clone git://github.com/scijava/scijava-plugins-commands
 
 [code/scijava/scijava-scripts]
 checkout = git clone git://github.com/scijava/scijava-scripts
