@@ -586,6 +586,9 @@ checkout = git clone git://github.com/uw-loci/forward-cron-job
 [code/loci/fusion-events]
 checkout = git clone git://github.com/uw-loci/fusion-events
 
+[code/loci/github-backup-java]
+checkout = git clone git://github.com/uw-loci/github-backup-java
+
 [code/loci/jar2lib]
 checkout = git clone git://github.com/uw-loci/jar2lib
 
