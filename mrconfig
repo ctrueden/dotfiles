@@ -457,6 +457,15 @@ checkout = git clone git://github.com/imagej/imagej-ops
 [code/imagej/imagej-plugins-commands]
 checkout = git clone git://github.com/imagej/imagej-plugins-commands
 
+[code/imagej/imagej-plugins-tools]
+checkout = git clone git://github.com/imagej/imagej-plugins-tools
+
+[code/imagej/imagej-plugins-uploader-ssh]
+checkout = git clone git://github.com/imagej/imagej-plugins-uploader-ssh
+
+[code/imagej/imagej-plugins-uploader-webdav]
+checkout = git clone git://github.com/imagej/imagej-plugins-uploader-webdav
+
 [code/imagej/imagej-scripting-cli]
 checkout = git clone git://github.com/imagej/imagej-scripting-cli
 
@@ -753,6 +762,15 @@ checkout = git clone git://github.com/scijava/scijava-maven-plugin
 
 [code/scijava/scijava-plugins-commands]
 checkout = git clone git://github.com/scijava/scijava-plugins-commands
+
+[code/scijava/scijava-plugins-platforms]
+checkout = git clone git://github.com/scijava/scijava-plugins-platforms
+
+[code/scijava/scijava-plugins-text-markdown]
+checkout = git clone git://github.com/scijava/scijava-plugins-text-markdown
+
+[code/scijava/scijava-plugins-text-plain]
+checkout = git clone git://github.com/scijava/scijava-plugins-text-plain
 
 [code/scijava/scijava-scripts]
 checkout = git clone git://github.com/scijava/scijava-scripts
