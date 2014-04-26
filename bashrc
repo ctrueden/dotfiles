@@ -480,6 +480,9 @@ fi
 # license-maven-plugin
 alias lic='mvn license:update-project-license license:update-file-header'
 
+# dependency-maven-plugin
+alias anal='mvn dependency:analyze | grep WARNING'
+
 # build it!
 alias b='mvn clean install'
 alias bs='mvn -DskipTests clean install'
