@@ -472,12 +472,6 @@ checkout = git clone git://github.com/imagej/imagej-plugins-uploader-webdav
 [code/imagej/imagej-scripting-cli]
 checkout = git clone git://github.com/imagej/imagej-scripting-cli
 
-[code/imagej/imagej-scripting-r]
-checkout = git clone git://github.com/imagej/imagej-scripting-r
-
-[code/imagej/imagej-scripting-scala]
-checkout = git clone git://github.com/imagej/imagej-scripting-scala
-
 [code/imagej/imagej-server]
 checkout = git clone git://github.com/imagej/imagej-server
 
@@ -810,6 +804,12 @@ checkout = git clone git://github.com/scijava/scripting-jruby
 
 [code/scijava/scripting-jython]
 checkout = git clone git://github.com/scijava/scripting-jython
+
+[code/scijava/scripting-r]
+checkout = git clone git://github.com/scijava/scripting-r
+
+[code/scijava/scripting-scala]
+checkout = git clone git://github.com/scijava/scripting-scala
 
 [code/scijava/swing-checkbox-tree]
 checkout = git clone git://github.com/scijava/swing-checkbox-tree
