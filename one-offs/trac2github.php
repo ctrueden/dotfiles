@@ -74,9 +74,6 @@ foreach ($res->fetchAll() as $row) {
 function trac_close($ticket_id, $issue_id) {
 	global $trac_db, $trac_author, $project, $repo;
 
-	echo "ticket_id = $ticket_id\n";
-	echo "issue_id = $issue_id\n";
-
 	$res = $trac_db->query(
 		"SELECT status FROM ticket WHERE id = $ticket_id")->fetchAll();
 	$old_status = $res[0][0];
@@ -90,11 +87,6 @@ function trac_close($ticket_id, $issue_id) {
 	$comment_no = intval($res[0][0]) + 1;
 
 	$tm = intval(1000000 * microtime(true));
-
-	echo "old_status = $old_status\n";
-	echo "old_resolution = $old_resolution\n";
-	echo "comment_no = $comment_no\n";
-	echo "time = $tm\n";
 
 	// mark ticket as closed, moved
 	$trac_db->query("UPDATE ticket " .
