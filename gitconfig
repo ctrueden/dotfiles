@@ -22,6 +22,7 @@
 	lns = log --name-status
 	follow = log --name-status --follow
 	ff = merge --ff 'HEAD@{u}'
+	ls = ls-files
 	move = mv
 	ren = mv
 	rename = mv
