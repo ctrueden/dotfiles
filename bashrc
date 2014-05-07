@@ -233,7 +233,6 @@ export SCIJAVA_DIR="$CODE_DIR/scijava"
 alias gopsj='cd $SCIJAVA_DIR/pom-scijava'
 alias gosjc='cd $SCIJAVA_DIR/scijava-common'
 alias gosjs='cd $SCIJAVA_DIR/scijava-scripts'
-alias gosjo='cd $SCIJAVA_DIR/scijava-scripts'
 
 # NAR - https://github.com/maven-nar/nar-maven-plugin
 export NAR_DIR="$CODE_DIR/nar/nar-maven-plugin"
