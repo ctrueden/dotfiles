@@ -306,7 +306,15 @@ if [ "$IS_MACOSX" ]; then
 		grep '1.7' |\
 		sort -r |\
 		head -n 1)/Contents/Home"
+	export J8="$( \
+		find $jvmdir -mindepth 1 -maxdepth 1 |\
+		grep '1.8' |\
+		sort -r |\
+		head -n 1)/Contents/Home"
 fi
+alias j6='export JAVA_HOME=$J6 && echo "JAVA_HOME -> $JAVA_HOME" && java -version'
+alias j7='export JAVA_HOME=$J7 && echo "JAVA_HOME -> $JAVA_HOME" && java -version'
+alias j8='export JAVA_HOME=$J8 && echo "JAVA_HOME -> $JAVA_HOME" && java -version'
 
 # unset the actual classpath, since some programs play badly with it
 unset CLASSPATH
@@ -459,8 +467,9 @@ fi
 if [ "$IS_MACOSX" ]; then
 	export FIJI_USER_DIR="/Applications/Science/Fiji.app"
 	alias fiji='$FIJI_USER_DIR/Contents/MacOS/ImageJ-macosx'
-	alias fiji7='$FIJI_USER_DIR/Contents/MacOS/ImageJ-macosx --java-home /Library/Java/JavaVirtualMachines/jdk1.7.0_45.jdk/Contents/Home'
-	alias fiji8='$FIJI_USER_DIR/Contents/MacOS/ImageJ-macosx --java-home /Library/Java/JavaVirtualMachines/jdk1.8.0.jdk/Contents/Home'
+	alias fiji6='$FIJI_USER_DIR/Contents/MacOS/ImageJ-macosx --java-home "$J6"'
+	alias fiji7='$FIJI_USER_DIR/Contents/MacOS/ImageJ-macosx --java-home "$J7"'
+	alias fiji8='$FIJI_USER_DIR/Contents/MacOS/ImageJ-macosx --java-home "$J8"'
 elif [ "$IS_WINDOWS" ]; then
 	export FIJI_USER_DIR="$HOME/Applications/Fiji.app"
 	alias fiji='$FIJI_USER_DIR/ImageJ-win64'
