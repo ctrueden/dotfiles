@@ -1,0 +1,7 @@
+#!/bin/bash
+
+#
+# pypath: a script for pretty printing the Python path
+#
+
+spath $PYTHONPATH
