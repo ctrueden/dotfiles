@@ -97,7 +97,7 @@ esac
 
 # --== operating system (Darwin, Linux, etc.) ==--
 
-export OS_NAME=`uname`
+export OS_NAME="$(uname)"
 if [ "$OS_NAME" == "Darwin" ]; then
 	export IS_MACOSX=1
 elif [ "$OS_NAME" == "Linux" ]; then
@@ -335,7 +335,7 @@ if [ ! -e "$cpFile" ]; then
 		loci:utils:1.0.0-SNAPSHOT \
 		org.beanshell:bsh:2.0b4 > $cpFile
 fi
-export JAVA_CP="$JAVA_CP:`cat $cpFile`"
+export JAVA_CP="$JAVA_CP:$(cat $cpFile)"
 
 # add Bio-Formats utils folders to the classpath
 for dir in $BF_DIR/components/*/utils
@@ -447,7 +447,7 @@ fi
 
 # --== ldd ==--
 
-if [ ! -x "`which ldd`" ]; then
+if [ ! -x "$(which ldd)" ]; then
 	# make 'ldd' work on OS X
 	alias ldd='otool -L'
 fi
