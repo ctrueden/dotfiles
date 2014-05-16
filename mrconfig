@@ -499,15 +499,6 @@ checkout = git clone git://github.com/imagej/pom-imagej
 [code/imagej/visad-plugin]
 checkout = git clone git://github.com/imagej/visad-plugin
 
-[code/imagej/workflow]
-checkout = git clone git://github.com/imagej/workflow
-
-[code/imagej/workflow-pipes]
-checkout = git clone git://github.com/imagej/workflow-pipes
-
-[code/imagej/zoomviewer]
-checkout = git clone git://github.com/imagej/zoomviewer
-
 [code/imglib/imglib]
 checkout = git clone git://github.com/imglib/imglib
 
