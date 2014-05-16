@@ -256,14 +256,14 @@ alias god='cd $HOME/data'
 
 # --== OMERO ==--
 
-export OMERO_DIR="$CODE_DIR/ome/openmicroscopy/dist"
-if [ -d "$OMERO_DIR" ]
+export OMERO_DEV="$CODE_DIR/ome/openmicroscopy/dist"
+if [ -d "$OMERO_DEV" ]
 then
-	export OMERO_HOME="$OMERO_DIR"
+	export OMERO_PREFIX="$OMERO_DEV"
 else
-	export OMERO_HOME="$HOME/apps/OMERO.server-5.0.0-rc2-ice35-b14"
+	export OMERO_PREFIX="$(find "$HOME/apps" -name 'OMERO.server*' -type d)"
 fi
-export ICE_CONFIG="$OMERO_HOME/etc/ice.config"
+export ICE_CONFIG="$OMERO_PREFIX/etc/ice.config"
 if [ "$IS_LINUX" ]; then
 	export ICE_HOME=/usr/share/Ice-3.4.2
 	export POSTGRES_HOME=/usr/lib/postgresql/9.1
@@ -272,10 +272,10 @@ if [ "$IS_LINUX" ]; then
 elif [ "$IS_MACOSX" ]; then
 	export ICE_HOME="$(brew --prefix ice)"
 	export SLICEPATH="$ICE_HOME/share/Ice-3.5/slice"
-	export PYTHONPATH="$OMERO_HOME/lib/python:/usr/local/lib/python2.7/site-packages"
+	export PYTHONPATH="$OMERO_PREFIX/lib/python:/usr/local/lib/python2.7/site-packages"
 fi
-export PATH="$OMERO_HOME/bin:$PATH"
-alias goome='cd "$OMERO_HOME"'
+export PATH="$OMERO_PREFIX/bin:$PATH"
+alias goome='cd "$OMERO_PREFIX"'
 
 # --== path ==--
 
