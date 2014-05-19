@@ -276,6 +276,7 @@ elif [ "$IS_MACOSX" ]; then
 fi
 export PATH="$OMERO_PREFIX/bin:$PATH"
 alias goome='cd "$OMERO_PREFIX"'
+alias fix-omero='omero admin ice "server stop Processor-0"'
 
 # --== path ==--
 
