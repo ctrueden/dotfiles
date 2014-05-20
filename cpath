@@ -4,11 +4,11 @@
 # cpath: a script for pretty printing the Java class path
 #
 
-if [ $CLASSPATH ];
+if [ -z "$CLASSPATH" ];
 then
-  echo CLASSPATH =
-  spath $CLASSPATH
-else
   echo CP =
-  spath $CP
+  spath "$CP"
+else
+  echo CLASSPATH =
+  spath "$CLASSPATH"
 fi
