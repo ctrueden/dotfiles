@@ -634,6 +634,9 @@ checkout = git clone git://github.com/uw-loci/prairie-ome-tiff
 [code/loci/slim-plotter]
 checkout = git clone git://github.com/uw-loci/slim-plotter
 
+[code/loci/sonification]
+checkout = git clone git://github.com/uw-loci/sonification
+
 [code/loci/visbio]
 checkout = git clone git://github.com/uw-loci/visbio
 
