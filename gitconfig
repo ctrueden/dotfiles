@@ -22,6 +22,7 @@
 	lns = log --name-status
 	follow = log --name-status --follow
 	ff = merge --ff 'HEAD@{u}'
+	ffs = !git stash && git ff && git pop
 	ls = ls-files
 	move = mv
 	ren = mv
