@@ -1,0 +1,8 @@
+#!/bin/sh
+
+# Dirt simple script to print missing symlinks.
+
+for f in $@
+do
+	test -f "$f" -o -d "$f" || echo "$f"
+done
