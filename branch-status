@@ -4,13 +4,21 @@
 # branch-status - scan for branches with unpushed changes
 #
 
+case "$1" in
+	-a)
+		all=1
+		;;
+	*)
+		;;
+esac
+
 repos=$(grep '^\[.*\]$' ~/.mrconfig |
 	sed -e 's/^\[\(.*\)\]$/\1/')
 for repo in $repos
 do (
 	test "$repo" != "DEFAULT" || continue
+	test -d "$HOME/$repo/.git" || continue
 	cd "$HOME/$repo"
-	test -d .git || continue
 	repo="$(echo "$repo" | sed 's/.*\///')"
 
 	# NB: Portions of the following were stolen from:
@@ -28,15 +36,31 @@ do (
 	test "$(git stash list | tail -n1)" == "" ||
 		printf "%20s : %s\n" "$repo" "{STASH}"
 
-	# check for unpushed branches
-	branches=$(git branch -vv |
-		grep -v '\[[^ ]\+\]' |
-		sed -E 's/^\*? *//' |
-		sed -E 's/  */~/g' )
+	# check branches
+	if [ "$all" ]
+	then
+		# report on all local branches
+		branches=$(git branch -vv |
+			sed -E 's/^\*? *//' |
+			sed -E 's/  */~/g')
+	else
+		# check for unpushed branches
+		branches=$(git branch -vv |
+			grep -v '\[[^ ]\+\]' |
+			sed -E 's/^\*? *//' |
+			sed -E 's/  */~/g')
+	fi
 	for branch in $branches
 	do (
 		branch="$(echo "$branch" | sed 's/~/ /g')"
-		test "$branch" == "" ||
-			printf "%20s : %s\n" "$repo" "$branch"
+		test "$branch" != "" || continue
+		if [ "$all" ]
+		then
+			upstream=$(echo "$branch" | sed -E 's/.*\[([^ ]+)\].*/\1/')
+			test "$upstream" != "origin/master" \
+				-a "$upstream" != "origin/svn/trunk" \
+				|| continue
+		fi
+		printf "%20s : %s\n" "$repo" "$branch"
 	) done
 ) done
