@@ -263,7 +263,7 @@ if [ -d "$OMERO_DEV" ]
 then
 	export OMERO_PREFIX="$OMERO_DEV"
 else
-	export OMERO_PREFIX="$(find "$HOME/apps" -name 'OMERO.server*' -type d)"
+	export OMERO_PREFIX="$(find "$HOME/apps" -name 'OMERO.server*' -type d 2> /dev/null)"
 fi
 export ICE_CONFIG="$OMERO_PREFIX/etc/ice.config"
 if [ "$IS_LINUX" ]; then
