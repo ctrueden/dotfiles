@@ -685,6 +685,9 @@ checkout = git clone -b dev_5_0 git://github.com/openmicroscopy/ome-documentatio
 [code/ome/openmicroscopy]
 checkout = git clone -b dev_5_0 git://github.com/openmicroscopy/openmicroscopy
 
+[code/ome/samples]
+checkout = git clone git://github.com/openmicroscopy/samples
+
 [code/other/bnd]
 checkout = git clone git://github.com/bndtools/bnd
 
@@ -947,6 +950,3 @@ checkout = git clone git@github.com:openmicroscopy/ome-movie
 
 [code/ome/qa]
 checkout = git clone git@github.com:openmicroscopy/qa
-
-[code/ome/samples]
-checkout = git clone git@github.com:openmicroscopy/samples
