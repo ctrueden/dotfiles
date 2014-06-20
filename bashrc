@@ -540,6 +540,7 @@ alias upf='cd ../../../../../../../../../../../../../../..'
 
 # --== machine shortcuts ==--
 
+alias cyber='ssh cyber'
 alias dev='ssh dev'
 alias drupal='ssh drupal'
 alias ome='ssh ome'
