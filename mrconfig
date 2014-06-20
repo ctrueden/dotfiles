@@ -664,6 +664,12 @@ checkout = git clone git://github.com/apache/maven-plugins
 [code/maven/maven-wagon]
 checkout = git clone git://github.com/apache/maven-wagon
 
+[code/git/Git-Cheetah]
+checkout = git clone git://github.com/msysgit/Git-Cheetah
+
+[code/git/msysgit]
+checkout = git clone git://github.com/msysgit/msysgit
+
 [code/nar/nar-maven-plugin]
 checkout = git clone git://github.com/maven-nar/nar-maven-plugin
 
@@ -672,6 +678,9 @@ checkout = git clone git://github.com/maven-nar/maven-nar.github.com
 
 [code/ome/Imperial-FLIMfit]
 checkout = git clone git://github.com/openmicroscopy/Imperial-FLIMfit
+
+[code/ome/Omega]
+checkout = git clone git://github.com/OmegaProject/Omega
 
 [code/ome/bf4]
 checkout = git clone -b dev_4_4 git://github.com/openmicroscopy/bioformats bf4
