@@ -715,11 +715,17 @@ checkout = git clone git://github.com/sbridges/object-inspector
 [code/other/rootbeer1]
 checkout = git clone git://github.com/pcpratts/rootbeer1
 
+[code/scifio/pom-scifio]
+checkout = git clone git://github.com/scifio/pom-scifio
+
 [code/scifio/scifio]
 checkout = git clone git://github.com/scifio/scifio
 
 [code/scifio/scifio-bf-compat]
 checkout = git clone git://github.com/scifio/scifio-bf-compat
+
+[code/scifio/scifio-cli]
+checkout = git clone git://github.com/scifio/scifio-cli
 
 [code/scifio/scifio-imageio]
 checkout = git clone git://github.com/scifio/scifio-imageio

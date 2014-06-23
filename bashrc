@@ -167,6 +167,8 @@ alias gow='cd $LOCI_DIR/wiscscan'
 # SCIFIO - https://github.com/scifio
 export SCIFIO_DIR="$CODE_DIR/scifio/scifio"
 alias gos='cd $SCIFIO_DIR'
+alias gops='cd $SCIFIO_DIR/../pom-scifio'
+alias goscli='cd $SCIFIO_DIR/../scifio-cli'
 alias goso='cd $SCIFIO_DIR/../scifio-omero'
 alias gost='cd $SCIFIO_DIR/../scifio-tutorials'
 
