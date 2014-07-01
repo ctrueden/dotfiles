@@ -898,14 +898,17 @@ checkout = git clone git://git.code.sf.net/p/waterloo/beta waterloo
 
 # -- Mercurial repositories --
 
+[code/bisque/bisque]
+checkout = hg clone --insecure http://biodev.ece.ucsb.edu/hg/bisque-stable bisque
+
+[code/bisque/bisquik]
+checkout = hg clone --insecure http://biodev.ece.ucsb.edu/hg/bisquik-stable bisquik
+
 [code/leonardo/amino]
 checkout = hg clone --insecure https://amino.leonardosketch.googlecode.com/hg/ amino
 
 [code/leonardo/leonardosketch]
 checkout = hg clone --insecure https://leonardosketch.googlecode.com/hg/ leonardosketch
-
-[code/other/bisque]
-checkout = hg clone --insecure http://biodev.ece.ucsb.edu/hg/bisquik-stable bisque
 
 [code/other/jace]
 checkout = hg clone --insecure https://code.google.com/p/jace/
