@@ -471,17 +471,18 @@ fi
 # launch Fiji with 'fiji'
 if [ "$IS_MACOSX" ]; then
 	export FIJI_USER_DIR="/Applications/Science/Fiji.app"
-	alias fiji='$FIJI_USER_DIR/Contents/MacOS/ImageJ-macosx'
-	alias fiji6='$FIJI_USER_DIR/Contents/MacOS/ImageJ-macosx --java-home "$J6"'
-	alias fiji7='$FIJI_USER_DIR/Contents/MacOS/ImageJ-macosx --java-home "$J7"'
-	alias fiji8='$FIJI_USER_DIR/Contents/MacOS/ImageJ-macosx --java-home "$J8"'
+	export FIJI_EXEC="$FIJI_USER_DIR/Contents/MacOS/ImageJ-macosx"
 elif [ "$IS_WINDOWS" ]; then
 	export FIJI_USER_DIR="$HOME/Applications/Fiji.app"
-	alias fiji='$FIJI_USER_DIR/ImageJ-win64'
+	export FIJI_EXEC="$FIJI_USER_DIR/ImageJ-win64"
 else
 	export FIJI_USER_DIR="$HOME/Applications/Fiji.app"
-	alias fiji='$FIJI_USER_DIR/ImageJ-linux64'
+	export FIJI_EXEC="$FIJI_USER_DIR/ImageJ-linux64"
 fi
+alias fiji='$FIJI_EXEC'
+alias fiji6='$FIJI_EXEC --java-home "$J6"'
+alias fiji7='$FIJI_EXEC --java-home "$J7"'
+alias fiji8='$FIJI_EXEC --java-home "$J8"'
 
 # --== Maven ==--
 
