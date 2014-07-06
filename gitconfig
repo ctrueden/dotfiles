@@ -30,6 +30,7 @@
 	pl = pull
 	prb = pull --rebase
 	ps = !fix-github-remotes && git push
+	psf = push --force
 	ra = rebase --abort
 	rc = rebase --continue
 	ws = rebase --whitespace=strip
