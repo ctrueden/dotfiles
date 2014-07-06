@@ -33,6 +33,9 @@ set nojoinspaces
 
 filetype plugin on
 
+" Do not beep on errors
+set vb
+
 " Press F2 to wrap a long line under the cursor at 80 chars
 " Also try selecting with V followed by gq to format text blocks to 80 chars
 map <F2> 081lBhs<cr><esc>
