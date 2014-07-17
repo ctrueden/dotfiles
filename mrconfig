@@ -47,7 +47,7 @@ checkout = git clone git://github.com/fiji/3D_Objects_Counter
 checkout = git clone git://github.com/fiji/3D_Viewer
 
 [code/fiji/ASA]
-checkout = git clone git://github.com/fiji/ASA
+checkout = git clone git://github.com/tferr/ASA
 
 [code/fiji/AnalyzeSkeleton]
 checkout = git clone git://github.com/fiji/AnalyzeSkeleton
