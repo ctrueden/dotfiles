@@ -391,6 +391,9 @@ checkout = git clone git://github.com/fiji/level_sets
 [code/fiji/mij]
 checkout = git clone git://github.com/fiji/mij
 
+[code/fiji/mpicbg]
+checkout = git clone git://github.com/axtimwalde/mpicbg
+
 [code/fiji/pal-optimization]
 checkout = git clone git://github.com/fiji/pal-optimization
 
