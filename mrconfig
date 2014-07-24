@@ -490,6 +490,9 @@ checkout = git clone git://github.com/imagej/imagej-ui-swing
 [code/imagej/imagej-updater]
 checkout = git clone git://github.com/imagej/imagej-updater
 
+[code/imagej/imagej-usage]
+checkout = git clone git://github.com/imagej/imagej-usage
+
 [code/imagej/irc-bot]
 checkout = git clone git://github.com/imagej/irc-bot
 
