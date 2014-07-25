@@ -209,7 +209,9 @@ alias goijl='goijle'
 alias goijo='cd $IJ_DIR/../imagej-omero'
 alias goijs='cd $IJ_DIR/../imagej-server'
 alias goijt='cd $IJ_DIR/../imagej-tutorials'
-alias goiju='cd $IJ_DIR/../imagej-updater'
+alias goijup='cd $IJ_DIR/../imagej-updater'
+alias goijus='cd $IJ_DIR/../imagej-usage'
+alias goiju='goijup'
 alias gopij='cd $IJ_DIR/../pom-imagej'
 
 # ImageJ OPS - https://github.com/imagej/imagej-ops
