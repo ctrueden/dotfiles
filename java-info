@@ -16,6 +16,18 @@ do
 done
 
 echo
+echo '=== Which version of Java are my browsers using? ==='
+echo
+browser_path='/Library/Internet Plug-Ins/JavaAppletPlugin.plugin'
+if [ -d "$browser_path" ]
+then
+  (set -x && "$browser_path/Contents/Home/bin/java" -version)
+  du -hs "$browser_path"
+else
+  echo "No Java browser plugin found."
+fi
+
+echo
 echo '=== Where is the Java framework stuff? ==='
 echo
 (set -x && ls -l /System/Library/Frameworks/JavaVM.framework/Versions/)
