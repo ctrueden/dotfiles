@@ -1,0 +1,19 @@
+#!/bin/sh
+
+# link-jar - symlink a locally built JAR file into a Fiji app directory.
+
+if [ -z "$1" ]
+then
+  echo Usage: link-jar project-name
+  exit 1
+fi
+
+cd $FIJI_USER_DIR/jars
+libPath=$CODE_DIR/*/$1/target/$1-*-SNAPSHOT.jar
+if [ ! -e $lib ]
+then
+  echo No such library: $libPath
+fi
+set -x
+rm -f $1-*.jar
+ln -s $libPath
