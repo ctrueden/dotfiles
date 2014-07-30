@@ -400,6 +400,9 @@ checkout = git clone git://github.com/fiji/pal-optimization
 [code/fiji/panorama]
 checkout = git clone git://github.com/fiji/panorama
 
+[code/fiji/pom-fiji]
+checkout = git clone git://github.com/fiji/pom-fiji
+
 [code/fiji/profilers]
 checkout = git clone git://github.com/fiji/profilers
 
