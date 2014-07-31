@@ -137,125 +137,125 @@ export MAVEN_OPTS="-Xmx1536m -XX:MaxPermSize=256m"
 # --== source code directories ==--
 
 # base directory for all projects
-export CODE_DIR="$HOME/code"
+export PATH_CODE="$HOME/code"
 
 # personal projects - https://github.com/ctrueden
-export PERSONAL_DIR="$CODE_DIR/ctrueden"
-alias goctr='cd $PERSONAL_DIR'
+export PATH_PERSONAL="$PATH_CODE/ctrueden"
+alias goctr='cd $PATH_PERSONAL'
 
 # configuration files
-export CONFIG_DIR="$PERSONAL_DIR/ctr-config"
-alias gocfg='cd $CONFIG_DIR'
-export CFG_PRIVATE_DIR="$PERSONAL_DIR/ctr-cfg-private"
-alias gocfp='cd $CFG_PRIVATE_DIR'
+export PATH_CONFIG="$PATH_PERSONAL/ctr-config"
+alias gocfg='cd $PATH_CONFIG'
+export PATH_CFG_PRIVATE="$PATH_PERSONAL/ctr-cfg-private"
+alias gocfp='cd $PATH_CFG_PRIVATE'
 
 # useful scripts
-export SCRIPTS_DIR="$PERSONAL_DIR/ctr-scripts"
-alias gosc='cd $SCRIPTS_DIR'
+export PATH_SCRIPTS="$PATH_PERSONAL/ctr-scripts"
+alias gosc='cd $PATH_SCRIPTS'
 
 # private projects
-export PRIVATE_DIR="$PERSONAL_DIR/ctr-private"
-alias gop='cd $PRIVATE_DIR'
+export PATH_PRIVATE="$PATH_PERSONAL/ctr-private"
+alias gop='cd $PATH_PRIVATE'
 
 # LOCI projects - https://github.com/uw-loci
-export LOCI_DIR="$CODE_DIR/loci"
-alias go='cd $LOCI_DIR'
-alias goj2l='cd $LOCI_DIR/jar2lib/src/main/resources'
-alias gov='cd $LOCI_DIR/visbio/src/main/java/loci/visbio'
-alias gow='cd $LOCI_DIR/wiscscan'
+export PATH_LOCI="$PATH_CODE/loci"
+alias go='cd $PATH_LOCI'
+alias goj2l='cd $PATH_LOCI/jar2lib/src/main/resources'
+alias gov='cd $PATH_LOCI/visbio/src/main/java/loci/visbio'
+alias gow='cd $PATH_LOCI/wiscscan'
 
 # SCIFIO - https://github.com/scifio
-export SCIFIO_DIR="$CODE_DIR/scifio/scifio"
-alias gos='cd $SCIFIO_DIR'
-alias gops='cd $SCIFIO_DIR/../pom-scifio'
-alias goscli='cd $SCIFIO_DIR/../scifio-cli'
-alias goso='cd $SCIFIO_DIR/../scifio-omero'
-alias gost='cd $SCIFIO_DIR/../scifio-tutorials'
+export PATH_SCIFIO="$PATH_CODE/scifio/scifio"
+alias gos='cd $PATH_SCIFIO'
+alias gops='cd $PATH_SCIFIO/../pom-scifio'
+alias goscli='cd $PATH_SCIFIO/../scifio-cli'
+alias goso='cd $PATH_SCIFIO/../scifio-omero'
+alias gost='cd $PATH_SCIFIO/../scifio-tutorials'
 
 # Bio-Formats - https://github.com/openmicroscopy/bioformats
-export BF4_DIR="$CODE_DIR/ome/bf4"
-alias gobf4='cd $BF4_DIR'
-alias gobf4a='cd $BF4_DIR/components/autogen/src'
-alias gobf4c='cd $BF4_DIR/components/common/src/loci/common'
-alias gobf4f='cd $BF4_DIR/components/bio-formats/src/loci/formats'
-alias gobf4p='cd $BF4_DIR/components/loci-plugins/src/loci/plugins'
-alias gobf4x='cd $BF4_DIR/components/ome-xml/src/ome/xml'
-export BF5_DIR="$CODE_DIR/ome/bf5"
-alias gobf5='cd $BF5_DIR'
-alias gobf5a='cd $BF5_DIR/components/autogen/src'
-alias gobf5c='cd $BF5_DIR/components/formats-common/src/loci/common'
-alias gobf5f='cd $BF5_DIR/components/formats-api/src/loci/formats'
-alias gobf5p='cd $BF5_DIR/components/bio-formats-plugins/src/loci/plugins'
-alias gobf5x='cd $BF5_DIR/components/ome-xml/src/ome/xml'
-export BF_DIR="$CODE_DIR/ome/bf-develop"
-alias gobf='cd $BF_DIR'
-alias gobfa='cd $BF_DIR/components/autogen/src'
-alias gobfc='cd $BF_DIR/components/formats-common/src/loci/common'
-alias gobff='cd $BF_DIR/components/formats-api/src/loci/formats'
-alias gobfp='cd $BF_DIR/components/bio-formats-plugins/src/loci/plugins'
-alias gobfx='cd $BF_DIR/components/ome-xml/src/ome/xml'
-export PATH="$BF5_DIR/tools:$PATH"
+export PATH_BF4="$PATH_CODE/ome/bf4"
+alias gobf4='cd $PATH_BF4'
+alias gobf4a='cd $PATH_BF4/components/autogen/src'
+alias gobf4c='cd $PATH_BF4/components/common/src/loci/common'
+alias gobf4f='cd $PATH_BF4/components/bio-formats/src/loci/formats'
+alias gobf4p='cd $PATH_BF4/components/loci-plugins/src/loci/plugins'
+alias gobf4x='cd $PATH_BF4/components/ome-xml/src/ome/xml'
+export PATH_BF5="$PATH_CODE/ome/bf5"
+alias gobf5='cd $PATH_BF5'
+alias gobf5a='cd $PATH_BF5/components/autogen/src'
+alias gobf5c='cd $PATH_BF5/components/formats-common/src/loci/common'
+alias gobf5f='cd $PATH_BF5/components/formats-api/src/loci/formats'
+alias gobf5p='cd $PATH_BF5/components/bio-formats-plugins/src/loci/plugins'
+alias gobf5x='cd $PATH_BF5/components/ome-xml/src/ome/xml'
+export PATH_BF="$PATH_CODE/ome/bf-develop"
+alias gobf='cd $PATH_BF'
+alias gobfa='cd $PATH_BF/components/autogen/src'
+alias gobfc='cd $PATH_BF/components/formats-common/src/loci/common'
+alias gobff='cd $PATH_BF/components/formats-api/src/loci/formats'
+alias gobfp='cd $PATH_BF/components/bio-formats-plugins/src/loci/plugins'
+alias gobfx='cd $PATH_BF/components/ome-xml/src/ome/xml'
+export PATH="$PATH_BF5/tools:$PATH"
 
 # ImageJ - https://github.com/imagej
-export IJ_DIR="$CODE_DIR/imagej/imagej"
-alias goij='cd $IJ_DIR'
-alias goij1='cd $IJ_DIR/../ImageJA'
-alias goij1p='cd $IJ_DIR/../ij1-patcher'
-alias goij1t='cd $IJ_DIR/../ij1-tests'
-alias goijc='cd $IJ_DIR/../imagej-common'
-alias goijla='cd $IJ_DIR/../imagej-launcher'
-alias goijle='cd $IJ_DIR/../imagej-legacy'
+export PATH_IJ="$PATH_CODE/imagej/imagej"
+alias goij='cd $PATH_IJ'
+alias goij1='cd $PATH_IJ/../ImageJA'
+alias goij1p='cd $PATH_IJ/../ij1-patcher'
+alias goij1t='cd $PATH_IJ/../ij1-tests'
+alias goijc='cd $PATH_IJ/../imagej-common'
+alias goijla='cd $PATH_IJ/../imagej-launcher'
+alias goijle='cd $PATH_IJ/../imagej-legacy'
 alias goijl='goijle'
-alias goijo='cd $IJ_DIR/../imagej-omero'
-alias goijs='cd $IJ_DIR/../imagej-server'
-alias goijt='cd $IJ_DIR/../imagej-tutorials'
-alias goijup='cd $IJ_DIR/../imagej-updater'
-alias goijus='cd $IJ_DIR/../imagej-usage'
+alias goijo='cd $PATH_IJ/../imagej-omero'
+alias goijs='cd $PATH_IJ/../imagej-server'
+alias goijt='cd $PATH_IJ/../imagej-tutorials'
+alias goijup='cd $PATH_IJ/../imagej-updater'
+alias goijus='cd $PATH_IJ/../imagej-usage'
 alias goiju='goijup'
-alias gopij='cd $IJ_DIR/../pom-imagej'
+alias gopij='cd $PATH_IJ/../pom-imagej'
 
 # ImageJ OPS - https://github.com/imagej/imagej-ops
-export OPS_DIR="$IJ_DIR/../imagej-ops"
-alias goops='cd $OPS_DIR'
+export PATH_OPS="$PATH_IJ/../imagej-ops"
+alias goops='cd $PATH_OPS'
 
 # ImgLib2 - https://github.com/imglib/imglib
-export IMGLIB_DIR="$CODE_DIR/imglib/imglib"
-alias goil='cd $IMGLIB_DIR'
+export PATH_IMGLIB="$PATH_CODE/imglib/imglib"
+alias goil='cd $PATH_IMGLIB'
 
 # ITK - https://github.com/Kitware/ITK
-export ITK_DIR="$HOME/code/kitware/ITK"
-alias goitk='cd $ITK_DIR'
+export PATH_ITK="$HOME/code/kitware/ITK"
+alias goitk='cd $PATH_ITK'
 
 # Fiji - https://github.com/fiji
-export FIJI_DIR="$CODE_DIR/fiji/fiji"
-alias gofi='cd $FIJI_DIR'
-alias gotm='cd $FIJI_DIR/../TrackMate'
-alias gocb='cd $FIJI_DIR/../cookbook'
+export PATH_FIJI="$PATH_CODE/fiji/fiji"
+alias gofi='cd $PATH_FIJI'
+alias gotm='cd $PATH_FIJI/../TrackMate'
+alias gocb='cd $PATH_FIJI/../cookbook'
 
 # JEX
-export JEX_DIR="$CODE_DIR/other/jex"
-alias gojex='cd $JEX_DIR'
+export PATH_JEX="$PATH_CODE/other/jex"
+alias gojex='cd $PATH_JEX'
 
 # SciJava - https://github.com/scijava
-export SCIJAVA_DIR="$CODE_DIR/scijava"
-alias gopsj='cd $SCIJAVA_DIR/pom-scijava'
-alias gosjc='cd $SCIJAVA_DIR/scijava-common'
-alias gosjs='cd $SCIJAVA_DIR/scijava-scripts'
+export PATH_SCIJAVA="$PATH_CODE/scijava"
+alias gopsj='cd $PATH_SCIJAVA/pom-scijava'
+alias gosjc='cd $PATH_SCIJAVA/scijava-common'
+alias gosjs='cd $PATH_SCIJAVA/scijava-scripts'
 
 # NAR - https://github.com/maven-nar/nar-maven-plugin
-export NAR_DIR="$CODE_DIR/nar/nar-maven-plugin"
-alias gonar='cd $NAR_DIR'
+export PATH_NAR="$PATH_CODE/nar/nar-maven-plugin"
+alias gonar='cd $PATH_NAR'
 
 # CellProfiler - https://github.com/CellProfiler/CellProfiler
-export CELLPROFILER_DIR="$CODE_DIR/cellprofiler/CellProfiler"
-alias gocp='cd $CELLPROFILER_DIR'
+export PATH_CELLPROFILER="$PATH_CODE/cellprofiler/CellProfiler"
+alias gocp='cd $PATH_CELLPROFILER'
 
 # SLIM Curve - https://github.com/slim-curve
-export SLIM_DIR="$CODE_DIR/slim"
-alias goslim='cd $SLIM_DIR'
+export PATH_SLIM="$PATH_CODE/slim"
+alias goslim='cd $PATH_SLIM'
 
 # VisAD
-export VISAD_DIR="$CODE_DIR/other/visad"
+export PATH_VISAD="$PATH_CODE/other/visad"
 
 # -- image data directories --
 
@@ -264,10 +264,11 @@ alias god='cd $HOME/data'
 
 # --== OMERO ==--
 
-export OMERO_DEV="$CODE_DIR/ome/openmicroscopy/dist"
-if [ -d "$OMERO_DEV" ]
+export PATH_OMERO="$PATH_CODE/ome/openmicroscopy"
+export PATH_OMERO_DIST="$PATH_OMERO/dist"
+if [ -d "$PATH_OMERO_DIST" ]
 then
-	export OMERO_PREFIX="$OMERO_DEV"
+	export OMERO_PREFIX="$PATH_OMERO_DIST"
 else
 	export OMERO_PREFIX="$(find "$HOME/apps" -name 'OMERO.server*' -type d 2> /dev/null)"
 fi
@@ -290,9 +291,9 @@ alias fix-omero='omero admin ice "server stop Processor-0"'
 
 export PATH=\
 $HOME/bin:\
-$SCRIPTS_DIR:\
-$SCIJAVA_DIR/scijava-scripts:\
-$FIJI_DIR/bin:\
+$PATH_SCRIPTS:\
+$PATH_SCIJAVA/scijava-scripts:\
+$PATH_FIJI/bin:\
 $PATH
 
 # prepend Homebrew bin directories to the path, if applicable
@@ -331,8 +332,8 @@ unset CLASSPATH
 # add some basic directories to the classpath
 export JAVA_CP=\
 $HOME/java:\
-$PRIVATE_DIR/java:\
-$PRIVATE_DIR/java/utils
+$PATH_PRIVATE/java:\
+$PATH_PRIVATE/java/utils
 
 # generate classpath for desired Maven artifacts
 cpFile="$HOME/.java-classpath"
@@ -347,7 +348,7 @@ fi
 export JAVA_CP="$JAVA_CP:$(cat $cpFile)"
 
 # add Bio-Formats utils folders to the classpath
-for dir in $BF_DIR/components/*/utils
+for dir in $PATH_BF/components/*/utils
 do
 	export JAVA_CP="$JAVA_CP:$dir"
 done
@@ -475,14 +476,14 @@ fi
 
 # launch Fiji with 'fiji'
 if [ "$IS_MACOSX" ]; then
-	export FIJI_USER_DIR="/Applications/Science/Fiji.app"
-	export FIJI_EXEC="$FIJI_USER_DIR/Contents/MacOS/ImageJ-macosx"
+	export PATH_FIJI_USER="/Applications/Science/Fiji.app"
+	export FIJI_EXEC="$PATH_FIJI_USER/Contents/MacOS/ImageJ-macosx"
 elif [ "$IS_WINDOWS" ]; then
-	export FIJI_USER_DIR="$HOME/Applications/Fiji.app"
-	export FIJI_EXEC="$FIJI_USER_DIR/ImageJ-win64"
+	export PATH_FIJI_USER="$HOME/Applications/Fiji.app"
+	export FIJI_EXEC="$PATH_FIJI_USER/ImageJ-win64"
 else
-	export FIJI_USER_DIR="$HOME/Applications/Fiji.app"
-	export FIJI_EXEC="$FIJI_USER_DIR/ImageJ-linux64"
+	export PATH_FIJI_USER="$HOME/Applications/Fiji.app"
+	export FIJI_EXEC="$PATH_FIJI_USER/ImageJ-linux64"
 fi
 alias fiji='$FIJI_EXEC'
 alias fiji6='$FIJI_EXEC --java-home "$J6"'
