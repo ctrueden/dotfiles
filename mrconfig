@@ -676,6 +676,9 @@ checkout = git clone git://github.com/apache/maven-wagon
 [code/git/Git-Cheetah]
 checkout = git clone git://github.com/msysgit/Git-Cheetah
 
+[code/git/git]
+checkout = git clone git://github.com/git/git
+
 [code/git/msysgit]
 checkout = git clone git://github.com/msysgit/msysgit
 
