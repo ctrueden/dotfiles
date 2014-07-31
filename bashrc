@@ -401,6 +401,19 @@ command -v hub >/dev/null 2>&1 && \
 # tell git-svn where to find SVN authors
 SVN_AUTHORS="$PATH_CFG_PRIVATE/authors.txt"
 
+# --== Git-Mediawiki (https://github.com/moy/Git-Mediawiki/wiki) ==--
+
+# Install prerequisites:
+# cpan MediaWiki::API
+# cpan DateTime::Format::ISO8601
+
+# Install git-remote-mediawiki and git-mw:
+# ln -s "$PATH_GIT/contrib/mw-to-git/git-remote-mediawiki.perl" \
+#       "$(git --exec-path)/git-remote-mediawiki"
+# ln -s "$PATH_GIT/contrib/mw-to-git/git-mw" "$(git --exec-path)"
+
+export PERL5LIB="$PATH_GIT/perl:$PATH_GIT/contrib/mw-to-git"
+
 # --== Python sphinx ==--
 
 # fail the sphinx build when there are warnings
