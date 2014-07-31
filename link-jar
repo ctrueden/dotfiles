@@ -8,8 +8,8 @@ then
   exit 1
 fi
 
-cd $FIJI_USER_DIR/jars
-libPath=$CODE_DIR/*/$1/target/$1-*-SNAPSHOT.jar
+cd $PATH_FIJI_USER/jars
+libPath=$PATH_CODE/*/$1/target/$1-*-SNAPSHOT.jar
 if [ ! -e $lib ]
 then
   echo No such library: $libPath
