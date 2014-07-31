@@ -239,6 +239,10 @@ alias gopsj='cd $PATH_SCIJAVA/pom-scijava'
 alias gosjc='cd $PATH_SCIJAVA/scijava-common'
 alias gosjs='cd $PATH_SCIJAVA/scijava-scripts'
 
+# Git - https://github.com/git/git
+export PATH_GIT="$PATH_CODE/git/git"
+alias gogit='cd $PATH_GIT'
+
 # NAR - https://github.com/maven-nar/nar-maven-plugin
 export PATH_NAR="$PATH_CODE/nar/nar-maven-plugin"
 alias gonar='cd $PATH_NAR'
