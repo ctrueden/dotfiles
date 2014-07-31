@@ -52,9 +52,6 @@ if [ -f "$BREW/etc/bash_completion.d/git-completion.bash" ]; then
 	export GIT_COMPLETION=1
 fi
 
-# tell git-svn where to find SVN authors
-SVN_AUTHORS="$CONFIG_DIR/authors.txt"
-
 # alias some common git typos
 alias giot='git'
 alias goit='git'
@@ -394,6 +391,11 @@ export XMLLINT_INDENT=$'\t'
 
 command -v hub >/dev/null 2>&1 && \
 	alias git='hub'
+
+# --== git-svn ==--
+
+# tell git-svn where to find SVN authors
+SVN_AUTHORS="$PATH_CFG_PRIVATE/authors.txt"
 
 # --== Python sphinx ==--
 
