@@ -454,6 +454,9 @@ checkout = git clone git://github.com/imagej/imagej-launcher
 [code/imagej/imagej-legacy]
 checkout = git clone git://github.com/imagej/imagej-legacy
 
+[code/imagej/imagej-matlab]
+checkout = git clone git://github.com/imagej/imagej-matlab
+
 [code/imagej/imagej-maven-plugin]
 checkout = git clone git://github.com/imagej/imagej-maven-plugin
 
@@ -831,6 +834,9 @@ checkout = git clone git://github.com/scijava/scripting-jruby
 
 [code/scijava/scripting-jython]
 checkout = git clone git://github.com/scijava/scripting-jython
+
+[code/scijava/scripting-matlab]
+checkout = git clone git://github.com/scijava/scripting-matlab
 
 [code/scijava/scripting-r]
 checkout = git clone git://github.com/scijava/scripting-r
