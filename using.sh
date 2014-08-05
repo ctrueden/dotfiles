@@ -15,6 +15,11 @@ echo "\${name#*.}        = '${name#*.}'"        #        ostrich.racing.champion
 echo "\${name##*.}       = '${name##*.}'"       #                       champion
 echo "\${name%%.*}       = '${name%%.*}'"       # polish
 echo "\${name%.*}        = '${name%.*}'"        # polish.ostrich.racing
+echo
+echo "\${name:16}        = '${name:16}'"        #                 acing.champion
+echo "\${name: -7}       = '${name: -7}'"       #                        hampion
+echo "\${name:0:5}       = '${name:0:5}'"       # polis
+echo "\${name:8:3}       = '${name:8:3}'"       #         str
 
 file='/usr/share/java-1.4.2-sun/demo/applets/Clock/Clock.class'
 echo
