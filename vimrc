@@ -28,6 +28,15 @@ set expandtab
 set shiftwidth=2
 set tabstop=2
 
+" Make vim highlight search matches (using /) as you type them
+" This is insanely useful when coupled with search-and-replace for
+" interactively testing complex regexes, because you can do:
+"     :/regex-pattern
+" Followed by:
+"     :%s//replacement/options
+" Because if you leave off the pattern using s//, it reuses the last one.
+set incsearch hlsearch
+
 " When using gq, do not put two spaces after a period
 set nojoinspaces
 
