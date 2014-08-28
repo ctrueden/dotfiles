@@ -763,6 +763,9 @@ checkout = git clone git://github.com/scifio/scifio-omero
 [code/scifio/scifio-tutorials]
 checkout = git clone git://github.com/scifio/scifio-tutorials
 
+[code/scifio/scifio.github.io]
+checkout = git clone git://github.com/scifio/scifio.github.io
+
 [code/scijava/minimaven]
 checkout = git clone git://github.com/scijava/minimaven
 
