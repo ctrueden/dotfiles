@@ -28,6 +28,9 @@ set expandtab
 set shiftwidth=2
 set tabstop=2
 
+" Show line numbers. Eclipse spoiled me; ^G is for chumps. ;-)
+set nu
+
 " Make vim highlight search matches (using /) as you type them
 " This is insanely useful when coupled with search-and-replace for
 " interactively testing complex regexes, because you can do:
