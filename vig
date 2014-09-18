@@ -1,7 +1,7 @@
 #!/bin/bash
 
 #
-# vig - greps for a particular string and opens all matching files in vi
+# vig - greps for a particular string and opens all matching files in vim
 #
 
-vi $(grep -l $@)
+vim $(grep -l $@)
