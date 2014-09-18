@@ -34,6 +34,15 @@
 	ra = rebase --abort
 	rc = rebase --continue
 	ri = rebase -i
+	ri1 = rebase -i HEAD~1
+	ri2 = rebase -i HEAD~2
+	ri3 = rebase -i HEAD~3
+	ri4 = rebase -i HEAD~4
+	ri5 = rebase -i HEAD~5
+	ri6 = rebase -i HEAD~6
+	ri7 = rebase -i HEAD~7
+	ri8 = rebase -i HEAD~8
+	ri9 = rebase -i HEAD~9
 	ws = rebase --whitespace=strip
 	ru = remote update --prune
 	rhup = reset --hard 'HEAD@{u}'
