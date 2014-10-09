@@ -941,16 +941,16 @@ checkout = git clone git://git.code.sf.net/p/waterloo/beta waterloo
 checkout = git clone hg::http://biodev.ece.ucsb.edu/hg/bisque-stable bisque
 
 [code/bisque/bisquik]
-checkout = git clone hg::http://dev.ece.ucsb.edu/hg/bisquik-stable bisquik
+checkout = git clone hg::http://biodev.ece.ucsb.edu/hg/bisquik-stable bisquik
 
 [code/leonardo/amino]
-checkout = hg clone --insecure https://amino.leonardosketch.googlecode.com/hg/ amino
+checkout = git clone hg::https://amino.leonardosketch.googlecode.com/hg/ amino
 
 [code/leonardo/leonardosketch]
-checkout = hg clone --insecure https://leonardosketch.googlecode.com/hg/ leonardosketch
+checkout = git clone hg::https://leonardosketch.googlecode.com/hg/ leonardosketch
 
 [code/other/jace]
-checkout = hg clone --insecure https://code.google.com/p/jace/
+checkout = git clone hg::https://code.google.com/p/jace/
 
 [code/other/jython]
 checkout = git clone hg::https://hg.python.org/jython
