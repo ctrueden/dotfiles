@@ -427,6 +427,12 @@ checkout = git clone git://github.com/msysgit/Git-Cheetah
 [code/git/git]
 checkout = git clone git://github.com/git/git
 
+[code/git/git-diff-blame]
+checkout = git clone git://github.com/dmnd/git-diff-blame
+
+[code/git/git-remote-hg]
+checkout = git clone git://github.com/felipec/git-remote-hg
+
 [code/git/msysgit]
 checkout = git clone git://github.com/msysgit/msysgit
 
@@ -619,6 +625,9 @@ checkout = git clone git://github.com/uw-loci/jar2lib
 [code/loci/jvmlink]
 checkout = git clone git://github.com/uw-loci/jvmlink
 
+[code/loci/knime-curvelets]
+checkout = git clone git://github.com/uw-loci/knime-curvelets
+
 [code/loci/loci-checkstyle]
 checkout = git clone git://github.com/uw-loci/loci-checkstyle
 
@@ -724,11 +733,17 @@ checkout = git clone git://github.com/imagejs/imagejs.github.com imagejs
 [code/other/jex]
 checkout = git clone git://github.com/jaywarrick/JEX
 
+[code/other/jython]
+checkout = git clone hg::https://hg.python.org/jython
+
 [code/other/object-inspector]
 checkout = git clone git://github.com/sbridges/object-inspector
 
 [code/other/rootbeer1]
 checkout = git clone git://github.com/pcpratts/rootbeer1
+
+[code/other/scikit-image-paper]
+checkout = git clone git://github.com/scikit-image/scikit-image-paper
 
 [code/scifio/pom-scifio]
 checkout = git clone git://github.com/scifio/pom-scifio
@@ -765,6 +780,9 @@ checkout = git clone git://github.com/scifio/scifio-tutorials
 
 [code/scifio/scifio.github.io]
 checkout = git clone git://github.com/scifio/scifio.github.io
+
+[code/scijava/jython-shaded]
+checkout = git clone git://github.com/scijava/jython-shaded
 
 [code/scijava/minimaven]
 checkout = git clone git://github.com/scijava/minimaven
@@ -956,6 +974,9 @@ checkout = git clone git@bitbucket.org:ctrueden/ctr-cfg-private
 [code/ctrueden/ctr-private]
 checkout = git clone git@bitbucket.org:ctrueden/ctr-private
 
+[code/ctrueden/dnd5e-spells]
+checkout = git clone git@bitbucket.org:ctrueden/dnd5e-spells
+
 [code/ctrueden/interviews]
 checkout = git clone git@bitbucket.org:ctrueden/interviews
 
@@ -967,6 +988,9 @@ checkout = git clone git@bitbucket.org:ctrueden/loci-servers/wiki loci-servers-w
 
 [code/ctrueden/logos]
 checkout = git clone git@bitbucket.org:ctrueden/logos
+
+[code/imagej/javafx-plugins]
+checkout = git clone git@bitbucket.org:ctrueden/javafx-plugins
 
 # -- Private LOCI repositories --
 
