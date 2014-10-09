@@ -421,6 +421,15 @@ checkout = git clone git://github.com/fiji/wavelets
 [code/fiji/weave_jy2java]
 checkout = git clone git://github.com/fiji/weave_jy2java
 
+[code/git/Git-Cheetah]
+checkout = git clone git://github.com/msysgit/Git-Cheetah
+
+[code/git/git]
+checkout = git clone git://github.com/git/git
+
+[code/git/msysgit]
+checkout = git clone git://github.com/msysgit/msysgit
+
 [code/imagej/IJ-guide]
 checkout = git clone git://github.com/tferr/IJ-guide
 
@@ -675,15 +684,6 @@ checkout = git clone git://github.com/apache/maven-plugins
 
 [code/maven/maven-wagon]
 checkout = git clone git://github.com/apache/maven-wagon
-
-[code/git/Git-Cheetah]
-checkout = git clone git://github.com/msysgit/Git-Cheetah
-
-[code/git/git]
-checkout = git clone git://github.com/git/git
-
-[code/git/msysgit]
-checkout = git clone git://github.com/msysgit/msysgit
 
 [code/nar/nar-maven-plugin]
 checkout = git clone git://github.com/maven-nar/nar-maven-plugin
