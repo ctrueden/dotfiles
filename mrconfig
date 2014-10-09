@@ -733,9 +733,6 @@ checkout = git clone git://github.com/imagejs/imagejs.github.com imagejs
 [code/other/jex]
 checkout = git clone git://github.com/jaywarrick/JEX
 
-[code/other/jython]
-checkout = git clone hg::https://hg.python.org/jython
-
 [code/other/object-inspector]
 checkout = git clone git://github.com/sbridges/object-inspector
 
@@ -941,10 +938,10 @@ checkout = git clone git://git.code.sf.net/p/waterloo/beta waterloo
 # -- Mercurial repositories --
 
 [code/bisque/bisque]
-checkout = hg clone --insecure http://biodev.ece.ucsb.edu/hg/bisque-stable bisque
+checkout = git clone hg::http://biodev.ece.ucsb.edu/hg/bisque-stable bisque
 
 [code/bisque/bisquik]
-checkout = hg clone --insecure http://biodev.ece.ucsb.edu/hg/bisquik-stable bisquik
+checkout = git clone hg::http://dev.ece.ucsb.edu/hg/bisquik-stable bisquik
 
 [code/leonardo/amino]
 checkout = hg clone --insecure https://amino.leonardosketch.googlecode.com/hg/ amino
@@ -954,6 +951,9 @@ checkout = hg clone --insecure https://leonardosketch.googlecode.com/hg/ leonard
 
 [code/other/jace]
 checkout = hg clone --insecure https://code.google.com/p/jace/
+
+[code/other/jython]
+checkout = git clone hg::https://hg.python.org/jython
 
 # -- Subversion repositories --
 
