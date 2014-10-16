@@ -215,9 +215,20 @@ alias gopij='cd $PATH_IJ/../pom-imagej'
 export PATH_OPS="$PATH_IJ/../imagej-ops"
 alias goops='cd $PATH_OPS'
 
-# ImgLib2 - https://github.com/imglib/imglib
-export PATH_IMGLIB="$PATH_CODE/imglib/imglib"
+# ImgLib2 - https://github.com/imglib/imglib2
+export PATH_IMGLIB="$PATH_CODE/imglib/imglib2"
 alias goil='cd $PATH_IMGLIB'
+alias goila='cd $PATH_IMGLIB/../imglib2-algorithms'
+alias goilaf='cd $PATH_IMGLIB/../imglib2-algorithms-fft'
+alias goilag='cd $PATH_IMGLIB/../imglib2-algorithms-gpl'
+alias goilij='cd $PATH_IMGLIB/../imglib2-ij'
+alias goilr='goilroi'
+alias goilrt='cd $PATH_IMGLIB/../imglib2-realtransform'
+alias goilroi='cd $PATH_IMGLIB/../imglib2-roi'
+alias goils='cd $PATH_IMGLIB/../imglib2-scripting'
+alias goilt='goilte'
+alias goilte='cd $PATH_IMGLIB/../imglib2-tests'
+alias goiltu='cd $PATH_IMGLIB/../imglib2-tutorials'
 
 # ITK - https://github.com/Kitware/ITK
 export PATH_ITK="$HOME/code/kitware/ITK"
