@@ -226,6 +226,7 @@ alias goitk='cd $PATH_ITK'
 # Fiji - https://github.com/fiji
 export PATH_FIJI="$PATH_CODE/fiji/fiji"
 alias gofi='cd $PATH_FIJI'
+alias gopf='cd $PATH_FIJI/../pom-fiji'
 alias gotm='cd $PATH_FIJI/../TrackMate'
 alias gocb='cd $PATH_FIJI/../cookbook'
 
