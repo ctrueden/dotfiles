@@ -526,20 +526,38 @@ checkout = git clone git://github.com/imagej/pom-imagej
 [code/imagej/visad-plugin]
 checkout = git clone git://github.com/imagej/visad-plugin
 
-[code/imglib/imglib]
-checkout = git clone git://github.com/imglib/imglib
+[code/imglib/imglib2]
+checkout = git clone git://github.com/imglib/imglib2
 
-[code/imglib/imglib-ij]
-checkout = git clone git://github.com/imglib/imglib-ij
+[code/imglib/imglib2-algorithms]
+checkout = git clone git://github.com/imglib/imglib2-algorithms
 
-[code/imglib/imglib-scripting]
-checkout = git clone git://github.com/imglib/imglib-scripting
+[code/imglib/imglib2-algorithms-fft]
+checkout = git clone git://github.com/imglib/imglib2-algorithms-fft
 
-[code/imglib/imglib-tests]
-checkout = git clone git://github.com/imglib/imglib-tests
+[code/imglib/imglib2-algorithms-gpl]
+checkout = git clone git://github.com/imglib/imglib2-algorithms-gpl
 
-[code/imglib/imglib-tutorials]
-checkout = git clone git://github.com/imglib/imglib-tutorials
+[code/imglib/imglib2-ij]
+checkout = git clone git://github.com/imglib/imglib2-ij
+
+[code/imglib/imglib2-realtransform]
+checkout = git clone git://github.com/imglib/imglib2-realtransform
+
+[code/imglib/imglib2-roi]
+checkout = git clone git://github.com/imglib/imglib2-roi
+
+[code/imglib/imglib2-scripting]
+checkout = git clone git://github.com/imglib/imglib2-scripting
+
+[code/imglib/imglib2-tests]
+checkout = git clone git://github.com/imglib/imglib2-tests
+
+[code/imglib/imglib2-tutorials]
+checkout = git clone git://github.com/imglib/imglib2-tutorials
+
+[code/imglib/imglib2-ui]
+checkout = git clone git://github.com/imglib/imglib2-ui
 
 [code/imglib/spimviewer]
 checkout = git clone git://github.com/tpietzsch/spimviewer
