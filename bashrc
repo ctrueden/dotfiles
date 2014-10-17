@@ -229,6 +229,7 @@ alias goils='cd $PATH_IMGLIB/../imglib2-scripting'
 alias goilt='goilte'
 alias goilte='cd $PATH_IMGLIB/../imglib2-tests'
 alias goiltu='cd $PATH_IMGLIB/../imglib2-tutorials'
+alias gopil='cd $PATH_IMGLIB/../pom-imglib2'
 
 # ITK - https://github.com/Kitware/ITK
 export PATH_ITK="$HOME/code/kitware/ITK"
