@@ -529,14 +529,14 @@ checkout = git clone git://github.com/imagej/visad-plugin
 [code/imglib/imglib2]
 checkout = git clone git://github.com/imglib/imglib2
 
-[code/imglib/imglib2-algorithms]
-checkout = git clone git://github.com/imglib/imglib2-algorithms
+[code/imglib/imglib2-algorithm]
+checkout = git clone git://github.com/imglib/imglib2-algorithm
 
-[code/imglib/imglib2-algorithms-fft]
-checkout = git clone git://github.com/imglib/imglib2-algorithms-fft
+[code/imglib/imglib2-algorithm-fft]
+checkout = git clone git://github.com/imglib/imglib2-algorithm-fft
 
-[code/imglib/imglib2-algorithms-gpl]
-checkout = git clone git://github.com/imglib/imglib2-algorithms-gpl
+[code/imglib/imglib2-algorithm-gpl]
+checkout = git clone git://github.com/imglib/imglib2-algorithm-gpl
 
 [code/imglib/imglib2-ij]
 checkout = git clone git://github.com/imglib/imglib2-ij
@@ -547,8 +547,8 @@ checkout = git clone git://github.com/imglib/imglib2-realtransform
 [code/imglib/imglib2-roi]
 checkout = git clone git://github.com/imglib/imglib2-roi
 
-[code/imglib/imglib2-scripting]
-checkout = git clone git://github.com/imglib/imglib2-scripting
+[code/imglib/imglib2-script]
+checkout = git clone git://github.com/imglib/imglib2-script
 
 [code/imglib/imglib2-tests]
 checkout = git clone git://github.com/imglib/imglib2-tests
