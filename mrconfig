@@ -580,6 +580,9 @@ checkout = git clone git://github.com/hocheung20/farsight
 [code/knime/knip]
 checkout = git clone git://github.com/knime-ip/knip
 
+[code/knime/knip-cellprofiler]
+checkout = git clone git://github.com/knime-ip/knip-cellprofiler
+
 [code/knime/knip-imagej2]
 checkout = git clone git://github.com/knime-ip/knip-imagej2
 
