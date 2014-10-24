@@ -586,6 +586,9 @@ checkout = git clone git://github.com/knime-ip/knip-cellprofiler
 [code/knime/knip-imagej2]
 checkout = git clone git://github.com/knime-ip/knip-imagej2
 
+[code/knime/knip-opencv]
+checkout = git clone git://github.com/knime-ip/knip-opencv
+
 [code/knime/knip-tess4j]
 checkout = git clone git://github.com/knime-ip/knip-tess4j
 
