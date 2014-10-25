@@ -559,6 +559,9 @@ checkout = git clone git://github.com/imglib/imglib2-tutorials
 [code/imglib/imglib2-ui]
 checkout = git clone git://github.com/imglib/imglib2-ui
 
+[code/imglib/pom-imglib2]
+checkout = git clone git://github.com/imglib/pom-imglib2
+
 [code/imglib/spimviewer]
 checkout = git clone git://github.com/tpietzsch/spimviewer
 
