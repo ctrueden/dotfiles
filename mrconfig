@@ -580,14 +580,17 @@ checkout = git clone git://github.com/hocheung20/farsight
 [code/knime/knip]
 checkout = git clone git://github.com/knime-ip/knip
 
-[code/knime/knip-cellprofiler]
-checkout = git clone git://github.com/knime-ip/knip-cellprofiler
-
 [code/knime/knip-imagej2]
 checkout = git clone git://github.com/knime-ip/knip-imagej2
 
-[code/knime/knip-opencv]
-checkout = git clone git://github.com/knime-ip/knip-opencv
+[code/knime/knip-imagej3dviewer]
+checkout = git clone git://github.com/knime-ip/knip-imagej3dviewer
+
+[code/knime/knip-omero]
+checkout = git clone git://github.com/knime-ip/knip-omero
+
+[code/knime/knip-suise]
+checkout = git clone git://github.com/knime-ip/knip-suise
 
 [code/knime/knip-tess4j]
 checkout = git clone git://github.com/knime-ip/knip-tess4j
@@ -1040,3 +1043,26 @@ checkout = git clone git@github.com:openmicroscopy/ome-movie
 
 [code/ome/qa]
 checkout = git clone git@github.com:openmicroscopy/qa
+
+# -- Private KNIP repositories --
+
+[code/knime/knip-cellprofiler]
+checkout = git clone git@github.com:knime-ip/knip-cellprofiler
+
+[code/knime/knip-ilastik]
+checkout = git clone git@github.com:knime-ip/knip-ilastik
+
+[code/knime/knip-imagej2-integration]
+checkout = git clone git@github.com:knime-ip/knip-imagej2-integration
+
+[code/knime/knip-micromanager]
+checkout = git clone git@github.com:knime-ip/knip-micromanager
+
+[code/knime/knip-opencv]
+checkout = git clone git@github.com:knime-ip/knip-opencv
+
+[code/knime/knip-scijava-bundles]
+checkout = git clone git@github.com:knime-ip/knip-scijava-bundles
+
+[code/knime/knip-scripting]
+checkout = git clone git@github.com:knime-ip/knip-scripting
