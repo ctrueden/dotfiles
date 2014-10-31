@@ -28,6 +28,9 @@ checkout = git clone git://github.com/ctrueden/ctr-config
 [code/ctrueden/ctr-scripts]
 checkout = git clone git://github.com/ctrueden/ctr-scripts
 
+[code/ctrueden/ctrueden.github.io]
+checkout = git clone git://github.com/ctrueden/ctrueden.github.io
+
 [code/ctrueden/fixbe]
 checkout = git clone git://github.com/ctrueden/fixbe
 
@@ -1057,6 +1060,9 @@ checkout = git clone git@github.com:knime-ip/knip-ilastik
 
 [code/knime/knip-imagej2-integration]
 checkout = git clone git@github.com:knime-ip/knip-imagej2-integration
+
+[code/knime/knip-imglib2-ops]
+checkout = git clone git@github.com:knime-ip/knip-imglib2-ops
 
 [code/knime/knip-micromanager]
 checkout = git clone git@github.com:knime-ip/knip-micromanager
