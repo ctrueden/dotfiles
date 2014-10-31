@@ -355,8 +355,8 @@ if [ ! -e "$cpFile" ]; then
 	# generate classpath cache
 	echo "Regenerating $cpFile"
 	maven-cp \
-		loci:bio-formats:4.5-SNAPSHOT \
-		loci:utils:1.0.0-SNAPSHOT \
+		ome:formats-gpl:5.0.5 \
+		loci:loci-utils:1.0.0-SNAPSHOT \
 		org.beanshell:bsh:2.0b4 > $cpFile
 fi
 export JAVA_CP="$JAVA_CP:$(cat $cpFile)"
