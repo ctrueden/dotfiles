@@ -466,6 +466,9 @@ checkout = git clone git://github.com/imagej/imagej
 [code/imagej/imagej-common]
 checkout = git clone git://github.com/imagej/imagej-common
 
+[code/imagej/imagej-javadoc]
+checkout = git clone git://github.com/imagej/imagej-javadoc
+
 [code/imagej/imagej-launcher]
 checkout = git clone git://github.com/imagej/imagej-launcher
 
