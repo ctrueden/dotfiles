@@ -981,10 +981,10 @@ checkout = git clone hg::http://biodev.ece.ucsb.edu/hg/bisque-stable bisque
 checkout = git clone hg::http://biodev.ece.ucsb.edu/hg/bisquik-stable bisquik
 
 [code/leonardo/amino]
-checkout = git clone hg::https://amino.leonardosketch.googlecode.com/hg/ amino
+checkout = git clone hg::http://amino.leonardosketch.googlecode.com/hg/ amino
 
 [code/leonardo/leonardosketch]
-checkout = git clone hg::https://leonardosketch.googlecode.com/hg/ leonardosketch
+checkout = git clone hg::http://leonardosketch.googlecode.com/hg/ leonardosketch
 
 [code/other/jace]
 checkout = git clone hg::https://code.google.com/p/jace/
