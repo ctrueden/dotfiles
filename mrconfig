@@ -698,6 +698,9 @@ checkout = git clone git://github.com/uw-loci/pom-loci
 [code/loci/prairie-ome-tiff]
 checkout = git clone git://github.com/uw-loci/prairie-ome-tiff
 
+[code/loci/slide-scanner-importer]
+checkout = git clone git://github.com/uw-loci/slide-scanner-importer
+
 [code/loci/slim-plotter]
 checkout = git clone git://github.com/uw-loci/slim-plotter
 
@@ -794,8 +797,8 @@ checkout = git clone git://github.com/scifio/scifio-imageio
 [code/scifio/scifio-itk-bridge]
 checkout = git clone git://github.com/scifio/scifio-itk-bridge
 
-[code/scifio/scifio-jai-imageio-core]
-checkout = git clone git://github.com/scifio/scifio-jai-imageio-core
+[code/scifio/scifio-jai-imageio]
+checkout = git clone git://github.com/scifio/scifio-jai-imageio
 
 [code/scifio/scifio-lifesci]
 checkout = git clone git://github.com/scifio/scifio-lifesci
