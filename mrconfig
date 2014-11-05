@@ -5,8 +5,6 @@
 [DEFAULT]
 include = if [ -d /usr/local/Cellar/mr ]; then cat /usr/local/Cellar/mr/*/share/mr/git-svn; fi
 git_update = git remote update --prune && git fetch --tags && git merge --ff 'HEAD@{u}'
-hg_update = hg pull --insecure "$@"; hg update "$@"
-git_svn_update = git svn rebase
 
 # -- Public repositories on GitHub --
 
