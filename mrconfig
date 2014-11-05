@@ -768,7 +768,7 @@ checkout = git clone git://github.com/coekie/gentyref
 checkout = git clone git://github.com/imagejs/imagejs.github.com imagejs
 
 [code/other/jex]
-checkout = git clone git://github.com/jaywarrick/JEX
+checkout = git clone git://github.com/jaywarrick/JEX jex
 
 [code/other/object-inspector]
 checkout = git clone git://github.com/sbridges/object-inspector
