@@ -71,23 +71,14 @@ checkout = git clone git://github.com/fiji/Auto_Threshold
 [code/fiji/BalloonSegmentation]
 checkout = git clone git://github.com/fiji/BalloonSegmentation
 
-[code/fiji/BeanShell_Interpreter]
-checkout = git clone git://github.com/fiji/BeanShell_Interpreter
-
 [code/fiji/Bug_Submitter]
 checkout = git clone git://github.com/fiji/Bug_Submitter
-
-[code/fiji/CLI]
-checkout = git clone git://github.com/fiji/CLI
 
 [code/fiji/CPU_Meter]
 checkout = git clone git://github.com/fiji/CPU_Meter
 
 [code/fiji/Calculator_Plus]
 checkout = git clone git://github.com/fiji/Calculator_Plus
-
-[code/fiji/Clojure_Interpreter]
-checkout = git clone git://github.com/fiji/Clojure_Interpreter
 
 [code/fiji/Colocalisation_Analysis]
 checkout = git clone git://github.com/fiji/Colocalisation_Analysis
@@ -170,18 +161,6 @@ checkout = git clone git://github.com/fiji/Interactive_3D_Surface_Plot
 [code/fiji/IsoData_Classifier]
 checkout = git clone git://github.com/fiji/IsoData_Classifier
 
-[code/fiji/JRuby_Interpreter]
-checkout = git clone git://github.com/fiji/JRuby_Interpreter
-
-[code/fiji/Jama]
-checkout = git clone git://github.com/fiji/Jama
-
-[code/fiji/Javascript]
-checkout = git clone git://github.com/fiji/Javascript
-
-[code/fiji/Jython_Interpreter]
-checkout = git clone git://github.com/fiji/Jython_Interpreter
-
 [code/fiji/Kuwahara_Filter]
 checkout = git clone git://github.com/fiji/Kuwahara_Filter
 
@@ -241,12 +220,6 @@ checkout = git clone git://github.com/fiji/SPIM_Opener
 
 [code/fiji/Samples]
 checkout = git clone git://github.com/fiji/Samples
-
-[code/fiji/Scala_Interpreter]
-checkout = git clone git://github.com/fiji/Scala_Interpreter
-
-[code/fiji/Script_Editor]
-checkout = git clone git://github.com/fiji/Script_Editor
 
 [code/fiji/Series_Labeler]
 checkout = git clone git://github.com/fiji/Series_Labeler
@@ -356,9 +329,6 @@ checkout = git clone git://github.com/fiji/blockmatching
 [code/fiji/cookbook]
 checkout = git clone git://github.com/fiji/cookbook
 
-[code/fiji/fake]
-checkout = git clone git://github.com/fiji/fake
-
 [code/fiji/fiji]
 checkout = git clone git://github.com/fiji/fiji
 
@@ -370,9 +340,6 @@ checkout = git clone git://github.com/fiji/fiji-compat
 
 [code/fiji/fiji-lib]
 checkout = git clone git://github.com/fiji/fiji-lib
-
-[code/fiji/fiji-scripting]
-checkout = git clone git://github.com/fiji/fiji-scripting
 
 [code/fiji/imagescience]
 checkout = git clone git://github.com/fiji/imagescience
