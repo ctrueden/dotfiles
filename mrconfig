@@ -212,9 +212,6 @@ checkout = git clone git://github.com/fiji/RandomJ
 [code/fiji/Reconstruct_Reader]
 checkout = git clone git://github.com/fiji/Reconstruct_Reader
 
-[code/fiji/Refresh_Javas]
-checkout = git clone git://github.com/fiji/Refresh_Javas
-
 [code/fiji/SPIM_Opener]
 checkout = git clone git://github.com/fiji/SPIM_Opener
 
@@ -385,9 +382,6 @@ checkout = git clone git://github.com/fiji/spimreconstruction
 
 [code/fiji/wavelets]
 checkout = git clone git://github.com/fiji/wavelets
-
-[code/fiji/weave_jy2java]
-checkout = git clone git://github.com/fiji/weave_jy2java
 
 [code/git/Git-Cheetah]
 checkout = git clone git://github.com/msysgit/Git-Cheetah
