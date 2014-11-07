@@ -420,10 +420,10 @@ SVN_AUTHORS="$PATH_CFG_PRIVATE/authors.txt"
 # cpan MediaWiki::API
 # cpan DateTime::Format::ISO8601
 
-# Install git-remote-mediawiki and git-mw:
+# Put git-remote-mediawiki and git-mw somewhere on your PATH:
 # ln -s "$PATH_GIT/contrib/mw-to-git/git-remote-mediawiki.perl" \
-#       "$(git --exec-path)/git-remote-mediawiki"
-# ln -s "$PATH_GIT/contrib/mw-to-git/git-mw" "$(git --exec-path)"
+#       ~/bin/git-remote-mediawiki
+# ln -s "$PATH_GIT/contrib/mw-to-git/git-mw" ~/bin
 
 export PERL5LIB="$PATH_GIT/perl:$PATH_GIT/contrib/mw-to-git"
 
