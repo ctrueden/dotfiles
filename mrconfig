@@ -311,6 +311,9 @@ checkout = git clone git://github.com/fiji/Volume_Viewer
 [code/fiji/bUnwarpJ]
 checkout = git clone git://github.com/fiji/bUnwarpJ
 
+[code/fiji/bij]
+checkout = git clone git://github.com/fiji/bij
+
 [code/fiji/cookbook]
 checkout = git clone git://github.com/fiji/cookbook
 
