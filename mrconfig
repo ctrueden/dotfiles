@@ -110,9 +110,6 @@ checkout = git clone git://github.com/fiji/Directionality
 [code/fiji/Extended_Depth_Field]
 checkout = git clone git://github.com/fiji/Extended_Depth_Field
 
-[code/fiji/FS_Align_TrakEM2]
-checkout = git clone git://github.com/fiji/FS_Align_TrakEM2
-
 [code/fiji/FeatureJ]
 checkout = git clone git://github.com/fiji/FeatureJ
 
@@ -209,9 +206,6 @@ checkout = git clone git://github.com/fiji/RATS
 [code/fiji/RandomJ]
 checkout = git clone git://github.com/fiji/RandomJ
 
-[code/fiji/Reconstruct_Reader]
-checkout = git clone git://github.com/fiji/Reconstruct_Reader
-
 [code/fiji/SPIM_Opener]
 checkout = git clone git://github.com/fiji/SPIM_Opener
 
@@ -281,12 +275,6 @@ checkout = git clone git://github.com/fiji/TrackMate-examples
 [code/fiji/Trainable_Segmentation]
 checkout = git clone git://github.com/fiji/Trainable_Segmentation
 
-[code/fiji/TrakEM2]
-checkout = git clone git://github.com/fiji/TrakEM2
-
-[code/fiji/TrakEM2_Archipelago]
-checkout = git clone git://github.com/fiji/TrakEM2_Archipelago
-
 [code/fiji/TransformJ]
 checkout = git clone git://github.com/fiji/TransformJ
 
@@ -322,9 +310,6 @@ checkout = git clone git://github.com/fiji/Volume_Viewer
 
 [code/fiji/bUnwarpJ]
 checkout = git clone git://github.com/fiji/bUnwarpJ
-
-[code/fiji/blockmatching]
-checkout = git clone git://github.com/fiji/blockmatching
 
 [code/fiji/cookbook]
 checkout = git clone git://github.com/fiji/cookbook
@@ -373,9 +358,6 @@ checkout = git clone git://github.com/fiji/pom-fiji
 
 [code/fiji/profilers]
 checkout = git clone git://github.com/fiji/profilers
-
-[code/fiji/register_virtual_stack_slices]
-checkout = git clone git://github.com/fiji/register_virtual_stack_slices
 
 [code/fiji/registration_3d]
 checkout = git clone git://github.com/fiji/registration_3d
@@ -877,6 +859,24 @@ checkout = git clone git://github.com/slim-curve/slim-curve.github.io
 
 [code/slim/slim-plugin]
 checkout = git clone git://github.com/slim-curve/slim-plugin
+
+[code/trakem2/FS_Align_TrakEM2]
+checkout = git clone git://github.com/fiji/FS_Align_TrakEM2
+
+[code/fiji/Reconstruct_Reader]
+checkout = git clone git://github.com/fiji/Reconstruct_Reader
+
+[code/trakem2/TrakEM2]
+checkout = git clone git://github.com/fiji/TrakEM2
+
+[code/trakem2/TrakEM2_Archipelago]
+checkout = git clone git://github.com/fiji/TrakEM2_Archipelago
+
+[code/trakem2/blockmatching]
+checkout = git clone git://github.com/fiji/blockmatching
+
+[code/trakem2/register_virtual_stack_slices]
+checkout = git clone git://github.com/fiji/register_virtual_stack_slices
 
 [code/visad/visad]
 checkout = git clone git://github.com/visad/visad
