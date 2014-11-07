@@ -866,7 +866,7 @@ checkout = git clone git://github.com/slim-curve/slim-plugin
 [code/trakem2/FS_Align_TrakEM2]
 checkout = git clone git://github.com/fiji/FS_Align_TrakEM2
 
-[code/fiji/Reconstruct_Reader]
+[code/trakem2/Reconstruct_Reader]
 checkout = git clone git://github.com/fiji/Reconstruct_Reader
 
 [code/trakem2/TrakEM2]
