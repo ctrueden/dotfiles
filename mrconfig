@@ -215,6 +215,9 @@ checkout = git clone git://github.com/fiji/Reconstruct_Reader
 [code/fiji/SPIM_Opener]
 checkout = git clone git://github.com/fiji/SPIM_Opener
 
+[code/fiji/SPIM_Registration]
+checkout = git clone git://github.com/fiji/SPIM_Registration
+
 [code/fiji/Samples]
 checkout = git clone git://github.com/fiji/Samples
 
@@ -376,9 +379,6 @@ checkout = git clone git://github.com/fiji/register_virtual_stack_slices
 
 [code/fiji/registration_3d]
 checkout = git clone git://github.com/fiji/registration_3d
-
-[code/fiji/spimreconstruction]
-checkout = git clone git://github.com/fiji/spimreconstruction
 
 [code/fiji/wavelets]
 checkout = git clone git://github.com/fiji/wavelets
