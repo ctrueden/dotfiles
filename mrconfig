@@ -668,8 +668,38 @@ checkout = git clone git://github.com/uw-loci/wiscscan-java
 [code/maven/maven]
 checkout = git clone git://github.com/apache/maven
 
+[code/maven/maven-archetype]
+checkout = git clone git://github.com/apache/maven-archetype
+
+[code/maven/maven-doxia]
+checkout = git clone git://github.com/apache/maven-doxia
+
+[code/maven/maven-enforcer]
+checkout = git clone git://github.com/apache/maven-enforcer
+
+[code/maven/maven-plugin-tools]
+checkout = git clone git://github.com/apache/maven-plugin-tools
+
 [code/maven/maven-plugins]
 checkout = git clone git://github.com/apache/maven-plugins
+
+[code/maven/maven-pom]
+checkout = git clone git://github.com/apache/maven-pom
+
+[code/maven/maven-release]
+checkout = git clone git://github.com/apache/maven-release
+
+[code/maven/maven-scm]
+checkout = git clone git://github.com/apache/maven-scm
+
+[code/maven/maven-shared]
+checkout = git clone git://github.com/apache/maven-shared
+
+[code/maven/maven-site]
+checkout = git clone git://github.com/apache/maven-site
+
+[code/maven/maven-surefire]
+checkout = git clone git://github.com/apache/maven-surefire
 
 [code/maven/maven-wagon]
 checkout = git clone git://github.com/apache/maven-wagon
