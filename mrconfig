@@ -919,6 +919,12 @@ checkout = git clone git://github.com/visad/visad.github.com
 
 # -- Fiji Git repository mirrors --
 
+[code/maven/mojo]
+checkout = git clone git://fiji.sc/mojo
+
+[code/mirrors/addama]
+checkout = git clone git://fiji.sc/addama
+
 [code/mirrors/bioimagexd]
 checkout = git clone git://fiji.sc/bioimagexd
 
@@ -985,17 +991,6 @@ checkout = git clone hg::https://code.google.com/p/jace/
 
 [code/other/jython]
 checkout = git clone hg::https://hg.python.org/jython
-
-# -- Subversion repositories --
-
-[code/maven/maven-java-formatter-plugin]
-checkout = svn checkout http://maven-java-formatter-plugin.googlecode.com/svn/trunk maven-java-formatter-plugin
-
-[code/maven/mojo]
-checkout = svn checkout http://svn.codehaus.org/mojo/trunk mojo
-
-[code/other/addama]
-checkout = svn checkout http://addama.googlecode.com/svn/trunk addama
 
 # -- Private ctrueden repositories --
 
