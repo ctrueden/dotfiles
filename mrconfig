@@ -8,6 +8,27 @@ git_update = git remote update --prune && git fetch --tags && git merge --ff 'HE
 
 # -- Public repositories on GitHub --
 
+[code/bdv/Descriptor_based_registration]
+checkout = git clone git://github.com/bigdataviewer/Descriptor_based_registration
+
+[code/bdv/SPIM_Registration]
+checkout = git clone git://github.com/bigdataviewer/SPIM_Registration
+
+[code/bdv/bigdataviewer-core]
+checkout = git clone git://github.com/tpietzsch/bigdataviewer-core
+
+[code/bdv/bigdataviewer-server]
+checkout = git clone git://github.com/tpietzsch/bigdataviewer-server
+
+[code/bdv/bigdataviewer_fiji]
+checkout = git clone git://github.com/tpietzsch/bigdataviewer_fiji
+
+[code/bdv/pom-bigdataviewer]
+checkout = git clone git://github.com/tpietzsch/pom-bigdataviewer
+
+[code/bdv/spimdata]
+checkout = git clone git://github.com/tpietzsch/spimdata
+
 [code/cellprofiler/CellProfiler]
 checkout = git clone git://github.com/CellProfiler/CellProfiler
 
@@ -94,9 +115,6 @@ checkout = git clone git://github.com/fiji/Colour_Deconvolution
 
 [code/fiji/CorrectBleach]
 checkout = git clone git://github.com/fiji/CorrectBleach
-
-[code/fiji/Descriptor_based_registration]
-checkout = git clone git://github.com/fiji/Descriptor_based_registration
 
 [code/fiji/Dichromacy]
 checkout = git clone git://github.com/fiji/Dichromacy
@@ -208,9 +226,6 @@ checkout = git clone git://github.com/fiji/RandomJ
 
 [code/fiji/SPIM_Opener]
 checkout = git clone git://github.com/fiji/SPIM_Opener
-
-[code/fiji/SPIM_Registration]
-checkout = git clone git://github.com/fiji/SPIM_Registration
 
 [code/fiji/Samples]
 checkout = git clone git://github.com/fiji/Samples

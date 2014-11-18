@@ -242,6 +242,10 @@ alias gopf='cd $PATH_FIJI/../pom-fiji'
 alias gotm='cd $PATH_FIJI/../TrackMate'
 alias gocb='cd $PATH_FIJI/../cookbook'
 
+# BigDataViewer - https://github.com/bigdataviewer
+export PATH_BDV="$PATH_CODE/bdv"
+alias gobdv='cd $PATH_BDV'
+
 # JEX
 export PATH_JEX="$PATH_CODE/other/jex"
 alias gojex='cd $PATH_JEX'
