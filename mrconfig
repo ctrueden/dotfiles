@@ -338,6 +338,9 @@ checkout = git clone git://github.com/fiji/imageware
 [code/fiji/javac]
 checkout = git clone git://github.com/fiji/javac
 
+[code/fiji/legacy-imglib1]
+checkout = git clone git://github.com/fiji/legacy-imglib1
+
 [code/fiji/level_sets]
 checkout = git clone git://github.com/fiji/level_sets
 
@@ -904,9 +907,6 @@ checkout = git clone git://github.com/trakem2/TrakEM2_Archipelago
 
 [code/trakem2/blockmatching]
 checkout = git clone git://github.com/trakem2/blockmatching
-
-[code/trakem2/legacy-imglib1]
-checkout = git clone git://github.com/trakem2/legacy-imglib1
 
 [code/trakem2/register_virtual_stack_slices]
 checkout = git clone git://github.com/trakem2/register_virtual_stack_slices
