@@ -323,22 +323,9 @@ fi
 
 # set locations of Java
 if [ "$IS_MACOSX" ]; then
-  jvmdir=/Library/Java/JavaVirtualMachines
-	export J6="$( \
-		find $jvmdir -mindepth 1 -maxdepth 1 | \
-		grep '1.6' |\
-		sort -r |\
-		head -n 1)/Contents/Home"
-	export J7="$( \
-		find $jvmdir -mindepth 1 -maxdepth 1 |\
-		grep '1.7' |\
-		sort -r |\
-		head -n 1)/Contents/Home"
-	export J8="$( \
-		find $jvmdir -mindepth 1 -maxdepth 1 |\
-		grep '1.8' |\
-		sort -r |\
-		head -n 1)/Contents/Home"
+	export J6="$(/usr/libexec/java_home -v 1.6)"
+	export J7="$(/usr/libexec/java_home -v 1.7)"
+	export J8="$(/usr/libexec/java_home -v 1.8)"
 fi
 alias j6='export JAVA_HOME=$J6 && echo "JAVA_HOME -> $JAVA_HOME" && java -version'
 alias j7='export JAVA_HOME=$J7 && echo "JAVA_HOME -> $JAVA_HOME" && java -version'
