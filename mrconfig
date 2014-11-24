@@ -116,6 +116,9 @@ checkout = git clone git://github.com/fiji/Colour_Deconvolution
 [code/fiji/CorrectBleach]
 checkout = git clone git://github.com/fiji/CorrectBleach
 
+[code/fiji/Cross_Fader]
+checkout = git clone git://github.om/fiji/Cross_Fader
+
 [code/fiji/Dichromacy]
 checkout = git clone git://github.com/fiji/Dichromacy
 
@@ -230,6 +233,9 @@ checkout = git clone git://github.com/fiji/SPIM_Opener
 [code/fiji/Samples]
 checkout = git clone git://github.com/fiji/Samples
 
+[code/fiji/Script_Launcher]
+checkout = git clone git://github.com/fiji/Script_Launcher
+
 [code/fiji/Series_Labeler]
 checkout = git clone git://github.com/fiji/Series_Labeler
 
@@ -271,6 +277,9 @@ checkout = git clone git://github.com/fiji/Thread_Killer
 
 [code/fiji/Threshold_Colour]
 checkout = git clone git://github.com/fiji/Threshold_Colour
+
+[code/fiji/Time_Lapse]
+checkout = git clone git://github.com/fiji/Time_Lapse
 
 [code/fiji/Time_Stamper]
 checkout = git clone git://github.com/fiji/Time_Stamper
