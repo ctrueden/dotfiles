@@ -15,19 +15,19 @@ checkout = git clone git://github.com/bigdataviewer/Descriptor_based_registratio
 checkout = git clone git://github.com/bigdataviewer/SPIM_Registration
 
 [code/bdv/bigdataviewer-core]
-checkout = git clone git://github.com/tpietzsch/bigdataviewer-core
+checkout = git clone git://github.com/bigdataviewer/bigdataviewer-core
 
 [code/bdv/bigdataviewer-server]
-checkout = git clone git://github.com/tpietzsch/bigdataviewer-server
+checkout = git clone git://github.com/bigdataviewer/bigdataviewer-server
 
 [code/bdv/bigdataviewer_fiji]
-checkout = git clone git://github.com/tpietzsch/bigdataviewer_fiji
+checkout = git clone git://github.com/bigdataviewer/bigdataviewer_fiji
 
 [code/bdv/pom-bigdataviewer]
-checkout = git clone git://github.com/tpietzsch/pom-bigdataviewer
+checkout = git clone git://github.com/bigdataviewer/pom-bigdataviewer
 
 [code/bdv/spimdata]
-checkout = git clone git://github.com/tpietzsch/spimdata
+checkout = git clone git://github.com/bigdataviewer/spimdata
 
 [code/cellprofiler/CellProfiler]
 checkout = git clone git://github.com/CellProfiler/CellProfiler
@@ -535,9 +535,6 @@ checkout = git clone git://github.com/imglib/imglib2-ui
 
 [code/imglib/pom-imglib2]
 checkout = git clone git://github.com/imglib/pom-imglib2
-
-[code/imglib/spimviewer]
-checkout = git clone git://github.com/tpietzsch/spimviewer
 
 [code/kitware/CMake]
 checkout = git clone git://github.com/Kitware/CMake
