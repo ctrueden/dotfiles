@@ -117,7 +117,7 @@ checkout = git clone git://github.com/fiji/Colour_Deconvolution
 checkout = git clone git://github.com/fiji/CorrectBleach
 
 [code/fiji/Cross_Fader]
-checkout = git clone git://github.om/fiji/Cross_Fader
+checkout = git clone git://github.com/fiji/Cross_Fader
 
 [code/fiji/Dichromacy]
 checkout = git clone git://github.com/fiji/Dichromacy
