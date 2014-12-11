@@ -170,6 +170,9 @@ checkout = git clone git://github.com/fiji/IJ_Robot
 [code/fiji/IO]
 checkout = git clone git://github.com/fiji/IO
 
+[code/fiji/Image_5D]
+checkout = git clone git://github.com/fiji/Image_5D
+
 [code/fiji/Image_Expression_Parser]
 checkout = git clone git://github.com/fiji/Image_Expression_Parser
 
@@ -421,9 +424,6 @@ checkout = git clone git://github.com/imagej/ij1-patcher
 
 [code/imagej/ij1-tests]
 checkout = git clone git://github.com/imagej/ij1-tests
-
-[code/imagej/image5d]
-checkout = git clone git://github.com/imagej/image5d
 
 [code/imagej/imagej1]
 checkout = git clone git://github.com/imagej/imagej1
