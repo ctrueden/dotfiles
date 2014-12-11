@@ -943,9 +943,6 @@ checkout = git clone git://github.com/visad/visad.github.com
 [code/maven/mojo]
 checkout = git clone git://fiji.sc/mojo
 
-[code/mirrors/addama]
-checkout = git clone git://fiji.sc/addama
-
 [code/mirrors/bioimagexd]
 checkout = git clone git://fiji.sc/bioimagexd
 
@@ -1006,6 +1003,9 @@ checkout = git clone hg::http://amino.leonardosketch.googlecode.com/hg/ amino
 
 [code/leonardo/leonardosketch]
 checkout = git clone hg::http://leonardosketch.googlecode.com/hg/ leonardosketch
+
+[code/other/addama]
+checkout = git clone hg::https://code.google.com/p/addama/
 
 [code/other/jace]
 checkout = git clone hg::https://code.google.com/p/jace/
