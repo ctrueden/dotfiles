@@ -767,6 +767,9 @@ checkout = git clone git://github.com/jaywarrick/JEX jex
 [code/other/object-inspector]
 checkout = git clone git://github.com/sbridges/object-inspector
 
+[code/other/pcgen]
+checkout = git clone git://github.com/PCGen/pcgen
+
 [code/other/rootbeer1]
 checkout = git clone git://github.com/pcpratts/rootbeer1
 
