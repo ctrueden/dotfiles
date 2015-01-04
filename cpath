@@ -6,8 +6,8 @@
 
 if [ -z "$CLASSPATH" ];
 then
-  echo CP =
-  spath "$CP"
+  echo JAVA_CP =
+  spath "$JAVA_CP"
 else
   echo CLASSPATH =
   spath "$CLASSPATH"
