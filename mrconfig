@@ -347,6 +347,9 @@ checkout = git clone git://github.com/fiji/cookbook
 [code/fiji/fiji]
 checkout = git clone git://github.com/fiji/fiji
 
+[code/fiji/fiji-javadoc]
+checkout = git clone git://github.com/fiji/fiji-javadoc
+
 [code/fiji/fiji.github.com]
 checkout = git clone git://github.com/fiji/fiji.github.com
 
