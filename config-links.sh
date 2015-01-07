@@ -2,13 +2,13 @@
 
 set -e
 
-CONFIG_DIR=`cd "$(dirname $0)"; pwd`
+CONFIG_DIR=$(cd "$(dirname $0)"; pwd)
 cd
-USER_DIR=`pwd`
+USER_DIR=$(pwd)
 LINK_DIR=${CONFIG_DIR#$USER_DIR/}
 
-OS_NAME=`uname`
-STAMP=`date +%Y%m%dT%H%M%S`
+OS_NAME=$(uname)
+STAMP=$(date +%Y%m%dT%H%M%S)
 
 FILES=(
 .bashrc
