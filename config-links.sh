@@ -18,6 +18,7 @@ FILES=(
 .plan
 .vim
 .vimrc
+.zshrc
 Library/KeyBindings
 )
 
@@ -41,6 +42,7 @@ done
   ln -s $LINK_DIR/plan .plan
   ln -s $LINK_DIR/vim .vim
   ln -s $LINK_DIR/vimrc.template .vimrc
+  ln -s $LINK_DIR/zshrc.template .zshrc
 )
 
 case "$(uname)" in
