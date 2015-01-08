@@ -25,7 +25,7 @@ alias gop='cd $PATH_PRIVATE'
 
 # LOCI projects - https://github.com/uw-loci
 export PATH_LOCI="$PATH_CODE/loci"
-alias go='cd $PATH_LOCI'
+alias goloci='cd $PATH_LOCI'
 alias goj2l='cd $PATH_LOCI/jar2lib/src/main/resources'
 alias gov='cd $PATH_LOCI/visbio/src/main/java/loci/visbio'
 alias gow='cd $PATH_LOCI/wiscscan'
