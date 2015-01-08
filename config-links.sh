@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 set -e
 
@@ -43,8 +43,10 @@ done
   ln -s $LINK_DIR/vimrc.template .vimrc
 )
 
-if [ "$OS_NAME" == "Darwin" ]; then
-  cd Library
-  (set -x; ln -s ../$LINK_DIR/KeyBindings)
-  cd ..
-fi
+case "$(uname)" in
+  Darwin)
+    cd Library
+    (set -x; ln -s ../$LINK_DIR/KeyBindings)
+    cd ..
+    ;;
+esac
