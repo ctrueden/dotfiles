@@ -11,7 +11,7 @@ if [ -z "$debian_chroot" ] && [ -r /etc/debian_chroot ]; then
 fi
 
 # path to Homebrew (if installed)
-export BREW="/usr/local"
+which brew > /dev/null && export BREW=$(brew --prefix)
 
 # --== bash completion ==--
 
