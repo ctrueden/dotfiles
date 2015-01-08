@@ -515,6 +515,9 @@ checkout = git clone git://github.com/imglib/imglib2-algorithm-gpl
 [code/imglib/imglib2-ij]
 checkout = git clone git://github.com/imglib/imglib2-ij
 
+[code/imglib/imglib2-javadoc]
+checkout = git clone git://github.com/imglib/imglib2-javadoc
+
 [code/imglib/imglib2-realtransform]
 checkout = git clone git://github.com/imglib/imglib2-realtransform
 
@@ -800,6 +803,9 @@ checkout = git clone git://github.com/scifio/scifio-itk-bridge
 [code/scifio/scifio-jai-imageio]
 checkout = git clone git://github.com/scifio/scifio-jai-imageio
 
+[code/scifio/scifio-javadoc]
+checkout = git clone git://github.com/scifio/scifio-javadoc
+
 [code/scifio/scifio-lifesci]
 checkout = git clone git://github.com/scifio/scifio-lifesci
 
@@ -832,6 +838,9 @@ checkout = git clone git://github.com/scijava/pom-scijava.wiki pom-scijava-wiki
 
 [code/scijava/scijava-common]
 checkout = git clone git://github.com/scijava/scijava-common
+
+[code/scijava/scijava-javadoc]
+checkout = git clone git://github.com/scijava/scijava-javadoc
 
 [code/scijava/scijava-log-slf4j]
 checkout = git clone git://github.com/scijava/scijava-log-slf4j
