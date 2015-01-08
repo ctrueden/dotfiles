@@ -1,2 +1,2 @@
-DOTFILES="$HOME/code/ctrueden/dotfiles"
+export DOTFILES="$HOME/code/ctrueden/dotfiles"
 source "$DOTFILES/zshrc"
