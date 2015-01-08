@@ -41,14 +41,14 @@ checkout = git clone git://github.com/CellProfiler/subimager
 [code/ctrueden/contrib-hacker]
 checkout = git clone git://github.com/ctrueden/contrib-hacker
 
-[code/ctrueden/ctr-config]
-checkout = git clone git://github.com/ctrueden/ctr-config
-
 [code/ctrueden/ctr-scripts]
 checkout = git clone git://github.com/ctrueden/ctr-scripts
 
 [code/ctrueden/ctrueden.github.io]
 checkout = git clone git://github.com/ctrueden/ctrueden.github.io
+
+[code/ctrueden/dotfiles]
+checkout = git clone git://github.com/ctrueden/dotfiles
 
 [code/ctrueden/fixbe]
 checkout = git clone git://github.com/ctrueden/fixbe
