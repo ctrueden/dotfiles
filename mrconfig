@@ -941,6 +941,9 @@ checkout = git clone git://github.com/visad/visad
 [code/visad/visad.github.com]
 checkout = git clone git://github.com/visad/visad.github.com
 
+[code/zsh/zgen]
+checkout = git clone git://github.com/tarjoilija/zgen
+
 # -- Fiji Git repository mirrors --
 
 [code/maven/mojo]
