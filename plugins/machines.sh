@@ -1,0 +1,8 @@
+alias cyber='ssh cyber'
+alias dev='ssh dev'
+alias drupal='ssh drupal'
+alias ome='ssh ome'
+alias sirius='ssh sirius'
+alias server='ssh server'
+alias skynet='ssh skynet'
+alias tera='ssh tera'
