@@ -34,7 +34,7 @@ done
 
 (
   set -x
-  ln -s $LINK_DIR/bashrc .bashrc
+  ln -s $LINK_DIR/bashrc.template .bashrc
   ln -s $LINK_DIR/forward .forward
   ln -s $LINK_DIR/gitconfig .gitconfig
   ln -s $LINK_DIR/mrconfig .mrconfig
