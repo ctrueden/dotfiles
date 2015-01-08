@@ -1,6 +1,6 @@
 This is my personal set of configuration files.
 
-I make an effort to document  why the configuration is the way it is.
+I make an effort to document why the configuration is the way it is.
 I host the files on GitHub for my own convenience, and in case they
 are useful to others, but of course there is NO WARRANTY ETC. ETC.
 
