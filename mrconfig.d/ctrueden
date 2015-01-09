@@ -1,0 +1,48 @@
+# -- Public repositories on GitHub --
+
+[code/ctrueden/contrib-hacker]
+checkout = git clone git://github.com/ctrueden/contrib-hacker
+
+[code/ctrueden/ctr-scripts]
+checkout = git clone git://github.com/ctrueden/ctr-scripts
+
+[code/ctrueden/ctrueden.github.io]
+checkout = git clone git://github.com/ctrueden/ctrueden.github.io
+
+[code/ctrueden/dotfiles]
+checkout = git clone git://github.com/ctrueden/dotfiles
+
+[code/ctrueden/fixbe]
+checkout = git clone git://github.com/ctrueden/fixbe
+
+[code/ctrueden/jcurses-maven]
+checkout = git clone git://github.com/ctrueden/jcurses-maven
+
+[code/ctrueden/web-toys]
+checkout = git clone git://github.com/ctrueden/web-toys
+
+# -- Private ctrueden repositories --
+
+[code/ctrueden/ctr-cfg-private]
+checkout = git clone git@bitbucket.org:ctrueden/ctr-cfg-private
+
+[code/ctrueden/ctr-private]
+checkout = git clone git@bitbucket.org:ctrueden/ctr-private
+
+[code/ctrueden/dnd5e-spells]
+checkout = git clone git@bitbucket.org:ctrueden/dnd5e-spells
+
+[code/ctrueden/interviews]
+checkout = git clone git@bitbucket.org:ctrueden/interviews
+
+[code/ctrueden/loci-servers]
+checkout = git clone git@bitbucket.org:ctrueden/loci-servers
+
+[code/ctrueden/loci-servers-wiki]
+checkout = git clone git@bitbucket.org:ctrueden/loci-servers/wiki loci-servers-wiki
+
+[code/ctrueden/logos]
+checkout = git clone git@bitbucket.org:ctrueden/logos
+
+[code/imagej/javafx-plugins]
+checkout = git clone git@bitbucket.org:ctrueden/javafx-plugins

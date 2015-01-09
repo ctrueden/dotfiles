@@ -1,0 +1,7 @@
+# -- Public repositories on GitHub --
+
+[code/visad/visad]
+checkout = git clone git://github.com/visad/visad
+
+[code/visad/visad.github.com]
+checkout = git clone git://github.com/visad/visad.github.com

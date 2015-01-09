@@ -1,0 +1,38 @@
+# -- Public repositories on GitHub --
+
+[code/ome/Imperial-FLIMfit]
+checkout = git clone git://github.com/openmicroscopy/Imperial-FLIMfit
+
+[code/ome/Omega]
+checkout = git clone git://github.com/OmegaProject/Omega
+
+[code/ome/bf4]
+checkout = git clone -b dev_4_4 git://github.com/openmicroscopy/bioformats bf4
+
+[code/ome/bf5]
+checkout = git clone -b dev_5_0 git://github.com/openmicroscopy/bioformats bf5
+
+[code/ome/ome-documentation]
+checkout = git clone -b dev_5_0 git://github.com/openmicroscopy/ome-documentation
+
+[code/ome/openmicroscopy]
+checkout = git clone -b dev_5_0 git://github.com/openmicroscopy/openmicroscopy
+
+[code/ome/samples]
+checkout = git clone git://github.com/openmicroscopy/samples
+
+# -- LOCI Git repositories --
+
+[code/ome/ome-server]
+checkout = git clone git://dev.loci.wisc.edu/ome-server
+
+# -- Private OME repositories --
+
+[code/ome/ome-internal]
+checkout = git clone git@github.com:openmicroscopy/ome-internal
+
+[code/ome/ome-movie]
+checkout = git clone git@github.com:openmicroscopy/ome-movie
+
+[code/ome/qa]
+checkout = git clone git@github.com:openmicroscopy/qa

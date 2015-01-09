@@ -1,0 +1,16 @@
+# -- Public repositories on GitHub --
+
+[code/git/Git-Cheetah]
+checkout = git clone git://github.com/msysgit/Git-Cheetah
+
+[code/git/git]
+checkout = git clone git://github.com/git/git
+
+[code/git/git-diff-blame]
+checkout = git clone git://github.com/dmnd/git-diff-blame
+
+[code/git/git-remote-hg]
+checkout = git clone git://github.com/felipec/git-remote-hg
+
+[code/git/msysgit]
+checkout = git clone git://github.com/msysgit/msysgit

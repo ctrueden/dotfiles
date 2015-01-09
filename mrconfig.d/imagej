@@ -1,0 +1,93 @@
+# -- Public repositories on GitHub --
+
+[code/imagej/IJ-guide]
+checkout = git clone git://github.com/tferr/IJ-guide
+
+[code/imagej/ImageJA]
+checkout = git clone git://github.com/imagej/ImageJA
+
+[code/imagej/ij1-patcher]
+checkout = git clone git://github.com/imagej/ij1-patcher
+
+[code/imagej/ij1-tests]
+checkout = git clone git://github.com/imagej/ij1-tests
+
+[code/imagej/imagej1]
+checkout = git clone git://github.com/imagej/imagej1
+
+[code/imagej/imagej]
+checkout = git clone git://github.com/imagej/imagej
+
+[code/imagej/imagej-common]
+checkout = git clone git://github.com/imagej/imagej-common
+
+[code/imagej/imagej-javadoc]
+checkout = git clone git://github.com/imagej/imagej-javadoc
+
+[code/imagej/imagej-launcher]
+checkout = git clone git://github.com/imagej/imagej-launcher
+
+[code/imagej/imagej-legacy]
+checkout = git clone git://github.com/imagej/imagej-legacy
+
+[code/imagej/imagej-matlab]
+checkout = git clone git://github.com/imagej/imagej-matlab
+
+[code/imagej/imagej-maven-plugin]
+checkout = git clone git://github.com/imagej/imagej-maven-plugin
+
+[code/imagej/imagej-omero]
+checkout = git clone git://github.com/imagej/imagej-omero
+
+[code/imagej/imagej-ops]
+checkout = git clone git://github.com/imagej/imagej-ops
+
+[code/imagej/imagej-plugins-commands]
+checkout = git clone git://github.com/imagej/imagej-plugins-commands
+
+[code/imagej/imagej-plugins-tools]
+checkout = git clone git://github.com/imagej/imagej-plugins-tools
+
+[code/imagej/imagej-plugins-uploader-ssh]
+checkout = git clone git://github.com/imagej/imagej-plugins-uploader-ssh
+
+[code/imagej/imagej-plugins-uploader-webdav]
+checkout = git clone git://github.com/imagej/imagej-plugins-uploader-webdav
+
+[code/imagej/imagej-scripting-cli]
+checkout = git clone git://github.com/imagej/imagej-scripting-cli
+
+[code/imagej/imagej-server]
+checkout = git clone git://github.com/imagej/imagej-server
+
+[code/imagej/imagej-tutorials]
+checkout = git clone git://github.com/imagej/imagej-tutorials
+
+[code/imagej/imagej-ui-awt]
+checkout = git clone git://github.com/imagej/imagej-ui-awt
+
+[code/imagej/imagej-ui-swing]
+checkout = git clone git://github.com/imagej/imagej-ui-swing
+
+[code/imagej/imagej-updater]
+checkout = git clone git://github.com/imagej/imagej-updater
+
+[code/imagej/imagej-usage]
+checkout = git clone git://github.com/imagej/imagej-usage
+
+[code/imagej/irc-bot]
+checkout = git clone git://github.com/imagej/irc-bot
+
+[code/imagej/minimal-ij1-plugin]
+checkout = git clone git://github.com/imagej/minimal-ij1-plugin
+
+[code/imagej/pom-imagej]
+checkout = git clone git://github.com/imagej/pom-imagej
+
+[code/imagej/visad-plugin]
+checkout = git clone git://github.com/imagej/visad-plugin
+
+# -- ImageJ Git repositories --
+
+[code/imagej/matlab-plugins-in-imagej]
+checkout = git clone git://code.imagej.net/matlab-plugins-in-imagej

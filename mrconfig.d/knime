@@ -1,0 +1,51 @@
+# -- Public repositories on GitHub --
+
+[code/knime/knip]
+checkout = git clone git://github.com/knime-ip/knip
+
+[code/knime/knip-imagej2]
+checkout = git clone git://github.com/knime-ip/knip-imagej2
+
+[code/knime/knip-imagej3dviewer]
+checkout = git clone git://github.com/knime-ip/knip-imagej3dviewer
+
+[code/knime/knip-omero]
+checkout = git clone git://github.com/knime-ip/knip-omero
+
+[code/knime/knip-suise]
+checkout = git clone git://github.com/knime-ip/knip-suise
+
+[code/knime/knip-tess4j]
+checkout = git clone git://github.com/knime-ip/knip-tess4j
+
+[code/knime/knip-vtk]
+checkout = git clone git://github.com/knime-ip/knip-vtk
+
+[code/knime/util]
+checkout = git clone git://github.com/knime-ip/util
+
+# -- Private KNIP repositories --
+
+[code/knime/knip-cellprofiler]
+checkout = git clone git@github.com:knime-ip/knip-cellprofiler
+
+[code/knime/knip-ilastik]
+checkout = git clone git@github.com:knime-ip/knip-ilastik
+
+[code/knime/knip-imagej2-integration]
+checkout = git clone git@github.com:knime-ip/knip-imagej2-integration
+
+[code/knime/knip-imglib2-ops]
+checkout = git clone git@github.com:knime-ip/knip-imglib2-ops
+
+[code/knime/knip-micromanager]
+checkout = git clone git@github.com:knime-ip/knip-micromanager
+
+[code/knime/knip-opencv]
+checkout = git clone git@github.com:knime-ip/knip-opencv
+
+[code/knime/knip-scijava-bundles]
+checkout = git clone git@github.com:knime-ip/knip-scijava-bundles
+
+[code/knime/knip-scripting]
+checkout = git clone git@github.com:knime-ip/knip-scripting
