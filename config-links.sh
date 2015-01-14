@@ -41,7 +41,7 @@ done
   ln -s $LINK_DIR/mrconfig.template .mrconfig
   ln -s $LINK_DIR/plan .plan
   ln -s $LINK_DIR/vim .vim
-  ln -s $LINK_DIR/vimrc.template .vimrc
+  ln -s $LINK_DIR/vimrc .vimrc
   ln -s $LINK_DIR/zshrc.template .zshrc
 )
 
