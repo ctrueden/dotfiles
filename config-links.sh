@@ -35,14 +35,14 @@ done
 
 (
   set -x
-  ln -s $LINK_DIR/bashrc.template .bashrc
+  ln -s $LINK_DIR/bashrc.stub .bashrc
   ln -s $LINK_DIR/forward .forward
   ln -s $LINK_DIR/gitconfig .gitconfig
   ln -s $LINK_DIR/mrconfig .mrconfig
   ln -s $LINK_DIR/plan .plan
   ln -s $LINK_DIR/vim .vim
   ln -s $LINK_DIR/vimrc .vimrc
-  ln -s $LINK_DIR/zshrc.template .zshrc
+  ln -s $LINK_DIR/zshrc.stub .zshrc
 )
 
 case "$(uname)" in
