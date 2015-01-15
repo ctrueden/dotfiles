@@ -1,0 +1,45 @@
+#!/usr/bin/perl
+
+# mr-git-remotes - Script to output git remotes listed in an mrconfig.
+
+use strict;
+
+# recursively parse mrconfig includes
+sub addLine($$) {
+	my $listRef = shift;
+	my $line = shift;
+	if ($line =~ /include = /) {
+		my $cmd = $line;
+		chomp $cmd;
+		$cmd =~ s/include = //;
+		my @extra = `$cmd`;
+		for my $e (@extra) {
+			addLine($listRef, $e);
+		}
+	}
+	else {
+		push @$listRef, $line;
+	}
+}
+
+my $home = $ENV{'HOME'};
+my $mrFile = "$home/.mrconfig";
+open MRCONFIG, $mrFile or die $!;
+my @mrconfig = <MRCONFIG>;
+close MRCONFIG;
+my @lines;
+for my $line (@mrconfig) {
+	addLine(\@lines, $line);
+}
+
+# parse list of git repositories
+my $dir = '';
+for my $line (@lines) {
+	chop $line;
+	if ($line =~ /^\[(.*)\]$/) {
+		$dir = $1;
+	}
+	if ($line =~ /^checkout\s*=\s*git\s+clone\s+(-b\s+[^\s]+\s+)?([^\s]*)/) {
+		print "$dir\t$2\n";
+	}
+}

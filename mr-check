@@ -8,21 +8,14 @@ use strict;
 my $codeFolder = 'code';
 
 my $home = $ENV{'HOME'};
-open MRCONFIG, "$home/.mrconfig" or die $!;
-my @lines = <MRCONFIG>;
-close MRCONFIG;
 
 # harvest list of git repositories from mr config file
 my %repos = ();
-my $dir = '';
+my @lines = `mr-git-remotes`;
 for my $line (@lines) {
-	chop $line;
-	if ($line =~ /^\[(.*)\]$/) {
-		$dir = $1;
-	}
-	if ($line =~ /^checkout\s*=\s*git\s+clone\s+(-b\s+[^\s]+\s+)?([^\s]*)/) {
-		$repos{$dir} = $2;
-	}
+	chomp $line;
+	my ($dir, $repo) = split(/\t/, $line, 2);
+	$repos{$dir} = $repo;
 }
 
 # compare each git repo from mrconfig with the clone's actual origin remote
