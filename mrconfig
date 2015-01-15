@@ -6,21 +6,22 @@
 include = if [ -d /usr/local/Cellar/mr ]; then cat /usr/local/Cellar/mr/*/share/mr/git-svn; fi
 git_update = git remote update --prune && git fetch --tags && git merge --ff 'HEAD@{u}'
 
-include = cat $DOTFILES/mrconfig.d/bisque    2> /dev/null || true
-include = cat $DOTFILES/mrconfig.d/ctrueden  2> /dev/null || true
-include = cat $DOTFILES/mrconfig.d/fiji      2> /dev/null || true
-include = cat $DOTFILES/mrconfig.d/imagej    2> /dev/null || true
-include = cat $DOTFILES/mrconfig.d/imglib2   2> /dev/null || true
-include = cat $DOTFILES/mrconfig.d/kitware   2> /dev/null || true
-include = cat $DOTFILES/mrconfig.d/knime     2> /dev/null || true
-include = cat $DOTFILES/mrconfig.d/loci      2> /dev/null || true
-include = cat $DOTFILES/mrconfig.d/maven     2> /dev/null || true
-include = cat $DOTFILES/mrconfig.d/nar       2> /dev/null || true
-include = cat $DOTFILES/mrconfig.d/ome       2> /dev/null || true
-include = cat $DOTFILES/mrconfig.d/scifio    2> /dev/null || true
-include = cat $DOTFILES/mrconfig.d/scijava   2> /dev/null || true
-include = cat $DOTFILES/mrconfig.d/slim      2> /dev/null || true
-include = cat $DOTFILES/mrconfig.d/visad     2> /dev/null || true
+include = cat $DOTFILES/mrconfig.d/bisque       2> /dev/null || true
+include = cat $DOTFILES/mrconfig.d/ctrueden     2> /dev/null || true
+include = cat $DOTFILES/mrconfig.d/fiji         2> /dev/null || true
+include = cat $DOTFILES/mrconfig.d/git          2> /dev/null || true
+include = cat $DOTFILES/mrconfig.d/imagej       2> /dev/null || true
+include = cat $DOTFILES/mrconfig.d/imglib2      2> /dev/null || true
+include = cat $DOTFILES/mrconfig.d/kitware      2> /dev/null || true
+include = cat $DOTFILES/mrconfig.d/knime        2> /dev/null || true
+include = cat $DOTFILES/mrconfig.d/loci         2> /dev/null || true
+include = cat $DOTFILES/mrconfig.d/maven        2> /dev/null || true
+include = cat $DOTFILES/mrconfig.d/nar          2> /dev/null || true
+include = cat $DOTFILES/mrconfig.d/ome          2> /dev/null || true
+include = cat $DOTFILES/mrconfig.d/scifio       2> /dev/null || true
+include = cat $DOTFILES/mrconfig.d/scijava      2> /dev/null || true
+include = cat $DOTFILES/mrconfig.d/slim         2> /dev/null || true
+include = cat $DOTFILES/mrconfig.d/visad        2> /dev/null || true
 
 # -- Public repositories on GitHub --
 
