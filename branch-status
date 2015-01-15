@@ -12,10 +12,10 @@ case "$1" in
 		;;
 esac
 
-repos=$(grep '^\[.*\]$' ~/.mrconfig |
-	sed -e 's/^\[\(.*\)\]$/\1/')
+repos=$(mr-git-remotes)
 for repo in $repos
 do (
+	repo=$(echo "$repo" | cut -f2)
 	test "$repo" != "DEFAULT" || continue
 	test -d "$HOME/$repo/.git" || continue
 	cd "$HOME/$repo"
