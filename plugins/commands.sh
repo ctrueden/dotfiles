@@ -50,7 +50,7 @@ alias f='find . -name'
 version() {
 	test -x "$(which sw_vers)" && sw_vers
 	test -e /proc/version && cat /proc/version
-	text -x "$(which lsb_release)" && lsb_release -a
+	test -x "$(which lsb_release)" && lsb_release -a
 	test -e /etc/redhat-release && cat /etc/redhat-release
 	test -x "$(which ver)" && ver
 }
