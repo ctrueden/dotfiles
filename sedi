@@ -1,0 +1,12 @@
+#!/bin/sh
+
+# sedi - make in-place sed editing consistent across OSes
+
+case "$(uname)" in
+	Darwin)
+		# BSD sed requires a space after -i argument
+		sed -i '' $@
+	*)
+		# GNU sed requires no space after -i argument
+		sed -i'' $@
+esac
