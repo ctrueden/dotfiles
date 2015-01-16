@@ -58,6 +58,7 @@ do (
 		then
 			upstream=$(echo "$branch" | sed -E 's/.*\[([^ ]+)\].*/\1/')
 			test "$upstream" != "origin/master" \
+				-a "$upstream" != "origin/develop" \
 				-a "$upstream" != "origin/trunk" \
 				-a "$upstream" != "origin/svn/trunk" \
 				|| continue
