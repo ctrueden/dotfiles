@@ -1,0 +1,50 @@
+# -- Public repositories on GitHub --
+
+[code/misc/bnd]
+checkout = git clone git://github.com/bndtools/bnd
+
+[code/misc/gentyref]
+checkout = git clone git://github.com/coekie/gentyref
+
+[code/misc/imagejs]
+checkout = git clone git://github.com/imagejs/imagejs.github.com imagejs
+
+[code/misc/jex]
+checkout = git clone git://github.com/jaywarrick/JEX jex
+
+[code/misc/object-inspector]
+checkout = git clone git://github.com/sbridges/object-inspector
+
+[code/misc/pcgen]
+checkout = git clone git://github.com/PCGen/pcgen
+
+[code/misc/rootbeer1]
+checkout = git clone git://github.com/pcpratts/rootbeer1
+
+[code/misc/scikit-image-paper]
+checkout = git clone git://github.com/scikit-image/scikit-image-paper
+
+[code/misc/virtualenv]
+checkout = git clone git://github.com/pypa/virtualenv
+
+# -- Other Git repositories --
+
+[code/misc/labis]
+checkout = git clone git://git.code.sf.net/p/labinfsyst/code labis
+
+[code/misc/pixlib]
+checkout = git clone git://git.code.sf.net/p/pixlib/code pixlib
+
+[code/misc/waterloo]
+checkout = git clone git://git.code.sf.net/p/waterloo/beta waterloo
+
+# -- Mercurial repositories --
+
+[code/misc/addama]
+checkout = git clone hg::https://code.google.com/p/addama/
+
+[code/misc/jace]
+checkout = git clone hg::https://code.google.com/p/jace/
+
+[code/misc/jython]
+checkout = git clone hg::https://hg.python.org/jython

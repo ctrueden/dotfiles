@@ -19,58 +19,11 @@ include = cat $DOTFILES/mrconfig.d/knime        2> /dev/null || true
 include = cat $DOTFILES/mrconfig.d/leonardo     2> /dev/null || true
 include = cat $DOTFILES/mrconfig.d/loci         2> /dev/null || true
 include = cat $DOTFILES/mrconfig.d/maven        2> /dev/null || true
+include = cat $DOTFILES/mrconfig.d/misc         2> /dev/null || true
 include = cat $DOTFILES/mrconfig.d/nar          2> /dev/null || true
 include = cat $DOTFILES/mrconfig.d/ome          2> /dev/null || true
 include = cat $DOTFILES/mrconfig.d/scifio       2> /dev/null || true
 include = cat $DOTFILES/mrconfig.d/scijava      2> /dev/null || true
 include = cat $DOTFILES/mrconfig.d/slim         2> /dev/null || true
 include = cat $DOTFILES/mrconfig.d/visad        2> /dev/null || true
-
-# -- Public repositories on GitHub --
-
-[code/other/bnd]
-checkout = git clone git://github.com/bndtools/bnd
-
-[code/other/gentyref]
-checkout = git clone git://github.com/coekie/gentyref
-
-[code/other/imagejs]
-checkout = git clone git://github.com/imagejs/imagejs.github.com imagejs
-
-[code/other/jex]
-checkout = git clone git://github.com/jaywarrick/JEX jex
-
-[code/other/object-inspector]
-checkout = git clone git://github.com/sbridges/object-inspector
-
-[code/other/pcgen]
-checkout = git clone git://github.com/PCGen/pcgen
-
-[code/other/rootbeer1]
-checkout = git clone git://github.com/pcpratts/rootbeer1
-
-[code/other/scikit-image-paper]
-checkout = git clone git://github.com/scikit-image/scikit-image-paper
-
-# -- Other Git repositories --
-
-[code/other/labis]
-checkout = git clone git://git.code.sf.net/p/labinfsyst/code labis
-
-[code/other/pixlib]
-checkout = git clone git://git.code.sf.net/p/pixlib/code pixlib
-
-[code/other/waterloo]
-checkout = git clone git://git.code.sf.net/p/waterloo/beta waterloo
-
-# -- Mercurial repositories --
-
-[code/other/addama]
-checkout = git clone hg::https://code.google.com/p/addama/
-
-[code/other/jace]
-checkout = git clone hg::https://code.google.com/p/jace/
-
-[code/other/jython]
-checkout = git clone hg::https://hg.python.org/jython
 include = cat $DOTFILES/mrconfig.d/zsh          2> /dev/null || true
