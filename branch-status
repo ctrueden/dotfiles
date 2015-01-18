@@ -4,22 +4,11 @@
 # branch-status - scan for branches with unpushed changes
 #
 
-case "$1" in
-	-a)
-		all=1
-		;;
-	*)
-		;;
-esac
-
-repos=$(mr-git-remotes)
-for repo in $repos
-do (
-	repo=$(echo "$repo" | cut -f2)
-	test "$repo" != "DEFAULT" || continue
-	test -d "$HOME/$repo/.git" || continue
-	cd "$HOME/$repo"
-	repo="$(echo "$repo" | sed 's/.*\///')"
+branch_status() {
+	dir=$1
+	repo=$2
+	test -d "$dir/.git" || return
+	cd "$dir"
 
 	# NB: Portions of the following were stolen from:
 	# http://stackoverflow.com/a/2658301
@@ -64,5 +53,33 @@ do (
 				|| continue
 		fi
 		printf "%20s : %s\n" "$repo" "$branch"
+	)
+	done
+}
+
+scan_myrepos="yes"
+for arg in "$@"
+do
+	case "$arg" in
+		-a)
+			all=1
+			;;
+		*)
+			scan_myrepos=""
+			branch_status "$arg" "$arg"
+			;;
+	esac
+done
+
+if [ "$scan_myrepos" ]
+then
+	repos=$(mr-git-remotes)
+	for line in $repos
+	do (
+		entry=$(echo "$line" | cut -f2)
+		test "$entry" != "DEFAULT" || continue
+		dir="$HOME/$entry"
+		repo="$(echo "$dir" | sed 's/.*\///')"
+		branch_status "$dir" "$repo"
 	) done
-) done
+fi
