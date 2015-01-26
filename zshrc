@@ -35,7 +35,7 @@ zgen_init() {
 	# --== zsh-users plugins ==--
 	zgen load zsh-users/zsh-syntax-highlighting
 	zgen load zsh-users/zsh-history-substring-search
-	zgen completions zsh-users/zsh-completions src
+	zgen load zsh-users/zsh-completions src
 
 	# --== my plugins ==--
 	zgen load "$DOTFILES" plugins
