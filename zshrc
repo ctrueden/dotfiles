@@ -72,4 +72,26 @@ bindkey '^R' history-incremental-search-backward
 bindkey '^[[A' up-line-or-search
 bindkey '^[[B' down-line-or-search
 
+# --== zsh vi mode fixes ==--
+
+# Credit to: http://superuser.com/a/533685
+vi-search-fix() {
+	zle vi-cmd-mode
+	zle .vi-history-search-backward
+}
+autoload vi-search-fix
+zle -N vi-search-fix
+bindkey -M viins '\e/' vi-search-fix
+bindkey "^?" backward-delete-char
+bindkey "^W" backward-kill-word
+bindkey "^H" backward-delete-char
+bindkey "^U" backward-kill-line
+# Credit to: http://superuser.com/a/648046
+export KEYTIMEOUT=1
+bindkey -sM vicmd '^[' '^G'
+bindkey -rM viins '^X'
+bindkey -M viins '^X,' _history-complete-newer \
+                 '^X/' _history-complete-older \
+                 '^X`' _bash_complete-word
+
 zgen saved || zgen_init
