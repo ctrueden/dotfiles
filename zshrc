@@ -74,6 +74,27 @@ bindkey '^[[B' down-line-or-search
 
 # --== zsh vi mode fixes ==--
 
+# Credit to: http://zshwiki.org/home/zle/vi-mode
+bindkey -a 'gg' beginning-of-buffer-or-history
+bindkey -a 'g~' vi-oper-swap-case
+bindkey -a G end-of-buffer-or-history
+bindkey -a u undo
+bindkey -a '^R' redo
+bindkey '^G' what-cursor-position
+vi-backward-word-end() {
+	zle vi-forward-word-end
+	zle vi-backward-word -n 2 && zle vi-forward-word-end
+}
+vi-backward-blank-word-end() {
+	zle vi-forward-blank-word-end
+	zle vi-backward-blank-word -n 2 && zle vi-forward-blank-word-end
+}
+# TODO: pbcopy / pbpaste clipboard integration
+
+# Make delete key work properly
+# Credit to: http://zsh.sourceforge.net/Guide/zshguide04.html#l81
+bindkey '\e[3~' delete-char
+
 # Credit to: http://superuser.com/a/533685
 vi-search-fix() {
 	zle vi-cmd-mode
