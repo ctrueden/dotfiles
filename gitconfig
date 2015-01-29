@@ -10,6 +10,7 @@
 	ci = commit
 	cia = commit --amend
 	conflicts = diff --name-only --diff-filter=U
+	db = diff-blame
 	di = diff
 	dif = diff
 	dic = diff --color-words
