@@ -15,7 +15,17 @@ if filereadable(vundlepath . '/README.md')
   " let Vundle manage Vundle, required
 	Plugin 'gmarik/Vundle.vim'
 
+	" Indent Guides
+	" See also https://github.com/nathanaelkane/vim-indent-guides/issues/31
+	colorscheme default
 	Plugin 'nathanaelkane/vim-indent-guides'
+	let g:indent_guides_enable_on_vim_startup = 1
+	let g:indent_guides_guide_size = 1
+	let g:indent_guides_start_level = 2
+	"let g:indent_guides_auto_colors = 0
+	"autocmd VimEnter,Colorscheme * :hi IndentGuidesOdd guibg=red ctermbg=darkgray
+	"autocmd VimEnter,Colorscheme * :hi IndentGuidesEven guibg=green ctermbg=darkblue
+
 	Plugin 'taglist.vim'
 	Plugin 'tpope/vim-fugitive'
 	Plugin 'tpope/vim-sensible'
