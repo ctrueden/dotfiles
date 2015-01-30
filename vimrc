@@ -29,6 +29,7 @@ if filereadable(vundlepath . '/README.md')
 	Plugin 'taglist.vim'
 	Plugin 'tpope/vim-fugitive'
 	Plugin 'tpope/vim-sensible'
+	Plugin 'lepture/vim-velocity'
 
 	call vundle#end()            " required
 endif
