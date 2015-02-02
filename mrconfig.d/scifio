@@ -12,6 +12,9 @@ checkout = git clone git://github.com/scifio/scifio-bf-compat
 [code/scifio/scifio-cli]
 checkout = git clone git://github.com/scifio/scifio-cli
 
+[code/scifio/scifio-hdf5]
+checkout = git clone git://github.com/scifio/scifio-hdf5
+
 [code/scifio/scifio-imageio]
 checkout = git clone git://github.com/scifio/scifio-imageio
 
