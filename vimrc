@@ -12,7 +12,7 @@ if filereadable(vundlepath . '/README.md')
 	"set rtp+=vundlepath
 	call vundle#begin()
 
-  " let Vundle manage Vundle, required
+	" let Vundle manage Vundle, required
 	Plugin 'gmarik/Vundle.vim'
 
 	" Indent Guides
