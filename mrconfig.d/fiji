@@ -147,6 +147,12 @@ checkout = git clone git://github.com/fiji/IsoData_Classifier
 [code/fiji/Kuwahara_Filter]
 checkout = git clone git://github.com/fiji/Kuwahara_Filter
 
+[code/fiji/LSM_Reader]
+checkout = git clone git://github.com/fiji/LSM_Reader
+
+[code/fiji/LSM_Toolbox]
+checkout = git clone git://github.com/fiji/LSM_Toolbox
+
 [code/fiji/Lasso_and_Blow_Tool]
 checkout = git clone git://github.com/fiji/Lasso_and_Blow_Tool
 
