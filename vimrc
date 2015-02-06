@@ -27,6 +27,7 @@ if filereadable(vundlepath . '/README.md')
 	"autocmd VimEnter,Colorscheme * :hi IndentGuidesEven guibg=green ctermbg=darkblue
 
 	Plugin 'taglist.vim'
+	Plugin 'bling/vim-airline'
 	Plugin 'tpope/vim-fugitive'
 	Plugin 'tpope/vim-sensible'
 	Plugin 'lepture/vim-velocity'
