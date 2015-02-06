@@ -28,6 +28,7 @@ zgen_init() {
 	omz plugins/npm               # npm completion
 	omz plugins/osx               # OS X functions, including itunes
 	omz plugins/urltools          # urlencode and urldecode functions
+	omz plugins/vundle            # plugin manager for vim
 	omz plugins/wd                # wd "warp directory" command
 	omz plugins/web-search        # web search commands (google etc.)
 	omz plugins/z                 # z "jump around" command
