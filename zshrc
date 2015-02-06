@@ -47,13 +47,6 @@ zgen_init() {
 	zgen save
 }
 
-# --== vundle ==--
-
-if [ ! -d "$HOME/.vim/bundle/vundle" ]
-then
-	vundle-init && vundle-update
-fi
-
 # --== oh-my-zsh ==--
 
 # Uncomment the following line to use case-sensitive completion.
@@ -124,3 +117,10 @@ bindkey -M viins '^X,' _history-complete-newer \
                  '^X`' _bash_complete-word
 
 zgen saved || zgen_init
+
+# --== vundle ==--
+
+if [ ! -d "$HOME/.vim/bundle/vundle" ]
+then
+	vundle-init && vundle-update
+fi
