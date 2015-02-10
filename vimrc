@@ -28,8 +28,11 @@ if filereadable(vundlepath . '/README.md')
 
 	Plugin 'taglist.vim'
 	Plugin 'bling/vim-airline'
+	Plugin 'tpope/vim-abolish'
 	Plugin 'tpope/vim-fugitive'
+	Plugin 'tpope/vim-repeat'
 	Plugin 'tpope/vim-sensible'
+	Plugin 'tpope/vim-surround'
 	Plugin 'lepture/vim-velocity'
 
 	call vundle#end()            " required
