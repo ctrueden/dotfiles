@@ -3,6 +3,9 @@
 export ZGEN="$HOME/code/zsh/zgen"
 source "$ZGEN/zgen.zsh"
 
+# Disable oh-my-zsh's automatic updates; we'll use "zsh update" instead.
+export DISABLE_AUTO_UPDATE=true
+
 omz() {
 	zgen oh-my-zsh $@
 }
