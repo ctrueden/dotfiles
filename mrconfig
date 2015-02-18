@@ -9,6 +9,7 @@ git_update = git remote update --prune && git fetch --tags && git merge --ff 'HE
 include = cat $DOTFILES/mrconfig.d/apache       2> /dev/null || true
 include = cat $DOTFILES/mrconfig.d/bisque       2> /dev/null || true
 include = cat $DOTFILES/mrconfig.d/cellprofiler 2> /dev/null || true
+include = cat $DOTFILES/mrconfig.d/clearvolume  2> /dev/null || true
 include = cat $DOTFILES/mrconfig.d/ctrueden     2> /dev/null || true
 include = cat $DOTFILES/mrconfig.d/fiji         2> /dev/null || true
 include = cat $DOTFILES/mrconfig.d/git          2> /dev/null || true
