@@ -123,6 +123,7 @@ alias gojex='cd $PATH_JEX'
 export PATH_SCIJAVA="$PATH_CODE/scijava"
 alias gopsj='cd $PATH_SCIJAVA/pom-scijava'
 alias gosjc='cd $PATH_SCIJAVA/scijava-common'
+alias gosjep='cd $PATH_SCIJAVA/scijava-expression-parser'
 alias gosjs='cd $PATH_SCIJAVA/scijava-scripts'
 
 # NAR - https://github.com/maven-nar/nar-maven-plugin
