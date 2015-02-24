@@ -24,6 +24,9 @@ checkout = git clone git://github.com/pcpratts/rootbeer1
 [code/misc/scikit-image-paper]
 checkout = git clone git://github.com/scikit-image/scikit-image-paper
 
+[code/misc/the_silver_searcher]
+checkout = git clone git://github.com/ggreer/the_silver_searcher
+
 [code/misc/virtualenv]
 checkout = git clone git://github.com/pypa/virtualenv
 
