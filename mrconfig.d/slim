@@ -12,5 +12,8 @@ checkout = git clone git://github.com/slim-curve/slim-curve-test
 [code/slim/slim-curve.github.io]
 checkout = git clone git://github.com/slim-curve/slim-curve.github.io
 
+[code/slim/slim-javadoc]
+checkout = git clone git://github.com/slim-curve/slim-javadoc
+
 [code/slim/slim-plugin]
 checkout = git clone git://github.com/slim-curve/slim-plugin
