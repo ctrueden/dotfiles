@@ -18,6 +18,9 @@ checkout = git clone git://github.com/scijava/pom-scijava.wiki pom-scijava-wiki
 [code/scijava/scijava-common]
 checkout = git clone git://github.com/scijava/scijava-common
 
+[code/scijava/scijava-expression-parser]
+checkout = git clone git://github.com/scijava/scijava-expression-parser
+
 [code/scijava/scijava-javadoc]
 checkout = git clone git://github.com/scijava/scijava-javadoc
 
