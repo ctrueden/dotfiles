@@ -2,3 +2,6 @@
 
 [code/apache/commons-imaging]
 checkout = git clone git://github.com/apache/commons-imaging
+
+[code/apache/tika]
+checkout = git clone git://github.com/apache/tika
