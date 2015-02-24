@@ -15,6 +15,7 @@ include = cat $DOTFILES/mrconfig.d/fiji         2> /dev/null || true
 include = cat $DOTFILES/mrconfig.d/git          2> /dev/null || true
 include = cat $DOTFILES/mrconfig.d/imagej       2> /dev/null || true
 include = cat $DOTFILES/mrconfig.d/imglib2      2> /dev/null || true
+include = cat $DOTFILES/mrconfig.d/java3d       2> /dev/null || true
 include = cat $DOTFILES/mrconfig.d/kitware      2> /dev/null || true
 include = cat $DOTFILES/mrconfig.d/knime        2> /dev/null || true
 include = cat $DOTFILES/mrconfig.d/leonardo     2> /dev/null || true
