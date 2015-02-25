@@ -11,6 +11,7 @@ jdks=$(find \
 for jdk in $jdks
 do
   echo
+  stat -f "%Sm%t%N" $jdk/Contents/Home
   (set -x && $jdk/Contents/Home/bin/java -version)
   du -hs $jdk
 done
