@@ -6,17 +6,14 @@ checkout = git clone git://github.com/openmicroscopy/Imperial-FLIMfit
 [code/ome/Omega]
 checkout = git clone git://github.com/OmegaProject/Omega
 
-[code/ome/bf4]
-checkout = git clone -b dev_4_4 git://github.com/openmicroscopy/bioformats bf4
-
-[code/ome/bf5]
-checkout = git clone -b dev_5_0 git://github.com/openmicroscopy/bioformats bf5
+[code/ome/bioformats]
+checkout = git clone git://github.com/openmicroscopy/bioformats
 
 [code/ome/ome-documentation]
-checkout = git clone -b dev_5_0 git://github.com/openmicroscopy/ome-documentation
+checkout = git clone git://github.com/openmicroscopy/ome-documentation
 
 [code/ome/openmicroscopy]
-checkout = git clone -b dev_5_0 git://github.com/openmicroscopy/openmicroscopy
+checkout = git clone git://github.com/openmicroscopy/openmicroscopy
 
 [code/ome/samples]
 checkout = git clone git://github.com/openmicroscopy/samples

@@ -34,28 +34,14 @@ alias goso='cd $PATH_SCIFIO/../scifio-omero'
 alias gost='cd $PATH_SCIFIO/../scifio-tutorials'
 
 # Bio-Formats - https://github.com/openmicroscopy/bioformats
-export PATH_BF4="$PATH_CODE/ome/bf4"
-alias gobf4='cd $PATH_BF4'
-alias gobf4a='cd $PATH_BF4/components/autogen/src'
-alias gobf4c='cd $PATH_BF4/components/common/src/loci/common'
-alias gobf4f='cd $PATH_BF4/components/bio-formats/src/loci/formats'
-alias gobf4p='cd $PATH_BF4/components/loci-plugins/src/loci/plugins'
-alias gobf4x='cd $PATH_BF4/components/ome-xml/src/ome/xml'
-export PATH_BF5="$PATH_CODE/ome/bf5"
-alias gobf5='cd $PATH_BF5'
-alias gobf5a='cd $PATH_BF5/components/autogen/src'
-alias gobf5c='cd $PATH_BF5/components/formats-common/src/loci/common'
-alias gobf5f='cd $PATH_BF5/components/formats-api/src/loci/formats'
-alias gobf5p='cd $PATH_BF5/components/bio-formats-plugins/src/loci/plugins'
-alias gobf5x='cd $PATH_BF5/components/ome-xml/src/ome/xml'
-export PATH_BF="$PATH_CODE/ome/bf-develop"
+export PATH_BF="$PATH_CODE/ome/bioformats"
 alias gobf='cd $PATH_BF'
 alias gobfa='cd $PATH_BF/components/autogen/src'
 alias gobfc='cd $PATH_BF/components/formats-common/src/loci/common'
 alias gobff='cd $PATH_BF/components/formats-api/src/loci/formats'
 alias gobfp='cd $PATH_BF/components/bio-formats-plugins/src/loci/plugins'
 alias gobfx='cd $PATH_BF/components/ome-xml/src/ome/xml'
-export PATH="$PATH_BF5/tools:$PATH"
+export PATH="$PATH_BF/tools:$PATH"
 
 # ImageJ - https://github.com/imagej
 export PATH_IJ="$PATH_CODE/imagej/imagej"
