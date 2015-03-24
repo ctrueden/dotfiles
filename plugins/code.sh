@@ -97,7 +97,7 @@ export PATH_BDV="$PATH_CODE/bdv"
 alias gobdv='cd $PATH_BDV'
 
 # JEX
-export PATH_JEX="$PATH_CODE/other/jex"
+export PATH_JEX="$PATH_CODE/misc/jex"
 alias gojex='cd $PATH_JEX'
 
 # SciJava - https://github.com/scijava
@@ -120,4 +120,4 @@ export PATH_SLIM="$PATH_CODE/slim"
 alias goslim='cd $PATH_SLIM'
 
 # VisAD
-export PATH_VISAD="$PATH_CODE/other/visad"
+export PATH_VISAD="$PATH_CODE/visad/visad"
