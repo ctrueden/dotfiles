@@ -6,8 +6,7 @@ export PATH_PERSONAL="$PATH_CODE/ctrueden"
 alias goctr='cd $PATH_PERSONAL'
 
 # configuration files
-export PATH_CONFIG="$PATH_PERSONAL/ctr-config"
-alias gocfg='cd $PATH_CONFIG'
+alias gocfg='cd $DOTFILES'
 export PATH_CFG_PRIVATE="$PATH_PERSONAL/ctr-cfg-private"
 alias gocfp='cd $PATH_CFG_PRIVATE'
 
