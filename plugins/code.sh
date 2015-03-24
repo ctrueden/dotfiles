@@ -10,10 +10,6 @@ alias gocfg='cd $DOTFILES'
 export PATH_CFG_PRIVATE="$PATH_PERSONAL/ctr-cfg-private"
 alias gocfp='cd $PATH_CFG_PRIVATE'
 
-# oh-my-zsh
-export PATH_OMZ="$PATH_CODE/omz"
-alias goomz='cd $PATH_OMZ'
-
 # useful scripts
 export PATH_SCRIPTS="$PATH_PERSONAL/ctr-scripts"
 alias gosc='cd $PATH_SCRIPTS'
