@@ -30,7 +30,6 @@ export PATH_SCIFIO="$PATH_CODE/scifio/scifio"
 alias gos='cd $PATH_SCIFIO'
 alias gops='cd $PATH_SCIFIO/../pom-scifio'
 alias goscli='cd $PATH_SCIFIO/../scifio-cli'
-alias goso='cd $PATH_SCIFIO/../scifio-omero'
 alias gost='cd $PATH_SCIFIO/../scifio-tutorials'
 
 # Bio-Formats - https://github.com/openmicroscopy/bioformats
