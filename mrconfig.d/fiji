@@ -246,9 +246,6 @@ checkout = git clone git://github.com/fiji/Sync_Win
 [code/fiji/Thread_Killer]
 checkout = git clone git://github.com/fiji/Thread_Killer
 
-[code/fiji/Threshold_Colour]
-checkout = git clone git://github.com/fiji/Threshold_Colour
-
 [code/fiji/Time_Lapse]
 checkout = git clone git://github.com/fiji/Time_Lapse
 
