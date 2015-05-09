@@ -15,3 +15,6 @@ checkout = git clone git://github.com/scifio/dotfiles
 
 [code/scijava/dotfiles]
 checkout = git clone git://github.com/scijava/dotfiles
+
+[code/slim/dotfiles]
+checkout = git clone git://github.com/slim-curve/dotfiles
