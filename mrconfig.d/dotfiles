@@ -1,0 +1,17 @@
+[code/fiji/dotfiles]
+checkout = git clone git://github.com/fiji/dotfiles
+
+[code/imagej/dotfiles]
+checkout = git clone git://github.com/imagej/dotfiles
+
+[code/imglib/dotfiles]
+checkout = git clone git://github.com/imglib/dotfiles
+
+[code/loci/dotfiles]
+checkout = git clone git://github.com/loci/dotfiles
+
+[code/scifio/dotfiles]
+checkout = git clone git://github.com/scifio/dotfiles
+
+[code/scijava/dotfiles]
+checkout = git clone git://github.com/scijava/dotfiles

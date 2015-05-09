@@ -1,8 +1,0 @@
-[code/clearvolume/ClearVolume]
-checkout = git clone git://github.com/ClearVolume/ClearVolume
-
-[code/clearvolume/imglib2-clearvolume]
-checkout = git clone git://github.com/ClearVolume/imglib2-clearvolume
-
-[code/clearvolume/mpicbg-knip-clearvolume]
-checkout = git clone git://github.com/fjug/mpicbg-knip-clearvolume
