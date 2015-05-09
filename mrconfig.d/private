@@ -1,0 +1,44 @@
+[code/knime/knip-cellprofiler]
+checkout = git clone git@github.com:knime-ip/knip-cellprofiler
+
+[code/knime/knip-ilastik]
+checkout = git clone git@github.com:knime-ip/knip-ilastik
+
+[code/knime/knip-imagej2-integration]
+checkout = git clone git@github.com:knime-ip/knip-imagej2-integration
+
+[code/knime/knip-imglib2-ops]
+checkout = git clone git@github.com:knime-ip/knip-imglib2-ops
+
+[code/knime/knip-micromanager]
+checkout = git clone git@github.com:knime-ip/knip-micromanager
+
+[code/knime/knip-opencv]
+checkout = git clone git@github.com:knime-ip/knip-opencv
+
+[code/knime/knip-scijava-bundles]
+checkout = git clone git@github.com:knime-ip/knip-scijava-bundles
+
+[code/knime/knip-scripting]
+checkout = git clone git@github.com:knime-ip/knip-scripting
+
+[code/loci/gitolite-admin]
+checkout = git clone git@dev.loci.wisc.edu:gitolite-admin
+
+[code/loci/spectral-analysis]
+checkout = git clone git@dev.loci.wisc.edu:spectral-analysis
+
+[code/loci/transient-lighting]
+checkout = git clone git@dev.loci.wisc.edu:transient-lighting
+
+[code/loci/wiscscan]
+checkout = git clone git@dev.loci.wisc.edu:wiscscan
+
+[code/ome/ome-internal]
+checkout = git clone git@github.com:openmicroscopy/ome-internal
+
+[code/ome/ome-movie]
+checkout = git clone git@github.com:openmicroscopy/ome-movie
+
+[code/ome/qa]
+checkout = git clone git@github.com:openmicroscopy/qa
