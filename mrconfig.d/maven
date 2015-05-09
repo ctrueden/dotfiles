@@ -38,3 +38,6 @@ checkout = git clone git://github.com/apache/maven-surefire
 
 [code/maven/maven-wagon]
 checkout = git clone git://github.com/apache/maven-wagon
+
+[code/maven/mojo]
+checkout = git clone git://fiji.sc/mojo
