@@ -1,5 +1,3 @@
-# -- Mercurial repositories --
-
 [code/bisque/bisque]
 checkout = git clone hg::http://biodev.ece.ucsb.edu/hg/bisque-stable bisque
 

@@ -1,4 +1,2 @@
-# -- Public repositories on GitHub --
-
 [code/zsh/zgen]
 checkout = git clone git://github.com/tarjoilija/zgen

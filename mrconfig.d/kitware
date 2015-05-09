@@ -1,10 +1,11 @@
-# -- Public repositories on GitHub --
-
 [code/kitware/CMake]
 checkout = git clone git://github.com/Kitware/CMake
 
 [code/kitware/ITK]
 checkout = git clone git://github.com/Kitware/ITK
+
+[code/kitware/KWStyle]
+checkout = git clone git://public.kitware.com/KWStyle.git
 
 [code/kitware/SimpleITK]
 checkout = git clone git://github.com/SimpleITK/SimpleITK
@@ -14,8 +15,3 @@ checkout = git clone git://github.com/Kitware/VTK
 
 [code/kitware/farsight]
 checkout = git clone git://github.com/hocheung20/farsight
-
-# -- Other Git repositories --
-
-[code/kitware/KWStyle]
-checkout = git clone git://public.kitware.com/KWStyle.git

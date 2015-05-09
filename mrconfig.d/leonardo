@@ -1,5 +1,3 @@
-# -- Mercurial repositories --
-
 [code/leonardo/amino]
 checkout = git clone hg::http://amino.leonardosketch.googlecode.com/hg/ amino
 
