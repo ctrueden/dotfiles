@@ -1,8 +1,8 @@
 export PATH=\
 $HOME/bin:\
-$PATH_SCRIPTS:\
-$PATH_SCIJAVA/scijava-scripts:\
-$PATH_FIJI/bin:\
+$CODE_SCRIPTS:\
+$CODE_SCIJAVA/scijava-scripts:\
+$CODE_FIJI/bin:\
 $PATH
 
 # prepend Homebrew bin directories to the path, if applicable

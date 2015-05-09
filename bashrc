@@ -85,8 +85,8 @@ done
 # cpan DateTime::Format::ISO8601
 
 # Put git-remote-mediawiki and git-mw somewhere on your PATH:
-# ln -s "$PATH_GIT/contrib/mw-to-git/git-remote-mediawiki.perl" \
+# ln -s "$CODE_GIT/contrib/mw-to-git/git-remote-mediawiki.perl" \
 #       ~/bin/git-remote-mediawiki
-# ln -s "$PATH_GIT/contrib/mw-to-git/git-mw" ~/bin
+# ln -s "$CODE_GIT/contrib/mw-to-git/git-mw" ~/bin
 
-export PERL5LIB="$PATH_GIT/perl:$PATH_GIT/contrib/mw-to-git"
+export PERL5LIB="$CODE_GIT/perl:$CODE_GIT/contrib/mw-to-git"

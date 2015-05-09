@@ -1,5 +1,5 @@
-export PATH_OMERO="$PATH_CODE/ome/openmicroscopy"
-export PATH_OMERO_DIST="$PATH_OMERO/dist"
+export CODE_OMERO="$CODE_BASE/ome/openmicroscopy"
+export PATH_OMERO_DIST="$CODE_OMERO/dist"
 if [ -d "$PATH_OMERO_DIST" ]
 then
 	export OMERO_PREFIX="$PATH_OMERO_DIST"

@@ -15,8 +15,8 @@ unset CLASSPATH
 # NB: We avoid the CLASSPATH variable since some programs play badly with it.
 export JAVA_CP=\
 $HOME/java:\
-$PATH_PRIVATE/java:\
-$PATH_PRIVATE/java/utils
+$CODE_PRIVATE/java:\
+$CODE_PRIVATE/java/utils
 
 # generate classpath for desired Maven artifacts
 cpFile="$HOME/.java-classpath"
