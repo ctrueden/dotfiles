@@ -8,7 +8,7 @@ checkout = git clone git://github.com/imagej/dotfiles
 checkout = git clone git://github.com/imglib/dotfiles
 
 [code/loci/dotfiles]
-checkout = git clone git://github.com/loci/dotfiles
+checkout = git clone git://github.com/uw-loci/dotfiles
 
 [code/scifio/dotfiles]
 checkout = git clone git://github.com/scifio/dotfiles
