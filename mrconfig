@@ -12,4 +12,5 @@ include = cat $CODE_BASE/imglib/dotfiles/mrconfig 2> /dev/null || true
 include = cat $CODE_BASE/loci/dotfiles/mrconfig 2> /dev/null || true
 include = cat $CODE_BASE/scifio/dotfiles/mrconfig 2> /dev/null || true
 include = cat $CODE_BASE/scijava/dotfiles/mrconfig 2> /dev/null || true
+include = cat $CODE_BASE/slim/dotfiles/mrconfig 2> /dev/null || true
 include = cat $DOTFILES/mrconfig.d/* 2> /dev/null || true
