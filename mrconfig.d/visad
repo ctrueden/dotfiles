@@ -1,3 +1,5 @@
+[code/visad/thredds]
+checkout = git clone git://github.com/Unidata/thredds
 
 [code/visad/visad]
 checkout = git clone git://github.com/visad/visad
