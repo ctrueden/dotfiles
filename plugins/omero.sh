@@ -4,7 +4,7 @@ if [ -d "$PATH_OMERO_DIST" ]
 then
 	export OMERO_PREFIX="$PATH_OMERO_DIST"
 else
-	export OMERO_PREFIX="$(find "$HOME/apps" -name 'OMERO.server*' -type d 2> /dev/null)"
+	export OMERO_PREFIX="$HOME/apps/OMERO.server"
 fi
 export ICE_CONFIG="$OMERO_PREFIX/etc/ice.config"
 case "$(uname)" in
