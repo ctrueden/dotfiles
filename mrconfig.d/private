@@ -25,11 +25,17 @@ checkout = git clone git@github.com:knime-ip/knip-scripting
 [code/loci/gitolite-admin]
 checkout = git clone git@dev.loci.wisc.edu:gitolite-admin
 
+[code/loci/interviews]
+checkout = git clone git@github.com:uw-loci/interviews
+
 [code/loci/loci-servers]
 checkout = git clone git@github.com:uw-loci/loci-servers
 
 [code/loci/loci-servers-wiki]
 checkout = git clone git@github.com:uw-loci/loci-servers/wiki loci-servers.wiki
+
+[code/loci/logos]
+checkout = git clone git@github.com:uw-loci/logos
 
 [code/loci/spectral-analysis]
 checkout = git clone git@dev.loci.wisc.edu:spectral-analysis

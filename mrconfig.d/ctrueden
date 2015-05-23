@@ -32,11 +32,5 @@ checkout = git clone git@bitbucket.org:ctrueden/ctr-private
 [code/ctrueden/dnd5e-spells]
 checkout = git clone git@bitbucket.org:ctrueden/dnd5e-spells
 
-[code/ctrueden/interviews]
-checkout = git clone git@bitbucket.org:ctrueden/interviews
-
-[code/ctrueden/logos]
-checkout = git clone git@bitbucket.org:ctrueden/logos
-
 [code/imagej/javafx-plugins]
 checkout = git clone git@bitbucket.org:ctrueden/javafx-plugins
