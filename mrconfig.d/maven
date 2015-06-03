@@ -1,9 +1,6 @@
 [code/maven/build-helper-maven-plugin]
 checkout = git clone git://github.com/mojohaus/build-helper-maven-plugin
 
-[code/maven/dependency-maven-plugin]
-checkout = git clone git://github.com/mojohaus/dependency-maven-plugin
-
 [code/maven/exec-maven-plugin]
 checkout = git clone git://github.com/mojohaus/exec-maven-plugin
 
