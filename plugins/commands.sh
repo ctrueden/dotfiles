@@ -20,7 +20,7 @@ tt() { TERM_TITLE="$@"; }
 # --== diff ==--
 
 # use git for superior diff formatting
-alias diff='git diff --no-index'
+diff() { git diff --no-index $@ }
 
 # --== vim ==--
 
