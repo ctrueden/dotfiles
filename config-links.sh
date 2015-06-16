@@ -34,13 +34,15 @@ done
 
 (
   set -x
-  ln -s $LINK_DIR/bashrc.stub .bashrc
+  echo "export DOTFILES=\"$CONFIG_DIR\"" > .bashrc
+  echo ". \"$DOTFILES/bashrc\"" >> .bashrc
   ln -s $LINK_DIR/forward .forward
   ln -s $LINK_DIR/gitconfig .gitconfig
   ln -s $LINK_DIR/mrconfig .mrconfig
   ln -s $LINK_DIR/plan .plan
   ln -s $LINK_DIR/vimrc .vimrc
-  ln -s $LINK_DIR/zshrc.stub .zshrc
+  echo "export DOTFILES=\"$CONFIG_DIR\"" > .zshrc
+  echo "source \"$DOTFILES/zshrc\"" >> .zshrc
 )
 
 case "$(uname)" in

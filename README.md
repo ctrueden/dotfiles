@@ -4,13 +4,12 @@ I make an effort to document why the configuration is the way it is.
 I host the files on GitHub for my own convenience, and in case they
 are useful to others, but of course there is NO WARRANTY ETC. ETC.
 
+
 Getting Started
 ---------------
 
-1. Clone this repository in your ```$HOME/code/ctrueden``` directory
-2. From your ```$HOME``` directory, run the ```config-links.sh``` script
-
-That's it!
+1. Clone this repository somewhere.
+2. Run the ```config-links.sh``` script.
 
 
 LICENSE
