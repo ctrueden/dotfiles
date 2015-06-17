@@ -1,4 +1,4 @@
-export MAVEN_OPTS="-Xmx1536m -XX:MaxPermSize=256m"
+export MAVEN_OPTS="-Xmx1536m"
 
 # launch Maven 2.x with 'mvn2'
 if [ -d "$BREW/Cellar/maven2" ]; then
