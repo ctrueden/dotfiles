@@ -21,8 +21,7 @@ clear_file() {
   f="$1"
   if [ -h "$f" ]; then
     (set -x; rm "$f")
-  fi
-  if [ -a "$f" ]; then
+  elif [ -f "$f" ]; then
     bk="$f.$STAMP"
     (set -x; mv "$f" "$bk")
   fi
