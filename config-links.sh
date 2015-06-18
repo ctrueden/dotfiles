@@ -47,17 +47,27 @@ link_file() {
 
 # -- Main --
 
-echo "export DOTFILES=\"$CONFIG_DIR\"" > "$TMPDIR/bashrc.stub"
-echo '. "$DOTFILES/bashrc"' >> "$TMPDIR/bashrc.stub"
-install_file "$TMPDIR/bashrc.stub" .bashrc
+# NB: We use a stub for .bashrc to maintain support for systems that
+# do not support proper symlinks -- especially MSysGit on Windows.
+BASHRC_STUB="$CONFIG_DIR/bashrc.stub"
+echo "export DOTFILES=\"$CONFIG_DIR\"" > "$BASHRC_STUB"
+echo '. "$DOTFILES/bashrc"' >> "$BASHRC_STUB"
+install_file "$BASHRC_STUB" .bashrc
+rm -f "$BASHRC_STUB"
+
 link_file "$LINK_DIR/forward" .forward
 link_file "$LINK_DIR/gitconfig" .gitconfig
 link_file "$LINK_DIR/mrconfig" .mrconfig
 link_file "$LINK_DIR/plan" .plan
 link_file "$LINK_DIR/vimrc" .vimrc
-echo "export DOTFILES=\"$CONFIG_DIR\"" > "$TMPDIR/zshrc.stub"
-echo 'source "$DOTFILES/zshrc"' >> "$TMPDIR/zshrc.stub"
-install_file "$TMPDIR/zshrc.stub" .zshrc
+
+# NB: We use a stub for .zshrc to maintain support for systems that
+# do not support proper symlinks -- especially MSysGit on Windows.
+ZSHRC_STUB="$CONFIG_DIR/zshrc.stub"
+echo "export DOTFILES=\"$CONFIG_DIR\"" > "$ZSHRC_STUB"
+echo 'source "$DOTFILES/zshrc"' >> "$ZSHRC_STUB"
+install_file "$ZSHRC_STUB" .zshrc
+rm -f "$ZSHRC_STUB"
 
 case "$(uname)" in
   Darwin)
