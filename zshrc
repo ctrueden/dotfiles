@@ -1,6 +1,11 @@
 # --== zgen ==--
 
 export ZGEN="$HOME/code/zsh/zgen"
+
+test -d "$ZGEN" ||
+	mkdir -p "$(dirname "$ZGEN")" &&
+	(cd "$(dirname "$ZGEN")" && mr up)
+
 source "$ZGEN/zgen.zsh"
 
 omz() {
