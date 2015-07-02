@@ -2,9 +2,12 @@
 
 export ZGEN="$HOME/code/zsh/zgen"
 
-test -d "$ZGEN" ||
+zgen_install() {
 	mkdir -p "$(dirname "$ZGEN")" &&
 	(cd "$(dirname "$ZGEN")" && mr up)
+}
+
+test -d "$ZGEN" || zgen_install
 
 source "$ZGEN/zgen.zsh"
 
