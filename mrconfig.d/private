@@ -31,8 +31,8 @@ checkout = git clone git@github.com:uw-loci/interviews
 [code/loci/loci-servers]
 checkout = git clone git@github.com:uw-loci/loci-servers
 
-[code/loci/loci-servers-wiki]
-checkout = git clone git@github.com:uw-loci/loci-servers/wiki loci-servers.wiki
+[code/loci/loci-servers.wiki]
+checkout = git clone git@github.com:uw-loci/loci-servers.wiki
 
 [code/loci/logos]
 checkout = git clone git@github.com:uw-loci/logos
