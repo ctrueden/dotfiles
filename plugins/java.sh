@@ -1,12 +1,23 @@
 # set locations of Java
 if [ -x /usr/libexec/java_home ]; then
-	export J6="$(/usr/libexec/java_home -v 1.6)"
-	export J7="$(/usr/libexec/java_home -v 1.7)"
-	export J8="$(/usr/libexec/java_home -v 1.8)"
+	# OS X
+	jhome() {
+		/usr/libexec/java_home -v "$@"
+	}
+elif [ -x /usr/sbin/update-java-alternatives ]; then
+	# Linux
+	jhome() {
+		/usr/sbin/update-java-alternatives -l | grep "$@" | head -n 1 | cut -f 3 -d ' '
+	}
+else
+	jhome() { :; }
 fi
-alias j6='export JAVA_HOME=$J6 && echo "JAVA_HOME -> $JAVA_HOME" && java -version'
-alias j7='export JAVA_HOME=$J7 && echo "JAVA_HOME -> $JAVA_HOME" && java -version'
-alias j8='export JAVA_HOME=$J8 && echo "JAVA_HOME -> $JAVA_HOME" && java -version'
+export J6="$(jhome '1.6')"
+export J7="$(jhome '1.7')"
+export J8="$(jhome '1.8')"
+alias j6='export JAVA_HOME="$J6" && echo "JAVA_HOME -> $JAVA_HOME" && java -version'
+alias j7='export JAVA_HOME="$J7" && echo "JAVA_HOME -> $JAVA_HOME" && java -version'
+alias j8='export JAVA_HOME="$J8" && echo "JAVA_HOME -> $JAVA_HOME" && java -version'
 
 # unset the actual classpath, since some programs play badly with it
 unset CLASSPATH
