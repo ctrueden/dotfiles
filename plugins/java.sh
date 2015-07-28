@@ -4,29 +4,28 @@ if [ -x /usr/libexec/java_home ]; then
 	jhome() {
 		/usr/libexec/java_home -v "$@"
 	}
-else
-	jhome() { :; }
-fi
-
-if [ -x /usr/sbin/update-java-alternatives ]; then
+	jswitch() { :; }
+elif [ -x /usr/sbin/update-java-alternatives ]; then
 	# Linux
 	jhome() {
 		/usr/sbin/update-java-alternatives -l | grep "$@" | head -n 1 | cut -f 3 -d ' '
 	}
-	export J6="$(jhome '6-oracle')"
-	export J7="$(jhome '7-oracle')"
-	export J8="$(jhome '8-oracle')"
-	alias j6='export JAVA_HOME="$J6" && sudo update-java-alternatives --set java-6-oracle && echo "JAVA_HOME -> $JAVA_HOME" && java -version'
-	alias j7='export JAVA_HOME="$J7" && sudo update-java-alternatives --set java-7-oracle && echo "JAVA_HOME -> $JAVA_HOME" && java -version'
-	alias j8='export JAVA_HOME="$J8" && sudo update-java-alternatives --set java-8-oracle && echo "JAVA_HOME -> $JAVA_HOME" && java -version'
+	jswitch() {
+		sudo update-java-alternatives --set "${JAVA_HOME##*/}"
+	}
 else
-	export J6="$(jhome '1.6')"
-	export J7="$(jhome '1.7')"
-	export J8="$(jhome '1.8')"
-	alias j6='export JAVA_HOME="$J6" && echo "JAVA_HOME -> $JAVA_HOME" && java -version'
-	alias j7='export JAVA_HOME="$J7" && echo "JAVA_HOME -> $JAVA_HOME" && java -version'
-	alias j8='export JAVA_HOME="$J8" && echo "JAVA_HOME -> $JAVA_HOME" && java -version'
+	jhome() { :; }
+	jswitch() { :; }
 fi
+export J6="$(jhome '1.6')"
+export J7="$(jhome '1.7')"
+export J8="$(jhome '1.8')"
+test -n "$J6" || export J6="$(jhome '6-oracle')"
+test -n "$J7" || export J7="$(jhome '7-oracle')"
+test -n "$J8" || export J8="$(jhome '8-oracle')"
+alias j6='export JAVA_HOME="$J6" && jswitch && echo "JAVA_HOME -> $JAVA_HOME" && java -version'
+alias j7='export JAVA_HOME="$J7" && jswitch && echo "JAVA_HOME -> $JAVA_HOME" && java -version'
+alias j8='export JAVA_HOME="$J8" && jswitch && echo "JAVA_HOME -> $JAVA_HOME" && java -version'
 
 # unset the actual classpath, since some programs play badly with it
 unset CLASSPATH
