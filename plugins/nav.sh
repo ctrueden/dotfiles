@@ -1,6 +1,6 @@
 # "where is" - find a command or filename
 wi() {
-	cmd=$(which "$@")
+	cmd=$(which "$@" 2> /dev/null)
 	if [ -z "$cmd" ]
 	then
 		# no command found; see if git knows about it

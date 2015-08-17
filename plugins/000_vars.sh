@@ -4,7 +4,7 @@ export VISUAL="$EDITOR"
 
 # --== Homebrew ==--
 
-if [ -x "$(which brew)" ]; then
+if [ -x "$(which brew 2> /dev/null)" ]; then
 	export BREW="$(brew --prefix)"
 fi
 
