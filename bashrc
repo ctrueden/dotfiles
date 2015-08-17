@@ -39,22 +39,17 @@ fi
 if [ -f /etc/bash_completion.d/git-prompt ]; then
 	# newer Ubuntu Linux ("sudo aptitude install bash-completion")
 	. /etc/bash_completion.d/git-prompt # in case of no /etc/bash_completion
-	export GIT_COMPLETION=1
 elif [ -f /etc/bash_completion.d/git ]; then
 	# older Ubuntu Linux ("sudo aptitude install bash-completion")
+	# or Cygwin ("apt-cyg install bash-completion")
 	. /etc/bash_completion.d/git # in case of no /etc/bash_completion
-	export GIT_COMPLETION=1
-fi
-if [ -f "$BREW/etc/bash_completion.d/git-completion.bash" ]; then
-	# Mac OS X with Homebrew ("brew install git bash-completion")
-	export GIT_COMPLETION=1
 fi
 
 # --== shell prompt ==--
 
 SHELL_PROMPT=': ${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@${HOSTNAME}\[\033[00m\] \[\033[01;34m\]\w'
 
-if [ "$GIT_COMPLETION" ]; then
+if [ "$(__git_ps1 x 2> /dev/null)" = "x" ]; then
 	# make shell prompt reflect current git status+branch
 	PS1="$SHELL_PROMPT"'\[\033[01;32m\]$(__git_ps1)\[\033[00m\]\n'
 else
