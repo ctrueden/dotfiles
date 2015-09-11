@@ -8,6 +8,9 @@
 
 # Thanks to: http://mywiki.wooledge.org/BashFAQ/073
 
+echo
+echo "-- String manipulation --"
+
 name='polish.ostrich.racing.champion'
 echo
 echo "\$name             = '$name'"             # polish.ostrich.racing.champion
@@ -36,3 +39,10 @@ echo "\${phrase#*quick}  = '${phrase#*quick}'"  #           brown fox is quicker
 echo "\${phrase%quick*}  = '${phrase%quick*}'"  # The quick brown fox is 
 echo "\${phrase##*quick} = '${phrase##*quick}'" #                             er than the dog.
 echo "\${phrase%%quick*} = '${phrase%%quick*}'" # The 
+
+echo
+echo "-- Other hints --"
+
+echo
+echo "For multi-line replace, use perl!"
+echo 'perl -0777 -i -pe "s/the first line\\nthe second line\\n//igs" <files-to-match>'
