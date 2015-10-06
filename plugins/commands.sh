@@ -15,7 +15,22 @@ alias mr='mr --stats'
 alias xterm='xterm -geometry 80x60 -fg white -bg black'
 
 # change the title of the current xterm
-tt() { TERM_TITLE="$@"; }
+tt() {
+	if [ "${SHELL##*/}" = "zsh" ]
+	then
+		if [ "$@" ]
+		then
+			# Disable automatic titles
+			DISABLE_AUTO_TITLE="true"
+			echo -ne "\e]1;$@\a"
+		else
+			# Switch back to automatic titles
+			unset DISABLE_AUTO_TITLE
+		fi
+	else
+		TERM_TITLE="$@"
+	fi
+}
 
 # --== diff ==--
 
