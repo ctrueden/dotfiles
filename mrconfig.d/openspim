@@ -1,0 +1,11 @@
+[code/openspim/SPIMAcquisition]
+checkout = git clone git://github.com/openspim/SPIMAcquisition
+
+[code/openspim/fusion-pipeline]
+checkout = git clone git://github.com/openspim/fusion-pipeline
+
+[code/openspim/micromanager]
+checkout = git clone git://github.com/openspim/micromanager
+
+[code/openspim/openspim-app]
+checkout = git clone git://github.com/openspim/openspim-app
