@@ -9,6 +9,9 @@ checkout = git clone git://github.com/coekie/gentyref
 [code/misc/imagejs]
 checkout = git clone git://github.com/imagejs/imagejs.github.com imagejs
 
+[code/misc/jtk]
+checkout = git clone git://github.com/dhale/jtk
+
 [code/misc/object-inspector]
 checkout = git clone git://github.com/sbridges/object-inspector
 
