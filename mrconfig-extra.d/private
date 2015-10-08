@@ -37,6 +37,9 @@ checkout = git clone git@github.com:uw-loci/loci-servers.wiki
 [code/loci/logos]
 checkout = git clone git@github.com:uw-loci/logos
 
+[code/loci/matlab-plugins-in-imagej]
+checkout = git clone git@github.com:uw-loci/matlab-plugins-in-imagej
+
 [code/loci/spectral-analysis]
 checkout = git clone git@github.com:uw-loci/spectral-analysis
 
