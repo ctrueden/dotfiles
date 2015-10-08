@@ -22,9 +22,6 @@ checkout = git clone git@github.com:knime-ip/knip-scijava-bundles
 [code/knime/knip-scripting]
 checkout = git clone git@github.com:knime-ip/knip-scripting
 
-[code/knime/knip-stitching]
-checkout = git clone git@github.com:biobv2015/knip-stitching
-
 [code/loci/gitolite-admin]
 checkout = git clone git@dev.loci.wisc.edu:gitolite-admin
 
