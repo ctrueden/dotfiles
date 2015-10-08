@@ -46,10 +46,6 @@ checkout = git clone git@github.com:uw-loci/spectral-analysis
 [code/loci/transient-lighting]
 checkout = git clone git@github.com:uw-loci/transient-lighting
 
-# NB: Disable too-large repository by default.
-#[code/loci/wiscscan]
-#checkout = git clone git@dev.loci.wisc.edu:wiscscan
-
 [code/ome/ome-internal]
 checkout = git clone git@github.com:openmicroscopy/ome-internal
 
