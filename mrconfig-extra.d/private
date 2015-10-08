@@ -38,10 +38,10 @@ checkout = git clone git@github.com:uw-loci/loci-servers.wiki
 checkout = git clone git@github.com:uw-loci/logos
 
 [code/loci/spectral-analysis]
-checkout = git clone git@dev.loci.wisc.edu:spectral-analysis
+checkout = git clone git@github.com:uw-loci/spectral-analysis
 
 [code/loci/transient-lighting]
-checkout = git clone git@dev.loci.wisc.edu:transient-lighting
+checkout = git clone git@github.com:uw-loci/transient-lighting
 
 # NB: Disable too-large repository by default.
 #[code/loci/wiscscan]
