@@ -101,3 +101,9 @@ fi
 
 # remove tabs from files using 'detab'
 alias detab="sedi -e 's/	/  /g'"
+
+# --== gravatars ==--
+
+gravhash() {
+	php -r "echo md5(strtolower(trim('$@'))) . \"\n\";"
+}
