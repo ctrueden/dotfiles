@@ -74,3 +74,8 @@ do
 done
 
 export PERL5LIB="$CODE_GIT/perl:$CODE_GIT/contrib/mw-to-git"
+
+# Local customized path and environment settings, etc.
+if [ -f ~/.bash_local ]; then
+	. ~/.bash_local
+fi
