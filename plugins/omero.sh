@@ -6,7 +6,7 @@ then
 else
 	export OMERO_PREFIX="$HOME/apps/OMERO.server"
 fi
-export ICE_CONFIG="$OMERO_PREFIX/etc/ice.config"
+#export ICE_CONFIG="$OMERO_PREFIX/etc/ice.config"
 case "$(uname)" in
 	Linux)
 		export ICE_HOME=/usr/share/Ice-3.4.2
