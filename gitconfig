@@ -58,6 +58,7 @@
 
 	# new functions
 	fix = !fixup-rebase
+	ghr = "!ghr() { git remote set-url origin git://github.com/$1 && git remote set-url --push origin git@github.com:$1; }; ghr"
 	pack = !git reset --hard && git for-each-ref --format='%(refname)' refs/original/ | xargs -n 1 git update-ref -d && git reflog expire --expire=now --all && git gc --aggressive --prune=now
 	spop = !git checkout 'stash^{tree}' -- . && git stash drop
 
