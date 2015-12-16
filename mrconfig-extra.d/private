@@ -19,9 +19,6 @@ checkout = git clone git@github.com:knime-ip/knip-opencv
 [code/knime/knip-scijava-bundles]
 checkout = git clone git@github.com:knime-ip/knip-scijava-bundles
 
-[code/knime/knip-scripting]
-checkout = git clone git@github.com:knime-ip/knip-scripting
-
 [code/loci/gitolite-admin]
 checkout = git clone git@dev.loci.wisc.edu:gitolite-admin
 
