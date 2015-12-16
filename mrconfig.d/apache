@@ -1,5 +1,8 @@
 [code/apache/commons-imaging]
 checkout = git clone git://github.com/apache/commons-imaging
 
+[code/apache/commons-math]
+checkout = git clone git://github.com/apache/commons-math
+
 [code/apache/tika]
 checkout = git clone git://github.com/apache/tika
