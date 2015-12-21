@@ -1,0 +1,96 @@
+#!/usr/bin/perl
+
+# dev-find - Searches existing POMs for <developer> and <contributor>
+#            blocks matching the given criteria.
+#            Use '--' to separate developer args from contributor args.
+#
+# Example:
+# $ dev-find Arganda -- Longair
+
+use strict;
+
+##### Variables #####
+
+my $baseDir = "$ENV{HOME}/code";
+
+my @dirs = (
+	"$baseDir/scijava/*",
+	"$baseDir/imagej/*",
+	"$baseDir/scifio/*",
+	"$baseDir/fiji/*",
+	"$baseDir/fiji-ext/*",
+	"$baseDir/bdv/*",
+	"$baseDir/trakem2/*",
+	"$baseDir/big/*",
+	"$baseDir/imagescience/*",
+);
+
+##### Harvest the developers and contributors #####
+
+my %devBlocks, my %ctrBlocks;
+
+my $pomsCmd = 'grep -l founder ';
+for my $dir (@dirs) { $pomsCmd .= " $dir/pom.xml"; }
+my @poms = `$pomsCmd`;
+
+for my $pom (@poms) {
+	# Read the developers and contributors
+	chomp $pom;
+
+	# Filter to only <developers>...</developers>
+	my @devLines = `grep -A 10000 "^\t<developers>\$" "$pom" | grep -B 10000 "^\t<\/developers>\$"`;
+	my @ctrLines = `grep -A 10000 "^\t<contributors>\$" "$pom" | grep -B 10000 "^\t<\/contributors>\$"`;
+	my @lines = (@devLines, @ctrLines);
+
+	my $name = '', my $block = '';
+	for my $line (@lines) {
+		if ($line =~ /<developer>/ || $line =~ /<contributor>/) {
+			$name = $block = '';
+		}
+
+		if ($line =~ /<name>.*<\/name>/) {
+			$name = $line;
+			$name =~ s/.*<name>(.*)<\/name>.*/\1/;
+			chomp $name;
+		}
+
+		if ($line =~ /<\/developer>$/) {
+			# end developer block
+			$block .= $line;
+			# write out the block
+			if ($devBlocks{$name} ne '' && $devBlocks{$name} ne $block) {
+				print STDERR "[WARNING] Developer '$name' mismatch! $pom\n";
+			}
+			$devBlocks{$name} = $block;
+			next;
+		}
+		if ($line =~ /<\/contributor>$/) {
+			# end contributor block
+			$block .= $line;
+			# write out the block
+			if ($ctrBlocks{$name} ne '' && $ctrBlocks{$name} ne $block) {
+				print STDERR "[WARNING] Contributor '$name' mismatch! $pom\n";
+			}
+			$ctrBlocks{$name} = $block;
+			next;
+		}
+
+		# append to XML block
+		if ($line !~ /<role>.*<\/role>/) { # Do not record the roles
+			$block .= $line;
+		}
+	}
+
+}
+
+##### Search for matches #####
+
+my %hash = %devBlocks;
+for my $arg (@ARGV) {
+	if ($arg eq '--') { %hash = %ctrBlocks; }
+	for my $name (keys %hash) {
+		if ($name =~ /$arg/) {
+			print "[$name]\n$hash{$name}\n";
+		}
+	}
+}
