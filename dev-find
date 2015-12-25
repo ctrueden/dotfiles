@@ -83,6 +83,76 @@ for my $pom (@poms) {
 
 }
 
+##### Parse the Person template #####
+
+my @persons = `curl -fs 'http://imagej.net/index.php?title=Template:Person&action=edit'`;
+my %personURLs;
+my %personIDs;
+my $previousID = '';
+my $gitHubSection = 0;
+for my $person (@persons) {
+	chomp $person;
+	if ($person =~ /^\|\s*([^\s]+)\s*=\s*(.+?)\s*$/) {
+		my $id = $1;
+		my $url = $2;
+		$url =~ s/\{\{\{1\}\}\}/$id/;
+		my $name = '';
+		if ($url =~ /^\[\[User:.*\|(.*)\]\]$/) { $name = $1; }
+		elsif ($url =~ /^\[http[^\s]*\s+(.*)\]$/) { $name = $1; }
+		elsif ($url =~ /^\[\[(.*)\]\]$/) { $name = $1; }
+		# Convert URL wiki markup to pure URLs
+		$url =~ s/^\[\[(.*)\|.*\]\]$/http:\/\/imagej.net\/\1/;
+		$url =~ s/^\[([^\s]*)\s+.*\]$/\1/;
+
+		if ($previousID ne 'Rasband' && $previousID gt $id) {
+			# NB: GitHub IDs are listed second, in a new alphabetical order.
+			# We only record GitHub IDs here, because those are we use in the POMs.
+			print STDERR "[INFO] First GitHub ID record: $id = $name\n";
+			$gitHubSection = 1;
+		}
+		$previousID = $id;
+
+		if ($gitHubSection) {
+			# Record only GitHub IDs, not wiki IDs.
+			$personIDs{$name} = $id;
+		}
+		else {
+			# Record only wiki URLs, not GitHub URLs.
+			if ($personURLs{$name} ne '' && $personURLs{$name} ne $url) {
+				print STDERR "[WARNING] Person '$name' URL inconsistency: $personURLs{$name} != $url\n";
+			}
+			$personURLs{$name} = $url;
+		}
+	}
+}
+
+##### Cross-check XML blocks with Person template #####
+
+for my $name (keys %devBlocks) {
+	my $id = $devBlocks{$name};
+	if ($id !~ s/.*<id>(.*)<\/id>.*/\1/s) { $id = ''; }
+#	my $url = $devBlocks{$name};
+#	if ($url !~ s/.*<url>(.*)<\/url>.*/\1/s) { $url = ''; }
+	if ($personIDs{$name} ne $id) {
+		print STDERR "[WARNING] Person/Developer '$name' ID mismatch: $personIDs{$name} != $id\n";
+	}
+#	if ($personURLs{$name} ne $url) {
+#		print STDERR "[WARNING] Person/Developer '$name' URL mismatch: $personURLs{$name} != $url\n";
+#	}
+}
+for my $name (keys %ctrBlocks) {
+	my $id = $ctrBlocks{$name};
+	if ($id !~ s/.*<id>(.*)<\/id>.*/\1/s) { $id = ''; }
+	my $url = $ctrBlocks{$name};
+	if ($url !~ s/.*<url>(.*)<\/url>.*/\1/s) { $url = ''; }
+	if ($personIDs{$name} ne $id) {
+		print STDERR "[WARNING] Person/Contributor '$name' ID mismatch: $personIDs{$name} != $id\n";
+	}
+	if ($personURLs{$name} ne $url) {
+		print STDERR "[WARNING] Person/Contributor '$name' URL mismatch: $personURLs{$name} != $url\n";
+	}
+}
+
 ##### Search for matches #####
 
 my %hash = %devBlocks;
