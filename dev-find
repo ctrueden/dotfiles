@@ -59,7 +59,7 @@ for my $pom (@poms) {
 			$block .= $line;
 			# write out the block
 			if ($devBlocks{$name} ne '' && $devBlocks{$name} ne $block) {
-				print STDERR "[WARNING] Developer '$name' mismatch! $pom\n";
+				print STDERR "[WARNING] Developer '$name' POM mismatch! $pom\n";
 			}
 			$devBlocks{$name} = $block;
 			next;
@@ -69,7 +69,7 @@ for my $pom (@poms) {
 			$block .= $line;
 			# write out the block
 			if ($ctrBlocks{$name} ne '' && $ctrBlocks{$name} ne $block) {
-				print STDERR "[WARNING] Contributor '$name' mismatch! $pom\n";
+				print STDERR "[WARNING] Contributor '$name' POM mismatch! $pom\n";
 			}
 			$ctrBlocks{$name} = $block;
 			next;
