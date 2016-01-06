@@ -156,11 +156,19 @@ for my $name (keys %ctrBlocks) {
 ##### Search for matches #####
 
 my %hash = %devBlocks;
+my $tag = "developers";
+print "\t<$tag>\n";
 for my $arg (@ARGV) {
-	if ($arg eq '--') { %hash = %ctrBlocks; }
+	if ($arg eq '--') {
+		print "\t</$tag>\n";
+		%hash = %ctrBlocks;
+		$tag = "contributors";
+		print "\t<$tag>\n";
+	}
 	for my $name (keys %hash) {
 		if ($name =~ /$arg/) {
-			print "[$name]\n$hash{$name}\n";
+			print "$hash{$name}";
 		}
 	}
 }
+print "\t</$tag>\n";
