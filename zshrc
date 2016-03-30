@@ -131,7 +131,7 @@ zgen saved || zgen_init
 
 # --== vundle ==--
 
-if [ ! -d "$HOME/.vim/bundle/vundle" ]
+if [ ! -d "$HOME/.vim/bundle/Vundle.vim" ]
 then
 	vundle-init && vundle-update
 fi

@@ -5,7 +5,7 @@ set nocompatible              " be iMproved, required
 filetype off                  " required
 
 """ BEGIN VUNDLE CONFIGURATION
-let vundlepath = $HOME . "/.vim/bundle/vundle"
+let vundlepath = $HOME . "/.vim/bundle/Vundle.vim"
 let &runtimepath .= ',' . vundlepath
 if filereadable(vundlepath . '/README.md')
 	" set the runtime path to include Vundle and initialize
@@ -13,7 +13,7 @@ if filereadable(vundlepath . '/README.md')
 	call vundle#begin()
 
 	" let Vundle manage Vundle, required
-	Plugin 'gmarik/vundle'
+	Plugin 'VundleVim/Vundle.vim'
 
 	" Indent Guides
 	" See also https://github.com/nathanaelkane/vim-indent-guides/issues/31
