@@ -6,6 +6,9 @@ checkout = git clone git://github.com/bndtools/bnd
 [code/misc/fastutil]
 checkout = git clone git://github.com/vigna/fastutil
 
+[code/misc/fluorender]
+checkout = git clone git://github.com/SCIInstitute/fluorender
+
 [code/misc/gentyref]
 checkout = git clone git://github.com/coekie/gentyref
 
