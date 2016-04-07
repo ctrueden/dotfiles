@@ -46,11 +46,8 @@ branch_status() {
 		if [ "$all" ]
 		then
 			upstream=$(echo "$branch" | sed -E 's/.*\[([^ ]+)\].*/\1/')
-			test "$upstream" != "origin/master" \
-				-a "$upstream" != "origin/develop" \
-				-a "$upstream" != "origin/trunk" \
-				-a "$upstream" != "origin/svn/trunk" \
-				|| continue
+			head=$(git branch -a | grep remotes.origin.HEAD | sed 's/.* -> //')
+			test "$upstream" != "$head" || continue
 		fi
 		printf "%20s : %s\n" "$repo" "$branch"
 	)
