@@ -14,9 +14,8 @@ echo ' <body>'
 echo '<h1>[TODO]</h1>'
 echo '<table><tr><th>Name</th><th>Size</th></tr>'
 echo '<tr><th colspan="2"><hr></th></tr>'
-find . -type f | while read f
+find * -type f | while read f
 do
-  f=${f#*/} # remove ./ prefix
   test -f "$f" &&
   echo '<tr>' &&
   echo "<td valign=\"top\"><li><a href=\"$f\">$f</a></li></td>" &&
