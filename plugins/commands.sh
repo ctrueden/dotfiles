@@ -40,6 +40,7 @@ diff() { git diff --no-index $@; }
 # --== vim ==--
 
 alias vi='vim'
+alias :e='vim'
 
 # viq - format the clipboard as an email quote
 alias viq="vi \
