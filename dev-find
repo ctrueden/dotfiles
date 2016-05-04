@@ -131,14 +131,14 @@ for my $person (@persons) {
 for my $name (keys %devBlocks) {
 	my $id = $devBlocks{$name};
 	if ($id !~ s/.*<id>(.*)<\/id>.*/\1/s) { $id = ''; }
-#	my $url = $devBlocks{$name};
-#	if ($url !~ s/.*<url>(.*)<\/url>.*/\1/s) { $url = ''; }
+	my $url = $devBlocks{$name};
+	if ($url !~ s/.*<url>(.*)<\/url>.*/\1/s) { $url = ''; }
 	if ($personIDs{$name} ne $id) {
 		print STDERR "[WARNING] Person/Developer '$name' ID mismatch: $personIDs{$name} != $id\n";
 	}
-#	if ($personURLs{$name} ne $url) {
-#		print STDERR "[WARNING] Person/Developer '$name' URL mismatch: $personURLs{$name} != $url\n";
-#	}
+	if ($personURLs{$name} ne $url) {
+		print STDERR "[WARNING] Person/Developer '$name' URL mismatch: $personURLs{$name} != $url\n";
+	}
 }
 for my $name (keys %ctrBlocks) {
 	my $id = $ctrBlocks{$name};
