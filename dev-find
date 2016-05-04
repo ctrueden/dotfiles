@@ -106,7 +106,7 @@ for my $person (@persons) {
 
 		if ($previousID ne 'Rasband' && $previousID gt $id) {
 			# NB: GitHub IDs are listed second, in a new alphabetical order.
-			# We only record GitHub IDs here, because those are we use in the POMs.
+			# We only record GitHub IDs here, because they are what the POMs use.
 			print STDERR "[INFO] First GitHub ID record: $id = $name\n";
 			$gitHubSection = 1;
 		}
