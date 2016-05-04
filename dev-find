@@ -100,8 +100,9 @@ for my $person (@persons) {
 		elsif ($url =~ /^\[http[^\s]*\s+(.*)\]$/) { $name = $1; }
 		elsif ($url =~ /^\[\[(.*)\]\]$/) { $name = $1; }
 		# Convert URL wiki markup to pure URLs
-		$url =~ s/^\[\[(.*)\|.*\]\]$/http:\/\/imagej.net\/\1/;
+		$url =~ s/^\[\[([^|]*)(\|.*)?\]\]$/http:\/\/imagej.net\/\1/;
 		$url =~ s/^\[([^\s]*)\s+.*\]$/\1/;
+		$url =~ s/ /_/g;
 
 		if ($previousID ne 'Rasband' && $previousID gt $id) {
 			# NB: GitHub IDs are listed second, in a new alphabetical order.
