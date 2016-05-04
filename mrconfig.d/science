@@ -1,5 +1,8 @@
 # -- Public repositories on GitHub --
 
+[code/science/MIB]
+checkout = git clone git://github.com/Ajaxels/MIB
+
 [code/science/fluorender]
 checkout = git clone git://github.com/SCIInstitute/fluorender
 

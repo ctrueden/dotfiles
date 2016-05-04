@@ -3,11 +3,17 @@
 [code/tech/bnd]
 checkout = git clone git://github.com/bndtools/bnd
 
+[code/tech/electron-quick-start]
+checkout = git clone https://github.com/atom/electron-quick-start
+
 [code/tech/fastutil]
 checkout = git clone git://github.com/vigna/fastutil
 
 [code/tech/gentyref]
 checkout = git clone git://github.com/coekie/gentyref
+
+[code/tech/jfx-zoglpipeline]
+checkout = git clone https://github.com/pepe1914/jfx-zoglpipeline
 
 [code/tech/object-inspector]
 checkout = git clone git://github.com/sbridges/object-inspector
