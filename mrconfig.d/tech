@@ -1,0 +1,30 @@
+# -- Public repositories on GitHub --
+
+[code/tech/bnd]
+checkout = git clone git://github.com/bndtools/bnd
+
+[code/tech/fastutil]
+checkout = git clone git://github.com/vigna/fastutil
+
+[code/tech/gentyref]
+checkout = git clone git://github.com/coekie/gentyref
+
+[code/tech/object-inspector]
+checkout = git clone git://github.com/sbridges/object-inspector
+
+[code/tech/rootbeer1]
+checkout = git clone git://github.com/pcpratts/rootbeer1
+
+[code/tech/virtualenv]
+checkout = git clone git://github.com/pypa/virtualenv
+
+# -- Mercurial repositories --
+
+[code/tech/addama]
+checkout = git clone hg::https://code.google.com/p/addama/
+
+[code/tech/jace]
+checkout = git clone hg::https://code.google.com/p/jace/
+
+[code/tech/jython]
+checkout = git clone hg::https://hg.python.org/jython

@@ -1,0 +1,21 @@
+# -- Public repositories on GitHub --
+
+[code/science/fluorender]
+checkout = git clone git://github.com/SCIInstitute/fluorender
+
+[code/science/imagejs]
+checkout = git clone git://github.com/imagejs/imagejs.github.com imagejs
+
+[code/science/jtk]
+checkout = git clone git://github.com/dhale/jtk
+
+[code/science/scikit-image-paper]
+checkout = git clone git://github.com/scikit-image/scikit-image-paper
+
+# -- Other Git repositories --
+
+[code/science/labis]
+checkout = git clone git://git.code.sf.net/p/labinfsyst/code labis
+
+[code/science/waterloo]
+checkout = git clone git://git.code.sf.net/p/waterloo/beta waterloo

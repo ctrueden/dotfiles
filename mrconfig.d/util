@@ -1,0 +1,7 @@
+# -- Public repositories on GitHub --
+
+[code/util/the_silver_searcher]
+checkout = git clone git://github.com/ggreer/the_silver_searcher
+
+[code/util/trac2github]
+checkout = git clone git://github.com/trustmaster/trac2github
