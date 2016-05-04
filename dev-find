@@ -11,6 +11,8 @@ use strict;
 
 ##### Variables #####
 
+my $debug = 0;
+
 my $baseDir = "$ENV{HOME}/code";
 
 my @dirs = split(/ /,
@@ -52,6 +54,9 @@ for my $pom (@poms) {
 			if ($devBlocks{$name} ne '' && $devBlocks{$name} ne $block) {
 				print STDERR "[WARNING] Developer '$name' POM mismatch! $pom\n";
 			}
+			elsif ($debug) {
+				print STDERR "[DEBUG] Developer '$name' gleaned from POM: $pom\n";
+			}
 			$devBlocks{$name} = $block;
 			next;
 		}
@@ -61,6 +66,9 @@ for my $pom (@poms) {
 			# write out the block
 			if ($ctrBlocks{$name} ne '' && $ctrBlocks{$name} ne $block) {
 				print STDERR "[WARNING] Contributor '$name' POM mismatch! $pom\n";
+			}
+			elsif ($debug) {
+				print STDERR "[DEBUG] Contributor '$name' gleaned from POM: $pom\n";
 			}
 			$ctrBlocks{$name} = $block;
 			next;
