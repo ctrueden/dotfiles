@@ -50,14 +50,11 @@ filetype plugin indent on    " required
 " see :h vundle for more details or wiki for FAQ
 """ END VUNDLE CONFIGURATION
 
-source $DOTFILES/vimrc.d/compile-exec.vim
-source $DOTFILES/vimrc.d/edit-indent-format.vim
-source $DOTFILES/vimrc.d/navigation.vim
-source $DOTFILES/vimrc.d/smart-tabs.vim
-source $DOTFILES/vimrc.d/syntax-highlighting.vim
-source $DOTFILES/vimrc.d/tab-completion.vim
-source $DOTFILES/vimrc.d/tags.vim
-source $DOTFILES/vimrc.d/xml-html.vim
+" Source all files in vimrc.d
+" Credit to http://stackoverflow.com/a/4500936/1207769
+for f in split(glob($DOTFILES . '/vimrc.d/*.vim'), '\n')
+	exe 'source' f
+endfor
 
 let &cpo=s:cpo_save
 unlet s:cpo_save
