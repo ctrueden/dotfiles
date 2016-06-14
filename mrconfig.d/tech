@@ -1,5 +1,14 @@
 # -- Public repositories on GitHub --
 
+[code/tech/AutoComplete]
+checkout = git clone git://github.com/bobbylight/AutoComplete
+
+[code/tech/RSTALanguageSupport]
+checkout = git clone git://github.com/bobbylight/RSTALanguageSupport
+
+[code/tech/RSyntaxTextArea]
+checkout = git clone git://github.com/bobbylight/RSyntaxTextArea
+
 [code/tech/beanshell]
 checkout = git clone git://github.com/beanshell/beanshell
 
