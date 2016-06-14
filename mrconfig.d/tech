@@ -18,6 +18,9 @@ checkout = git clone git://github.com/vigna/fastutil
 [code/tech/gentyref]
 checkout = git clone git://github.com/coekie/gentyref
 
+[code/tech/javassist]
+checkout = git clone git://github.com/jboss-javassist/javassist
+
 [code/tech/jfx-zoglpipeline]
 checkout = git clone git://github.com/pepe1914/jfx-zoglpipeline
 
