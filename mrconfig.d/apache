@@ -1,3 +1,6 @@
+[code/apache/batik]
+checkout = git clone git://github.com/apache/batik
+
 [code/apache/commons-imaging]
 checkout = git clone git://github.com/apache/commons-imaging
 
