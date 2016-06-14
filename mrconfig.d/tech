@@ -21,6 +21,9 @@ checkout = git clone git://github.com/coekie/gentyref
 [code/tech/jfx-zoglpipeline]
 checkout = git clone git://github.com/pepe1914/jfx-zoglpipeline
 
+[code/tech/jruby]
+checkout = git clone git://github.com/jruby/jruby
+
 [code/tech/jline2]
 checkout = git clone git://github.com/jline/jline2
 
