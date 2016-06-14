@@ -6,6 +6,9 @@ checkout = git clone git://github.com/beanshell/beanshell
 [code/tech/bnd]
 checkout = git clone git://github.com/bndtools/bnd
 
+[code/tech/clojure]
+checkout = git clone git://github.com/clojure/clojure
+
 [code/tech/electron-quick-start]
 checkout = git clone git://github.com/atom/electron-quick-start
 
