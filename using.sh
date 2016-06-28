@@ -41,6 +41,21 @@ echo "\${phrase##*quick} = '${phrase##*quick}'" #                             er
 echo "\${phrase%%quick*} = '${phrase%%quick*}'" # The 
 
 echo
+echo "-- Files with spaces --"
+
+echo
+echo 'find . -name '*foo*' -print0 | while read -d $'\''\\0'\'' f'
+echo 'do'
+echo '  ls -dl "$f"'
+echo 'done'
+
+echo
+echo 'git ls-files -z | while read -d $'\''\\0'\'' f'
+echo 'do'
+echo '  test -f "$f" || echo "NOT A REGULAR FILE: $f"'
+echo 'done'
+
+echo
 echo "-- Multi-line replace --"
 
 echo
