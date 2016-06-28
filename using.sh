@@ -41,7 +41,7 @@ echo "\${phrase##*quick} = '${phrase##*quick}'" #                             er
 echo "\${phrase%%quick*} = '${phrase%%quick*}'" # The 
 
 echo
-echo "-- Other hints --"
+echo "-- Multi-line replace --"
 
 echo
 echo "For multi-line replace, use perl!"
