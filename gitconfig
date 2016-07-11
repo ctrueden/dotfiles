@@ -18,6 +18,7 @@
 	disc = di --staged --color-words
 	fa = !git fetch --all --prune && git fetch --all --tags
 	fb = filter-branch -f --prune-empty
+	fbi = filter-branch -f --prune-empty --index-filter
 	fbs = filter-branch -f --prune-empty --subdirectory-filter
 	fbt = filter-branch -f --prune-empty --tree-filter
 	graph = log --date-order --graph --decorate --oneline
