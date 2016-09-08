@@ -1,0 +1,15 @@
+#!/bin/sh
+
+OLD=/tmp/mvn-deps-old.txt
+NEW=/tmp/mvn-deps-new.txt
+
+head=$(cat .git/HEAD)
+head=${head##*/}
+echo "Using branch: $head"
+
+mvn dependency:list |sort > $NEW
+git checkout HEAD^
+mvn dependency:list |sort > $OLD
+git checkout "$head"
+git diff $OLD $NEW | grep '^[-+]'
+rm $OLD $NEW
