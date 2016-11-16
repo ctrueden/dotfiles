@@ -102,6 +102,7 @@ alias gojex='cd $CODE_JEX'
 # SciJava - https://github.com/scijava
 export CODE_SCIJAVA="$CODE_BASE/scijava"
 alias gopsj='cd $CODE_SCIJAVA/pom-scijava'
+alias gopsb='cd $CODE_SCIJAVA/pom-scijava-base'
 alias gosjc='cd $CODE_SCIJAVA/scijava-common'
 alias gosjs='cd $CODE_SCIJAVA/scijava-scripts'
 
