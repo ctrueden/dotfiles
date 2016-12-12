@@ -67,52 +67,49 @@ confirm project.name "$name"
 
 # discern the URL, organization and mailing lists
 url=$(grep '^	<url>' pom.xml | head -n1 | sed 's/^.*<url>\(.*\)<\/url>$/\1/')
-if [ "z$url" = "z" ]
-then
-	wikiPage=$(echo "$name" | sed 's/[: ][: ]*/_/g')
-	confirm wiki-page "$wikiPage"
-	case "$parent" in
-		pom-scijava)
-			url="http://scijava.org/"
-			orgName="SciJava"
-			orgURL="http://scijava.org/"
-			mailName="SciJava"
-			mailSub="https://groups.google.com/group/scijava"
-			mailPost="scijava@googlegroups.com"
-			mailArchive="https://groups.google.com/group/scijava"
-			;;
-		pom-imagej)
-			url="http://imagej.net/$wikiPage"
-			orgName="ImageJ"
-			orgURL="http://imagej.net/"
-			mailName="ImageJ Forum"
-			mailSub=""
-			mailPost=""
-			mailArchive="http://forum.imagej.net/"
-			;;
-		pom-fiji)
-			url="http://imagej.net/$wikiPage"
-			orgName="Fiji"
-			orgURL="http://fiji.sc/"
-			mailName="ImageJ Forum"
-			mailSub=""
-			mailPost=""
-			mailArchive="http://forum.imagej.net/"
-			;;
-		pom-scifio)
-			url="http://imagej.net/$wikiPage"
-			orgName="SCIFIO"
-			orgURL="http://scif.io/"
-			mailName="ImageJ Forum"
-			mailSub=""
-			mailPost=""
-			mailArchive="http://forum.imagej.net/"
-			;;
-		*)
-			die "Unknown parent: $parent"
-			;;
-	esac
-fi
+wikiPage=$(echo "$name" | sed 's/[: ][: ]*/_/g')
+confirm wiki-page "$wikiPage"
+case "$parent" in
+	pom-scijava)
+		test "z$url" = "z" && url="http://scijava.org/"
+		orgName="SciJava"
+		orgURL="http://scijava.org/"
+		mailName="SciJava"
+		mailSub="https://groups.google.com/group/scijava"
+		mailPost="scijava@googlegroups.com"
+		mailArchive="https://groups.google.com/group/scijava"
+		;;
+	pom-imagej)
+		test "z$url" = "z" && url="http://imagej.net/$wikiPage"
+		orgName="ImageJ"
+		orgURL="http://imagej.net/"
+		mailName="ImageJ Forum"
+		mailSub=""
+		mailPost=""
+		mailArchive="http://forum.imagej.net/"
+		;;
+	pom-fiji)
+		test "z$url" = "z" && url="http://imagej.net/$wikiPage"
+		orgName="Fiji"
+		orgURL="http://fiji.sc/"
+		mailName="ImageJ Forum"
+		mailSub=""
+		mailPost=""
+		mailArchive="http://forum.imagej.net/"
+		;;
+	pom-scifio)
+		test "z$url" = "z" && url="http://imagej.net/$wikiPage"
+		orgName="SCIFIO"
+		orgURL="http://scif.io/"
+		mailName="ImageJ Forum"
+		mailSub=""
+		mailPost=""
+		mailArchive="http://forum.imagej.net/"
+		;;
+	*)
+		die "Unknown parent: $parent"
+		;;
+esac
 confirm project.url "$url"
 confirm organization.name "$orgName"
 confirm organization.url "$orgURL"
