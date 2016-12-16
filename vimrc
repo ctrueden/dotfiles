@@ -34,6 +34,7 @@ if filereadable(vundlepath . '/README.md')
 	Plugin 'tpope/vim-sensible'
 	Plugin 'tpope/vim-surround'
 	Plugin 'lepture/vim-velocity'
+	Plugin 'chikamichi/mediawiki.vim'
 
 	call vundle#end()            " required
 endif
