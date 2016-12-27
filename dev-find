@@ -125,6 +125,9 @@ for my $person (@persons) {
 		}
 	}
 }
+if (!@persons) {
+	print STDERR "[WARNING] Person template is inaccessible. Skipping person checks.\n";
+}
 
 ##### Cross-check XML blocks with Person template #####
 
@@ -133,10 +136,10 @@ for my $name (keys %devBlocks) {
 	if ($id !~ s/.*<id>(.*)<\/id>.*/\1/s) { $id = ''; }
 	my $url = $devBlocks{$name};
 	if ($url !~ s/.*<url>(.*)<\/url>.*/\1/s) { $url = ''; }
-	if ($personIDs{$name} ne $id) {
+	if (@persons && $personIDs{$name} ne $id) {
 		print STDERR "[WARNING] Person/Developer '$name' ID mismatch: $personIDs{$name} != $id\n";
 	}
-	if ($personURLs{$name} ne $url) {
+	if (@persons && $personURLs{$name} ne $url) {
 		print STDERR "[WARNING] Person/Developer '$name' URL mismatch: $personURLs{$name} != $url\n";
 	}
 }
@@ -145,10 +148,10 @@ for my $name (keys %ctrBlocks) {
 	if ($id !~ s/.*<id>(.*)<\/id>.*/\1/s) { $id = ''; }
 	my $url = $ctrBlocks{$name};
 	if ($url !~ s/.*<url>(.*)<\/url>.*/\1/s) { $url = ''; }
-	if ($personIDs{$name} ne $id) {
+	if (@persons && $personIDs{$name} ne $id) {
 		print STDERR "[WARNING] Person/Contributor '$name' ID mismatch: $personIDs{$name} != $id\n";
 	}
-	if ($personURLs{$name} ne $url) {
+	if (@persons && $personURLs{$name} ne $url) {
 		print STDERR "[WARNING] Person/Contributor '$name' URL mismatch: $personURLs{$name} != $url\n";
 	}
 }
