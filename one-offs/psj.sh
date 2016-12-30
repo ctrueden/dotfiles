@@ -150,6 +150,16 @@ cat $(git ls-files \*.java | head -n1) |
 		licName=apache_v2 &&
 		lName="Apache Software License, Version 2.0" &&
     lURL="http://www.apache.org/licenses/LICENSE-2.0.txt"
+cat $(git ls-files \*.java | head -n1) |
+	grep -q 'To the extent possible under law, .* have waived' &&
+		licName=cc0 &&
+		lName="CC0 1.0 Universal License" &&
+    lURL="http://creativecommons.org/publicdomain/zero/1.0/"
+cat $(git ls-files \*.java | head -n1) |
+	grep -q "You'll be free to use this software for research purposes" &&
+		licName=big &&
+		lName="BIG" &&
+    lURL="http://imagej.net/BIG_License"
 confirm license.licenseName "$licName"
 
 licOwners=$(cat $(git ls-files \*.java | head -n1) | head -n11 | tail -n7 | grep -v '^ \* %%' | grep -v '^ \* *$' | grep -v '^ \* \(Redistribution\|modification\|This program\|it under\)' | sed 's/Copyright .* [0-9]\{4\} //' | sed 's/^ \* //')
