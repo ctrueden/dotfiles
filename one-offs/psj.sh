@@ -215,7 +215,7 @@ addBlock organization "\n\t\t<name>$orgName<\/name>\n\t\t<url>$orgURL<\/url>\n\t
 # add <mailingLists> if not already present
 test "z$mailSub" = "z" &&
 	addBlock mailingLists "\n\t\t<mailingList>\n\t\t\t<name>$mailName</name>\n\t\t\t<archive>$mailArchive</archive>\n\t\t</mailingList>\n\t" ||
-	addBlock mailingLists "\n\t\t<mailingList>\n\t\t\t<name>$mailName</name>\n\t\t\t<subscribe>$mailSub</subscribe\n\t\t\t<unsubscribe>$mailSub</unsubscribe>>\n\t\t\t<post>$mailPost</post>\n\t\t\t<archive>$mailArchive</archive>\n\t\t</mailingList>\n\t"
+	addBlock mailingLists "\n\t\t<mailingList>\n\t\t\t<name>$mailName</name>\n\t\t\t<subscribe>$mailSub</subscribe>\n\t\t\t<unsubscribe>$mailSub</unsubscribe>\n\t\t\t<post>$mailPost</post>\n\t\t\t<archive>$mailArchive</archive>\n\t\t</mailingList>\n\t"
 
 # prepend license-maven-plugin properties
 test "z$desc" = "z$licProj" ||
