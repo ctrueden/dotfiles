@@ -236,7 +236,7 @@ mvn tidy:pom
 mvn clean package
 
 # it worked; commit it
-git commit -F ~/code/unify-poms.txt pom.xml
+git commit -F ~/msgs/unify-poms.txt pom.xml
 
 # update license headers as needed
 mvn license:update-file-header license:update-project-license
