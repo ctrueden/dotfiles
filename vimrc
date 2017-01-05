@@ -35,6 +35,8 @@ if filereadable(vundlepath . '/README.md')
 	Plugin 'tpope/vim-surround'
 	Plugin 'lepture/vim-velocity'
 	Plugin 'chikamichi/mediawiki.vim'
+	Plugin 'junegunn/limelight.vim'
+	let g:limelight_conceal_guifg = '#777777'
 
 	call vundle#end()            " required
 endif
