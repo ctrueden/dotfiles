@@ -3,7 +3,8 @@ set background=dark
 syntax on
 
 " For supported terminals, make colors match Vim's GUI mode; requires 8.0+
-set termguicolors
+" Also requires your terminal to have decent colors, so disable by default.
+"set termguicolors
 
 " Highlight functions using Java style, and don't flag C++ keywords as errors
 " (from http://vim.sourceforge.net/tips/tip.php?tip_id=385)
