@@ -2,7 +2,7 @@
 if [ -x /usr/libexec/java_home ]; then
 	# OS X
 	jhome() {
-		/usr/libexec/java_home -v "$@"
+		/usr/libexec/java_home -v "$@" 2>/dev/null
 	}
 	jswitch() { :; }
 elif [ -x /usr/sbin/update-java-alternatives ]; then
