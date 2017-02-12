@@ -129,6 +129,11 @@ bindkey -M viins '^X,' _history-complete-newer \
 
 zgen saved || zgen_init
 
+# --== zmv ==--
+
+autoload -U zmv
+alias mmv='noglob zmv -W'
+
 # --== vundle ==--
 
 if [ ! -d "$HOME/.vim/bundle/Vundle.vim" ]
