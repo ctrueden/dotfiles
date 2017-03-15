@@ -28,15 +28,15 @@ if filereadable(vundlepath . '/README.md')
 
 	Plugin 'taglist.vim'
 	Plugin 'bling/vim-airline'
+	Plugin 'chikamichi/mediawiki.vim'
+	Plugin 'junegunn/limelight.vim'
+	let g:limelight_conceal_guifg = '#777777'
+	Plugin 'lepture/vim-velocity'
 	Plugin 'tpope/vim-abolish'
 	Plugin 'tpope/vim-fugitive'
 	Plugin 'tpope/vim-repeat'
 	Plugin 'tpope/vim-sensible'
 	Plugin 'tpope/vim-surround'
-	Plugin 'lepture/vim-velocity'
-	Plugin 'chikamichi/mediawiki.vim'
-	Plugin 'junegunn/limelight.vim'
-	let g:limelight_conceal_guifg = '#777777'
 
 	call vundle#end()            " required
 endif
