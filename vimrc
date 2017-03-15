@@ -27,16 +27,21 @@ if filereadable(vundlepath . '/README.md')
 	"autocmd VimEnter,Colorscheme * :hi IndentGuidesEven guibg=green ctermbg=darkblue
 
 	Plugin 'taglist.vim'
+	Plugin 'bkad/CamelCaseMotion'
 	Plugin 'bling/vim-airline'
 	Plugin 'chikamichi/mediawiki.vim'
+	Plugin 'jceb/vim-orgmode'
 	Plugin 'junegunn/limelight.vim'
 	let g:limelight_conceal_guifg = '#777777'
 	Plugin 'lepture/vim-velocity'
+	Plugin 'michaeljsmith/vim-indent-object'
+	Plugin 'rhysd/conflict-marker.vim'
 	Plugin 'tpope/vim-abolish'
 	Plugin 'tpope/vim-fugitive'
 	Plugin 'tpope/vim-repeat'
 	Plugin 'tpope/vim-sensible'
 	Plugin 'tpope/vim-surround'
+	Plugin 'vim-scripts/argtextobj.vim'
 
 	call vundle#end()            " required
 endif
