@@ -42,12 +42,3 @@ checkout = git clone git@github.com:uw-loci/spectral-analysis
 
 [code/loci/transient-lighting]
 checkout = git clone git@github.com:uw-loci/transient-lighting
-
-[code/ome/ome-internal]
-checkout = git clone git@github.com:openmicroscopy/ome-internal
-
-[code/ome/ome-movie]
-checkout = git clone git@github.com:openmicroscopy/ome-movie
-
-[code/ome/qa]
-checkout = git clone git@github.com:openmicroscopy/qa
