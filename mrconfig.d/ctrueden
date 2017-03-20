@@ -5,3 +5,6 @@ checkout = git clone git://github.com/ctrueden/ctr-scripts
 
 [code/ctrueden/dotfiles]
 checkout = git clone git://github.com/ctrueden/dotfiles
+
+[code/ctrueden/jrun]
+checkout = git clone git://github.com/ctrueden/jrun
