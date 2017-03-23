@@ -43,6 +43,14 @@ echo "\${phrase##*quick} = '${phrase##*quick}'" #                             er
 echo "\${phrase%%quick*} = '${phrase%%quick*}'" # The 
 
 echo
+echo "-- Indirection --"
+
+var='name'
+echo
+echo "\$var              = $var"                # name
+echo "\${!var}           = ${!var}"             # polish.ostrich.racing.champion
+
+echo
 echo "-- Files with spaces --"
 
 echo
