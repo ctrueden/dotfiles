@@ -14,6 +14,8 @@ echo "-- String manipulation --"
 name='polish.ostrich.racing.champion'
 echo
 echo "\$name             = '$name'"             # polish.ostrich.racing.champion
+echo "\${#name}          = ${#name}"            # 30
+echo
 echo "\${name#*.}        = '${name#*.}'"        #        ostrich.racing.champion
 echo "\${name##*.}       = '${name##*.}'"       #                       champion
 echo "\${name%%.*}       = '${name%%.*}'"       # polish
