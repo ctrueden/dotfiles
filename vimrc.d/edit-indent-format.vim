@@ -51,6 +51,3 @@ set foldlevel=1
 set foldmethod=indent
 "set foldnestmax=2
 let &fen=!&fen
-
-" Why use colon when semicolon is faster?
-map ; :
