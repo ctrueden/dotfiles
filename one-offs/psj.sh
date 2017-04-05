@@ -37,7 +37,7 @@ parent=$(grep '^		<artifactId>' pom.xml | sed 's/.*<artifactId>\(.*\)<\/artifact
 confirm parent.artifactId "$parent"
 
 # make sure parent POM is a supported one
-echo "$parent" | grep -q '^\(pom-scijava\|pom-imagej\|pom-fiji\|pom-imglib2\|pom-scifio\|pom-loci\)$' ||
+echo "$parent" | grep -q '^\(pom-scijava\|pom-imagej\|pom-fiji\|pom-imglib2\|pom-scifio\|pom-bigdataviewer\|pom-loci\)$' ||
 	die "Unsupported parent POM: $parent"
 
 # extract parent version
@@ -114,6 +114,15 @@ case "$parent" in
 		test "z$url" = "z" && url="https://imagej.net/$wikiPage"
 		orgName="SCIFIO"
 		orgURL="http://scif.io/"
+		mailName="ImageJ Forum"
+		mailSub=""
+		mailPost=""
+		mailArchive="http://forum.imagej.net/"
+		;;
+	pom-bigdataviewer)
+		test "z$url" = "z" && url="https://github.com/bigdataviewer/$component"
+		orgName="BigDataViewer"
+		orgURL="https://imagej.net/BigDataViewer"
 		mailName="ImageJ Forum"
 		mailSub=""
 		mailPost=""
