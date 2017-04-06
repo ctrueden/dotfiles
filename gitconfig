@@ -32,7 +32,7 @@
 	rename = mv
 	pl = pull
 	prb = pull --rebase
-	ps = !fix-github-remotes && git push
+	ps = !fix-git-remotes && git push
 	psf = push --force
 	ra = rebase --abort
 	rc = rebase --continue
