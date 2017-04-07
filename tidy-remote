@@ -1,0 +1,20 @@
+#!/bin/sh
+
+# Deletes all remote branches except for master/gh-pages from the given remote.
+# This is intended for tidying up a fork which does not need all the same
+# branches as upstream, but rather only branches intended for PRs.
+
+remote="$1"
+test -z "$remote" && echo "Usage: tidy-remote <remote>" && exit 1
+
+# ensure remote branches are up to date
+git remote update
+
+# echo the remote branches, in case we want to restore any afterward
+git branch -av | grep "$remote"
+
+# delete non-integration branches from the given remote
+for b in $(git branch -a|grep "$remote"|grep -v master|grep -v gh-pages)
+do
+  git ps "$remote" :"${b##*/}"
+done
