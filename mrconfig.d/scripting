@@ -1,0 +1,11 @@
+[code/scripting/beanshell]
+checkout = git clone git://github.com/beanshell/beanshell
+
+[code/scripting/clojure]
+checkout = git clone git://github.com/clojure/clojure
+
+[code/scripting/jruby]
+checkout = git clone git://github.com/jruby/jruby
+
+[code/scripting/jython]
+checkout = git clone hg::https://hg.python.org/jython
