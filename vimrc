@@ -33,7 +33,7 @@ if filereadable(vundlepath . '/README.md')
 	Plugin 'jceb/vim-orgmode'
 	Plugin 'junegunn/limelight.vim'
 	let g:limelight_conceal_guifg = '#777777'
-	Plugin 'justinmk/vim-sneak'
+	"Plugin 'justinmk/vim-sneak'
 	Plugin 'lepture/vim-velocity'
 	Plugin 'michaeljsmith/vim-indent-object'
 	Plugin 'rhysd/conflict-marker.vim'
