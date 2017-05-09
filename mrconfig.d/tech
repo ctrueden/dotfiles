@@ -18,6 +18,9 @@ checkout = git clone git://github.com/bndtools/bnd
 [code/tech/clojure]
 checkout = git clone git://github.com/clojure/clojure
 
+[code/tech/dockcross]
+checkout = git clone git://github.com/dockcross/dockcross
+
 [code/tech/electron-quick-start]
 checkout = git clone git://github.com/atom/electron-quick-start
 
@@ -39,8 +42,17 @@ checkout = git clone git://github.com/jruby/jruby
 [code/tech/jline2]
 checkout = git clone git://github.com/jline/jline2
 
+[code/tech/jsweet-quickstart]
+checkout = git clone git://github.com/cincheo/jsweet-quickstart
+
 [code/tech/object-inspector]
 checkout = git clone git://github.com/sbridges/object-inspector
+
+[code/tech/pandoc]
+checkout = git clone git://github.com/jgm/pandoc
+
+[code/tech/python-javabridge]
+checkout = git clone git://github.com/LeeKamentsky/python-javabridge
 
 [code/tech/rootbeer1]
 checkout = git clone git://github.com/pcpratts/rootbeer1
