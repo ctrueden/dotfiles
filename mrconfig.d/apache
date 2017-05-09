@@ -7,5 +7,8 @@ checkout = git clone git://github.com/apache/commons-imaging
 [code/apache/commons-math]
 checkout = git clone git://github.com/apache/commons-math
 
+[code/apache/thrift]
+checkout = git clone git://github.com/apache/thrift
+
 [code/apache/tika]
 checkout = git clone git://github.com/apache/tika
