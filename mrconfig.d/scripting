@@ -1,3 +1,5 @@
+# -- Public repositories on GitHub --
+
 [code/scripting/beanshell]
 checkout = git clone git://github.com/beanshell/beanshell
 
@@ -6,6 +8,8 @@ checkout = git clone git://github.com/clojure/clojure
 
 [code/scripting/jruby]
 checkout = git clone git://github.com/jruby/jruby
+
+# -- Mercurial repositories --
 
 [code/scripting/jython]
 checkout = git clone hg::https://hg.python.org/jython
