@@ -28,7 +28,7 @@ for my $dir (keys %repos) {
 		next;
 	}
 	if (not -d "$home/$dir/.git") {
-		print "$dir: not a Git repository as expected!\n";
+		print "[WARNING] $dir: not a Git repository as expected!\n";
 		next;
 	}
 	my $remote = `cd $home/$dir && git remote -v | grep '^origin.*(fetch)\$'`;
