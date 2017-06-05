@@ -9,14 +9,8 @@ checkout = git clone git://github.com/bobbylight/RSTALanguageSupport
 [code/tech/RSyntaxTextArea]
 checkout = git clone git://github.com/bobbylight/RSyntaxTextArea
 
-[code/tech/beanshell]
-checkout = git clone git://github.com/beanshell/beanshell
-
 [code/tech/bnd]
 checkout = git clone git://github.com/bndtools/bnd
-
-[code/tech/clojure]
-checkout = git clone git://github.com/clojure/clojure
 
 [code/tech/dockcross]
 checkout = git clone git://github.com/dockcross/dockcross
@@ -35,9 +29,6 @@ checkout = git clone git://github.com/jboss-javassist/javassist
 
 [code/tech/jfx-zoglpipeline]
 checkout = git clone git://github.com/pepe1914/jfx-zoglpipeline
-
-[code/tech/jruby]
-checkout = git clone git://github.com/jruby/jruby
 
 [code/tech/jline2]
 checkout = git clone git://github.com/jline/jline2
@@ -67,6 +58,3 @@ checkout = git clone hg::https://code.google.com/p/addama/
 
 [code/tech/jace]
 checkout = git clone hg::https://code.google.com/p/jace/
-
-[code/tech/jython]
-checkout = git clone hg::https://hg.python.org/jython
