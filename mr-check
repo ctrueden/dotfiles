@@ -24,6 +24,7 @@ for my $dir (keys %repos) {
 	my $repo = $repos{$dir};
 	if (not -d "$home/$dir") {
 		# skip uninitialized directory
+		print "[WARNING] $dir: uninitialized\n";
 		next;
 	}
 	if (not -d "$home/$dir/.git") {
