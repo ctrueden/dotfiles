@@ -15,6 +15,8 @@ then
 
   # use "highlight" in place of "cat"
   alias cat="highlight --out-format xterm256 --line-numbers --quiet --force --style solarized-light"
+  alias catdiff='cat --syntax diff'
+  alias catjson='cat --syntax js'
 
   # To setup JSON syntax highlighting, copy js.lang to json.lang:
   # cp "$(dirname $(brew list highlight | head -n 1))/share/highlight/langDefs/js.lang" "$(dirname $(brew list highlight | head -n 1))/share/highlight/langDefs/json.lang"
