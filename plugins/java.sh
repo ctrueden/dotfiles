@@ -59,3 +59,6 @@ export JAVA_CP="$JAVA_CP:$(cat $cpFile)"
 alias j='java -cp "$JAVA_CP:."'
 alias jc='javac -cp "$JAVA_CP:."'
 alias jp='javap -cp "$JAVA_CP:."'
+
+# dump scijava-jupyter-kernel stack
+alias jdump='jstack $(ps aux | grep java_env | grep -v grep | sed "s/^[^ ]* *\([0-9]*\).*/\1/")'
