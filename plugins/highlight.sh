@@ -13,10 +13,10 @@ then
   alias less='less -m -N -g -i -J --line-numbers --underline-special'
   alias more='less'
 
-  # use "highlight" in place of "cat"
-  alias cat="highlight --out-format xterm256 --line-numbers --quiet --force --style solarized-light"
-  alias catdiff='cat --syntax diff'
-  alias catjson='cat --syntax js'
+  # define an alias for highlighted cat
+  alias cath="highlight --out-format xterm256 --line-numbers --quiet --force --style solarized-light"
+  alias catdiff='cath --syntax diff'
+  alias catjson='cath --syntax js'
 
   # To setup JSON syntax highlighting, copy js.lang to json.lang:
   # cp "$(dirname $(brew list highlight | head -n 1))/share/highlight/langDefs/js.lang" "$(dirname $(brew list highlight | head -n 1))/share/highlight/langDefs/json.lang"
