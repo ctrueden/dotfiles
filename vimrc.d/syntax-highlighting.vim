@@ -2,6 +2,8 @@
 set background=dark
 syntax on
 
+set cursorline
+
 " For supported terminals, make colors match Vim's GUI mode; requires 8.0+
 " Also requires your terminal to have decent colors, so disable by default.
 "set termguicolors
