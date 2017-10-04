@@ -53,6 +53,7 @@
 	pop = stash pop --index
 	st = status
 	tags = fetch --tags
+	list-tags = !git-list-tags
 
 	# hub
 	pr4 = !git pull-request -b openmicroscopy:dev_4_4
