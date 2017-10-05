@@ -71,3 +71,23 @@ echo '-- Multi-line replace --'
 echo
 echo 'For multi-line replace, use perl!'
 echo 'perl -0777 -i -pe "s/the first line\\nthe second line\\n//igs" <files-to-match>'
+
+echo
+echo '-- Syntax checking --'
+# Credit: https://news.ycombinator.com/item?id=11190623
+
+echo
+echo 'Check syntax:'
+echo 'sh -n myscript'
+echo
+echo 'Check for bash-specific syntax:'
+echo 'checkbashisms myscript'
+echo
+echo 'Check for various gotchas:'
+echo 'shellcheck myscript'
+echo
+echo 'Check for style:'
+echo 'bashate myscript'
+echo
+echo 'Check for badness:'
+echo "grep -rE '(wget|curl).\|( sudo)? *(ba|z|)sh' myscript"
