@@ -66,8 +66,8 @@ echo '  test -f "$f" || echo "NOT A REGULAR FILE: $f"'
 echo 'done'
 
 echo
-echo "-- Multi-line replace --"
+echo '-- Multi-line replace --'
 
 echo
-echo "For multi-line replace, use perl!"
+echo 'For multi-line replace, use perl!'
 echo 'perl -0777 -i -pe "s/the first line\\nthe second line\\n//igs" <files-to-match>'
