@@ -9,13 +9,13 @@
 	cl = clone
 	ci = commit
 	cia = commit --amend
-	conflicts = di --name-only --diff-filter=U
+	conflicts = diff --no-prefix --name-only --diff-filter=U
 	db = diff-blame
 	di = diff --no-prefix
-	dif = di
-	dic = di --color-words
-	dis = di --staged
-	disc = di --staged --color-words
+	dif = diff --no-prefix
+	dic = diff --color-words --no-prefix
+	dis = diff --staged --no-prefix
+	disc = diff --staged --color-words --no-prefix
 	fa = !git fetch --all --prune && git fetch --all --tags
 	fb = filter-branch -f --prune-empty
 	fbi = filter-branch -f --prune-empty --index-filter
