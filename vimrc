@@ -29,6 +29,7 @@ if filereadable(vundlepath . '/README.md')
 	Plugin 'taglist.vim'
 	Plugin 'bkad/CamelCaseMotion'
 	Plugin 'bling/vim-airline'
+	Plugin 'bradford-smith94/quick-scope'
 	Plugin 'chikamichi/mediawiki.vim'
 	Plugin 'jceb/vim-orgmode'
 	Plugin 'junegunn/limelight.vim'
@@ -51,7 +52,6 @@ if filereadable(vundlepath . '/README.md')
 	Plugin 'tpope/vim-repeat'
 	Plugin 'tpope/vim-sensible'
 	Plugin 'tpope/vim-surround'
-	Plugin 'unblevable/quick-scope'
 	Plugin 'vim-scripts/argtextobj.vim'
 
 	call vundle#end()            " required
