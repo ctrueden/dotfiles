@@ -33,7 +33,16 @@ if filereadable(vundlepath . '/README.md')
 	Plugin 'jceb/vim-orgmode'
 	Plugin 'junegunn/limelight.vim'
 	let g:limelight_conceal_guifg = '#777777'
-	"Plugin 'justinmk/vim-sneak'
+
+	" Vim Sneak, but losing s hurts too much, so remap to - and _
+	Plugin 'justinmk/vim-sneak'
+	nmap - <Plug>Sneak_s
+	nmap _ <Plug>Sneak_S
+	xmap - <Plug>Sneak_s
+	xmap _ <Plug>Sneak_S
+	omap - <Plug>Sneak_s
+	omap _ <Plug>Sneak_S
+
 	Plugin 'lepture/vim-velocity'
 	Plugin 'michaeljsmith/vim-indent-object'
 	Plugin 'rhysd/conflict-marker.vim'
