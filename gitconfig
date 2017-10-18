@@ -71,6 +71,9 @@
 [diff]
 	color = auto
 
+[http]
+	cookiefile = ~/.gitcookies
+
 [push]
 	default = upstream
 
