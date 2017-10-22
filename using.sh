@@ -25,6 +25,7 @@ echo "\${name:16}        = '${name:16}'"        #                 acing.champion
 echo "\${name: -7}       = '${name: -7}'"       #                        hampion
 echo "\${name:0:5}       = '${name:0:5}'"       # polis
 echo "\${name:8:3}       = '${name:8:3}'"       #         str
+echo "WARNING: THE ABOVE INDEX-BASED NOTATION IS PROBABLY NOT PORTABLE."
 
 file='/usr/share/java-1.4.2-sun/demo/applets/Clock/Clock.class'
 echo
