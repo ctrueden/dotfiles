@@ -4,6 +4,7 @@
 	co = checkout
 	cm = cherry -v master
 	cp = cherry-pick
+	cpc = cherry-pick --continue
 	cpo = cherry-pick --strategy=recursive --strategy-option=ours
 	cpt = cherry-pick --strategy=recursive --strategy-option=theirs
 	cl = clone
