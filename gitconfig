@@ -53,7 +53,7 @@
 	rhup = reset --hard 'HEAD@{u}'
 	pop = stash pop --index
 	st = status
-	tags = fetch --tags
+	tags = !git fetch --tags && git tag -l
 	list-tags = !git-list-tags
 
 	# hub
