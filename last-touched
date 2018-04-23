@@ -9,6 +9,6 @@
 
 for f in $@
 do
-  result=$(find "$f" -printf '%T@ %p\n' | sort -n | tail -1 | cut -f2- -d" " | xargs ls -l)
+  result=$(find "$f" -printf '%T@ %p\n' | sort -n | tail -1 | cut -f2- -d" " | xargs ls -ld)
   echo "[$f] $result"
 done
