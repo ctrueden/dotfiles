@@ -10,9 +10,4 @@ jar tf "$1" | sort > "$old"
 jar tf "$2" | sort > "$new"
 diff=$(git diff --no-index "$old" "$new")
 rm "$old" "$new"
-if which highlight 2>&1 >/dev/null
-then
-  echo "$diff" | highlight --out-format xterm256 --syntax diff
-else
-  echo "$diff"
-fi
+echo "$diff"
