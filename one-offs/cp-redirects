@@ -1,0 +1,23 @@
+#!/bin/sh
+
+#
+# cp-redirects - Log ID mappings from forum.cellprofiler.org to forum.image.sc.
+#
+
+for cpID in $(seq 6446 1)
+do
+  /usr/bin/grep -q "^$cpID " mappings.txt && continue
+
+  # Discern slug from topic ID
+  slug=$(curl -Is "http://forum.cellprofiler.org/t/$cpID" | grep '^[Ll]ocation:' | cut -d' ' -f2 | cut -d'/' -f5)
+
+  # Discern image.sc topic ID from slug
+  iscID=$(curl -Is "https://forum.image.sc/t/$slug" | grep '^[Ll]ocation:' | cut -d' ' -f2 | cut -d'/' -f6 | tr -d '\r')
+
+  # Double check that it is really the same topic
+  test -f "cp$cpID" || curl -s "http://forum.cellprofiler.org/t/$cpID" | grep -A 4 '<meta property="og:title"' > "cp$cpID"
+  test -f "isc$iscID" || curl -s "https://forum.image.sc/t/$iscID" | grep -A 4 '<meta property="og:title"' > "isc$iscID"
+  /usr/bin/diff -q "cp$cpID" "isc$iscID" &&
+    echo "$cpID -> $iscID" ||
+    echo "$cpID -> $iscID [MISMATCH]"
+done | tee -a mappings.txt
