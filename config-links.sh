@@ -56,6 +56,7 @@ rm -f "$BASHRC_STUB"
 
 link_file "$LINK_DIR/forward" .forward
 link_file "$LINK_DIR/gitconfig" .gitconfig
+link_file "$LINK_DIR/jrunrc" .jrunrc
 link_file "$LINK_DIR/mrconfig" .mrconfig
 link_file "$LINK_DIR/plan" .plan
 link_file "$LINK_DIR/vimrc" .vimrc
