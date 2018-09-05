@@ -40,7 +40,6 @@ alias gobfc='cd $CODE_BF/components/formats-common/src/loci/common'
 alias gobff='cd $CODE_BF/components/formats-api/src/loci/formats'
 alias gobfp='cd $CODE_BF/components/bio-formats-plugins/src/loci/plugins'
 alias gobfx='cd $CODE_BF/components/ome-xml/src/ome/xml'
-export PATH="$CODE_BF/tools:$PATH"
 
 # ImageJ - https://github.com/imagej
 export CODE_IJ="$CODE_BASE/imagej/imagej"
