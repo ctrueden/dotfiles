@@ -1,9 +1,0 @@
-[code/ctrueden/ctrueden.github.io]
-checkout = git clone git://github.com/ctrueden/ctrueden.github.io
-
-[code/ctrueden/restlessgamer.net]
-checkout = git clone git://github.com/ctrueden/restlessgamer.net
-
-[code/ctrueden/restlesswarrior.com]
-checkout = git clone git://github.com/ctrueden/restlesswarrior.com
-

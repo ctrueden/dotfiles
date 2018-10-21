@@ -1,0 +1,11 @@
+[code/training/AQLM_2016]
+checkout = git clone git://gist.github.com/8216dcf605cf1ebdd12f AQLM_2016
+
+[code/training/imagej-legacy-course]
+checkout = git clone git://github.com/maarzt/imagej-legacy-course
+
+[code/training/learnathon-2017]
+checkout = git clone --recursive git://github.com/fiji/learnathon-2017
+
+[code/training/sciview-tutorial]
+checkout = git clone git://github.com/skalarproduktraum/sciview-tutorial

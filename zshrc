@@ -1,6 +1,6 @@
 # --== zgen ==--
 
-export ZGEN="$HOME/code/zsh/zgen"
+export ZGEN="$HOME/code/shell/zgen"
 
 zgen_install() {
 	mkdir -p "$(dirname "$ZGEN")" &&

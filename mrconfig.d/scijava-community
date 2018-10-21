@@ -1,0 +1,160 @@
+# Community components that use or build upon SciJava libraries.
+
+[code/sj-stuff/BigStitcher]
+checkout = git clone git://github.com/PreibischLab/BigStitcher
+
+[code/sj-stuff/CircleSkinner]
+checkout = git clone git://github.com/tinevez/CircleSkinner
+
+[code/sj-stuff/IJ-OpenCV]
+checkout = git clone git://github.com/joheras/IJ-OpenCV
+
+[code/sj-stuff/IJ-guide]
+checkout = git clone git://github.com/tferr/IJ-guide
+
+[code/sj-stuff/ImageY]
+checkout = git clone git://github.com/hanslovsky/imagey
+
+[code/sj-stuff/ImgLib2-Notebooks]
+checkout = git clone git://github.com/4Quant/ImgLib2-Notebooks
+
+[code/sj-stuff/ImgLib2Access]
+checkout = git clone git://github.com/axtimwalde/ImgLib2Access
+
+[code/sj-stuff/MTrack]
+checkout = git clone git://github.com/PreibischLab/MTrack
+
+[code/sj-stuff/MorphoLibJ]
+checkout = git clone git://github.com/ijpb/MorphoLibJ
+
+[code/sj-stuff/PHANTAST-FIJI]
+checkout = git clone git://github.com/nicjac/PHANTAST-FIJI
+
+[code/sj-stuff/FilamentDetector]
+checkout = git clone git://github.com/hadim/FilamentDetector
+
+[code/sj-stuff/Image_Synthesizer]
+checkout = git clone git://github.com/IamMM/Image_Synthesizer
+
+[code/sj-stuff/Interactive-H-Watershed]
+checkout = git clone git://github.com/mpicbg-scicomp/Interactive-H-Watershed
+
+[code/sj-stuff/Kappa]
+checkout = git clone git://github.com/brouhardlab/Kappa
+
+[code/sj-stuff/KinemaJ]
+checkout = git clone git://github.com/nstifani/KinemaJ
+
+[code/sj-stuff/MoMA]
+checkout = git clone git://github.com/fjug/MoMA
+
+[code/sj-stuff/SME]
+checkout = git clone git://github.com/biocompibens/SME
+
+[code/sj-stuff/Scripts]
+checkout = git clone git://github.com/tferr/Scripts
+
+[code/sj-stuff/TrackMate-extras]
+checkout = git clone git://github.com/tinevez/TrackMate-extras
+
+[code/sj-stuff/active-cells-ij2]
+checkout = git clone git://github.com/ctrueden/active-cells-ij2
+
+[code/sj-stuff/antibiogramj]
+checkout = git clone git://git.code.sf.net/p/antibiogramj/code
+
+[code/sj-stuff/colocalization-influences]
+checkout = git clone git://github.com/bic-kn/colocalization-influences
+
+[code/sj-stuff/deepnetj]
+checkout = git clone git://github.com/Bergwerf/deepnetj
+
+[code/sj-stuff/fmi-trackmate-addons]
+checkout = git clone git://github.com/fmi-faim/fmi-trackmate-addons
+
+[code/sj-stuff/fun.imagej]
+checkout = git clone git://github.com/kephale/fun.imagej
+
+[code/sj-stuff/funimage.figure]
+checkout = git clone git://github.com/kephale/funimage.figure
+
+[code/sj-stuff/hIPNAT]
+checkout = git clone git://github.com/tferr/hIPNAT
+
+[code/sj-stuff/ij-ridgedetection]
+checkout = git clone git://github.com/thorstenwagner/ij-ridgedetection
+
+[code/sj-stuff/ijp-color]
+checkout = git clone git://github.com/ij-plugins/ijp-color
+
+[code/sj-stuff/ijp-frc]
+checkout = git clone https://c4science.ch/diffusion/988/ijp-frc.git
+
+[code/sj-stuff/ijp-imageio]
+checkout = git clone git://github.com/ij-plugins/ijp-imageio
+
+[code/sj-stuff/ijp-toolkit]
+checkout = git clone git://github.com/ij-plugins/ijp-toolkit
+
+[code/sj-stuff/ilastik4ij]
+checkout = git clone git://github.com/ilastik/ilastik4ij
+
+[code/sj-stuff/imagej-jython-package]
+checkout = git clone git://github.com/m-entrup/imagej-jython-package
+
+[code/sj-stuff/imagej-ops-menu]
+checkout = git clone git://github.com/haesleinhuepf/imagej-ops-menu
+
+[code/sj-stuff/imagej-ops-tiling]
+checkout = git clone git://github.com/MarcelWiedenmann/imagej-ops-tiling
+
+[code/sj-stuff/imagej-plot-service]
+checkout = git clone git://github.com/maarzt/imagej-plot-service
+
+[code/sj-stuff/imagej-plugins-javafx]
+checkout = git clone git://github.com/ctrueden/imagej-plugins-javafx
+
+[code/sj-stuff/imagejfx]
+checkout = git clone git://github.com/cmongis/imagejfx
+
+[code/sj-stuff/imglib2-icy]
+checkout = git clone git://github.com/tinevez/imglib2-icy
+
+[code/sj-stuff/imglyb-examples]
+checkout = git clone git://github.com/hanslovsky/imglyb-examples
+
+[code/sj-stuff/jex]
+checkout = git clone git://github.com/jaywarrick/JEX
+
+[code/sj-stuff/jfilament]
+checkout = git clone git://github.com/odinsbane/jfilament
+
+[code/sj-stuff/keller-lab-block-filetype]
+checkout = git clone https://bitbucket.org/fernandoamat/keller-lab-block-filetype
+
+[code/sj-stuff/klb-bdv]
+checkout = git clone git://github.com/bhoeckendorf/klb-bdv
+
+[code/sj-stuff/legacy-update-bug-mcve]
+checkout = git clone git://github.com/stelfrich/legacy-update-bug-mcve
+
+[code/sj-stuff/mcib3d-core]
+checkout = git clone git://github.com/mcib3d/mcib3d-core
+
+[code/sj-stuff/multiview-reconstruction]
+checkout = git clone git://github.com/PreibischLab/multiview-reconstruction
+
+[code/sj-stuff/multiview-simulation]
+checkout = git clone git://github.com/PreibischLab/multiview-simulation
+
+[code/sj-stuff/pendent-drop]
+checkout = git clone git://github.com/adaerr/pendent-drop
+
+[code/sj-stuff/scijava-parallel]
+checkout = git clone git://github.com/PetrBainar/scijava-parallel
+
+[code/sj-stuff/slideset]
+checkout = git clone git://github.com/bnanes/slideset
+
+[code/sj-stuff/thunderstorm]
+checkout = git clone git://github.com/zitmen/thunderstorm

@@ -1,5 +1,0 @@
-[code/leonardo/amino]
-checkout = git clone hg::http://amino.leonardosketch.googlecode.com/hg/ amino
-
-[code/leonardo/leonardosketch]
-checkout = git clone hg::http://leonardosketch.googlecode.com/hg/ leonardosketch

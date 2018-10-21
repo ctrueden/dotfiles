@@ -1,0 +1,5 @@
+[code/wiki/imagej.net]
+checkout = git clone mediawiki::http://imagej.net
+
+[code/wiki/openspim.org]
+checkout = git clone mediawiki::http://openspim.org

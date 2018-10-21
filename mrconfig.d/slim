@@ -1,0 +1,3 @@
+[code/slim/dotfiles]
+checkout = git clone git://github.com/slim-curve/dotfiles
+include = cat $CODE_BASE/slim/dotfiles/mrconfig 2> /dev/null || true

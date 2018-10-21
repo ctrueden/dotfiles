@@ -1,0 +1,11 @@
+[code/pydata/numpy]
+checkout = git clone git://github.com/numpy/numpy
+
+[code/pydata/scikit-image-paper]
+checkout = git clone git://github.com/scikit-image/scikit-image-paper
+
+[code/pydata/scikit-image-web]
+checkout = git clone git://github.com/scikit-image/scikit-image-web
+
+[code/pydata/scipy]
+checkout = git clone git://github.com/scipy/scipy

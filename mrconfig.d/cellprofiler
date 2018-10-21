@@ -1,0 +1,23 @@
+[code/cellprofiler/CellProfiler]
+checkout = git clone git://github.com/CellProfiler/CellProfiler
+
+[code/cellprofiler/CellProfiler-Analyst]
+checkout = git clone git://github.com/CellProfiler/CellProfiler-Analyst
+
+[code/cellprofiler/CellProfiler-plugins]
+checkout = git clone git://github.com/cellprofiler/CellProfiler-plugins
+
+[code/cellprofiler/cellprofiler.github.com]
+checkout = git clone git://github.com/cellprofiler/cellprofiler.github.com
+
+[code/cellprofiler/notebooks]
+checkout = git clone git://github.com/CellProfiler/notebooks
+
+[code/cellprofiler/python-bioformats]
+checkout = git clone git://github.com/CellProfiler/python-bioformats
+
+[code/cellprofiler/python-javabridge]
+checkout = git clone git://github.com/CellProfiler/python-javabridge
+
+[code/cellprofiler/subimager]
+checkout = git clone git://github.com/CellProfiler/subimager

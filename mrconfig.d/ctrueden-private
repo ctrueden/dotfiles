@@ -1,0 +1,14 @@
+[code/ctrueden/ctr-cfg-private]
+checkout = git clone git@bitbucket.org:ctrueden/ctr-cfg-private
+
+[code/ctrueden/ctr-private]
+checkout = git clone git@bitbucket.org:ctrueden/ctr-private
+
+[code/ctrueden/dnd5e-spells]
+checkout = git clone git@bitbucket.org:ctrueden/dnd5e-spells
+
+[code/ctrueden/jolt-cola-cup]
+checkout = git clone git@bitbucket.org:ctrueden/jolt-cola-cup
+
+[code/ctrueden/villaris-instructors]
+checkout = git clone git@bitbucket.org:ctrueden/villaris-instructors

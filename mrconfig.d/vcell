@@ -1,0 +1,8 @@
+[code/vcell/vcell]
+checkout = git clone git://github.com/virtualcell/vcell
+
+[code/vcell/vcell-bioformats]
+checkout = git clone git://github.com/virtualcell/vcell-bioformats
+
+[code/vcell/vcell-solvers]
+checkout = git clone git://github.com/virtualcell/vcell-solvers

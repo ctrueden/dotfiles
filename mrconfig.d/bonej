@@ -1,0 +1,8 @@
+[code/bonej/BoneJ]
+checkout = git clone git://github.com/mdoube/BoneJ
+
+[code/bonej/BoneJ2]
+checkout = git clone git://github.com/bonej-org/BoneJ2
+
+[code/bonej/bonej-javadoc]
+checkout = git clone git://github.com/bonej-org/bonej-javadoc

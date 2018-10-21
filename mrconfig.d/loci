@@ -1,0 +1,35 @@
+[code/loci/4d-software-suite]
+checkout = git clone git://github.com/uw-loci/4d-software-suite
+
+[code/loci/coding-club]
+checkout = git clone git://github.com/uw-loci/coding-club
+
+[code/loci/github-backup-java]
+checkout = git clone git://github.com/uw-loci/github-backup-java
+
+[code/loci/loci-javadoc]
+checkout = git clone git://github.com/uw-loci/loci-javadoc
+
+[code/loci/loci-scripts]
+checkout = git clone git://github.com/uw-loci/loci-scripts
+
+[code/loci/loci-utils]
+checkout = git clone git://github.com/uw-loci/loci-utils
+
+[code/loci/misc-plugins]
+checkout = git clone git://github.com/uw-loci/misc-plugins
+
+[code/loci/prototype.wisc.edu]
+checkout = git clone git://github.com/uw-loci/prototype.wisc.edu
+
+[code/loci/slim-plotter]
+checkout = git clone git://github.com/uw-loci/slim-plotter
+
+[code/loci/visbio]
+checkout = git clone git://github.com/uw-loci/visbio
+
+[code/loci/visbio-imagej]
+checkout = git clone git://github.com/uw-loci/visbio-imagej
+
+[code/loci/wormclassroom]
+checkout = git clone git://github.com/uw-loci/wormclassroom

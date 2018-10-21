@@ -1,16 +1,5 @@
-# -- Public repositories on GitHub --
-
-[code/tech/AutoComplete]
-checkout = git clone git://github.com/bobbylight/AutoComplete
-
-[code/tech/RSTALanguageSupport]
-checkout = git clone git://github.com/bobbylight/RSTALanguageSupport
-
-[code/tech/RSyntaxTextArea]
-checkout = git clone git://github.com/bobbylight/RSyntaxTextArea
-
-[code/tech/bnd]
-checkout = git clone git://github.com/bndtools/bnd
+[code/tech/addama]
+checkout = git clone git://github.com/ilyalab/addama
 
 [code/tech/dockcross]
 checkout = git clone git://github.com/dockcross/dockcross
@@ -18,43 +7,14 @@ checkout = git clone git://github.com/dockcross/dockcross
 [code/tech/electron-quick-start]
 checkout = git clone git://github.com/atom/electron-quick-start
 
-[code/tech/fastutil]
-checkout = git clone git://github.com/vigna/fastutil
+[code/tech/gitter]
+checkout = git clone https://gitlab.com/gitlab-org/gitter/webapp
 
-[code/tech/gentyref]
-checkout = git clone git://github.com/coekie/gentyref
+[code/tech/ipywidgets]
+checkout = git clone git://github.com/jupyter-widgets/ipywidgets
 
-[code/tech/javassist]
-checkout = git clone git://github.com/jboss-javassist/javassist
+[code/tech/linkchecker]
+checkout = git clone git://github.com/wummel/linkchecker
 
-[code/tech/jfx-zoglpipeline]
-checkout = git clone git://github.com/pepe1914/jfx-zoglpipeline
-
-[code/tech/jline2]
-checkout = git clone git://github.com/jline/jline2
-
-[code/tech/jsweet-quickstart]
-checkout = git clone git://github.com/cincheo/jsweet-quickstart
-
-[code/tech/object-inspector]
-checkout = git clone git://github.com/sbridges/object-inspector
-
-[code/tech/pandoc]
-checkout = git clone git://github.com/jgm/pandoc
-
-[code/tech/python-javabridge]
-checkout = git clone git://github.com/LeeKamentsky/python-javabridge
-
-[code/tech/rootbeer1]
-checkout = git clone git://github.com/pcpratts/rootbeer1
-
-[code/tech/virtualenv]
-checkout = git clone git://github.com/pypa/virtualenv
-
-# -- Mercurial repositories --
-
-[code/tech/addama]
-checkout = git clone hg::https://code.google.com/p/addama/
-
-[code/tech/jace]
-checkout = git clone hg::https://code.google.com/p/jace/
+[code/tech/sound-machine-electron-guide]
+checkout = git clone git://github.com/bojzi/sound-machine-electron-guide

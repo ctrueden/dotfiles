@@ -1,0 +1,20 @@
+[code/knime/knip-cellprofiler]
+checkout = git clone git@github.com:knime-ip/knip-cellprofiler
+
+[code/knime/knip-ilastik]
+checkout = git clone git@github.com:knime-ip/knip-ilastik
+
+[code/knime/knip-imagej2-integration]
+checkout = git clone git@github.com:knime-ip/knip-imagej2-integration
+
+[code/knime/knip-imglib2-ops]
+checkout = git clone git@github.com:knime-ip/knip-imglib2-ops
+
+[code/knime/knip-micromanager]
+checkout = git clone git@github.com:knime-ip/knip-micromanager
+
+[code/knime/knip-opencv]
+checkout = git clone git@github.com:knime-ip/knip-opencv
+
+[code/knime/knip-scijava-bundles]
+checkout = git clone git@github.com:knime-ip/knip-scijava-bundles

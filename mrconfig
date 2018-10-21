@@ -1,17 +1,14 @@
 # mr configuration file
 
-# Install myrepos on Mac OS X using Homebrew, or on Debian/Ubuntu using apt.
+# Install myrepos on macOS using Homebrew, or on Ubuntu using apt.
 
 [DEFAULT]
+
+# Enable mr to use git-svn as appropriate.
 include = if [ -d /usr/local/Cellar/mr ]; then cat /usr/local/Cellar/mr/*/share/mr/git-svn; fi
+
+# Make the git update command more thorough.
 git_update = git remote update --prune && git fetch --tags && git merge --ff 'HEAD@{u}'
 
-include = cat $CODE_BASE/fiji/dotfiles/mrconfig 2> /dev/null || true
-include = cat $CODE_BASE/imagej/dotfiles/mrconfig 2> /dev/null || true
-include = cat $CODE_BASE/imglib/dotfiles/mrconfig 2> /dev/null || true
-include = cat $CODE_BASE/loci/dotfiles/mrconfig 2> /dev/null || true
-include = cat $CODE_BASE/scifio/dotfiles/mrconfig 2> /dev/null || true
-include = cat $CODE_BASE/scijava/dotfiles/mrconfig 2> /dev/null || true
-include = cat $CODE_BASE/slim/dotfiles/mrconfig 2> /dev/null || true
-include = cat $DOTFILES/mrconfig.d/* 2> /dev/null || true
-include = test "z$USER" = "zcurtis" && cat $DOTFILES/mrconfig-extra.d/* 2> /dev/null || true
+# Include the ~/.mrconfig.d folder.
+include = if [ -d "$HOME"/.mrconfig.d ]; then cat "$HOME"/.mrconfig.d/* 2> /dev/null; fi

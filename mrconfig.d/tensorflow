@@ -1,0 +1,11 @@
+[code/tensorflow/ImageJTensorflowDemo]
+checkout = git clone git://github.com/hadim/ImageJTensorflowDemo
+
+[code/tensorflow/imagej-tensorflow]
+checkout = git clone git://github.com/imagej/imagej-tensorflow
+
+[code/tensorflow/microscope-image-quality]
+checkout = git clone git://github.com/fiji/microscope-image-quality
+
+[code/tensorflow/microscopeimagequality]
+checkout = git clone https://microscopeimagequality.googlesource.com/All-Projects

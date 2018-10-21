@@ -1,0 +1,47 @@
+[code/java/AutoComplete]
+checkout = git clone git://github.com/bobbylight/AutoComplete
+
+[code/java/Leo2]
+checkout = git clone git://github.com/joshmarinacci/Leo2
+
+[code/java/RSTALanguageSupport]
+checkout = git clone git://github.com/bobbylight/RSTALanguageSupport
+
+[code/java/RSyntaxTextArea]
+checkout = git clone git://github.com/bobbylight/RSyntaxTextArea
+
+[code/java/aminojava]
+checkout = git clone git://github.com/joshmarinacci/aminojava
+
+[code/java/fastutil]
+checkout = git clone git://github.com/vigna/fastutil
+
+[code/java/gentyref]
+checkout = git clone git://github.com/coekie/gentyref
+
+[code/java/javassist]
+checkout = git clone git://github.com/jboss-javassist/javassist
+
+[code/java/jfx-zoglpipeline]
+checkout = git clone git://github.com/pepe1914/jfx-zoglpipeline
+
+[code/java/jhotdraw]
+checkout = git clone git://git.code.sf.net/p/jhotdraw/git
+
+[code/java/jline2]
+checkout = git clone git://github.com/jline/jline2
+
+[code/java/jsweet-quickstart]
+checkout = git clone git://github.com/cincheo/jsweet-quickstart
+
+[code/java/object-inspector]
+checkout = git clone git://github.com/sbridges/object-inspector
+
+[code/java/skinlf]
+checkout = git clone git://github.com/ctrueden/skinlf
+
+[code/java/waterloo]
+checkout = git clone git://github.com/irondukepublishing/waterloo
+
+[code/java/waterlooFX]
+checkout = git clone git://github.com/irondukepublishing/waterlooFX

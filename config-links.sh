@@ -61,6 +61,14 @@ link_file "$LINK_DIR/mrconfig" .mrconfig
 link_file "$LINK_DIR/plan" .plan
 link_file "$LINK_DIR/vimrc" .vimrc
 
+# Link individual mrconfig.d entries, enabling easier customization.
+MRCONFIG_DIR=.mrconfig.d
+mkdir -p "$MRCONFIG_DIR"
+for mrconfigfile in "$LINK_DIR"/mrconfig.d/*
+do
+  link_file "../$mrconfigfile" "$MRCONFIG_DIR"
+done
+
 # NB: We use a stub for .zshrc to maintain support for systems that
 # do not support proper symlinks -- especially MSysGit on Windows.
 ZSHRC_STUB="$CONFIG_DIR/zshrc.stub"

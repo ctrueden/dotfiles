@@ -1,0 +1,3 @@
+[code/fiji/dotfiles]
+checkout = git clone git://github.com/fiji/dotfiles
+include = cat $CODE_BASE/fiji/dotfiles/mrconfig 2> /dev/null || true

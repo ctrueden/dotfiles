@@ -19,11 +19,23 @@ checkout = git clone git://github.com/apache/maven
 [code/maven/maven-archetype]
 checkout = git clone git://github.com/apache/maven-archetype
 
+[code/maven/maven-archetype-nar-exec]
+checkout = git clone git://github.com/maven-nar/maven-archetype-nar-exec
+
+[code/maven/maven-archetype-nar-jni]
+checkout = git clone git://github.com/maven-nar/maven-archetype-nar-jni
+
+[code/maven/maven-archetype-nar-lib]
+checkout = git clone git://github.com/maven-nar/maven-archetype-nar-lib
+
 [code/maven/maven-doxia]
 checkout = git clone git://github.com/apache/maven-doxia
 
 [code/maven/maven-enforcer]
 checkout = git clone git://github.com/apache/maven-enforcer
+
+[code/maven/maven-nar.github.com]
+checkout = git clone git://github.com/maven-nar/maven-nar.github.com
 
 [code/maven/maven-plugin-tools]
 checkout = git clone git://github.com/apache/maven-plugin-tools
@@ -51,6 +63,15 @@ checkout = git clone git://github.com/apache/maven-surefire
 
 [code/maven/maven-wagon]
 checkout = git clone git://github.com/apache/maven-wagon
+
+[code/maven/mojohaus.github.io]
+checkout = git clone git://github.com/mojohaus/mojohaus.github.io
+
+[code/maven/nar-maven-plugin]
+checkout = git clone git://github.com/maven-nar/nar-maven-plugin
+
+[code/maven/nar-maven-plugin.wiki]
+checkout = git clone git://github.com/maven-nar/nar-maven-plugin.wiki
 
 [code/maven/quickdeps]
 checkout = git clone git://github.com/ingenieux/quickdeps

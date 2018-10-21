@@ -1,0 +1,16 @@
+# Scientific software repositories larger than 1GB in size.
+
+[code/science/bisque]
+checkout = hg clone https://biodev.ece.ucsb.edu/hg/bisque-stable bisque
+
+[code/science/bisquik]
+checkout = hg clone https://biodev.ece.ucsb.edu/hg/bisquik-stable bisquik
+
+[code/science/thredds]
+checkout = git clone git://github.com/Unidata/thredds
+
+[code/science/vaa3d_tools]
+checkout = git clone git://github.com/Vaa3D/vaa3d_tools
+
+[code/science/weka]
+checkout = git clone git://github.com/Waikato/weka-trunk weka

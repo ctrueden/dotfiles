@@ -1,5 +1,0 @@
-[code/bisque/bisque]
-checkout = git clone hg::http://biodev.ece.ucsb.edu/hg/bisque-stable bisque
-
-[code/bisque/bisquik]
-checkout = git clone hg::http://biodev.ece.ucsb.edu/hg/bisquik-stable bisquik
