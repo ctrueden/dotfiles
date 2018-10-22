@@ -39,7 +39,7 @@ for my $line (@lines) {
 	if ($line =~ /^\[(.*)\]$/) {
 		$dir = $1;
 	}
-	if ($line =~ /^checkout\s*=\s*git\s+clone\s+(-b\s+[^\s]+\s+)?([^\s]*)/) {
-		print "$dir\t$2\n";
+	if ($line =~ /^checkout\s*=\s*git\s+clone\s+(-b\s+[^\s]+\s+)?(--recursive\s+)?([^\s]*)/) {
+		print "$dir\t$3\n";
 	}
 }
