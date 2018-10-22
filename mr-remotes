@@ -1,6 +1,6 @@
 #!/usr/bin/perl
 
-# mr-git-remotes - Script to output git remotes listed in an mrconfig.
+# mr-remotes - Script to output VCS remotes listed in an mrconfig.
 
 use strict;
 
@@ -32,14 +32,14 @@ for my $line (@mrconfig) {
 	addLine(\@lines, $line);
 }
 
-# parse list of git repositories
+# parse list of repositories
 my $dir = '';
 for my $line (@lines) {
 	chop $line;
 	if ($line =~ /^\[(.*)\]$/) {
 		$dir = $1;
 	}
-	if ($line =~ /^checkout\s*=\s*git\s+clone\s+(-b\s+[^\s]+\s+)?(--recursive\s+)?([^\s]*)/) {
-		print "$dir\t$3\n";
+	if ($line =~ /^checkout\s*=\s*git\s+(svn\s+)?clone\s+(-s\s+)?(-b\s+[^\s]+\s+)?(--recursive\s+)?([^\s]*)/) {
+		print "$dir\t$5\n";
 	}
 }

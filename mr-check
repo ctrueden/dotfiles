@@ -11,7 +11,7 @@ my $home = $ENV{'HOME'};
 
 # harvest list of git repositories from mr config file
 my %repos = ();
-my @lines = `mr-git-remotes`;
+my @lines = `mr-remotes`;
 for my $line (@lines) {
 	chomp $line;
 	my ($dir, $repo) = split(/\t/, $line, 2);
@@ -34,7 +34,16 @@ for my $dir (keys %repos) {
 	my $remote = `cd $home/$dir && git remote -v | grep '^origin.*(fetch)\$'`;
 	chop $remote;
 	$remote =~ s/^origin\s+(.*)\s+\(fetch\)$/$1/;
-	if ($repo ne $remote) {
+	if ($remote eq '') {
+		# Try git-svn.
+		$remote = `cd $home/$dir && git svn info --url 2> /dev/null`;
+		chop $remote;
+	}
+	if ($remote eq '') {
+		print "$dir: Could not determine remote for '$repo'";
+		$errors++;
+	}
+	elsif ($repo ne $remote) {
 		print "$dir: '$repo' != '$remote'\n";
 		$errors++;
 	}
