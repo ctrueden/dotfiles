@@ -27,20 +27,30 @@ for my $dir (keys %repos) {
 		print "[WARNING] $dir: uninitialized\n";
 		next;
 	}
-	if (not -d "$home/$dir/.git") {
-		print "[WARNING] $dir: not a Git repository as expected!\n";
-		next;
+	# extract repository source URL
+	my $remote = '';
+	if (-d "$home/$dir/.git") {
+		$remote = `cd "$home/$dir" && git remote -v | grep '^origin.*(fetch)\$'`;
+		chop $remote;
+		$remote =~ s/^origin\s+(.*)\s+\(fetch\)$/$1/;
+		if ($remote eq '') {
+			# Try git-svn.
+			$remote = `cd "$home/$dir" && git svn info --url 2> /dev/null`;
+			chop $remote;
+		}
 	}
-	my $remote = `cd $home/$dir && git remote -v | grep '^origin.*(fetch)\$'`;
-	chop $remote;
-	$remote =~ s/^origin\s+(.*)\s+\(fetch\)$/$1/;
-	if ($remote eq '') {
-		# Try git-svn.
-		$remote = `cd $home/$dir && git svn info --url 2> /dev/null`;
+	elsif (-d "$home/$dir/.hg") {
+		$remote = `cd "$home/$dir" && hg paths | grep default | sed 's/default = //'`;
 		chop $remote;
 	}
+	else {
+		print "$dir: unknown repository type\n";
+		$errors++;
+		next;
+	}
+	# check that repository source URL matches the one declared in mrconfig
 	if ($remote eq '') {
-		print "$dir: Could not determine remote for '$repo'";
+		print "$dir: could not determine source URL\n";
 		$errors++;
 	}
 	elsif ($repo ne $remote) {
@@ -51,10 +61,10 @@ for my $dir (keys %repos) {
 
 # check actual repositories beneath code folder against .mrconfig entries
 my @actualRepos =
-	`find "$home/$codeFolder" -maxdepth 3 -name '.git' -type d`;
+	`find "$home/$codeFolder" -maxdepth 3 '(' -name '.git' -o -name '.hg' ')' -type d`;
 for my $actualRepo (@actualRepos) {
 	chop $actualRepo;
-	$actualRepo =~ s/^$home\/(.*)\/\.git$/\1/;
+	$actualRepo =~ s/^$home\/(.*)\/\.(git|hg)$/\1/;
 	if (not defined $repos{$actualRepo}) {
 		print "[WARNING] $actualRepo: not in .mrconfig\n";
 	}
