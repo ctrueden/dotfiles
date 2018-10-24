@@ -7,5 +7,5 @@ cd "$TARGET_DIR"
 
 for f in $@
 do 
-  (set -x; ln -s "../$SRC_DIR/$1")
+  (set -x; ln -s "../$SRC_DIR/$f")
 done
