@@ -20,12 +20,12 @@ echo "\${name#*.}        = '${name#*.}'"        #        ostrich.racing.champion
 echo "\${name##*.}       = '${name##*.}'"       #                       champion
 echo "\${name%%.*}       = '${name%%.*}'"       # polish
 echo "\${name%.*}        = '${name%.*}'"        # polish.ostrich.racing
-echo
-echo "\${name:16}        = '${name:16}'"        #                 acing.champion
-echo "\${name: -7}       = '${name: -7}'"       #                        hampion
-echo "\${name:0:5}       = '${name:0:5}'"       # polis
-echo "\${name:8:3}       = '${name:8:3}'"       #         str
-echo "WARNING: THE ABOVE INDEX-BASED NOTATION IS PROBABLY NOT PORTABLE."
+#echo
+#echo "\${name:16}        = '${name:16}'"        #                 acing.champion
+#echo "\${name: -7}       = '${name: -7}'"       #                        hampion
+#echo "\${name:0:5}       = '${name:0:5}'"       # polis
+#echo "\${name:8:3}       = '${name:8:3}'"       #         str
+#echo "WARNING: THE ABOVE INDEX-BASED NOTATION IS PROBABLY NOT PORTABLE."
 
 file='/usr/share/java-1.4.2-sun/demo/applets/Clock/Clock.class'
 echo
@@ -43,13 +43,14 @@ echo "\${phrase%quick*}  = '${phrase%quick*}'"  # The quick brown fox is
 echo "\${phrase##*quick} = '${phrase##*quick}'" #                             er than the dog.
 echo "\${phrase%%quick*} = '${phrase%%quick*}'" # The 
 
-echo
-echo "-- Indirection --"
-
-var='name'
-echo
-echo "\$var              = $var"                # name
-echo "\${!var}           = ${!var}"             # polish.ostrich.racing.champion
+#echo
+#echo "-- Indirection --"
+#
+#var='name'
+#echo
+#echo "\$var              = $var"                # name
+#echo "\${!var}           = ${!var}"             # polish.ostrich.racing.champion
+#echo "WARNING: APPARENTLY THIS SYNTAX IS NOT PORTABLE; zsh 5.4.2 (x86_64-ubuntu-linux-gpu) CANNOT HANDLE IT."
 
 echo
 echo "-- Files with spaces --"
