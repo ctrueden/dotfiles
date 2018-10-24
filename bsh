@@ -1,5 +1,0 @@
-#!/bin/sh
-
-# Executes the Beanshell command line interpreter.
-
-java -cp "$CP" bsh.Interpreter "$@"
