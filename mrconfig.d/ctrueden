@@ -22,9 +22,6 @@ checkout = git clone git://github.com/ctrueden/fixbe
 [code/ctrueden/game-of-life]
 checkout = git clone git://github.com/ctrueden/game-of-life
 
-[code/ctrueden/jrun]
-checkout = git clone git://github.com/ctrueden/jrun
-
 [code/ctrueden/python-script-recorder]
 checkout = git clone git://github.com/ctrueden/python-script-recorder
 
