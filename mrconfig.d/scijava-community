@@ -6,11 +6,20 @@ checkout = git clone git://github.com/PreibischLab/BigStitcher
 [code/sj-stuff/CircleSkinner]
 checkout = git clone git://github.com/tinevez/CircleSkinner
 
+[code/sj-stuff/FilamentDetector]
+checkout = git clone git://github.com/hadim/FilamentDetector
+
+[code/sj-stuff/Hadim_Scripts]
+checkout = git clone git://github.com/hadim/Hadim_Scripts
+
 [code/sj-stuff/IJ-OpenCV]
 checkout = git clone git://github.com/joheras/IJ-OpenCV
 
 [code/sj-stuff/IJ-guide]
 checkout = git clone git://github.com/tferr/IJ-guide
+
+[code/sj-stuff/Image_Synthesizer]
+checkout = git clone git://github.com/IamMM/Image_Synthesizer
 
 [code/sj-stuff/ImageY]
 checkout = git clone git://github.com/hanslovsky/imagey
@@ -21,21 +30,6 @@ checkout = git clone git://github.com/4Quant/ImgLib2-Notebooks
 [code/sj-stuff/ImgLib2Access]
 checkout = git clone git://github.com/axtimwalde/ImgLib2Access
 
-[code/sj-stuff/MTrack]
-checkout = git clone git://github.com/PreibischLab/MTrack
-
-[code/sj-stuff/MorphoLibJ]
-checkout = git clone git://github.com/ijpb/MorphoLibJ
-
-[code/sj-stuff/PHANTAST-FIJI]
-checkout = git clone git://github.com/nicjac/PHANTAST-FIJI
-
-[code/sj-stuff/FilamentDetector]
-checkout = git clone git://github.com/hadim/FilamentDetector
-
-[code/sj-stuff/Image_Synthesizer]
-checkout = git clone git://github.com/IamMM/Image_Synthesizer
-
 [code/sj-stuff/Interactive-H-Watershed]
 checkout = git clone git://github.com/mpicbg-scicomp/Interactive-H-Watershed
 
@@ -45,8 +39,29 @@ checkout = git clone git://github.com/brouhardlab/Kappa
 [code/sj-stuff/KinemaJ]
 checkout = git clone git://github.com/nstifani/KinemaJ
 
+[code/sj-stuff/MTrack]
+checkout = git clone git://github.com/PreibischLab/MTrack
+
 [code/sj-stuff/MoMA]
 checkout = git clone git://github.com/fjug/MoMA
+
+[code/sj-stuff/MorphoLibJ]
+checkout = git clone git://github.com/ijpb/MorphoLibJ
+
+[code/sj-stuff/NanoJ-Core]
+checkout = git clone git://github.com/HenriquesLab/NanoJ-Core
+
+[code/sj-stuff/NanoJ-Fluidics]
+checkout = git clone git://github.com/HenriquesLab/NanoJ-Fluidics
+
+[code/sj-stuff/NanoJ-SRRF]
+checkout = git clone git://github.com/HenriquesLab/NanoJ-SRRF
+
+[code/sj-stuff/PHANTAST-FIJI]
+checkout = git clone git://github.com/nicjac/PHANTAST-FIJI
+
+[code/sj-stuff/RadialIntensityProfile]
+checkout = git clone https://github.com/PTschaikner/RadialIntensityProfile
 
 [code/sj-stuff/SME]
 checkout = git clone git://github.com/biocompibens/SME
@@ -56,6 +71,9 @@ checkout = git clone git://github.com/tferr/Scripts
 
 [code/sj-stuff/TrackMate-extras]
 checkout = git clone git://github.com/tinevez/TrackMate-extras
+
+[code/sj-stuff/TrackMate3]
+checkout = git clone git://github.com/fiji/TrackMate3
 
 [code/sj-stuff/active-cells-ij2]
 checkout = git clone git://github.com/ctrueden/active-cells-ij2
@@ -102,6 +120,9 @@ checkout = git clone git://github.com/ilastik/ilastik4ij
 [code/sj-stuff/imagej-jython-package]
 checkout = git clone git://github.com/m-entrup/imagej-jython-package
 
+[code/sj-stuff/imagej-logo]
+checkout = git clone git://github.com/juglab/imagej-logo
+
 [code/sj-stuff/imagej-ops-menu]
 checkout = git clone git://github.com/haesleinhuepf/imagej-ops-menu
 
@@ -122,6 +143,9 @@ checkout = git clone git://github.com/tinevez/imglib2-icy
 
 [code/sj-stuff/imglyb-examples]
 checkout = git clone git://github.com/hanslovsky/imglyb-examples
+
+[code/sj-stuff/java-utils-embl]
+checkout = git clone git://github.com/ssgpers/java-utils-embl
 
 [code/sj-stuff/jex]
 checkout = git clone git://github.com/jaywarrick/JEX
