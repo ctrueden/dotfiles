@@ -7,6 +7,9 @@ checkout = git clone git://github.com/rwl/ParallelColt
 [code/science/RKColocal]
 checkout = git clone git://github.com/lakerwsl/RKColocal
 
+[code/science/YacuDecu]
+checkout = git clone git://github.com/bobpepin/YacuDecu
+
 [code/science/bigcat]
 checkout = git clone git://github.com/saalfeldlab/bigcat
 
@@ -21,6 +24,9 @@ checkout = git clone git://github.com/htcondor/htcondor
 
 [code/science/imagejs]
 checkout = git clone git://github.com/imagejs/imagejs.github.com
+
+[code/science/imagepy]
+checkout = git clone git://github.com/Image-Py/imagepy
 
 [code/science/jicbioimage]
 checkout = git clone git://github.com/JIC-CSB/jicbioimage
