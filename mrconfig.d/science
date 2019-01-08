@@ -49,6 +49,9 @@ checkout = git clone git://github.com/JIC-CSB/jicbioimage.transform
 [code/science/jtk]
 checkout = git clone git://github.com/dhale/jtk
 
+[code/science/jts]
+checkout = git clone git://github.com/locationtech/jts
+
 [code/science/keller-lab-block-filetype]
 checkout = git clone https://bitbucket.org/fernandoamat/keller-lab-block-filetype
 

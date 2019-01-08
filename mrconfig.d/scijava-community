@@ -165,6 +165,9 @@ checkout = git clone git://github.com/stelfrich/legacy-update-bug-mcve
 [code/sj-stuff/mcib3d-core]
 checkout = git clone git://github.com/mcib3d/mcib3d-core
 
+[code/sj-stuff/mroi]
+checkout = git clone git://github.com/madhadron/mroi
+
 [code/sj-stuff/multiview-reconstruction]
 checkout = git clone git://github.com/PreibischLab/multiview-reconstruction
 
