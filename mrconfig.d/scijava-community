@@ -138,6 +138,12 @@ checkout = git clone git://github.com/ctrueden/imagej-plugins-javafx
 [code/sj-stuff/imagejfx]
 checkout = git clone git://github.com/cmongis/imagejfx
 
+[code/sj-stuff/imcf-fiji-scripts]
+checkout = git clone git://github.com/imcf/imcf-fiji-scripts
+
+[code/sj-stuff/imcf-fiji-toolbars]
+checkout = git clone git://github.com/imcf/imcf-fiji-toolbars
+
 [code/sj-stuff/imglib2-icy]
 checkout = git clone git://github.com/tinevez/imglib2-icy
 
@@ -152,6 +158,12 @@ checkout = git clone git://github.com/jaywarrick/JEX
 
 [code/sj-stuff/jfilament]
 checkout = git clone git://github.com/odinsbane/jfilament
+
+[code/sj-stuff/jython-olefile]
+checkout = git clone git://github.com/imcf/jython-olefile
+
+[code/sj-stuff/jython-scijava-logging]
+checkout = git clone git://github.com/imcf/jython-scijava-logging
 
 [code/sj-stuff/keller-lab-block-filetype]
 checkout = git clone https://bitbucket.org/fernandoamat/keller-lab-block-filetype
@@ -176,6 +188,12 @@ checkout = git clone git://github.com/PreibischLab/multiview-simulation
 
 [code/sj-stuff/pendent-drop]
 checkout = git clone git://github.com/adaerr/pendent-drop
+
+[code/sj-stuff/python-imcflibs]
+checkout = git clone git://github.com/imcf/python-imcflibs
+
+[code/sj-stuff/python-micrometa]
+checkout = git clone git://github.com/imcf/python-micrometa
 
 [code/sj-stuff/scijava-parallel]
 checkout = git clone git://github.com/PetrBainar/scijava-parallel
