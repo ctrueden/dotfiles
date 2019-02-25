@@ -1,6 +1,7 @@
 [alias]
 	# shortcuts
 	br = branch
+	bra = branch -avv
 	co = checkout
 	cm = cherry -v master
 	cp = cherry-pick
