@@ -1,3 +1,5 @@
+# ImgLib dotfiles - bootstraps ImgLib-related mrconfig
+
 [code/imglib/dotfiles]
 checkout = git clone git://github.com/imglib/dotfiles
 include = cat $CODE_BASE/imglib/dotfiles/mrconfig 2> /dev/null || true

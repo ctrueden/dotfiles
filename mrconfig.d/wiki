@@ -1,3 +1,5 @@
+# Deep clones of MediaWiki-based websites
+
 [code/wiki/imagej.net]
 checkout = git clone mediawiki::http://imagej.net
 

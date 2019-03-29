@@ -1,3 +1,5 @@
+# ClearVolume-related projects
+
 [code/clearvolume/ClearCL]
 checkout = git clone git://github.com/ClearVolume/ClearCL
 

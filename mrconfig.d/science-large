@@ -1,4 +1,4 @@
-# Scientific software repositories larger than 1GB in size.
+# Scientific software repositories larger than 1GB in size
 
 [code/science/bisque]
 checkout = hg clone https://biodev.ece.ucsb.edu/hg/bisque-stable bisque

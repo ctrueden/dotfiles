@@ -1,3 +1,5 @@
+# ImageJ dotfiles - bootstraps ImageJ-related mrconfig
+
 [code/imagej/dotfiles]
 checkout = git clone git://github.com/imagej/dotfiles
 include = cat $CODE_BASE/imagej/dotfiles/mrconfig 2> /dev/null || true

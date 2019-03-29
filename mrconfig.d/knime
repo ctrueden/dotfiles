@@ -1,3 +1,5 @@
+# KNIME - https://knime.org/
+
 [code/knime/knime-core]
 checkout = git clone git://github.com/knime/knime-core
 

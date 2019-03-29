@@ -1,2 +1,4 @@
+# Projects focused on 3D visualiation (private)
+
 [code/3d/aics-image-viewer-app]
 checkout = git clone git@github.com:AllenInstitute/aics-image-viewer-app

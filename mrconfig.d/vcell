@@ -1,3 +1,5 @@
+# Virtual Cell - https://vcell.org/
+
 [code/vcell/vcell]
 checkout = git clone git://github.com/virtualcell/vcell
 

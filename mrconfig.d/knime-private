@@ -1,3 +1,5 @@
+# KNIME - https://knime.org/ (private)
+
 [code/knime/knip-cellprofiler]
 checkout = git clone git@github.com:knime-ip/knip-cellprofiler
 

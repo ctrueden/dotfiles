@@ -1,3 +1,5 @@
+# Projects focused on 3D visualization
+
 [code/3d/SciView]
 checkout = git clone git://github.com/scenerygraphics/SciView
 

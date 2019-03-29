@@ -1,3 +1,5 @@
+# OpenSPIM - https://openspim.org/
+
 [code/openspim/SPIMAcquisition]
 checkout = git clone git://github.com/openspim/SPIMAcquisition
 

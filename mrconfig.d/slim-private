@@ -1,3 +1,5 @@
+# SLIM-Curve repositories (private)
+
 [code/slim/ATD_TRI]
 checkout = git svn clone -s https://subversion.assembla.com/svn/ATD_TRI/trunk
 

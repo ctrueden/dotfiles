@@ -1,3 +1,5 @@
+# UW-Madison LOCI projects (private)
+
 [code/loci/imagej-fdct]
 checkout = git clone git@github.com:uw-loci/imagej-fdct
 

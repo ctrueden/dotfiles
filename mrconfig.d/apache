@@ -1,3 +1,5 @@
+# Projects under the Apache umbrella
+
 [code/apache/batik]
 checkout = git clone git://github.com/apache/batik
 

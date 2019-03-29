@@ -1,3 +1,5 @@
+# Scientific software repositories
+
 [code/science/MIB]
 checkout = git clone git://github.com/Ajaxels/MIB
 

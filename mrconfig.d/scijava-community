@@ -1,4 +1,4 @@
-# Community components that use or build upon SciJava libraries.
+# Community components that use or build upon SciJava libraries
 
 [code/sj-stuff/BigStitcher]
 checkout = git clone git://github.com/PreibischLab/BigStitcher

@@ -1,3 +1,5 @@
+# CellProfiler - https://cellprofiler.org/
+
 [code/cellprofiler/CellProfiler]
 checkout = git clone git://github.com/CellProfiler/CellProfiler
 

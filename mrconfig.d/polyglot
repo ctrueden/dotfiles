@@ -1,4 +1,4 @@
-# Repositories that make combining languages easier.
+# Repositories that make combining languages easier
 
 [code/polyglot/BridJ]
 checkout = git clone git://github.com/nativelibs4java/BridJ

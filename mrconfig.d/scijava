@@ -1,3 +1,5 @@
+# SciJava dotfiles - bootstraps SciJava-related mrconfig
+
 [code/scijava/dotfiles]
 checkout = git clone git://github.com/scijava/dotfiles
 include = cat $CODE_BASE/scijava/dotfiles/mrconfig 2> /dev/null || true

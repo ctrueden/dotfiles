@@ -1,3 +1,5 @@
+# Projects in the PyData stack
+
 [code/pydata/numpy]
 checkout = git clone git://github.com/numpy/numpy
 

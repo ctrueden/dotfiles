@@ -1,3 +1,5 @@
+# UW-Madison LOCI projects
+
 [code/loci/4d-software-suite]
 checkout = git clone git://github.com/uw-loci/4d-software-suite
 

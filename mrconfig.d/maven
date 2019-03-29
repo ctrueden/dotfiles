@@ -1,3 +1,5 @@
+# Apache Maven - https://maven.apache.org/
+
 [code/maven/build-helper-maven-plugin]
 checkout = git clone git://github.com/mojohaus/build-helper-maven-plugin
 

@@ -1,3 +1,5 @@
+# Napari - https://github.com/napari
+
 [code/napari/plugin-cookiecutter]
 checkout = git clone git://github.com/napari/plugin-cookiecutter
 

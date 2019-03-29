@@ -1,3 +1,5 @@
+# Game-related projects
+
 [code/games/pcgen]
 checkout = git clone git://github.com/PCGen/pcgen
 
