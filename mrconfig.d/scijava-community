@@ -69,6 +69,9 @@ checkout = git clone git://github.com/biocompibens/SME
 [code/sj-stuff/Scripts]
 checkout = git clone git://github.com/tferr/Scripts
 
+[code/sj-stuff/TrackMate-TrackAnalysis]
+checkout = git clone git://github.com/tinevez/TrackMate-TrackAnalysis
+
 [code/sj-stuff/TrackMate-extras]
 checkout = git clone git://github.com/tinevez/TrackMate-extras
 
@@ -146,6 +149,9 @@ checkout = git clone git://github.com/imcf/imcf-fiji-toolbars
 
 [code/sj-stuff/imglib2-icy]
 checkout = git clone git://github.com/tinevez/imglib2-icy
+
+[code/sj-stuff/imglib2-labkit]
+checkout = git clone git://github.com/maarzt/imglib2-labkit
 
 [code/sj-stuff/imglyb-examples]
 checkout = git clone git://github.com/hanslovsky/imglyb-examples
