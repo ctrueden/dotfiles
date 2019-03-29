@@ -1,0 +1,2 @@
+[code/napari/napari-data]
+checkout = git clone git://github.com/napari/napari-data

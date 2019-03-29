@@ -1,0 +1,14 @@
+[code/napari/plugin-cookiecutter]
+checkout = git clone git://github.com/napari/plugin-cookiecutter
+
+[code/napari/napari]
+checkout = git clone git://github.com/napari/napari
+
+[code/napari/napari-core]
+checkout = git clone git://github.com/napari/napari-core
+
+[code/napari/napari-io]
+checkout = git clone git://github.com/napari/napari-io
+
+[code/napari/napari-hello-world]
+checkout = git clone git://github.com/napari/napari-hello-world
