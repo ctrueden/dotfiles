@@ -80,6 +80,9 @@ checkout = git clone git://github.com/deeplearning4j/nd4j
 [code/science/neuroglancer]
 checkout = git clone git://github.com/google/neuroglancer
 
+[code/science/orbit-image-analysis]
+checkout = git clone git://github.com/mstritt/orbit-image-analysis
+
 [code/science/pixlib]
 checkout = git clone git://github.com/dprodanov/pixlib && cd pixlib && git remote add sf git://git.code.sf.net/p/pixlib/code && git remote update
 
