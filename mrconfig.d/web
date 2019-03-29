@@ -1,0 +1,13 @@
+# Web sites
+
+[code/web/annarueden.com]
+checkout = git clone git://github.com/ctrueden/annarueden.com
+
+[code/web/ctrueden.github.io]
+checkout = git clone git://github.com/ctrueden/ctrueden.github.io
+
+[code/web/restlessgamer.net]
+checkout = git clone git://github.com/ctrueden/restlessgamer.net
+
+[code/web/restlesswarrior.com]
+checkout = git clone git://github.com/ctrueden/restlesswarrior.com
