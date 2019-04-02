@@ -10,7 +10,7 @@ checkout = git clone git://github.com/dockcross/dockcross
 checkout = git clone git://github.com/atom/electron-quick-start
 
 [code/tech/gitter]
-checkout = git clone https://gitlab.com/gitlab-org/gitter/webapp
+checkout = git clone https://gitlab.com/gitlab-org/gitter/webapp gitter
 
 [code/tech/ipywidgets]
 checkout = git clone git://github.com/jupyter-widgets/ipywidgets

@@ -25,7 +25,7 @@ checkout = git clone git://github.com/SCIInstitute/fluorender
 checkout = git clone git://github.com/htcondor/htcondor
 
 [code/science/imagejs]
-checkout = git clone git://github.com/imagejs/imagejs.github.com
+checkout = git clone git://github.com/imagejs/imagejs.github.com imagejs
 
 [code/science/imagepy]
 checkout = git clone git://github.com/Image-Py/imagepy
@@ -58,7 +58,7 @@ checkout = git clone git://github.com/locationtech/jts
 checkout = git clone https://bitbucket.org/fernandoamat/keller-lab-block-filetype
 
 [code/science/labis]
-checkout = git clone git://git.code.sf.net/p/labinfsyst/code
+checkout = git clone git://git.code.sf.net/p/labinfsyst/code labis
 
 [code/science/libics]
 checkout = git clone git://github.com/svi-opensource/libics
