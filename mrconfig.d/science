@@ -93,6 +93,3 @@ checkout = git clone git://github.com/qupath/qupath
 
 [code/science/vaa3d]
 checkout = git clone git://github.com/Vaa3D/v3d_external vaa3d
-
-[code/science/xdma]
-checkout = hg clone http://biodev.ece.ucsb.edu/hg/xdma
