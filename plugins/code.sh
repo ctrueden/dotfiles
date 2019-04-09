@@ -21,25 +21,21 @@ alias gop='cd $CODE_PRIVATE'
 # LOCI projects - https://github.com/uw-loci
 export CODE_LOCI="$CODE_BASE/loci"
 alias goloci='cd $CODE_LOCI'
-alias goj2l='cd $CODE_LOCI/jar2lib/src/main/resources'
 alias gov='cd $CODE_LOCI/visbio/src/main/java/loci/visbio'
-alias gow='cd $CODE_LOCI/wiscscan'
 
 # SCIFIO - https://github.com/scifio
 export CODE_SCIFIO="$CODE_BASE/scifio/scifio"
 alias gos='cd $CODE_SCIFIO'
-alias gops='cd $CODE_SCIFIO/../pom-scifio'
 alias goscli='cd $CODE_SCIFIO/../scifio-cli'
 alias gost='cd $CODE_SCIFIO/../scifio-tutorials'
 
 # Bio-Formats - https://github.com/openmicroscopy/bioformats
 export CODE_BF="$CODE_BASE/ome/bioformats"
 alias gobf='cd $CODE_BF'
-alias gobfa='cd $CODE_BF/components/autogen/src'
-alias gobfc='cd $CODE_BF/components/formats-common/src/loci/common'
+alias gobfc='cd $CODE_BF/../ome-common-java/src/main/java/loci/common'
 alias gobff='cd $CODE_BF/components/formats-api/src/loci/formats'
 alias gobfp='cd $CODE_BF/components/bio-formats-plugins/src/loci/plugins'
-alias gobfx='cd $CODE_BF/components/ome-xml/src/ome/xml'
+alias gobfx='cd $CODE_BF/../ome-model/ome-xml/src/main/java/ome/xml'
 
 # ImageJ - https://github.com/imagej
 export CODE_IJ="$CODE_BASE/imagej/imagej"
@@ -57,7 +53,6 @@ alias goijt='cd $CODE_IJ/../tutorials'
 alias goijup='cd $CODE_IJ/../imagej-updater'
 alias goijus='cd $CODE_IJ/../imagej-usage'
 alias goiju='goijup'
-alias gopij='cd $CODE_IJ/../pom-imagej'
 
 # ImageJ OPS - https://github.com/imagej/imagej-ops
 export CODE_OPS="$CODE_IJ/../imagej-ops"
@@ -86,7 +81,6 @@ alias goitk='cd $CODE_ITK'
 # Fiji - https://github.com/fiji
 export CODE_FIJI="$CODE_BASE/fiji/fiji"
 alias gofi='cd $CODE_FIJI'
-alias gopf='cd $CODE_FIJI/../pom-fiji'
 alias gotm='cd $CODE_FIJI/../TrackMate'
 alias gocb='cd $CODE_FIJI/../cookbook'
 
@@ -95,7 +89,7 @@ export CODE_BDV="$CODE_BASE/bdv"
 alias gobdv='cd $CODE_BDV'
 
 # JEX
-export CODE_JEX="$CODE_BASE/misc/jex"
+export CODE_JEX="$CODE_BASE/sj-stuff/jex"
 alias gojex='cd $CODE_JEX'
 
 # SciJava - https://github.com/scijava
@@ -106,7 +100,7 @@ alias gosjc='cd $CODE_SCIJAVA/scijava-common'
 alias gosjs='cd $CODE_SCIJAVA/scijava-scripts'
 
 # NAR - https://github.com/maven-nar/nar-maven-plugin
-export CODE_NAR="$CODE_BASE/nar/nar-maven-plugin"
+export CODE_NAR="$CODE_BASE/maven/nar-maven-plugin"
 alias gonar='cd $CODE_NAR'
 
 # CellProfiler - https://github.com/CellProfiler/CellProfiler
