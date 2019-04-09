@@ -60,6 +60,7 @@ link_file "$LINK_DIR/jgorc" .jgorc
 link_file "$LINK_DIR/mrconfig" .mrconfig
 link_file "$LINK_DIR/plan" .plan
 link_file "$LINK_DIR/vimrc" .vimrc
+link_file "$LINK_DIR/warprc" .warprc
 
 # Link individual mrconfig.d entries, enabling easier customization.
 MRCONFIG_DIR=.mrconfig.d
