@@ -6,6 +6,7 @@
 # A quick script to update SciJava projects:
 # - Convert from maven.imagej.net to maven.scijava.org.
 # - Convert Travis from Oracle JDK 8 to OpenJDK 8.
+# - Remove obsolete custom Maven repository settings.
 
 update() {
 	(
@@ -28,6 +29,11 @@ update() {
 		then
 			sed -i '' -e 's/jdk: oraclejdk8/jdk: openjdk8/' .travis.yml
 			git ci -m 'Travis: build using openjdk8' .travis.yml
+		fi
+		if [ -f .travis/settings.xml ]
+		then
+			git rm .travis/settings.xml
+			git ci -m 'Travis: remove obsolete Maven settings' .travis
 		fi
 	)
 }
