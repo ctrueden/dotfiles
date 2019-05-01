@@ -23,17 +23,17 @@ update() {
 			sed -i '' -e 's/ImageJ Maven repository/SciJava Maven repository/g' pom.xml
 			sed -i '' -e 's/imagej.public/scijava.public/g' pom.xml
 			sed -i '' -e 's/^		<version>.*/		<version>26.0.0<\/version>/' pom.xml
-			git ci -m 'POM: maven.imagej.net -> maven.scijava.org' pom.xml
+			git commit -m 'POM: maven.imagej.net -> maven.scijava.org' pom.xml
 		fi
 		if [ -f .travis.yml ]
 		then
 			sed -i '' -e 's/jdk: oraclejdk8/jdk: openjdk8/' .travis.yml
-			git ci -m 'Travis: build using openjdk8' .travis.yml
+			git commit -m 'Travis: build using openjdk8' .travis.yml
 		fi
 		if [ -f .travis/settings.xml ]
 		then
 			git rm .travis/settings.xml
-			git ci -m 'Travis: remove obsolete Maven settings' .travis
+			git commit -m 'Travis: remove obsolete Maven settings' .travis
 		fi
 	)
 }
