@@ -19,6 +19,7 @@ update() {
 		if [ -f pom.xml ]
 		then
 			sed -i '' -e 's/maven.imagej.net/maven.scijava.org/g' pom.xml
+			sed -i '' -e 's_http://maven.scijava.org_https://maven.scijava.org_g' pom.xml
 			sed -i '' -e 's/deploy-to-imagej/deploy-to-scijava/g' pom.xml
 			sed -i '' -e 's/ImageJ Maven repository/SciJava Maven repository/g' pom.xml
 			sed -i '' -e 's/imagej.public/scijava.public/g' pom.xml
