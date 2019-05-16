@@ -18,6 +18,9 @@ checkout = git clone git://github.com/graalvm/graal-js-jdk11-maven-demo
 [code/polyglot/graal-polyglot-experiments]
 checkout = git clone git://github.com/ctrueden/graal-polyglot-experiments
 
+[code/polyglot/graalpython]
+checkout = git clone git://github.com/graalvm/graalpython
+
 [code/polyglot/graalvm-demos]
 checkout = git clone git://github.com/graalvm/graalvm-demos
 
@@ -26,6 +29,9 @@ checkout = git clone git://github.com/chrisseaton/graalvm-ten-things
 
 [code/polyglot/jffi]
 checkout = git clone git://github.com/jnr/jffi
+
+[code/polyglot/node-java]
+checkout = git clone git://github.com/joeferner/node-java
 
 [code/polyglot/pyjnius]
 checkout = git clone git://github.com/kivy/pyjnius

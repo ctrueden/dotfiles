@@ -21,8 +21,8 @@ checkout = git clone git://github.com/tferr/IJ-guide
 [code/sj-stuff/Image_Synthesizer]
 checkout = git clone git://github.com/IamMM/Image_Synthesizer
 
-[code/sj-stuff/ImageY]
-checkout = git clone git://github.com/hanslovsky/imagey
+[code/sj-stuff/ImageJ-Python-plugin]
+checkout = git clone git://github.com/swharden/ImageJ-Python-plugin
 
 [code/sj-stuff/ImgLib2-Notebooks]
 checkout = git clone git://github.com/4Quant/ImgLib2-Notebooks
@@ -33,11 +33,17 @@ checkout = git clone git://github.com/axtimwalde/ImgLib2Access
 [code/sj-stuff/Interactive-H-Watershed]
 checkout = git clone git://github.com/mpicbg-scicomp/Interactive-H-Watershed
 
+[code/sj-stuff/JEX]
+checkout = git clone git://github.com/jaywarrick/JEX
+
 [code/sj-stuff/Kappa]
 checkout = git clone git://github.com/brouhardlab/Kappa
 
 [code/sj-stuff/KinemaJ]
 checkout = git clone git://github.com/nstifani/KinemaJ
+
+[code/sj-stuff/LimeSeg]
+checkout = git clone git://github.com/NicoKiaru/LimeSeg
 
 [code/sj-stuff/MTrack]
 checkout = git clone git://github.com/PreibischLab/MTrack
@@ -61,7 +67,7 @@ checkout = git clone git://github.com/HenriquesLab/NanoJ-SRRF
 checkout = git clone git://github.com/nicjac/PHANTAST-FIJI
 
 [code/sj-stuff/RadialIntensityProfile]
-checkout = git clone https://github.com/PTschaikner/RadialIntensityProfile
+checkout = git clone git://github.com/PTschaikner/RadialIntensityProfile
 
 [code/sj-stuff/SME]
 checkout = git clone git://github.com/biocompibens/SME
@@ -126,9 +132,6 @@ checkout = git clone git://github.com/juglab/imagej-logo
 [code/sj-stuff/imagej-ops-menu]
 checkout = git clone git://github.com/haesleinhuepf/imagej-ops-menu
 
-[code/sj-stuff/imagej-ops-tiling]
-checkout = git clone git://github.com/MarcelWiedenmann/imagej-ops-tiling
-
 [code/sj-stuff/imagej-plot-service]
 checkout = git clone git://github.com/maarzt/imagej-plot-service
 
@@ -137,6 +140,9 @@ checkout = git clone git://github.com/ctrueden/imagej-plugins-javafx
 
 [code/sj-stuff/imagejfx]
 checkout = git clone git://github.com/cmongis/imagejfx
+
+[code/sj-stuff/imagey]
+checkout = git clone git://github.com/hanslovsky/imagey
 
 [code/sj-stuff/imcf-fiji-scripts]
 checkout = git clone git://github.com/imcf/imcf-fiji-scripts
@@ -155,9 +161,6 @@ checkout = git clone git://github.com/hanslovsky/imglyb-examples
 
 [code/sj-stuff/java-utils-embl]
 checkout = git clone git://github.com/ssgpers/java-utils-embl
-
-[code/sj-stuff/jex]
-checkout = git clone git://github.com/jaywarrick/JEX
 
 [code/sj-stuff/jfilament]
 checkout = git clone git://github.com/odinsbane/jfilament
@@ -199,7 +202,7 @@ checkout = git clone git://github.com/imcf/python-imcflibs
 checkout = git clone git://github.com/imcf/python-micrometa
 
 [code/sj-stuff/scijava-parallel]
-checkout = git clone git://github.com/PetrBainar/scijava-parallel
+checkout = git clone git://github.com/fiji-hpc/scijava-parallel
 
 [code/sj-stuff/slideset]
 checkout = git clone git://github.com/bnanes/slideset

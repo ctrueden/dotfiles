@@ -20,3 +20,6 @@ checkout = git clone git@github.com:uw-loci/logos
 
 [code/loci/matlab-plugins-in-imagej]
 checkout = git clone git@github.com:uw-loci/matlab-plugins-in-imagej
+
+[code/loci/syntheticfibergenerator]
+checkout = git clone git@github.com:uw-loci/syntheticfibergenerator

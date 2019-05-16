@@ -18,6 +18,9 @@ checkout = git clone git://github.com/Kitware/VTK
 [code/kitware/farsight]
 checkout = git clone git://github.com/hocheung20/farsight
 
+[code/kitware/itk-jupyter-widgets]
+checkout = git clone git://github.com/InsightSoftwareConsortium/itk-jupyter-widgets
+
 [code/kitware/vtk-js]
 checkout = git clone git://github.com/Kitware/vtk-js
 

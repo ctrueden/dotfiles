@@ -15,5 +15,8 @@ checkout = git clone git://github.com/ctrueden/restlessgamer.net
 [code/web/restlesswarrior.com]
 checkout = git clone git://github.com/ctrueden/restlesswarrior.com
 
+[code/web/rueden.us]
+checkout = git clone git://github.com/ctrueden/rueden.us
+
 [code/web/tykroll.com]
 checkout = git clone git://github.com/tmkroll/tykroll.com
