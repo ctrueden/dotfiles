@@ -1,7 +1,7 @@
 # UW-Madison LOCI projects (private)
 
-[code/loci/imagej-fdct]
-checkout = git clone git@github.com:uw-loci/imagej-fdct
+[code/loci/curvelets-imagej]
+checkout = git clone git@github.com:uw-loci/curvelets-imagej
 
 [code/loci/interviews]
 checkout = git clone git@github.com:uw-loci/interviews
