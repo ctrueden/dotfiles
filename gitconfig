@@ -68,10 +68,6 @@
 	tags = !git fetch --tags && git tag -l
 	list-tags = !git-list-tags
 
-	# hub
-	pr4 = !git pull-request -b openmicroscopy:dev_4_4
-	pr5 = !git pull-request -b openmicroscopy:develop
-
 	# new functions
 	fix = !fixup-rebase
 	ghr = "!ghr() { git remote set-url origin git://github.com/$1 && git remote set-url --push origin git@github.com:$1; }; ghr"
