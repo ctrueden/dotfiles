@@ -44,7 +44,6 @@ loci:~/code/loci
 nar:~/code/maven/nar-maven-plugin
 ops:~/code/imagej/imagej-ops
 p:~/code/ctrueden/ctr-private
-pil:~/code/imglib/pom-imglib2
 psb:~/code/scijava/pom-scijava-base
 psj:~/code/scijava/pom-scijava
 s:~/code/scifio/scifio

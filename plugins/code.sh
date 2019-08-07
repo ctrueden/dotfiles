@@ -72,7 +72,6 @@ alias goils='cd $CODE_IMGLIB/../imglib2-script'
 alias goilt='goilte'
 alias goilte='cd $CODE_IMGLIB/../imglib2-tests'
 alias goiltu='cd $CODE_IMGLIB/../imglib2-tutorials'
-alias gopil='cd $CODE_IMGLIB/../pom-imglib2'
 
 # ITK - https://github.com/Kitware/ITK
 export CODE_ITK="$HOME/code/kitware/ITK"
