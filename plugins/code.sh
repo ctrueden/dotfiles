@@ -29,7 +29,7 @@ alias gos='cd $CODE_SCIFIO'
 alias goscli='cd $CODE_SCIFIO/../scifio-cli'
 alias gost='cd $CODE_SCIFIO/../scifio-tutorials'
 
-# Bio-Formats - https://github.com/openmicroscopy/bioformats
+# Bio-Formats - https://github.com/ome/bioformats
 export CODE_BF="$CODE_BASE/ome/bioformats"
 alias gobf='cd $CODE_BF'
 alias gobfc='cd $CODE_BF/../ome-common-java/src/main/java/loci/common'
