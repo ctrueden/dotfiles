@@ -1,9 +1,5 @@
-#alias sha='ssh abyssinian.loci.wisc.edu'
-alias sha='ssh arrakis.microscopy.wisc.edu'
-#alias shb='ssh balinese.loci.wisc.edu'
-alias shb='ssh caladan.loci.wisc.edu'
-#alias shc='ssh cheetoh.loci.wisc.edu'
-alias shc='ssh dev.loci.wisc.edu'
-#alias shd='ssh devonrex.loci.wisc.edu'
-alias shd='ssh 144.92.48.181'
-alias sho='ssh open.microscopy.wisc.edu'
+alias sha='ssh loci.wisc.edu'             # abyssinian
+alias shb='ssh maven.scijava.org'         # balinese
+alias shc='ssh dev.loci.wisc.edu'         # cheetoh
+alias shd='ssh 144.92.48.190'             # devonrex
+alias sho='ssh open.microscopy.wisc.edu'  # open
