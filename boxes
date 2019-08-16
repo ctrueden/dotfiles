@@ -1,0 +1,54 @@
+#!/bin/sh
+
+# Reports the status of LOCI server boxes.
+
+fqdn() {
+  host=$(host "$1") &&
+    echo "$host" | head -n1 | sed 's/.* //' ||
+    echo '<none>'
+}
+
+rsaKey() {
+  key=$(ssh-keyscan -T1 -t rsa "$1" 2>/dev/null)
+  test "$key" &&
+    echo "$key" | ssh-keygen -lf - | cut -d' ' -f2 ||
+    echo '<unknown>'
+}
+
+boxes=(
+abyssinian:$(rsaKey imagej.net)
+balinese:$(rsaKey maven.scijava.org)
+gpu:$(rsaKey gpu.loci.wisc.edu)
+open:$(rsaKey open.microscopy.wisc.edu)
+dev:$(rsaKey dev.loci.wisc.edu)
+ftp:$(rsaKey ftp.loci.wisc.edu)
+ups:$(rsaKey ups.loci.wisc.edu)
+)
+# NB: Convert from space-separated to newline-separated.
+boxes=$(for box in "${boxes[@]}"; do echo "$box"; done)
+
+box() {
+  if ping -c1 -t1 "$1" >/dev/null
+  then
+    key=$(rsaKey "$1")
+    box=$(echo "$boxes" | grep "$key")
+    test "$box" &&
+      echo "${box%%:*}" ||
+      echo "$key"
+  else
+    echo '<offline>'
+  fi
+}
+
+tableRow() {
+  printf "%-16s %-16s %s\n" "$1" "$2" "$3"
+}
+
+tableRow IP Box FQDN
+tableRow -- --- ----
+for n in $(seq 129 199)
+do
+  ip=144.92.48.$n
+  tableRow "$ip" "$(box "$ip")" "$(fqdn "$ip")"
+done
+
