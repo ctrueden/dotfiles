@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 # Reports the status of LOCI server boxes.
 
