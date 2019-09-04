@@ -18,11 +18,13 @@ rsaKey() {
 boxes=(
 abyssinian:$(rsaKey imagej.net)
 balinese:$(rsaKey maven.scijava.org)
+devonrex:$(rsaKey 144.92.48.190)
 gpu:$(rsaKey gpu.loci.wisc.edu)
 open:$(rsaKey open.microscopy.wisc.edu)
 dev:$(rsaKey dev.loci.wisc.edu)
 ftp:$(rsaKey ftp.loci.wisc.edu)
 ups:$(rsaKey ups.loci.wisc.edu)
+crm2:$(rsaKey 144.92.48.161)
 )
 # NB: Convert from space-separated to newline-separated.
 boxes=$(for box in "${boxes[@]}"; do echo "$box"; done)
