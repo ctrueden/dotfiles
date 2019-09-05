@@ -8,6 +8,11 @@ fqdn() {
     echo '<none>'
 }
 
+mac() {
+  arp=$(arp "$1") || arp='<unknown>'
+  echo "$arp" | sed 's/.* at \(.*\) on .*/\1/' | sed 's/(incomplete)/-/'
+}
+
 rsaKey() {
   key=$(ssh-keyscan -T1 -t rsa "$1" 2>/dev/null)
   test "$key" &&
@@ -43,14 +48,14 @@ box() {
 }
 
 tableRow() {
-  printf "%-16s %-16s %s\n" "$1" "$2" "$3"
+  printf "%-16s %-16s %-20s %s\n" "$1" "$2" "$3" "$4"
 }
 
-tableRow IP Box FQDN
-tableRow -- --- ----
+tableRow IP Box Mac FQDN
+tableRow -- --- --- ----
 for n in $(seq 129 199)
 do
   ip=144.92.48.$n
-  tableRow "$ip" "$(box "$ip")" "$(fqdn "$ip")"
+  tableRow "$ip" "$(box "$ip")" "$(mac "$ip")" "$(fqdn "$ip")"
 done
 
