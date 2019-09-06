@@ -9,8 +9,8 @@ fqdn() {
 }
 
 mac() {
-  arp=$(arp "$1") || arp='<unknown>'
-  echo "$arp" | sed 's/.* at \(.*\) on .*/\1/' | sed 's/(incomplete)/-/'
+  mac=$(arp "$1" | grep -o '\([0-9a-f]\+:\)\{5\}[0-9a-f]\+')
+  test "$mac" && echo "$mac" || echo '<unknown>'
 }
 
 rsaKey() {
