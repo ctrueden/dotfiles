@@ -20,6 +20,15 @@ rsaKey() {
     echo '<unknown>'
 }
 
+pulse() {
+  if [ "$(uname)" = 'Darwin' ]
+  then
+    ping -c1 -t1 "$1" >/dev/null
+  else
+    ping -c1 -w1 "$1" >/dev/null
+  fi
+}
+
 boxes=(
 abyssinian:$(rsaKey imagej.net)
 balinese:$(rsaKey maven.scijava.org)
@@ -35,7 +44,7 @@ crm2:$(rsaKey 144.92.48.161)
 boxes=$(for box in "${boxes[@]}"; do echo "$box"; done)
 
 box() {
-  if ping -c1 -t1 "$1" >/dev/null
+  if pulse "$1"
   then
     key=$(rsaKey "$1")
     box=$(echo "$boxes" | grep "$key")
