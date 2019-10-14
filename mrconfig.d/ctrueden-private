@@ -1,8 +1,5 @@
 # Personal projects (private)
 
-[code/ctrueden/ctr-cfg-private]
-checkout = git clone git@bitbucket.org:ctrueden/ctr-cfg-private
-
 [code/ctrueden/ctr-private]
 checkout = git clone git@bitbucket.org:ctrueden/ctr-private
 
