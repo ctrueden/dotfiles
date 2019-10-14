@@ -67,6 +67,7 @@
 	st = status
 	tags = !git fetch --tags && git tag -l
 	list-tags = !git-list-tags
+	wiki-clone = clone -c 'remote.origin.mediaimport=true' -c 'remote.origin.mediaexport=true' -c 'remote.origin.namespaces=(Main) File Template'
 
 	# new functions
 	fix = !fixup-rebase
