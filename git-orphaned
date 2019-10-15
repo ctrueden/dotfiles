@@ -1,0 +1,8 @@
+#!/bin/sh
+
+# git-orphaned - list all orphaned commits succinctly
+
+for commit in $(git fsck --full --no-reflogs --unreachable | grep commit | cut -f3 -d' ')
+do
+git log -1 --pretty=format:"%h%x09%an%x09%ad%x09%s" "$commit"
+done
