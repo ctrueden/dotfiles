@@ -1,13 +1,13 @@
-# SLIM-Curve repositories (private)
+# FLIMLib repositories (private)
 
-[code/slim/ATD_TRI]
+[code/flimlib/ATD_TRI]
 checkout = git svn clone -s https://subversion.assembla.com/svn/ATD_TRI/trunk
 
-[code/slim/ATD_Libraries]
+[code/flimlib/ATD_Libraries]
 checkout = git svn clone -s https://subversion.assembla.com/svn/ATD_Libraries
 
-[code/slim/ParamEstimationTestHarness]
+[code/flimlib/ParamEstimationTestHarness]
 checkout = git svn clone -s https://subversion.assembla.com/svn/TRI2/ParamEstimationTestHarness
 
-[code/slim/Tri2]
+[code/flimlib/Tri2]
 checkout = git svn clone -s https://subversion.assembla.com/svn/TRI2/Tri2/trunk
