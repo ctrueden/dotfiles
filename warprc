@@ -6,7 +6,6 @@ bfp:~/code/ome/bioformats/components/bio-formats-plugins/src/loci/plugins
 bfx:~/code/ome/ome-model/ome-xml/src/main/java/ome/xml
 cb:~/code/fiji/cookbook
 cfg:~/code/ctrueden/dotfiles
-cfp:~/code/ctrueden/ctr-cfg-private
 cp:~/code/cellprofiler/cellprofiler
 ctr:~/code/ctrueden
 d:~/data
@@ -51,7 +50,7 @@ sc:~/code/ctrueden/ctr-scripts
 scli:~/code/scifio/scifio-cli
 sjc:~/code/scijava/scijava-common
 sjs:~/code/scijava/scijava-scripts
-slim:~/code/slim
+flim:~/code/flimlib
 st:~/code/scifio/scifio-tutorials
-tm:~/code/fiji/fiji/../TrackMate
+tm:~/code/fiji/TrackMate
 v:~/code/loci/visbio/src/main/java/loci/visbio
