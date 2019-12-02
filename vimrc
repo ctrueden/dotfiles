@@ -52,6 +52,7 @@ if filereadable(vundlepath . '/README.md')
 	Plugin 'tpope/vim-repeat'
 	Plugin 'tpope/vim-sensible'
 	Plugin 'tpope/vim-surround'
+	Plugin 'udalov/kotlin-vim'
 	Plugin 'vim-scripts/argtextobj.vim'
 
 	call vundle#end()            " required
