@@ -1,9 +1,0 @@
-#!/bin/bash
-for tag in $(git tag -l)
-do
-  echo "$(git rev-parse "$tag")	$tag"
-done
-for remote in $(git remote)
-do
-  echo "[$remote]" && git ls-remote $remote | grep '/tags/'
-done
