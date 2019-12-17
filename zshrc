@@ -34,7 +34,6 @@ zgen_init() {
 # NB: Does not work with antigen or zgen; see:
 # https://github.com/zsh-users/antigen/issues/75
 #	omz plugins/last-working-dir  # return to last dir in new shell instances
-	omz plugins/lol               # omg lolbash
 	omz plugins/mvn               # maven color, aliases and completion
 	omz plugins/npm               # npm completion
 	omz plugins/osx               # OS X functions, including itunes
