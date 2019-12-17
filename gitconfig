@@ -1,79 +1,79 @@
 [alias]
-	# shortcuts
-	br = branch
-	bra = branch -avv
-	co = checkout
-	cm = cherry -v master
-	cp = cherry-pick
-	cpc = cherry-pick --continue
-	cpo = cherry-pick --strategy=recursive --strategy-option=ours
-	cpt = cherry-pick --strategy=recursive --strategy-option=theirs
-	cl = clone
-	ci = commit
-	cia = commit --amend
-	conflicts = diff --no-prefix --name-only --diff-filter=U
-	db = diff-blame
-	di = diff --no-prefix
-	dif = diff --no-prefix
-	dic = diff --color-words --no-prefix
-	dicc = diff --color-words --word-diff-regex=. --no-prefix
-	dis = diff --staged --no-prefix
-	disc = diff --staged --color-words --no-prefix
-	discc = diff --staged --color-words --word-diff-regex=. --no-prefix
-	fa = !git fetch --all --prune && git fetch --all --tags
-	fb = filter-branch -f --prune-empty
-	fbi = filter-branch -f --prune-empty --index-filter
-	fbs = filter-branch -f --prune-empty --subdirectory-filter
-	fbt = filter-branch -f --prune-empty --tree-filter
-	graph = log --date-order --graph --decorate --oneline
-	lns = log --name-status
-	follow = log --name-status --follow
-	lp1 = log -p -1
-	lp2 = log -p -2
-	lp3 = log -p -3
-	lp4 = log -p -4
-	lp5 = log -p -5
-	lp6 = log -p -6
-	lp7 = log -p -7
-	lp8 = log -p -8
-	lp9 = log -p -9
-	ff = merge --ff --ff-only 'HEAD@{u}'
-	ffs = !git stash && git ff && git pop
-	ls = ls-files
-	move = mv
-	ren = mv
-	rename = mv
-	pl = pull
-	prb = pull --rebase
-	ps = !fix-git-remotes && git push
-	psf = push --force
-	ra = rebase --abort
-	rc = rebase --continue
-	ri = rebase -i
-	ri1 = rebase -i HEAD~1
-	ri2 = rebase -i HEAD~2
-	ri3 = rebase -i HEAD~3
-	ri4 = rebase -i HEAD~4
-	ri5 = rebase -i HEAD~5
-	ri6 = rebase -i HEAD~6
-	ri7 = rebase -i HEAD~7
-	ri8 = rebase -i HEAD~8
-	ri9 = rebase -i HEAD~9
-	rs = rebase --skip
-	ws = rebase --whitespace=strip
-	ru = remote update --prune
-	rhup = reset --hard 'HEAD@{u}'
-	pop = stash pop --index
-	st = status
-	tags = !git fetch --tags && git tag -l
-	list-tags = !git-list-tags
-	wiki-clone = clone -c 'remote.origin.mediaimport=true' -c 'remote.origin.mediaexport=true' -c 'remote.origin.namespaces=(Main) File Template'
+	# shortcuts (all deprecated in favor of shell aliases)
+	br = !echo 'Use gb' # branch
+	bra = !echo 'Use gbv ("git branch verbose")' # branch -avv
+	co = !echo 'Use gco' # checkout
+	cm = !echo 'Use gum ("git unmerged")' # cherry -v master
+	cp = !echo 'Use gcp' # cherry-pick
+	cpc = !echo 'Use gcpc' # cherry-pick --continue
+	cpo = !echo 'Use gcpo' # cherry-pick --strategy=recursive --strategy-option=ours
+	cpt = !echo 'Use gcpt' # cherry-pick --strategy=recursive --strategy-option=theirs
+	cl = !echo 'Use gcl' # clone
+	ci = !echo 'Use gc' # commit
+	cia = !echo 'Use gc!' # commit --amend
+	conflicts = !echo 'Use conflicts or conflicts!' # diff --no-prefix --name-only --diff-filter=U
+	db = !echo 'Use gdbl' # diff-blame
+	di = !echo 'Use gd or gd!' # diff --no-prefix
+	dif = !echo 'Use gd or gd!' # diff --no-prefix
+	dic = !echo 'Use gdcw or gdcw!' # diff --color-words --no-prefix
+	dicc = !echo 'Use gdcw. or gdcw.!' # diff --color-words --word-diff-regex=. --no-prefix
+	dis = !echo 'Use gds or gds!' # diff --staged --no-prefix
+	disc = !echo 'Use gdscw or gdscw!' # diff --staged --color-words --no-prefix
+	discc = !echo 'Use gdscw. or gdscw.!' # diff --staged --color-words --word-diff-regex=. --no-prefix
+	fa = !echo 'Use gfat' # !git fetch --all --prune && git fetch --all --tags
+	fb = !echo 'Use gfb' # filter-branch -f --prune-empty
+	fbi = !echo 'Use gfbi' # filter-branch -f --prune-empty --index-filter
+	fbs = !echo 'Use gfbs' # filter-branch -f --prune-empty --subdirectory-filter
+	fbt = !echo 'Use gfbt' # filter-branch -f --prune-empty --tree-filter
+	graph = !echo 'Use glog' # log --date-order --graph --decorate --oneline
+	lns = !echo 'Use glns' # log --name-status
+	follow = !echo 'Use glnsf' # log --name-status --follow
+	lp1 = !echo 'Use gll 1' # log -p -1
+	lp2 = !echo 'Use gll 2' # log -p -2
+	lp3 = !echo 'Use gll 3' # log -p -3
+	lp4 = !echo 'Use gll 4' # log -p -4
+	lp5 = !echo 'Use gll 5' # log -p -5
+	lp6 = !echo 'Use gll 6' # log -p -6
+	lp7 = !echo 'Use gll 7' # log -p -7
+	lp8 = !echo 'Use gll 8' # log -p -8
+	lp9 = !echo 'Use gll 9' # log -p -9
+	ff = !echo 'Use gff' # merge --ff --ff-only 'HEAD@{u}'
+	ffs = !echo 'Use gffs' # !git stash && git ff && git pop
+	ls = !echo 'Use gls' # ls-files
+	move = !echo 'Use gmv' # mv
+	ren = !echo 'Use gmv' # mv
+	rename = !echo 'Use gmv' # mv
+	pl = !echo 'Use gl' # pull
+	prb = !echo 'Use gup' # pull --rebase
+	ps = !echo 'Use gps' # !fix-git-remotes && git push
+	psf = !echo 'Use gpf or gpf!' # push --force
+	ra = !echo 'Use grba' # rebase --abort
+	rc = !echo 'Use grbc' # rebase --continue
+	ri = !echo 'Use grbi or gri' # rebase -i
+	ri1 = !echo 'Use gri 1' # rebase -i HEAD~1
+	ri2 = !echo 'Use gri 2' # rebase -i HEAD~2
+	ri3 = !echo 'Use gri 3' # rebase -i HEAD~3
+	ri4 = !echo 'Use gri 4' # rebase -i HEAD~4
+	ri5 = !echo 'Use gri 5' # rebase -i HEAD~5
+	ri6 = !echo 'Use gri 6' # rebase -i HEAD~6
+	ri7 = !echo 'Use gri 7' # rebase -i HEAD~7
+	ri8 = !echo 'Use gri 8' # rebase -i HEAD~8
+	ri9 = !echo 'Use gri 9' # rebase -i HEAD~9
+	rs = !echo 'Use grbs' # rebase --skip
+	ws = !echo 'Use gws' # rebase --whitespace=strip
+	ru = !echo 'Use grup or grup!' # remote update --prune
+	rhup = !echo 'Use grhup' # reset --hard 'HEAD@{u}'
+	pop = !echo 'Use gpop' # stash pop --index
+	st = !echo 'Use gst' # status
+	tags = !echo 'Use gtags' # !git fetch --tags && git tag -l
+	list-tags = !echo 'Use gtagsv'
+	wiki-clone = !echo 'Use wikiclone' # clone -c 'remote.origin.mediaimport=true' -c 'remote.origin.mediaexport=true' -c 'remote.origin.namespaces=(Main) File Template'
 
 	# new functions
-	fix = !fixup-rebase
-	ghr = "!ghr() { git remote set-url origin git://github.com/$1 && git remote set-url --push origin git@github.com:$1; }; ghr"
-	pack = !git reset --hard && git for-each-ref --format='%(refname)' refs/original/ | xargs -n 1 git update-ref -d && git reflog expire --expire=now --all && git gc --aggressive --prune=now
-	spop = !git checkout 'stash^{tree}' -- . && git stash drop
+	fix = !echo 'Use gri'
+	ghr = !echo 'Use ghr' # "!ghr() { git remote set-url origin git://github.com/$1 && git remote set-url --push origin git@github.com:$1; }; ghr"
+	pack = !echo 'Use gpack' # !git reset --hard && git for-each-ref --format='%(refname)' refs/original/ | xargs -n 1 git update-ref -d && git reflog expire --expire=now --all && git gc --aggressive --prune=now
+	spop = !echo 'Use gpop!' # !git checkout 'stash^{tree}' -- . && git stash drop
 
 [core]
 	pager = less -FSX
