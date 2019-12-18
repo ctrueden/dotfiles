@@ -1,79 +1,79 @@
 [alias]
 	# shortcuts (all deprecated in favor of shell aliases)
-	br = !echo 'Use gb' # branch
-	bra = !echo 'Use gbv ("git branch verbose")' # branch -avv
-	co = !echo 'Use gco' # checkout
-	cm = !echo 'Use gum ("git unmerged")' # cherry -v master
-	cp = !echo 'Use gcp' # cherry-pick
-	cpc = !echo 'Use gcpc' # cherry-pick --continue
-	cpo = !echo 'Use gcpo' # cherry-pick --strategy=recursive --strategy-option=ours
-	cpt = !echo 'Use gcpt' # cherry-pick --strategy=recursive --strategy-option=theirs
-	cl = !echo 'Use gcl' # clone
-	ci = !echo 'Use gc' # commit
-	cia = !echo 'Use gc!' # commit --amend
-	conflicts = !echo 'Use conflicts or conflicts!' # diff --no-prefix --name-only --diff-filter=U
-	db = !echo 'Use gdbl' # diff-blame
-	di = !echo 'Use gd or gd!' # diff --no-prefix
-	dif = !echo 'Use gd or gd!' # diff --no-prefix
-	dic = !echo 'Use gdcw or gdcw!' # diff --color-words --no-prefix
-	dicc = !echo 'Use gdcw. or gdcw.!' # diff --color-words --word-diff-regex=. --no-prefix
-	dis = !echo 'Use gds or gds!' # diff --staged --no-prefix
-	disc = !echo 'Use gdscw or gdscw!' # diff --staged --color-words --no-prefix
-	discc = !echo 'Use gdscw. or gdscw.!' # diff --staged --color-words --word-diff-regex=. --no-prefix
-	fa = !echo 'Use gfat' # !git fetch --all --prune && git fetch --all --tags
-	fb = !echo 'Use gfb' # filter-branch -f --prune-empty
-	fbi = !echo 'Use gfbi' # filter-branch -f --prune-empty --index-filter
-	fbs = !echo 'Use gfbs' # filter-branch -f --prune-empty --subdirectory-filter
-	fbt = !echo 'Use gfbt' # filter-branch -f --prune-empty --tree-filter
-	graph = !echo 'Use glog' # log --date-order --graph --decorate --oneline
-	lns = !echo 'Use glns' # log --name-status
-	follow = !echo 'Use glnsf' # log --name-status --follow
-	lp1 = !echo 'Use gll 1' # log -p -1
-	lp2 = !echo 'Use gll 2' # log -p -2
-	lp3 = !echo 'Use gll 3' # log -p -3
-	lp4 = !echo 'Use gll 4' # log -p -4
-	lp5 = !echo 'Use gll 5' # log -p -5
-	lp6 = !echo 'Use gll 6' # log -p -6
-	lp7 = !echo 'Use gll 7' # log -p -7
-	lp8 = !echo 'Use gll 8' # log -p -8
-	lp9 = !echo 'Use gll 9' # log -p -9
-	ff = !echo 'Use gff' # merge --ff --ff-only 'HEAD@{u}'
-	ffs = !echo 'Use gffs' # !git stash && git ff && git pop
-	ls = !echo 'Use gls' # ls-files
-	move = !echo 'Use gmv' # mv
-	ren = !echo 'Use gmv' # mv
-	rename = !echo 'Use gmv' # mv
-	pl = !echo 'Use gl' # pull
-	prb = !echo 'Use gup' # pull --rebase
-	ps = !echo 'Use gps' # !fix-git-remotes && git push
-	psf = !echo 'Use gpf or gpf!' # push --force
-	ra = !echo 'Use grba' # rebase --abort
-	rc = !echo 'Use grbc' # rebase --continue
-	ri = !echo 'Use grbi or gri' # rebase -i
-	ri1 = !echo 'Use gri 1' # rebase -i HEAD~1
-	ri2 = !echo 'Use gri 2' # rebase -i HEAD~2
-	ri3 = !echo 'Use gri 3' # rebase -i HEAD~3
-	ri4 = !echo 'Use gri 4' # rebase -i HEAD~4
-	ri5 = !echo 'Use gri 5' # rebase -i HEAD~5
-	ri6 = !echo 'Use gri 6' # rebase -i HEAD~6
-	ri7 = !echo 'Use gri 7' # rebase -i HEAD~7
-	ri8 = !echo 'Use gri 8' # rebase -i HEAD~8
-	ri9 = !echo 'Use gri 9' # rebase -i HEAD~9
-	rs = !echo 'Use grbs' # rebase --skip
-	ws = !echo 'Use gws' # rebase --whitespace=strip
-	ru = !echo 'Use grup or grup!' # remote update --prune
-	rhup = !echo 'Use grhup' # reset --hard 'HEAD@{u}'
-	pop = !echo 'Use gpop' # stash pop --index
-	st = !echo 'Use gst' # status
-	tags = !echo 'Use gtags' # !git fetch --tags && git tag -l
-	list-tags = !echo 'Use gtagsv'
-	wiki-clone = !echo 'Use wikiclone' # clone -c 'remote.origin.mediaimport=true' -c 'remote.origin.mediaexport=true' -c 'remote.origin.namespaces=(Main) File Template'
+	br = !deprecated 'Use gb' # branch
+	bra = !deprecated 'Use gbv ("git branch verbose")' # branch -avv
+	co = !deprecated 'Use gco' # checkout
+	cm = !deprecated 'Use gum ("git unmerged")' # cherry -v master
+	cp = !deprecated 'Use gcp' # cherry-pick
+	cpc = !deprecated 'Use gcpc' # cherry-pick --continue
+	cpo = !deprecated 'Use gcpo' # cherry-pick --strategy=recursive --strategy-option=ours
+	cpt = !deprecated 'Use gcpt' # cherry-pick --strategy=recursive --strategy-option=theirs
+	cl = !deprecated 'Use gcl' # clone
+	ci = !deprecated 'Use gc' # commit
+	cia = !deprecated 'Use gc!' # commit --amend
+	conflicts = !deprecated 'Use conflicts or conflicts!' # diff --no-prefix --name-only --diff-filter=U
+	db = !deprecated 'Use gdbl' # diff-blame
+	di = !deprecated 'Use gd or gd!' # diff --no-prefix
+	dif = !deprecated 'Use gd or gd!' # diff --no-prefix
+	dic = !deprecated 'Use gdcw or gdcw!' # diff --color-words --no-prefix
+	dicc = !deprecated 'Use gdcw. or gdcw.!' # diff --color-words --word-diff-regex=. --no-prefix
+	dis = !deprecated 'Use gds or gds!' # diff --staged --no-prefix
+	disc = !deprecated 'Use gdscw or gdscw!' # diff --staged --color-words --no-prefix
+	discc = !deprecated 'Use gdscw. or gdscw.!' # diff --staged --color-words --word-diff-regex=. --no-prefix
+	fa = !deprecated 'Use gfat' # !git fetch --all --prune && git fetch --all --tags
+	fb = !deprecated 'Use gfb' # filter-branch -f --prune-empty
+	fbi = !deprecated 'Use gfbi' # filter-branch -f --prune-empty --index-filter
+	fbs = !deprecated 'Use gfbs' # filter-branch -f --prune-empty --subdirectory-filter
+	fbt = !deprecated 'Use gfbt' # filter-branch -f --prune-empty --tree-filter
+	graph = !deprecated 'Use glog' # log --date-order --graph --decorate --oneline
+	lns = !deprecated 'Use glns' # log --name-status
+	follow = !deprecated 'Use glnsf' # log --name-status --follow
+	lp1 = !deprecated 'Use gll 1' # log -p -1
+	lp2 = !deprecated 'Use gll 2' # log -p -2
+	lp3 = !deprecated 'Use gll 3' # log -p -3
+	lp4 = !deprecated 'Use gll 4' # log -p -4
+	lp5 = !deprecated 'Use gll 5' # log -p -5
+	lp6 = !deprecated 'Use gll 6' # log -p -6
+	lp7 = !deprecated 'Use gll 7' # log -p -7
+	lp8 = !deprecated 'Use gll 8' # log -p -8
+	lp9 = !deprecated 'Use gll 9' # log -p -9
+	ff = !deprecated 'Use gff' # merge --ff --ff-only 'HEAD@{u}'
+	ffs = !deprecated 'Use gffs' # !git stash && git ff && git pop
+	ls = !deprecated 'Use gls' # ls-files
+	move = !deprecated 'Use gmv' # mv
+	ren = !deprecated 'Use gmv' # mv
+	rename = !deprecated 'Use gmv' # mv
+	pl = !deprecated 'Use gl' # pull
+	prb = !deprecated 'Use gup' # pull --rebase
+	ps = !deprecated 'Use gps' # !fix-git-remotes && git push
+	psf = !deprecated 'Use gpf or gpf!' # push --force
+	ra = !deprecated 'Use grba' # rebase --abort
+	rc = !deprecated 'Use grbc' # rebase --continue
+	ri = !deprecated 'Use grbi or gri' # rebase -i
+	ri1 = !deprecated 'Use gri 1' # rebase -i HEAD~1
+	ri2 = !deprecated 'Use gri 2' # rebase -i HEAD~2
+	ri3 = !deprecated 'Use gri 3' # rebase -i HEAD~3
+	ri4 = !deprecated 'Use gri 4' # rebase -i HEAD~4
+	ri5 = !deprecated 'Use gri 5' # rebase -i HEAD~5
+	ri6 = !deprecated 'Use gri 6' # rebase -i HEAD~6
+	ri7 = !deprecated 'Use gri 7' # rebase -i HEAD~7
+	ri8 = !deprecated 'Use gri 8' # rebase -i HEAD~8
+	ri9 = !deprecated 'Use gri 9' # rebase -i HEAD~9
+	rs = !deprecated 'Use grbs' # rebase --skip
+	ws = !deprecated 'Use gws' # rebase --whitespace=strip
+	ru = !deprecated 'Use grup or grup!' # remote update --prune
+	rhup = !deprecated 'Use grhup' # reset --hard 'HEAD@{u}'
+	pop = !deprecated 'Use gpop' # stash pop --index
+	st = !deprecated 'Use gst' # status
+	tags = !deprecated 'Use gtags' # !git fetch --tags && git tag -l
+	list-tags = !deprecated 'Use gtagsv'
+	wiki-clone = !deprecated 'Use wikiclone' # clone -c 'remote.origin.mediaimport=true' -c 'remote.origin.mediaexport=true' -c 'remote.origin.namespaces=(Main) File Template'
 
 	# new functions
-	fix = !echo 'Use gri'
-	ghr = !echo 'Use ghr' # "!ghr() { git remote set-url origin git://github.com/$1 && git remote set-url --push origin git@github.com:$1; }; ghr"
-	pack = !echo 'Use gpack' # !git reset --hard && git for-each-ref --format='%(refname)' refs/original/ | xargs -n 1 git update-ref -d && git reflog expire --expire=now --all && git gc --aggressive --prune=now
-	spop = !echo 'Use gpop!' # !git checkout 'stash^{tree}' -- . && git stash drop
+	fix = !deprecated 'Use gri'
+	ghr = !deprecated 'Use ghr' # "!ghr() { git remote set-url origin git://github.com/$1 && git remote set-url --push origin git@github.com:$1; }; ghr"
+	pack = !deprecated 'Use gpack' # !git reset --hard && git for-each-ref --format='%(refname)' refs/original/ | xargs -n 1 git update-ref -d && git reflog expire --expire=now --all && git gc --aggressive --prune=now
+	spop = !deprecated 'Use gpop!' # !git checkout 'stash^{tree}' -- . && git stash drop
 
 [core]
 	pager = less -FSX
