@@ -39,9 +39,9 @@ filetype plugin on
 " Do not beep on errors
 set vb
 
-" Press F2 to wrap a long line under the cursor at 80 chars
+" Press F2 to justify selected text at 78 chars, similar to man pages.
 " Also try selecting with V followed by gq to format text blocks to 80 chars
-map <F2> 081lBhs<cr><esc>
+map <F2> :!(echo '.ll 78'; echo '.nh'; cat -) \| nroff \| sed -e :a -e '/^\n*$/{$d;N;};/\n$/ba'<CR>
 
 " Simple code folding -- use zo to open, zc to close, F3 to globally toggle
 " (from http://vim.sourceforge.net/tips/tip.php?tip_id=385)
