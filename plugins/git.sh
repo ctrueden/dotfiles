@@ -48,6 +48,16 @@ alias gtags='git fetch --tags && git tag -l --sort=taggerdate'
 alias gum='git cherry -v master'
 alias gws='git rebase --whitespace=strip'
 alias wikiclone='clone -c '\''remote.origin.mediaimport=true'\'' -c '\''remote.origin.mediaexport=true'\'' -c '\''remote.origin.namespaces=(Main) File Template'\'
+gh() {
+  alias | grep git | grep "$@"
+  for cmd in $(declare -f | grep '^[a-z]\+ () {$' | sed 's/^\([a-z]*\).*/\1/')
+  do
+    func=$(which "$cmd")
+    echo "$func" | grep -q git &&
+    echo "$func" | grep -q "$@" &&
+    echo "$func" | grep -C9999 "$@"
+  done
+}
 ghr() {
   local slug=$1
   test "$slug" || slug=$(git remote -v | cut -d"$(echo "\t")" -f2 | head -n1 | sed 's/.*github.com\/\([^ ]*\).*/\1/')
