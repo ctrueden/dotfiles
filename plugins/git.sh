@@ -48,7 +48,7 @@ alias gtags='git fetch --tags && git tag -l --sort=taggerdate'
 alias gum='git cherry -v master'
 alias gws='git rebase --whitespace=strip'
 alias wikiclone='clone -c '\''remote.origin.mediaimport=true'\'' -c '\''remote.origin.mediaexport=true'\'' -c '\''remote.origin.namespaces=(Main) File Template'\'
-gh() {
+ghelp() {
   alias | grep git | grep "$@"
   for cmd in $(declare -f | grep '^[a-z]\+ () {$' | sed 's/^\([a-z]*\).*/\1/')
   do
