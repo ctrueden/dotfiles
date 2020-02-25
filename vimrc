@@ -52,6 +52,14 @@ if filereadable(vundlepath . '/README.md')
 	Plugin 'tpope/vim-repeat'
 	Plugin 'tpope/vim-sensible'
 	Plugin 'tpope/vim-surround'
+
+	" Make gx use open-browser plugin instead of broken netrw
+	" See also https://github.com/vim/vim/issues/4738
+	Plugin 'tyru/open-browser.vim'
+	let g:netrw_nogx = 1 " disable netrw's gx mapping.
+	nmap gx <Plug>(openbrowser-smart-search)
+	vmap gx <Plug>(openbrowser-smart-search)
+
 	Plugin 'udalov/kotlin-vim'
 	Plugin 'vim-scripts/argtextobj.vim'
 
