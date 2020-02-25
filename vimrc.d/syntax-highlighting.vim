@@ -20,7 +20,3 @@ match WhiteSpaceEOL /\s\+$/
 " Highlight leading tab/space mixtures
 highlight LeadingTabSpaceMix ctermbg=lightgreen
 match LeadingTabSpaceMix /^\s*\(\t \)\|\( \t\)\s*/
-
-" Highlight lines over 80 characters
-highlight OverLength ctermbg=brown ctermfg=white guibg=#592929
-match OverLength /\%81v.\+/"
