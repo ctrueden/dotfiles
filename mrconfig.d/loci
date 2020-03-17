@@ -3,6 +3,9 @@
 [code/loci/4d-software-suite]
 checkout = git clone git://github.com/uw-loci/4d-software-suite
 
+[code/loci/adaptive-coloc]
+checkout = git clone git://github.com/uw-loci/adaptive-coloc
+
 [code/loci/coding-club]
 checkout = git clone git://github.com/uw-loci/coding-club
 
