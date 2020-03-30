@@ -16,4 +16,4 @@ alias tdy='mvn tidy:pom'
 
 # build it!
 alias b='mvn clean install'
-alias bs='mvn -DskipTests -Denforcer.skip clean install'
+alias bs='mvn -DskipTests -Denforcer.skip -Dinvoker.skip clean install'
