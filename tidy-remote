@@ -16,5 +16,5 @@ git branch -av | grep "$remote"
 # delete non-integration branches from the given remote
 for b in $(git branch -a|grep "$remote"|grep -v master|grep -v gh-pages)
 do
-  (set -x && git ps "$remote" :"${b#*remotes/$remote/}")
+  (set -x && git push "$remote" :"${b#*remotes/$remote/}")
 done
