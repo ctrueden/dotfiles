@@ -76,14 +76,13 @@ gri() {
     0)
       # If nothing is given, rebase against upstream.
       ref='HEAD@{u}'
-      shift
       ;;
     1)
       # If a number is given, rebase that many commits back.
-      if test echo "$1" | grep -q '[^0-9]'; then ref="HEAD~$1"; shift; fi
+      if echo "$1" | grep -q '^[0-9]\+$'; then ref="HEAD~$1"; shift; fi
       ;;
   esac
-  test "$ref" && grbi "$ref" $@ || git rgbi $@
+  if [ "$ref" ]; then grbi "$ref" $@; else grbi $@; fi
 }
 gtagsv() {
   gtags | while read tag
