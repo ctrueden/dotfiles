@@ -11,7 +11,7 @@ test -d "$ZGEN" || zgen_install
 
 source "$ZGEN/zgen.zsh"
 
-omz() {
+omzsh() {
 	zgen oh-my-zsh $@
 
 	# Disable oh-my-zsh's automatic updates; we'll use "zgen update" instead.
@@ -20,28 +20,28 @@ omz() {
 
 zgen_init() {
 	# --== oh-my-zsh plugins ==--
-	omz
-	omz plugins/vi-mode           # vi mode CLI instead of emacs
-	omz plugins/brew              # homebrew completion
-	omz plugins/colorize          # highlight files based on type with pygmentize
-	omz plugins/cp                # cpv shows progress while file is copying
-	omz plugins/encode64          # e64 and d64 for base64 encoding and decoding
-	omz plugins/extract           # extract command for unpacking many archives
-	omz plugins/git               # git aliases and improved completion
-	omz plugins/github            # hub and other github functions
-	omz plugins/history           # history aliases
-	omz plugins/jsontools         # json functions
+	omzsh
+	omzsh plugins/vi-mode           # vi mode CLI instead of emacs
+	omzsh plugins/brew              # homebrew completion
+	omzsh plugins/colorize          # highlight files based on type with pygmentize
+	omzsh plugins/cp                # cpv shows progress while file is copying
+	omzsh plugins/encode64          # e64 and d64 for base64 encoding and decoding
+	omzsh plugins/extract           # extract command for unpacking many archives
+	omzsh plugins/git               # git aliases and improved completion
+	omzsh plugins/github            # hub and other github functions
+	omzsh plugins/history           # history aliases
+	omzsh plugins/jsontools         # json functions
 # NB: Does not work with antigen or zgen; see:
 # https://github.com/zsh-users/antigen/issues/75
-#	omz plugins/last-working-dir  # return to last dir in new shell instances
-	omz plugins/mvn               # maven color, aliases and completion
-	omz plugins/npm               # npm completion
-	omz plugins/osx               # OS X functions, including itunes
-	omz plugins/urltools          # urlencode and urldecode functions
-	omz plugins/vundle            # plugin manager for vim
-	omz plugins/wd                # wd "warp directory" command
-	omz plugins/web-search        # web search commands (google etc.)
-	omz plugins/z                 # z "jump around" command
+#	omzsh plugins/last-working-dir  # return to last dir in new shell instances
+	omzsh plugins/mvn               # maven color, aliases and completion
+	omzsh plugins/npm               # npm completion
+	omzsh plugins/osx               # OS X functions, including itunes
+	omzsh plugins/urltools          # urlencode and urldecode functions
+	omzsh plugins/vundle            # plugin manager for vim
+	omzsh plugins/wd                # wd "warp directory" command
+	omzsh plugins/web-search        # web search commands (google etc.)
+	omzsh plugins/z                 # z "jump around" command
 
 	# --== zsh-users plugins ==--
 	zgen load zsh-users/zsh-syntax-highlighting
