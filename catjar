@@ -1,0 +1,27 @@
+#!/bin/sh
+
+#
+# catjar - Download a Maven artifact and list its contents.
+#
+
+catjar() {
+  gav=$1
+  tmpdir="tmp-catjar-$(uuidgen)"
+  output=$(mvn dependency:copy -Dartifact="$gav" -DoutputDirectory="$tmpdir")
+  path=$(echo "$output" | grep 'Copying ')
+  path=${path##* }
+  if [ ! -f "$path" ]
+  then
+    echo "Cannot find artifact: $path"
+    echo "Build output:"
+    echo "$output"
+    exit 1
+  fi
+  jar tf "$path"
+  rm -rf "$tmpdir"
+}
+
+for arg in $@
+do
+  catjar "$arg"
+done
