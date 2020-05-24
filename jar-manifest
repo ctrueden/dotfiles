@@ -1,0 +1,8 @@
+#!/usr/bin/env groovy
+for (arg in args) {
+  println("[$arg]")
+  jarPath = new java.io.File(arg).getAbsolutePath()
+  jarURL = new java.net.URL("jar:file:" + jarPath + "!/")
+  m = jarURL.openConnection().getManifest()
+  m.getMainAttributes().each { k, v -> println("$k = $v") }
+}
