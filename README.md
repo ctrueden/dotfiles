@@ -9,15 +9,11 @@ Getting Started
 ---------------
 
 1. Clone this repository somewhere.
-2. Run the ```config-links.sh``` script.
+2. Run the ```setup.sh``` script.
 
 
 LICENSE
 -------
 
-To the extent possible under law, except as otherwise stated in
-individual file headers, I waive all copyright and related or
-neighboring rights to these configuration files.
-
-See the CC0 1.0 Universal license for details:
-    http://creativecommons.org/publicdomain/zero/1.0/
+This is free and unencumbered software released into the public domain.
+See the UNLICENSE file or http://unlicense.org/ for details.
