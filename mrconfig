@@ -5,7 +5,7 @@
 [DEFAULT]
 
 # Enable mr to use git-svn as appropriate.
-include = if [ -d /usr/local/Cellar/mr ]; then cat /usr/local/Cellar/mr/*/share/mr/git-svn; fi
+include = if [ -d /usr/local/Cellar/mr ]; then cat "$(brew --prefix mr)/share/mr/git-svn"; fi
 
 # Make the git update command more thorough.
 git_update = git remote update --prune && git fetch --tags && git merge --ff 'HEAD@{u}'
