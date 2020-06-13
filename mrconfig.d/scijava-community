@@ -42,6 +42,9 @@ checkout = git clone git://github.com/brouhardlab/Kappa
 [code/sj-stuff/KinemaJ]
 checkout = git clone git://github.com/nstifani/KinemaJ
 
+[code/sj-stuff/LabelEditor]
+checkout = git clone git://github.com/juglab/LabelEditor
+
 [code/sj-stuff/LimeSeg]
 checkout = git clone git://github.com/NicoKiaru/LimeSeg
 
@@ -89,6 +92,9 @@ checkout = git clone git://git.code.sf.net/p/antibiogramj/code antibiogramj
 
 [code/sj-stuff/colocalization-influences]
 checkout = git clone git://github.com/bic-kn/colocalization-influences
+
+[code/sj-stuff/deepimagej-plugin]
+checkout = git clone git://github.com/deepimagej/deepimagej-plugin
 
 [code/sj-stuff/deepnetj]
 checkout = git clone git://github.com/Bergwerf/deepnetj
@@ -180,8 +186,17 @@ checkout = git clone git://github.com/bhoeckendorf/klb-bdv
 [code/sj-stuff/legacy-update-bug-mcve]
 checkout = git clone git://github.com/stelfrich/legacy-update-bug-mcve
 
+[code/sj-stuff/mars-core]
+checkout = git clone git://github.com/duderstadt-lab/mars-core
+
+[code/sj-stuff/mars-swing]
+checkout = git clone git://github.com/duderstadt-lab/mars-swing
+
 [code/sj-stuff/mcib3d-core]
 checkout = git clone git://github.com/mcib3d/mcib3d-core
+
+[code/sj-stuff/metaseg]
+checkout = git clone git://github.com/juglab/metaseg
 
 [code/sj-stuff/mroi]
 checkout = git clone git://github.com/madhadron/mroi
