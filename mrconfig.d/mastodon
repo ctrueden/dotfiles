@@ -1,13 +1,7 @@
 # Mastodon - https://github.com/mastodon-sc
 
-[code/mastodon/mastodon-tracking]
-checkout = git clone git://github.com/mastodon-sc/mastodon-tracking
-
-[code/mastodon/matlab-mastodon-importer]
-checkout = git clone git://github.com/mastodon-sc/matlab-mastodon-importer
-
-[code/mastodon/TrackMate3]
-checkout = git clone git://github.com/mastodon-sc/TrackMate3
+[code/mastodon/mastodon]
+checkout = git clone git://github.com/mastodon-sc/mastodon
 
 [code/mastodon/mastodon-manual]
 checkout = git clone git://github.com/mastodon-sc/mastodon-manual
@@ -27,8 +21,14 @@ checkout = git clone git://github.com/mastodon-sc/mastodon-collection
 [code/mastodon/mastodon-tomancak]
 checkout = git clone git://github.com/mastodon-sc/mastodon-tomancak
 
+[code/mastodon/mastodon-tracking]
+checkout = git clone git://github.com/mastodon-sc/mastodon-tracking
+
 [code/mastodon/mastodon-selection-creator]
 checkout = git clone git://github.com/mastodon-sc/mastodon-selection-creator
 
 [code/mastodon/mastodon-ellipsoid-fitting]
 checkout = git clone git://github.com/mastodon-sc/mastodon-ellipsoid-fitting
+
+[code/mastodon/matlab-mastodon-importer]
+checkout = git clone git://github.com/mastodon-sc/matlab-mastodon-importer
