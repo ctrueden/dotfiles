@@ -2,3 +2,6 @@
 
 [code/3d/aics-image-viewer-app]
 checkout = git clone git@github.com:AllenInstitute/aics-image-viewer-app
+
+[code/3d/skyview]
+checkout = git clone git@github.com:kephale/skyview

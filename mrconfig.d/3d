@@ -1,8 +1,5 @@
 # Projects focused on 3D visualization
 
-[code/3d/SciView]
-checkout = git clone git://github.com/scenerygraphics/SciView
-
 [code/3d/ivvv]
 checkout = git clone git://github.com/imaging-tools/ivvv
 
@@ -15,8 +12,20 @@ checkout = git clone git://github.com/scijava/java3d-javadoc
 [code/3d/java3d-utils]
 checkout = git clone git://github.com/scijava/java3d-utils
 
+[code/3d/jogl-minimal]
+checkout = git clone git://github.com/tpietzsch/jogl-minimal
+
+[code/3d/jvrpn]
+checkout = git clone git://github.com/scenerygraphics/jvrpn
+
 [code/3d/scenery]
 checkout = git clone git://github.com/scenerygraphics/scenery
+
+[code/3d/sciview]
+checkout = git clone git://github.com/scenerygraphics/sciview
+
+[code/3d/sciview-javadoc]
+checkout = git clone git://github.com/scenerygraphics/sciview-javadoc
 
 [code/3d/spirvcrossj]
 checkout = git clone git://github.com/scenerygraphics/spirvcrossj
