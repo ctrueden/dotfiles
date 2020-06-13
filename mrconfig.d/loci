@@ -1,5 +1,11 @@
 # UW-Madison LOCI projects
 
+[code/loci/Notebooks]
+checkout = git clone git://github.com/uw-loci/Notebooks
+
+[code/loci/RKColocal]
+checkout = git clone git://github.com/uw-loci/RKColocal
+
 [code/loci/4d-software-suite]
 checkout = git clone git://github.com/uw-loci/4d-software-suite
 
@@ -29,6 +35,9 @@ checkout = git clone git://github.com/uw-loci/prototype.wisc.edu
 
 [code/loci/slim-plotter]
 checkout = git clone git://github.com/uw-loci/slim-plotter
+
+[code/loci/tickets]
+checkout = git clone git://github.com/uw-loci/tickets
 
 [code/loci/visbio]
 checkout = git clone git://github.com/uw-loci/visbio
