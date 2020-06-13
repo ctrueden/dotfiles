@@ -1,0 +1,76 @@
+# CLIJ projects
+
+[code/clij/clatlab]
+checkout = git clone git://github.com/clij/clatlab
+
+[code/clij/clicy]
+checkout = git clone git://github.com/clij/clicy
+
+[code/clij/clij]
+checkout = git clone git://github.com/clij/clij
+
+[code/clij/clij-advanced-filters]
+checkout = git clone git://github.com/clij/clij-advanced-filters
+
+[code/clij/clij-apeer-template]
+checkout = git clone git://github.com/clij/clij-apeer-template
+
+[code/clij/clij-bdv]
+checkout = git clone git://github.com/clij/clij-bdv
+
+[code/clij/clij-benchmarking]
+checkout = git clone git://github.com/haesleinhuepf/clij-benchmarking
+
+[code/clij/clij-benchmarking-jmh]
+checkout = git clone git://github.com/clij/clij-benchmarking-jmh
+
+[code/clij/clij-boofcv]
+checkout = git clone git://github.com/clij/clij-boofcv
+
+[code/clij/clij-clearcl]
+checkout = git clone git://github.com/clij/clij-clearcl
+
+[code/clij/clij-core]
+checkout = git clone git://github.com/clij/clij-core
+
+[code/clij/clij-coremem]
+checkout = git clone git://github.com/clij/clij-coremem
+
+[code/clij/clij-custom-convolution-plugin]
+checkout = git clone git://github.com/clij/clij-custom-convolution-plugin
+
+[code/clij/clij-docs]
+checkout = git clone git://github.com/clij/clij-docs
+
+[code/clij/clij-executable-example]
+checkout = git clone git://github.com/clij/clij-executable-example
+
+[code/clij/clij-legacy]
+checkout = git clone git://github.com/clij/clij-legacy
+
+[code/clij/clij-mandelbrot-example]
+checkout = git clone git://github.com/clij/clij-mandelbrot-example
+
+[code/clij/clij-micromanager]
+checkout = git clone git://github.com/clij/clij-micromanager
+
+[code/clij/clij-notebooks]
+checkout = git clone git://github.com/clij/clij-notebooks
+
+[code/clij/clij-ops]
+checkout = git clone git://github.com/clij/clij-ops
+
+[code/clij/clij-parent-pom]
+checkout = git clone git://github.com/clij/clij-parent-pom
+
+[code/clij/clij-plugin-template]
+checkout = git clone git://github.com/clij/clij-plugin-template
+
+[code/clij/clij.github.io]
+checkout = git clone git://github.com/clij/clij.github.io
+
+[code/clij/clijpy]
+checkout = git clone git://github.com/clij/clijpy
+
+[code/clij/clupath]
+checkout = git clone git://github.com/clij/clupath
