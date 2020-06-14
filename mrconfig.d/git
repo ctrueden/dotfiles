@@ -6,5 +6,8 @@ checkout = git clone git://github.com/git/git
 [code/git/git-diff-blame]
 checkout = git clone git://github.com/dmnd/git-diff-blame
 
+[code/git/git-recover]
+checkout = git clone git://github.com/ethomson/git-recover
+
 [code/git/git-remote-hg]
 checkout = git clone git://github.com/felipec/git-remote-hg

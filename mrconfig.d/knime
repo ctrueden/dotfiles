@@ -12,6 +12,9 @@ checkout = git clone git://github.com/knime/knime-sdk-setup
 [code/knime/knime-textprocessing]
 checkout = git clone git://github.com/knime/knime-textprocessing
 
+[code/knime/knime-workbench]
+checkout = git clone git://github.com/knime/knime-workbench
+
 [code/knime/knip]
 checkout = git clone git://github.com/knime-ip/knip
 

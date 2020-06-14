@@ -9,5 +9,8 @@ checkout = git clone git://github.com/maarzt/imagej-legacy-course
 [code/training/learnathon-2017]
 checkout = git clone --recursive git://github.com/fiji/learnathon-2017
 
+[code/training/learnathon-2019]
+checkout = git clone --recursive git://github.com/fiji/learnathon-2019
+
 [code/training/sciview-tutorial]
 checkout = git clone git://github.com/skalarproduktraum/sciview-tutorial

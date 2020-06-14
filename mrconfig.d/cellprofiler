@@ -12,6 +12,9 @@ checkout = git clone git://github.com/cellprofiler/CellProfiler-plugins
 [code/cellprofiler/cellprofiler.github.com]
 checkout = git clone git://github.com/cellprofiler/cellprofiler.github.com
 
+[code/cellprofiler/centrosome]
+checkout = git clone git://github.com/CellProfiler/centrosome
+
 [code/cellprofiler/notebooks]
 checkout = git clone git://github.com/CellProfiler/notebooks
 

@@ -30,6 +30,9 @@ checkout = git clone git://github.com/pepe1914/jfx-zoglpipeline
 [code/java/jhotdraw]
 checkout = git clone git://git.code.sf.net/p/jhotdraw/git jhotdraw
 
+[code/java/jinput]
+checkout = git clone git://github.com/jinput/jinput
+
 [code/java/jline2]
 checkout = git clone git://github.com/jline/jline2
 
