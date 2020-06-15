@@ -30,9 +30,6 @@ checkout = git clone git://github.com/ctrueden/sandbox
 [code/ctrueden/sudoku-solver]
 checkout = git clone git://github.com/ctrueden/sudoku-solver
 
-[code/ctrueden/teavm-playground]
-checkout = git clone git://github.com/ctrueden/teavm-playground
-
 [code/ctrueden/veggie-copter]
 checkout = git clone git://github.com/ctrueden/veggie-copter
 
