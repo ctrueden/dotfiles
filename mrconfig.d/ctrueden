@@ -18,6 +18,9 @@ checkout = git clone git://github.com/ctrueden/fixbe
 [code/ctrueden/game-of-life]
 checkout = git clone git://github.com/ctrueden/game-of-life
 
+[code/ctrueden/miles-python]
+checkout = git clone git://github.com/ctrueden/miles-python
+
 [code/ctrueden/puzzler]
 checkout = git clone git://github.com/ctrueden/puzzler
 
