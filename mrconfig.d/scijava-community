@@ -118,7 +118,7 @@ checkout = git clone git://github.com/thorstenwagner/ij-ridgedetection
 checkout = git clone git://github.com/ij-plugins/ijp-color
 
 [code/sj-stuff/ijp-frc]
-checkout = git clone https://c4science.ch/diffusion/988/ijp-frc.git
+checkout = git clone git://github.com/BIOP/ijp-frc
 
 [code/sj-stuff/ijp-imageio]
 checkout = git clone git://github.com/ij-plugins/ijp-imageio
