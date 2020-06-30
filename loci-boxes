@@ -66,4 +66,8 @@ do
   ip=144.92.48.$n
   tableRow "$ip" "$(box "$ip")" "$(mac "$ip")" "$(fqdn "$ip")"
 done
-
+for n in 23 25 26
+do
+  ip=144.92.238.$n
+  tableRow "$ip" "$(box "$ip")" "$(mac "$ip")" "$(fqdn "$ip")"
+done
