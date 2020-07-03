@@ -1,5 +1,5 @@
-alias sha='ssh imagej.net'                # abyssinian
-alias shb='ssh maven.scijava.org'         # balinese
-alias shc='ssh 144.92.48.185'             # cheetoh
-alias shd='ssh 144.92.48.190'             # devonrex
-alias sho='ssh open.microscopy.wisc.edu'  # open
+alias sha='ssh abyssinian.loci.wisc.edu'
+alias shb='ssh balinese.loci.wisc.edu'
+alias shc='ssh cheetoh.loci.wisc.edu'
+alias shd='ssh devonrex.loci.wisc.edu'
+alias sho='ssh open.microscopy.wisc.edu'
