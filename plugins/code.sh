@@ -7,21 +7,19 @@ alias goctr='cd $CODE_PERSONAL'
 
 # configuration files
 alias gocfg='cd $DOTFILES'
-export CODE_CFG_PRIVATE="$CODE_PERSONAL/ctr-cfg-private"
-alias gocfp='cd $CODE_CFG_PRIVATE'
 
 # useful scripts
 export CODE_SCRIPTS="$CODE_PERSONAL/ctr-scripts"
 alias gosc='cd $CODE_SCRIPTS'
 
 # private projects
-export CODE_PRIVATE="$CODE_PERSONAL/ctr-private"
+export CODE_PRIVATE="$CODE_PERSONAL/unsorted-junk"
 alias gop='cd $CODE_PRIVATE'
 
 # LOCI projects - https://github.com/uw-loci
 export CODE_LOCI="$CODE_BASE/loci"
 alias goloci='cd $CODE_LOCI'
-alias gov='cd $CODE_LOCI/visbio/src/main/java/loci/visbio'
+alias gols='cd $CODE_LOCI/loci-servers'
 
 # SCIFIO - https://github.com/scifio
 export CODE_SCIFIO="$CODE_BASE/scifio/scifio"
@@ -32,10 +30,6 @@ alias gost='cd $CODE_SCIFIO/../scifio-tutorials'
 # Bio-Formats - https://github.com/ome/bioformats
 export CODE_BF="$CODE_BASE/ome/bioformats"
 alias gobf='cd $CODE_BF'
-alias gobfc='cd $CODE_BF/../ome-common-java/src/main/java/loci/common'
-alias gobff='cd $CODE_BF/components/formats-api/src/loci/formats'
-alias gobfp='cd $CODE_BF/components/bio-formats-plugins/src/loci/plugins'
-alias gobfx='cd $CODE_BF/../ome-model/ome-xml/src/main/java/ome/xml'
 
 # ImageJ - https://github.com/imagej
 export CODE_IJ="$CODE_BASE/imagej/imagej"
