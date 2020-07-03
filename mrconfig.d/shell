@@ -1,4 +1,0 @@
-# Tools for command line shells
-
-[code/shell/zgen]
-checkout = git clone git://github.com/tarjoilija/zgen
