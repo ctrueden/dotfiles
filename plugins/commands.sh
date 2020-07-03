@@ -35,7 +35,7 @@ tt() {
 # --== diff ==--
 
 # use git for superior diff formatting
-unalias diff
+alias diff='' && unalias diff
 diff() { git diff --no-index $@; }
 
 # --== vim ==--
