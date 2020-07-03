@@ -32,6 +32,10 @@ tt() {
 	fi
 }
 
+# --== bat ==--
+
+test -x /bin/batcat && alias bat=batcat
+
 # --== diff ==--
 
 # use git for superior diff formatting
