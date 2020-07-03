@@ -14,3 +14,6 @@ checkout = git clone git://github.com/openspim/openspim-app
 
 [code/openspim/openspim-parts]
 checkout = git clone git://github.com/openspim/openspim-parts
+
+[code/openspim/openspim.github.io]
+checkout = git clone git://github.com/openspim/openspim.github.io
