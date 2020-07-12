@@ -90,6 +90,9 @@
 [http]
 	cookiefile = ~/.gitcookies
 
+[pull]
+	ff = only
+
 [push]
 	default = upstream
 
