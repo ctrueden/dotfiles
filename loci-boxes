@@ -30,10 +30,10 @@ pulse() {
 }
 
 boxes=(
-abyssinian:$(rsaKey imagej.net)
-balinese:$(rsaKey maven.scijava.org)
-cheetoh:$(rsaKey 144.92.48.185)
-devonrex:$(rsaKey 144.92.48.190)
+abyssinian:$(rsaKey abyssinian.loci.wisc.edu)
+balinese:$(rsaKey balinese.loci.wisc.edu)
+cheetoh:$(rsaKey cheetoh.loci.wisc.edu)
+devonrex:$(rsaKey devonrex.loci.wisc.edu)
 gpu:$(rsaKey gpu.loci.wisc.edu)
 open:$(rsaKey open.microscopy.wisc.edu)
 ftp:$(rsaKey ftp.loci.wisc.edu)
