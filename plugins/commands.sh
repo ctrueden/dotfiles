@@ -34,7 +34,7 @@ tt() {
 
 # --== bat ==--
 
-test -x /bin/batcat && alias bat=batcat
+test -x /usr/bin/batcat && alias bat=batcat
 
 # --== diff ==--
 
