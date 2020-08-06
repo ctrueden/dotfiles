@@ -2,10 +2,37 @@
 
 # Reports the status of LOCI server boxes.
 
-fqdn() {
+hostIP() {
   host=$(host "$1") &&
-    echo "$host" | head -n1 | sed 's/.* //' ||
+    echo "$host" | head -n1 | sed 's/.* //' | sed 's/\.$//' ||
     echo '<none>'
+}
+
+domains=(
+imagej.net:$(hostIP imagej.net)
+downloads.imagej.net:$(hostIP downloads.imagej.net)
+mirror.imagej.net:$(hostIP mirror.imagej.net)
+search.imagej.net:$(hostIP search.imagej.net)
+sites.imagej.net:$(hostIP sites.imagej.net)
+update.imagej.net:$(hostIP update.imagej.net)
+wsr.imagej.net:$(hostIP wsr.imagej.net)
+*.imagej.net:$(hostIP developer.imagej.net)
+fiji.sc:$(hostIP fiji.sc)
+samples.fiji.sc:$(hostIP samples.fiji.sc)
+update.fiji.sc:$(hostIP update.fiji.sc)
+samples.scif.io:$(hostIP samples.scif.io)
+image.sc:$(hostIP image.sc)
+javadoc.scijava.org:$(hostIP javadoc.scijava.org)
+scijava.org:$(hostIP scijava.org)
+)
+# NB: Convert from space-separated to newline-separated.
+domains=$(for domain in "${domains[@]}"; do test "$domain" = "${domain%:<none>}" && echo "$domain"; done)
+
+fqdn() {
+  domain=$(echo "$domains" | grep "$1")
+  test "$domain" &&
+    echo "${domain%%:*}" ||
+		echo "$(hostIP "$1")"
 }
 
 mac() {
