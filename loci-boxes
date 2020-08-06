@@ -38,6 +38,7 @@ egyptianmau:$(rsaKey egyptianmau.loci.wisc.edu)
 gpu:$(rsaKey gpu.loci.wisc.edu)
 ftp:$(rsaKey ftp.loci.wisc.edu)
 ups:$(rsaKey ups.loci.wisc.edu)
+data:$(rsaKey data.loci.wisc.edu)
 )
 # NB: Convert from space-separated to newline-separated.
 boxes=$(for box in "${boxes[@]}"; do test "$box" = "${box%:<unknown>}" && echo "$box"; done)
