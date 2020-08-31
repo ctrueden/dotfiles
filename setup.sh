@@ -44,7 +44,21 @@ link_file() {
   (set -x; ln -s "$src" "$dest")
 }
 
+clone_repo() {
+  dir="$HOME/code/$1"
+  if [ ! -d "$dir" ]
+  then
+    pdir="$(dirname "$dir")"
+    mkdir -p "$(dirname "$dir")"
+    git clone "git://github.com/$2" "$dir"
+  fi
+}
+
 # -- Main --
+
+# Clone essential repositories as needed.
+clone_repo ctrueden/ctr-scripts ctrueden/ctr-scripts
+clone_repo shell/zgen tarjoilija/zgen
 
 # NB: We use a stub for .bashrc to maintain support for systems that
 # do not support proper symlinks -- especially MSysGit on Windows.
