@@ -24,6 +24,7 @@ samples.scif.io:$(hostIP samples.scif.io)
 image.sc:$(hostIP image.sc)
 javadoc.scijava.org:$(hostIP javadoc.scijava.org)
 scijava.org:$(hostIP scijava.org)
+maven.scijava.org:$(hostIP maven.scijava.org)
 )
 # NB: Convert from space-separated to newline-separated.
 domains=$(for domain in "${domains[@]}"; do test "$domain" = "${domain%:<none>}" && echo "$domain"; done)
