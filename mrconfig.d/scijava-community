@@ -6,9 +6,6 @@ checkout = git clone git://github.com/PreibischLab/BigStitcher
 [code/sj-stuff/CircleSkinner]
 checkout = git clone git://github.com/tinevez/CircleSkinner
 
-[code/sj-stuff/FilamentDetector]
-checkout = git clone git://github.com/hadim/FilamentDetector
-
 [code/sj-stuff/Hadim_Scripts]
 checkout = git clone git://github.com/hadim/Hadim_Scripts
 
@@ -35,9 +32,6 @@ checkout = git clone git://github.com/mpicbg-scicomp/Interactive-H-Watershed
 
 [code/sj-stuff/JEX]
 checkout = git clone git://github.com/jaywarrick/JEX
-
-[code/sj-stuff/Kappa]
-checkout = git clone git://github.com/brouhardlab/Kappa
 
 [code/sj-stuff/KinemaJ]
 checkout = git clone git://github.com/nstifani/KinemaJ
