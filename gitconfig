@@ -81,6 +81,9 @@
 [diff]
 	color = auto
 
+[diff "spaceman-diff"]
+  command = spaceman-diff
+
 [filter "lfs"]
 	clean = git-lfs clean -- %f
 	smudge = git-lfs smudge -- %f
