@@ -6,9 +6,6 @@ checkout = git clone git://github.com/uw-loci/Notebooks
 [code/loci/RKColocal]
 checkout = git clone git://github.com/uw-loci/RKColocal
 
-[code/loci/4d-software-suite]
-checkout = git clone git://github.com/uw-loci/4d-software-suite
-
 [code/loci/adaptive-coloc]
 checkout = git clone git://github.com/uw-loci/adaptive-coloc
 
@@ -33,11 +30,11 @@ checkout = git clone git://github.com/uw-loci/misc-plugins
 [code/loci/prototype.wisc.edu]
 checkout = git clone git://github.com/uw-loci/prototype.wisc.edu
 
-[code/loci/slim-plotter]
-checkout = git clone git://github.com/uw-loci/slim-plotter
-
 [code/loci/tickets]
 checkout = git clone git://github.com/uw-loci/tickets
+
+[code/loci/uw-loci.github.io]
+checkout = git clone git://github.com/uw-loci/uw-loci.github.io
 
 [code/loci/visbio]
 checkout = git clone git://github.com/uw-loci/visbio
