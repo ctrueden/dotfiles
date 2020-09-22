@@ -9,5 +9,8 @@ checkout = git clone git://github.com/ctrueden/beets-ibroadcast
 [code/music/BeetsPluginTemplate]
 checkout = git clone git://github.com/adamjakab/BeetsPluginTemplate
 
+[/Volumes/Code/music/Clementine]
+checkout = git clone git://github.com/clementine-player/Clementine
+
 [code/music/whatlastgenre]
 checkout = git clone git://github.com/YetAnotherNerd/whatlastgenre
