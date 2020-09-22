@@ -1,0 +1,13 @@
+# Repositories related to music.
+
+[code/music/beets]
+checkout = git clone git://github.com/beetbox/beets
+
+[code/music/beets-ibroadcast]
+checkout = git clone git://github.com/ctrueden/beets-ibroadcast
+
+[code/music/BeetsPluginTemplate]
+checkout = git clone git://github.com/adamjakab/BeetsPluginTemplate
+
+[code/music/whatlastgenre]
+checkout = git clone git://github.com/YetAnotherNerd/whatlastgenre
