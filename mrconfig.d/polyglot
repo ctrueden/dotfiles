@@ -27,6 +27,9 @@ checkout = git clone git://github.com/graalvm/graalvm-demos
 [code/polyglot/graalvm-ten-things]
 checkout = git clone git://github.com/chrisseaton/graalvm-ten-things
 
+[code/polyglot/imagej2-cheerpj]
+checkout = git clone git://github.com/imjoy-team/imagej2-cheerpj
+
 [code/polyglot/jep]
 checkout = git clone git://github.com/ninia/jep
 
