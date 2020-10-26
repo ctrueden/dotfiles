@@ -3,6 +3,9 @@
 [code/ctrueden/contrib-hacker]
 checkout = git clone git://github.com/ctrueden/contrib-hacker
 
+[code/ctrueden/ctrueden]
+checkout = git clone git://github.com/ctrueden/ctrueden
+
 [code/ctrueden/finite-state-machines]
 checkout = git clone git://github.com/ctrueden/finite-state-machines
 
