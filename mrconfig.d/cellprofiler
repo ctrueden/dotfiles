@@ -15,8 +15,14 @@ checkout = git clone git://github.com/cellprofiler/cellprofiler.github.com
 [code/cellprofiler/centrosome]
 checkout = git clone git://github.com/CellProfiler/centrosome
 
+[code/cellprofiler/core]
+checkout = git clone git://github.com/CellProfiler/core
+
 [code/cellprofiler/notebooks]
 checkout = git clone git://github.com/CellProfiler/notebooks
+
+[code/cellprofiler/prokaryote]
+checkout = git clone git://github.com/CellProfiler/prokaryote
 
 [code/cellprofiler/python-bioformats]
 checkout = git clone git://github.com/CellProfiler/python-bioformats

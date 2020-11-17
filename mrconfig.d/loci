@@ -42,5 +42,5 @@ checkout = git clone git://github.com/uw-loci/visbio
 [code/loci/visbio-imagej]
 checkout = git clone git://github.com/uw-loci/visbio-imagej
 
-[code/loci/wormclassroom]
-checkout = git clone git://github.com/uw-loci/wormclassroom
+[code/loci/website-tests]
+checkout = git clone git://github.com/uw-loci/website-tests

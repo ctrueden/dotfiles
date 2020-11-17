@@ -63,9 +63,6 @@ checkout = git clone git://git.code.sf.net/p/labinfsyst/code labis
 [code/science/libics]
 checkout = git clone git://github.com/svi-opensource/libics
 
-[code/science/micro-manager]
-checkout = git clone git://github.com/micro-manager/micro-manager
-
 # TODO: Figure out where to host this mirror.
 #[code/science/mipav]
 #checkout = git clone git://git.imagej.net/mipav

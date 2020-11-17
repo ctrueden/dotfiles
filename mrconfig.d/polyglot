@@ -3,6 +3,9 @@
 [code/polyglot/BridJ]
 checkout = git clone git://github.com/nativelibs4java/BridJ
 
+[code/polyglot/ImageJA.JS]
+checkout = git clone git://github.com/imjoy-team/ImageJA.JS
+
 [code/polyglot/JyNI]
 checkout = git clone git://github.com/Stewori/JyNI
 
@@ -30,17 +33,20 @@ checkout = git clone git://github.com/chrisseaton/graalvm-ten-things
 [code/polyglot/imagej2-cheerpj]
 checkout = git clone git://github.com/imjoy-team/imagej2-cheerpj
 
+[code/polyglot/java2script]
+checkout = git clone git://github.com/java2script/java2script
+
 [code/polyglot/jep]
 checkout = git clone git://github.com/ninia/jep
 
 [code/polyglot/jffi]
 checkout = git clone git://github.com/jnr/jffi
 
+[code/polyglot/jpype]
+checkout = git clone git://github.com/jpype-project/jpype
+
 [code/polyglot/node-java]
 checkout = git clone git://github.com/joeferner/node-java
-
-[code/polyglot/pyjnius]
-checkout = git clone git://github.com/kivy/pyjnius
 
 [code/polyglot/pyrepl]
 checkout = git clone git://github.com/chanzuckerberg/pyrepl

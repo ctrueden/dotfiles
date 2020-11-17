@@ -15,9 +15,6 @@ checkout = git clone https://gitlab.com/gitlab-org/gitter/webapp gitter
 [code/tech/ipywidgets]
 checkout = git clone git://github.com/jupyter-widgets/ipywidgets
 
-[code/tech/java2script]
-checkout = git clone git://github.com/java2script/java2script
-
 [code/tech/lightgallery.js]
 checkout = git clone git://github.com/sachinchoolur/lightgallery.js
 
