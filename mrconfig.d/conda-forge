@@ -9,8 +9,5 @@ checkout = git clone git://github.com/conda-forge/jgo-feedstock
 [code/conda-forge/pyimagej-feedstock]
 checkout = git clone git://github.com/conda-forge/pyimagej-feedstock
 
-[code/conda-forge/pyjnius-feedstock]
-checkout = git clone git://github.com/conda-forge/pyjnius-feedstock
-
 [code/conda-forge/scyjava-feedstock]
 checkout = git clone git://github.com/conda-forge/scyjava-feedstock
