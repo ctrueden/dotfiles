@@ -22,7 +22,7 @@ tt() {
 		then
 			# Disable automatic titles
 			DISABLE_AUTO_TITLE="true"
-			echo -ne "\e]1;$@\a"
+			echo -ne "\e]0;$@\a"
 		else
 			# Switch back to automatic titles
 			unset DISABLE_AUTO_TITLE
