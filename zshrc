@@ -2,6 +2,9 @@
 
 export ZGEN="$HOME/code/shell/zgen"
 
+# Disable oh-my-zsh's automatic updates; we'll use "zgen update" instead.
+export DISABLE_AUTO_UPDATE="true"
+
 zgen_install() {
 	mkdir -p "$(dirname "$ZGEN")" &&
 	(cd "$(dirname "$ZGEN")" && mr up)
@@ -13,9 +16,6 @@ source "$ZGEN/zgen.zsh"
 
 omzsh() {
 	zgen oh-my-zsh $@
-
-	# Disable oh-my-zsh's automatic updates; we'll use "zgen update" instead.
-	echo "LAST_EPOCH=9999999" > "$HOME/.zsh-update"
 }
 
 zgen_init() {
