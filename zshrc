@@ -131,6 +131,10 @@ bindkey -M viins '^X,' _history-complete-newer \
 
 zgen saved || zgen_init
 
+# NB: Explicitly call compinit. Isn't needed for most completions,
+# but the esc/conda-zsh-completion plugin doesn't work without it.
+compinit
+
 # --== zmv ==--
 
 autoload -U zmv
