@@ -48,6 +48,9 @@ zgen_init() {
 	zgen load zsh-users/zsh-history-substring-search
 	zgen load zsh-users/zsh-completions src
 
+	# --== third party plugins ==--
+	zgen load esc/conda-zsh-completion
+
 	# --== my plugins ==--
 	zgen load "$DOTFILES" plugins
 
