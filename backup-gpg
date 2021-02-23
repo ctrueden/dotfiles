@@ -1,0 +1,7 @@
+#!/bin/sh
+gpg -K
+echo "--> Backing up GPG data"
+gpg --export > gpg-public.pgp
+gpg --export-secret-keys > gpg-private.pgp
+gpg --export-ownertrust > gpg-trustdb.db
+ls -la *.pgp *.db
