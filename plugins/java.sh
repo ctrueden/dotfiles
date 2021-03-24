@@ -7,7 +7,7 @@ if [ -x /usr/libexec/java_home ]; then
 elif [ -x /usr/sbin/update-java-alternatives ]; then
 	# Linux
 	jhome() {
-		/usr/sbin/update-java-alternatives -l | grep "$@" | head -n 1 | cut -f 3 -d ' '
+		/usr/sbin/update-java-alternatives -l | grep "$@" | head -n 1 | sed 's/.* //'
 	}
 else
 	jhome() { :; }
