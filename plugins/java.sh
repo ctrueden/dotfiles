@@ -1,10 +1,41 @@
+# Define the java command to use the java executable from JAVA_HOME.
+# - On macOS, this already happens indirectly.
+# - On Linux, /bin/java and /usr/bin/java point at /etc/alternatives/java,
+#   which is controlled system-wide by update-java-alternatives.
+unset -f java 2>/dev/null
+export SYSTEM_JAVA_BIN=$(dirname "$(which java)")
+
+jexec() {
+	cmd=$1
+	shift
+	if [ "$JAVA_HOME" -a -x "$JAVA_HOME/bin/$cmd" ]
+	then
+		"$JAVA_HOME/bin/$cmd" $@
+	elif [ "$JAVA_HOME" -a -x "$JAVA_HOME/jre/bin/$cmd" ]
+	then
+		"$JAVA_HOME/jre/bin/$cmd" $@
+	elif [ "$SYSTEM_JAVA_BIN" -a -x "$SYSTEM_JAVA_BIN/$cmd" ]
+	then
+		"$SYSTEM_JAVA_BIN/$cmd" $@
+	else
+		>&2 echo "No $cmd executable found."
+	fi
+}
+java() { jexec java $@; }
+javac() { jexec javac $@; }
+javah() { jexec javah $@; }
+javap() { jexec javap $@; }
+javadoc() { jexec javadoc $@; }
+
 # set locations of Java
-if [ -x /usr/libexec/java_home ]; then
+if [ -x /usr/libexec/java_home ]
+then
 	# macOS
 	jhome() {
 		/usr/libexec/java_home -v "$@" 2>/dev/null
 	}
-elif [ -x /usr/sbin/update-java-alternatives ]; then
+elif [ -x /usr/sbin/update-java-alternatives ]
+then
 	# Linux
 	jhome() {
 		/usr/sbin/update-java-alternatives -l | grep "$@" | head -n 1 | sed 's/.* //'
@@ -58,11 +89,9 @@ alias j19='export JAVA_HOME="$J19" && echo "JAVA_HOME -> $JAVA_HOME" && java -ve
 # use Java 8 by default if available
 test -n "$J8" && export JAVA_HOME="$J8"
 
-# unset the actual classpath, since some programs play badly with it
-unset CLASSPATH
-
 # add some basic directories to the classpath
 # NB: We avoid the CLASSPATH variable since some programs play badly with it.
+unset CLASSPATH
 export JAVA_CP=\
 $HOME/java:\
 $CODE_PRIVATE/java:\
@@ -70,7 +99,8 @@ $CODE_PRIVATE/java/utils
 
 # generate classpath for desired Maven artifacts
 cpFile="$HOME/.java-classpath"
-if [ ! -e "$cpFile" ]; then
+if [ ! -e "$cpFile" ]
+then
 	# generate classpath cache
 	echo "Regenerating $cpFile"
 	maven-cp \
