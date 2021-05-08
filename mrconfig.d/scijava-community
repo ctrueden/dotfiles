@@ -97,10 +97,7 @@ checkout = git clone git://github.com/Bergwerf/deepnetj
 checkout = git clone git://github.com/fmi-faim/fmi-trackmate-addons
 
 [code/sj-stuff/fun.imagej]
-checkout = git clone git://github.com/kephale/fun.imagej
-
-[code/sj-stuff/funimage.figure]
-checkout = git clone git://github.com/kephale/funimage.figure
+checkout = git clone git://github.com/funimagej/fun.imagej
 
 [code/sj-stuff/hIPNAT]
 checkout = git clone git://github.com/tferr/hIPNAT
