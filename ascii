@@ -1,0 +1,8 @@
+#!/bin/env python3
+
+col = 0
+for i in range(32, 127):
+    print(f'{i:>4} {chr(i)}', end='')
+    col += 1
+    if col % 12 == 0: print()
+print()
