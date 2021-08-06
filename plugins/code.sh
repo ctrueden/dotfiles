@@ -32,7 +32,7 @@ export CODE_BF="$CODE_BASE/ome/bioformats"
 alias gobf='cd $CODE_BF'
 
 # ImageJ - https://github.com/imagej
-export CODE_IJ="$CODE_BASE/imagej/imagej"
+export CODE_IJ="$CODE_BASE/imagej/imagej2"
 alias goij='cd $CODE_IJ'
 alias goij1='cd $CODE_IJ/../ImageJA'
 alias goij1p='cd $CODE_IJ/../ij1-patcher'
