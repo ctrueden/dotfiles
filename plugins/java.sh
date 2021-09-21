@@ -107,7 +107,7 @@ alias j='java -cp "$JAVA_CP:."'
 alias jc='javac -cp "$JAVA_CP:."'
 alias jp='javap -cp "$JAVA_CP:."'
 
-cpath() {
+jpath() {
 	if [ "$CLASSPATH" ]
 	then
 		echo CLASSPATH =
