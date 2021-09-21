@@ -160,6 +160,8 @@ compinit
 
 # --== zmv ==--
 
+# See: https://github.com/zsh-users/zsh/blob/master/Functions/Misc/zmv
+
 test "$DEBUG" && echo "[zshrc] Configuring zmv..."
 
 autoload -U zmv
