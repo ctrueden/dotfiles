@@ -1,8 +1,0 @@
-#!/bin/bash
-
-#
-# spath: a script for pretty printing a path variable (used by cpath & path)
-#
-
-echo $@|sed -e 's/:/\
-/g'|sed -e 's/^/   /g'
