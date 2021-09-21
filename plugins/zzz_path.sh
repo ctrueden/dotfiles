@@ -1,3 +1,5 @@
+test "$DEBUG" && echo "[dotfiles] Loading plugin $(basename "$0")..."
+
 export PATH=\
 $HOME/bin:\
 $CODE_SCRIPTS:\

@@ -1,3 +1,5 @@
+test "$DEBUG" && echo "[dotfiles] Loading plugin $(basename "$0")..."
+
 case "$(uname)" in
 	Darwin)
 		export PATH_FIJI_USER="/Applications/Fiji.app"

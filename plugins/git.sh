@@ -1,3 +1,5 @@
+test "$DEBUG" && echo "[dotfiles] Loading plugin $(basename "$0")..."
+
 # Git - https://github.com/git/git
 export CODE_GIT="$CODE_BASE/git/git"
 alias gogit='cd $CODE_GIT'

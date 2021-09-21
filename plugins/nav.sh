@@ -1,3 +1,5 @@
+test "$DEBUG" && echo "[dotfiles] Loading plugin $(basename "$0")..."
+
 # "where is" - find a command or filename
 wi() {
 	cmd=$(which "$@" 2> /dev/null)

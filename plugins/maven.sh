@@ -1,3 +1,5 @@
+test "$DEBUG" && echo "[dotfiles] Loading plugin $(basename "$0")..."
+
 export MAVEN_OPTS="-Xmx1536m"
 
 # launch Maven 2.x with 'mvn2'

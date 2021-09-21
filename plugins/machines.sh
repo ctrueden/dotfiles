@@ -1,3 +1,5 @@
+test "$DEBUG" && echo "[dotfiles] Loading plugin $(basename "$0")..."
+
 alias sha='ssh a'
 alias shb='ssh b'
 alias shc='ssh c'

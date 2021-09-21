@@ -1,3 +1,5 @@
+test "$DEBUG" && echo "[dotfiles] Loading plugin $(basename "$0")..."
+
 export CODE_OMERO="$CODE_BASE/ome/openmicroscopy"
 export PATH_OMERO_DIST="$CODE_OMERO/dist"
 if [ -d "$PATH_OMERO_DIST" ]

@@ -1,3 +1,5 @@
+test "$DEBUG" && echo "[dotfiles] Loading plugin $(basename "$0")..."
+
 # use vim to edit commit messages
 export EDITOR=vim
 export VISUAL="$EDITOR"

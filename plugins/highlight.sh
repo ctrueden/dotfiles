@@ -1,3 +1,5 @@
+test "$DEBUG" && echo "[dotfiles] Loading plugin $(basename "$0")..."
+
 # --== terminal syntax highlighting ==--
 
 # Credit to @F1LT3R:

@@ -1,3 +1,5 @@
+test "$DEBUG" && echo "[dotfiles] Loading plugin $(basename "$0")..."
+
 # --== Ruby ==--
 
 # I know I "should" be using rbenv or RVM... but I already use one
