@@ -18,7 +18,7 @@ alias xterm='xterm -geometry 80x60 -fg white -bg black'
 
 # change the title of the current xterm
 tt() {
-	if [ "$(ps -o comm= $$)" = "zsh" ]
+	if [ "$(shell_name)" = "zsh" ]
 	then
 		if [ "$@" ]
 		then
