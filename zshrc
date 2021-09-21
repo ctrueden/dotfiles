@@ -1,3 +1,5 @@
+test "$DEBUG" && echo "[zshrc] Initializing..."
+
 # --== zgen ==--
 
 export ZGEN="$HOME/code/shell/zgen"
@@ -10,15 +12,29 @@ zgen_install() {
 	(cd "$(dirname "$ZGEN")" && mr up)
 }
 
-test -d "$ZGEN" || zgen_install
+if [ ! -d "$ZGEN" ]
+then
+	test "$DEBUG" && echo "[zshrc] Installing zgen..."
+	zgen_install
+fi
+
+test "$DEBUG" && echo "[zshrc] Initializing zgen..."
 
 source "$ZGEN/zgen.zsh"
 
 omzsh() {
+	test "$DEBUG" && echo "[zshrc] Loading oh-my-zsh plugin $@..."
 	zgen oh-my-zsh $@
 }
 
+load_plugin() {
+	test "$DEBUG" && echo "[zshrc] Loading zgen plugin $@..."
+	zgen load $@
+}
+
 zgen_init() {
+	test "$DEBUG" && echo "[zshrc] Initializing zgen..."
+
 	# --== oh-my-zsh plugins ==--
 	omzsh
 	omzsh plugins/vi-mode           # vi mode CLI instead of emacs
@@ -44,23 +60,26 @@ zgen_init() {
 	omzsh plugins/z                 # z "jump around" command
 
 	# --== zsh-users plugins ==--
-	zgen load zsh-users/zsh-syntax-highlighting
-	zgen load zsh-users/zsh-history-substring-search
-	zgen load zsh-users/zsh-completions src
+	load_plugin zsh-users/zsh-syntax-highlighting
+	load_plugin zsh-users/zsh-history-substring-search
+	load_plugin zsh-users/zsh-completions src
 
 	# --== third party plugins ==--
-	zgen load esc/conda-zsh-completion
+	load_plugin esc/conda-zsh-completion
 
 	# --== my plugins ==--
-	zgen load "$DOTFILES" plugins
+	load_plugin "$DOTFILES" plugins
 
 	# --== zsh theme ==--
-	zgen load "$DOTFILES" themes/curtis
+	load_plugin "$DOTFILES" themes/curtis
 
+	test "$DEBUG" && echo "[zshrc] Saving zgen configuration..."
 	zgen save
 }
 
 # --== oh-my-zsh ==--
+
+test "$DEBUG" && echo "[zshrc] Configuring oh-my-zsh..."
 
 # Uncomment the following line to use case-sensitive completion.
 # CASE_SENSITIVE="true"
@@ -82,11 +101,15 @@ HIST_STAMPS="yyyy-mm-dd"
 
 # --== zsh history search ==--
 
+test "$DEBUG" && echo "[zshrc] Configuring zsh history search..."
+
 bindkey '^R' history-incremental-search-backward
 bindkey '^[[A' up-line-or-search
 bindkey '^[[B' down-line-or-search
 
 # --== zsh vi mode fixes ==--
+
+test "$DEBUG" && echo "[zshrc] Fixing zsh vi mode..."
 
 # Credit to: http://zshwiki.org/home/zle/vi-mode
 bindkey -a 'gg' beginning-of-buffer-or-history
@@ -137,6 +160,8 @@ compinit
 
 # --== zmv ==--
 
+test "$DEBUG" && echo "[zshrc] Configuring zmv..."
+
 autoload -U zmv
 alias mmv='noglob zmv -W'
 
@@ -144,5 +169,8 @@ alias mmv='noglob zmv -W'
 
 if [ ! -d "$HOME/.vim/bundle/Vundle.vim" ]
 then
+	test "$DEBUG" && echo "[zshrc] Initializing vundle..."
 	vundle-init && vundle-update
 fi
+
+test "$DEBUG" && echo "[zshrc] Done!"

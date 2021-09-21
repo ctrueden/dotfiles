@@ -1,6 +1,8 @@
 # if not running interactively, don't do anything
 [ -z "$PS1" ] && return
 
+test "$DEBUG" && echo "[bashrc] Initializing..."
+
 # check the window size after each command and, if necessary,
 # update the values of LINES and COLUMNS.
 shopt -s checkwinsize
@@ -14,6 +16,8 @@ fi
 which brew > /dev/null 2>&1 && export BREW=$(brew --prefix)
 
 # --== bash completion ==--
+
+test "$DEBUG" && echo "[bashrc] Configuring bash completion..."
 
 if [ -f /etc/bash_completion ]; then
 	# Ubuntu Linux
@@ -35,6 +39,8 @@ fi
 
 # --== git ==--
 
+test "$DEBUG" && echo "[bashrc] Configuring git completion..."
+
 # enable bash completion of git commands
 if [ -f /etc/bash_completion.d/git-prompt ]; then
 	# newer Ubuntu Linux ("sudo aptitude install bash-completion")
@@ -47,6 +53,8 @@ fi
 
 # --== shell prompt ==--
 
+test "$DEBUG" && echo "[bashrc] Configuring shell prompt..."
+
 SHELL_PROMPT=': ${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@${HOSTNAME}\[\033[00m\] \[\033[01;34m\]\w'
 
 if [ "$(__git_ps1 x 2> /dev/null)" = "x" ]; then
@@ -57,6 +65,8 @@ else
 fi
 
 # --== bash ==--
+
+test "$DEBUG" && echo "[bashrc] Enabling bash vi mode..."
 
 # use vi commands for advanced editing (hit ESC to enter command mode)
 set -o vi
@@ -70,6 +80,7 @@ command -v hub >/dev/null 2>&1 && \
 
 for f in $DOTFILES/plugins/*.sh
 do
+	test "$DEBUG" && echo "[bashrc] Sourcing plugin $(basename "$f")..."
 	source $f
 done
 
@@ -77,5 +88,8 @@ export PERL5LIB="$CODE_GIT/perl:$CODE_GIT/contrib/mw-to-git"
 
 # Local customized path and environment settings, etc.
 if [ -f ~/.bash_local ]; then
+	test "$DEBUG" && echo "[bashrc] Sourcing ~/.bash_local..."
 	. ~/.bash_local
 fi
+
+test "$DEBUG" && echo "[bashrc] Done!"
