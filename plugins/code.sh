@@ -13,6 +13,7 @@ alias gocfg='cd $DOTFILES'
 # useful scripts
 export CODE_SCRIPTS="$CODE_PERSONAL/ctr-scripts"
 alias gosc='cd $CODE_SCRIPTS'
+path_prepend "$CODE_SCRIPTS"
 
 # private projects
 export CODE_PRIVATE="$CODE_PERSONAL/unsorted-junk"
@@ -78,6 +79,7 @@ export CODE_FIJI="$CODE_BASE/fiji/fiji"
 alias gofi='cd $CODE_FIJI'
 alias gotm='cd $CODE_FIJI/../TrackMate'
 alias gocb='cd $CODE_FIJI/../cookbook'
+path_prepend "$CODE_FIJI/bin"
 
 # BigDataViewer - https://github.com/bigdataviewer
 export CODE_BDV="$CODE_BASE/bdv"
@@ -93,6 +95,7 @@ alias gopsj='cd $CODE_SCIJAVA/pom-scijava'
 alias gopsb='cd $CODE_SCIJAVA/pom-scijava-base'
 alias gosjc='cd $CODE_SCIJAVA/scijava-common'
 alias gosjs='cd $CODE_SCIJAVA/scijava-scripts'
+path_prepend "$CODE_SCIJAVA/scijava-scripts"
 
 # NAR - https://github.com/maven-nar/nar-maven-plugin
 export CODE_NAR="$CODE_BASE/maven/nar-maven-plugin"

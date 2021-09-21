@@ -10,3 +10,4 @@ test "$DEBUG" && echo "[dotfiles] Loading plugin 'ruby'..."
 # bundler install gems without root access, rather than system-wide.
 
 export GEM_HOME="$HOME/.gem/ruby/default"
+path_prepend "$GEM_HOME/bin"
