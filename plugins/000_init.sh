@@ -12,7 +12,7 @@ path_prepend() {
   test -d "$1" || return
   path | grep -Fxq "$1" && return
   test "$PATH_PREPEND" &&
-    export PATH_PREPEND="$PATH_PREPEND:$1" ||
+    export PATH_PREPEND="$1:$PATH_PREPEND" ||
     export PATH_PREPEND="$1"
 }
 path_append() {
