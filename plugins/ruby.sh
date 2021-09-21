@@ -9,7 +9,4 @@ test "$DEBUG" && echo "[dotfiles] Loading plugin $(basename "$0")..."
 # I'm happy with system Ruby for now, and the config below makes
 # bundler install gems without root access, rather than system-wide.
 
-if which ruby >/dev/null 2>&1
-then
-	export GEM_HOME=$(ruby -e 'puts Gem.user_dir')
-fi
+export GEM_HOME="$HOME/.gem/ruby/default"
