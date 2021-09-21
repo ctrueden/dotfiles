@@ -45,51 +45,41 @@ then
 else
 	jhome() { :; }
 fi
-export J6="$(jhome '1.6')"
-export J7="$(jhome '1.7')"
-export J8="$(jhome '1.8')"
-export J9="$(jhome '9')"
-export J10="$(jhome '10')"
-export J11="$(jhome '11')"
-export J12="$(jhome '12')"
-export J13="$(jhome '13')"
-export J14="$(jhome '14')"
-export J15="$(jhome '15')"
-export J16="$(jhome '16')"
-export J17="$(jhome '17')"
-export J18="$(jhome '18')"
-export J19="$(jhome '19')"
-test -n "$J6" || export J6="$(jhome '6-oracle')"
-test -n "$J7" || export J7="$(jhome '7-oracle')"
-test -n "$J8" || export J8="$(jhome '8-oracle')"
-test -n "$J9" || export J9="$(jhome '9-oracle')"
-test -n "$J10" || export J10="$(jhome '10-oracle')"
-test -n "$J11" || export J11="$(jhome '11-oracle')"
-test -n "$J12" || export J12="$(jhome '12-oracle')"
-test -n "$J13" || export J13="$(jhome '13-oracle')"
-test -n "$J14" || export J14="$(jhome '14-oracle')"
-test -n "$J15" || export J15="$(jhome '15-oracle')"
-test -n "$J16" || export J16="$(jhome '16-oracle')"
-test -n "$J17" || export J17="$(jhome '17-oracle')"
-test -n "$J18" || export J18="$(jhome '18-oracle')"
-test -n "$J19" || export J19="$(jhome '19-oracle')"
-alias j6='export JAVA_HOME="$J6" && echo "JAVA_HOME -> $JAVA_HOME" && java -version'
-alias j7='export JAVA_HOME="$J7" && echo "JAVA_HOME -> $JAVA_HOME" && java -version'
-alias j8='export JAVA_HOME="$J8" && echo "JAVA_HOME -> $JAVA_HOME" && java -version'
-alias j9='export JAVA_HOME="$J9" && echo "JAVA_HOME -> $JAVA_HOME" && java -version'
-alias j10='export JAVA_HOME="$J10" && echo "JAVA_HOME -> $JAVA_HOME" && java -version'
-alias j11='export JAVA_HOME="$J11" && echo "JAVA_HOME -> $JAVA_HOME" && java -version'
-alias j12='export JAVA_HOME="$J12" && echo "JAVA_HOME -> $JAVA_HOME" && java -version'
-alias j13='export JAVA_HOME="$J13" && echo "JAVA_HOME -> $JAVA_HOME" && java -version'
-alias j14='export JAVA_HOME="$J14" && echo "JAVA_HOME -> $JAVA_HOME" && java -version'
-alias j15='export JAVA_HOME="$J15" && echo "JAVA_HOME -> $JAVA_HOME" && java -version'
-alias j16='export JAVA_HOME="$J16" && echo "JAVA_HOME -> $JAVA_HOME" && java -version'
-alias j17='export JAVA_HOME="$J17" && echo "JAVA_HOME -> $JAVA_HOME" && java -version'
-alias j18='export JAVA_HOME="$J18" && echo "JAVA_HOME -> $JAVA_HOME" && java -version'
-alias j19='export JAVA_HOME="$J19" && echo "JAVA_HOME -> $JAVA_HOME" && java -version'
+jswitch() {
+	export JAVA_HOME="$(jhome $@)" &&
+		echo "JAVA_HOME -> $JAVA_HOME" &&
+		java -version
+}
+alias j6='jswitch 1.6'
+alias j7='jswitch 1.7'
+alias j8='jswitch 1.8'
+alias j9='jswitch 9'
+alias j10='jswitch 10'
+alias j11='jswitch 11'
+alias j12='jswitch 12'
+alias j13='jswitch 13'
+alias j14='jswitch 14'
+alias j15='jswitch 15'
+alias j16='jswitch 16'
+alias j17='jswitch 17'
+alias j18='jswitch 18'
+alias j19='jswitch 19'
+alias j20='jswitch 20'
+alias j21='jswitch 21'
+alias j22='jswitch 22'
+alias j23='jswitch 23'
+alias j24='jswitch 24'
+alias j25='jswitch 25'
+alias j26='jswitch 26'
+alias j27='jswitch 27'
+alias j28='jswitch 28'
+alias j29='jswitch 29'
+alias j30='jswitch 30'
+alias j31='jswitch 31'
+# 32 versions of Java ought to be enough for anybody.
 
 # use Java 8 by default if available
-test -n "$J8" && export JAVA_HOME="$J8"
+J8=$(jhome 1.8) test -n "$J8" && export JAVA_HOME="$J8"
 
 # add some basic directories to the classpath
 # NB: We avoid the CLASSPATH variable since some programs play badly with it.
