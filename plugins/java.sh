@@ -91,7 +91,7 @@ $CODE_PRIVATE/java/utils
 
 # generate classpath for desired Maven artifacts
 cpFile="$HOME/.java-classpath"
-if [ ! -e "$cpFile" ]
+if [ ! -e "$cpFile" -a -x "$(which maven-cp 2> /dev/null)" ]
 then
 	# generate classpath cache
 	echo "Regenerating $cpFile"
