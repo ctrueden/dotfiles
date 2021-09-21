@@ -1,4 +1,4 @@
-test "$DEBUG" && echo "[dotfiles] Loading plugin $(basename "$0")..."
+test "$DEBUG" && echo "[dotfiles] Loading plugin 'git'..."
 
 # Git - https://github.com/git/git
 export CODE_GIT="$CODE_BASE/git/git"

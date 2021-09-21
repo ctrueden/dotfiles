@@ -1,4 +1,4 @@
-test "$DEBUG" && echo "[dotfiles] Loading plugin $(basename "$0")..."
+test "$DEBUG" && echo "[dotfiles] Loading plugin 'code'..."
 
 # base directory for all projects
 export CODE_BASE="$HOME/code"

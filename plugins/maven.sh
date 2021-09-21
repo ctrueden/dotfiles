@@ -1,4 +1,4 @@
-test "$DEBUG" && echo "[dotfiles] Loading plugin $(basename "$0")..."
+test "$DEBUG" && echo "[dotfiles] Loading plugin 'maven'..."
 
 export MAVEN_OPTS="-Xmx1536m"
 

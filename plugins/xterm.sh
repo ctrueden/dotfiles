@@ -1,4 +1,4 @@
-test "$DEBUG" && echo "[dotfiles] Loading plugin $(basename "$0")..."
+test "$DEBUG" && echo "[dotfiles] Loading plugin 'xterm'..."
 
 # update terminal title as appropriate
 case "$TERM" in

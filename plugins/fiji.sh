@@ -1,4 +1,4 @@
-test "$DEBUG" && echo "[dotfiles] Loading plugin $(basename "$0")..."
+test "$DEBUG" && echo "[dotfiles] Loading plugin 'fiji'..."
 
 case "$(uname)" in
 	Darwin)

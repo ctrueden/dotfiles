@@ -80,7 +80,6 @@ command -v hub >/dev/null 2>&1 && \
 
 for f in $DOTFILES/plugins/*.sh
 do
-	test "$DEBUG" && echo "[bashrc] Sourcing plugin $(basename "$f")..."
 	source $f
 done
 

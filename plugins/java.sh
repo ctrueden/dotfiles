@@ -1,4 +1,4 @@
-test "$DEBUG" && echo "[dotfiles] Loading plugin $(basename "$0")..."
+test "$DEBUG" && echo "[dotfiles] Loading plugin 'java'..."
 
 # Define the java command to use the java executable from JAVA_HOME.
 # - On macOS, this already happens indirectly.

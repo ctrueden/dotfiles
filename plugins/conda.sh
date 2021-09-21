@@ -1,4 +1,4 @@
-test "$DEBUG" && echo "[dotfiles] Loading plugin $(basename "$0")..."
+test "$DEBUG" && echo "[dotfiles] Loading plugin 'conda'..."
 
 # Enable conda if installed.
 if [ -d "$HOME/miniconda3" ]

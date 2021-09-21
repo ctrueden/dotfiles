@@ -1,4 +1,4 @@
-test "$DEBUG" && echo "[dotfiles] Loading plugin $(basename "$0")..."
+test "$DEBUG" && echo "[dotfiles] Loading plugin 'omero'..."
 
 export CODE_OMERO="$CODE_BASE/ome/openmicroscopy"
 export PATH_OMERO_DIST="$CODE_OMERO/dist"
