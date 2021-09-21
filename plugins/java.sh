@@ -106,3 +106,14 @@ export JAVA_CP="$JAVA_CP:$(cat $cpFile)"
 alias j='java -cp "$JAVA_CP:."'
 alias jc='javac -cp "$JAVA_CP:."'
 alias jp='javap -cp "$JAVA_CP:."'
+
+cpath() {
+	if [ "$CLASSPATH" ]
+	then
+		echo CLASSPATH =
+		spath "$CLASSPATH"
+	else
+		echo JAVA_CP =
+		spath "$JAVA_CP"
+	fi
+}

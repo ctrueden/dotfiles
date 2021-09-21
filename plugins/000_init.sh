@@ -6,6 +6,8 @@ shell_name() {
   echo "${shell#-}"
 }
 
+spath() { echo "$1" | sed -e 's/:/\n/g'; }
+path() { spath "$PATH"; }
 path_prepend() {
   test -d "$1" || return
   test "$PATH_PREPEND" &&
