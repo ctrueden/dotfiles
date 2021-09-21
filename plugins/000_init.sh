@@ -10,12 +10,14 @@ spath() { echo "$1" | sed -e 's/:/\n/g'; }
 path() { spath "$PATH"; }
 path_prepend() {
   test -d "$1" || return
+  path | grep -Fxq "$1" && return
   test "$PATH_PREPEND" &&
     export PATH_PREPEND="$PATH_PREPEND:$1" ||
     export PATH_PREPEND="$1"
 }
 path_append() {
   test -d "$1" || return
+  path | grep -Fxq "$1" && return
   test "$PATH_APPEND" &&
     export PATH_APPEND="$PATH_APPEND:$1" ||
     export PATH_APPEND="$1"
