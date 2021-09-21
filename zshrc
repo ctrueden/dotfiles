@@ -35,8 +35,11 @@ load_plugin() {
 zgen_init() {
 	test "$DEBUG" && echo "[zshrc] Initializing zgen..."
 
+	# --== oh-my-zsh ==--
+	test "$DEBUG" && echo "[zshrc] Loading oh-my-zsh..."
+	zgen oh-my-zsh
+
 	# --== oh-my-zsh plugins ==--
-	omzsh
 	omzsh plugins/vi-mode           # vi mode CLI instead of emacs
 	omzsh plugins/brew              # homebrew completion
 	omzsh plugins/colorize          # highlight files based on type with pygmentize
