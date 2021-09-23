@@ -10,7 +10,7 @@ then
 		__conda_setup="$("$condaDir/bin/conda" "shell.$(shell_name)" hook 2>/dev/null)"
 		if [ $? -eq 0 ]; then
 			mkdir -p "$(dirname "$condaSetupScript")"
-			echo "$__conda_setup" >"$condaSetupScript"
+			echo -E "$__conda_setup" >"$condaSetupScript"
 		elif [ -f "$condaDir/etc/profile.d/conda.sh" ]; then
 			mkdir -p "$(dirname "$condaSetupScript")"
 			echo ". '$condaDir/etc/profile.d/conda.sh'" >"$condaSetupScript"
