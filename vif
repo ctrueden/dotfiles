@@ -1,7 +1,0 @@
-#!/bin/bash
-
-#
-# vif - searches for the given filename in the current subtree and opens in vim
-#
-
-vim $(wi "$@")
