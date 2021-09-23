@@ -1,7 +1,7 @@
 # Web sites
 
 [code/web/annarueden.com]
-checkout = git clone git://github.com/ctrueden/annarueden.com
+checkout = git clone git://github.com/arueden/annarueden.com
 
 [code/web/athenafoster.com]
 checkout = git clone git://github.com/AthenaFoster/athenafoster.com
@@ -11,6 +11,9 @@ checkout = git clone git://github.com/sconnor99/badgerlandf100s.com
 
 [code/web/ctrueden.github.io]
 checkout = git clone git://github.com/ctrueden/ctrueden.github.io
+
+[code/web/fe3h]
+checkout = git clone git://github.com/arueden/fe3h
 
 [code/web/restlessgamer.net]
 checkout = git clone git://github.com/ctrueden/restlessgamer.net
