@@ -61,7 +61,7 @@ for my $dir (keys %repos) {
 
 # check actual repositories beneath code folder against .mrconfig entries
 my @actualRepos =
-	`find -H "$home/$codeFolder" -maxdepth 3 '(' -name '.git' -o -name '.hg' ')' -type d`;
+	`find -H "$home/$codeFolder"/* -maxdepth 2 '(' -name '.git' -o -name '.hg' ')' -type d`;
 for my $actualRepo (@actualRepos) {
 	chop $actualRepo;
 	$actualRepo =~ s/^$home\/(.*)\/\.(git|hg)$/\1/;
