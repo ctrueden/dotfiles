@@ -1,8 +1,5 @@
 # Git-related projects
 
-[code/git/Git-Mediawiki]
-checkout = git clone git://github.com/Git-Mediawiki/Git-Mediawiki
-
 [code/git/git]
 checkout = git clone git://github.com/git/git
 
