@@ -13,11 +13,9 @@ do
 	test -x "$CONDA_EXE" && break
 done
 
-# Prefer mamba to conda where feasible, if mamba is installed.
-if which mamba >/dev/null 2>&1
-then
-	export MAMBA_EXE=$(which mamba)
-	export CONDA_EXE=$MAMBA_EXE
+# Enable mamba if available.
+if [ -f "$CONDA_PREFIX/etc/profile.d/mamba.sh" ]; then
+	. "$CONDA_PREFIX/etc/profile.d/mamba.sh"
 fi
 
 # NB: Explicitly call compinit. Isn't needed for most completions,
