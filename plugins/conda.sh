@@ -26,10 +26,10 @@ if [ -f "$condaSetupScript" ]; then
 fi
 unset condaSetupScript
 
-# Enable mamba if available.
-if [ -f "$CONDA_PREFIX/etc/profile.d/mamba.sh" ]; then
-	. "$CONDA_PREFIX/etc/profile.d/mamba.sh"
-fi
+# Add handy shortcuts for efficient conda/mamba usage.
+which mamba >/dev/null 2>&1 && alias snk=mamba || alias snk=conda
+alias snka='conda activate'
+alias snkd='conda deactivate'
 
 # NB: Explicitly call compinit. Isn't needed for most completions,
 # but the esc/conda-zsh-completion plugin doesn't work without it.
