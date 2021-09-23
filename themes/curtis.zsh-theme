@@ -12,10 +12,20 @@ eval color_path='$fg_bold[blue]'
 eval color_prompt='$FG[214]' # orange
 eval color_prompt2='$fg_no_bold[red]'
 eval color_gitinfo='$fg_bold[yellow]'
+eval color_condaenv='$fg_bold[magenta]'
 eval color_virtualenv='$fg_bold[white]'
 eval color_vimode='$fg_no_bold[white]'
 eval color_exitcode='$fg_no_bold[red]'
 eval color_timestamp='$fg_no_bold[yellow]'
+
+# Add conda environment to the prompt.
+#
+# It is recommended that you disable conda's built-in prompt munging via:
+#
+#   conda config --set changeps1 false
+#
+# Or else you'll get the active environment in your prompt in two places.
+conda_prompt_info() { test "$CONDA_DEFAULT_ENV" && echo "[$CONDA_DEFAULT_ENV] "; }
 
 # primary prompt
 PROMPT='\
@@ -23,6 +33,7 @@ PROMPT='\
 %{$color_userhost%}%n@%m%{$reset_color%} \
 %{$color_path%}%~%{$reset_color%}\
 $(git_prompt_info) \
+%{$color_condaenv%}$(conda_prompt_info)%{$reset_color%}\
 %{$color_prompt%}%(!.#.»)%{$reset_color%}
 '
 
