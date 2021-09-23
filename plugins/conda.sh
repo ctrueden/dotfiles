@@ -33,4 +33,7 @@ fi
 
 # NB: Explicitly call compinit. Isn't needed for most completions,
 # but the esc/conda-zsh-completion plugin doesn't work without it.
-which compinit >/dev/null 2>&1 && test -x "$CONDA_EXE" && compinit
+which compinit >/dev/null 2>&1 && test -x "$CONDA_EXE" && {
+	compinit
+	compdef _conda mamba # Enable mamba tab completion, too.
+}
