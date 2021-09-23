@@ -69,6 +69,9 @@ checkout = git clone git://github.com/PTschaikner/RadialIntensityProfile
 [code/sj-stuff/SME]
 checkout = git clone git://github.com/biocompibens/SME
 
+[code/sj-stuff/SNT]
+checkout = git clone git://github.com/morphonets/SNT
+
 [code/sj-stuff/Scripts]
 checkout = git clone git://github.com/tferr/Scripts
 
@@ -92,6 +95,9 @@ checkout = git clone git://github.com/fmi-faim/fmi-trackmate-addons
 
 [code/sj-stuff/fun.imagej]
 checkout = git clone git://github.com/funimagej/fun.imagej
+
+[code/sj-stuff/funimage.figure]
+checkout = git clone git://github.com/kephale/funimage.figure
 
 [code/sj-stuff/hIPNAT]
 checkout = git clone git://github.com/tferr/hIPNAT
@@ -215,3 +221,6 @@ checkout = git clone git://github.com/bnanes/slideset
 
 [code/sj-stuff/thunderstorm]
 checkout = git clone git://github.com/zitmen/thunderstorm
+
+[code/sj-stuff/SNT]
+checkout = git clone git://github.com/morphonets/SNT

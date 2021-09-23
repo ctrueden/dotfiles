@@ -2,3 +2,6 @@
 
 [code/micro-manager/micro-manager]
 checkout = git clone git://github.com/micro-manager/micro-manager
+
+[code/micro-manager/micro-manager.github.io]
+checkout = git clone git://github.com/micro-manager/micro-manager.github.io

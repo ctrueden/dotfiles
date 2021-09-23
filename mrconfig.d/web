@@ -3,6 +3,9 @@
 [code/web/annarueden.com]
 checkout = git clone git://github.com/ctrueden/annarueden.com
 
+[code/web/athenafoster.com]
+checkout = git clone git://github.com/AthenaFoster/athenafoster.com
+
 [code/web/badgerlandf100s.com]
 checkout = git clone git://github.com/sconnor99/badgerlandf100s.com
 

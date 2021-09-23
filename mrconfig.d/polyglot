@@ -12,6 +12,9 @@ checkout = git clone git://github.com/Stewori/JyNI
 [code/polyglot/beakerx]
 checkout = git clone git://github.com/twosigma/beakerx
 
+[code/polyglot/beakerx_kernel_groovy]
+checkout = git clone git://github.com/twosigma/beakerx_kernel_groovy
+
 [code/polyglot/graal]
 checkout = git clone git://github.com/oracle/graal
 
