@@ -1,5 +1,8 @@
 # Scientific software repositories
 
+[code/science/ImageM]
+checkout = git clone git://github.com/mattools/ImageM
+
 [code/science/MIB]
 checkout = git clone git://github.com/Ajaxels/MIB
 
