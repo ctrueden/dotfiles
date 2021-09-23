@@ -72,12 +72,6 @@ checkout = git clone git://github.com/biocompibens/SME
 [code/sj-stuff/Scripts]
 checkout = git clone git://github.com/tferr/Scripts
 
-[code/sj-stuff/TrackMate-TrackAnalysis]
-checkout = git clone git://github.com/tinevez/TrackMate-TrackAnalysis
-
-[code/sj-stuff/TrackMate-extras]
-checkout = git clone git://github.com/tinevez/TrackMate-extras
-
 [code/sj-stuff/active-cells-ij2]
 checkout = git clone git://github.com/ctrueden/active-cells-ij2
 
