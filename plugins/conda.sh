@@ -20,9 +20,6 @@ then
 	export CONDA_EXE=$MAMBA_EXE
 fi
 
-if [ -x "$CONDA_EXE" ]
-then
-	# NB: Explicitly call compinit. Isn't needed for most completions,
-	# but the esc/conda-zsh-completion plugin doesn't work without it.
-	compinit
-fi
+# NB: Explicitly call compinit. Isn't needed for most completions,
+# but the esc/conda-zsh-completion plugin doesn't work without it.
+which compinit >/dev/null 2>&1 && test -x "$CONDA_EXE" && compinit
