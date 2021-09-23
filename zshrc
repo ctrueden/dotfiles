@@ -158,11 +158,6 @@ bindkey -M viins '^X,' _history-complete-newer \
 test "$DEBUG" && echo "[zshrc] Applying zgen configuration..."
 zgen saved || zgen_init
 
-# NB: Explicitly call compinit. Isn't needed for most completions,
-# but the esc/conda-zsh-completion plugin doesn't work without it.
-test "$DEBUG" && echo "[zshrc] Refreshing completions..."
-compinit
-
 # --== zmv ==--
 
 # See: https://github.com/zsh-users/zsh/blob/master/Functions/Misc/zmv
