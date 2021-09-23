@@ -170,12 +170,4 @@ test "$DEBUG" && echo "[zshrc] Configuring zmv..."
 autoload -U zmv
 alias mmv='noglob zmv -W'
 
-# --== vundle ==--
-
-if [ ! -d "$HOME/.vim/bundle/Vundle.vim" ]
-then
-	test "$DEBUG" && echo "[zshrc] Initializing vundle..."
-	vundle-init && vundle-update
-fi
-
 test "$DEBUG" && echo "[zshrc] Done!"
