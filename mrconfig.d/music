@@ -18,5 +18,8 @@ checkout = git clone git://github.com/ctrueden/ibroadcast-python
 [code/music/mikmod2wav]
 checkout = git clone git://github.com/laomaiweng/mikmod2wav
 
+[code/music/web-scrobbler]
+checkout = git clone git://github.com/web-scrobbler/web-scrobbler
+
 [code/music/whatlastgenre]
 checkout = git clone git://github.com/YetAnotherNerd/whatlastgenre

@@ -1,5 +1,8 @@
 # Game-related projects
 
+[code/games/Lipx]
+checkout = git clone git://github.com/kylon/Lipx
+
 [code/games/pcgen]
 checkout = git clone git://github.com/PCGen/pcgen
 

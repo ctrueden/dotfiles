@@ -153,6 +153,9 @@ checkout = git clone git://github.com/imcf/imcf-fiji-toolbars
 [code/sj-stuff/imglib2-icy]
 checkout = git clone git://github.com/tinevez/imglib2-icy
 
+[code/sj-stuff/imglib2-label-multisets]
+checkout = git clone git://github.com/saalfeldlab/imglib2-label-multisets
+
 [code/sj-stuff/imglib2-labkit]
 checkout = git clone git://github.com/maarzt/imglib2-labkit
 
@@ -185,6 +188,9 @@ checkout = git clone git://github.com/stelfrich/legacy-update-bug-mcve
 
 [code/sj-stuff/mars-core]
 checkout = git clone git://github.com/duderstadt-lab/mars-core
+
+[code/sj-stuff/mars-fx]
+checkout = git clone git://github.com/duderstadt-lab/mars-fx
 
 [code/sj-stuff/mars-swing]
 checkout = git clone git://github.com/duderstadt-lab/mars-swing
