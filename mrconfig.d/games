@@ -3,6 +3,9 @@
 [code/games/Lipx]
 checkout = git clone git://github.com/kylon/Lipx
 
+[code/games/minecraft-python]
+checkout = git clone git://github.com/Macuyiko/minecraft-python
+
 [code/games/pcgen]
 checkout = git clone git://github.com/PCGen/pcgen
 
