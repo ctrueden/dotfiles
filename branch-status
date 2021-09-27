@@ -40,7 +40,7 @@ branch_status() {
 			sed -E 's/  */~/g')
 	fi
 	for branch in $branches
-	do (
+	do
 		branch="$(echo "$branch" | sed 's/~/ /g')"
 		test "$branch" != "" || continue
 		if [ "$all" ]
@@ -51,7 +51,6 @@ branch_status() {
 			test "$upstream" != "origin/gh-pages" || continue
 		fi
 		printf "%20s : %s\n" "$repo" "$branch"
-	)
 	done
 }
 
