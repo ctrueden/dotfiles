@@ -5,7 +5,7 @@ condaSetupScript="$HOME/.cache/conda-setup"
 # Adapted from "conda init" blurb, but cached for performance.
 if [ ! -f "$condaSetupScript" ]
 then
-	for condaDir in "$HOME/miniconda3" /usr/local/miniconda
+	for condaDir in "$HOME/miniconda3" /usr/local/Caskroom/miniconda/base /usr/local/miniconda
 	do
 		__conda_setup="$("$condaDir/bin/conda" "shell.$(shell_name)" hook 2>/dev/null)"
 		if [ $? -eq 0 ]; then
