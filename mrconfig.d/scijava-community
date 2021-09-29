@@ -87,9 +87,6 @@ checkout = git clone git://github.com/bic-kn/colocalization-influences
 [code/sj-stuff/deepimagej-plugin]
 checkout = git clone git://github.com/deepimagej/deepimagej-plugin
 
-[code/sj-stuff/deepnetj]
-checkout = git clone git://github.com/Bergwerf/deepnetj
-
 [code/sj-stuff/fmi-trackmate-addons]
 checkout = git clone git://github.com/fmi-faim/fmi-trackmate-addons
 
