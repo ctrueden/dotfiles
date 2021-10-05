@@ -225,5 +225,5 @@ checkout = git clone git://github.com/bnanes/slideset
 [code/sj-stuff/thunderstorm]
 checkout = git clone git://github.com/zitmen/thunderstorm
 
-[code/sj-stuff/SNT]
-checkout = git clone git://github.com/morphonets/SNT
+[code/javadoc/SNT-javadoc]
+checkout = git clone git://github.com/morphonets/SNT-javadoc
