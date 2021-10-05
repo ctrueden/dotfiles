@@ -6,9 +6,6 @@ checkout = git clone git://github.com/imaging-tools/ivvv
 [code/3d/java3d-core]
 checkout = git clone git://github.com/scijava/java3d-core
 
-[code/3d/java3d-javadoc]
-checkout = git clone git://github.com/scijava/java3d-javadoc
-
 [code/3d/java3d-utils]
 checkout = git clone git://github.com/scijava/java3d-utils
 
@@ -24,9 +21,6 @@ checkout = git clone git://github.com/scenerygraphics/scenery
 [code/3d/sciview]
 checkout = git clone git://github.com/scenerygraphics/sciview
 
-[code/3d/sciview-javadoc]
-checkout = git clone git://github.com/scenerygraphics/sciview-javadoc
-
 [code/3d/spirvcrossj]
 checkout = git clone git://github.com/scenerygraphics/spirvcrossj
 
@@ -38,3 +32,9 @@ checkout = git clone git://github.com/scijava/visad
 
 [code/3d/volume-viewer-electron]
 checkout = git clone git://github.com/imaging-tools/volume-viewer-electron
+
+[code/javadoc/java3d-javadoc]
+checkout = git clone git://github.com/scijava/java3d-javadoc
+
+[code/javadoc/sciview-javadoc]
+checkout = git clone git://github.com/scenerygraphics/sciview-javadoc
