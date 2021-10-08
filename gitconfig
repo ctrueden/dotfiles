@@ -93,6 +93,9 @@
 [http]
 	cookiefile = ~/.gitcookies
 
+[init]
+	defaultBranch = main
+
 [pull]
 	ff = only
 
