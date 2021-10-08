@@ -1,0 +1,11 @@
+#!/bin/sh
+
+# unmix-resources - Splits src/main/java and src/main/resources.
+
+for f in $(git ls-files src/main/java | grep -v \.java$)
+do
+  dest=$(echo $f | sed 's^/main/java/^/main/resources/^')
+  dir=$(dirname "$dest")
+  mkdir -p "$dir"
+  git mv "$f" "$dest"
+done

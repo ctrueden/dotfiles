@@ -1,0 +1,102 @@
+#!/bin/bash
+
+# Reports the status of LOCI server boxes.
+
+hostIP() {
+  host=$(host "$1") &&
+    echo "$host" | head -n1 | sed 's/.* //' | sed 's/\.$//' ||
+    echo '<none>'
+}
+
+domains=(
+imagej.net:$(hostIP imagej.net)
+downloads.imagej.net:$(hostIP downloads.imagej.net)
+mirror.imagej.net:$(hostIP mirror.imagej.net)
+search.imagej.net:$(hostIP search.imagej.net)
+sites.imagej.net:$(hostIP sites.imagej.net)
+update.imagej.net:$(hostIP update.imagej.net)
+wsr.imagej.net:$(hostIP wsr.imagej.net)
+\<various\>.imagej.net:$(hostIP developer.imagej.net)
+fiji.sc:$(hostIP fiji.sc)
+samples.fiji.sc:$(hostIP samples.fiji.sc)
+update.fiji.sc:$(hostIP update.fiji.sc)
+samples.scif.io:$(hostIP samples.scif.io)
+image.sc:$(hostIP image.sc)
+javadoc.scijava.org:$(hostIP javadoc.scijava.org)
+scijava.org:$(hostIP scijava.org)
+maven.scijava.org:$(hostIP maven.scijava.org)
+)
+# NB: Convert from space-separated to newline-separated.
+domains=$(for domain in "${domains[@]}"; do test "$domain" = "${domain%:<none>}" && echo "$domain"; done)
+
+fqdn() {
+  domain=$(echo "$domains" | grep "$1")
+  test "$domain" &&
+    echo "${domain%%:*}" ||
+		echo "$(hostIP "$1")"
+}
+
+mac() {
+  mac=$(arp "$1" | grep -o '\([0-9a-f]\+:\)\{5\}[0-9a-f]\+')
+  test "$mac" && echo "$mac" || echo '<unknown>'
+}
+
+rsaKey() {
+  key=$(ssh-keyscan -T1 -t rsa "$1" 2>/dev/null)
+  test "$key" &&
+    echo "$key" | ssh-keygen -lf - | cut -d' ' -f2 ||
+    echo '<unknown>'
+}
+
+pulse() {
+  if [ "$(uname)" = 'Darwin' ]
+  then
+    ping -c1 -t1 "$1" >/dev/null
+  else
+    ping -c1 -w1 "$1" >/dev/null
+  fi
+}
+
+boxes=(
+abyssinian:$(rsaKey abyssinian.loci.wisc.edu)
+balinese:$(rsaKey balinese.loci.wisc.edu)
+cheetoh:$(rsaKey cheetoh.loci.wisc.edu)
+devonrex:$(rsaKey devonrex.loci.wisc.edu)
+egyptianmau:$(rsaKey egyptianmau.loci.wisc.edu)
+gpu:$(rsaKey gpu.loci.wisc.edu)
+ftp:$(rsaKey ftp.loci.wisc.edu)
+ups:$(rsaKey ups.loci.wisc.edu)
+data:$(rsaKey data.loci.wisc.edu)
+)
+# NB: Convert from space-separated to newline-separated.
+boxes=$(for box in "${boxes[@]}"; do test "$box" = "${box%:<unknown>}" && echo "$box"; done)
+
+box() {
+  if pulse "$1"
+  then
+    key=$(rsaKey "$1")
+    box=$(echo "$boxes" | grep "$key")
+    test "$box" &&
+      echo "${box%%:*}" ||
+      echo "$key"
+  else
+    echo '<offline>'
+  fi
+}
+
+tableRow() {
+  printf "%-16s %-16s %-20s %s\n" "$1" "$2" "$3" "$4"
+}
+
+tableRow IP Box Mac FQDN
+tableRow -- --- --- ----
+for n in $(seq 129 199)
+do
+  ip=144.92.48.$n
+  tableRow "$ip" "$(box "$ip")" "$(mac "$ip")" "$(fqdn "$ip")"
+done
+for n in 23 25 26
+do
+  ip=144.92.238.$n
+  tableRow "$ip" "$(box "$ip")" "$(mac "$ip")" "$(fqdn "$ip")"
+done

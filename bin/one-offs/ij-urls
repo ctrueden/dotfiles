@@ -1,0 +1,11 @@
+#!/bin/sh
+
+#
+# ij-urls
+#
+# A quick script to check for imagej.net-related obsolescence:
+# - Convert from forum.imagej.net to forum.image.sc.
+# - Convert from http:...imagej.net to https:...imagej.net.
+
+gsed -i'' "s_http://\([a-z]*\.\)\?imagej.net_https://\1imagej.net_g" pom.xml
+git ci -m 'POM: Use HTTPS for imagej.net URLs' pom.xml

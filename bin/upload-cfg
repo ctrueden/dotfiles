@@ -1,0 +1,17 @@
+#!/bin/bash
+
+#
+# upload-cfg: a script to clone console configuration to a remote server.
+#
+
+SERVER="$@"
+
+if [ -z "$SERVER" ]
+then
+  echo "Please specify destination server."
+  exit 1
+fi
+
+ssh "$SERVER" "mkdir -p config && rm -rf config/*"
+(cd "$PATH_CONFIG" && scp -r * "$SERVER:config/")
+ssh "$SERVER" "bash config/config-links.sh"

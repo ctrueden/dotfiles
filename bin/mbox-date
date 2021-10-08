@@ -1,0 +1,15 @@
+#!/bin/sh
+
+#
+# mbox-date
+#
+
+# Converts dates of the form:
+#     Tue, 2 Jul 2013 14:10:15 -0500
+#
+# to the mbox format of:
+#     Tue Jul 02 14:10:15 2013
+
+# NB: This script works correctly using BSD date, since GNU date diverges.
+
+date -j -f "%a, %e %h %Y %H:%M:%S %z" "$@" +"%a %h %d %H:%M:%S %Y"

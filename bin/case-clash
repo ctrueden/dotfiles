@@ -1,0 +1,30 @@
+#!/usr/bin/perl
+
+#
+# case-clash - finds files in this subtree with the same names apart from case.
+#
+
+use strict;
+
+my @files = `find .`;
+foreach my $f (@files) {
+	chop $f;
+}
+
+my $fail = 0;
+for (my $i = 0; $i < @files; $i++) {
+	my $f = $files[$i];
+	my $pat = quotemeta $f;
+	for (my $j = $i + 1; $j < @files; $j++) {
+		my $g = $files[$j];
+		if ($f eq $g) {
+			next;
+		}
+		if ($g =~ /^$pat$/i) {
+			print STDERR "[CLASH] '$f', '$g'\n";
+			$fail = 1;
+		}
+	}
+}
+
+exit $fail;

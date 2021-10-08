@@ -1,0 +1,7 @@
+#!/bin/sh
+
+# svn-authors - list all authors (usernames) for the current SVN repository.
+
+# Credit to: http://stackoverflow.com/a/2495010
+
+svn log --quiet | awk '/^r/ {print $3}' | sort -u

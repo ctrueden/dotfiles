@@ -1,0 +1,28 @@
+#!/bin/sh
+
+# dir-list-index - generates an HTML index of files in a directory.
+# Intended to be lightly massaged afterwards.
+# Thanks to Jenny Tong for the idea!
+# http://little418.com/2015/04/directory-listings-on-github-pages.html
+
+echo '<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 3.2 Final//EN\">'
+echo '<html>'
+echo ' <head>'
+echo '  <title>[TODO]</title>'
+echo ' </head>'
+echo ' <body>'
+echo '<h1>[TODO]</h1>'
+echo '<table><tr><th>Name</th><th>Size</th></tr>'
+echo '<tr><th colspan="2"><hr></th></tr>'
+find * -type f | while read f
+do
+  test -f "$f" &&
+  echo '<tr>' &&
+  echo "<td valign=\"top\"><li><a href=\"$f\">$f</a></li></td>" &&
+  echo "<td align=\"right\">$(du -h "$f" | cut -f 1)</td>" &&
+  echo '</tr>'
+done
+echo '<tr><th colspan="2"><hr></th></tr>'
+echo '</table>'
+echo '<address>[TODO]</address>'
+echo '</body></html>'

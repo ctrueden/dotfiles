@@ -1,0 +1,13 @@
+#!/bin/sh
+if [ "$#" -ne 2 ]
+then
+  echo "Usage: $0 old.jar new.jar"
+  exit 1
+fi
+old=$(mktemp -t old-XXXX)
+new=$(mktemp -t new-XXXX)
+jar tf "$1" | sort > "$old"
+jar tf "$2" | sort > "$new"
+diff=$(git diff --no-index "$old" "$new")
+rm "$old" "$new"
+echo "$diff"

@@ -1,0 +1,14 @@
+#!/bin/sh
+
+#
+# last-touched - when were the given directory structure(s) last modified?
+#
+
+# Useful for tracking down when a user last did anything on a
+# system, since last's wtmp often does not persist long enough.
+
+for f in "$@"
+do
+  result=$(find "$f" -printf '%T@ %p\n' | sort -n | tail -1 | cut -f2- -d" ")
+  echo "[$f] $(ls -ld "$result")"
+done

@@ -1,0 +1,27 @@
+#!/bin/bash
+
+#
+# check-repos: compares GitHub user repositories with clones
+#              present in the current working directory
+#
+
+base="$1"
+
+if [ -z "$base" ]
+then
+  echo "Usage: check-repos user"
+  echo
+  exit 1
+fi
+
+find . -maxdepth 1 -type d | \
+  sed 's_^\./__' | \
+  sort > cur.txt
+
+curl -s "https://api.github.com/users/$base/repos?per_page=1000" | \
+  grep '^    "html_url":' |
+  sed "s_.*/$base/\(.*\)\",_\1_" | \
+  sort > all.txt
+
+git diff cur.txt all.txt
+rm cur.txt all.txt

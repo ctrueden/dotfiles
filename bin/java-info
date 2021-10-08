@@ -1,0 +1,67 @@
+#/bin/bash
+
+# java-info - spits out reminders about the zillion different locations
+#             where Java-relevant things are stashed on OS X.
+
+echo '=== Which versions of Java are installed? ==='
+jdks=$(find \
+  /System/Library/Java/JavaVirtualMachines \
+  /Library/Java/JavaVirtualMachines \
+  -type d -name '*.jdk' 2> /dev/null)
+for jdk in $jdks
+do
+  echo
+  stat -f "%Sm%t%N" $jdk/Contents/Home
+  (set -x && $jdk/Contents/Home/bin/java -version)
+  du -hs $jdk
+done
+
+echo
+echo '=== Where are the libjvms? ==='
+for jdk in $jdks
+do
+  echo
+  (set -x && find $jdk -name '*libjvm*')
+done
+
+echo
+echo '=== Which version of Java are my browsers using? ==='
+echo
+browser_path='/Library/Internet Plug-Ins/JavaAppletPlugin.plugin'
+if [ -d "$browser_path" ]
+then
+  (set -x && "$browser_path/Contents/Home/bin/java" -version)
+  du -hs "$browser_path"
+else
+  echo "No Java browser plugin found."
+fi
+
+echo
+echo '=== Where is the Java framework stuff? ==='
+echo
+(set -x && ls -l /System/Library/Frameworks/JavaVM.framework/Versions/)
+
+echo
+echo '=== Which version is the Current JRE framework? ==='
+echo
+(set -x && /System/Library/Frameworks/JavaVM.framework/Versions/Current/Commands/java -version)
+
+echo
+echo '=== Which version is the Current JDK framework? ==='
+echo
+(set -x && /System/Library/Frameworks/JavaVM.framework/Versions/CurrentJDK/Commands/java -version)
+
+echo
+echo '=== Which java executables are in my path? ==='
+echo
+(set -x && which java javac)
+
+echo
+echo '=== And where do those symlinks go? ==='
+echo
+(which_java=$(which java) && set -x && ls -l $which_java*)
+
+echo
+echo '=== Tell me more about my Javas! ==='
+echo
+(set -x && /usr/libexec/java_home -V)

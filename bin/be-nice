@@ -1,0 +1,18 @@
+#!/bin/bash
+
+#
+# be-nice - a script to make processes nicer by name instead of pid
+#
+
+# Eclipse constantly eats all my CPU, which causes Google Play Music to skip,
+# since Chrome can't retain enough CPU cycles. This script allows you to tell
+# an application to be nice by name. So in my case, I can say:
+#
+#     be-nice eclipse
+#
+# and it will automatically be reniced to +10. Music sounds good again!
+
+ps="$(ps x)"
+pid="$(echo "$ps" | grep "$@" | grep -v 'be-nice ' | sed -e 's/^ *//' | cut -d ' ' -f 1)"
+echo "Renicing PID: $pid"
+renice +10 -p "$pid"

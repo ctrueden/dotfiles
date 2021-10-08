@@ -1,0 +1,52 @@
+#!/bin/bash
+
+# vcs - a simple, agnostic version control system script
+#       works for CVS, Git, Mercurial and Subversion repositories
+
+# If you think you need something like this, try myrepos!
+# https://github.com/joeyh/myrepos
+
+# Author: Curtis Rueden <ctrueden@wisc.edu>
+
+cmd=$1
+if [ "$cmd" == "" ]
+then
+  echo "Usage: vcs COMMAND [ARGS]"
+  echo
+  echo "Supported commands include:"
+  echo "  commit - commit and/or push code to a repository on a central server"
+  echo "  update - update a working copy/repository from a central server"
+  echo "  status - check the status of a working copy"
+  echo
+  echo "For now, the only legal arguments are version-controlled directories."
+fi
+
+if [ "$#" -eq 1 ]
+then
+  args="$cmd ."
+else
+  args="$@"
+fi
+
+for arg in $args
+do
+  if [ -z "$skip" ]
+  then
+    # skip initial command
+    skip=1
+  else
+    if [ "$cmd" == "commit" -o "$cmd" == "ci" ]
+    then
+      vcs-ci "$arg"
+    elif [ "$cmd" == "update" -o "$cmd" == "up" ]
+    then
+      vcs-up "$arg"
+    elif [ "$cmd" == "status" -o "$cmd" == "st" ]
+    then
+      vcs-st "$arg"
+    else
+      echo "Unknown command: '$cmd'"
+      exit -1
+    fi
+  fi
+done

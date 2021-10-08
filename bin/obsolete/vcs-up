@@ -1,0 +1,54 @@
+#!/bin/bash
+
+# vcs-up - a helper script for updating a repository from a central server
+#          works for CVS, Git, Mercurial and Subversion repositories
+
+# Author: Curtis Rueden <ctrueden@wisc.edu>
+
+dir="$1"
+if [ "$dir" == "" ]
+then
+  dir="."
+fi
+if [ -d "$dir" ]
+then
+  cd "$dir"
+elif [ -e "$dir" ]
+then
+  echo "=== Not a directory: '$dir' ==="
+  exit -1
+else
+  echo "=== Directory not found: '$dir' ==="
+  exit -1
+fi
+
+# do a CVS update
+if [ -e CVS ]
+then
+  echo "=== Updating '$dir' from CVS repository ==="
+  cvs update -dP
+
+# do a Git pull
+elif [ -e .git ]
+then
+  echo "=== Updating '$dir' from Git origin server ==="
+  git pull
+
+# do a Mercurial pull
+elif [ -e .hg ]
+then
+  echo "=== Updating '$dir' from Mercurial origin server ==="
+  hg pull
+  hg update
+
+# do an SVN update
+elif [ -e .svn ]
+then
+  echo "=== Updating '$dir' from Subversion repository ==="
+  svn update
+
+else
+  echo "=== No working copy found in '$dir' ==="
+fi
+
+cd - > /dev/null

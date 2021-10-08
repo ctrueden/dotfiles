@@ -1,0 +1,73 @@
+#!/usr/bin/perl
+
+#
+# non-javadoc-purge - script to delete Eclipse-style "non-Javadoc" comments
+#
+
+# These comments may or may not include the text "non-Javadoc".
+# But what they all share is a non-Javadoc /*, with an @see note inside.
+# Such comments are burdensome to maintain as they quickly fall out of
+# date when the code is refactored. And they are unnecessary with modern
+# IDEs anyway, thanks to knowledge of the AST (e.g., ^T in Eclipse).
+
+use strict;
+
+use constant DEBUG => 0;
+
+foreach my $arg (@ARGV) {
+	process($arg);
+}
+
+sub process($) {
+	my $file = shift;
+
+	# read in file
+	open FILE, "$file"
+		or die "$file: $!";
+	my @in = <FILE>;
+	close(FILE);
+
+	my @out = ();
+
+	my $comment = 0;
+	my $match = 0;
+	my @buffer = ();
+	foreach my $line (@in) {
+		if ($line =~ /\/\*[^\*]/ || $line =~ /\/\*$/) {
+			$comment = 1;
+		}
+		if (not $comment) {
+			# line outside comment; append to output
+			if (DEBUG) { print "Non-comment: $line"; }
+			push(@out, $line);
+			next;
+		}
+		if (DEBUG) { print "    Comment: $line"; }
+		# line inside comment; append to comment buffer
+		push(@buffer, $line);
+		if ($comment && $line =~ /\* \@see /) {
+			# comment is an Eclipse "non-Javadoc" with "@see"
+			$match = 1;
+		}
+		if ($comment && $line =~ /\*\//) {
+			# end of comment; flush comment buffer (or not)
+			$comment = 0;
+			if (!$match) {
+				# lines within comment did not match pattern; append to output
+				foreach my $l (@buffer) {
+					push(@out, $l);
+				}
+			}
+			@buffer = ();
+			$match = 0;
+		}
+	}
+
+	# write output lines
+	open FILE, ">$file"
+		or die "$file: $!";
+	foreach my $line (@out) {
+		print FILE $line;
+	}
+	close(FILE);
+}

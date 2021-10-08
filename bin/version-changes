@@ -1,0 +1,9 @@
+#!/bin/sh
+
+project=$1
+old=$2
+new=$3
+
+cd ~/code/$project/pom-$project
+git fetch --tags
+git diff pom-$project-$old pom-$project-$new | grep '^[+-]\t\t<.*version'

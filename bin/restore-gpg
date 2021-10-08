@@ -1,0 +1,11 @@
+#!/bin/sh
+echo "--> Restoring GPG data"
+for keys in gpg-*.pgp
+do
+  gpg --import < "$keys"
+done
+for db in gpg-*.db
+do
+  gpg --import-ownertrust "$db"
+done
+gpg -K

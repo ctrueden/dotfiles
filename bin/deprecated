@@ -1,0 +1,24 @@
+#!/bin/sh
+
+#
+# Displays a deprecation message in a big ol' box.
+#
+
+lines=$(for arg in "$@"; do echo "$arg"; done)
+
+if command -v boxes >/dev/null
+then
+  # Use the fabulous boxes utility (https://boxes.thomasjensen.com/).
+  design=$(for d in parchment diamonds simple dog peek shell; do echo "$d"; done | shuf | head -n1)
+  echo "$lines" | boxes -d $design -a c -s40x16
+else
+  # No boxes. :-( We do it ourselves.
+  echo '/======================================\'
+  echo '|                                      |'
+  echo "$lines" | while read line
+  do
+    printf '| %-36s |\n' "$line$(echo "\n")"
+  done
+  echo '|                                      |'
+  echo '\======================================/'
+fi

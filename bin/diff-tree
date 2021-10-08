@@ -1,0 +1,19 @@
+#!/bin/sh
+
+#
+# diff-tree - a script to diff two directory structures
+#
+
+test $# -eq 2 || { echo "Two arguments required." && exit 1; }
+old=$1
+new=$2
+test -d "$old" || { echo "Not a directory: $old" && exit 2; }
+test -d "$new" || { echo "Not a directory: $new" && exit 3; }
+oprefix=$(echo "$old" | tr '/' '-')
+nprefix=$(echo "$new" | tr '/' '-')
+olog=$(mktemp -t "XXX$oprefix")
+nlog=$(mktemp -t "XXX$nprefix")
+( cd "$old" && find . ) | sort > "$olog"
+( cd "$new" && find . ) | sort > "$nlog"
+git diff --no-index --word-diff --word-diff-regex='[^/-]+' "$olog" "$nlog"
+rm "$olog" "$nlog"
