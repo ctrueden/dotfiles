@@ -1,2 +1,0 @@
-#!/bin/bash
-find . -name 'pom.xml' -print0 | xargs -0 grep $@
