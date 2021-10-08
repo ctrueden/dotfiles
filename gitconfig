@@ -99,12 +99,12 @@
 [push]
 	default = upstream
 
+[rebase]
+	autosquash = true
+
 [ui]
 	color = auto
 
 [user]
 	name = Curtis Rueden
 	email = ctrueden@wisc.edu
-
-[rebase]
-	autosquash = true
