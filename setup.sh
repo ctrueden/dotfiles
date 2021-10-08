@@ -57,7 +57,6 @@ clone_repo() {
 # -- Main --
 
 # Clone essential repositories as needed.
-clone_repo ctrueden/ctr-scripts ctrueden/ctr-scripts
 clone_repo shell/zgen tarjoilija/zgen
 
 # NB: We use a stub for .bashrc to maintain support for systems that

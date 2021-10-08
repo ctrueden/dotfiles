@@ -46,7 +46,7 @@ p:~/code/ctrueden/ctr-private
 psb:~/code/scijava/pom-scijava-base
 psj:~/code/scijava/pom-scijava
 s:~/code/scifio/scifio
-sc:~/code/ctrueden/ctr-scripts
+sc:~/code/ctrueden/dotfiles/bin
 scli:~/code/scifio/scifio-cli
 sjc:~/code/scijava/scijava-common
 sjs:~/code/scijava/scijava-scripts

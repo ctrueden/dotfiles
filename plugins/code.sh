@@ -11,7 +11,7 @@ alias goctr='cd $CODE_PERSONAL'
 alias gocfg='cd $DOTFILES'
 
 # useful scripts
-export CODE_SCRIPTS="$CODE_PERSONAL/ctr-scripts"
+export CODE_SCRIPTS="$DOTFILES/bin"
 alias gosc='cd $CODE_SCRIPTS'
 path_prepend "$CODE_SCRIPTS"
 
