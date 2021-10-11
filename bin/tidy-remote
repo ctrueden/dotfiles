@@ -1,6 +1,6 @@
 #!/bin/sh
 
-# Deletes all remote branches except for master/gh-pages from the given remote.
+# Deletes all remote branches except for main/master/gh-pages from the given remote.
 # This is intended for tidying up a fork which does not need all the same
 # branches as upstream, but rather only branches intended for PRs.
 
@@ -14,7 +14,7 @@ git remote update
 git branch -av | grep "$remote"
 
 # delete non-integration branches from the given remote
-for b in $(git branch -a|grep "$remote"|grep -v master|grep -v gh-pages)
+for b in $(git branch -a|grep "$remote"|grep -v main|grep -v master|grep -v gh-pages)
 do
   (set -x && git push "$remote" :"${b#*remotes/$remote/}")
 done
