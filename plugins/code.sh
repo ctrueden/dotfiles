@@ -35,24 +35,24 @@ export CODE_BF="$CODE_BASE/ome/bioformats"
 alias gobf='cd $CODE_BF'
 
 # ImageJ - https://github.com/imagej
-export CODE_IJ="$CODE_BASE/imagej/imagej2"
+export CODE_IJ="$CODE_BASE/imagej"
 alias goij='cd $CODE_IJ'
-alias goij1='cd $CODE_IJ/../ImageJA'
-alias goij1p='cd $CODE_IJ/../ij1-patcher'
-alias goij1t='cd $CODE_IJ/../ij1-tests'
-alias goijc='cd $CODE_IJ/../imagej-common'
-alias goijla='cd $CODE_IJ/../imagej-launcher'
-alias goijle='cd $CODE_IJ/../imagej-legacy'
+alias goij2='cd $CODE_IJ/imagej2'
+alias goij1='cd $CODE_IJ/ImageJA'
+alias goij1p='cd $CODE_IJ/ij1-patcher'
+alias goij1t='cd $CODE_IJ/ij1-tests'
+alias goijc='cd $CODE_IJ/imagej-common'
+alias goijla='cd $CODE_IJ/imagej-launcher'
+alias goijle='cd $CODE_IJ/imagej-legacy'
 alias goijl='goijle'
-alias goijo='cd $CODE_IJ/../imagej-omero'
-alias goijs='cd $CODE_IJ/../imagej-server'
-alias goijt='cd $CODE_IJ/../tutorials'
-alias goijup='cd $CODE_IJ/../imagej-updater'
-alias goijus='cd $CODE_IJ/../imagej-usage'
+alias goijo='cd $CODE_IJ/imagej-omero'
+alias goijs='cd $CODE_IJ/imagej-server'
+alias goijt='cd $CODE_IJ/tutorials'
+alias goijup='cd $CODE_IJ/imagej-updater'
 alias goiju='goijup'
 
 # ImageJ OPS - https://github.com/imagej/imagej-ops
-export CODE_OPS="$CODE_IJ/../imagej-ops"
+export CODE_OPS="$CODE_IJ/imagej-ops"
 alias goops='cd $CODE_OPS'
 
 # ImgLib2 - https://github.com/imglib/imglib2
