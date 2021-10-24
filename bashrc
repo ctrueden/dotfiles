@@ -71,11 +71,6 @@ test "$DEBUG" && echo "[bashrc] Enabling bash vi mode..."
 # use vi commands for advanced editing (hit ESC to enter command mode)
 set -o vi
 
-# --== hub (http://hub.github.com/) ==--
-
-command -v hub >/dev/null 2>&1 && \
-	alias git='hub'
-
 # --== shell plugins ==--
 
 for f in $DOTFILES/plugins/*.sh
