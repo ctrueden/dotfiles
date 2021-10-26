@@ -50,6 +50,7 @@ alias goijs='cd $CODE_IJ/imagej-server'
 alias goijt='cd $CODE_IJ/tutorials'
 alias goijup='cd $CODE_IJ/imagej-updater'
 alias goiju='goijup'
+alias gopij='cd $CODE_IJ/pyimagej'
 
 # ImageJ OPS - https://github.com/imagej/imagej-ops
 export CODE_OPS="$CODE_IJ/imagej-ops"
