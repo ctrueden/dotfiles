@@ -100,7 +100,7 @@ checkout = git clone git@github.com:kephale/funimage.figure
 checkout = git clone git@github.com:tferr/hIPNAT
 
 [code/sj-stuff/hot-knife]
-checkout = git clone https://github.com/saalfeldlab/hot-knife
+checkout = git clone git@github.com:saalfeldlab/hot-knife
 
 [code/sj-stuff/ij-ridgedetection]
 checkout = git clone git@github.com:thorstenwagner/ij-ridgedetection
