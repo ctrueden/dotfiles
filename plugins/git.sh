@@ -38,7 +38,7 @@ alias gmv='git mv'
 alias gpack='git reflog expire --expire=now --all && git gc --aggressive --prune=now'
 alias gpop!='git checkout '\''stash^{tree}'\'' -- . && git stash drop'
 alias gpop='git stash pop --index'
-alias gps='fix-git-remotes && gp'
+alias gps=gp
 alias grhup='git reset --hard '\''HEAD@{u}'\'
 alias grup!='grup --prune'
 alias gsh!='gsh --no-prefix'
