@@ -1,40 +1,40 @@
 # Personal projects
 
 [code/ctrueden/contrib-hacker]
-checkout = git clone git://github.com/ctrueden/contrib-hacker
+checkout = git clone git@github.com:ctrueden/contrib-hacker
 
 [code/ctrueden/ctrueden]
-checkout = git clone git://github.com/ctrueden/ctrueden
+checkout = git clone git@github.com:ctrueden/ctrueden
 
 [code/ctrueden/finite-state-machines]
-checkout = git clone git://github.com/ctrueden/finite-state-machines
+checkout = git clone git@github.com:ctrueden/finite-state-machines
 
 [code/ctrueden/fixbe]
-checkout = git clone git://github.com/ctrueden/fixbe
+checkout = git clone git@github.com:ctrueden/fixbe
 
 [code/ctrueden/game-of-life]
-checkout = git clone git://github.com/ctrueden/game-of-life
+checkout = git clone git@github.com:ctrueden/game-of-life
 
 [code/ctrueden/miles-python]
-checkout = git clone git://github.com/ctrueden/miles-python
+checkout = git clone git@github.com:ctrueden/miles-python
 
 [code/ctrueden/puzzler]
-checkout = git clone git://github.com/ctrueden/puzzler
+checkout = git clone git@github.com:ctrueden/puzzler
 
 [code/ctrueden/python-script-recorder]
-checkout = git clone git://github.com/ctrueden/python-script-recorder
+checkout = git clone git@github.com:ctrueden/python-script-recorder
 
 [code/ctrueden/sandbox]
-checkout = git clone git://github.com/ctrueden/sandbox
+checkout = git clone git@github.com:ctrueden/sandbox
 
 [code/ctrueden/sudoku-solver]
-checkout = git clone git://github.com/ctrueden/sudoku-solver
+checkout = git clone git@github.com:ctrueden/sudoku-solver
 
 [code/ctrueden/veggie-copter]
-checkout = git clone git://github.com/ctrueden/veggie-copter
+checkout = git clone git@github.com:ctrueden/veggie-copter
 
 [code/ctrueden/web-toys]
-checkout = git clone git://github.com/ctrueden/web-toys
+checkout = git clone git@github.com:ctrueden/web-toys
 
 [code/ctrueden/world-domination]
-checkout = git clone git://github.com/ctrueden/world-domination
+checkout = git clone git@github.com:ctrueden/world-domination

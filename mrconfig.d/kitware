@@ -1,37 +1,37 @@
 # Kitware projects
 
 [code/kitware/CMake]
-checkout = git clone git://github.com/Kitware/CMake
+checkout = git clone git@github.com:Kitware/CMake
 
 [code/kitware/ITK]
-checkout = git clone git://github.com/Kitware/ITK
+checkout = git clone git@github.com:Kitware/ITK
 
 [code/kitware/KWStyle]
-checkout = git clone git://github.com/Kitware/KWStyle
+checkout = git clone git@github.com:Kitware/KWStyle
 
 [code/kitware/SimpleITK]
-checkout = git clone git://github.com/SimpleITK/SimpleITK
+checkout = git clone git@github.com:SimpleITK/SimpleITK
 
 [code/kitware/SimpleITK-Notebooks]
-checkout = git clone git://github.com/InsightSoftwareConsortium/SimpleITK-Notebooks
+checkout = git clone git@github.com:InsightSoftwareConsortium/SimpleITK-Notebooks
 
 [code/kitware/VTK]
-checkout = git clone git://github.com/Kitware/VTK
+checkout = git clone git@github.com:Kitware/VTK
 
 [code/kitware/farsight]
-checkout = git clone git://github.com/hocheung20/farsight
+checkout = git clone git@github.com:hocheung20/farsight
 
 [code/kitware/itk-js]
-checkout = git clone git://github.com/InsightSoftwareConsortium/itk-js
+checkout = git clone git@github.com:InsightSoftwareConsortium/itk-js
 
 [code/kitware/itk-jupyter-widgets]
-checkout = git clone git://github.com/InsightSoftwareConsortium/itk-jupyter-widgets
+checkout = git clone git@github.com:InsightSoftwareConsortium/itk-jupyter-widgets
 
 [code/kitware/itkwidgets]
-checkout = git clone git://github.com/InsightSoftwareConsortium/itkwidgets
+checkout = git clone git@github.com:InsightSoftwareConsortium/itkwidgets
 
 [code/kitware/vtk-js]
-checkout = git clone git://github.com/Kitware/vtk-js
+checkout = git clone git@github.com:Kitware/vtk-js
 
 [code/kitware/vtkVolViewVessels]
-checkout = git clone git://github.com/KitwareMedical/vtkVolViewVessels
+checkout = git clone git@github.com:KitwareMedical/vtkVolViewVessels

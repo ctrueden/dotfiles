@@ -1,16 +1,16 @@
 # Projects under the Apache umbrella
 
 [code/apache/batik]
-checkout = git clone git://github.com/apache/batik
+checkout = git clone git@github.com:apache/batik
 
 [code/apache/commons-imaging]
-checkout = git clone git://github.com/apache/commons-imaging
+checkout = git clone git@github.com:apache/commons-imaging
 
 [code/apache/commons-math]
-checkout = git clone git://github.com/apache/commons-math
+checkout = git clone git@github.com:apache/commons-math
 
 [code/apache/thrift]
-checkout = git clone git://github.com/apache/thrift
+checkout = git clone git@github.com:apache/thrift
 
 [code/apache/tika]
-checkout = git clone git://github.com/apache/tika
+checkout = git clone git@github.com:apache/tika

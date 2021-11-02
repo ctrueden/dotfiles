@@ -1,61 +1,61 @@
 # KNIME - https://knime.org/
 
 [code/knime/knime-core]
-checkout = git clone git://github.com/knime/knime-core
+checkout = git clone git@github.com:knime/knime-core
 
 [code/knime/knime-dl4j]
-checkout = git clone git://github.com/knime/knime-dl4j
+checkout = git clone git@github.com:knime/knime-dl4j
 
 [code/knime/knime-sdk-setup]
-checkout = git clone git://github.com/knime/knime-sdk-setup
+checkout = git clone git@github.com:knime/knime-sdk-setup
 
 [code/knime/knime-textprocessing]
-checkout = git clone git://github.com/knime/knime-textprocessing
+checkout = git clone git@github.com:knime/knime-textprocessing
 
 [code/knime/knime-workbench]
-checkout = git clone git://github.com/knime/knime-workbench
+checkout = git clone git@github.com:knime/knime-workbench
 
 [code/knime/knip]
-checkout = git clone git://github.com/knime-ip/knip
+checkout = git clone git@github.com:knime-ip/knip
 
 [code/knime/knip-compgraph]
 checkout = git clone git@github.com:knime-ip/knip-compgraph
 
 [code/knime/knip-externals]
-checkout = git clone git://github.com/knime-ip/knip-externals
+checkout = git clone git@github.com:knime-ip/knip-externals
 
 [code/knime/knip-imagej2]
-checkout = git clone git://github.com/knime-ip/knip-imagej2
+checkout = git clone git@github.com:knime-ip/knip-imagej2
 
 [code/knime/knip-imagej3dviewer]
-checkout = git clone git://github.com/knime-ip/knip-imagej3dviewer
+checkout = git clone git@github.com:knime-ip/knip-imagej3dviewer
 
 [code/knime/knip-imglib2-ui]
-checkout = git clone git://github.com/knime-ip/knip-imglib2-ui
+checkout = git clone git@github.com:knime-ip/knip-imglib2-ui
 
 [code/knime/knip-omero]
-checkout = git clone git://github.com/knime-ip/knip-omero
+checkout = git clone git@github.com:knime-ip/knip-omero
 
 [code/knime/knip-python-extensions]
-checkout = git clone git://github.com/knime-ip/knip-python-extensions
+checkout = git clone git@github.com:knime-ip/knip-python-extensions
 
 [code/knime/knip-scijava]
-checkout = git clone git://github.com/knime-ip/knip-scijava
+checkout = git clone git@github.com:knime-ip/knip-scijava
 
 [code/knime/knip-scripting]
-checkout = git clone git://github.com/knime-ip/knip-scripting
+checkout = git clone git@github.com:knime-ip/knip-scripting
 
 [code/knime/knip-sdk-setup]
-checkout = git clone git://github.com/knime-ip/knip-sdk-setup
+checkout = git clone git@github.com:knime-ip/knip-sdk-setup
 
 [code/knime/knip-stitching]
-checkout = git clone git://github.com/biobv2015/knip-stitching
+checkout = git clone git@github.com:biobv2015/knip-stitching
 
 [code/knime/knip-suise]
-checkout = git clone git://github.com/knime-ip/knip-suise
+checkout = git clone git@github.com:knime-ip/knip-suise
 
 [code/knime/knip-tess4j]
-checkout = git clone git://github.com/knime-ip/knip-tess4j
+checkout = git clone git@github.com:knime-ip/knip-tess4j
 
 [code/knime/knip-vtk]
-checkout = git clone git://github.com/knime-ip/knip-vtk
+checkout = git clone git@github.com:knime-ip/knip-vtk

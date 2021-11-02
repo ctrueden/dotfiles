@@ -1,5 +1,5 @@
 # SCIFIO dotfiles - bootstraps SCIFIO-related mrconfig
 
 [code/scifio/dotfiles]
-checkout = git clone git://github.com/scifio/dotfiles
+checkout = git clone git@github.com:scifio/dotfiles
 include = cat $CODE_BASE/scifio/dotfiles/mrconfig 2> /dev/null || true

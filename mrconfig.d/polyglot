@@ -1,58 +1,58 @@
 # Repositories that make combining languages easier
 
 [code/polyglot/BridJ]
-checkout = git clone git://github.com/nativelibs4java/BridJ
+checkout = git clone git@github.com:nativelibs4java/BridJ
 
 [code/polyglot/ImageJA.JS]
-checkout = git clone git://github.com/imjoy-team/ImageJA.JS
+checkout = git clone git@github.com:imjoy-team/ImageJA.JS
 
 [code/polyglot/JyNI]
-checkout = git clone git://github.com/Stewori/JyNI
+checkout = git clone git@github.com:Stewori/JyNI
 
 [code/polyglot/beakerx]
-checkout = git clone git://github.com/twosigma/beakerx
+checkout = git clone git@github.com:twosigma/beakerx
 
 [code/polyglot/beakerx_kernel_groovy]
-checkout = git clone git://github.com/twosigma/beakerx_kernel_groovy
+checkout = git clone git@github.com:twosigma/beakerx_kernel_groovy
 
 [code/polyglot/graal]
-checkout = git clone git://github.com/oracle/graal
+checkout = git clone git@github.com:oracle/graal
 
 [code/polyglot/graal-js-jdk11-maven-demo]
-checkout = git clone git://github.com/graalvm/graal-js-jdk11-maven-demo
+checkout = git clone git@github.com:graalvm/graal-js-jdk11-maven-demo
 
 [code/polyglot/graal-polyglot-experiments]
-checkout = git clone git://github.com/ctrueden/graal-polyglot-experiments
+checkout = git clone git@github.com:ctrueden/graal-polyglot-experiments
 
 [code/polyglot/graalpython]
-checkout = git clone git://github.com/graalvm/graalpython
+checkout = git clone git@github.com:graalvm/graalpython
 
 [code/polyglot/graalvm-demos]
-checkout = git clone git://github.com/graalvm/graalvm-demos
+checkout = git clone git@github.com:graalvm/graalvm-demos
 
 [code/polyglot/graalvm-ten-things]
-checkout = git clone git://github.com/chrisseaton/graalvm-ten-things
+checkout = git clone git@github.com:chrisseaton/graalvm-ten-things
 
 [code/polyglot/imagej2-cheerpj]
-checkout = git clone git://github.com/imjoy-team/imagej2-cheerpj
+checkout = git clone git@github.com:imjoy-team/imagej2-cheerpj
 
 [code/polyglot/java2script]
-checkout = git clone git://github.com/java2script/java2script
+checkout = git clone git@github.com:java2script/java2script
 
 [code/polyglot/jep]
-checkout = git clone git://github.com/ninia/jep
+checkout = git clone git@github.com:ninia/jep
 
 [code/polyglot/jffi]
-checkout = git clone git://github.com/jnr/jffi
+checkout = git clone git@github.com:jnr/jffi
 
 [code/polyglot/jpype]
-checkout = git clone git://github.com/jpype-project/jpype
+checkout = git clone git@github.com:jpype-project/jpype
 
 [code/polyglot/node-java]
-checkout = git clone git://github.com/joeferner/node-java
+checkout = git clone git@github.com:joeferner/node-java
 
 [code/polyglot/pyrepl]
-checkout = git clone git://github.com/chanzuckerberg/pyrepl
+checkout = git clone git@github.com:chanzuckerberg/pyrepl
 
 [code/polyglot/python-javabridge]
-checkout = git clone git://github.com/LeeKamentsky/python-javabridge
+checkout = git clone git@github.com:LeeKamentsky/python-javabridge

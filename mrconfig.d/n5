@@ -1,37 +1,37 @@
 # N5 projects
 
 [code/n5/imglib2-label-multisets]
-checkout = git clone git://github.com/saalfeldlab/imglib2-label-multisets
+checkout = git clone git@github.com:saalfeldlab/imglib2-label-multisets
 
 [code/n5/n5]
-checkout = git clone git://github.com/saalfeldlab/n5
+checkout = git clone git@github.com:saalfeldlab/n5
 
 [code/n5/n5-aws-s3]
-checkout = git clone git://github.com/saalfeldlab/n5-aws-s3
+checkout = git clone git@github.com:saalfeldlab/n5-aws-s3
 
 [code/n5/n5-blosc]
-checkout = git clone git://github.com/saalfeldlab/n5-blosc
+checkout = git clone git@github.com:saalfeldlab/n5-blosc
 
 [code/n5/n5-google-cloud]
-checkout = git clone git://github.com/saalfeldlab/n5-google-cloud
+checkout = git clone git@github.com:saalfeldlab/n5-google-cloud
 
 [code/n5/n5-hdf5]
-checkout = git clone git://github.com/saalfeldlab/n5-hdf5
+checkout = git clone git@github.com:saalfeldlab/n5-hdf5
 
 [code/n5/n5-ij]
-checkout = git clone git://github.com/saalfeldlab/n5-ij
+checkout = git clone git@github.com:saalfeldlab/n5-ij
 
 [code/n5/n5-imglib2]
-checkout = git clone git://github.com/saalfeldlab/n5-imglib2
+checkout = git clone git@github.com:saalfeldlab/n5-imglib2
 
 [code/n5/n5-spark]
-checkout = git clone git://github.com/saalfeldlab/n5-spark
+checkout = git clone git@github.com:saalfeldlab/n5-spark
 
 [code/n5/n5-utils]
-checkout = git clone git://github.com/saalfeldlab/n5-utils
+checkout = git clone git@github.com:saalfeldlab/n5-utils
 
 [code/n5/n5-viewer]
-checkout = git clone git://github.com/saalfeldlab/n5-viewer
+checkout = git clone git@github.com:saalfeldlab/n5-viewer
 
 [code/n5/n5-zarr]
-checkout = git clone git://github.com/saalfeldlab/n5-zarr
+checkout = git clone git@github.com:saalfeldlab/n5-zarr

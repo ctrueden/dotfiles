@@ -1,22 +1,22 @@
 # Game-related projects
 
 [code/games/Lipx]
-checkout = git clone git://github.com/kylon/Lipx
+checkout = git clone git@github.com:kylon/Lipx
 
 [code/games/RetroPieBIOS]
-checkout = git clone git://github.com/archtaurus/RetroPieBIOS
+checkout = git clone git@github.com:archtaurus/RetroPieBIOS
 
 [code/games/minecraft-python]
-checkout = git clone git://github.com/Macuyiko/minecraft-python
+checkout = git clone git@github.com:Macuyiko/minecraft-python
 
 [code/games/pcgen]
-checkout = git clone git://github.com/PCGen/pcgen
+checkout = git clone git@github.com:PCGen/pcgen
 
 [code/games/rommer]
-checkout = git clone git://github.com/ctrueden/rommer
+checkout = git clone git@github.com:ctrueden/rommer
 
 [code/games/srs-game]
-checkout = git clone git://github.com/ekjellman/srs-game
+checkout = git clone git@github.com:ekjellman/srs-game
 
 [code/games/supermariowar]
-checkout = git clone git://github.com/mmatyas/supermariowar
+checkout = git clone git@github.com:mmatyas/supermariowar

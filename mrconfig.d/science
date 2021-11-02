@@ -1,61 +1,61 @@
 # Scientific software repositories
 
 [code/science/ImageM]
-checkout = git clone git://github.com/mattools/ImageM
+checkout = git clone git@github.com:mattools/ImageM
 
 [code/science/MIB]
-checkout = git clone git://github.com/Ajaxels/MIB
+checkout = git clone git@github.com:Ajaxels/MIB
 
 [code/science/ParallelColt]
-checkout = git clone git://github.com/rwl/ParallelColt
+checkout = git clone git@github.com:rwl/ParallelColt
 
 [code/science/RKColocal]
-checkout = git clone git://github.com/lakerwsl/RKColocal
+checkout = git clone git@github.com:lakerwsl/RKColocal
 
 [code/science/YacuDecu]
-checkout = git clone git://github.com/bobpepin/YacuDecu
+checkout = git clone git@github.com:bobpepin/YacuDecu
 
 [code/science/bigcat]
-checkout = git clone git://github.com/saalfeldlab/bigcat
+checkout = git clone git@github.com:saalfeldlab/bigcat
 
 [code/science/bioimagexd]
-checkout = git clone git://github.com/scijava/bioimagexd
+checkout = git clone git@github.com:scijava/bioimagexd
 
 [code/science/fluorender]
-checkout = git clone git://github.com/SCIInstitute/fluorender
+checkout = git clone git@github.com:SCIInstitute/fluorender
 
 [code/science/htcondor]
-checkout = git clone git://github.com/htcondor/htcondor
+checkout = git clone git@github.com:htcondor/htcondor
 
 [code/science/imagejs]
-checkout = git clone git://github.com/imagejs/imagejs.github.com imagejs
+checkout = git clone git@github.com:imagejs/imagejs.github.com imagejs
 
 [code/science/imagepy]
-checkout = git clone git://github.com/Image-Py/imagepy
+checkout = git clone git@github.com:Image-Py/imagepy
 
 [code/science/jicbioimage]
-checkout = git clone git://github.com/JIC-CSB/jicbioimage
+checkout = git clone git@github.com:JIC-CSB/jicbioimage
 
 [code/science/jicbioimage-presentation]
-checkout = git clone git://github.com/JIC-CSB/jicbioimage-presentation
+checkout = git clone git@github.com:JIC-CSB/jicbioimage-presentation
 
 [code/science/jicbioimage.core]
-checkout = git clone git://github.com/JIC-CSB/jicbioimage.core
+checkout = git clone git@github.com:JIC-CSB/jicbioimage.core
 
 [code/science/jicbioimage.illustrate]
-checkout = git clone git://github.com/JIC-CSB/jicbioimage.illustrate
+checkout = git clone git@github.com:JIC-CSB/jicbioimage.illustrate
 
 [code/science/jicbioimage.segment]
-checkout = git clone git://github.com/JIC-CSB/jicbioimage.segment
+checkout = git clone git@github.com:JIC-CSB/jicbioimage.segment
 
 [code/science/jicbioimage.transform]
-checkout = git clone git://github.com/JIC-CSB/jicbioimage.transform
+checkout = git clone git@github.com:JIC-CSB/jicbioimage.transform
 
 [code/science/jtk]
-checkout = git clone git://github.com/dhale/jtk
+checkout = git clone git@github.com:dhale/jtk
 
 [code/science/jts]
-checkout = git clone git://github.com/locationtech/jts
+checkout = git clone git@github.com:locationtech/jts
 
 [code/science/keller-lab-block-filetype]
 checkout = git clone https://bitbucket.org/fernandoamat/keller-lab-block-filetype
@@ -64,26 +64,26 @@ checkout = git clone https://bitbucket.org/fernandoamat/keller-lab-block-filetyp
 checkout = git clone git://git.code.sf.net/p/labinfsyst/code labis
 
 [code/science/libics]
-checkout = git clone git://github.com/svi-opensource/libics
+checkout = git clone git@github.com:svi-opensource/libics
 
 # TODO: Figure out where to host this mirror.
 #[code/science/mipav]
 #checkout = git clone git://git.imagej.net/mipav
 
 [code/science/nd4j]
-checkout = git clone git://github.com/deeplearning4j/nd4j
+checkout = git clone git@github.com:deeplearning4j/nd4j
 
 [code/science/neuroglancer]
-checkout = git clone git://github.com/google/neuroglancer
+checkout = git clone git@github.com:google/neuroglancer
 
 [code/science/orbit-image-analysis]
-checkout = git clone git://github.com/mstritt/orbit-image-analysis
+checkout = git clone git@github.com:mstritt/orbit-image-analysis
 
 [code/science/pixlib]
-checkout = git clone git://github.com/dprodanov/pixlib && cd pixlib && git remote add sf git://git.code.sf.net/p/pixlib/code && git remote update
+checkout = git clone git@github.com:dprodanov/pixlib && cd pixlib && git remote add sf git://git.code.sf.net/p/pixlib/code && git remote update
 
 [code/science/qupath]
-checkout = git clone git://github.com/qupath/qupath
+checkout = git clone git@github.com:qupath/qupath
 
 [code/science/vaa3d]
-checkout = git clone git://github.com/Vaa3D/v3d_external vaa3d
+checkout = git clone git@github.com:Vaa3D/v3d_external vaa3d

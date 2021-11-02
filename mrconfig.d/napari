@@ -1,25 +1,25 @@
 # Napari - https://github.com/napari
 
 [code/napari/NapariPlayground]
-checkout = git clone git://github.com/VolkerH/NapariPlayground
+checkout = git clone git@github.com:VolkerH/NapariPlayground
 
 [code/napari/napari]
-checkout = git clone git://github.com/napari/napari
+checkout = git clone git@github.com:napari/napari
 
 [code/napari/napari-core]
-checkout = git clone git://github.com/napari/napari-core
+checkout = git clone git@github.com:napari/napari-core
 
 [code/napari/napari-hello-world]
-checkout = git clone git://github.com/napari/napari-hello-world
+checkout = git clone git@github.com:napari/napari-hello-world
 
 [code/napari/napari-io]
-checkout = git clone git://github.com/napari/napari-io
+checkout = git clone git@github.com:napari/napari-io
 
 [code/napari/napari-imagej]
 checkout = git clone git@github.com:imagej/napari-imagej
 
 [code/napari/napari-plugin-engine]
-checkout = git clone git://github.com/napari/napari-plugin-engine
+checkout = git clone git@github.com:napari/napari-plugin-engine
 
 [code/napari/plugin-cookiecutter]
-checkout = git clone git://github.com/napari/plugin-cookiecutter
+checkout = git clone git@github.com:napari/plugin-cookiecutter

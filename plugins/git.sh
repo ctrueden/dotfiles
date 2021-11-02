@@ -60,12 +60,6 @@ ghelp() {
     echo "$func" | grep -C9999 "$@"
   done
 }
-ghr() {
-  local slug=$1
-  test "$slug" || slug=$(git remote -v | cut -d"$(echo "\t")" -f2 | head -n1 | sed 's/.*github.com\/\([^ ]*\).*/\1/')
-  test "$slug" &&
-  git remote set-url origin "git://github.com/$slug" && git remote set-url --push origin "git@github.com:$slug"
-}
 gll() {
   local num=$(echo "$1" | sed 's/[^0-9]//g')
   shift

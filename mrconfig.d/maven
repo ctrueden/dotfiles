@@ -1,199 +1,199 @@
 # Apache Maven - https://maven.apache.org/
 
 [code/maven/build-helper-maven-plugin]
-checkout = git clone git://github.com/mojohaus/build-helper-maven-plugin
+checkout = git clone git@github.com:mojohaus/build-helper-maven-plugin
 
 [code/maven/buildnumber-maven-plugin]
-checkout = git clone git://github.com/mojohaus/buildnumber-maven-plugin
+checkout = git clone git@github.com:mojohaus/buildnumber-maven-plugin
 
 [code/maven/exec-maven-plugin]
-checkout = git clone git://github.com/mojohaus/exec-maven-plugin
+checkout = git clone git@github.com:mojohaus/exec-maven-plugin
 
 [code/maven/extra-enforcer-rules]
-checkout = git clone git://github.com/mojohaus/extra-enforcer-rules
+checkout = git clone git@github.com:mojohaus/extra-enforcer-rules
 
 [code/maven/javafx-maven-plugin]
-checkout = git clone git://github.com/javafx-maven-plugin/javafx-maven-plugin
+checkout = git clone git@github.com:javafx-maven-plugin/javafx-maven-plugin
 
 [code/maven/license-maven-plugin]
-checkout = git clone git://github.com/mojohaus/license-maven-plugin
+checkout = git clone git@github.com:mojohaus/license-maven-plugin
 
 [code/maven/maven]
-checkout = git clone git://github.com/apache/maven
+checkout = git clone git@github.com:apache/maven
 
 [code/maven/maven-acr-plugin]
-checkout = git clone git://github.com/apache/maven-acr-plugin
+checkout = git clone git@github.com:apache/maven-acr-plugin
 
 [code/maven/maven-ant-plugin]
-checkout = git clone git://github.com/apache/maven-ant-plugin
+checkout = git clone git@github.com:apache/maven-ant-plugin
 
 [code/maven/maven-antrun-plugin]
-checkout = git clone git://github.com/apache/maven-antrun-plugin
+checkout = git clone git@github.com:apache/maven-antrun-plugin
 
 [code/maven/maven-archetype]
-checkout = git clone git://github.com/apache/maven-archetype
+checkout = git clone git@github.com:apache/maven-archetype
 
 [code/maven/maven-assembly-plugin]
-checkout = git clone git://github.com/apache/maven-assembly-plugin
+checkout = git clone git@github.com:apache/maven-assembly-plugin
 
 [code/maven/maven-changelog-plugin]
-checkout = git clone git://github.com/apache/maven-changelog-plugin
+checkout = git clone git@github.com:apache/maven-changelog-plugin
 
 [code/maven/maven-changes-plugin]
-checkout = git clone git://github.com/apache/maven-changes-plugin
+checkout = git clone git@github.com:apache/maven-changes-plugin
 
 [code/maven/maven-checkstyle-plugin]
-checkout = git clone git://github.com/apache/maven-checkstyle-plugin
+checkout = git clone git@github.com:apache/maven-checkstyle-plugin
 
 [code/maven/maven-clean-plugin]
-checkout = git clone git://github.com/apache/maven-clean-plugin
+checkout = git clone git@github.com:apache/maven-clean-plugin
 
 [code/maven/maven-compiler-plugin]
-checkout = git clone git://github.com/apache/maven-compiler-plugin
+checkout = git clone git@github.com:apache/maven-compiler-plugin
 
 [code/maven/maven-dependency-plugin]
-checkout = git clone git://github.com/apache/maven-dependency-plugin
+checkout = git clone git@github.com:apache/maven-dependency-plugin
 
 [code/maven/maven-deploy-plugin]
-checkout = git clone git://github.com/apache/maven-deploy-plugin
+checkout = git clone git@github.com:apache/maven-deploy-plugin
 
 [code/maven/maven-doap-plugin]
-checkout = git clone git://github.com/apache/maven-doap-plugin
+checkout = git clone git@github.com:apache/maven-doap-plugin
 
 [code/maven/maven-docck-plugin]
-checkout = git clone git://github.com/apache/maven-docck-plugin
+checkout = git clone git@github.com:apache/maven-docck-plugin
 
 [code/maven/maven-doxia]
-checkout = git clone git://github.com/apache/maven-doxia
+checkout = git clone git@github.com:apache/maven-doxia
 
 [code/maven/maven-ear-plugin]
-checkout = git clone git://github.com/apache/maven-ear-plugin
+checkout = git clone git@github.com:apache/maven-ear-plugin
 
 [code/maven/maven-ejb-plugin]
-checkout = git clone git://github.com/apache/maven-ejb-plugin
+checkout = git clone git@github.com:apache/maven-ejb-plugin
 
 [code/maven/maven-enforcer]
-checkout = git clone git://github.com/apache/maven-enforcer
+checkout = git clone git@github.com:apache/maven-enforcer
 
 [code/maven/maven-gpg-plugin]
-checkout = git clone git://github.com/apache/maven-gpg-plugin
+checkout = git clone git@github.com:apache/maven-gpg-plugin
 
 [code/maven/maven-help-plugin]
-checkout = git clone git://github.com/apache/maven-help-plugin
+checkout = git clone git@github.com:apache/maven-help-plugin
 
 [code/maven/maven-install-plugin]
-checkout = git clone git://github.com/apache/maven-install-plugin
+checkout = git clone git@github.com:apache/maven-install-plugin
 
 [code/maven/maven-invoker-plugin]
-checkout = git clone git://github.com/apache/maven-invoker-plugin
+checkout = git clone git@github.com:apache/maven-invoker-plugin
 
 [code/maven/maven-jar-plugin]
-checkout = git clone git://github.com/apache/maven-jar-plugin
+checkout = git clone git@github.com:apache/maven-jar-plugin
 
 [code/maven/maven-jarsigner-plugin]
-checkout = git clone git://github.com/apache/maven-jarsigner-plugin
+checkout = git clone git@github.com:apache/maven-jarsigner-plugin
 
 [code/maven/maven-javadoc-plugin]
-checkout = git clone git://github.com/apache/maven-javadoc-plugin
+checkout = git clone git@github.com:apache/maven-javadoc-plugin
 
 [code/maven/maven-jdeprscan-plugin]
-checkout = git clone git://github.com/apache/maven-jdeprscan-plugin
+checkout = git clone git@github.com:apache/maven-jdeprscan-plugin
 
 [code/maven/maven-jdeps-plugin]
-checkout = git clone git://github.com/apache/maven-jdeps-plugin
+checkout = git clone git@github.com:apache/maven-jdeps-plugin
 
 [code/maven/maven-jlink-plugin]
-checkout = git clone git://github.com/apache/maven-jlink-plugin
+checkout = git clone git@github.com:apache/maven-jlink-plugin
 
 [code/maven/maven-jmod-plugin]
-checkout = git clone git://github.com/apache/maven-jmod-plugin
+checkout = git clone git@github.com:apache/maven-jmod-plugin
 
 [code/maven/maven-linkcheck-plugin]
-checkout = git clone git://github.com/apache/maven-linkcheck-plugin
+checkout = git clone git@github.com:apache/maven-linkcheck-plugin
 
 [code/maven/maven-patch-plugin]
-checkout = git clone git://github.com/apache/maven-patch-plugin
+checkout = git clone git@github.com:apache/maven-patch-plugin
 
 [code/maven/maven-pdf-plugin]
-checkout = git clone git://github.com/apache/maven-pdf-plugin
+checkout = git clone git@github.com:apache/maven-pdf-plugin
 
 [code/maven/maven-plugin-tools]
-checkout = git clone git://github.com/apache/maven-plugin-tools
+checkout = git clone git@github.com:apache/maven-plugin-tools
 
 [code/maven/maven-pmd-plugin]
-checkout = git clone git://github.com/apache/maven-pmd-plugin
+checkout = git clone git@github.com:apache/maven-pmd-plugin
 
 [code/maven/maven-pom]
-checkout = git clone git://github.com/apache/maven-pom
+checkout = git clone git@github.com:apache/maven-pom
 
 [code/maven/maven-project-info-reports-plugin]
-checkout = git clone git://github.com/apache/maven-project-info-reports-plugin
+checkout = git clone git@github.com:apache/maven-project-info-reports-plugin
 
 [code/maven/maven-rar-plugin]
-checkout = git clone git://github.com/apache/maven-rar-plugin
+checkout = git clone git@github.com:apache/maven-rar-plugin
 
 [code/maven/maven-release]
-checkout = git clone git://github.com/apache/maven-release
+checkout = git clone git@github.com:apache/maven-release
 
 [code/maven/maven-remote-resources-plugin]
-checkout = git clone git://github.com/apache/maven-remote-resources-plugin
+checkout = git clone git@github.com:apache/maven-remote-resources-plugin
 
 [code/maven/maven-repository-plugin]
-checkout = git clone git://github.com/apache/maven-repository-plugin
+checkout = git clone git@github.com:apache/maven-repository-plugin
 
 [code/maven/maven-resources-plugin]
-checkout = git clone git://github.com/apache/maven-resources-plugin
+checkout = git clone git@github.com:apache/maven-resources-plugin
 
 [code/maven/maven-scm]
-checkout = git clone git://github.com/apache/maven-scm
+checkout = git clone git@github.com:apache/maven-scm
 
 [code/maven/maven-scm-publish-plugin]
-checkout = git clone git://github.com/apache/maven-scm-publish-plugin
+checkout = git clone git@github.com:apache/maven-scm-publish-plugin
 
 [code/maven/maven-scripting-plugin]
-checkout = git clone git://github.com/apache/maven-scripting-plugin
+checkout = git clone git@github.com:apache/maven-scripting-plugin
 
 [code/maven/maven-shade-plugin]
-checkout = git clone git://github.com/apache/maven-shade-plugin
+checkout = git clone git@github.com:apache/maven-shade-plugin
 
 [code/maven/maven-shared]
-checkout = git clone git://github.com/apache/maven-shared
+checkout = git clone git@github.com:apache/maven-shared
 
 [code/maven/maven-site]
-checkout = git clone git://github.com/apache/maven-site
+checkout = git clone git@github.com:apache/maven-site
 
 [code/maven/maven-site-plugin]
-checkout = git clone git://github.com/apache/maven-site-plugin
+checkout = git clone git@github.com:apache/maven-site-plugin
 
 [code/maven/maven-source-plugin]
-checkout = git clone git://github.com/apache/maven-source-plugin
+checkout = git clone git@github.com:apache/maven-source-plugin
 
 [code/maven/maven-stage-plugin]
-checkout = git clone git://github.com/apache/maven-stage-plugin
+checkout = git clone git@github.com:apache/maven-stage-plugin
 
 [code/maven/maven-surefire]
-checkout = git clone git://github.com/apache/maven-surefire
+checkout = git clone git@github.com:apache/maven-surefire
 
 [code/maven/maven-toolchains-plugin]
-checkout = git clone git://github.com/apache/maven-toolchains-plugin
+checkout = git clone git@github.com:apache/maven-toolchains-plugin
 
 [code/maven/maven-verifier-plugin]
-checkout = git clone git://github.com/apache/maven-verifier-plugin
+checkout = git clone git@github.com:apache/maven-verifier-plugin
 
 [code/maven/maven-wagon]
-checkout = git clone git://github.com/apache/maven-wagon
+checkout = git clone git@github.com:apache/maven-wagon
 
 [code/maven/maven-war-plugin]
-checkout = git clone git://github.com/apache/maven-war-plugin
+checkout = git clone git@github.com:apache/maven-war-plugin
 
 [code/maven/mojohaus.github.io]
-checkout = git clone git://github.com/mojohaus/mojohaus.github.io
+checkout = git clone git@github.com:mojohaus/mojohaus.github.io
 
 [code/maven/quickdeps]
-checkout = git clone git://github.com/ingenieux/quickdeps
+checkout = git clone git@github.com:ingenieux/quickdeps
 
 [code/maven/tidy-maven-plugin]
-checkout = git clone git://github.com/mojohaus/tidy-maven-plugin
+checkout = git clone git@github.com:mojohaus/tidy-maven-plugin
 
 [code/maven/versions-maven-plugin]
-checkout = git clone git://github.com/mojohaus/versions-maven-plugin
+checkout = git clone git@github.com:mojohaus/versions-maven-plugin

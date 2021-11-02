@@ -1,4 +1,4 @@
 # Projects focused on machine learning
 
 [code/ml/darknet]
-checkout = git clone git://github.com/pjreddie/darknet
+checkout = git clone git@github.com:pjreddie/darknet

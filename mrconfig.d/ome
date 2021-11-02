@@ -1,19 +1,19 @@
 # Open Microscopy Environment - https://openmicroscopy.org/
 
 [code/ome/bioformats]
-checkout = git clone git://github.com/ome/bioformats
+checkout = git clone git@github.com:ome/bioformats
 
 [code/ome/ome-common-java]
-checkout = git clone git://github.com/ome/ome-common-java
+checkout = git clone git@github.com:ome/ome-common-java
 
 [code/ome/ome-mdbtools]
-checkout = git clone git://github.com/ome/ome-mdbtools
+checkout = git clone git@github.com:ome/ome-mdbtools
 
 [code/ome/ome-metakit]
-checkout = git clone git://github.com/ome/ome-metakit
+checkout = git clone git@github.com:ome/ome-metakit
 
 [code/ome/ome-model]
-checkout = git clone git://github.com/ome/ome-model
+checkout = git clone git@github.com:ome/ome-model
 
 [code/ome/ome-poi]
-checkout = git clone git://github.com/ome/ome-poi
+checkout = git clone git@github.com:ome/ome-poi

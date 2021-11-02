@@ -1,25 +1,25 @@
 # ClearVolume-related projects
 
 [code/clearvolume/ClearCL]
-checkout = git clone git://github.com/ClearVolume/ClearCL
+checkout = git clone git@github.com:ClearVolume/ClearCL
 
 [code/clearvolume/ClearCUDA]
-checkout = git clone git://github.com/ClearVolume/ClearCUDA
+checkout = git clone git@github.com:ClearVolume/ClearCUDA
 
 [code/clearvolume/ClearGL]
-checkout = git clone git://github.com/ClearVolume/ClearGL
+checkout = git clone git@github.com:ClearVolume/ClearGL
 
 [code/clearvolume/ClearVolume]
-checkout = git clone git://github.com/ClearVolume/ClearVolume
+checkout = git clone git@github.com:ClearVolume/ClearVolume
 
 [code/clearvolume/CoreMem]
-checkout = git clone git://github.com/ClearControl/CoreMem
+checkout = git clone git@github.com:ClearControl/CoreMem
 
 [code/clearvolume/JavaCL]
-checkout = git clone git://github.com/nativelibs4java/JavaCL
+checkout = git clone git@github.com:nativelibs4java/JavaCL
 
 [code/clearvolume/imglib2-clearvolume]
-checkout = git clone git://github.com/ClearVolume/imglib2-clearvolume
+checkout = git clone git@github.com:ClearVolume/imglib2-clearvolume
 
 [code/clearvolume/mpicbg-knip-clearvolume]
-checkout = git clone git://github.com/fjug/mpicbg-knip-clearvolume
+checkout = git clone git@github.com:fjug/mpicbg-knip-clearvolume

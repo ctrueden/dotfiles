@@ -1,7 +1,7 @@
 # Base repositories for shell work
 
 [code/ctrueden/dotfiles]
-checkout = git clone git://github.com/ctrueden/dotfiles
+checkout = git clone git@github.com:ctrueden/dotfiles
 
 [code/shell/zgen]
-checkout = git clone git://github.com/tarjoilija/zgen
+checkout = git clone git@github.com:tarjoilija/zgen

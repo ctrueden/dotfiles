@@ -1,19 +1,19 @@
 # Projects in the PyData stack
 
 [code/pydata/numpy]
-checkout = git clone git://github.com/numpy/numpy
+checkout = git clone git@github.com:numpy/numpy
 
 [code/pydata/pydata-nyc-2018-tutorial]
-checkout = git clone git://github.com/mrocklin/pydata-nyc-2018-tutorial
+checkout = git clone git@github.com:mrocklin/pydata-nyc-2018-tutorial
 
 [code/pydata/scikit-image]
-checkout = git clone git://github.com/scikit-image/scikit-image
+checkout = git clone git@github.com:scikit-image/scikit-image
 
 [code/pydata/scikit-image-paper]
-checkout = git clone git://github.com/scikit-image/scikit-image-paper
+checkout = git clone git@github.com:scikit-image/scikit-image-paper
 
 [code/pydata/scikit-image-web]
-checkout = git clone git://github.com/scikit-image/scikit-image-web
+checkout = git clone git@github.com:scikit-image/scikit-image-web
 
 [code/pydata/scipy]
-checkout = git clone git://github.com/scipy/scipy
+checkout = git clone git@github.com:scipy/scipy
