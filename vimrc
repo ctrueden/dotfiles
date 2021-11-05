@@ -32,6 +32,7 @@ if filereadable(vundlepath . '/README.md')
 	Plugin 'bradford-smith94/quick-scope'
 	Plugin 'chikamichi/mediawiki.vim'
 	Plugin 'jceb/vim-orgmode'
+	Plugin 'junegunn/fzf'
 	Plugin 'junegunn/limelight.vim'
 	let g:limelight_conceal_guifg = '#777777'
 
