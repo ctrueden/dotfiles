@@ -13,5 +13,5 @@ then
 fi
 
 ssh "$SERVER" "mkdir -p config && rm -rf config/*"
-(cd "$PATH_CONFIG" && scp -r * "$SERVER:config/")
+(cd "$DOTFILES" && scp -r * "$SERVER:config/")
 ssh "$SERVER" "bash config/config-links.sh"
