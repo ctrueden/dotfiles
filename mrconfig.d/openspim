@@ -6,6 +6,9 @@ checkout = git clone git@github.com:openspim/SPIMAcquisition
 [code/openspim/fusion-pipeline]
 checkout = git clone git@github.com:openspim/fusion-pipeline
 
+[code/openspim/micro-OpenSPIM]
+checkout = git clone git@github.com:openspim/micro-OpenSPIM
+
 [code/openspim/micromanager]
 checkout = git clone git@github.com:openspim/micromanager
 
