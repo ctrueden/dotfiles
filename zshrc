@@ -55,7 +55,7 @@ zgen_init() {
 #	omzsh plugins/last-working-dir  # return to last dir in new shell instances
 	omzsh plugins/mvn               # maven color, aliases and completion
 	omzsh plugins/npm               # npm completion
-	omzsh plugins/osx               # OS X functions, including itunes
+	omzsh plugins/macos             # macOS functions
 	omzsh plugins/urltools          # urlencode and urldecode functions
 	omzsh plugins/vundle            # plugin manager for vim
 	omzsh plugins/wd                # wd "warp directory" command
