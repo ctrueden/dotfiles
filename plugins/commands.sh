@@ -30,6 +30,11 @@ tt() {
 
 test -x /usr/bin/batcat && alias bat=batcat
 
+# --== 7z ==--
+
+# "7-zip compress" -- solid mode -- https://stackoverflow.com/a/52771612
+alias 7zc='7za a -t7z -m0=lzma2 -mx=9 -mfb=273 -md=29 -ms=8g -mmt=off -mmtf=off -mqs=on -bt -bb3'
+
 # --== shell ==--
 
 alias mv='mv -i'
