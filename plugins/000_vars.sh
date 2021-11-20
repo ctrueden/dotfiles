@@ -1,9 +1,5 @@
 test "$DEBUG" && echo "[dotfiles] Loading plugin 'vars'..."
 
-# use vim to edit commit messages
-export EDITOR=vim
-export VISUAL="$EDITOR"
-
 # --== Homebrew ==--
 
 if [ -x "$(which brew 2> /dev/null)" ]; then

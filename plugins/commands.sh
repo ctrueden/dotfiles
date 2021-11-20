@@ -44,19 +44,6 @@ test -x /usr/bin/batcat && alias bat=batcat
 alias diff='' && unalias diff
 diff() { git diff --no-index $@; }
 
-# --== vim ==--
-
-alias vi='vim'
-alias :e='vim'
-
-# viq - format the clipboard as an email quote
-alias viq="vi \
-	+'set tw=72' \
-	+'normal! \"+p' \
-	+':silent :1g/^$/d' \
-	+':silent :g/^/s//> /' \
-	+'normal! 1GVGgq1G\"+yG'"
-
 # --== shell ==--
 
 alias mv='mv -i'
