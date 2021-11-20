@@ -1,13 +1,5 @@
 test "$DEBUG" && echo "[dotfiles] Loading plugin 'commands'..."
 
-# --== git ==--
-
-# alias some common git typos
-alias giot='git'
-alias goit='git'
-alias got='git'
-alias gti='git'
-
 # --== myrepos ==--
 
 alias mr='mr --stats'
@@ -37,12 +29,6 @@ tt() {
 # --== bat ==--
 
 test -x /usr/bin/batcat && alias bat=batcat
-
-# --== diff ==--
-
-# use git for superior diff formatting
-alias diff='' && unalias diff
-diff() { git diff --no-index $@; }
 
 # --== shell ==--
 

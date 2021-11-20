@@ -4,7 +4,17 @@ test "$DEBUG" && echo "[dotfiles] Loading plugin 'git'..."
 export CODE_GIT="$CODE_BASE/git/git"
 alias gogit='cd $CODE_GIT'
 
+# use git for superior diff formatting
+alias diff='' && unalias diff
+diff() { git diff --no-index $@; }
+
 # --== shortcuts =-
+
+# alias some common git typos
+alias giot='git'
+alias goit='git'
+alias got='git'
+alias gti='git'
 
 # These complement the ones defined by oh-my-zsh's git plugin.
 
