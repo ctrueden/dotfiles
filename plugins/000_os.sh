@@ -28,16 +28,17 @@ if [ "$IS_MACOS" ]; then
 	export LSCOLORS="ExGxBxDxCxEgedabagacad"
 fi
 
-# --== start ==--
+# --== open ==--
 
-# open a UI browser for the specified folder using 'start'
+# open a file with the default application using 'open'
 if [ "$IS_MACOS" ]; then
-	alias start='open'
+	# The 'open' program is built in on macOS
 elif [ "$IS_LINUX" ]; then
-	alias start='nautilus'
+	alias open='xdg-open'
 elif [ "$IS_WINDOWS" ]; then
-	alias start='cmd /c start'
+	alias open='cmd /c start'
 fi
+alias o=open
 
 # --== sed ==--
 
