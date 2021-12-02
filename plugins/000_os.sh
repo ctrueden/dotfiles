@@ -5,7 +5,7 @@ test "$DEBUG" && echo "[dotfiles] Loading plugin 'os'..."
 export OS_NAME="$(uname)"
 case "$OS_NAME" in
 	Darwin)
-		export IS_MACOSX=1
+		export IS_MACOS=1
 		;;
 	Linux)
 		export IS_LINUX=1
@@ -24,14 +24,14 @@ if [ "$IS_LINUX" ]; then
 else
 	alias ls='ls -AFG'
 fi
-if [ "$IS_MACOSX" ]; then
+if [ "$IS_MACOS" ]; then
 	export LSCOLORS="ExGxBxDxCxEgedabagacad"
 fi
 
 # --== start ==--
 
 # open a UI browser for the specified folder using 'start'
-if [ "$IS_MACOSX" ]; then
+if [ "$IS_MACOS" ]; then
 	alias start='open'
 elif [ "$IS_LINUX" ]; then
 	alias start='nautilus'
@@ -42,7 +42,7 @@ fi
 # --== sed ==--
 
 # make in-place sed editing consistent across OSes
-if [ "$IS_MACOSX" ]; then
+if [ "$IS_MACOS" ]; then
 	# BSD sed requires a space after -i argument
 	alias sedi="sed -i ''"
 else
