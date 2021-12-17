@@ -28,6 +28,7 @@ javac() { jexec javac $@; }
 javah() { jexec javah $@; }
 javap() { jexec javap $@; }
 javadoc() { jexec javadoc $@; }
+jshell() { jexec jshell $@; }
 
 # set locations of Java
 if [ -x /usr/libexec/java_home ]
