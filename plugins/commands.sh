@@ -8,24 +8,6 @@ alias mr='mr --stats'
 
 alias xterm='xterm -geometry 80x60 -fg white -bg black'
 
-# change the title of the current xterm
-tt() {
-	if [ "$(shell_name)" = "zsh" ]
-	then
-		if [ "$@" ]
-		then
-			# Disable automatic titles
-			DISABLE_AUTO_TITLE="true"
-			echo -ne "\e]0;$@\a"
-		else
-			# Switch back to automatic titles
-			unset DISABLE_AUTO_TITLE
-		fi
-	else
-		TERM_TITLE="$@"
-	fi
-}
-
 # --== bat ==--
 
 test -x /usr/bin/batcat && alias bat=batcat

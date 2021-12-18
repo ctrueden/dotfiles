@@ -73,7 +73,7 @@ set -o vi
 
 # --== shell plugins ==--
 
-for f in $DOTFILES/plugins/*.sh
+for f in "$DOTFILES"/plugins/*.sh "$DOTFILES"/plugins/*.bash
 do
 	source $f
 done

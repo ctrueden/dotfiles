@@ -91,60 +91,10 @@ zsh_plugins=(
 zpm load $zsh_plugins
 
 test "$DEBUG" && echo "[zshrc] Loading personal plugins..."
-for plugin in "$DOTFILES"/plugins/*.sh; do source "$plugin"; done
+for plugin in "$DOTFILES"/plugins/*.sh "$DOTFILES"/plugins/*.zsh
+do
+	source "$plugin"
+done
 source "$DOTFILES"/themes/curtis.zsh-theme
-
-# --== zsh vi mode fixes ==--
-
-test "$DEBUG" && echo "[zshrc] Fixing zsh vi mode..."
-
-# Credit to: http://zshwiki.org/home/zle/vi-mode
-bindkey -a 'gg' beginning-of-buffer-or-history
-bindkey -a 'g~' vi-oper-swap-case
-bindkey -a G end-of-buffer-or-history
-bindkey -a u undo
-bindkey -a '^R' redo
-bindkey '^G' what-cursor-position
-vi-backward-word-end() {
-	zle vi-forward-word-end
-	zle vi-backward-word -n 2 && zle vi-forward-word-end
-}
-vi-backward-blank-word-end() {
-	zle vi-forward-blank-word-end
-	zle vi-backward-blank-word -n 2 && zle vi-forward-blank-word-end
-}
-# TODO: pbcopy / pbpaste clipboard integration
-
-# Make delete key work properly
-# Credit to: http://zsh.sourceforge.net/Guide/zshguide04.html#l81
-bindkey '\e[3~' delete-char
-
-# Credit to: http://superuser.com/a/533685
-vi-search-fix() {
-	zle vi-cmd-mode
-	zle .vi-history-search-backward
-}
-autoload vi-search-fix
-zle -N vi-search-fix
-bindkey -M viins '\e/' vi-search-fix
-bindkey "^?" backward-delete-char
-bindkey "^W" backward-kill-word
-bindkey "^H" backward-delete-char
-bindkey "^U" backward-kill-line
-# Credit to: http://superuser.com/a/648046
-export KEYTIMEOUT=1
-bindkey -sM vicmd '^[' '^G'
-bindkey -rM viins '^X'
-bindkey -M viins '^X,' _history-complete-newer \
-                 '^X/' _history-complete-older \
-                 '^X`' _bash_complete-word
-
-# --== zmv ==--
-
-# See: https://github.com/zsh-users/zsh/blob/master/Functions/Misc/zmv
-
-test "$DEBUG" && echo "[zshrc] Configuring zmv..."
-autoload -U zmv
-alias mmv='noglob zmv -W'
 
 test "$DEBUG" && echo "[zshrc] Done!"
