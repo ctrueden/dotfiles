@@ -23,7 +23,7 @@ What does this configuration include?
 -------------------------------------
 
 1.  A supercharged zsh configuration built on
-    [zgen](https://github.com/tarjoilija/zgen) and
+    [zpm](https://github.com/zpm-zsh/zpm) and
     [Oh My Zsh](https://ohmyz.sh/):
     -   Jump to directories quickly using [z](https://github.com/rupa/z).
     -   Functional vi mode on the terminal for easy multi-line commands.
