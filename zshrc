@@ -1,88 +1,21 @@
 test "$DEBUG" && echo "[zshrc] Initializing..."
 
-# --== zgen ==--
+# --== zpm ==--
 
-export ZGEN="$HOME/code/shell/zgen"
-
-# Disable oh-my-zsh's automatic updates; we'll use "zgen update" instead.
-export DISABLE_AUTO_UPDATE="true"
-
-zgen_install() {
-	mkdir -p "$(dirname "$ZGEN")" &&
-	(cd "$(dirname "$ZGEN")" && mr up)
-}
-
-if [ ! -d "$ZGEN" ]
-then
-	test "$DEBUG" && echo "[zshrc] Installing zgen..."
-	zgen_install
+if [[ ! -f ~/.zpm/zpm.zsh ]]; then
+	test "$DEBUG" && echo "[zshrc] Installing zpm..."
+  git clone --recursive https://github.com/zpm-zsh/zpm ~/.zpm
 fi
 
-test "$DEBUG" && echo "[zshrc] Initializing zgen..."
-
-source "$ZGEN/zgen.zsh"
-
-omzsh() {
-	test "$DEBUG" && echo "[zshrc] Loading oh-my-zsh plugin $@..."
-	zgen oh-my-zsh $@
-}
-
-load_plugin() {
-	test "$DEBUG" && echo "[zshrc] Loading zgen plugin $@..."
-	zgen load $@
-}
-
-zgen_init() {
-	test "$DEBUG" && echo "[zshrc] Initializing zgen..."
-
-	# --== oh-my-zsh ==--
-	test "$DEBUG" && echo "[zshrc] Loading oh-my-zsh..."
-	zgen oh-my-zsh
-
-	# --== oh-my-zsh plugins ==--
-	omzsh plugins/vi-mode           # vi mode CLI instead of emacs
-	omzsh plugins/brew              # homebrew completion
-	omzsh plugins/colorize          # highlight files based on type with pygmentize
-	omzsh plugins/cp                # cpv shows progress while file is copying
-	omzsh plugins/encode64          # e64 and d64 for base64 encoding and decoding
-	omzsh plugins/extract           # extract command for unpacking many archives
-	omzsh plugins/git               # git aliases and improved completion
-	omzsh plugins/github            # hub and other github functions
-	omzsh plugins/history           # history aliases
-	omzsh plugins/jsontools         # json functions
-# NB: Does not work with antigen or zgen; see:
-# https://github.com/zsh-users/antigen/issues/75
-#	omzsh plugins/last-working-dir  # return to last dir in new shell instances
-	omzsh plugins/mvn               # maven color, aliases and completion
-	omzsh plugins/npm               # npm completion
-	omzsh plugins/macos             # macOS functions
-	omzsh plugins/urltools          # urlencode and urldecode functions
-	omzsh plugins/vundle            # plugin manager for vim
-	omzsh plugins/wd                # wd "warp directory" command
-	omzsh plugins/web-search        # web search commands (google etc.)
-	omzsh plugins/z                 # z "jump around" command
-
-	# --== zsh-users plugins ==--
-	load_plugin zsh-users/zsh-syntax-highlighting
-	load_plugin zsh-users/zsh-history-substring-search
-	load_plugin zsh-users/zsh-completions src
-
-	# --== third party plugins ==--
-	load_plugin esc/conda-zsh-completion
-
-	# --== my plugins ==--
-	load_plugin "$DOTFILES" plugins
-
-	# --== zsh theme ==--
-	load_plugin "$DOTFILES" themes/curtis
-
-	test "$DEBUG" && echo "[zshrc] Saving zgen configuration..."
-	zgen save
-}
+test "$DEBUG" && echo "[zshrc] Initializing zpm..."
+source ~/.zpm/zpm.zsh
 
 # --== oh-my-zsh ==--
 
 test "$DEBUG" && echo "[zshrc] Configuring oh-my-zsh..."
+
+# Disable oh-my-zsh's automatic updates; we'll use "zgen update" instead.
+export DISABLE_AUTO_UPDATE="true"
 
 # Uncomment the following line to use case-sensitive completion.
 # CASE_SENSITIVE="true"
@@ -102,13 +35,64 @@ DISABLE_UNTRACKED_FILES_DIRTY="true"
 # The optional three formats: "mm/dd/yyyy"|"dd.mm.yyyy"|"yyyy-mm-dd"
 HIST_STAMPS="yyyy-mm-dd"
 
-# --== zsh history search ==--
+test "$DEBUG" && echo "[zshrc] Loading oh-my-zsh..."
+zpm load @omz
+omz_libs=(
+  @omz-lib/compfix               # detect completions insecurities
+  @omz-lib/completion            # foundational tab completion logic
+  @omz-lib/directories           # succinct aliases to work with directories
+  @omz-lib/functions             # oh-my-zsh utility functions
+  @omz-lib/git                   # git-related utility functions
+  @omz-lib/grep                  # grep utility functions and aliases
+  @omz-lib/history               # command history configuration
+  @omz-lib/key-bindings          # key bindings for emacs/vi behavior
+  @omz-lib/misc                  # miscellaneous
+  @omz-lib/spectrum              # make using 256 colors in zsh less painful
+  @omz-lib/theme-and-appearance  # theme support
+)
+zpm load $omz_libs
 
-test "$DEBUG" && echo "[zshrc] Configuring zsh history search..."
+# --== plugins ==--
 
-bindkey '^R' history-incremental-search-backward
-bindkey '^[[A' up-line-or-search
-bindkey '^[[B' down-line-or-search
+test "$DEBUG" && echo "[zshrc] Loading plugins..."
+zsh_plugins=(
+	@omz/vi-mode                          # vi mode CLI instead of emacs
+	@omz/brew                             # homebrew completion
+	@omz/colorize                         # highlight files based on type with pygmentize
+	@omz/cp                               # cpv shows progress while file is copying
+	@omz/encode64                         # e64 and d64 for base64 encoding and decoding
+	@omz/extract                          # extract command for unpacking many archives
+	@omz/git                              # git aliases and improved completion
+	@omz/github                           # hub and other github functions
+	@omz/history                          # history aliases
+	@omz/jsontools                        # json functions
+	@omz/last-working-dir                 # return to last dir in new shell instances
+#	@omz/macos                            # macOS functions
+	@omz/macos,source:macos.plugin.zsh    # TEMP: Until ohmyzsh/ohmyzsh#10518 is merged
+	@omz/mvn                              # maven color, aliases and completion
+	@omz/npm                              # npm completion
+	@omz/urltools                         # urlencode and urldecode functions
+	@omz/vundle                           # plugin manager for vim
+	@omz/wd                               # wd "warp directory" command
+	@omz/web-search                       # web search commands (google etc.)
+#	@omz/z                                # z "jump around" command
+	@omz/z,source:z.plugin.zsh            # TEMP: Until ohmyzsh/ohmyzsh#10518 is merged
+	esc/conda-zsh-completion              # tab completion for conda
+	zpm-zsh/check-deps                    # check for needed but missing dependencies
+	zpm-zsh/clipboard                     # add pbcopy, pbpaste, and clip functions
+	zpm-zsh/colorize                      # colorize the output of various commands
+	zpm-zsh/command-not-found             # suggest packages if a command is not found
+	zpm-zsh/fast-syntax-highlighting      # syntax highlighting at the prompt
+	zpm-zsh/history-search-multi-word     # make ^R search multiple ANDed keywords
+	zpm-zsh/zsh-autosuggestions           # suggest completions based on previous ones
+	zpm-zsh/zsh-history-substring-search  # history search (e.g. up arrow)
+	zsh-users/zsh-completions             # unstable tab completion plugins
+)
+zpm load $zsh_plugins
+
+test "$DEBUG" && echo "[zshrc] Loading personal plugins..."
+for plugin in "$DOTFILES"/plugins/*.sh; do source "$plugin"; done
+source "$DOTFILES"/themes/curtis.zsh-theme
 
 # --== zsh vi mode fixes ==--
 
@@ -155,15 +139,11 @@ bindkey -M viins '^X,' _history-complete-newer \
                  '^X/' _history-complete-older \
                  '^X`' _bash_complete-word
 
-test "$DEBUG" && echo "[zshrc] Applying zgen configuration..."
-zgen saved || zgen_init
-
 # --== zmv ==--
 
 # See: https://github.com/zsh-users/zsh/blob/master/Functions/Misc/zmv
 
 test "$DEBUG" && echo "[zshrc] Configuring zmv..."
-
 autoload -U zmv
 alias mmv='noglob zmv -W'
 

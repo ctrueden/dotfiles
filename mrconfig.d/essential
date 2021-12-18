@@ -2,6 +2,3 @@
 
 [code/ctrueden/dotfiles]
 checkout = git clone git@github.com:ctrueden/dotfiles
-
-[code/shell/zgen]
-checkout = git clone git@github.com:tarjoilija/zgen
