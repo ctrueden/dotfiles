@@ -33,6 +33,7 @@ alias snkd='conda deactivate'
 
 # NB: Explicitly call compinit. Isn't needed for most completions,
 # but the esc/conda-zsh-completion plugin doesn't work without it.
+# See also https://github.com/esc/conda-zsh-completion/issues/38.
 which compinit >/dev/null 2>&1 && test -x "$CONDA_EXE" && {
 	compinit
 	compdef _conda mamba # Enable mamba tab completion, too.
