@@ -1,7 +1,7 @@
 # Repositories with training materials and tutorials
 
 [code/training/AQLM_2016]
-checkout = git clone git://gist.github.com/8216dcf605cf1ebdd12f AQLM_2016
+checkout = git clone git@gist.github.com:8216dcf605cf1ebdd12f AQLM_2016
 
 [code/training/i2k-2020-pyimagej]
 checkout = git clone git@github.com:imagej/i2k-2020-pyimagej
