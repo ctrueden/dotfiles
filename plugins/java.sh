@@ -78,6 +78,9 @@ alias j29='jswitch 29'
 alias j30='jswitch 30'
 alias j31='jswitch 31'
 # 32 versions of Java ought to be enough for anybody.
+alias j8z='jswitch zulu8'
+alias j11z='jswitch zulu11'
+alias j17z='jswitch zulu17'
 
 # use Java 8 by default if available
 J8=$(jhome 1.8) test -n "$J8" && export JAVA_HOME="$J8"
