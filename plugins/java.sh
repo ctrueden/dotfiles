@@ -85,39 +85,7 @@ alias j17z='jswitch zulu17'
 # use Java 8 by default if available
 J8=$(jhome 1.8) test -n "$J8" && export JAVA_HOME="$J8"
 
-# add some basic directories to the classpath
-# NB: We avoid the CLASSPATH variable since some programs play badly with it.
-unset CLASSPATH
-export JAVA_CP=\
-$HOME/java:\
-$CODE_PRIVATE/java:\
-$CODE_PRIVATE/java/utils
-
-# generate classpath for desired Maven artifacts
-cpFile="$HOME/.java-classpath"
-if [ ! -e "$cpFile" -a -x "$(which maven-cp 2> /dev/null)" ]
-then
-	# generate classpath cache
-	echo "Regenerating $cpFile"
-	maven-cp \
-		ome:formats-gpl:5.0.5 \
-		loci:loci-utils:1.0.0-SNAPSHOT \
-		org.beanshell:bsh:2.0b4 > $cpFile
-fi
-export JAVA_CP="$JAVA_CP:$(cat $cpFile)"
-
-# add aliases for launching Java with the JAVA_CP classpath
-alias j='java -cp "$JAVA_CP:."'
-alias jc='javac -cp "$JAVA_CP:."'
-alias jp='javap -cp "$JAVA_CP:."'
-
-jpath() {
-	if [ "$CLASSPATH" ]
-	then
-		echo CLASSPATH =
-		spath "$CLASSPATH"
-	else
-		echo JAVA_CP =
-		spath "$JAVA_CP"
-	fi
-}
+# add aliases for launching Java
+alias j='java'
+alias jc='javac'
+alias jp='javap'
