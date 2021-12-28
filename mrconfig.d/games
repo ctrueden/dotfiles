@@ -19,4 +19,4 @@ checkout = git clone git@github.com:ctrueden/rommer
 checkout = git clone git@github.com:ekjellman/srs-game
 
 [code/games/supermariowar]
-checkout = git clone git@github.com:mmatyas/supermariowar
+checkout = git clone --recursive git@github.com:mmatyas/supermariowar
