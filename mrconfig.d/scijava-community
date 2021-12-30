@@ -126,9 +126,6 @@ checkout = git clone git@github.com:m-entrup/imagej-jython-package
 [code/sj-stuff/imagej-logo]
 checkout = git clone git@github.com:juglab/imagej-logo
 
-[code/sj-stuff/imagej-ops-menu]
-checkout = git clone git@github.com:haesleinhuepf/imagej-ops-menu
-
 [code/sj-stuff/imagej-plot-service]
 checkout = git clone git@github.com:maarzt/imagej-plot-service
 
