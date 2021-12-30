@@ -43,7 +43,7 @@ checkout = git clone git@github.com:juglab/LabelEditor
 checkout = git clone git@github.com:NicoKiaru/LimeSeg
 
 [code/sj-stuff/MTrack]
-checkout = git clone git@github.com:PreibischLab/MTrack
+checkout = git clone git@github.com:kapoorlabs-paris/MTrack
 
 [code/sj-stuff/MoMA]
 checkout = git clone git@github.com:fjug/MoMA
