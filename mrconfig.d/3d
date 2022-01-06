@@ -32,9 +32,3 @@ checkout = git clone git@github.com:scijava/visad
 
 [code/3d/volume-viewer-electron]
 checkout = git clone git@github.com:imaging-tools/volume-viewer-electron
-
-[code/javadoc/java3d-javadoc]
-checkout = git clone git@github.com:scijava/java3d-javadoc
-
-[code/javadoc/sciview-javadoc]
-checkout = git clone git@github.com:scenerygraphics/sciview-javadoc
