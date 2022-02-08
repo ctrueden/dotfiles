@@ -46,6 +46,9 @@ link_file() {
 
 # -- Main --
 
+echo
+echo "--> Linking up your dotfiles..."
+
 # NB: We use a stub for .bashrc to maintain support for systems that
 # do not support proper symlinks -- especially MSysGit on Windows.
 BASHRC_STUB="$CONFIG_DIR/bashrc.stub"
@@ -87,4 +90,5 @@ case "$(uname)" in
     ;;
 esac
 
-echo "Done! Now open a new terminal. :-)"
+echo
+echo "--> Done! Now open a new terminal. :-)"
