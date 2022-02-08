@@ -71,7 +71,7 @@ MRCONFIG_DIR=.mrconfig.d
 mkdir -p "$MRCONFIG_DIR"
 for mrconfigfile in "$LINK_DIR"/mrconfig.d/*
 do
-  link_file "../$mrconfigfile" "$MRCONFIG_DIR"
+  link_file "$mrconfigfile" "$MRCONFIG_DIR/${mrconfigfile##*/}"
 done
 
 # NB: We use a stub for .zshrc to maintain support for systems that
@@ -85,7 +85,7 @@ rm -f "$ZSHRC_STUB"
 case "$(uname)" in
   Darwin)
     cd Library
-    link_file "../$LINK_DIR/KeyBindings" KeyBindings
+    link_file "$LINK_DIR/KeyBindings" KeyBindings
     cd ..
     ;;
 esac
