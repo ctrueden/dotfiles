@@ -58,11 +58,9 @@ install_file "$BASHRC_STUB" .bashrc
 rm -f "$BASHRC_STUB"
 
 link_file "$LINK_DIR/bash_profile" .bash_profile
-link_file "$LINK_DIR/forward" .forward
 link_file "$LINK_DIR/gitconfig" .gitconfig
 link_file "$LINK_DIR/jgorc" .jgorc
 link_file "$LINK_DIR/mrconfig" .mrconfig
-link_file "$LINK_DIR/plan" .plan
 link_file "$LINK_DIR/vimrc" .vimrc
 link_file "$LINK_DIR/warprc" .warprc
 
@@ -99,9 +97,10 @@ echo "What... is your email address? \c"
 read committer_email
 echo "What... is the airspeed velocity of an unladen --"
 echo "The people responsible for this shell script have been sacked."
-git config --global user.name "$committer_name"
-git config --global user.email "$committer_email"
-echo "--> Git committer and email configured!"
+(set -x; git config --global user.name "$committer_name")
+(set -x; git config --global user.email "$committer_email")
+(clear_file .forward; set -x; echo "$committer_email" > .forward)
+test "$committer_name" = "Curtis Rueden" && link_file "$LINK_DIR/plan" .plan
 
 echo
 echo "--> Done! Now open a new terminal. :-)"
