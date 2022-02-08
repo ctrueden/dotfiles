@@ -86,3 +86,5 @@ case "$(uname)" in
     cd ..
     ;;
 esac
+
+echo "Done! Now open a new terminal. :-)"
