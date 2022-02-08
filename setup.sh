@@ -91,4 +91,17 @@ case "$(uname)" in
 esac
 
 echo
+echo "--> Personalizing your experience..."
+cat "$CONFIG_DIR/old-man.txt"
+echo "What... is your full name? \c"
+read committer_name
+echo "What... is your email address? \c"
+read committer_email
+echo "What... is the airspeed velocity of an unladen --"
+echo "The people responsible for this shell script have been sacked."
+git config --global user.name "$committer_name"
+git config --global user.email "$committer_email"
+echo "--> Git committer and email configured!"
+
+echo
 echo "--> Done! Now open a new terminal. :-)"
