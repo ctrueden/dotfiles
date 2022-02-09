@@ -57,8 +57,23 @@ echo '. "$DOTFILES/bashrc"' >> "$BASHRC_STUB"
 install_file "$BASHRC_STUB" .bashrc
 rm -f "$BASHRC_STUB"
 
+# NB: We use a stub for .zshrc to maintain support for systems that
+# do not support proper symlinks -- especially MSysGit on Windows.
+ZSHRC_STUB="$CONFIG_DIR/zshrc.stub"
+echo "export DOTFILES=\"$CONFIG_DIR\"" > "$ZSHRC_STUB"
+echo 'source "$DOTFILES/zshrc"' >> "$ZSHRC_STUB"
+install_file "$ZSHRC_STUB" .zshrc
+rm -f "$ZSHRC_STUB"
+
+# NB: We use a stub for .gitconfig so that it can be extended with a
+# [user] section without causing git to see the gitconfig here as dirty.
+GITCONFIG_STUB="$CONFIG_DIR/gitconfig.stub"
+echo '[include]' > "$GITCONFIG_STUB"
+echo "\tpath = $DOTFILES/gitconfig" >> "$GITCONFIG_STUB"
+install_file "$GITCONFIG_STUB" .gitconfig
+rm -f "$GITCONFIG_STUB"
+
 link_file "$LINK_DIR/bash_profile" .bash_profile
-link_file "$LINK_DIR/gitconfig" .gitconfig
 link_file "$LINK_DIR/jgorc" .jgorc
 link_file "$LINK_DIR/mrconfig" .mrconfig
 link_file "$LINK_DIR/vimrc" .vimrc
@@ -71,14 +86,6 @@ for mrconfigfile in "$LINK_DIR"/mrconfig.d/*
 do
   link_file "$mrconfigfile" "$MRCONFIG_DIR/${mrconfigfile##*/}"
 done
-
-# NB: We use a stub for .zshrc to maintain support for systems that
-# do not support proper symlinks -- especially MSysGit on Windows.
-ZSHRC_STUB="$CONFIG_DIR/zshrc.stub"
-echo "export DOTFILES=\"$CONFIG_DIR\"" > "$ZSHRC_STUB"
-echo 'source "$DOTFILES/zshrc"' >> "$ZSHRC_STUB"
-install_file "$ZSHRC_STUB" .zshrc
-rm -f "$ZSHRC_STUB"
 
 case "$(uname)" in
   Darwin)
