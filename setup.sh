@@ -98,6 +98,7 @@ esac
 echo
 echo "--> Personalizing your experience..."
 cat "$CONFIG_DIR/old-man.txt"
+echo "Answer me these questions three, ere the other side ye see!"
 echo "What... is your full name? \c"
 read committer_name
 echo "What... is your email address? \c"
