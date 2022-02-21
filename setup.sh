@@ -82,10 +82,12 @@ link_file "$LINK_DIR/warprc" .warprc
 # Link individual mrconfig.d entries, enabling easier customization.
 MRCONFIG_DIR=.mrconfig.d
 mkdir -p "$MRCONFIG_DIR"
-for mrconfigfile in "$LINK_DIR"/mrconfig.d/*
+cd "$MRCONFIG_DIR"
+for mrconfigfile in "../$LINK_DIR"/mrconfig.d/*
 do
-  link_file "$mrconfigfile" "$MRCONFIG_DIR/${mrconfigfile##*/}"
+  link_file "$mrconfigfile" "${mrconfigfile##*/}"
 done
+cd - >/dev/null
 
 case "$(uname)" in
   Darwin)
