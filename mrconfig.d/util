@@ -1,0 +1,4 @@
+# Command-line utilities
+
+[code/util/icat]
+checkout = git clone git@github.com:atextor/icat
