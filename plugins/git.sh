@@ -51,6 +51,7 @@ alias gpop='git stash pop --index'
 alias gps=gp
 alias grhup='git reset --hard '\''HEAD@{u}'\'
 alias grp='git grep -I'
+alias grpl='git grep -Il'
 alias grup!='grup --prune'
 alias gsh!='gsh --no-prefix'
 alias gshcw!='gsh --color-words --no-prefix'
