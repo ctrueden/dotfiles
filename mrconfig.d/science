@@ -66,10 +66,6 @@ checkout = git clone git://git.code.sf.net/p/labinfsyst/code labis
 [code/science/libics]
 checkout = git clone git@github.com:svi-opensource/libics
 
-# TODO: Figure out where to host this mirror.
-#[code/science/mipav]
-#checkout = git clone git://git.imagej.net/mipav
-
 [code/science/nd4j]
 checkout = git clone git@github.com:deeplearning4j/nd4j
 
