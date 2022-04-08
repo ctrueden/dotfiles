@@ -17,3 +17,6 @@ checkout = git clone git@github.com:ome/ome-model
 
 [code/ome/ome-poi]
 checkout = git clone git@github.com:ome/ome-poi
+
+[code/ome/omero-guides]
+checkout = git clone --recursive git@github.com:ome/omero-guides
