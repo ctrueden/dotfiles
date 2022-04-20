@@ -1,27 +1,36 @@
 #/bin/bash
 
 # java-info - spits out reminders about the zillion different locations
-#             where Java-relevant things are stashed on OS X.
+#             where Java-relevant things are stashed on macOS.
+
+dump_java_info() {
+  dir=$1
+  test -d "$dir/Contents/Home" && dir="$dir/Contents/Home"
+  echo
+  stat -f "%Sm%t%N" "$dir"
+  (set -x && "$dir/bin/java" -version)
+  du -hs "$dir"
+}
 
 echo '=== Which versions of Java are installed? ==='
+brew_prefix=$(brew --prefix 2>/dev/null || echo "HOMEBREW-NOT-INSTALLED")
+
 jdks=$(find \
   /System/Library/Java/JavaVirtualMachines \
   /Library/Java/JavaVirtualMachines \
-  -type d -name '*.jdk' 2> /dev/null)
+  "$brew_prefix"/Cellar/openjdk \
+  -mindepth 1 -maxdepth 1 -type d 2> /dev/null)
 for jdk in $jdks
 do
-  echo
-  stat -f "%Sm%t%N" $jdk/Contents/Home
-  (set -x && $jdk/Contents/Home/bin/java -version)
-  du -hs $jdk
+  dump_java_info "$jdk"
 done
 
 echo
-echo '=== Where are the libjvms? ==='
+echo '=== Where are the shared libraries? ==='
 for jdk in $jdks
 do
   echo
-  (set -x && find $jdk -name '*libjvm*')
+  (set -x && find "$jdk" -name '*libjvm*' && find "$jdk" -name '*libjli*')
 done
 
 echo
@@ -42,23 +51,9 @@ echo
 (set -x && ls -l /System/Library/Frameworks/JavaVM.framework/Versions/)
 
 echo
-echo '=== Which version is the Current JRE framework? ==='
-echo
-(set -x && /System/Library/Frameworks/JavaVM.framework/Versions/Current/Commands/java -version)
-
-echo
-echo '=== Which version is the Current JDK framework? ==='
-echo
-(set -x && /System/Library/Frameworks/JavaVM.framework/Versions/CurrentJDK/Commands/java -version)
-
-echo
 echo '=== Which java executables are in my path? ==='
 echo
 (set -x && which java javac)
-
-echo
-echo '=== And where do those symlinks go? ==='
-echo
 (which_java=$(which java) && set -x && ls -l $which_java*)
 
 echo
