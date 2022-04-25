@@ -67,16 +67,14 @@ zsh_plugins=(
 	@omz/history                          # history aliases
 	@omz/jsontools                        # json functions
 	@omz/last-working-dir                 # return to last dir in new shell instances
-#	@omz/macos                            # macOS functions
-	@omz/macos,source:macos.plugin.zsh    # TEMP: Until ohmyzsh/ohmyzsh#10518 is merged
+	@omz/macos                            # macOS functions
 	@omz/mvn                              # maven color, aliases and completion
 	@omz/npm                              # npm completion
 	@omz/urltools                         # urlencode and urldecode functions
 	@omz/vundle                           # plugin manager for vim
 	@omz/wd                               # wd "warp directory" command
 	@omz/web-search                       # web search commands (google etc.)
-#	@omz/z                                # z "jump around" command
-	@omz/z,source:z.plugin.zsh            # TEMP: Until ohmyzsh/ohmyzsh#10518 is merged
+	@omz/z                                # z "jump around" command
 	esc/conda-zsh-completion              # tab completion for conda
 	zpm-zsh/check-deps                    # check for needed but missing dependencies
 	zpm-zsh/clipboard                     # add pbcopy, pbpaste, and clip functions
