@@ -76,8 +76,9 @@ rm -f "$GITCONFIG_STUB"
 link_file "$LINK_DIR/bash_profile" .bash_profile
 link_file "$LINK_DIR/jgorc" .jgorc
 link_file "$LINK_DIR/mrconfig" .mrconfig
-link_file "$LINK_DIR/vimrc" .vimrc
-link_file "$LINK_DIR/warprc" .warprc
+link_file "../$LINK_DIR/vimrc" vim/vimrc
+mkdir -p .config/wd
+link_file "../../$LINK_DIR/warprc" .config/wd/.warprc
 
 # Link individual mrconfig.d entries, enabling easier customization.
 MRCONFIG_DIR=.mrconfig.d

@@ -88,6 +88,8 @@ zsh_plugins=(
 )
 zpm load $zsh_plugins
 
+export WD_CONFIG=$HOME/.config/wd/warprc
+
 test "$DEBUG" && echo "[zshrc] Loading personal plugins..."
 for plugin in "$DOTFILES"/plugins/*.sh "$DOTFILES"/plugins/*.zsh
 do
