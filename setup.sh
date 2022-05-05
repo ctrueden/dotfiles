@@ -92,7 +92,7 @@ mkdir -p .config/wd
 link_file "$CONFIG_DIR/warprc" .config/wd/warprc
 
 # ~/.vim/vimrc
-link_file "$CONFIG_DIR/vimrc" vim/vimrc
+link_file "$CONFIG_DIR/vimrc" .vim/vimrc
 
 # ~/Library/KeyBindings [macOS]
 case "$(uname)" in
