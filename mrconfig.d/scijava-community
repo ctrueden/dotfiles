@@ -187,6 +187,9 @@ checkout = git clone git@github.com:tinevez/imglib2-icy
 
 # other
 
+[code/sj-stuff/DeformingMesh3D-plugin]
+checkout = git clone git@github.com:PaluchLabUCL/DeformingMesh3D-plugin
+
 [code/sj-stuff/Hadim_Scripts]
 checkout = git clone git@github.com:hadim/Hadim_Scripts
 
@@ -238,6 +241,9 @@ checkout = git clone git@github.com:biocompibens/SME
 [code/sj-stuff/SNT]
 checkout = git clone git@github.com:morphonets/SNT
 
+[code/sj-stuff/anima]
+checkout = git clone git@bitbucket.org:anduril-dev/anima.git
+
 [code/sj-stuff/antibiogramj]
 checkout = git clone git://git.code.sf.net/p/antibiogramj/code antibiogramj
 
@@ -261,6 +267,9 @@ checkout = git clone git@github.com:thorstenwagner/ij-ridgedetection
 
 [code/sj-stuff/ilastik4ij]
 checkout = git clone git@github.com:ilastik/ilastik4ij
+
+[code/sj-stuff/image-analysis-notebooks]
+checkout = git clone git@github.com:MontpellierRessourcesImagerie/image-analysis-notebooks
 
 [code/sj-stuff/imagej-jython-package]
 checkout = git clone git@github.com:m-entrup/imagej-jython-package
