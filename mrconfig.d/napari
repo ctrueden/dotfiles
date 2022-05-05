@@ -21,8 +21,5 @@ checkout = git clone git@github.com:imagej/napari-imagej
 [code/napari/napari-plugin-engine]
 checkout = git clone git@github.com:napari/napari-plugin-engine
 
-[code/napari/napari.github.io]
-checkout = git clone git@github.com:napari/napari.github.io
-
 [code/napari/plugin-cookiecutter]
 checkout = git clone git@github.com:napari/plugin-cookiecutter

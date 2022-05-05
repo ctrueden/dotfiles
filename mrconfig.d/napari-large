@@ -2,3 +2,6 @@
 
 [code/napari/napari-data]
 checkout = git clone git@github.com:napari/napari-data
+
+[code/napari/napari.github.io]
+checkout = git clone git@github.com:napari/napari.github.io
