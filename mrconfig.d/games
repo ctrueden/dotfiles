@@ -3,9 +3,6 @@
 [code/games/Lipx]
 checkout = git clone git@github.com:kylon/Lipx
 
-[code/games/MedAdvCFG]
-checkout = git clone git@github.com:Veritas83/MedAdvCFG
-
 [code/games/RetroPie-Docs]
 checkout = git clone git@github.com:RetroPie/RetroPie-Docs
 
@@ -14,9 +11,6 @@ checkout = git clone git@github.com:archtaurus/RetroPieBIOS
 
 [code/games/maxcso]
 checkout = git clone git@github.com:unknownbrackets/maxcso
-
-[code/games/minecraft-python]
-checkout = git clone git@github.com:Macuyiko/minecraft-python
 
 [code/games/opengood]
 checkout = git clone git@github.com:SnowflakePowered/opengood
