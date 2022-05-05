@@ -6,6 +6,9 @@ checkout = git clone git@gist.github.com:8216dcf605cf1ebdd12f AQLM_2016
 [code/training/i2k-2020-pyimagej]
 checkout = git clone git@github.com:imagej/i2k-2020-pyimagej
 
+[code/training/i2k-2022-pyimagej]
+checkout = git clone git@github.com:imagej/i2k-2022-pyimagej
+
 [code/training/imagej-legacy-course]
 checkout = git clone git@github.com:maarzt/imagej-legacy-course
 

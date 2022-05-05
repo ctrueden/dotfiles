@@ -11,4 +11,4 @@ include = if [ -d /usr/local/Cellar/mr ]; then cat "$(brew --prefix mr)/share/mr
 git_update = git remote update --prune && git fetch --tags -f && git merge --ff 'HEAD@{u}'
 
 # Include the ~/.mrconfig.d folder.
-include = if [ -d "$HOME"/.mrconfig.d ]; then cat "$HOME"/.mrconfig.d/* 2> /dev/null; fi
+include = if [ -d "$HOME"/.config/mr ]; then cat "$HOME"/.config/mr/* 2> /dev/null; fi

@@ -12,8 +12,17 @@ checkout = git clone git@github.com:sconnor99/badgerlandf100s.com
 [code/web/ctrueden.github.io]
 checkout = git clone git@github.com:ctrueden/ctrueden.github.io
 
+[code/web/cv]
+checkout = git clone git@github.com:ctrueden/cv
+
+[code/web/equilibrium]
+checkout = git clone git@github.com:ctrueden/equilibrium
+
 [code/web/fe3h]
 checkout = git clone git@github.com:arueden/fe3h
+
+[code/web/restlesscoder.net]
+checkout = git clone git@github.com:ctrueden/restlesscoder.net
 
 [code/web/restlessgamer.net]
 checkout = git clone git@github.com:ctrueden/restlessgamer.net

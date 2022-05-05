@@ -11,9 +11,6 @@ checkout = git clone git@github.com:BIOP/ijl-utilities-wrappers
 [code/sj-stuff/pyimagej-scijava-command]
 checkout = git clone git@github.com:BIOP/pyimagej-scijava-command
 
-[code/sj-stuff/bigdataviewer-playground]
-checkout = git clone git@github.com:bigdataviewer/bigdataviewer-playground
-
 [code/sj-stuff/bigdataviewer-bioformats]
 checkout = git clone git@github.com:BIOP/bigdataviewer-bioformats
 

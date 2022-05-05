@@ -12,6 +12,9 @@ checkout = git clone https://gitlab.com/maxburon/beetle.git
 [code/music/beets]
 checkout = git clone git@github.com:beetbox/beets
 
+[code/music/beets-config]
+checkout = git clone git@github.com:ctrueden/beets-config
+
 [code/music/beets-ibroadcast]
 checkout = git clone git@github.com:ctrueden/beets-ibroadcast
 

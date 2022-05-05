@@ -6,8 +6,6 @@ set -e
 
 CONFIG_DIR=$(cd "$(dirname $0)"; pwd)
 cd
-USER_DIR=$(pwd)
-LINK_DIR=${CONFIG_DIR#$USER_DIR/}
 
 OS_NAME=$(uname)
 STAMP=$(date +%Y%m%dT%H%M%S)
@@ -49,6 +47,7 @@ link_file() {
 echo
 echo "--> Linking up your dotfiles..."
 
+# ~/.bashrc
 # NB: We use a stub for .bashrc to maintain support for systems that
 # do not support proper symlinks -- especially MSysGit on Windows.
 BASHRC_STUB="$CONFIG_DIR/bashrc.stub"
@@ -57,6 +56,7 @@ echo '. "$DOTFILES/bashrc"' >> "$BASHRC_STUB"
 install_file "$BASHRC_STUB" .bashrc
 rm -f "$BASHRC_STUB"
 
+# ~/.zshrc
 # NB: We use a stub for .zshrc to maintain support for systems that
 # do not support proper symlinks -- especially MSysGit on Windows.
 ZSHRC_STUB="$CONFIG_DIR/zshrc.stub"
@@ -65,6 +65,7 @@ echo 'source "$DOTFILES/zshrc"' >> "$ZSHRC_STUB"
 install_file "$ZSHRC_STUB" .zshrc
 rm -f "$ZSHRC_STUB"
 
+# ~/.gitconfig
 # NB: We use a stub for .gitconfig so that it can be extended with a
 # [user] section without causing git to see the gitconfig here as dirty.
 GITCONFIG_STUB="$CONFIG_DIR/gitconfig.stub"
@@ -73,27 +74,31 @@ echo "\tpath = $DOTFILES/gitconfig" >> "$GITCONFIG_STUB"
 install_file "$GITCONFIG_STUB" .gitconfig
 rm -f "$GITCONFIG_STUB"
 
-link_file "$LINK_DIR/bash_profile" .bash_profile
-link_file "$LINK_DIR/jgorc" .jgorc
-link_file "$LINK_DIR/mrconfig" .mrconfig
-link_file "../$LINK_DIR/vimrc" vim/vimrc
+# ~/.bash_profile
+link_file "$CONFIG_DIR/bash_profile" .bash_profile
+
+# ~/.jgorc
+link_file "$CONFIG_DIR/jgorc" .jgorc
+
+# ~/.mrconfig
+link_file "$CONFIG_DIR/mrconfig" .mrconfig
+
+# ~/.config/mr
+mkdir -p .config/mr
+link_file "$CONFIG_DIR/mrconfig.d/essential" .config/mr/essential
+
+# ~/.config/wd
 mkdir -p .config/wd
-link_file "../../$LINK_DIR/warprc" .config/wd/.warprc
+link_file "$CONFIG_DIR/warprc" .config/wd/warprc
 
-# Link individual mrconfig.d entries, enabling easier customization.
-MRCONFIG_DIR=.mrconfig.d
-mkdir -p "$MRCONFIG_DIR"
-cd "$MRCONFIG_DIR"
-for mrconfigfile in "../$LINK_DIR"/mrconfig.d/*
-do
-  link_file "$mrconfigfile" "${mrconfigfile##*/}"
-done
-cd - >/dev/null
+# ~/.vim/vimrc
+link_file "$CONFIG_DIR/vimrc" vim/vimrc
 
+# ~/Library/KeyBindings [macOS]
 case "$(uname)" in
   Darwin)
     cd Library
-    link_file "$LINK_DIR/KeyBindings" KeyBindings
+    link_file "$CONFIG_DIR/KeyBindings" KeyBindings
     cd ..
     ;;
 esac
@@ -111,7 +116,9 @@ echo "The people responsible for this shell script have been sacked."
 (set -x; git config --global user.name "$committer_name")
 (set -x; git config --global user.email "$committer_email")
 (clear_file .forward; set -x; echo "$committer_email" > .forward)
-test "$committer_name" = "Curtis Rueden" && link_file "$LINK_DIR/plan" .plan
+
+# ~/.plan
+test "$committer_name" = "Curtis Rueden" && link_file "$CONFIG_DIR/plan" .plan
 
 echo
 echo "--> Done! Now open a new terminal. :-)"
