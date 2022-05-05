@@ -9,7 +9,7 @@ Getting Started
 ---------------
 
 1. Clone this repository somewhere.
-2. Run the ```setup.sh``` script.
+2. Run the `setup.sh` script.
 
 
 LICENSE
