@@ -78,5 +78,8 @@ checkout = git clone git@github.com:dprodanov/pixlib && cd pixlib && git remote 
 [code/science/qupath]
 checkout = git clone git@github.com:qupath/qupath
 
+[code/science/qupath-extension-cellpose]
+checkout = git clone git@github.com:BIOP/qupath-extension-cellpose
+
 [code/science/vaa3d]
 checkout = git clone git@github.com:Vaa3D/v3d_external vaa3d
