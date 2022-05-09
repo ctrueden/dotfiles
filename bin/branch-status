@@ -29,28 +29,46 @@ branch_status() {
 	if [ "$all" ]
 	then
 		# report on all local branches
-		branches=$(git branch -vv |
+		branchLines=$(git branch -vv |
 			sed -E 's/^\*? *//' |
 			sed -E 's/  */~/g')
 	else
 		# check for unpushed branches
-		branches=$(git branch -vv |
+		branchLines=$(git branch -vv |
 			grep -v '\[[^ ]\+\]' |
 			sed -E 's/^\*? *//' |
 			sed -E 's/  */~/g')
 	fi
-	for branch in $branches
+	for branchLine in $branchLines
 	do
-		branch="$(echo "$branch" | sed 's/~/ /g')"
-		test "$branch" != "" || continue
+		branchLine="$(echo "$branchLine" | sed 's/~/ /g')"
+		test "$branchLine" != "" || continue
 		if [ "$all" ]
 		then
-			upstream=$(echo "$branch" | sed -E 's/[^\[]*\[([^ ]+)\].*/\1/')
-			head=$(git branch -a | grep remotes.origin.HEAD | sed 's/.* -> //')
-			test "$upstream" != "$head" || continue
-			test "$upstream" != "origin/gh-pages" || continue
+			# Get upstream branch (e.g. origin/develop) and remote (e.g. origin).
+			upstreamNote=${branchLine#*\[}
+			upstreamNote=${upstreamNote%%\]*}
+			upstreamBranch=${upstreamNote%%:*}
+			upstreamRemote=${upstreamBranch%%/*}
+
+			# Now look for a "git branch -a" line of the form:
+			#   remotes/origin/HEAD -> origin/develop
+			# Where "origin" matches this branch's upstream remote.
+			headBranch=$(git branch -a | grep "remotes/$upstreamRemote/HEAD" | sed 's/.* -> //')
+			test "$upstreamBranch" != "$headBranch" || continue
+
+			# But "git branch -a" doesn't always have such a line.
+			# Depends whether you cloned it from that remote, or added it later.
+			# For details, see: https://stackoverflow.com/a/17639471
+			# So let's also add heuristics for common integration branches:
+			case "$upstreamBranch" in
+				$upstreamRemote/gh-pages|\
+				$upstreamRemote/main|\
+				$upstreamRemote/master)
+					continue ;;
+			esac
 		fi
-		printf "%20s : %s\n" "$repo" "$branch"
+		printf "%20s : %s\n" "$repo" "$branchLine"
 	done
 }
 
