@@ -144,19 +144,14 @@ checkout = git clone git@github.com:juglab/LabelEditor
 [code/sj-stuff/imagej-logo]
 checkout = git clone git@github.com:juglab/imagej-logo
 
+[code/sj-stuff/labkit-pixel-classification]
+checkout = git clone git@github.com:juglab/labkit-pixel-classification
+
+[code/sj-stuff/labkit-ui]
+checkout = git clone git@github.com:juglab/labkit-ui
+
 [code/sj-stuff/metaseg]
 checkout = git clone git@github.com:juglab/metaseg
-
-# maarzt
-
-[code/sj-stuff/imagej-plot-service]
-checkout = git clone git@github.com:maarzt/imagej-plot-service
-
-[code/sj-stuff/imglib2-labkit]
-checkout = git clone git@github.com:maarzt/imglib2-labkit
-
-[code/sj-stuff/imglib2-trainable-segmentation]
-checkout = git clone git@github.com:maarzt/imglib2-trainable-segmentation
 
 # saalfeldlab
 
