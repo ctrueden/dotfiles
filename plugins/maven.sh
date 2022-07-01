@@ -30,5 +30,5 @@ alias anal='mvn dependency:analyze | grep WARNING'
 alias tdy='mvn tidy:pom'
 
 # build it!
-alias b='mvn clean install'
+alias b='lic -q; mvn clean install'
 alias bs='mvn -DskipTests -Denforcer.skip -Dinvoker.skip clean install'
