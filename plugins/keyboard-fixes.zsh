@@ -1,6 +1,15 @@
-test "$DEBUG" && echo "[dotfiles] Loading zsh plugin 'vi-mode-fixes'..."
+test "$DEBUG" && echo "[dotfiles] Loading zsh plugin 'keyboard-fixes'..."
 
-# --== zsh vi mode fixes ==--
+# --== zsh keyboard fixes ==--
+
+# Make numpad keys work as expected even with NumLock off.
+# Credit to: https://superuser.com/a/742193
+bindkey -s "^[Ok" "+"
+bindkey -s "^[Om" "-"
+bindkey -s "^[Oj" "*"
+bindkey -s "^[Oo" "/"
+bindkey -s "^[OE" "" # numpad 5
+bindkey -s "^[OM" "^M" # Enter
 
 # NB: I don't know how many of these fixes are still necessary
 # with the latest and greatest oh-my-zsh vi mode support...
