@@ -12,6 +12,9 @@ checkout = git clone git@github.com:ctrueden/fixbe
 [code/ctrueden/game-of-life]
 checkout = git clone git@github.com:ctrueden/game-of-life
 
+[code/ctrueden/habitica-tools]
+checkout = git clone git@github.com:ctrueden/habitica-tools
+
 [code/ctrueden/minecraft-python-extras]
 checkout = git clone git@github.com:ctrueden/minecraft-python-extras
 

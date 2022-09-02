@@ -2,3 +2,6 @@
 
 [code/ml/darknet]
 checkout = git clone git@github.com:pjreddie/darknet
+
+[code/ml/stable-diffusion]
+checkout = git clone git@github.com:CompVis/stable-diffusion

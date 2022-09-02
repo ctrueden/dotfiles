@@ -3,6 +3,9 @@
 [code/napari/NapariPlayground]
 checkout = git clone git@github.com:VolkerH/NapariPlayground
 
+[code/napari/magicgui]
+checkout = git clone https://github.com/napari/magicgui
+
 [code/napari/napari]
 checkout = git clone git@github.com:napari/napari
 

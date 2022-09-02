@@ -275,6 +275,9 @@ checkout = git clone git@github.com:ssgpers/java-utils-embl
 [code/sj-stuff/jfilament]
 checkout = git clone git@github.com:odinsbane/jfilament
 
+[code/sj-stuff/jipipe]
+checkout = git clone git@github.com:applied-systems-biology/jipipe
+
 [code/sj-stuff/keller-lab-block-filetype]
 checkout = git clone https://bitbucket.org/fernandoamat/keller-lab-block-filetype
 

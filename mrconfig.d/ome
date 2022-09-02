@@ -6,6 +6,9 @@ checkout = git clone git@github.com:ome/bioformats
 [code/ome/ome-common-java]
 checkout = git clone git@github.com:ome/ome-common-java
 
+[code/ome/ome-jai]
+checkout = git clone git@github.com:ome/ome-jai
+
 [code/ome/ome-mdbtools]
 checkout = git clone git@github.com:ome/ome-mdbtools
 
