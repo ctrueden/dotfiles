@@ -1,8 +1,5 @@
 # N5 projects
 
-[code/n5/imglib2-label-multisets]
-checkout = git clone git@github.com:saalfeldlab/imglib2-label-multisets
-
 [code/n5/n5]
 checkout = git clone git@github.com:saalfeldlab/n5
 

@@ -158,9 +158,6 @@ checkout = git clone git@github.com:juglab/metaseg
 [code/sj-stuff/hot-knife]
 checkout = git clone git@github.com:saalfeldlab/hot-knife
 
-[code/sj-stuff/imglib2-label-multisets]
-checkout = git clone git@github.com:saalfeldlab/imglib2-label-multisets
-
 # tferr
 
 [code/sj-stuff/IJ-guide]
