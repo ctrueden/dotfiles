@@ -1,0 +1,23 @@
+[code/trackmate/TrackMate-Cellpose]
+checkout = git clone git@github.com:fiji/TrackMate-Cellpose
+
+[code/trackmate/TrackMate-CSVImporter]
+checkout = git clone git@github.com:fiji/TrackMate-CSVImporter
+
+[code/trackmate/TrackMate-CTCRunner]
+checkout = git clone git@github.com:fiji/TrackMate-CTCRunner
+
+[code/trackmate/TrackMate-ExTrack]
+checkout = git clone git@github.com:fiji/TrackMate-ExTrack
+
+[code/trackmate/TrackMate-Ilastik]
+checkout = git clone git@github.com:fiji/TrackMate-Ilastik
+
+[code/trackmate/TrackMate-MorphoLibJ]
+checkout = git clone git@github.com:fiji/TrackMate-MorphoLibJ
+
+[code/trackmate/TrackMate-StarDist]
+checkout = git clone git@github.com:fiji/TrackMate-StarDist
+
+[code/trackmate/TrackMate-Weka]
+checkout = git clone git@github.com:fiji/TrackMate-Weka
