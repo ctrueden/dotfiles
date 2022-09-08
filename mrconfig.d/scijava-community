@@ -179,6 +179,9 @@ checkout = git clone git@github.com:tinevez/imglib2-icy
 
 # other
 
+[code/sj-stuff/3Dscript]
+checkout = git clone git@github.com:bene51/3Dscript
+
 [code/sj-stuff/DeformingMesh3D-plugin]
 checkout = git clone git@github.com:PaluchLabUCL/DeformingMesh3D-plugin
 
