@@ -4,7 +4,14 @@ test "$DEBUG" && echo "[zshrc] Initializing..."
 
 if [[ ! -f ~/.zpm/zpm.zsh ]]; then
 	test "$DEBUG" && echo "[zshrc] Installing zpm..."
-	git clone --recursive https://github.com/zpm-zsh/zpm ~/.zpm
+	GIT=git
+	test -x $GIT || GIT=/usr/bin/git
+	test -x $GIT || GIT=/usr/local/bin/git
+	test -x $GIT || {
+		echo "[ERROR] No git executable found. Cannot install zpm."
+		exit 1
+	}
+	$GIT clone --recursive https://github.com/zpm-zsh/zpm ~/.zpm
 fi
 
 test "$DEBUG" && echo "[zshrc] Initializing zpm..."
