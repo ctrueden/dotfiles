@@ -2,11 +2,6 @@ test "$DEBUG" && echo "[dotfiles] Loading plugin 'maven'..."
 
 export MAVEN_OPTS="-Xmx1536m"
 
-# launch Maven 2.x with 'mvn2'
-if [ -d "$BREW/Cellar/maven2" ]; then
-	alias mvn2="$BREW/Cellar/maven2/2.2.1/bin/mvn"
-fi
-
 # license-maven-plugin
 lic() {
 	local quiet=

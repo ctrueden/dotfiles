@@ -18,6 +18,7 @@ path_prepend "$CODE_SCRIPTS"
 # private projects
 export CODE_PRIVATE="$CODE_PERSONAL/unsorted-junk"
 alias gop='cd $CODE_PRIVATE'
+alias gouj='cd $CODE_PRIVATE'
 
 # LOCI projects - https://github.com/uw-loci
 export CODE_LOCI="$CODE_BASE/loci"
@@ -66,7 +67,6 @@ alias goilij='cd $CODE_IMGLIB/../imglib2-ij'
 alias goilr='goilroi'
 alias goilrt='cd $CODE_IMGLIB/../imglib2-realtransform'
 alias goilroi='cd $CODE_IMGLIB/../imglib2-roi'
-alias goils='cd $CODE_IMGLIB/../imglib2-script'
 alias goilt='goilte'
 alias goilte='cd $CODE_IMGLIB/../imglib2-tests'
 alias goiltu='cd $CODE_IMGLIB/../imglib2-tutorials'
@@ -87,7 +87,7 @@ export CODE_BDV="$CODE_BASE/bdv"
 alias gobdv='cd $CODE_BDV'
 
 # JEX
-export CODE_JEX="$CODE_BASE/sj-stuff/jex"
+export CODE_JEX="$CODE_BASE/sj-stuff/JEX"
 alias gojex='cd $CODE_JEX'
 
 # SciJava - https://github.com/scijava
@@ -98,17 +98,6 @@ alias gosjc='cd $CODE_SCIJAVA/scijava-common'
 alias gosjs='cd $CODE_SCIJAVA/scijava-scripts'
 path_prepend "$CODE_SCIJAVA/scijava-scripts"
 
-# NAR - https://github.com/maven-nar/nar-maven-plugin
-export CODE_NAR="$CODE_BASE/maven/nar-maven-plugin"
-alias gonar='cd $CODE_NAR'
-
 # CellProfiler - https://github.com/CellProfiler/CellProfiler
 export CODE_CELLPROFILER="$CODE_BASE/cellprofiler/CellProfiler"
 alias gocp='cd $CODE_CELLPROFILER'
-
-# SLIM Curve - https://github.com/slim-curve
-export CODE_SLIM="$CODE_BASE/slim"
-alias goslim='cd $CODE_SLIM'
-
-# VisAD
-export CODE_VISAD="$CODE_BASE/visad/visad"
