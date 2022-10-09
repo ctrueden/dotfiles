@@ -4,7 +4,7 @@ test "$DEBUG" && echo "[zshrc] Initializing..."
 
 if [[ ! -f ~/.zpm/zpm.zsh ]]; then
 	test "$DEBUG" && echo "[zshrc] Installing zpm..."
-  git clone --recursive https://github.com/zpm-zsh/zpm ~/.zpm
+	git clone --recursive https://github.com/zpm-zsh/zpm ~/.zpm
 fi
 
 test "$DEBUG" && echo "[zshrc] Initializing zpm..."
@@ -38,17 +38,17 @@ HIST_STAMPS="yyyy-mm-dd"
 test "$DEBUG" && echo "[zshrc] Loading oh-my-zsh..."
 zpm load @omz
 omz_libs=(
-  @omz-lib/compfix               # detect completions insecurities
-  @omz-lib/completion            # foundational tab completion logic
-  @omz-lib/directories           # succinct aliases to work with directories
-  @omz-lib/functions             # oh-my-zsh utility functions
-  @omz-lib/git                   # git-related utility functions
-  @omz-lib/grep                  # grep utility functions and aliases
-  @omz-lib/history               # command history configuration
-  @omz-lib/key-bindings          # key bindings for emacs/vi behavior
-  @omz-lib/misc                  # miscellaneous
-  @omz-lib/spectrum              # make using 256 colors in zsh less painful
-  @omz-lib/theme-and-appearance  # theme support
+	@omz-lib/compfix               # detect completions insecurities
+	@omz-lib/completion            # foundational tab completion logic
+	@omz-lib/directories           # succinct aliases to work with directories
+	@omz-lib/functions             # oh-my-zsh utility functions
+	@omz-lib/git                   # git-related utility functions
+	@omz-lib/grep                  # grep utility functions and aliases
+	@omz-lib/history               # command history configuration
+	@omz-lib/key-bindings          # key bindings for emacs/vi behavior
+	@omz-lib/misc                  # miscellaneous
+	@omz-lib/spectrum              # make using 256 colors in zsh less painful
+	@omz-lib/theme-and-appearance  # theme support
 )
 zpm load $omz_libs
 
