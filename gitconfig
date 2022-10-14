@@ -80,21 +80,35 @@
 
 [diff]
 	color = auto
+	tool = meld
 
 [diff "spaceman-diff"]
-  command = spaceman-diff
+	command = spaceman-diff
+
+[difftool]
+	prompt = false
+
+[difftool "meld"]
+	cmd = meld "$LOCAL" "$REMOTE"
 
 [filter "lfs"]
-	clean = git-lfs clean -- %f
 	smudge = git-lfs smudge -- %f
 	process = git-lfs filter-process
 	required = true
+	clean = git-lfs clean -- %f
 
 [http]
 	cookiefile = ~/.gitcookies
 
 [init]
 	defaultBranch = main
+
+[merge]
+	tool = meld
+
+[mergetool "meld"]
+	cmd = meld "$LOCAL" "$MERGED" "$REMOTE" --output "$MERGED"
+	#cmd = meld "$LOCAL" "$BASE" "$REMOTE" --output "$MERGED"
 
 [pull]
 	ff = only
