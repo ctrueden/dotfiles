@@ -4,3 +4,4 @@ test "$DEBUG" && echo "[dotfiles] Loading plugin 'mamba'..."
 alias snk=mamba
 alias snka='mamba activate'
 alias snkd='mamba deactivate'
+alias snke='mamba env'
