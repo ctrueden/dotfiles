@@ -1,25 +1,13 @@
 # StepMania-related repositories
 
-[code/stepmania/NewNovAE]
-checkout = git clone git@github.com:MadkaT182/NewNovAE
+[code/stepmania/Aoi]
+checkout = git clone git@github.com:MadkaT182/Aoi
 
-[code/stepmania/DDRX]
-checkout = git clone git@github.com:MadkaT182/DDRX
+[code/stepmania/BGScripts]
+checkout = git clone git@github.com:MadkaT182/BGScripts
 
-[code/stepmania/DWI]
-checkout = git clone git@github.com:MadkaT182/DWI
-
-[code/stepmania/SC]
-checkout = git clone git@github.com:MadkaT182/SC
-
-[code/stepmania/SM4Alpha]
-checkout = git clone git@github.com:MadkaT182/SM4Alpha
-
-[code/stepmania/DDR2ndMix]
-checkout = git clone git@github.com:MadkaT182/DDR2ndMix
-
-[code/stepmania/DDR2014]
-checkout = git clone git@github.com:MadkaT182/DDR2014
+[code/stepmania/CdTitles]
+checkout = git clone git@github.com:MadkaT182/CdTitles
 
 [code/stepmania/DDR1st]
 checkout = git clone git@github.com:MadkaT182/DDR1st
@@ -27,57 +15,71 @@ checkout = git clone git@github.com:MadkaT182/DDR1st
 [code/stepmania/DDR2013]
 checkout = git clone git@github.com:MadkaT182/DDR2013
 
-[code/stepmania/DDR5th]
-checkout = git clone git@github.com:MadkaT182/DDR5th
+[code/stepmania/DDR2014]
+checkout = git clone git@github.com:MadkaT182/DDR2014
 
-[code/stepmania/DDRNoteskins]
-checkout = git clone git@github.com:MadkaT182/DDRNoteskins
-
-[code/stepmania/Tournament]
-checkout = git clone git@github.com:MadkaT182/Tournament
-
-[code/stepmania/DDRPC]
-checkout = git clone git@github.com:MadkaT182/DDRPC
-
-[code/stepmania/DDREX2]
-checkout = git clone git@github.com:MadkaT182/DDREX2
-
-[code/stepmania/ThemeBeachSide]
-checkout = git clone git@github.com:MadkaT182/ThemeBeachSide
-
-[code/stepmania/DDRMarioMix]
-checkout = git clone git@github.com:MadkaT182/DDRMarioMix
-
-[code/stepmania/DDR4th]
-checkout = git clone git@github.com:MadkaT182/DDR4th
-
-[code/stepmania/BGScripts]
-checkout = git clone git@github.com:MadkaT182/BGScripts
-
-[code/stepmania/DDRA]
-checkout = git clone git@github.com:MadkaT182/DDRA
-
-[code/stepmania/MGD3]
-checkout = git clone git@github.com:MadkaT182/MGD3
-
-[code/stepmania/DDRSolo]
-checkout = git clone git@github.com:MadkaT182/DDRSolo
-
-[code/stepmania/CdTitles]
-checkout = git clone git@github.com:MadkaT182/CdTitles
-
-[code/stepmania/RhythmMania]
-checkout = git clone git@github.com:MadkaT182/RhythmMania
+[code/stepmania/DDR2ndMix]
+checkout = git clone git@github.com:MadkaT182/DDR2ndMix
 
 [code/stepmania/DDR3rdMix]
 checkout = git clone git@github.com:MadkaT182/DDR3rdMix
 
+[code/stepmania/DDR4th]
+checkout = git clone git@github.com:MadkaT182/DDR4th
+
+[code/stepmania/DDR5th]
+checkout = git clone git@github.com:MadkaT182/DDR5th
+
+[code/stepmania/DDRA]
+checkout = git clone git@github.com:MadkaT182/DDRA
+
 [code/stepmania/DDRCourses]
 checkout = git clone git@github.com:MadkaT182/DDRCourses
-
-[code/stepmania/Aoi]
-checkout = git clone git@github.com:MadkaT182/Aoi
 
 [code/stepmania/DDRDDM]
 checkout = git clone git@github.com:MadkaT182/DDRDDM
 
+[code/stepmania/DDREX2]
+checkout = git clone git@github.com:MadkaT182/DDREX2
+
+[code/stepmania/DDRMarioMix]
+checkout = git clone git@github.com:MadkaT182/DDRMarioMix
+
+[code/stepmania/DDRNoteskins]
+checkout = git clone git@github.com:MadkaT182/DDRNoteskins
+
+[code/stepmania/DDRPC]
+checkout = git clone git@github.com:MadkaT182/DDRPC
+
+[code/stepmania/DDRSolo]
+checkout = git clone git@github.com:MadkaT182/DDRSolo
+
+[code/stepmania/DDRX]
+checkout = git clone git@github.com:MadkaT182/DDRX
+
+[code/stepmania/DWI]
+checkout = git clone git@github.com:MadkaT182/DWI
+
+[code/stepmania/MGD3]
+checkout = git clone git@github.com:MadkaT182/MGD3
+
+[code/stepmania/NewNovAE]
+checkout = git clone git@github.com:MadkaT182/NewNovAE
+
+[code/stepmania/RhythmMania]
+checkout = git clone git@github.com:MadkaT182/RhythmMania
+
+[code/stepmania/SC]
+checkout = git clone git@github.com:MadkaT182/SC
+
+[code/stepmania/SM4Alpha]
+checkout = git clone git@github.com:MadkaT182/SM4Alpha
+
+[code/stepmania/ThemeBeachSide]
+checkout = git clone git@github.com:MadkaT182/ThemeBeachSide
+
+[code/stepmania/Tournament]
+checkout = git clone git@github.com:MadkaT182/Tournament
+
+[code/stepmania/stepmania]
+checkout = git clone git@github.com:stepmania/stepmania
