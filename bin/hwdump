@@ -1,0 +1,32 @@
+#!/bin/sh
+
+# hwdump - A script to dump *ALL THE HARDWARE INFO*.
+
+run() {
+  needRoot=
+  cmd=$1
+  shift
+  if [ "$cmd" = --root ]
+  then
+    needRoot=1
+    cmd=$1
+    shift
+  fi
+  echo
+  echo "----------========== $cmd ==========----------"
+  if [ "$needRoot" -a "$(whoami)" != root ]
+  then
+    echo "Please run as root for $cmd."
+    return
+  fi
+  $cmd $@
+}
+
+run neofetch
+run inxi -Fx
+run hwinfo
+run --root dmidecode
+run lscpu
+run lspci
+run lsusb
+run --root lshw
