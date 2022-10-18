@@ -70,7 +70,7 @@ rm -f "$ZSHRC_STUB"
 # [user] section without causing git to see the gitconfig here as dirty.
 GITCONFIG_STUB="$CONFIG_DIR/gitconfig.stub"
 echo '[include]' > "$GITCONFIG_STUB"
-echo "\tpath = $DOTFILES/gitconfig" >> "$GITCONFIG_STUB"
+printf "\tpath = $DOTFILES/gitconfig\n" >> "$GITCONFIG_STUB"
 install_file "$GITCONFIG_STUB" .gitconfig
 rm -f "$GITCONFIG_STUB"
 
@@ -108,9 +108,9 @@ echo
 echo "--> Personalizing your experience..."
 cat "$CONFIG_DIR/old-man.txt"
 echo "Answer me these questions three, ere the other side ye see!"
-echo "What... is your full name? \c"
+printf "What... is your full name? "
 read committer_name
-echo "What... is your email address? \c"
+printf "What... is your email address? "
 read committer_email
 echo "What... is the airspeed velocity of an unladen --"
 echo "The people responsible for this shell script have been sacked."
