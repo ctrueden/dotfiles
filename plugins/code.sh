@@ -15,6 +15,10 @@ export CODE_SCRIPTS="$DOTFILES/bin"
 alias gosc='cd $CODE_SCRIPTS'
 path_prepend "$CODE_SCRIPTS"
 
+# second brain
+export CODE_BRAIN="$CODE_PERSONAL/brain"
+alias gob='cd $CODE_BRAIN'
+
 # private projects
 export CODE_PRIVATE="$CODE_PERSONAL/unsorted-junk"
 alias gop='cd $CODE_PRIVATE'
