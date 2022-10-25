@@ -69,8 +69,32 @@ checkout = git clone git@github.com:clij/clij-plugin-template
 [code/clij/clij.github.io]
 checkout = git clone git@github.com:clij/clij.github.io
 
+[code/clij/clij2]
+checkout = git clone git@github.com:clij/clij2
+
+[code/clij/clij2-assistant]
+checkout = git clone git@github.com:clij/clij2-assistant
+
+[code/clij/clij2-code-generators]
+checkout = git clone git@github.com:clij/clij2-code-generators
+
+[code/clij/clij2-imagej1]
+checkout = git clone git@github.com:clij/clij2-imagej1
+
+[code/clij/clij2-fft]
+checkout = git clone git@github.com:clij/clij2-fft
+
+[code/clij/clij2-tests]
+checkout = git clone git@github.com:clij/clij2-tests
+
 [code/clij/clijpy]
 checkout = git clone git@github.com:clij/clijpy
+
+[code/clij/clijx]
+checkout = git clone git@github.com:clij/clijx
+
+[code/clij/clijx-assistant]
+checkout = git clone git@github.com:clij/clijx-assistant
 
 [code/clij/clupath]
 checkout = git clone git@github.com:clij/clupath

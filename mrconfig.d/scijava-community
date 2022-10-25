@@ -236,6 +236,9 @@ checkout = git clone git@github.com:biocompibens/SME
 [code/sj-stuff/SNT]
 checkout = git clone git@github.com:morphonets/SNT
 
+[code/sj-stuff/Unet-Segmentation]
+checkout = git clone git@github.com:lmb-freiburg/Unet-Segmentation
+
 [code/sj-stuff/anima]
 checkout = git clone git@bitbucket.org:anduril-dev/anima.git
 
@@ -292,6 +295,9 @@ checkout = git clone git@github.com:stelfrich/legacy-update-bug-mcve
 
 [code/sj-stuff/mcib3d-core]
 checkout = git clone git@github.com:mcib3d/mcib3d-core
+
+[code/sj-stuff/mobie-io]
+checkout = git clone git@github.com:mobie/mobie-io
 
 [code/sj-stuff/mroi]
 checkout = git clone git@github.com:madhadron/mroi
