@@ -63,13 +63,13 @@ alias gum='git cherry -v master'
 alias gws='git rebase --whitespace=strip'
 alias wikiclone='clone -c '\''remote.origin.mediaimport=true'\'' -c '\''remote.origin.mediaexport=true'\'' -c '\''remote.origin.namespaces=(Main) File Template'\'
 ghelp() {
-  alias | grep git | grep "$@"
+  test "$1" || { >&2 echo "Usage: ghelp <search-term>"; return; }
   for cmd in $(declare -f | grep '^[a-z]\+ () {$' | sed 's/^\([a-z]*\).*/\1/')
   do
     func=$(which "$cmd")
     echo "$func" | grep -q git &&
-    echo "$func" | grep -q "$@" &&
-    echo "$func" | grep -C9999 "$@"
+    echo "$func" | grep -q "$1" &&
+    echo "$func" | grep -C9999 "$1"
   done
 }
 gll() {
