@@ -64,7 +64,7 @@ alias gws='git rebase --whitespace=strip'
 alias wikiclone='clone -c '\''remote.origin.mediaimport=true'\'' -c '\''remote.origin.mediaexport=true'\'' -c '\''remote.origin.namespaces=(Main) File Template'\'
 ghelp() {
   test "$1" || { >&2 echo "Usage: ghelp <search-term>"; return; }
-  for cmd in $(declare -f | grep '^[a-z]\+ () {$' | sed 's/^\([a-z]*\).*/\1/')
+  for cmd in $(alias | sed 's/=.*//') $(declare -f | grep '^[a-z]\+ () {$' | sed 's/^\([a-z]*\).*/\1/')
   do
     func=$(which "$cmd")
     echo "$func" | grep -q git &&
