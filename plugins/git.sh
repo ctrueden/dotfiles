@@ -93,7 +93,7 @@ gri() {
   if [ "$ref" ]; then grbi "$ref" $@; else grbi $@; fi
 }
 gtagsv() {
-  gtags | while read tag
+  git fetch --tags && git tag -l --sort=taggerdate | while read tag
   do
     echo "$(git rev-parse "$tag")\t$tag"
   done
