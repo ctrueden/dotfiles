@@ -3,7 +3,7 @@ test "$DEBUG" && echo "[dotfiles] Loading plugin 'path'..."
 # prepend Homebrew bin directories to the path, if applicable
 if [ -d "$BREW" ]
 then
-	for dir in bin sbin opt/ruby/bin
+	for dir in bin sbin opt/ruby/bin opt/util-linux/bin opt/util-linux/sbin
 	do
 		path_prepend "$BREW/$dir"
 	done
