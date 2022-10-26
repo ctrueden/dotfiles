@@ -1,6 +1,6 @@
 test "$DEBUG" && echo "[dotfiles] Loading plugin 'vim'..."
 
-which vundle-init >/dev/null 2>&1 &&
+command -v vundle-init >/dev/null &&
 	test ! -d "$HOME/.vim/bundle/Vundle.vim" &&
 	vundle-init && vundle-update
 

@@ -7,10 +7,10 @@ test "$DEBUG" && echo "[dotfiles] Loading plugin 'highlight'..."
 
 # Setup on macOS: "brew install highlight"
 
-if which highlight >/dev/null
+if command -v highlight >/dev/null
 then
   # pipe highlight to less
-  export LESSOPEN="| $(which highlight) %s --out-format xterm256 --line-numbers --quiet --force --style solarized-light"
+  export LESSOPEN="| highlight %s --out-format xterm256 --line-numbers --quiet --force --style solarized-light"
   export LESS=" -R"
   alias less='less -m -N -g -i -J --line-numbers --underline-special'
   alias more='less'

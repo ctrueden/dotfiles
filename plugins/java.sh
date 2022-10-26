@@ -5,7 +5,7 @@ test "$DEBUG" && echo "[dotfiles] Loading plugin 'java'..."
 # - On Linux, /bin/java and /usr/bin/java point at /etc/alternatives/java,
 #   which is controlled system-wide by update-java-alternatives.
 unset -f java 2>/dev/null
-export SYSTEM_JAVA_BIN=$(dirname "$(which java)")
+export SYSTEM_JAVA_BIN=$(dirname "$(command -v java)")
 
 jexec() {
 	cmd=$1

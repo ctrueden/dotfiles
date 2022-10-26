@@ -2,7 +2,7 @@ test "$DEBUG" && echo "[dotfiles] Loading plugin 'vars'..."
 
 # --== Homebrew ==--
 
-if [ -x "$(which brew 2> /dev/null)" ]; then
+if [ -x "$(command -v brew)" ]; then
 	export BREW="$(brew --prefix)"
 fi
 

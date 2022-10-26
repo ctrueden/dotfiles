@@ -32,11 +32,11 @@ alias f='find . -name'
 
 # report details of the OS using 'version'
 version() {
-	test -x "$(which sw_vers 2> /dev/null)" && sw_vers
+	test -x "$(command -v sw_vers)" && sw_vers
 	test -e /proc/version && cat /proc/version
-	test -x "$(which lsb_release 2> /dev/null)" && lsb_release -a
+	test -x "$(command -v lsb_release)" && lsb_release -a
 	test -e /etc/redhat-release && cat /etc/redhat-release
-	test -x "$(which ver 2> /dev/null)" && ver
+	test -x "$(command -v ver)" && ver
 }
 
 # --== history ==--
@@ -45,13 +45,13 @@ alias histime='HISTTIMEFORMAT="%F %T " history'
 
 # --== eject ==--
 
-if [ -x "$(which diskutil 2> /dev/null)" ]; then
+if [ -x "$(command -v diskutil)" ]; then
   alias eject='diskutil eject'
 fi
 
 # --== ldd ==--
 
-if [ ! -x "$(which ldd 2> /dev/null)" ]; then
+if [ ! -x "$(command -v ldd)" ]; then
 	# make 'ldd' work on OS X
 	alias ldd='otool -L'
 fi
@@ -59,7 +59,7 @@ fi
 # --== hex editor ==--
 
 # open a graphical hex editor using 'hex'
-if [ -x "$(which ghex2 2> /dev/null)" ]; then
+if [ -x "$(command -v ghex2)" ]; then
 	alias hex='ghex2'
 elif [ -d '/Applications/Hex Fiend.app' ]; then
 	alias hex="'/Applications/Hex Fiend.app/Contents/MacOS/Hex Fiend'"

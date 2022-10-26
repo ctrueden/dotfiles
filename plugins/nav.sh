@@ -2,7 +2,7 @@ test "$DEBUG" && echo "[dotfiles] Loading plugin 'nav'..."
 
 # "where is" - find a command or filename
 wi() {
-	cmd=$(which "$@" 2> /dev/null)
+	cmd=$(command -v "$@")
 	if [ -z "$cmd" ]
 	then
 		# no command found; see if git knows about it
