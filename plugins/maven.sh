@@ -27,3 +27,6 @@ alias tdy='mvn tidy:pom'
 # build it!
 alias b='lic -q; mvn clean install'
 alias bs='mvn -DskipTests -Denforcer.skip -Dinvoker.skip clean install'
+
+# Preserve color output when piping -- the opposite of --batch-mode.
+alias mvc='mvn -Dstyle.color=always'
