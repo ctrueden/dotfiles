@@ -11,6 +11,7 @@ alias xterm='xterm -geometry 80x60 -fg white -bg black'
 # --== bat ==--
 
 test -x /usr/bin/batcat && alias bat=batcat
+export BAT_THEME=Coldark-Dark
 
 # --== 7z ==--
 
