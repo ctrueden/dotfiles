@@ -10,9 +10,10 @@ positive connotations.
 LICENSE
 -------
 
+This is free and unencumbered software released into the public domain.
+
 To the extent possible under law, except as otherwise stated in
 individual script headers, I waive all copyright and related or
 neighboring rights to these scripts.
 
-See the CC0 1.0 Universal license for details:
-    http://creativecommons.org/publicdomain/zero/1.0/
+See the ../UNLICENSE file or http://unlicense.org/ for details.
