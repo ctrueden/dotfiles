@@ -1,7 +1,0 @@
-#!/bin/bash
-
-#
-# genkey: a script for generating a key for use signing JARs
-#
-
-keytool -genkey -keypass uwloci -storepass uwloci -alias loci
