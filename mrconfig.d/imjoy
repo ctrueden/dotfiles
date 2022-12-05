@@ -1,0 +1,26 @@
+# ImJoy - https://github.com/imjoy-team
+# Hypha - https://github.com/Amun-AI
+
+[code/imjoy/ImJoy]
+checkout = git clone git@github.com:imjoy-team/ImJoy
+
+[code/imjoy/amun.ai]
+checkout = git clone git@github.com:amun-ai/amun.ai
+
+[code/imjoy/example-plugins]
+checkout = git clone git@github.com:imjoy-team/example-plugins
+
+[code/imjoy/hypha]
+checkout = git clone git@github.com:amun-ai/hypha
+
+[code/imjoy/hypha-helm-charts]
+checkout = git clone git@github.com:amun-ai/hypha-helm-charts
+
+[code/imjoy/hypha-k8s]
+checkout = git clone git@github.com:amun-ai/hypha-k8s
+
+[code/imjoy/imjoy-rpc]
+checkout = git clone git@github.com:imjoy-team/imjoy-rpc
+
+[code/imjoy/kaibu]
+checkout = git clone git@github.com:imjoy-team/kaibu
