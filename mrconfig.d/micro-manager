@@ -5,3 +5,6 @@ checkout = git clone git@github.com:micro-manager/micro-manager
 
 [code/micro-manager/micro-manager.github.io]
 checkout = git clone git@github.com:micro-manager/micro-manager.github.io
+
+[code/micro-manager/pycro-manager]
+checkout = git clone git@github.com:micro-manager/pycro-manager

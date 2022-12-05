@@ -3,6 +3,9 @@
 [code/java/AutoComplete]
 checkout = git clone git@github.com:bobbylight/AutoComplete
 
+[code/java/FlatLaf]
+checkout = git clone git@github.com:JFormDesigner/FlatLaf
+
 [code/java/Leo2]
 checkout = git clone git@github.com:joshmarinacci/Leo2
 

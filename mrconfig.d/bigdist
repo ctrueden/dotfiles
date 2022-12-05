@@ -1,0 +1,31 @@
+# BigDistributor - https://github.com/BigDistributor
+
+[code/bigdist/AWS_DataExchange]
+checkout = git clone git@github.com:BigDistributor/AWS_DataExchange
+
+[code/bigdist/BigDistributor]
+checkout = git clone git@github.com:BigDistributor/BigDistributor
+
+[code/bigdist/BigDistributor-core]
+checkout = git clone git@github.com:BigDistributor/BigDistributor-core
+
+[code/bigdist/BigDistributor-pom]
+checkout = git clone git@github.com:BigDistributor/BigDistributor-pom
+
+[code/bigdist/BigDistributor_AWS]
+checkout = git clone git@github.com:BigDistributor/BigDistributor_AWS
+
+[code/bigdist/BigDistributor_DesktopApp]
+checkout = git clone git@github.com:BigDistributor/BigDistributor_DesktopApp
+
+[code/bigdist/BigDistributor_ImplementedTask]
+checkout = git clone git@github.com:BigDistributor/BigDistributor_ImplementedTask
+
+[code/bigdist/BigLogger]
+checkout = git clone git@github.com:BigDistributor/BigLogger
+
+[code/bigdist/Dbio_headless]
+checkout = git clone git@github.com:BigDistributor/Dbio_headless
+
+[code/bigdist/bv_server]
+checkout = git clone git@github.com:BigDistributor/bv_server

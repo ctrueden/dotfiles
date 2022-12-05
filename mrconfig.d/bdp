@@ -1,0 +1,13 @@
+# bigdataprocessor - https://github.com/bigdataprocessor
+
+[code/bdp/bigdataprocessor1]
+checkout = git clone git@github.com:bigdataprocessor/bigdataprocessor1
+
+[code/bdp/bigdataprocessor2]
+checkout = git clone git@github.com:bigdataprocessor/bigdataprocessor2
+
+[code/bdp/imagej-cluster]
+checkout = git clone git@github.com:bigdataprocessor/imagej-cluster
+
+[code/bdp/imaris-writer]
+checkout = git clone git@github.com:bigdataprocessor/imaris-writer
