@@ -216,7 +216,7 @@ checkout = git clone git@github.com:nstifani/KinemaJ
 checkout = git clone git@github.com:NicoKiaru/LimeSeg
 
 [code/sj-stuff/MTrack]
-checkout = git clone git@github.com:kapoorlabs-paris/MTrack
+checkout = git clone git@github.com:Kapoorlabs-paris/MTrack
 
 [code/sj-stuff/MoMA]
 checkout = git clone git@github.com:fjug/MoMA
