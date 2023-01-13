@@ -106,3 +106,12 @@ path_prepend "$CODE_SCIJAVA/scijava-scripts"
 # CellProfiler - https://github.com/CellProfiler/CellProfiler
 export CODE_CELLPROFILER="$CODE_BASE/cellprofiler/CellProfiler"
 alias gocp='cd $CODE_CELLPROFILER'
+
+# Jump to any subdirectory of code by string fragment.
+# Inspired by oh-my-zsh's z plugin.
+zc() {
+  d=$(find "$CODE_BASE" -maxdepth 2 -type d -name '*'"$@"'*' | head -n1)
+  test "$d" && cd "$d" || {
+    alias | grep -q "^z='_z " && z $@
+  }
+}
