@@ -1,0 +1,10 @@
+#!/bin/sh
+
+# Save tmux's scrollback buffer to the specific log file,
+# ~/tmux.log by default.
+
+logFile=$1
+test "$logFile" || logFile="$HOME/tmux.log"
+tmux capture-pane -b temp-capture-buffer -S -
+tmux save-buffer -b temp-capture-buffer "$logFile"
+tmux delete-buffer -b temp-capture-buffer
