@@ -66,6 +66,7 @@ alias gtags='git fetch --tags && git tag -l --sort=taggerdate'
 alias gum='git cherry -v master'
 alias gws='git rebase --whitespace=strip'
 alias wikiclone='clone -c '\''remote.origin.mediaimport=true'\'' -c '\''remote.origin.mediaexport=true'\'' -c '\''remote.origin.namespaces=(Main) File Template'\'
+
 ghelp() {
   test "$1" || { >&2 echo "Usage: ghelp <search-term>"; return; }
   for cmd in $(alias | sed 's/=.*//') $(declare -f | grep '^[a-z]\+ () {$' | sed 's/^\([a-z]*\).*/\1/')
@@ -76,12 +77,14 @@ ghelp() {
     echo "$func" | grep -C9999 "$1"
   done
 }
+
 gll() {
   local num=$(echo "$1" | sed 's/[^0-9]//g')
   shift
   test "$num" || num=1
   glgp -$num $@
 }
+
 gri() {
   local ref=''
   case $# in
@@ -96,6 +99,7 @@ gri() {
   esac
   if [ "$ref" ]; then grbi "$ref" $@; else grbi $@; fi
 }
+
 gtagsv() {
   git fetch --tags && git tag -l --sort=taggerdate | while read tag
   do
@@ -124,4 +128,3 @@ export SVN_AUTHORS="$CODE_CFG_PRIVATE/authors.txt"
 # ln -s "$CODE_GIT/contrib/mw-to-git/git-mw" ~/bin
 
 export PERL5LIB="$CODE_GIT/perl:$CODE_GIT/contrib/mw-to-git"
-
