@@ -111,6 +111,8 @@ gtagsv() {
   done
 }
 
+clsg() { clear; pwd; div; ls $@; div; gst; }
+
 # --== git-svn ==--
 
 # tell git-svn where to find SVN authors
