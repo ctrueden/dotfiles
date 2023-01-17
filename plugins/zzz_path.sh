@@ -11,6 +11,7 @@ fi
 
 path_prepend /snap/bin
 path_prepend /usr/local/bin
+path_prepend "$HOME/.local/bin"
 path_prepend "$HOME/bin"
 
 path_update
