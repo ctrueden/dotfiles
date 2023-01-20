@@ -112,6 +112,7 @@ gtagsv() {
 }
 
 clsg() { clear; pwd; div; ls $@; div; gst; }
+alias c=clsg
 
 # --== git-svn ==--
 
