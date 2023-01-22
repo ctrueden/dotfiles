@@ -1,0 +1,48 @@
+#!/bin/sh
+
+sudo -v
+
+if [ -d "$DOTFILES" ]
+then
+  echo
+  echo "--== Updating dotfiles ==--"
+  (cd "$DOTFILES" && git pull)
+fi
+
+if [ -d "$CODE_SCIJAVA/scijava-scripts" ]
+then
+  echo
+  echo "--== Updating SciJava scripts ==--"
+  (cd "$CODE_SCIJAVA/scijava-scripts" && git pull)
+fi
+
+if [ -x /usr/bin/apt ]; then
+  echo
+  echo "--== Updating apt packages ==--"
+  sudo apt update
+  sudo apt dist-upgrade -y
+fi
+
+if [ -x /usr/bin/flatpak ]; then
+  echo
+  echo "--== Updating Flatpak packages ==--"
+  sudo flatpak update --noninteractive
+fi
+
+if [ -x /usr/bin/snap ]
+then
+  echo
+  echo "--== Updating Snap packages ==--"
+  sudo killall snap-store
+  sudo snap refresh
+fi
+
+if [ -d "$BREW" ]; then
+  echo
+  echo "--== Updating Homebrew packages ==--"
+  brew update
+  brew upgrade
+fi
+
+echo
+echo "--== Done ==--"
