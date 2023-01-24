@@ -12,6 +12,7 @@ eval color_path='$fg_bold[blue]'
 eval color_prompt='$FG[214]' # orange
 eval color_prompt2='$fg_no_bold[red]'
 eval color_gitinfo='$fg_bold[yellow]'
+eval color_javahome='$fg_bold[cyan]'
 eval color_condaenv='$fg_bold[magenta]'
 eval color_virtualenv='$fg_bold[white]'
 eval color_vimode='$fg_no_bold[white]'
@@ -27,6 +28,14 @@ eval color_timestamp='$fg_no_bold[yellow]'
 # Or else you'll get the active environment in your prompt in two places.
 conda_prompt_info() { test "$CONDA_DEFAULT_ENV" && echo "[$CONDA_DEFAULT_ENV] "; }
 
+java_prompt_info() {
+	test "$JAVA_HOME" &&
+		j=${JAVA_HOME%/Contents/Home} &&
+		j=${j%.jdk} &&
+		j=${j##*/} &&
+		echo "{$j} ";
+}
+
 # primary prompt
 PROMPT='\
 %{$color_comment%}:%{$reset_color%} \
@@ -34,6 +43,7 @@ PROMPT='\
 %{$color_path%}%~%{$reset_color%}\
 $(git_prompt_info) \
 %{$color_condaenv%}$(conda_prompt_info)%{$reset_color%}\
+%{$color_javahome%}$(java_prompt_info)%{$reset_color%}\
 %{$color_prompt%}%(!.#.»)%{$reset_color%}
 '
 
