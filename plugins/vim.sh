@@ -4,19 +4,27 @@ command -v vundle-init >/dev/null &&
 	test ! -d "$HOME/.vim/bundle/Vundle.vim" &&
 	vundle-init && vundle-update
 
-alias vi='vim'
-alias :e='vim'
+if [ "$(command -v vim)" ]
+then
+	alias vi='vim'
+	alias :e='vim'
+	export EDITOR=vim
+elif [ "$(command -v vi)" ]
+then
+	alias vim='vi'
+	alias :e='vi'
+	export EDITOR=vi
+fi
 
 # use vim to edit commit messages
-export EDITOR=vim
-export VISUAL="$EDITOR"
+test -z "$EDITOR" || export VISUAL="$EDITOR"
 
 # search for the given filename in the current subtree and open in vim
 # Requires: plugins/nav
-vif() { vim $(wi "$@"); }
+vif() { vi $(wi "$@"); }
 
 # grep for a particular string and open all matching files in vim
-vig() { vim $(grep -l $@); }
+vig() { vi $(grep -l $@); }
 
 # format the clipboard as an email quote
 alias viq="vi \
