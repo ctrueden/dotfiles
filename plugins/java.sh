@@ -77,9 +77,9 @@ $(/usr/sbin/update-java-alternatives -l | sed 's/.* //')"
   # Return union of results
   if [ $# -gt 0 ]
   then
-    echo "$javas" | sort -u | grep -- "$@"
+    echo "$javas" | grep -v '^$' | sort -u | grep -- "$@"
   else
-    echo "$javas" | sort -u
+    echo "$javas" | grep -v '^$' | sort -u
   fi
 }
 
@@ -112,11 +112,17 @@ DOC
     java -version
 }
 
-alias j6='jswitch -1.6'
-alias j7='jswitch -1.7'
-alias j8='jswitch -8'
-alias j9='jswitch -9'
-alias j10='jswitch -10'
+alias j0='jswitch -1\.0' # 1996-01-23
+alias j1='jswitch -1\.1' # 1997-02-02 (1.1.4=Sparkler; 1.1.6=Abigail; 1.1.7=Brutus; 1.1.8=Chelsea)
+alias j2='jswitch -1\.2' # 1998-12-04 (Playground; 1.2.2=Cricket)
+alias j3='jswitch -1\.3' # 2000-05-08 (Kestrel; 1.3.1=Ladybird)
+alias j4='jswitch -1\.4' # 2002-02-13 (Merlin; 1.4.1=Hopper; 1.4.2=Mantis)
+alias j5="jswitch '-\\(5[^0-9]\\|1\\.5\\)'" # 2004-09-29 (Tiger)
+alias j6="jswitch '-\\(6[^0-9]\\|1\\.6\\)'" # 2006-12-11 (Mustang)
+alias j7="jswitch '-\\(7[^0-9]\\|1\\.7\\)'" # 2011-07-28 (Dolphin)
+alias j8="jswitch '-\\(8[^0-9]\\|1\\.8\\)'" # 2014-03-18 (Spider)
+alias j9='jswitch -9'   # 2017-09-21
+alias j10='jswitch -10' # 2018-03-20
 alias j11='jswitch -11' # 2018-09-25
 alias j12='jswitch -12' # 2019-03-19
 alias j13='jswitch -13' # 2019-09-17
@@ -179,7 +185,7 @@ alias j17z='jswitch zulu-17'
 
 # use OpenJDK 8 by default, ideally with JavaFX, if available
 export J8=$(jhome fx-8)
-test "$J8" || export J8=$(jhome -8)
+test "$J8" || export J8=$(jhome '-\(8[^0-9]\|1\.8\)')
 test "$J8" && export JAVA_HOME="$J8"
 
 # add aliases for launching Java
