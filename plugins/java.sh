@@ -56,8 +56,16 @@ DOC
   local javas=
   if [ "$dir" -a -d "$HOME/Java/$dir" ]
   then
-    javas=$(find "$HOME/Java/$dir" -mindepth 1 -maxdepth 5 \
-      -type d -name bin 2>/dev/null | grep -v '/jre/bin' | sed 's;/bin$;;')
+    javas=$(find "$HOME/Java/$dir" -mindepth 1 -maxdepth 5 -type d 2>/dev/null | while read d
+    do
+      if [ -x "$d/bin/java" -o -x "$d/bin/java.exe" ]
+      then
+        echo "$d"
+      elif [ -x "$d/Contents/Home/bin/java" ]
+      then
+        echo "$d/Contents/Home"
+      fi
+    done | grep -v '/jre$')
   fi
 
   # Java installations from java_home (macOS).
@@ -88,12 +96,12 @@ jhome() {
 Report the first Java installation matching the given arguments,
 or the current value of JAVA_HOME if no arguments are given.
 DOC
-	if [ $# -eq 0 ]
-	then
-		echo "$JAVA_HOME"
-	else
-		jlist $@ | head -n1
-	fi
+  if [ $# -eq 0 ]
+  then
+    echo "$JAVA_HOME"
+  else
+    jlist $@ | head -n1
+  fi
 }
 
 jswitch() {
