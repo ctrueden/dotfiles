@@ -5,6 +5,7 @@ bfc:~/code/ome/ome-common-java/src/main/java/loci/common
 bff:~/code/ome/bioformats/components/formats-api/src/loci/formats
 bfp:~/code/ome/bioformats/components/bio-formats-plugins/src/loci/plugins
 bfx:~/code/ome/ome-model/ome-xml/src/main/java/ome/xml
+bx:~/code/brain/notes/external
 cb:~/code/fiji/cookbook
 cfg:~/code/ctrueden/dotfiles
 cp:~/code/cellprofiler/CellProfiler
@@ -12,6 +13,7 @@ ctr:~/code/ctrueden
 d:~/data
 df:~/code/ctrueden/dotfiles
 fi:~/code/fiji/fiji
+flim:~/code/flimlib
 git:~/code/git/git
 ij1:~/code/imagej/ImageJ
 ij1p:~/code/imagej/ij1-patcher
@@ -26,6 +28,7 @@ ijs:~/code/imagej/imagej-server
 ijt:~/code/imagej/tutorials
 iju:~/code/imagej/imagej-updater
 ijup:~/code/imagej/imagej-updater
+ijw:~/code/imagej/imagej.github.io
 il:~/code/imglib/imglib2
 ila:~/code/imglib/imglib2-algorithm
 ilaf:~/code/imglib/imglib2-algorithm-fft
@@ -37,10 +40,14 @@ ilrt:~/code/imglib/imglib2-realtransform
 ilt:~/code/imglib/imglib2-tests
 ilte:~/code/imglib/imglib2-tests
 iltu:~/code/imglib/imglib2-tutorials
+itk:~/code/kitware/ITK
 jex:~/code/sj-stuff/JEX
 loci:~/code/loci
+ls:~/code/loci/loci-servers
 nij:~/code/imagej/napari-imagej
 ops:~/code/imagej/imagej-ops
+p:~/code/ctrueden/unsorted-junk
+pij:~/code/imagej/pyimagej
 psb:~/code/scijava/pom-scijava-base
 psj:~/code/scijava/pom-scijava
 s:~/code/scifio/scifio
@@ -48,7 +55,6 @@ sc:~/code/ctrueden/dotfiles/bin
 scli:~/code/scifio/scifio-cli
 sjc:~/code/scijava/scijava-common
 sjs:~/code/scijava/scijava-scripts
-flim:~/code/flimlib
 st:~/code/scifio/scifio-tutorials
 tm:~/code/trackmate/TrackMate
 uj:~/code/ctrueden/unsorted-junk
