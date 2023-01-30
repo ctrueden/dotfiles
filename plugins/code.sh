@@ -56,6 +56,7 @@ alias goijt='cd $CODE_IJ/tutorials'
 alias goijup='cd $CODE_IJ/imagej-updater'
 alias goiju='goijup'
 alias goijw='cd $CODE_IJ/imagej.github.io'
+alias gonij='cd $CODE_IJ/napari-imagej'
 alias gopij='cd $CODE_IJ/pyimagej'
 
 # ImageJ OPS - https://github.com/imagej/imagej-ops
