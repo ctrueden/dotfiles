@@ -16,11 +16,11 @@ then
   (cd "$CODE_SCIJAVA/scijava-scripts" && git pull)
 fi
 
-if [ -x /usr/bin/apt ]; then
+if [ -x /usr/bin/apt-get ]; then
   echo
   echo "--== Updating apt packages ==--"
-  sudo apt update
-  sudo apt dist-upgrade -y
+  sudo apt-get update
+  sudo apt-get dist-upgrade -y
 fi
 
 if [ -x /usr/bin/flatpak ]; then
