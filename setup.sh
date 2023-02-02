@@ -74,6 +74,18 @@ printf "\tpath = $DOTFILES/gitconfig\n" >> "$GITCONFIG_STUB"
 install_file "$GITCONFIG_STUB" .gitconfig
 rm -f "$GITCONFIG_STUB"
 
+# ~/.ssh/config
+# NB: We write out a starter .ssh/config so that it can be extended with
+# additional configuration without causing git to see the file as dirty.
+SSHCONFIG=.ssh/config
+if [ ! -f "$SSHCONFIG" ]
+then
+  for f in "$DOTFILES/ssh.d"/*
+  do
+    (set -x; echo "Include $f" >> "$SSHCONFIG")
+  done
+fi
+
 # ~/.bash_profile
 link_file "$CONFIG_DIR/bash_profile" .bash_profile
 

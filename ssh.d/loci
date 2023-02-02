@@ -1,0 +1,33 @@
+Host a
+	HostName abyssinian.loci.wisc.edu
+
+Host b
+	HostName balinese.loci.wisc.edu
+
+Host c
+	HostName cheetoh.loci.wisc.edu
+
+Host d
+	HostName devonrex.loci.wisc.edu
+
+Host e
+	HostName egyptianmau.loci.wisc.edu
+
+Host g
+	HostName gpu.loci.wisc.edu
+
+Host h
+	HostName himalayan.loci.wisc.edu
+
+Host j
+	HostName javanese.loci.wisc.edu
+
+Host m
+	HostName mainecoon.loci.wisc.edu
+
+Host o
+	HostName ocicat.loci.wisc.edu
+	User xo
+
+Host s
+	HostName serval.loci.wisc.edu

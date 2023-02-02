@@ -1,0 +1,4 @@
+# As recommended by GitHub:
+# https://github.blog/2021-09-01-improving-git-protocol-security-github/
+Host github.com
+  UpdateHostKeys yes
