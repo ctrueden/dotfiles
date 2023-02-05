@@ -19,3 +19,31 @@ then
   fi
   compdef _pass pass
 fi
+
+pclip() {
+  : << 'DOC'
+Search for a matching password entry and copy the password to the clipboard.
+DOC
+  test "$#" -gt 0 || {
+    >&2 echo "Usage: pclip search-term [another-search-term ...]"
+    return 1
+  }
+  result=$(cd ~/.password-store && git ls-files)
+  while [ $# -gt 0 ]
+  do
+    result=$(printf '%s\n' "$result" | grep "$1")
+    shift
+  done
+  test "$result" || {
+    >&2 echo "[ERROR] No matching passwords."
+    return 2
+  }
+  test "$(echo "$result" | wc -l)" -eq 1 || {
+    >&2 echo "[ERROR] Multiple matching passwords:"
+    echo "$result" | sed -e 's;.*\.password-store/;;' -e 's;\.gpg$;;'
+    return 3
+  }
+  result=${result#*.password-store/}
+  result=${result%*.gpg}
+  pass show -c "$result"
+}
