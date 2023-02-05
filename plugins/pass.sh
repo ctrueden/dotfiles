@@ -31,7 +31,7 @@ DOC
   result=$(cd ~/.password-store && git ls-files)
   while [ $# -gt 0 ]
   do
-    result=$(printf '%s\n' "$result" | grep "$1")
+    result=$(printf '%s\n' "$result" | grep -i "$1")
     shift
   done
   test "$result" || {
