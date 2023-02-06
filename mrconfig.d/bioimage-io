@@ -1,0 +1,28 @@
+# bioimage.io projects
+
+[code/bioimage-io/bioimage.io]
+checkout = git clone git@github.com:bioimage-io/bioimage.io
+
+[code/bioimage-io/collection-bioimage-io]
+checkout = git clone git@github.com:bioimage-io/collection-bioimage-io
+
+[code/bioimage-io/core-bioimage-io-java]
+checkout = git clone git@github.com:bioimage-io/core-bioimage-io-java
+
+[code/bioimage-io/core-bioimage-io-python]
+checkout = git clone git@github.com:bioimage-io/core-bioimage-io-python
+
+[code/bioimage-io/model-runner-java]
+checkout = git clone git@github.com:bioimage-io/model-runner-java
+
+[code/bioimage-io/pytorch-java-interface]
+checkout = git clone git@github.com:bioimage-io/pytorch-java-interface
+
+[code/bioimage-io/spec-bioimage-io]
+checkout = git clone git@github.com:bioimage-io/spec-bioimage-io
+
+[code/bioimage-io/tensorflow-1-java-interface]
+checkout = git clone git@github.com:bioimage-io/tensorflow-1-java-interface
+
+[code/bioimage-io/tensorflow-2-java.interface]
+checkout = git clone git@github.com:bioimage-io/tensorflow-2-java.interface
