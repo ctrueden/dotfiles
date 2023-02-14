@@ -1,0 +1,16 @@
+#!/bin/bash
+
+# Shell-based base91 password generator.
+# Why base91? Because it's got more symbols than base64! ^_^
+# Not quite a uniform distribution, due to the modulus op.
+# Or: you could just use pwgen. ;-)
+
+alphabet='!~}|{zyxwvutsrqponmlkjihgfedcba`_^]#[ZYXWVUTSRQPONMLKJIHGFEDCBA@?>=<;:9876543210/.-,+*)($&%'
+p=''
+while [ ${#p} -lt 25 ]
+do
+  i=$(( ($RANDOM % 91) ))
+  c=${alphabet:$i:1}
+  p="$p$c"
+done
+printf "%s\n" "$p"
