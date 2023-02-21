@@ -9,9 +9,6 @@ checkout = git clone git@github.com:dockcross/dockcross
 [code/tech/electron-quick-start]
 checkout = git clone git@github.com:atom/electron-quick-start
 
-[code/tech/ipywidgets]
-checkout = git clone git@github.com:jupyter-widgets/ipywidgets
-
 [code/tech/lightgallery.js]
 checkout = git clone git@github.com:sachinchoolur/lightgallery.js
 

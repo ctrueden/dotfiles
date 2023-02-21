@@ -18,6 +18,9 @@ checkout = git clone git@github.com:bobbylight/RSyntaxTextArea
 [code/java/aminojava]
 checkout = git clone git@github.com:joshmarinacci/aminojava
 
+[code/java/cjdk]
+checkout = git clone git@github.com:cachedjdk/cjdk
+
 [code/java/fastutil]
 checkout = git clone git@github.com:vigna/fastutil
 
@@ -36,8 +39,14 @@ checkout = git clone git@github.com:jinput/jinput
 [code/java/jline2]
 checkout = git clone git@github.com:jline/jline2
 
+[code/java/jna]
+checkout = git clone git@github.com:java-native-access/jna
+
 [code/java/jsweet-quickstart]
 checkout = git clone git@github.com:cincheo/jsweet-quickstart
+
+[code/java/larray]
+checkout = git clone git@github.com:xerial/larray
 
 [code/java/object-inspector]
 checkout = git clone git@github.com:sbridges/object-inspector

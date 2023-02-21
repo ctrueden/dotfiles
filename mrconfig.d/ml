@@ -1,7 +1,16 @@
 # Projects focused on machine learning
 
+[code/ml/Mask-RCNN-DeepIcy]
+checkout = git clone git@github.com:carlosuc3m/Mask-RCNN-DeepIcy
+
 [code/ml/darknet]
 checkout = git clone git@github.com:pjreddie/darknet
+
+[code/ml/deepicy]
+checkout = git clone git@github.com:deepicy/deepicy
+
+[code/ml/djl]
+checkout = git clone git@github.com:deepjavalibrary/djl
 
 [code/ml/stable-diffusion]
 checkout = git clone git@github.com:CompVis/stable-diffusion
