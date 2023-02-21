@@ -3,6 +3,9 @@
 [code/bioimage-io/bioimage.io]
 checkout = git clone git@github.com:bioimage-io/bioimage.io
 
+[code/bioimage-io/bioengine-model-runner]
+checkout = git clone git@github.com:bioimage-io/bioengine-model-runner
+
 [code/bioimage-io/collection-bioimage-io]
 checkout = git clone git@github.com:bioimage-io/collection-bioimage-io
 
@@ -15,6 +18,9 @@ checkout = git clone git@github.com:bioimage-io/core-bioimage-io-python
 [code/bioimage-io/model-runner-java]
 checkout = git clone git@github.com:bioimage-io/model-runner-java
 
+[code/bioimage-io/onnx-java-interface]
+checkout = git clone git@github.com:bioimage-io/onnx-java-interface
+
 [code/bioimage-io/pytorch-java-interface]
 checkout = git clone git@github.com:bioimage-io/pytorch-java-interface
 
@@ -24,5 +30,8 @@ checkout = git clone git@github.com:bioimage-io/spec-bioimage-io
 [code/bioimage-io/tensorflow-1-java-interface]
 checkout = git clone git@github.com:bioimage-io/tensorflow-1-java-interface
 
-[code/bioimage-io/tensorflow-2-java.interface]
-checkout = git clone git@github.com:bioimage-io/tensorflow-2-java.interface
+[code/bioimage-io/tensorflow-2-java-interface]
+checkout = git clone git@github.com:bioimage-io/tensorflow-2-java-interface
+
+[code/bioimage-io/tensorflow-2-java-interface-0.2.0]
+checkout = git clone git@github.com:bioimage-io/tensorflow-2-java-interface-0.2.0
