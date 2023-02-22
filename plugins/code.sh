@@ -111,7 +111,7 @@ alias gocp='cd $CODE_CELLPROFILER'
 # Jump to any subdirectory of code by string fragment.
 # Inspired by oh-my-zsh's z plugin.
 zc() {
-  d=$(find "$CODE_BASE"/* -maxdepth 1 -type d -name '*'"$@"'*' | head -n1)
+  d=$(find "$CODE_BASE"/* -maxdepth 1 -type d -wholename '*'"$@"'*' | head -n1)
   test "$d" && cd "$d" || {
     alias | grep -q "^z='_z " && z $@
   }
