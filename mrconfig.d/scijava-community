@@ -54,6 +54,9 @@ checkout = git clone git@github.com:HenriquesLab/NanoJ-SRRF
 [code/sj-stuff/BigStitcher]
 checkout = git clone git@github.com:PreibischLab/BigStitcher
 
+[code/sj-stuff/RS-FISH]
+checkout = git clone git@github.com:PreibischLab/RS-FISH
+
 [code/sj-stuff/multiview-reconstruction]
 checkout = git clone git@github.com:PreibischLab/multiview-reconstruction
 
@@ -158,6 +161,9 @@ checkout = git clone git@github.com:juglab/metaseg
 [code/sj-stuff/hot-knife]
 checkout = git clone git@github.com:saalfeldlab/hot-knife
 
+[code/sj-stuff/imglib2-label-multisets]
+checkout = git clone git@github.com:saalfeldlab/imglib2-label-multisets
+
 # tferr
 
 [code/sj-stuff/IJ-guide]
@@ -224,6 +230,9 @@ checkout = git clone git@github.com:fjug/MoMA
 [code/sj-stuff/MorphoLibJ]
 checkout = git clone git@github.com:ijpb/MorphoLibJ
 
+[code/sj-stuff/OrientationJ]
+checkout = git clone git@github.com:Biomedical-Imaging-Group/OrientationJ
+
 [code/sj-stuff/PHANTAST-FIJI]
 checkout = git clone git@github.com:nicjac/PHANTAST-FIJI
 
@@ -275,8 +284,14 @@ checkout = git clone git@github.com:m-entrup/imagej-jython-package
 [code/sj-stuff/imagejfx]
 checkout = git clone git@github.com:cmongis/imagejfx
 
+[code/sj-stuff/imaris-writer]
+checkout = git clone git@github.com:bigdataprocessor/imaris-writer
+
 [code/sj-stuff/java-utils-embl]
 checkout = git clone git@github.com:ssgpers/java-utils-embl
+
+[code/sj-stuff/jcuda-imagej-example]
+checkout = git clone git@github.com:jcuda/jcuda-imagej-example
 
 [code/sj-stuff/jfilament]
 checkout = git clone git@github.com:odinsbane/jfilament
@@ -308,8 +323,14 @@ checkout = git clone git@github.com:adaerr/pendent-drop
 [code/sj-stuff/scijava-parallel]
 checkout = git clone git@github.com:fiji-hpc/scijava-parallel
 
+[code/sj-stuff/simple-omero-client]
+checkout = git clone git@github.com:GReD-Clermont/simple-omero-client
+
 [code/sj-stuff/slideset]
 checkout = git clone git@github.com:bnanes/slideset
+
+[code/sj-stuff/stardist-imagej]
+checkout = git clone git@github.com:stardist/stardist-imagej
 
 [code/sj-stuff/thunderstorm]
 checkout = git clone git@github.com:zitmen/thunderstorm

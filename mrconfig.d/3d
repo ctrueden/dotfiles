@@ -15,6 +15,9 @@ checkout = git clone git@github.com:tpietzsch/jogl-minimal
 [code/3d/jvrpn]
 checkout = git clone git@github.com:scenerygraphics/jvrpn
 
+[code/3d/jzy3d-api]
+checkout = git clone git@github.com:jzy3d/jzy3d-api
+
 [code/3d/scenery]
 checkout = git clone git@github.com:scenerygraphics/scenery
 
