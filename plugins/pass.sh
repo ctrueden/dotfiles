@@ -46,4 +46,5 @@ DOC
   result=${result#*.password-store/}
   result=${result%*.gpg}
   pass show -c "$result"
+  pass show "$result" | tail -n+2
 }
