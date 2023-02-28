@@ -50,6 +50,7 @@ alias gpop!='git checkout '\''stash^{tree}'\'' -- . && git stash drop'
 alias gpop='git stash pop --index'
 alias gps=gp
 alias grhup='git reset --hard '\''HEAD@{u}'\'
+alias grim='gri $(git show-ref -q --verify refs/heads/main && echo main || echo master)'
 alias grp='git grep -I'
 alias grpi='git grep -Ii'
 alias grpil='git grep -Iil'
