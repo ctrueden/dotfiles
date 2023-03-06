@@ -80,6 +80,7 @@ rm -f "$GITCONFIG_STUB"
 SSHCONFIG=.ssh/config
 if [ ! -f "$SSHCONFIG" ]
 then
+  mkdir -p .ssh
   for f in "$DOTFILES/ssh.d"/*
   do
     (set -x; echo "Include $f" >> "$SSHCONFIG")
