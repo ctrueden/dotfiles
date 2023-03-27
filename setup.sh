@@ -70,7 +70,7 @@ rm -f "$ZSHRC_STUB"
 # [user] section without causing git to see the gitconfig here as dirty.
 GITCONFIG_STUB="$CONFIG_DIR/gitconfig.stub"
 echo '[include]' > "$GITCONFIG_STUB"
-printf "\tpath = $DOTFILES/gitconfig\n" >> "$GITCONFIG_STUB"
+printf "\tpath = $CONFIG_DIR/gitconfig\n" >> "$GITCONFIG_STUB"
 install_file "$GITCONFIG_STUB" .gitconfig
 rm -f "$GITCONFIG_STUB"
 
@@ -81,7 +81,7 @@ SSHCONFIG=.ssh/config
 if [ ! -f "$SSHCONFIG" ]
 then
   mkdir -p .ssh
-  for f in "$DOTFILES/ssh.d"/*
+  for f in "$CONFIG_DIR/ssh.d"/*
   do
     (set -x; echo "Include $f" >> "$SSHCONFIG")
   done
