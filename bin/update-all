@@ -16,6 +16,13 @@ then
   (cd "$CODE_SCIJAVA/scijava-scripts" && git pull --rebase)
 fi
 
+if [ -d "$HOME/.password-store" -a -x /usr/bin/pass ]
+then
+  echo
+  echo "--== Updating password store ==--"
+  pass git pull --rebase
+fi
+
 if [ -x /usr/bin/apt-get ]; then
   echo
   echo "--== Updating apt packages ==--"
