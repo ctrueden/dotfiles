@@ -6,14 +6,14 @@ if [ -d "$DOTFILES" ]
 then
   echo
   echo "--== Updating dotfiles ==--"
-  (cd "$DOTFILES" && git pull)
+  (cd "$DOTFILES" && git pull --rebase)
 fi
 
 if [ -d "$CODE_SCIJAVA/scijava-scripts" ]
 then
   echo
   echo "--== Updating SciJava scripts ==--"
-  (cd "$CODE_SCIJAVA/scijava-scripts" && git pull)
+  (cd "$CODE_SCIJAVA/scijava-scripts" && git pull --rebase)
 fi
 
 if [ -x /usr/bin/apt-get ]; then
