@@ -112,7 +112,7 @@ gtagsv() {
   done
 }
 
-clsg() { clear; pwd; div; ls $@; div; gst; }
+clsg() { clear; pwd; div; ls $@; div; git status; }
 alias c=clsg
 
 # --== git-svn ==--
