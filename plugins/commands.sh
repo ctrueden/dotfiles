@@ -40,6 +40,7 @@ alias grep='grep --color=auto'
 alias cgrep='grep --color=always'
 alias rgrep='grep -IR --exclude="*\.svn*"'
 alias f='find . -name'
+alias o=open
 
 # --== version reporting ==--
 
