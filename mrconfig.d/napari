@@ -1,5 +1,8 @@
 # napari - https://github.com/napari
 
+[code/napari/Labeling]
+checkout = git clone git@github.com:Labelings/Labeling
+
 [code/napari/NapariPlayground]
 checkout = git clone git@github.com:VolkerH/NapariPlayground
 
@@ -23,6 +26,9 @@ checkout = git clone git@github.com:napari/napari-io
 
 [code/napari/napari-imagej]
 checkout = git clone git@github.com:imagej/napari-imagej
+
+[code/napari/napari-labeling]
+checkout = git clone git@github.com:Labelings/napari-labeling
 
 [code/napari/napari-plugin-engine]
 checkout = git clone git@github.com:napari/napari-plugin-engine

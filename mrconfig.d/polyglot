@@ -9,6 +9,9 @@ checkout = git clone git@github.com:imjoy-team/ImageJA.JS
 [code/polyglot/JyNI]
 checkout = git clone git@github.com:Stewori/JyNI
 
+[code/polyglot/appose]
+checkout = git clone git@github.com:apposed/appose
+
 [code/polyglot/beakerx]
 checkout = git clone git@github.com:twosigma/beakerx
 
