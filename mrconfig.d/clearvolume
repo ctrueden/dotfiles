@@ -9,8 +9,8 @@ checkout = git clone git@github.com:ClearVolume/ClearCUDA
 [code/clearvolume/ClearGL]
 checkout = git clone git@github.com:ClearVolume/ClearGL
 
-[code/clearvolume/CoreMem]
-checkout = git clone git@github.com:ClearControl/CoreMem
+[code/clearvolume/coremem]
+checkout = git clone git@github.com:ClearVolume/coremem
 
 [code/clearvolume/JavaCL]
 checkout = git clone git@github.com:nativelibs4java/JavaCL
