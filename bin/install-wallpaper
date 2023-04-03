@@ -1,0 +1,47 @@
+#!/bin/sh
+
+# Script to install wallpaper images under ~/Pictures/Wallpaper:
+#
+# * 4K pictures:   ~/Pictures/Wallpaper/4K
+# * Tall pictures: ~/Pictures/Wallpaper/Portrait
+# * Wide pictures: ~/Pictures/Wallpaper/Landscape
+#
+# And in the case of non-4K: prefix the filename with the resolution,
+# so it's easy to tell the size of each image in those respective folders.
+#
+# Note that for safety, this script does not actually move files, only outputs
+# mv commands to do it, so that you can review what would happen first.
+# If it looks good, run again with `| sh` appended to actually do the moves.
+
+standardize() {
+  # If filename already starts with a resolution indicator, change nothing.
+  echo "$1" | grep -q '^[0-9][0-9]*x[0-9][0-9]*-' && { echo "$1"; return; }
+
+  # Extract the image resolution using the `file` command.
+  res=$(file "$f" | grep -o ', [0-9][0-9][0-9][0-9]* \?x \?[0-9][0-9]*')
+  res=$(printf "%s" "${res#, }" | sed 's; x ;x;')
+
+  # Remove any existing resolution indicator from the original filename.
+  respat=$(printf "%s" "$res" | sed 's;x;.;')
+  nf=$(printf "%s" "$f" | sed -e "s;[_-]\?$respat;;" -e 's; ;-;g')
+
+  # Return a filename with resolution indicator properly prefixed.
+  echo "$res-$nf"
+}
+
+for f in $@
+do
+  dims=$(identify "$f" | sed 's/.*\(JPEG\|PNG\) \([0-9]* *x *[0-9]*\) .*/\2/')
+  if [ "$dims" = "3840x2160" ]
+  then
+    # Resolution is exactly 4K.
+    echo mv "'$f'" "'$HOME/Pictures/Wallpaper/4K/$f"
+  elif [ "${dims%x*}" -gt "${dims#*x}" ]
+  then
+    # Width is greater than height.
+    echo mv "'$f'" "'$HOME/Pictures/Wallpaper/Landscape/$(standardize "$f")'"
+  else
+    # Height is greater than width, or picture is square.
+    echo mv "'$f'" "'$HOME/Pictures/Wallpaper/Portrait/$(standardize "$f")'"
+  fi
+done
