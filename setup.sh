@@ -115,7 +115,6 @@ link_file "$CONFIG_DIR/vimrc" .vim/vimrc
 mkdir -p bin
 link_file "../code/git/git-diff-blame/git-diff-blame" bin/git-diff-blame
 link_file "../code/git/git-recover/git-recover" bin/git-recover
-link_file "../code/git/git-remote-hg/git-remote-hg" bin/git-remote-hg
 link_file "../code/scijava/jgo/jgo.sh" bin/jgo
 link_file "../code/util/icat/icat" bin/icat
 

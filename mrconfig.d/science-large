@@ -1,11 +1,5 @@
 # Scientific software repositories larger than 1GB in size
 
-[code/science/bisque]
-checkout = hg clone https://biodev.ece.ucsb.edu/hg/bisque-stable bisque
-
-[code/science/bisquik]
-checkout = hg clone https://biodev.ece.ucsb.edu/hg/bisquik-stable bisquik
-
 [code/science/piximi]
 checkout = git clone git@github.com:piximi/piximi
 
