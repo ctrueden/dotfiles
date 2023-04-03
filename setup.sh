@@ -108,6 +108,17 @@ link_file "$CONFIG_DIR/warprc" .config/wd/warprc
 mkdir -p .vim
 link_file "$CONFIG_DIR/vimrc" .vim/vimrc
 
+# ~/bin
+# NB: It's OK if the sources don't exist yet, or ever.
+# This step just makes them available on the path,
+# in case they do get cloned locally into ~/code.
+mkdir -p bin
+link_file "../code/git/git-diff-blame/git-diff-blame" bin/git-diff-blame
+link_file "../code/git/git-recover/git-recover" bin/git-recover
+link_file "../code/git/git-remote-hg/git-remote-hg" bin/git-remote-hg
+link_file "../code/scijava/jgo/jgo.sh" bin/jgo
+link_file "../code/util/icat/icat" bin/icat
+
 # ~/Library/KeyBindings [macOS]
 case "$(uname)" in
   Darwin)
