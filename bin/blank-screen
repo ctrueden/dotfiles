@@ -1,0 +1,5 @@
+#!/bin/sh
+
+# Blanks the screen immediately -- if you run Linux.
+
+xset dpms force off

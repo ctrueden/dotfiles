@@ -1,0 +1,10 @@
+#!/bin/sh
+
+# We can make publication figures at 300 dpi using ImageMagick's convert tool.
+
+for orig in $@
+do
+  tiff=${orig%.*}
+  convert -units PixelsPerInch "$orig" -density 300 -compress LZW "$tiff"
+done
+

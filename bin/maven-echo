@@ -1,0 +1,8 @@
+#!/bin/sh
+
+# maven-echo - an easy way to evaluate POM expressions.
+#
+# Example:
+#    maven-echo 'group=${project.groupId}, artifact=${project.artifactId}'
+
+mvn -q exec:exec -Dexec.executable=echo -Dexec.args="$1"

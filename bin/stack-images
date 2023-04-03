@@ -1,0 +1,6 @@
+#!/bin/sh
+
+# Stack images vertically using ImageMagick's convert tool with -append flag.
+
+convert $@ -append result.png
+

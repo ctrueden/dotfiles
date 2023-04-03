@@ -1,0 +1,37 @@
+#!/bin/sh
+
+# Reports whether the current shell is an interactive and/or login shell.
+
+# An *interactive* shell is one where you get
+# a prompt and can type commands to execute.
+#
+# A *non-interactive* shell is one that executes
+# some pre-existing input commands and then exits.
+#
+# A *login* shell is one that runs when you first log into the machine.
+#
+# * Typically, if a shell is non-interactive, it is also *non-login*.
+# * On Linux, not all interactive shells are login shells.
+# * On macOS, every new Terminal instance *is* a login shell!
+
+#            | Interactive                         | Non-interactive
+# ----------:|-------------------------------------|--------------------------
+#      Login | - Log in via tty (e.g. ctrl+alt+F3) | possible but atypical[1]
+#            | - SSH with no command given         |
+#            | - New Terminal instance on macOS    |
+# -----------|-------------------------------------|--------------------------
+#  Non-login | - New Terminal instance on Linux    | - SSH with command given
+#            |                                     | - Feeding commands to
+#            |                                     |   new shell instance
+#            |                                     |   via `-c` or stdin
+#
+# [1] https://unix.stackexchange.com/q/304447/207623
+
+# See https://unix.stackexchange.com/a/324391/207623) for more
+# about the use cases for login shells versus non-login shells.
+
+case $- in *i*) echo interactive; esac
+
+case $- in (*l*) echo login; esac
+
+case :$BASHOPTS: in (*:login_shell:*) echo login; esac

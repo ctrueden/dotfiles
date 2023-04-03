@@ -1,0 +1,9 @@
+#!/bin/sh
+
+# This script is useful when the GNOME window manager
+# gets stuck, such as when using Alt+Tab, and no keyboard
+# presses do anything anymore. You can press Ctrl+Alt+F3
+# to go to a new tty, log in, then run this script.
+# Then go back to the original X11 tty with Ctrl+Alt+F2.
+
+killall -3 gnome-shell

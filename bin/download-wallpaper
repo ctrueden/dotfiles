@@ -1,0 +1,16 @@
+#!/bin/sh
+
+# Downloads the daily wallpaper from the Bing wallpaper service,
+# saving it into the ~/Pictures/Wallpaper/Bing folder.
+
+OUT_DIR="$HOME/Pictures/Wallpaper/Bing"
+mkdir -p "$OUT_DIR"
+metadata=$(curl -fsL 'https://www.bing.com/HPImageArchive.aspx?format=js&idx=0&n=1&mkt=en-US')
+imagePath=$(echo "$metadata" | jq -r '.images[0].url')
+imageName=${imagePath#/th?id=}
+imageName=${imageName%%&*}
+imageExtension=${imageName##*.}
+test -f "$OUT_DIR/$imageName" || {
+  curl -fsL "https://bing.com/$imagePath" > "$OUT_DIR/$imageName"
+  echo "$metadata" > "$OUT_DIR/$imageName.json"
+}
