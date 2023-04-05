@@ -27,6 +27,9 @@ checkout = git clone git@github.com:uw-loci/misc-plugins
 [code/loci/prototype.wisc.edu]
 checkout = git clone git@github.com:uw-loci/prototype.wisc.edu
 
+[code/loci/spieopticamadison.github.io]
+checkout = git clone git@github.com:uw-loci/spieopticamadison.github.io
+
 [code/loci/tickets]
 checkout = git clone git@github.com:uw-loci/tickets
 
