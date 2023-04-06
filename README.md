@@ -62,9 +62,8 @@ What does this configuration include?
 
 5.  Limited legacy support for those stuck on bash, including bash 3.x.
 
-Supported platforms include Linux (tested mostly on Ubuntu), macOS,
+Supported platforms include Linux (tested mostly on Ubuntu), FreeBSD, macOS,
 [Cygwin](https://www.cygwin.com/), [Git BASH](https://gitforwindows.org/),
-and the [Windows Subsystem for
-Linux](https://docs.microsoft.com/en-us/windows/wsl/about). Other platforms
-might work too -- I make an effort to keep everything POSIX-friendly -- but
-I haven't tested them.
+and [WSL](https://docs.microsoft.com/en-us/windows/wsl/about).
+Other platforms might work too -- I make an effort to keep everything
+POSIX-friendly -- but I haven't tested them.
