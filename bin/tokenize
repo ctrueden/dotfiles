@@ -1,0 +1,11 @@
+# Rip out all the formatting characters in a text file,
+# printing only the alphameric-character-based words, one per line.
+# For .md files, assumes Jekyll and removes the front matter first.
+for f in $@
+do
+  {
+    echo "$f" | grep -q "\.md$" && {
+      tail -n +2 "$f" | grep -A9999 '^---$' | tail -n +2
+    } || cat "$f";
+  } | sed 's/[^a-zA-Z0-9 ]/ /g' | sed 's/  */\n/g' | sed '/^$/d'
+done
