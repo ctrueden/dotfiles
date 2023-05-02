@@ -1,0 +1,28 @@
+#!/bin/sh
+
+# Decrypts files using gpg, without fuss.
+#
+# Usage:
+#   decrypt file1 file2 file3 ...
+
+set -e
+
+test $# -gt 0 || {
+  >&2 printf "[ERROR] No files given to decrypt.\n"
+  exit 2
+}
+
+while [ $# -gt 0 ]
+do
+  f=$1
+  case "$f" in
+    *.gpg)
+      nf=${f%.gpg}
+      gpg --decrypt -o "$nf" "$f"
+      ;;
+    *)
+      >&2 printf "[WARNING] Ignoring file with non-GPG suffix: $f\n"
+      ;;
+  esac
+  shift
+done

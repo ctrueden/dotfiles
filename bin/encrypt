@@ -1,0 +1,29 @@
+#!/bin/sh
+
+# Encrypts files using gpg, without fuss.
+#
+# CAVEAT EMPTOR: shreds your unencrypted files after encrypting them!
+#
+# Usage:
+#   encrypt file1 file2 file3 ...
+
+set -e
+
+gpgid=$(gpg --list-keys | grep -o '<[^<>]*@[^<>]*>' | head -n1 | sed 's/[<>]//g')
+test "$gpgid" || {
+  >&2 printf "[ERROR] GPG identity not found. Do you have GPG set up?\n"
+  exit 1
+}
+
+test $# -gt 0 || {
+  >&2 printf "[ERROR] No files given to encrypt.\n"
+  exit 2
+}
+
+while [ $# -gt 0 ]
+do
+  f=$1
+  gpg -r "$gpgid" --encrypt --sign -o "$f.gpg" "$f" &&
+  shred -u "$f"
+  shift
+done
