@@ -2,6 +2,8 @@
 
 # Install myrepos on macOS using Homebrew, or on Ubuntu using apt.
 
+# Symlink desired configuration files from ctrueden/dotfiles to ~/.config/mr/
+
 [DEFAULT]
 
 # Enable mr to use git-svn as appropriate.
