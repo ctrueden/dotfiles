@@ -108,11 +108,22 @@ path_prepend "$CODE_SCIJAVA/scijava-scripts"
 export CODE_CELLPROFILER="$CODE_BASE/cellprofiler/CellProfiler"
 alias gocp='cd $CODE_CELLPROFILER'
 
-# Jump to any subdirectory of code by string fragment.
-# Inspired by oh-my-zsh's z plugin.
-zc() {
-  d=$(find "$CODE_BASE"/* -maxdepth 1 -type d -wholename '*'"$@"'*' | head -n1)
-  test "$d" && cd "$d" || {
-    alias | grep -q "^z='_z " && z $@
-  }
+# Jump to directory by string fragment.
+# Augments oh-my-zsh's z plugin.
+unalias z
+z() {
+  local d=""
+  if command -v _z >/dev/null
+  then
+    d=$(_z -e $@ 2>/dev/null | head -n1)
+  fi
+  if [ -z "$d" ]
+  then
+    # Nothing cached by z; look in $CODE_BASE as a fallback.
+    d=$(find "$CODE_BASE"/* -maxdepth 1 -type d -wholename '*'"$@"'*' | head -n1)
+  fi
+  if [ "$d" ]
+  then
+    cd "$d"
+  fi
 }
