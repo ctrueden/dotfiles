@@ -16,6 +16,9 @@ alias goit='git'
 alias got='git'
 alias gti='git'
 
+# cover up Ghostscript ;-)
+alias gs='git status'
+
 # These complement the ones defined by oh-my-zsh's git plugin.
 
 alias conflicts!='git diff --name-only --diff-filter=U --no-prefix'
