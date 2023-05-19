@@ -108,6 +108,9 @@ link_file "$CONFIG_DIR/warprc" .config/wd/warprc
 mkdir -p .vim
 link_file "$CONFIG_DIR/vimrc" .vim/vimrc
 
+# ~/.XCompose
+link_file "$CONFIG_DIR/XCompose" .XCompose
+
 # ~/bin
 # NB: It's OK if the sources don't exist yet, or ever.
 # This step just makes them available on the path,

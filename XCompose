@@ -1,0 +1,6 @@
+# Credit: https://unix.stackexchange.com/a/307711/207623
+
+include "%L"
+
+<Multi_key> <l> <l>                 : "ℓ"   U2113     # litre symbol
+<Multi_key> <p> <i>                 : "π"   U03C0     # GREEK SMALL LETTER PI
