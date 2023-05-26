@@ -161,9 +161,6 @@ checkout = git clone git@github.com:juglab/metaseg
 [code/sj-stuff/hot-knife]
 checkout = git clone git@github.com:saalfeldlab/hot-knife
 
-[code/sj-stuff/imglib2-label-multisets]
-checkout = git clone git@github.com:saalfeldlab/imglib2-label-multisets
-
 # tferr
 
 [code/sj-stuff/IJ-guide]
@@ -284,9 +281,6 @@ checkout = git clone git@github.com:m-entrup/imagej-jython-package
 [code/sj-stuff/imagejfx]
 checkout = git clone git@github.com:cmongis/imagejfx
 
-[code/sj-stuff/imaris-writer]
-checkout = git clone git@github.com:bigdataprocessor/imaris-writer
-
 [code/sj-stuff/java-utils-embl]
 checkout = git clone git@github.com:ssgpers/java-utils-embl
 
@@ -298,9 +292,6 @@ checkout = git clone git@github.com:odinsbane/jfilament
 
 [code/sj-stuff/jipipe]
 checkout = git clone git@github.com:applied-systems-biology/jipipe
-
-[code/sj-stuff/keller-lab-block-filetype]
-checkout = git clone https://bitbucket.org/fernandoamat/keller-lab-block-filetype
 
 [code/sj-stuff/klb-bdv]
 checkout = git clone git@github.com:bhoeckendorf/klb-bdv

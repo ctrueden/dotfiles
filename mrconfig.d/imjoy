@@ -25,6 +25,9 @@ checkout = git clone git@github.com:amun-ai/hypha-k8s
 [code/imjoy/imagej-service]
 checkout = git clone git@github.com:imjoy-team/imagej-service
 
+[code/imjoy/imagej2-cheerpj]
+checkout = git clone git@github.com:imjoy-team/imagej2-cheerpj
+
 [code/imjoy/imjoy-rpc]
 checkout = git clone git@github.com:imjoy-team/imjoy-rpc
 

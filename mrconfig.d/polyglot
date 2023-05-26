@@ -3,9 +3,6 @@
 [code/polyglot/BridJ]
 checkout = git clone git@github.com:nativelibs4java/BridJ
 
-[code/polyglot/ImageJA.JS]
-checkout = git clone git@github.com:imjoy-team/ImageJA.JS
-
 [code/polyglot/JyNI]
 checkout = git clone git@github.com:Stewori/JyNI
 
@@ -35,9 +32,6 @@ checkout = git clone git@github.com:graalvm/graalvm-demos
 
 [code/polyglot/graalvm-ten-things]
 checkout = git clone git@github.com:chrisseaton/graalvm-ten-things
-
-[code/polyglot/imagej2-cheerpj]
-checkout = git clone git@github.com:imjoy-team/imagej2-cheerpj
 
 [code/polyglot/java2script]
 checkout = git clone git@github.com:java2script/java2script
