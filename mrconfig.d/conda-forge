@@ -6,6 +6,9 @@ checkout = git clone git@github.com:conda-forge/imglyb-feedstock
 [code/conda-forge/jgo-feedstock]
 checkout = git clone git@github.com:conda-forge/jgo-feedstock
 
+[code/conda-forge/napari-imagej-feedstock]
+checkout = git clone git@github.com:conda-forge/napari-imagej-feedstock
+
 [code/conda-forge/pyimagej-feedstock]
 checkout = git clone git@github.com:conda-forge/pyimagej-feedstock
 

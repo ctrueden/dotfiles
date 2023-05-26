@@ -18,6 +18,9 @@ checkout = git clone git@github.com:ctrueden/habitica-tools
 [code/ctrueden/minecraft-python-extras]
 checkout = git clone git@github.com:ctrueden/minecraft-python-extras
 
+[code/ctrueden/monoqueue]
+checkout = git clone git@github.com:ctrueden/monoqueue
+
 [code/ctrueden/puzzler]
 checkout = git clone git@github.com:ctrueden/puzzler
 

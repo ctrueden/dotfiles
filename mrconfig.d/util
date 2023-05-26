@@ -5,3 +5,6 @@ checkout = git clone git@github.com:first20hours/google-10000-english
 
 [code/util/icat]
 checkout = git clone git@github.com:atextor/icat
+
+[code/util/youtube-dl]
+checkout = git clone git@github.com:ytdl-org/youtube-dl

@@ -21,6 +21,9 @@ checkout = git clone git@github.com:unknownbrackets/maxcso
 [code/games/opengood]
 checkout = git clone git@github.com:SnowflakePowered/opengood
 
+[code/games/pbnsolve]
+checkout = git clone git@github.com:avi-levy/pbnsolve
+
 [code/games/pcgen]
 checkout = git clone git@github.com:PCGen/pcgen
 

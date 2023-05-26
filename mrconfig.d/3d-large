@@ -1,4 +1,13 @@
 # Projects focused on 3D visualization larger than 1GB in size
 
+[code/3d/cgal]
+checkout = git clone git@github.com:CGAL/cgal
+
+[code/3d/cgal-swig-bindings]
+checkout = git clone git@github.com:CGAL/cgal-swig-bindings
+
+[code/3d/libgdx]
+checkout = git clone git@github.com:libgdx/libgdx
+
 [code/3d/vaa3d_tools]
 checkout = git clone git@github.com:Vaa3D/vaa3d_tools
