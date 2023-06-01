@@ -1,6 +1,9 @@
+#!/bin/sh
+
 # Rip out all the formatting characters in a text file,
 # printing only the alphameric-character-based words, one per line.
 # For .md files, assumes Jekyll and removes the front matter first.
+
 for f in $@
 do
   {
