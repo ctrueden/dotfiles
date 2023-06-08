@@ -1,0 +1,97 @@
+#!/bin/sh
+
+# Installs the packages I like.
+# TODO: Make it work on macOS with brew, too.
+
+packages_shell="
+bat
+boxes
+curl
+exuberant-ctags
+htop
+lastpass-cli
+lm-sensors
+nfs-common
+pass
+pwgen
+ripgrep
+tldr
+toilet
+tree
+vim-gtk
+zsh
+"
+
+packages_dev="
+ant
+build-essential
+cmake
+gh
+maven
+myrepos
+openjdk-8-jdk
+openjdk-8-source
+openjdk-11-jdk
+openjdk-11-source
+openjdk-17-jdk
+openjdk-17-source
+"
+
+packages_gnome="
+dconf-editor
+diodon
+gnome-shell-extension-manager
+gnome-system-monitor
+gnome-tweaks
+"
+
+packages_media="
+ffmpeg
+imagemagick
+kid3-qt
+libtiff-tools
+picard
+"
+
+packages_other="
+flatpak
+"
+
+packages_apps="
+barrier
+guake
+meshlab
+vlc
+"
+
+all_packages="
+$packages_shell
+$packages_dev
+$packages_gnome
+$packages_media
+$packages_other
+$packages_apps
+"
+
+if command -v apt-get >/dev/null
+then
+  # -- Set up apt sources --
+
+  # gh - adapted from: https://github.com/cli/cli/blob/trunk/docs/install_linux.md
+  gh_keyring=/usr/share/keyrings/githubcli-archive-keyring.gpg
+  if [ ! -e "$gh_keyring" ]
+  then
+    command -v curl >/dev/null || sudo apt-get install -y curl
+    curl -fsSL https://cli.github.com/packages/githubcli-archive-keyring.gpg | sudo dd of="$gh_keyring" &&
+    sudo chmod go+r "$gh_keyring"
+  fi
+  gh_apt_list=/etc/apt/sources.list.d/github-cli.list
+  if [ ! -e "$gh_apt_list" ]
+  then
+    echo "deb [arch=$(dpkg --print-architecture) signed-by=$gh_keyring] https://cli.github.com/packages stable main" | sudo tee $gh_apt_list > /dev/null
+  fi
+
+  # -- Install the packages --
+  sudo apt-get update &&
+  sudo apt-get install $all_packages
+fi
