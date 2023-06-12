@@ -117,7 +117,7 @@ DOC
   }
   export JAVA_HOME="$result" &&
     echo "JAVA_HOME -> $JAVA_HOME" &&
-    java -version
+    jexec java -version
 }
 
 alias j0='jswitch -1\.0' # 1996-01-23
