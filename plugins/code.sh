@@ -110,12 +110,20 @@ alias gocp='cd $CODE_CELLPROFILER'
 
 # Jump to directory by string fragment.
 # Augments oh-my-zsh's z plugin.
-unalias z
+if alias z >/dev/null 2>&1
+then
+  unalias z
+fi
 z() {
   local d=""
   if command -v _z >/dev/null
   then
-    d=$(_z -e $@ 2>/dev/null | head -n1)
+    if [ $# -eq 0 ]
+    then
+      zshz
+    else
+      d=$(_z -e $@ 2>/dev/null | head -n1)
+    fi
   fi
   if [ -z "$d" ]
   then
