@@ -92,6 +92,10 @@ path_prepend "$CODE_FIJI/bin"
 export CODE_BDV="$CODE_BASE/bdv"
 alias gobdv='cd $CODE_BDV'
 
+# BigVolumeViewer - https://github.com/bigdataviewer/bigvolumeviewer-core
+export CODE_3D="$CODE_BASE/3d"
+alias gobvv='cd $CODE_3D/bigvolumeviewer-core'
+
 # JEX
 export CODE_JEX="$CODE_BASE/sj-stuff/JEX"
 alias gojex='cd $CODE_JEX'
