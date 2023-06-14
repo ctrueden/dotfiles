@@ -83,6 +83,7 @@ zsh_plugins=(
 	@omz/web-search                       # web search commands (google etc.)
 	@omz/z                                # z "jump around" command
 	esc/conda-zsh-completion              # tab completion for conda
+	gradle/gradle-completion              # gradle completion
 	micrenda/zsh-nohup                    # add nohup to command by pressing ctrl+H
 	zpm-zsh/check-deps                    # check for needed but missing dependencies
 	zpm-zsh/clipboard                     # add pbcopy, pbpaste, and clip functions
