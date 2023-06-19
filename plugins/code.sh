@@ -102,6 +102,7 @@ alias gojex='cd $CODE_JEX'
 
 # SciJava - https://github.com/scijava
 export CODE_SCIJAVA="$CODE_BASE/scijava"
+alias gopa='cd $CODE_SCIJAVA/parsington'
 alias gopsj='cd $CODE_SCIJAVA/pom-scijava'
 alias gopsb='cd $CODE_SCIJAVA/pom-scijava-base'
 alias gosjc='cd $CODE_SCIJAVA/scijava-common'
@@ -111,6 +112,10 @@ path_prepend "$CODE_SCIJAVA/scijava-scripts"
 # CellProfiler - https://github.com/CellProfiler/CellProfiler
 export CODE_CELLPROFILER="$CODE_BASE/cellprofiler/CellProfiler"
 alias gocp='cd $CODE_CELLPROFILER'
+
+# Polyglot
+export CODE_POLYGLOT="$CODE_BASE/polyglot"
+alias goap='cd $CODE_POLYGLOT/appose'
 
 # Jump to directory by string fragment.
 # Augments oh-my-zsh's z plugin.
