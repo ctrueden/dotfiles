@@ -4,6 +4,7 @@
 # TODO: Make it work on macOS with brew, too.
 
 packages_shell="
+aspell
 bat
 boxes
 curl
