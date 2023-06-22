@@ -113,9 +113,10 @@ path_prepend "$CODE_SCIJAVA/scijava-scripts"
 export CODE_CELLPROFILER="$CODE_BASE/cellprofiler/CellProfiler"
 alias gocp='cd $CODE_CELLPROFILER'
 
-# Polyglot
-export CODE_POLYGLOT="$CODE_BASE/polyglot"
-alias goap='cd $CODE_POLYGLOT/appose'
+# Appose
+export CODE_APPOSE="$CODE_BASE/appose"
+alias goaj='cd $CODE_APPOSE/appose-java'
+alias goap='cd $CODE_APPOSE/appose-python'
 
 # Jump to directory by string fragment.
 # Augments oh-my-zsh's z plugin.

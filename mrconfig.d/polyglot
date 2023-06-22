@@ -6,12 +6,6 @@ checkout = git clone git@github.com:nativelibs4java/BridJ
 [code/polyglot/JyNI]
 checkout = git clone git@github.com:Stewori/JyNI
 
-[code/polyglot/appose]
-checkout = git clone git@github.com:apposed/appose
-
-[code/polyglot/apposed.org]
-checkout = git clone git@github.com:apposed/apposed.org
-
 [code/polyglot/beakerx]
 checkout = git clone git@github.com:twosigma/beakerx
 
