@@ -20,6 +20,9 @@ export CODE_BRAIN="$CODE_PERSONAL/brain"
 alias gob='cd $CODE_BRAIN'
 alias gobx='cd $CODE_BRAIN/notes/external'
 
+# public projects
+alias gomq='cd $CODE_PERSONAL/monoqueue'
+
 # private projects
 export CODE_PRIVATE="$CODE_PERSONAL/unsorted-junk"
 alias gop='cd $CODE_PRIVATE'
