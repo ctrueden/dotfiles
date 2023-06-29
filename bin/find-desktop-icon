@@ -1,0 +1,16 @@
+#!/bin/sh
+
+# Find the .desktop file that defines an icon in the GNOME launcher.
+# Arguments to the script are passed to grep verbatim.
+# Is there any easier way to make GNOME tell you its location -- or open it directly?
+
+find \
+  /usr/share/applications \
+  /usr/local/share/applications \
+  "$HOME/.local/share/applications" \
+  /var/lib/snapd/desktop/applications \
+  /var/lib/flatpak/exports/share/applications \
+  -name '*.desktop' 2>/dev/null | while read f
+do
+  if echo "$f" | grep -q $@ || cat "$f" | sed 's;[^=]*=;;' | grep -q $@; then echo "$f"; fi
+done
