@@ -186,7 +186,7 @@ alias j62="jswitch '-\\(62[^0-9]\\|1\\.62\\)'" # 2044-03
 alias j63="jswitch '-\\(63[^0-9]\\|1\\.63\\)'" # 2044-09
 alias j64="jswitch '-\\(64[^0-9]\\|1\\.64\\)'" # 2045-03
 # 2045-05: Curtis turns 65 and retires ;_;
-alias j8fx='jswitch fx-8'
+alias j8fx='jswitch fx-jdk8'
 alias j8z='jswitch zulu-8'
 alias j11z='jswitch zulu-11'
 alias j17z='jswitch zulu-17'
