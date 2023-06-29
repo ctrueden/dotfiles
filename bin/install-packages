@@ -18,7 +18,6 @@ ripgrep
 tldr
 toilet
 tree
-vim-gtk
 zsh
 "
 
@@ -92,6 +91,7 @@ then
   fi
 
   # -- Install the packages --
+
   sudo apt-get update &&
   sudo apt-get install $all_packages
 fi
