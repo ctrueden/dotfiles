@@ -59,7 +59,6 @@ alias goijt='cd $CODE_IJ/tutorials'
 alias goijup='cd $CODE_IJ/imagej-updater'
 alias goiju='goijup'
 alias goijw='cd $CODE_IJ/imagej.github.io'
-alias gonij='cd $CODE_IJ/napari-imagej'
 alias gopij='cd $CODE_IJ/pyimagej'
 
 # ImageJ OPS - https://github.com/imagej/imagej-ops
@@ -120,6 +119,10 @@ alias gocp='cd $CODE_CELLPROFILER'
 export CODE_APPOSE="$CODE_BASE/appose"
 alias goaj='cd $CODE_APPOSE/appose-java'
 alias goap='cd $CODE_APPOSE/appose-python'
+
+# napari
+export CODE_NAPARI="$CODE_BASE/napari"
+alias gonij='cd $CODE_NAPARI/napari-imagej'
 
 # Jump to directory by string fragment.
 # Augments oh-my-zsh's z plugin.
