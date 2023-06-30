@@ -1,5 +1,7 @@
 # GNOME shell extensions and other GNOME-related projects
 
-[code/gnome/gnome-shell-system-monitor-applet]
-checkout = git clone git@github.com:paradoxxxzero/gnome-shell-system-monitor-applet
+[code/gnome/emoji-selector-for-gnome]
+checkout = git clone git@github.com:maoschanz/emoji-selector-for-gnome
 
+[code/gnome/gnome-shell-extension-hibernate-status]
+checkout = git clone git@github.com:arelange/gnome-shell-extension-hibernate-status
