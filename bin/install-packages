@@ -58,6 +58,7 @@ flatpak
 
 packages_apps="
 barrier
+gimp
 guake
 meshlab
 vlc
