@@ -5,4 +5,6 @@
 # Example:
 #    maven-echo 'group=${project.groupId}, artifact=${project.artifactId}'
 
-mvn -q exec:exec -Dexec.executable=echo -Dexec.args="$1"
+arg=$1
+shift
+mvn -q exec:exec -Dexec.executable=echo -Dexec.args="$arg" $@
