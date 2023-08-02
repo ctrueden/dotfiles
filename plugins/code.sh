@@ -138,7 +138,7 @@ z() {
     then
       zshz
     else
-      d=$(_z -e $@ 2>/dev/null | head -n1)
+      d=$(zshz -e $@)
     fi
   fi
   if [ -z "$d" ]
