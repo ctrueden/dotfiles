@@ -94,3 +94,8 @@ alias detab="sedi -e 's/	/  /g'"
 gravhash() {
 	php -r "echo md5(strtolower(trim('$@'))) . \"\n\";"
 }
+
+# --== youtube-dl ==--
+
+alias dlv='youtube-dl -i --sleep-interval 3 --max-sleep-interval 10'
+alias dla='youtube-dl -i --sleep-interval 3 --max-sleep-interval 10 -x'
