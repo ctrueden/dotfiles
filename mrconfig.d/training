@@ -9,6 +9,9 @@ checkout = git clone git@github.com:imagej/i2k-2020-pyimagej
 [code/training/i2k-2022-pyimagej]
 checkout = git clone git@github.com:imagej/i2k-2022-pyimagej
 
+[code/training/i2k2020-imglib2-advanced]
+checkout = git clone git@github.com:saalfeldlab/i2k2020-imglib2-advanced
+
 [code/training/imagej-legacy-course]
 checkout = git clone git@github.com:maarzt/imagej-legacy-course
 
