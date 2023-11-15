@@ -35,6 +35,7 @@ div() {
 alias mv='mv -i'
 # NB: To get clear on Cygwin, install ncurses.
 alias cls='clear;pwd;div;ls'
+alias cll='clear;pwd;div;ls -la'
 alias cdiff='colordiff 2> /dev/null'
 alias grep='grep --color=auto'
 alias cgrep='grep --color=always'
