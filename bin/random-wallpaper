@@ -1,0 +1,40 @@
+#!/bin/sh
+
+# Script to rotate wallpaper amongst all those installed.
+# GNOME, why don't you have this feature built-in yet?
+
+# Installed wallpapers typically go into ~/.local/share/backgrounds.
+# And the active one is defined in GNOME settings by:
+#
+#   gsettings get org.gnome.desktop.background picture-uri
+#
+# We can update it via:
+#
+#   gsettings set org.gnome.desktop.background picture-uri \
+#   'file:///home/curtis/.local/share/backgrounds/the-wallpaper-we-want.jpg'
+#
+# To make it run automatically, install it into your user crontab:
+#
+#   crontab -l >my-crontab
+#   echo "*/5 * * * * $DOTFILES/bin/random-wallpaper" >my-crontab
+#   crontab my-crontab
+#   rm my-crontab
+
+error() { >&2 echo '[ERROR]' $@; }
+die() { error $@; exit 1; }
+
+# Get the current wallpaper.
+wallpaper=$(gsettings get org.gnome.desktop.background picture-uri)
+test "$wallpaper" || die "Cannot glean current wallpaper."
+
+# Extract the directory path from the currently set wallpaper.
+dir=${wallpaper#\'file://}
+dir=${dir%/*}
+test "$dir" || die "Cannot glean wallpaper directory."
+test -d "$dir" || die "Invalid wallpaper directory: $dir"
+
+# Choose a random new wallpaper from that same directory.
+wallpaper=$(find "$dir" -type f | shuf | head -n1)
+
+# Update the current wallpaper accordingly.
+gsettings set org.gnome.desktop.background picture-uri "file://$wallpaper"
