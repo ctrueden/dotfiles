@@ -10,7 +10,7 @@ do
   v=${d%*/}
   v=${v##*-}
   echo "$v|$d"
-done | sort -nr | head -n1 2>/dev/null)
+done 2>/dev/null | sort -nr | head -n1)
 export KONAN_DIR=${newestKonanDir#*|}
 if [ -d "$KONAN_DIR" ]
 then
