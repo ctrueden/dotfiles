@@ -16,10 +16,10 @@ function up9 { cd ..\..\..\..\..\..\..\..\.. }
 # -- Git --
 
 # alias some common git typos
-function giot { git $args }
-function goit { git $args }
-function got { git $args }
-function gti { git $args }
+Set-Alias giot git
+Set-Alias goit git
+Set-Alias got git
+Set-Alias gti git
 
 # cover up Ghostscript ;-)
 function gs { git status $args }
