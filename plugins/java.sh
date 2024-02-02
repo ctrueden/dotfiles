@@ -44,13 +44,13 @@ DOC
   # Java installations in ~/Java/<platform>.
   local dir=
   case "$(arch 2>/dev/null)-$(uname -s 2>/dev/null)" in
-    i386-Darwin)                  dir=macos ;;
-    aarch64-Darwin)               dir=macos-amd64 ;;
-    *86*64-CYGWIN*|amd64-CYGWIN*) dir=win64 ;;
-    *86*64-MINGW*|amd64-MINGW*)   dir=win64 ;;
-    *86-CYGWIN*|*86-MINGW*)       dir=win32 ;;
-    *86*64-Linux|amd64-Linux)     dir=linux64 ;;
-    *86-Linux)                    dir=linux32 ;;
+    i386-Darwin)                  dir=macos-x64 ;;
+    aarch64-Darwin)               dir=macos-aarch64 ;;
+    *86*64-CYGWIN*|amd64-CYGWIN*) dir=windows-x64 ;;
+    *86*64-MINGW*|amd64-MINGW*)   dir=windows-x64 ;;
+    *86-CYGWIN*|*86-MINGW*)       dir=windows-x86 ;;
+    *86*64-Linux|amd64-Linux)     dir=linux-x64 ;;
+    *86-Linux)                    dir=linux-x86 ;;
     *)                            ;; # unsupported platform
   esac
   local javas=
