@@ -115,7 +115,7 @@ gtagsv() {
   done
 }
 
-clsg() { clear; pwd; div; ls $@; div; git status; }
+clsg() { clear; pwd; div; ls $@; div; if git status >/dev/null 2>&1; then git status; fi; }
 alias c=clsg
 
 # --== git-svn ==--
