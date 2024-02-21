@@ -7,4 +7,10 @@
 
 arg=$1
 shift
-mvn -q exec:exec -Dexec.executable=echo -Dexec.args="$arg" $@
+
+# The sed expression avoids a bug in mvn's batch mode that results
+# in <ESC>[0m<ESC>[0m still appearing as a leading ANSI sequence
+# when echoing the property.
+mvn -B -U -q -Denforcer.skip=true \
+  -Dexec.executable=echo -Dexec.args="$arg" exec:exec $@ |
+  sed 's;\(.\[[0-9]m\)*;;'
