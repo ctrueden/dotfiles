@@ -45,6 +45,7 @@ HIST_STAMPS="yyyy-mm-dd"
 test "$DEBUG" && echo "[zshrc] Loading oh-my-zsh..."
 zpm load @omz
 omz_libs=(
+	@omz/lib/async_prompt          # dependency of lib/git
 	@omz/lib/compfix               # detect completions insecurities
 	@omz/lib/completion            # foundational tab completion logic
 	@omz/lib/directories           # succinct aliases to work with directories
