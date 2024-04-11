@@ -89,7 +89,7 @@ zsh_plugins=(
 	zpm-zsh/check-deps                    # check for needed but missing dependencies
 	zpm-zsh/clipboard                     # add pbcopy, pbpaste, and clip functions
 	zpm-zsh/colorize                      # colorize the output of various commands
-#	zpm-zsh/command-not-found             # suggest packages if a command is not found
+	zpm-zsh/command-not-found             # suggest packages if a command is not found
 	zpm-zsh/fast-syntax-highlighting      # syntax highlighting at the prompt
 	zpm-zsh/history-search-multi-word     # make ^R search multiple ANDed keywords
 	zpm-zsh/zsh-autosuggestions           # suggest completions based on previous ones
