@@ -75,7 +75,6 @@ zsh_plugins=(
 	@omz/history                          # history aliases
 	@omz/jsontools                        # json functions
 	@omz/last-working-dir                 # return to last dir in new shell instances
-	@omz/macos                            # macOS functions
 	@omz/mvn                              # maven color, aliases and completion
 	@omz/npm                              # npm completion
 	@omz/urltools                         # urlencode and urldecode functions
@@ -97,6 +96,7 @@ zsh_plugins=(
 	zsh-users/zsh-completions             # unstable tab completion plugins
 )
 zpm load $zsh_plugins
+test "$(uname)" != Darwin || zpm load @omz/macos
 
 # use ctrl+] for zsh-nohup plugin
 bindkey "\C]" nohup-command-line
