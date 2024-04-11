@@ -95,7 +95,8 @@ zsh_plugins=(
 	zpm-zsh/zsh-history-substring-search  # history search (e.g. up arrow)
 	zsh-users/zsh-completions             # unstable tab completion plugins
 )
-zpm load $zsh_plugins
+zpm load $zsh_plugins 2> >(grep -v '^cp: cannot copy cyclic symbolic link' >&2)
+#                     ^ HACK: Suppress annoying warnings from cp.
 test "$(uname)" != Darwin || zpm load @omz/macos
 
 # use ctrl+] for zsh-nohup plugin
