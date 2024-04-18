@@ -137,6 +137,7 @@ z() {
     if [ $# -eq 0 ]
     then
       zshz
+      return
     else
       d=$(zshz -e $@)
     fi
