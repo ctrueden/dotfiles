@@ -1,6 +1,6 @@
 test "$DEBUG" && echo "[dotfiles] Loading zsh plugin 'pipeless'..."
 
-# use ctrl+[ for paging stdout+stderr
+# use ctrl+~ (ctrl+shift+` on USA keyboard layout) for paging stdout+stderr
 pipeless () {
 	[[ -z $BUFFER ]] && zle up-history
 	pager=$PAGER
@@ -14,4 +14,4 @@ pipeless () {
 	fi
 }
 zle -N pipeless
-bindkey "\C[" pipeless
+bindkey "^~" pipeless
