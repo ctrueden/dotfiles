@@ -7,7 +7,7 @@ checkout = git clone git@github.com:first20hours/google-10000-english
 checkout = git clone git@github.com:atextor/icat
 
 [code/util/imgcat]
-checkout = git clone git@github.com:eddieantonio/imgcat
+checkout = git clone --recursive git@github.com:eddieantonio/imgcat
 
 [code/util/youtube-dl]
 checkout = git clone git@github.com:ytdl-org/youtube-dl
