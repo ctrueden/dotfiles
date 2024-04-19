@@ -9,6 +9,13 @@ then
   (cd "$DOTFILES" && git pull --rebase)
 fi
 
+if command -v zpm >/dev/null
+then
+  echo
+  echo "--== Updating zsh plugins ==--"
+  zpm up
+fi
+
 if [ -d "$CODE_SCIJAVA/scijava-scripts" ]
 then
   echo
