@@ -43,6 +43,7 @@ alias rgrep='grep -IR --exclude="*\.svn*"'
 alias f='find . -name'
 alias o=open
 alias off='shutdown -h now'
+alias offon='shutdown -r now'
 
 # --== version reporting ==--
 
