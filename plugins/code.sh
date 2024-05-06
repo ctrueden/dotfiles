@@ -107,6 +107,7 @@ export CODE_SCIJAVA="$CODE_BASE/scijava"
 alias gopa='cd $CODE_SCIJAVA/parsington'
 alias gopsj='cd $CODE_SCIJAVA/pom-scijava'
 alias gopsb='cd $CODE_SCIJAVA/pom-scijava-base'
+alias gosj='cd $CODE_SCIJAVA/scijava'
 alias gosjc='cd $CODE_SCIJAVA/scijava-common'
 alias gosjs='cd $CODE_SCIJAVA/scijava-scripts'
 path_prepend "$CODE_SCIJAVA/scijava-scripts"
