@@ -6,12 +6,12 @@ scifio = io.scif:scifio-cli
 scijava = org.scijava:scijava-common
 ij = net.imagej:ij
 
-bfconvert = ome:bio-formats-tools:loci.formats.tools.ImageConverter
-formatlist = ome:bio-formats-tools:loci.formats.tools.PrintFormatTable
-showinf = ome:bio-formats-tools:loci.formats.tools.ImageInfo
-tiffcomment = ome:bio-formats-tools:loci.formats.tools.TiffComment
-xmlindent = ome:bio-formats-tools:loci.formats.tools.XMLIndent
-xmlvalid = ome:bio-formats-tools:loci.formats.tools.XMLValidate
+bfconvert = ome:bio-formats-tools:loci.formats.tools.ImageConverter+org.slf4j:slf4j-simple
+formatlist = ome:bio-formats-tools:loci.formats.tools.PrintFormatTable+org.slf4j:slf4j-simple
+showinf = ome:bio-formats-tools:loci.formats.tools.ImageInfo+org.slf4j:slf4j-simple
+tiffcomment = ome:bio-formats-tools:loci.formats.tools.TiffComment+org.slf4j:slf4j-simple
+xmlindent = ome:bio-formats-tools:loci.formats.tools.XMLIndent+org.slf4j:slf4j-simple
+xmlvalid = ome:bio-formats-tools:loci.formats.tools.XMLValidate+org.slf4j:slf4j-simple
 
 jython = org.python:jython-standalone
 groovy = org.codehaus.groovy:groovy-groovysh:org.codehaus.groovy.tools.shell.Main+commons-cli:commons-cli:1.3.1
