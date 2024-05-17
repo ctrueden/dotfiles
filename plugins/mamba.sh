@@ -1,9 +1,11 @@
 test "$DEBUG" && echo "[dotfiles] Loading plugin 'mamba'..."
 
 snk-base-check() {
-  # NB: Fail fast if we are in the base environment!
+  # NB: Fail fast if we are in a non-base environment!
   # Otherwise, it's too easy to install packages by accident into base.
-  if [ "$CONDA_PREFIX" -a "$CONDA_PREFIX" != "${CONDA_PREFIX%/base}" ]
+  local base=
+  if [ "$CONDA_PREFIX" != "${CONDA_PREFIX%/base}" \
+    -o "$CONDA_PREFIX" = "${CONDA_PREFIX%/envs/*}" ]
   then
     echo "Aborting because you are in the base environment. Activate something else."
     return 1
