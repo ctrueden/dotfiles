@@ -11,7 +11,8 @@ WORKDIR /home/me
 
 RUN git clone https://github.com/ctrueden/dotfiles && \
     printf 'Curtis Rueden\nctrueden@wisc.edu\n' | dotfiles/setup.sh && \
-    /bin/zsh -i -c echo 'Bootstrapping complete!'
+    /bin/zsh -i -c echo 'Bootstrapping complete!' && \
+    mamba init zsh
 
 # Reap zombie processes properly; see:
 # https://github.com/krallin/tini?tab=readme-ov-file#why-tini
