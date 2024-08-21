@@ -1,0 +1,27 @@
+#!/bin/sh
+
+# This script exists mostly to be added to Startup Applications, in case I
+# accidentally leave Zoom enabled (via Alt+Super+8) after I'm done using it,
+# since the setting persists even after reboot.
+#
+# == Why? ==
+# GNOME's Zoom accessibility feature is great for taking a closer look at
+# parts of the desktop. Unfortunately, while it is enabled -- even when the
+# magnification factor is at 1.0 -- GNOME's behavior becomes sluggish in
+# various ways, such as mouse motion becoming choppy. More crucially, launching
+# certain applications freezes the desktop UI for at least a second or two,
+# sometimes many seconds and sometimes permanently. Affected applications for
+# me include Firefox (installed via snap as per Ubuntu 24.04 default) and
+# IntelliJ IDEA (installed into ~/.local via JetBrains Toolbox). Affected
+# launch mechanisms include the Dash and the Show Apps screen; unaffected
+# launch mechanisms include Alt+F2 and terminal-based execution.
+
+zoom_enabled=$(gsettings get org.gnome.desktop.a11y.applications screen-magnifier-enabled)
+if [ "$zoom_enabled" = "true" ]
+then
+  gsettings set org.gnome.desktop.a11y.applications screen-magnifier-enabled false
+  gsettings set org.gnome.desktop.a11y.magnifier mag-factor 1.0
+  echo "Zoom was enabled and has been turned off."
+else
+  echo "Zoom was already disabled."
+fi
