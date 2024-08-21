@@ -4,6 +4,8 @@
 # Arguments to the script are passed to grep verbatim.
 # Is there any easier way to make GNOME tell you its location -- or open it directly?
 
+test $# -gt 0 || { >&2 printf "Please specify search string as arguments.\n"; exit 1; }
+
 find \
   /usr/share/applications \
   /usr/local/share/applications \
