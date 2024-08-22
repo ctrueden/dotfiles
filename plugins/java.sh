@@ -56,7 +56,7 @@ DOC
   local javas=
   if [ "$dir" -a -d "$HOME/Java/$dir" ]
   then
-    javas=$(find "$HOME/Java/$dir" -mindepth 1 -maxdepth 5 -type d 2>/dev/null | while read d
+    javas=$(find "$HOME/Java/$dir" -mindepth 1 -maxdepth 1 -type d 2>/dev/null | while read d
     do
       if [ -x "$d/bin/java" -o -x "$d/bin/java.exe" ]
       then
@@ -65,7 +65,7 @@ DOC
       then
         echo "$d/Contents/Home"
       fi
-    done | grep -v '/jre$')
+    done)
   fi
 
   # Java installations from java_home (macOS).
