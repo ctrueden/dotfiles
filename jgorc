@@ -1,4 +1,5 @@
 [shortcuts]
+ops = org.scijava:scijava-ops-image:1.0.0:jdk.internal.jshell.tool.JShellToolProvider
 repl = imagej:org.scijava.script.ScriptREPL
 fiji = sc.fiji:fiji:LATEST
 imagej = net.imagej:imagej
