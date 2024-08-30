@@ -13,6 +13,8 @@ function up7 { cd ..\..\..\..\..\..\.. }
 function up8 { cd ..\..\..\..\..\..\..\.. }
 function up9 { cd ..\..\..\..\..\..\..\..\.. }
 
+function vi { cmd /c 'C:\Program Files\Git\usr\bin\vim.exe' $args }
+
 # -- Git --
 
 # alias some common git typos
