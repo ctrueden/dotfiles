@@ -6,6 +6,7 @@ imagej = net.imagej:imagej
 scifio = io.scif:scifio-cli
 scijava = org.scijava:scijava-common
 ij = net.imagej:ij
+shfiji = sc.fiji:fiji:RELEASE:jdk.internal.jshell.tool.JShellToolProvider
 
 bfconvert = ome:bio-formats-tools:loci.formats.tools.ImageConverter+org.slf4j:slf4j-simple
 formatlist = ome:bio-formats-tools:loci.formats.tools.PrintFormatTable+org.slf4j:slf4j-simple
