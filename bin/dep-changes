@@ -1,15 +1,88 @@
-#!/bin/sh
+#!/usr/bin/env python
 
-OLD=/tmp/mvn-deps-old.txt
-NEW=/tmp/mvn-deps-new.txt
+"""
+Shitty script to nicely display a Maven project's
+dependency changes between adjacent commits.
+"""
 
-head=$(cat .git/HEAD)
-head=${head##*/}
-echo "Using branch: $head"
+import os
+import re
+import subprocess
 
-mvn dependency:list |sort > $NEW
-git checkout HEAD^
-mvn dependency:list |sort > $OLD
-git checkout "$head"
-git diff $OLD $NEW | grep '^[-+]'
-rm $OLD $NEW
+script_dir = os.path.dirname(os.path.abspath(__file__))
+script_path = os.path.join(script_dir, 'dep-changes.sh')
+
+# Execute the shell script and capture the output
+result = subprocess.run(['/bin/bash', script_path], capture_output=True, text=True, check=True)
+lines = result.stdout.splitlines()
+
+v_old = {}
+v_old_p = {}
+v_old_s = {}
+v_new = {}
+v_new_p = {}
+v_new_s = {}
+
+for line in lines:
+    pm = line[0:1]
+
+    if pm == '-':
+        v_ = v_old
+        v_p = v_old_p
+        v_s = v_old_s
+    elif pm == '+':
+        v_ = v_new
+        v_p = v_new_p
+        v_s = v_new_s
+    else:
+        raise RuntimeError(f'Invalid line: {line}')
+
+    tokens = line[1:].split(':')
+    if len(tokens) == 5:
+        g, a, p, v, s = tokens
+        c = ''
+    elif len(tokens) == 6:
+        g, a, p, c, v, s = tokens
+    else:
+        raise RuntimeError(f'Weird line: {line}')
+    gac = f'{g}:{a}:{c}'
+
+    if gac in v_:
+        raise RuntimeError(f'Duplicate groupId:artifactId:classifier: {gac}')
+
+    v_[gac] = v
+    v_p[gac] = p
+    v_s[gac] = s
+
+changed = []
+new = []
+removed = []
+for gac in v_old | v_new:
+    g, a, c = gac.split(':')
+    ov = v_old.get(gac, None)
+    op = v_old_p.get(gac, None)
+    os = v_old_s.get(gac, None)
+    nv = v_new.get(gac, None)
+    np = v_new_p.get(gac, None)
+    ns = v_new_s.get(gac, None)
+    if ov is None and nv is None:
+        raise RuntimeError(f'WTF: {gac}')
+    if ov is None:
+        new.append(f'* {a}: {nv}')
+    elif nv is None:
+        removed.append(f'* {a}')
+    elif ov and nv:
+        cs = f' [{c}]' if c else ''
+        changed.append(f'* {a}: {ov} -> {nv}{cs}')
+        if op != np: print(f'[WARNING] Packaging changed: {op} -> {np}')
+        if os != ns: print(f'[WARNING] Scope changed: {os} -> {ns}')
+
+def printout(msg: str, lst: list):
+    if not lst: return
+    print()
+    print(msg)
+    for line in lst: print(line)
+
+printout("Changed components:", changed)
+printout("New components:", new)
+printout("Removed components:", removed)
