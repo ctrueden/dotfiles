@@ -2,3 +2,9 @@
 # https://github.blog/2021-09-01-improving-git-protocol-security-github/
 Host github.com
   UpdateHostKeys yes
+  # In case standard SSH does not work on a particular network,
+  # you can use GitHub's SSH-over-the-HTTPS-port service:
+  # https://docs.github.com/en/authentication/troubleshooting-ssh/using-ssh-over-the-https-port
+  #Hostname ssh.github.com
+  #Port 443
+  #User git
