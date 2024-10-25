@@ -3,6 +3,9 @@
 [code/n5/n5]
 checkout = git clone git@github.com:saalfeldlab/n5
 
+[code/n5/n5-anndata]
+checkout = git clone git@github.com:JaneliaSciComp/n5-anndata
+
 [code/n5/n5-aws-s3]
 checkout = git clone git@github.com:saalfeldlab/n5-aws-s3
 
@@ -24,6 +27,9 @@ checkout = git clone git@github.com:saalfeldlab/n5-imglib2
 [code/n5/n5-spark]
 checkout = git clone git@github.com:saalfeldlab/n5-spark
 
+[code/n5/n5-universe]
+checkout = git clone git@github.com:saalfeldlab/n5-universe
+
 [code/n5/n5-utils]
 checkout = git clone git@github.com:saalfeldlab/n5-utils
 
@@ -32,3 +38,6 @@ checkout = git clone git@github.com:saalfeldlab/n5-viewer
 
 [code/n5/n5-zarr]
 checkout = git clone git@github.com:saalfeldlab/n5-zarr
+
+[code/n5/n5-zstandard]
+checkout = git clone git@github.com:JaneliaSciComp/n5-zstandard
