@@ -1,4 +1,4 @@
-# UW-Madison LOCI projects (private)
+# UW-Madison LOCI repositories (private)
 
 [code/loci/curvelets-imagej]
 checkout = git clone git@github.com:uw-loci/curvelets-imagej

@@ -1,4 +1,4 @@
-# Git-related projects
+# Git-related repositories
 
 [code/git/git]
 checkout = git clone git@github.com:git/git

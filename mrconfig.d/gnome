@@ -1,4 +1,4 @@
-# GNOME shell extensions and other GNOME-related projects
+# GNOME shell extensions and other GNOME-related repositories
 
 [code/gnome/emoji-copy]
 checkout = git clone git@github.com:felipeftn/emoji-copy

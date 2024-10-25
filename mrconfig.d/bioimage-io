@@ -1,4 +1,4 @@
-# bioimage.io projects
+# bioimage.io repositories
 
 [code/bioimage-io/bioimage.io]
 checkout = git clone git@github.com:bioimage-io/bioimage.io

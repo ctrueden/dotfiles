@@ -1,4 +1,4 @@
-# UW-Madison LOCI projects (large)
+# UW-Madison LOCI repositories (large)
 
 [code/loci/curvelets]
 checkout = git clone git@github.com:uw-loci/curvelets

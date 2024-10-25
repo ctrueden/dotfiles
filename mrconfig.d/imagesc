@@ -1,4 +1,4 @@
-# Image.sc projects
+# Image.sc repositories
 
 [code/imagesc/search-image-sc]
 checkout = git clone git@github.com:uw-loci/search-image-sc

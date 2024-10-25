@@ -1,4 +1,4 @@
-# CLIJ projects
+# CLIJ repositories
 
 [code/clij/clatlab]
 checkout = git clone git@github.com:clij/clatlab
