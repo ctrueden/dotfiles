@@ -30,3 +30,15 @@ alias bs='mvn -DskipTests -Denforcer.skip -Dinvoker.skip clean install'
 
 # Preserve color output when piping -- the opposite of --batch-mode.
 alias mvc='mvn -Dstyle.color=always'
+
+mvnhelp() {
+  : << 'DOC'
+Show detailed help on a specific Maven goal.
+
+Usage example:
+    mvnhelp versions:display-dependency-updates
+DOC
+	plugin=${1%:*}
+	goal=${1#*:}
+	mvn help:describe -Dplugin="$plugin" -Dgoal="$goal" -Ddetail
+}
