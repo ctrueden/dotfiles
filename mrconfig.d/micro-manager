@@ -8,3 +8,18 @@ checkout = git clone git@github.com:micro-manager/micro-manager.github.io
 
 [code/micro-manager/pycro-manager]
 checkout = git clone git@github.com:micro-manager/pycro-manager
+
+[code/micro-manager/pymmcore]
+checkout = git clone git@github.com:micro-manager/pymmcore
+
+[code/micro-manager/pymmcore-gui]
+checkout = git clone git@github.com:pymmcore-plus/pymmcore-gui
+
+[code/micro-manager/pymmcore-plus]
+checkout = git clone git@github.com:pymmcore-plus/pymmcore-plus
+
+[code/micro-manager/pymmcore-widgets]
+checkout = git clone git@github.com:pymmcore-plus/pymmcore-widgets
+
+[code/micro-manager/useq-schema]
+checkout = git clone git@github.com:pymmcore-plus/useq-schema
