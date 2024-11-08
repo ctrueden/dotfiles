@@ -1,0 +1,20 @@
+#!/usr/bin/env python
+
+import sys
+
+for arg in sys.argv[1:]:
+    num = float(arg)
+    print(f'[{num}]')
+    v = num - int(num)
+    best_error = 1
+    best_n = -1
+    best_d = -1
+    for d in range(1, 9999):
+        n = int(round(d * v))
+        approx = n / d
+        error = abs(approx - v)
+        if error < best_error:
+            best_error = error
+            best_n = n
+            best_d = d
+            print(f'BEST -> {n} / {d} -- error {error}')
