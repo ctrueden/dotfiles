@@ -1,10 +1,16 @@
 # bioimage.io repositories
 
-[code/bioimage-io/bioimage.io]
-checkout = git clone git@github.com:bioimage-io/bioimage.io
+[code/bioimage-io/JDLL]
+checkout = git clone git@github.com:bioimage-io/JDLL
 
 [code/bioimage-io/bioengine-model-runner]
 checkout = git clone git@github.com:bioimage-io/bioengine-model-runner
+
+[code/bioimage-io/bioimage.io]
+checkout = git clone git@github.com:bioimage-io/bioimage.io
+
+[code/bioimage-io/bioimageio-chatbot]
+checkout = git clone git@github.com:bioimage-io/bioimageio-chatbot
 
 [code/bioimage-io/collection-bioimage-io]
 checkout = git clone git@github.com:bioimage-io/collection-bioimage-io
@@ -14,9 +20,6 @@ checkout = git clone git@github.com:bioimage-io/core-bioimage-io-java
 
 [code/bioimage-io/core-bioimage-io-python]
 checkout = git clone git@github.com:bioimage-io/core-bioimage-io-python
-
-[code/bioimage-io/model-runner-java]
-checkout = git clone git@github.com:bioimage-io/model-runner-java
 
 [code/bioimage-io/onnx-java-interface]
 checkout = git clone git@github.com:bioimage-io/onnx-java-interface

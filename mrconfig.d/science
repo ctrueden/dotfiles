@@ -74,9 +74,3 @@ checkout = git clone git@github.com:mstritt/orbit-image-analysis
 
 [code/science/pixlib]
 checkout = git clone git@github.com:dprodanov/pixlib && cd pixlib && git remote add sf git://git.code.sf.net/p/pixlib/code && git remote update
-
-[code/science/qupath]
-checkout = git clone git@github.com:qupath/qupath
-
-[code/science/qupath-extension-cellpose]
-checkout = git clone git@github.com:BIOP/qupath-extension-cellpose

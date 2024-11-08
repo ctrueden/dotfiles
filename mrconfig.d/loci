@@ -24,17 +24,8 @@ checkout = git clone git@github.com:uw-loci/loci-utils
 [code/loci/misc-plugins]
 checkout = git clone git@github.com:uw-loci/misc-plugins
 
-[code/loci/prototype.wisc.edu]
-checkout = git clone git@github.com:uw-loci/prototype.wisc.edu
-
-[code/loci/spieopticamadison.github.io]
-checkout = git clone git@github.com:uw-loci/spieopticamadison.github.io
-
 [code/loci/tickets]
 checkout = git clone git@github.com:uw-loci/tickets
-
-[code/loci/uw-loci.github.io]
-checkout = git clone git@github.com:uw-loci/uw-loci.github.io
 
 [code/loci/visbio]
 checkout = git clone git@github.com:uw-loci/visbio

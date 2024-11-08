@@ -3,3 +3,6 @@
 [code/scifio/dotfiles]
 checkout = git clone git@github.com:scifio/dotfiles
 include = cat $CODE_BASE/scifio/dotfiles/mrconfig 2> /dev/null || true
+
+[code/scifio/Labeling]
+checkout = git clone git@github.com:Labelings/Labeling

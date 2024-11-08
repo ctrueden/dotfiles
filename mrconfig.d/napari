@@ -1,16 +1,7 @@
 # napari - https://github.com/napari
 
-[code/napari/Labeling]
-checkout = git clone git@github.com:Labelings/Labeling
-
 [code/napari/NapariPlayground]
 checkout = git clone git@github.com:VolkerH/NapariPlayground
-
-[code/napari/aicsimageio]
-checkout = git clone git@github.com:AllenCellModeling/aicsimageio
-
-[code/napari/magicgui]
-checkout = git clone https://github.com/napari/magicgui
 
 [code/napari/napari]
 checkout = git clone git@github.com:napari/napari
@@ -32,6 +23,3 @@ checkout = git clone git@github.com:Labelings/napari-labeling
 
 [code/napari/napari-plugin-engine]
 checkout = git clone git@github.com:napari/napari-plugin-engine
-
-[code/napari/plugin-cookiecutter]
-checkout = git clone git@github.com:napari/plugin-cookiecutter

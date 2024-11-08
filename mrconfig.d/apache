@@ -3,6 +3,12 @@
 [code/apache/batik]
 checkout = git clone git@github.com:apache/batik
 
+[code/apache/commons-compress]
+checkout = git clone git@github.com:apache/commons-compress
+
+[code/apache/commons-geometry]
+checkout = git clone git@github.com:apache/commons-geometry
+
 [code/apache/commons-imaging]
 checkout = git clone git@github.com:apache/commons-imaging
 

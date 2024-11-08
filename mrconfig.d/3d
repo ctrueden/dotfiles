@@ -18,6 +18,9 @@ checkout = git clone git@github.com:scenerygraphics/jvrpn
 [code/3d/jzy3d-api]
 checkout = git clone git@github.com:jzy3d/jzy3d-api
 
+[code/3d/panama-gl]
+checkout = git clone git@gitlab.com:jzy3d/panama-gl
+
 [code/3d/scenery]
 checkout = git clone git@github.com:scenerygraphics/scenery
 

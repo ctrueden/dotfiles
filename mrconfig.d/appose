@@ -1,5 +1,8 @@
 # Appose - https://apposed.org/
 
+[code/appose/appose]
+checkout = git clone git@github.com:apposed/appose
+
 [code/appose/appose-java]
 checkout = git clone git@github.com:apposed/appose-java
 
@@ -8,3 +11,6 @@ checkout = git clone git@github.com:apposed/appose-python
 
 [code/appose/apposed.org]
 checkout = git clone git@github.com:apposed/apposed.org
+
+[code/appose/jaunch]
+checkout = git clone git@github.com:apposed/jaunch

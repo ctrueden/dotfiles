@@ -12,6 +12,9 @@ checkout = git clone git@github.com:archtaurus/RetroPieBIOS
 [code/games/TokenTool]
 checkout = git clone git@github.com:RPTools/TokenTool
 
+[code/games/habitica]
+checkout = git clone git@github.com:HabitRPG/habitica
+
 [code/games/maptool]
 checkout = git clone git@github.com:RPTools/maptool
 

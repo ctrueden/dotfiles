@@ -1,0 +1,16 @@
+# ModularImageAnalysis (MIA) - https://github.com/mianalysis
+
+[code/mia/mia]
+checkout = git clone git@github.com:mianalysis/mia
+
+[code/mia/mia-deeplearning]
+checkout = git clone git@github.com:mianalysis/mia-deeplearning
+
+[code/mia/mia-examples]
+checkout = git clone git@github.com:mianalysis/mia-examples
+
+[code/mia/mia-matlab]
+checkout = git clone git@github.com:mianalysis/mia-matlab
+
+[code/mia/videohandler]
+checkout = git clone git@github.com:mianalysis/videohandler

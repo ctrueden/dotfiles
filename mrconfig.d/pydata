@@ -1,10 +1,34 @@
 # Projects in the PyData stack
 
+[code/pydata/app-model]
+checkout = git clone git@github.com:pyapp-kit/app-model
+
+[code/pydata/bioio]
+checkout = git clone git@github.com:bioio-devs/bioio
+
+[code/pydata/cmap]
+checkout = git clone git@github.com:tlambert03/cmap
+
 [code/pydata/cpython]
 checkout = git clone git@github.com:python/cpython
 
+[code/pydata/fieldz]
+checkout = git clone git@github.com:pyapp-kit/fieldz
+
+[code/pydata/in-n-out]
+checkout = git clone git@github.com:pyapp-kit/in-n-out
+
+[code/pydata/magicgui]
+checkout = git clone git@github.com:pyapp-kit/magicgui
+
+[code/pydata/ndv]
+checkout = git clone git@github.com:pyapp-kit/ndv
+
 [code/pydata/numpy]
 checkout = git clone git@github.com:numpy/numpy
+
+[code/pydata/psygnal]
+checkout = git clone git@github.com:pyapp-kit/psygnal
 
 [code/pydata/pydata-nyc-2018-tutorial]
 checkout = git clone git@github.com:mrocklin/pydata-nyc-2018-tutorial
@@ -20,3 +44,6 @@ checkout = git clone git@github.com:scikit-image/scikit-image-web
 
 [code/pydata/scipy]
 checkout = git clone git@github.com:scipy/scipy
+
+[code/pydata/superqt]
+checkout = git clone git@github.com:pyapp-kit/superqt
