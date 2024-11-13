@@ -1,0 +1,38 @@
+[code/bioio/bioio]
+checkout = git clone git@github.com:bioio-devs/bioio
+
+[code/bioio/bioio-bioformats]
+checkout = git clone git@github.com:bioio-devs/bioio-bioformats
+
+[code/bioio/bioio-czi]
+checkout = git clone git@github.com:bioio-devs/bioio-czi
+
+[code/bioio/bioio-dv]
+checkout = git clone git@github.com:bioio-devs/bioio-dv
+
+[code/bioio/bioio-imageio]
+checkout = git clone git@github.com:bioio-devs/bioio-imageio
+
+[code/bioio/bioio-lif]
+checkout = git clone git@github.com:bioio-devs/bioio-lif
+
+[code/bioio/bioio-nd2]
+checkout = git clone git@github.com:bioio-devs/bioio-nd2
+
+[code/bioio/bioio-ome-tiff]
+checkout = git clone git@github.com:bioio-devs/bioio-ome-tiff
+
+[code/bioio/bioio-ome-tiled-tiff]
+checkout = git clone git@github.com:bioio-devs/bioio-ome-tiled-tiff
+
+[code/bioio/bioio-ome-zarr]
+checkout = git clone git@github.com:bioio-devs/bioio-ome-zarr
+
+[code/bioio/bioio-sldy]
+checkout = git clone git@github.com:bioio-devs/bioio-sldy
+
+[code/bioio/bioio-tifffile]
+checkout = git clone git@github.com:bioio-devs/bioio-tifffile
+
+[code/bioio/bioio-tiff-glob]
+checkout = git clone git@github.com:bioio-devs/bioio-tiff-glob
