@@ -30,9 +30,6 @@ checkout = git clone git@github.com:graalvm/graalvm-demos
 [code/polyglot/graalvm-ten-things]
 checkout = git clone git@github.com:chrisseaton/graalvm-ten-things
 
-[code/polyglot/java2script]
-checkout = git clone git@github.com:java2script/java2script
-
 [code/polyglot/jep]
 checkout = git clone git@github.com:ninia/jep
 

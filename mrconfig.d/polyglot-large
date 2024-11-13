@@ -1,0 +1,4 @@
+# Repositories that make combining languages easier (large)
+
+[code/polyglot/java2script]
+checkout = git clone git@github.com:java2script/java2script

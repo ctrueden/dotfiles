@@ -6,9 +6,6 @@ checkout = git clone git@github.com:pyapp-kit/app-model
 [code/pydata/cmap]
 checkout = git clone git@github.com:tlambert03/cmap
 
-[code/pydata/cpython]
-checkout = git clone git@github.com:python/cpython
-
 [code/pydata/fieldz]
 checkout = git clone git@github.com:pyapp-kit/fieldz
 

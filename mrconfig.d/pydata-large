@@ -1,0 +1,4 @@
+# Projects in the PyData stack (large)
+
+[code/pydata/cpython]
+checkout = git clone git@github.com:python/cpython

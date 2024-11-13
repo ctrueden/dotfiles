@@ -1,10 +1,4 @@
 # BiaPy - https://github.com/BiaPyX
 
-[code/biapy/BiaPy]
-checkout = git clone git@github.com:BiaPyX/BiaPy
-
-[code/biapy/BiaPy-doc]
-checkout = git clone git@github.com:BiaPyX/BiaPy-doc
-
 [code/biapy/BiaPy-GUI]
 checkout = git clone git@github.com:BiaPyX/BiaPy-GUI

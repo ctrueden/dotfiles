@@ -30,9 +30,6 @@ checkout = git clone git@github.com:scenerygraphics/sciview
 [code/3d/spirvcrossj]
 checkout = git clone git@github.com:scenerygraphics/spirvcrossj
 
-[code/3d/vaa3d]
-checkout = git clone git@github.com:Vaa3D/v3d_external vaa3d
-
 [code/3d/vecmath]
 checkout = git clone git@github.com:scijava/vecmath
 

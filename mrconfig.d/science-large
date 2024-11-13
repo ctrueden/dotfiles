@@ -1,4 +1,7 @@
-# Scientific software repositories larger than 1GB in size
+# Scientific software repositories larger than 384MB in size
+
+[code/science/fluorender]
+checkout = git clone git@github.com:SCIInstitute/fluorender
 
 [code/science/weka]
 checkout = git clone git@github.com:Waikato/weka-trunk weka

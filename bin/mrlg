@@ -1,0 +1,17 @@
+#!/usr/bin/sh
+
+# mrlg - List large repositories, and detect when
+#        they are declared in non-large mrconfigs.
+
+du -ms "$CODE_BASE"/*/*/.git | while read line
+do
+	n=${line%%	*}
+	if [ "$n" -ge 384 ]
+	then
+		p=${line#*	}
+		p=${p#$HOME/}
+		p=${p%/.git}
+		hits=$(grep -l "\[$p\]" "$DOTFILES"/mrconfig.d/* | grep -v -- '-large$')
+		printf "%d\t%s\t%s\n" "$n" "$p" "$hits"
+	fi
+done | sort -n

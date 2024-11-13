@@ -1,4 +1,7 @@
 # Game-related repositories (large)
 
+[code/games/habitica]
+checkout = git clone git@github.com:HabitRPG/habitica
+
 [code/games/minecraft-python]
 checkout = git clone git@github.com:Macuyiko/minecraft-python

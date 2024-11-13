@@ -1,0 +1,4 @@
+# OpenSPIM - https://openspim.org/ (large)
+
+[code/openspim/openspim.github.io]
+checkout = git clone git@github.com:openspim/openspim.github.io

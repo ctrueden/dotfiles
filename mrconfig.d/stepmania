@@ -80,6 +80,3 @@ checkout = git clone git@github.com:MadkaT182/ThemeBeachSide
 
 [code/stepmania/Tournament]
 checkout = git clone git@github.com:MadkaT182/Tournament
-
-[code/stepmania/stepmania]
-checkout = git clone git@github.com:stepmania/stepmania

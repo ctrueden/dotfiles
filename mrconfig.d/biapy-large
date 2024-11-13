@@ -1,0 +1,7 @@
+# BiaPy - https://github.com/BiaPyX (large)
+
+[code/biapy/BiaPy]
+checkout = git clone git@github.com:BiaPyX/BiaPy
+
+[code/biapy/BiaPy-doc]
+checkout = git clone git@github.com:BiaPyX/BiaPy-doc
