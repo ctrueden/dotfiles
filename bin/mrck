@@ -1,6 +1,6 @@
 #!/usr/bin/perl
 
-# mr-check - Hacky script to check .mrconfig entries against git remotes.
+# mrck - Hacky script to check .mrconfig entries against git remotes.
 
 use strict;
 
@@ -11,7 +11,7 @@ my $home = $ENV{'HOME'};
 
 # harvest list of git repositories from mr config file
 my %repos = ();
-my @lines = `mr-remotes`;
+my @lines = `mrls`;
 for my $line (@lines) {
 	chomp $line;
 	my ($dir, $repo) = split(/\t/, $line, 2);

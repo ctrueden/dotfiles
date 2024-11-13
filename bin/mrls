@@ -1,6 +1,6 @@
 #!/usr/bin/perl
 
-# mr-remotes - Script to output VCS remotes listed in an mrconfig.
+# mrls - Script to output VCS remotes listed in an mrconfig.
 
 use strict;
 

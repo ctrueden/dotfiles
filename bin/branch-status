@@ -88,7 +88,7 @@ done
 
 if [ "$scan_myrepos" ]
 then
-	repos=$(mr-remotes)
+	repos=$(mrls)
 	for line in $repos
 	do (
 		entry=$(echo "$line" | cut -f2)

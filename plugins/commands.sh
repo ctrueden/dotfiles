@@ -1,9 +1,5 @@
 test "$DEBUG" && echo "[dotfiles] Loading plugin 'commands'..."
 
-# --== myrepos ==--
-
-alias mr='mr --stats'
-
 # --== xterm ==--
 
 alias xterm='xterm -geometry 80x60 -fg white -bg black'

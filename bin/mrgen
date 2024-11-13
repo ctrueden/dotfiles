@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# mr-gen - Hacky script to generate .mrconfig entries for git repositories.
+# mrgen - Hacky script to generate .mrconfig entries for git repositories.
 
 for f in $@
 do (
