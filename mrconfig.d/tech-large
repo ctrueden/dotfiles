@@ -1,0 +1,4 @@
+# Software project repositories broader than science (large)
+
+[code/tech/opencv]
+checkout = git clone git@github.com:opencv/opencv

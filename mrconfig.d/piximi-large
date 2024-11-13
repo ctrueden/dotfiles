@@ -1,0 +1,7 @@
+# piximi repositories (large)
+
+[code/science/piximi]
+checkout = git clone git@github.com:piximi/piximi
+
+[code/science/piximi-beta]
+checkout = git clone git@github.com:piximi/piximi-beta

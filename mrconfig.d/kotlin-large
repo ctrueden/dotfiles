@@ -1,0 +1,4 @@
+# Kotlin-related repositories (large)
+
+[code/kotlin/kotlin]
+checkout = git clone git@github.com:JetBrains/kotlin

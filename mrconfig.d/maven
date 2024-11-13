@@ -195,6 +195,9 @@ checkout = git clone git@github.com:mojohaus/mojohaus.github.io
 [code/maven/nexus-maven-plugins]
 checkout = git clone git@github.com:sonatype/nexus-maven-plugins
 
+[code/maven/plexus-compiler]
+checkout = git clone git@github.com:codehaus-plexus/plexus-compiler
+
 [code/maven/quickdeps]
 checkout = git clone git@github.com:ingenieux/quickdeps
 

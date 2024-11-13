@@ -1,7 +1,4 @@
 # Scientific software repositories larger than 1GB in size
 
-[code/science/piximi]
-checkout = git clone git@github.com:piximi/piximi
-
 [code/science/weka]
 checkout = git clone git@github.com:Waikato/weka-trunk weka

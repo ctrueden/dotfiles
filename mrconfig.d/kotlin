@@ -1,0 +1,4 @@
+# Kotlin-related repositories
+
+[code/kotlin/ktoml]
+checkout = git clone git@github.com:akuleshov7/ktoml

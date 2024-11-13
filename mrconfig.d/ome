@@ -3,6 +3,9 @@
 [code/ome/bioformats]
 checkout = git clone git@github.com:ome/bioformats
 
+[code/ome/ome-codecs]
+checkout = git clone git@github.com:ome/ome-codecs
+
 [code/ome/ome-common-java]
 checkout = git clone git@github.com:ome/ome-common-java
 

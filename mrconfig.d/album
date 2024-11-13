@@ -1,0 +1,2 @@
+[code/album/album-environments]
+checkout = git clone git@gitlab.com:album-app/album-environments

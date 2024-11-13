@@ -27,6 +27,9 @@ checkout = git clone git@github.com:InsightSoftwareConsortium/itk-js
 [code/kitware/itk-jupyter-widgets]
 checkout = git clone git@github.com:InsightSoftwareConsortium/itk-jupyter-widgets
 
+[code/kitware/itk-wasm]
+checkout = git clone git@github.com:InsightSoftwareConsortium/itk-wasm
+
 [code/kitware/itkwidgets]
 checkout = git clone git@github.com:InsightSoftwareConsortium/itkwidgets
 

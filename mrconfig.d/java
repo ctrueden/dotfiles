@@ -27,6 +27,9 @@ checkout = git clone git@github.com:vigna/fastutil
 [code/java/gentyref]
 checkout = git clone git@github.com:coekie/gentyref
 
+[code/java/install-jdk]
+checkout = git clone git@github.com:jyksnw/install-jdk
+
 [code/java/javassist]
 checkout = git clone git@github.com:jboss-javassist/javassist
 
@@ -44,6 +47,9 @@ checkout = git clone git@github.com:java-native-access/jna
 
 [code/java/jsweet-quickstart]
 checkout = git clone git@github.com:cincheo/jsweet-quickstart
+
+[code/java/jvm-index]
+checkout = git clone git@github.com:coursier/jvm-index
 
 [code/java/larray]
 checkout = git clone git@github.com:xerial/larray

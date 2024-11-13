@@ -1,0 +1,4 @@
+# Foundational libraries written in Java (large)
+
+[code/java/jdk]
+checkout = git clone https://github.com/openjdk/jdk
