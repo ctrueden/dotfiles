@@ -1,3 +1,5 @@
+# Projects focused on scientific data visualization
+
 [code/viz/gnuclad]
 checkout = git clone git@github.com:FabioLolix/gnuclad
 

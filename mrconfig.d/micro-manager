@@ -6,6 +6,12 @@ checkout = git clone git@github.com:micro-manager/micro-manager
 [code/micro-manager/micro-manager.github.io]
 checkout = git clone git@github.com:micro-manager/micro-manager.github.io
 
+[code/micro-manager/micromanager-gui]
+checkout = git clone git@github.com:fdrgsp/micromanager-gui
+
+[code/micro-manager/napari-micromanager]
+checkout = git clone git@github.com:pymmcore-plus/napari-micromanager
+
 [code/micro-manager/pycro-manager]
 checkout = git clone git@github.com:micro-manager/pycro-manager
 
@@ -17,6 +23,9 @@ checkout = git clone git@github.com:pymmcore-plus/pymmcore-gui
 
 [code/micro-manager/pymmcore-plus]
 checkout = git clone git@github.com:pymmcore-plus/pymmcore-plus
+
+[code/micro-manager/pymmcore-plus-sandbox]
+checkout = git clone git@github.com:gselzer/pymmcore-plus-sandbox
 
 [code/micro-manager/pymmcore-widgets]
 checkout = git clone git@github.com:pymmcore-plus/pymmcore-widgets

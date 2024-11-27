@@ -6,5 +6,8 @@ checkout = git clone git@github.com:pjreddie/darknet
 [code/ml/djl]
 checkout = git clone git@github.com:deepjavalibrary/djl
 
+[code/ml/generative-models]
+checkout = git clone git@github.com:Stability-AI/generative-models
+
 [code/ml/stable-diffusion]
 checkout = git clone git@github.com:CompVis/stable-diffusion

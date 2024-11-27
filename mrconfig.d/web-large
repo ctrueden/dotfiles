@@ -1,0 +1,4 @@
+# Web sites and resources (large)
+
+[code/web/openmoji]
+checkout = git clone git@github.com:hfg-gmuend/openmoji

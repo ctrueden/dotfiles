@@ -1,5 +1,8 @@
 # Projects focused on 3D visualization
 
+[code/3d/Slicer]
+checkout = git clone git@github.com:Slicer/Slicer
+
 [code/3d/bigvolumeviewer-core]
 checkout = git clone git@github.com:bigdataviewer/bigvolumeviewer-core
 
@@ -7,16 +10,19 @@ checkout = git clone git@github.com:bigdataviewer/bigvolumeviewer-core
 checkout = git clone git@github.com:imaging-tools/ivvv
 
 [code/3d/java3d-core]
-checkout = git clone git@github.com:scijava/java3d-core
+checkout = git clone git@github.com:philjord/java3d-core
 
 [code/3d/java3d-utils]
-checkout = git clone git@github.com:scijava/java3d-utils
+checkout = git clone git@github.com:philjord/java3d-utils
 
 [code/3d/jvrpn]
 checkout = git clone git@github.com:scenerygraphics/jvrpn
 
 [code/3d/jzy3d-api]
 checkout = git clone git@github.com:jzy3d/jzy3d-api
+
+[code/3d/lwjgl3-awt]
+checkout = git clone git@github.com:LWJGLX/lwjgl3-awt
 
 [code/3d/panama-gl]
 checkout = git clone git@gitlab.com:jzy3d/panama-gl
@@ -27,11 +33,14 @@ checkout = git clone git@github.com:scenerygraphics/scenery
 [code/3d/sciview]
 checkout = git clone git@github.com:scenerygraphics/sciview
 
+[code/3d/sciview-docs]
+checkout = git clone git@github.com:scenerygraphics/sciview-docs
+
 [code/3d/spirvcrossj]
 checkout = git clone git@github.com:scenerygraphics/spirvcrossj
 
 [code/3d/vecmath]
-checkout = git clone git@github.com:scijava/vecmath
+checkout = git clone git@github.com:philjord/vecmath
 
 [code/3d/visad]
 checkout = git clone git@github.com:scijava/visad

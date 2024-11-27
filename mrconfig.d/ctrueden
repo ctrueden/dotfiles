@@ -3,6 +3,9 @@
 [code/ctrueden/ctrueden]
 checkout = git clone git@github.com:ctrueden/ctrueden
 
+[code/ctrueden/db-xml-maven]
+checkout = git clone git@github.com:ctrueden/db-xml-maven
+
 [code/ctrueden/finite-state-machines]
 checkout = git clone git@github.com:ctrueden/finite-state-machines
 
@@ -14,6 +17,9 @@ checkout = git clone git@github.com:ctrueden/game-of-life
 
 [code/ctrueden/habitica-tools]
 checkout = git clone git@github.com:ctrueden/habitica-tools
+
+[code/ctrueden/headless-awt]
+checkout = git clone git@github.com:ctrueden/headless-awt
 
 [code/ctrueden/minecraft-python-extras]
 checkout = git clone git@github.com:ctrueden/minecraft-python-extras

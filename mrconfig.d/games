@@ -1,7 +1,13 @@
 # Game-related repositories
 
+[code/games/Ikemen-GO]
+checkout = git clone git@github.com:ikemen-engine/Ikemen-GO
+
 [code/games/Lipx]
 checkout = git clone git@github.com:kylon/Lipx
+
+[code/games/PlanarAlly]
+checkout = git clone git@github.com:Kruptein/PlanarAlly
 
 [code/games/RetroPie-Docs]
 checkout = git clone git@github.com:RetroPie/RetroPie-Docs
@@ -11,6 +17,12 @@ checkout = git clone git@github.com:archtaurus/RetroPieBIOS
 
 [code/games/TokenTool]
 checkout = git clone git@github.com:RPTools/TokenTool
+
+[code/games/cauldron]
+checkout = git clone git@gitlab.com:hsleisink/cauldron
+
+[code/games/dungeoneer]
+checkout = git clone git@github.com:durtur/dungeoneer
 
 [code/games/maptool]
 checkout = git clone git@github.com:RPTools/maptool
@@ -29,6 +41,9 @@ checkout = git clone git@github.com:PCGen/pcgen
 
 [code/games/retool]
 checkout = git clone git@github.com:unexpectedpanda/retool
+
+[code/games/rolisteam]
+checkout = git clone https://invent.kde.org/rolisteam/rolisteam
 
 [code/games/rommer]
 checkout = git clone git@github.com:ctrueden/rommer

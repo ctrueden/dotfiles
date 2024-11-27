@@ -110,6 +110,9 @@ checkout = git clone git@github.com:ij-plugins/ijp-DeBayer2SX
 [code/sj-stuff/ijp-imageio]
 checkout = git clone git@github.com:ij-plugins/ijp-imageio
 
+[code/sj-stuff/ijp-imagej-launcher]
+checkout = git clone git@github.com:ij-plugins/ijp-imagej-launcher
+
 [code/sj-stuff/ijp-javacv]
 checkout = git clone git@github.com:ij-plugins/ijp-javacv
 
@@ -203,6 +206,9 @@ checkout = git clone git@github.com:bene51/3Dscript
 
 [code/sj-stuff/BigTrace]
 checkout = git clone git@github.com:ekatrukha/BigTrace
+
+[code/sj-stuff/ComDet]
+checkout = git clone git@github.com:UU-cellbiology/ComDet
 
 [code/sj-stuff/DeformingMesh3D-plugin]
 checkout = git clone git@github.com:PaluchLabUCL/DeformingMesh3D-plugin

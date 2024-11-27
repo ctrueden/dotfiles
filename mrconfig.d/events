@@ -1,0 +1,4 @@
+# Repositories relating to scientific community events
+
+[code/events/i2kconference]
+checkout = git clone git@github.com:COBA-NIH/i2kconference

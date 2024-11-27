@@ -2,3 +2,9 @@
 
 [code/ml/InvokeAI]
 checkout = git clone git@github.com:invoke-ai/InvokeAI
+
+[code/ml/stablecode-completion-alpha-3b]
+checkout = git clone https://huggingface.co/stabilityai/stablecode-completion-alpha-3b
+
+[code/ml/stablecode-instruct-alpha-3b]
+checkout = git clone https://huggingface.co/stabilityai/stablecode-instruct-alpha-3b
