@@ -19,9 +19,6 @@ checkout = git clone git@github.com:amun-ai/hypha
 [code/imjoy/hypha-helm-charts]
 checkout = git clone git@github.com:amun-ai/hypha-helm-charts
 
-[code/imjoy/hypha-k8s]
-checkout = git clone git@github.com:amun-ai/hypha-k8s
-
 [code/imjoy/imagej-service]
 checkout = git clone git@github.com:imjoy-team/imagej-service
 
