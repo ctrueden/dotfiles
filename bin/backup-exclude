@@ -1,0 +1,46 @@
+#!/bin/sh
+
+# Ahh, Deja Dup. So friendly. So simple. TOO simple.
+
+listRules() {
+  # Get rules, and convert from one-big-string to one-per-line.
+  gsettings get org.gnome.DejaDup exclude-list |
+    sed -e 's/^\[//' -e 's/\]$//' -e 's/, /\n/g' |
+    sort -u
+}
+
+setRules() {
+  # Convert rules from one-per-line to one-big-string.
+  # Uses colon (:) as a transient marker character.
+  ruleString=$(
+    echo "$1" |
+      tr '\n' ':' |
+      sed -e 's/:/, /g' -e 's/, $//' -e 's/^/\[/' -e 's/$/\]/'
+  )
+  gsettings set org.gnome.DejaDup exclude-list "$ruleString"
+}
+
+addRule() {
+  rules=$(listRules)
+  newRules=$({ echo "$rules"; echo "'$1'"; } | sort -u)
+  if [ "$rules" = "$newRules" ]
+  then
+    echo "Warning: '$1' is already on the exclude-list."
+  else
+    setRules "$newRules"
+    echo "Added '$1' to the exclude-list."
+  fi
+}
+
+if [ $# -eq 0 ]
+then
+  # Print out the current exclude-list.
+  listRules
+else
+  # Add arguments as to the exclude-list.
+  while [ $# -gt 0 ]
+  do
+    addRule "$1"
+    shift
+  done
+fi
