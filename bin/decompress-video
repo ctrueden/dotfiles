@@ -1,0 +1,11 @@
+#!/bin/sh
+
+# decompress-video - Converts a video from any FFMPEG-supported
+# format to an uncompressed AVI, so that Fiji can open it.
+
+while [ $# -gt 0 ]
+do
+  v=$1
+  shift
+  ffmpeg -i "$v" -c:v rawvideo -pix_fmt yuv420p uncompressed-"${v%.*}".avi
+done
