@@ -27,6 +27,12 @@ echo "\${name%.*}        = '${name%.*}'"        # polish.ostrich.racing
 #echo "\${name:8:3}       = '${name:8:3}'"       #         str
 #echo "WARNING: THE ABOVE INDEX-BASED NOTATION IS PROBABLY NOT PORTABLE."
 
+# Concatenating paths with colon separator.
+# MYDIRS=
+# "aaa${MYDIRS:+:$MYDIRS}" = aaa
+# MYDIRS=bbb
+# "aaa${MYDIRS:+:$MYDIRS}" = aaa:bbb
+
 file='/usr/share/java-1.4.2-sun/demo/applets/Clock/Clock.class'
 echo
 echo "\$file             = '$file'"             # /usr/share/java-1.4.2-sun/demo/applets/Clock/Clock.class
