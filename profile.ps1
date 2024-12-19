@@ -1,3 +1,5 @@
+$env:CODEBASE = "$HOME\code"
+
 Set-Alias grep sls
 Set-Alias less more
 Set-Alias which gcm
@@ -14,6 +16,24 @@ function up8 { cd ..\..\..\..\..\..\..\.. }
 function up9 { cd ..\..\..\..\..\..\..\..\.. }
 
 function vi { cmd /c 'C:\Program Files\Git\usr\bin\vim.exe' $args }
+
+function z {
+    param(
+        [Parameter(Mandatory=$true)]
+        [string]$pattern
+    )
+
+    $matches = Get-ChildItem $env:CODEBASE -Directory |
+        Get-ChildItem -Directory |
+        Where-Object { $_.Name -like "*$pattern*" }
+
+    if ($matches.Count -eq 0) {
+        Write-Host "No matches found"
+        return 1
+    }
+
+    Set-Location $matches[0].FullName
+}
 
 # -- Git --
 
