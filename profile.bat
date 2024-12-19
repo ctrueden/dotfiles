@@ -11,10 +11,14 @@ rem #
 rem #   HKEY_CURRENT_USER\Software\Microsoft\Command Processor\AutoRun
 
 set DOTFILES=%~dp0%
+set CODEBASE=%HOMEDRIVE%%HOMEPATH%\code
 set PATH=%PATH%;%DOTFILES%\cmd
 
 doskey ls=dir $*
 doskey grep=find $*
+doskey cp=copy $*
+doskey rm=del $*
+doskey mv=move $*
 doskey less=more $*
 doskey cat=type $*
 doskey gocfg=cd %DOTFILES%
