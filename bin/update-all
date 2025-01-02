@@ -30,6 +30,13 @@ then
   pass git pull --rebase
 fi
 
+if [ -x "$(command -v fwupdmgr)" ]; then
+  echo
+  echo "--== Updating firmware ==--"
+  fwupdmgr get-updates
+  fwupdmgr update -y --no-reboot-check
+fi
+
 if [ -x "$(command -v apt-get)" ]; then
   echo
   echo "--== Updating apt packages ==--"
