@@ -1,68 +1,80 @@
 #!/bin/sh
 
-# using.sh - A script to remind me how to do stuff in sh.
+# using.sh - A script to remind me about shell scripting constructs.
 
-# In particular, I constantly forget how to use the asterisk (*)
-# and hash (#) in variable substitution for substrings.
-# THE LINE MUST BE DRAWN HERE. THIS FAR AND NO FURTHER.
-
-# Thanks to: http://mywiki.wooledge.org/BashFAQ/073
+# Thanks to: https://mywiki.wooledge.org/BashFAQ/073
 
 echo
-echo "-- String manipulation --"
+echo '-- Substrings --'
+
+# Note: The following tricks are part of the
+# POSIX shell parameter expansion specification.
 
 name='polish.ostrich.racing.champion'
 echo
-echo "\$name             = '$name'"             # polish.ostrich.racing.champion
-echo "\${#name}          = ${#name}"            # 30
-echo
-echo "\${name#*.}        = '${name#*.}'"        #        ostrich.racing.champion
-echo "\${name##*.}       = '${name##*.}'"       #                       champion
-echo "\${name%%.*}       = '${name%%.*}'"       # polish
-echo "\${name%.*}        = '${name%.*}'"        # polish.ostrich.racing
+echo '$name                        '"= '$name'"                      # polish.ostrich.racing.champion
+echo '${#name}                     '"= ${#name}"                     # 30
+echo '${name#*.}                   '"= '${name#*.}'"                 #        ostrich.racing.champion
+echo '${name##*.}                  '"= '${name##*.}'"                #                       champion
+echo '${name%%.*}                  '"= '${name%%.*}'"                # polish
+echo '${name%.*}                   '"= '${name%.*}'"                 # polish.ostrich.racing
+echo '$(expr substr "$name" 17 13) '"= $(expr substr "$name" 17 13)" #                 acing.champion
+echo '$(expr substr "$name" 1 5)   '"= $(expr substr "$name" 1 5)"   # polis
+echo '$(expr substr "$name" 9 3)   '"= $(expr substr "$name" 9 3)"   #         str
+# Note: The following index-based substring notation is not
+# POSIX-compliant. In particular, it does not work in dash.
 #echo
-#echo "\${name:16}        = '${name:16}'"        #                 acing.champion
-#echo "\${name: -7}       = '${name: -7}'"       #                        hampion
-#echo "\${name:0:5}       = '${name:0:5}'"       # polis
-#echo "\${name:8:3}       = '${name:8:3}'"       #         str
-#echo "WARNING: THE ABOVE INDEX-BASED NOTATION IS PROBABLY NOT PORTABLE."
-
-# Concatenating paths with colon separator.
-# MYDIRS=
-# "aaa${MYDIRS:+:$MYDIRS}" = aaa
-# MYDIRS=bbb
-# "aaa${MYDIRS:+:$MYDIRS}" = aaa:bbb
+#echo '${name:16}                   '"= '${name:16}'"                 #                 acing.champion
+#echo '${name: -7}                  '"= '${name: -7}'"                #                        hampion
+#echo '${name:0:5}                  '"= '${name:0:5}'"                # polis
+#echo '${name:8:3}                  '"= '${name:8:3}'"                #         str
 
 file='/usr/share/java-1.4.2-sun/demo/applets/Clock/Clock.class'
 echo
-echo "\$file             = '$file'"             # /usr/share/java-1.4.2-sun/demo/applets/Clock/Clock.class
-echo "\${file#*/}        = '${file#*/}'"        #  usr/share/java-1.4.2-sun/demo/applets/Clock/Clock.class
-echo "\${file##*/}       = '${file##*/}'"       #                                              Clock.class
-echo "\${file%%/*}       = '${file%%/*}'"       #
-echo "\${file%/*}        = '${file%/*}'"        # /usr/share/java-1.4.2-sun/demo/applets/Clock
+echo '$file             '"= '$file'"             # /usr/share/java-1.4.2-sun/demo/applets/Clock/Clock.class
+echo '${file#*/}        '"= '${file#*/}'"        #  usr/share/java-1.4.2-sun/demo/applets/Clock/Clock.class
+echo '${file##*/}       '"= '${file##*/}'"       #                                              Clock.class
+echo '${file%%/*}       '"= '${file%%/*}'"       #
+echo '${file%/*}        '"= '${file%/*}'"        # /usr/share/java-1.4.2-sun/demo/applets/Clock
 
 phrase='The quick brown fox is quicker than the dog.'
 echo
-echo "\$phrase           = '$phrase'"           # The quick brown fox is quicker than the dog.
-echo "\${phrase#*quick}  = '${phrase#*quick}'"  #           brown fox is quicker than the dog.
-echo "\${phrase%quick*}  = '${phrase%quick*}'"  # The quick brown fox is 
-echo "\${phrase##*quick} = '${phrase##*quick}'" #                             er than the dog.
-echo "\${phrase%%quick*} = '${phrase%%quick*}'" # The 
-
-#echo
-#echo "-- Indirection --"
-#
-#var='name'
-#echo
-#echo "\$var              = $var"                # name
-#echo "\${!var}           = ${!var}"             # polish.ostrich.racing.champion
-#echo "WARNING: APPARENTLY THIS SYNTAX IS NOT PORTABLE; zsh 5.4.2 (x86_64-ubuntu-linux-gpu) CANNOT HANDLE IT."
+echo '$phrase           '"= '$phrase'"           # The quick brown fox is quicker than the dog.
+echo '${phrase#*quick}  '"= '${phrase#*quick}'"  #           brown fox is quicker than the dog.
+echo '${phrase%quick*}  '"= '${phrase%quick*}'"  # The quick brown fox is 
+echo '${phrase##*quick} '"= '${phrase##*quick}'" #                             er than the dog.
+echo '${phrase%%quick*} '"= '${phrase%%quick*}'" # The 
 
 echo
-echo "-- Files with spaces --"
+echo '-- List element concatenation --'
+
+mylist='apple,banana'
+echo
+echo '$mylist                                       '"= '$mylist'"                                       # apple,banana
+echo 'orange,grape${mylist:+,$mylist}               '"= 'orange,grape${mylist:+,$mylist}'"               # orange,grape,apple,banana
+echo '${mylist:+$mylist,}peach,pear                 '"= '${mylist:+$mylist,}peach,pear'"                 # apple,banana,peach,pear
+echo 'starfruit${mylist:+,$mylist},grapefruit       '"= 'starfruit${mylist:+,$mylist},grapefruit'"       # starfruit,apple,banana,grapefruit
+emptylist=""
+echo '$emptylist                                    '"= '$emptylist'"                                    # <empty string>
+echo 'orange,grape${emptylist:+,$emptylist}         '"= 'orange,grape${emptylist:+,$emptylist}'"         # orange,grape,apple,banana
+echo '${emptylist:+$emptylist,}peach,pear           '"= '${emptylist:+$emptylist,}peach,pear'"           # apple,banana,peach,pear
+echo 'starfruit${emptylist:+,$emptylist},grapefruit '"= 'starfruit${emptylist:+,$emptylist},grapefruit'" # starfruit,grapefruit
 
 echo
-echo 'find . -name '*foo*' -print0 | while read -d $'\''\\0'\'' f'
+echo '-- Indirection --'
+
+var='name'
+echo
+echo '$var                      '"= $var"                      # name
+echo '$(eval "echo \"\$$var\"") '"= $(eval "echo \"\$$var\"")" # polish.ostrich.racing.champion
+echo
+echo '==> Avoid ${!var} syntax; it is a bashism and does not work in zsh. <=='
+
+echo
+echo '-- Files with spaces --'
+
+echo
+echo 'find . -name '\''*foo*'\'' -print0 | while read -d $'\''\\0'\'' f'
 echo 'do'
 echo '  ls -dl "$f"'
 echo 'done'
