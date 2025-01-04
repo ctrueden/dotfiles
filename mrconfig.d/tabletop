@@ -1,0 +1,22 @@
+# Repositories related to tabletop gaming e.g. D&D
+
+[code/tabletop/PlanarAlly]
+checkout = git clone git@github.com:Kruptein/PlanarAlly
+
+[code/tabletop/TokenTool]
+checkout = git clone git@github.com:RPTools/TokenTool
+
+[code/tabletop/cauldron]
+checkout = git clone git@gitlab.com:hsleisink/cauldron
+
+[code/tabletop/dungeoneer]
+checkout = git clone git@github.com:durtur/dungeoneer
+
+[code/tabletop/maptool]
+checkout = git clone git@github.com:RPTools/maptool
+
+[code/tabletop/pcgen]
+checkout = git clone git@github.com:PCGen/pcgen
+
+[code/tabletop/rolisteam]
+checkout = git clone https://invent.kde.org/rolisteam/rolisteam

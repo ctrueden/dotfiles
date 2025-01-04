@@ -1,0 +1,22 @@
+# Repositories related to retrogaming/emulation
+
+[code/retrogames/Lipx]
+checkout = git clone git@github.com:kylon/Lipx
+
+[code/retrogames/RetroPie-Docs]
+checkout = git clone git@github.com:RetroPie/RetroPie-Docs
+
+[code/retrogames/RetroPieBIOS]
+checkout = git clone git@github.com:archtaurus/RetroPieBIOS
+
+[code/retrogames/maxcso]
+checkout = git clone git@github.com:unknownbrackets/maxcso
+
+[code/retrogames/opengood]
+checkout = git clone git@github.com:SnowflakePowered/opengood
+
+[code/retrogames/retool]
+checkout = git clone git@github.com:unexpectedpanda/retool
+
+[code/retrogames/rommer]
+checkout = git clone git@github.com:ctrueden/rommer
