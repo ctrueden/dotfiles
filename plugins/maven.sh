@@ -42,3 +42,22 @@ DOC
 	goal=${1#*:}
 	mvn help:describe -Dplugin="$plugin" -Dgoal="$goal" -Ddetail
 }
+
+mvnget() {
+	while [ $# -gt 0 ]
+	do
+		gav=$1
+		shift
+		# Note: We cannot use dependency:copy because it
+		# does not support the -DremoteRepositories option.
+		mvn dependency:get \
+			-Dartifact="$gav" \
+			-DremoteRepositories=https://maven.scijava.org/content/groups/public
+		g=${gav%%:*}
+		g=${g//./\/}
+		av=${gav#*:}
+		p=${av//:/\/}
+		n=${av//:/-}.jar
+		cp ~/.m2/repository/"$g"/"$p"/"$n" .
+	done
+}
