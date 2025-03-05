@@ -2,11 +2,15 @@
 
 sudo -v
 
+exit_code=0
+
 if [ -d "$DOTFILES" ]
 then
   echo
   echo "--== Updating dotfiles ==--"
   (cd "$DOTFILES" && git pull --rebase)
+  code=$?; test $code -lt $exit_code || exit_code=$code
+  test $code -eq 0 || echo "=> returned $code"
 fi
 
 if command -v zpm >/dev/null
@@ -14,6 +18,8 @@ then
   echo
   echo "--== Updating zsh plugins ==--"
   zpm up
+  code=$?; test $code -lt $exit_code || exit_code=$code
+  test $code -eq 0 || echo "=> returned $code"
 fi
 
 if [ -d "$CODE_SCIJAVA/scijava-scripts" ]
@@ -21,6 +27,8 @@ then
   echo
   echo "--== Updating SciJava scripts ==--"
   (cd "$CODE_SCIJAVA/scijava-scripts" && git pull --rebase)
+  code=$?; test $code -lt $exit_code || exit_code=$code
+  test $code -eq 0 || echo "=> returned $code"
 fi
 
 if [ -d "$HOME/.password-store" -a -x "$(command -v pass)" ]
@@ -28,13 +36,19 @@ then
   echo
   echo "--== Updating password store ==--"
   pass git pull --rebase
+  code=$?; test $code -lt $exit_code || exit_code=$code
+  test $code -eq 0 || echo "=> returned $code"
 fi
 
 if [ -x "$(command -v fwupdmgr)" ]; then
   echo
   echo "--== Updating firmware ==--"
   fwupdmgr get-updates
+  code=$? #; test $code -lt $exit_code || exit_code=$code
+  test $code -eq 0 || echo "=> returned $code"
   fwupdmgr update -y --no-reboot-check
+  code=$? #; test $code -lt $exit_code || exit_code=$code
+  test $code -eq 0 || echo "=> returned $code"
 fi
 
 if [ -x "$(command -v apt-get)" ]; then
@@ -42,12 +56,16 @@ if [ -x "$(command -v apt-get)" ]; then
   echo "--== Updating apt packages ==--"
   sudo apt-get update
   sudo apt-get dist-upgrade -y
+  code=$?; test $code -lt $exit_code || exit_code=$code
+  test $code -eq 0 || echo "=> returned $code"
 fi
 
 if [ -x "$(command -v flatpak)" ]; then
   echo
   echo "--== Updating Flatpak packages ==--"
   sudo flatpak update --noninteractive
+  code=$?; test $code -lt $exit_code || exit_code=$code
+  test $code -eq 0 || echo "=> returned $code"
 fi
 
 if [ -x "$(command -v snap)" ]
@@ -56,6 +74,8 @@ then
   echo "--== Updating Snap packages ==--"
   sudo killall snap-store
   sudo snap refresh
+  code=$?; test $code -lt $exit_code || exit_code=$code
+  test $code -eq 0 || echo "=> returned $code"
 fi
 
 if [ -d "$BREW" -a -x "$(command -v brew)" ]; then
@@ -63,7 +83,11 @@ if [ -d "$BREW" -a -x "$(command -v brew)" ]; then
   echo "--== Updating Homebrew packages ==--"
   brew update
   brew upgrade
+  code=$?; test $code -lt $exit_code || exit_code=$code
+  test $code -eq 0 || echo "=> returned $code"
 fi
 
 echo
 echo "--== Done ==--"
+
+exit $exit_code
