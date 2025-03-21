@@ -1,0 +1,9 @@
+#!/usr/bin/env python3
+# Toggles Caps Lock off, programmatically.
+# Credit: https://askubuntu.com/a/80301
+from ctypes import *
+X11 = cdll.LoadLibrary("libX11.so.6")
+X11.XOpenDisplay.restype = POINTER(c_ubyte)
+display = X11.XOpenDisplay(None)
+X11.XkbLockModifiers(display, c_uint(0x0100), c_uint(2), c_uint(0))
+X11.XCloseDisplay(display)
