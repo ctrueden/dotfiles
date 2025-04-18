@@ -41,22 +41,11 @@ List the available Java installations, for both the user and system-wide.
 Installations are discovered beneath ~/Java/<platform> as well as
 via the macOS java_home and Linux update-java-alternatives commands.
 DOC
-  # Java installations in ~/Java/<platform>.
-  local dir=
-  case "$(arch 2>/dev/null)-$(uname -s 2>/dev/null)" in
-    i386-Darwin)                  dir=macos-x64 ;;
-    aarch64-Darwin)               dir=macos-aarch64 ;;
-    *86*64-CYGWIN*|amd64-CYGWIN*) dir=windows-x64 ;;
-    *86*64-MINGW*|amd64-MINGW*)   dir=windows-x64 ;;
-    *86-CYGWIN*|*86-MINGW*)       dir=windows-x86 ;;
-    *86*64-Linux|amd64-Linux)     dir=linux-x64 ;;
-    *86-Linux)                    dir=linux-x86 ;;
-    *)                            ;; # unsupported platform
-  esac
+  # Java installations in ~/Java.
   local javas=
-  if [ "$dir" -a -d "$HOME/Java/$dir" ]
+  if [ -d "$HOME/Java" ]
   then
-    javas=$(find "$HOME/Java/$dir" -mindepth 1 -maxdepth 1 -type d 2>/dev/null | while read d
+    javas=$(find "$HOME/Java" -mindepth 1 -maxdepth 1 -type d 2>/dev/null | while read d
     do
       if [ -x "$d/bin/java" -o -x "$d/bin/java.exe" ]
       then
