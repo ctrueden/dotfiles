@@ -15,6 +15,9 @@ checkout = git clone git@github.com:philjord/java3d-core
 [code/3d/java3d-utils]
 checkout = git clone git@github.com:philjord/java3d-utils
 
+[code/3d/jogl]
+checkout = git clone git@github.com:sgothel/jogl
+
 [code/3d/jvrpn]
 checkout = git clone git@github.com:scenerygraphics/jvrpn
 

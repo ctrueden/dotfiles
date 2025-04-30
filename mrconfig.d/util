@@ -9,5 +9,8 @@ checkout = git clone git@github.com:atextor/icat
 [code/util/imgcat]
 checkout = git clone --recursive git@github.com:eddieantonio/imgcat
 
+[code/util/stderred]
+checkout = git clone git@github.com:ku1ik/stderred
+
 [code/util/youtube-dl]
 checkout = git clone git@github.com:ytdl-org/youtube-dl
