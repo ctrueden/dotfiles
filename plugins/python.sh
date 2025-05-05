@@ -13,7 +13,7 @@ fi
 
 if [ -x "$(command -v uv)" ]; then
   # Enable uv shell completion.
-  eval "$(uv generate-shell-completion zsh)"
+  eval "$(uv generate-shell-completion $(shell_name))"
 
   # Add uv convenience shorthands.
   alias uvi='uv tool install'
