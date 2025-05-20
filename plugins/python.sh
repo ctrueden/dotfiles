@@ -7,7 +7,7 @@ pypath() { python -c 'import sys; print("\n".join(sys.path))'; }
 if [ ! -x "$(command -v uv)" ]; then
   # Install uv via pip if possible.
   if [ -x "$(command -v pip)" ]; then
-    pip install --user uv
+    pip install --break-system-packages --user uv
   fi
 fi
 
