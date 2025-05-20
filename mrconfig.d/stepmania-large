@@ -1,4 +1,7 @@
 # StepMania-related repositories (large)
 
+[code/stepmania/itgmania]
+checkout = git clone git@github.com:itgmania/itgmania
+
 [code/stepmania/stepmania]
 checkout = git clone git@github.com:stepmania/stepmania
