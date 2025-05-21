@@ -2,18 +2,36 @@ test "$DEBUG" && echo "[dotfiles] Loading plugin 'python'..."
 
 pypath() { python -c 'import sys; print("\n".join(sys.path))'; }
 
+# --== pip ==--
+
+pip=$(command -v pip)
+if [ -x "$pip" ]; then
+  export PIP="$pip"
+else
+  # Some pip installations will probably not be on the path yet,
+  # so we'll look for them explicitly here to improve our chances.
+  for pip in "$MAMBA_DIR/bin/pip"; do
+    if [ -x "$(command -v "$pip")" ]; then
+      export PIP="$pip"
+      break
+    fi
+  done
+fi
+
 # --== uv ==--
 
-if [ ! -x "$(command -v uv)" ]; then
+# Note: ~/.local/bin is not yet on the PATH; see zzz_path.sh.
+UV="$HOME/.local/bin/uv"
+if [ ! -x "$UV" ]; then
   # Install uv via pip if possible.
-  if [ -x "$(command -v pip)" ]; then
-    pip install --break-system-packages --user uv
+  if [ -x "$PIP" ]; then
+    "$PIP" install --break-system-packages --user uv
   fi
 fi
 
-if [ -x "$(command -v uv)" ]; then
+if [ -x "$UV" ]; then
   # Enable uv shell completion.
-  eval "$(uv generate-shell-completion $(shell_name))"
+  eval "$("$UV" generate-shell-completion $(shell_name))"
 
   # Add uv convenience shorthands.
   alias uvi='uv tool install'
