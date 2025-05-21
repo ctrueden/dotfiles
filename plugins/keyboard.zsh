@@ -1,4 +1,4 @@
-test "$DEBUG" && echo "[dotfiles] Loading zsh plugin 'keyboard-fixes'..."
+test "$DEBUG" && echo "[dotfiles] Loading zsh plugin 'keyboard'..."
 
 # --== zsh keyboard fixes ==--
 
