@@ -48,10 +48,10 @@ tool's source is linked from a local working copy, not downloaded or copied.
 Intended as an approximate replacement for `pip install -e . --user`,
 although the hotlinked tool is installed into its own isolated environment.
 DOC
-    test -e pyproject.toml || { >&2 echo '[ERROR] No pyproject.toml.'; exit 1; }
+    test -e pyproject.toml || { >&2 echo '[ERROR] No pyproject.toml.'; return 1; }
     proj=$(grep '^[ \t]*name[ \t]*=' pyproject.toml |
       sed "s/name[ \t]*=[ \t]*[\"']\([^\"']*\).*/\1/")
-    test "$proj" || { >&2 echo '[ERROR] Cannot discern project name.'; exit 2; }
+    test "$proj" || { >&2 echo '[ERROR] Cannot discern project name.'; return 2; }
     uv tool install --reinstall-package "$proj" --with-editable . "$proj"
   }
 fi
