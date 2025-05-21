@@ -6,25 +6,28 @@ shell_name() {
   echo "${shell#-}"
 }
 
+# Path interrogation and manipulation functions.
 spath() { echo "$1" | sed -e 's/:/\n/g'; }
 path() { spath "$PATH"; }
+path_filter() {
+  filtered=$(
+    echo "$@" | tr ':' '\n' | while read p; do
+      test ! -d "$p" ||    # Does the directory exist?
+      echo "$p"            # Include it!
+    done |
+      awk '!seen[$0]++' |  # Remove duplicate entries
+      tr '\n' ':'          # Join lines with colon separator
+  )
+  echo "${filtered%:}"     # Remove trailing colon
+}
 path_prepend() {
-  test -d "$1" || return
-  path | grep -Fxq "$1" && return
-  test "$PATH_PREPEND" &&
-    export PATH_PREPEND="$1:$PATH_PREPEND" ||
-    export PATH_PREPEND="$1"
+  export PATH_PREPEND="$1:$PATH_PREPEND"
 }
 path_append() {
-  test -d "$1" || return
-  path | grep -Fxq "$1" && return
-  test "$PATH_APPEND" &&
-    export PATH_APPEND="$PATH_APPEND:$1" ||
-    export PATH_APPEND="$1"
+  export PATH_APPEND="$PATH_APPEND:$1"
 }
 path_update() {
-  test "$PATH_PREPEND" && export PATH="$PATH_PREPEND:$PATH"
+  export PATH=$(path_filter "$PATH_PREPEND:$PATH:$PATH_APPEND")
   unset PATH_PREPEND
-  test "$PATH_APPEND" && export PATH="$PATH:$PATH_APPEND"
   unset PATH_APPEND
 }
