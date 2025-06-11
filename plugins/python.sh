@@ -5,6 +5,7 @@ pypath() { python -c 'import sys; print("\n".join(sys.path))'; }
 # --== pip ==--
 
 pip=$(command -v pip)
+test -x "$pip" || pip=$(command -v pip3)
 if [ -x "$pip" ]; then
   export PIP="$pip"
 else
@@ -21,10 +22,15 @@ fi
 # --== uv ==--
 
 # Note: ~/.local/bin is not yet on the PATH; see zzz_path.sh.
-UV="$HOME/.local/bin/uv"
+case "$(uname)" in
+  Darwin) UV=$(printf "$HOME"/Library/Python/*/bin/uv) 2>/dev/null ;;
+  Linux) UV="$HOME"/.local/bin/uv ;;
+  *) UV= ;;
+esac
 if [ ! -x "$UV" ]; then
   # Install uv via pip if possible.
   if [ -x "$PIP" ]; then
+    "$PIP" install --user uv ||
     "$PIP" install --break-system-packages --user uv
   fi
 fi
