@@ -47,23 +47,20 @@ link_file() {
 echo
 echo "--> Linking up your dotfiles..."
 
-# ~/.bashrc
-# NB: We use a stub for .bashrc to maintain support for systems that
-# do not support proper symlinks -- especially MSysGit on Windows.
-BASHRC_STUB="$CONFIG_DIR/bashrc.stub"
-echo "export DOTFILES=\"$CONFIG_DIR\"" > "$BASHRC_STUB"
-echo '. "$DOTFILES/bashrc"' >> "$BASHRC_STUB"
-install_file "$BASHRC_STUB" .bashrc
-rm -f "$BASHRC_STUB"
+# NB: We use stub files for some shell config files, to maintain support for
+# systems that do not support proper symlinks -- especially MSysGit on Windows.
+# It also enables command-line tools such as conda to mess with these
+# files as they desire without dirtying the dotfiles working copy.
 
-# ~/.zshrc
-# NB: We use a stub for .zshrc to maintain support for systems that
-# do not support proper symlinks -- especially MSysGit on Windows.
-ZSHRC_STUB="$CONFIG_DIR/zshrc.stub"
-echo "export DOTFILES=\"$CONFIG_DIR\"" > "$ZSHRC_STUB"
-echo 'source "$DOTFILES/zshrc"' >> "$ZSHRC_STUB"
-install_file "$ZSHRC_STUB" .zshrc
-rm -f "$ZSHRC_STUB"
+# ~/.bashrc
+for cfgFile in bashrc bash_profile zshrc
+do
+  tmpFile="$CONFIG_DIR/$cfgFile.stub"
+  echo "export DOTFILES=\"$CONFIG_DIR\"" > "$tmpFile"
+  echo ". \"\$DOTFILES/$cfgFile\"" >> "$tmpFile"
+  install_file "$tmpFile" ".$stub"
+  rm -f "$tmpFile"
+done
 
 # ~/.gitconfig
 # NB: We use a stub for .gitconfig so that it can be extended with a
