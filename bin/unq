@@ -1,0 +1,5 @@
+#!/bin/sh
+
+# A macOS-specific script to unquarantine downloaded files.
+
+xattr -r -d com.apple.quarantine "$@"
