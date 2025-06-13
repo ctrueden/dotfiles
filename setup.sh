@@ -90,9 +90,6 @@ then
   done
 fi
 
-# ~/.bash_profile
-link_file "$CONFIG_DIR/bash_profile" .bash_profile
-
 # ~/.jgorc
 link_file "$CONFIG_DIR/jgorc" .jgorc
 
