@@ -4,5 +4,5 @@ $dotfiles = Split-Path $MyInvocation.MyCommand.Path -Parent
 $profileDir = "$HOME\Documents\WindowsPowerShell"
 mkdir $profileDir -ErrorAction SilentlyContinue
 $userProfile = "$profileDir\profile.ps1"
-echo "`$env:DOTFILES = $dotfiles" > $userProfile
+echo "`$env:DOTFILES = \"$dotfiles\"" > $userProfile
 echo ". `$env:DOTFILES\profile.ps1" >> $userProfile
