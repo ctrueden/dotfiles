@@ -39,7 +39,13 @@ link_file() {
   src="$1"
   dest="$2"
   clear_file "$dest"
-  (set -x; ln -s "$src" "$dest")
+  case "$(uname)" in
+    # Note: We cannot use `ln -s` nor `mklink` due to Windows
+		# restricting creation of symbolic links by default.
+		# And we can only hard link a file that actually exists.
+    MINGW*) test ! -f "$src" || (set -x; ln "$src" "$dest") ;;
+    *) (set -x; ln -sf "$src" "$dest") ;;
+  esac
 }
 
 # -- Main --
