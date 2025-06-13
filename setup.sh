@@ -64,7 +64,7 @@ do
   tmpFile="$CONFIG_DIR/$cfgFile.stub"
   echo "export DOTFILES=\"$CONFIG_DIR\"" > "$tmpFile"
   echo ". \"\$DOTFILES/$cfgFile\"" >> "$tmpFile"
-  install_file "$tmpFile" ".$stub"
+  install_file "$tmpFile" ".$cfgFile"
   rm -f "$tmpFile"
 done
 
