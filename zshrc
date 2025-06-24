@@ -1,6 +1,7 @@
 test "$DEBUG" && echo "[zshrc] Initializing..."
 
 # HACK: Make IntelliJ shut up about shell initialization.
+# https://youtrack.jetbrains.com/articles/SUPPORT-A-1727/Shell-Environment-Loading
 test -z "$INTELLIJ_ENVIRONMENT_READER" || return
 
 # --== zpm ==--
