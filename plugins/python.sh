@@ -51,6 +51,7 @@ if [ -x "$UV" ]; then
 
   # Add uv convenience shorthands.
   alias uvp='uv run python'
+  alias uvr='uv run'
   alias uvi='uv tool install'
   alias uvu='uv tool uninstall'
   alias uvl='uv tool list'
