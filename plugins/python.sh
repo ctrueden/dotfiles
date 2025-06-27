@@ -40,6 +40,7 @@ if [ -x "$UV" ]; then
   eval "$("$UV" generate-shell-completion $(shell_name))"
 
   # Add uv convenience shorthands.
+  alias uvp='uv run python'
   alias uvi='uv tool install'
   alias uvu='uv tool uninstall'
   alias uvl='uv tool list'
