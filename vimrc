@@ -26,7 +26,6 @@ if filereadable(vundlepath . '/README.md')
 	"autocmd VimEnter,Colorscheme * :hi IndentGuidesOdd guibg=red ctermbg=darkgray
 	"autocmd VimEnter,Colorscheme * :hi IndentGuidesEven guibg=green ctermbg=darkblue
 
-	Plugin 'taglist.vim'
 	Plugin 'bkad/CamelCaseMotion'
 	Plugin 'bradford-smith94/quick-scope'
 	Plugin 'chikamichi/mediawiki.vim'
@@ -65,6 +64,10 @@ if filereadable(vundlepath . '/README.md')
 	Plugin 'udalov/kotlin-vim'
 	Plugin 'vim-airline/vim-airline'
 	Plugin 'vim-scripts/argtextobj.vim'
+
+	" taglist is cool. But it messes up the display on my macOS system
+	" with Homebrew Vim 9.1 when enabled in conjunction with vim-airline.
+	"Plugin 'yegappan/taglist'
 
 	call vundle#end()            " required
 endif
