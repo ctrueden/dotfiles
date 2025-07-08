@@ -28,7 +28,6 @@ if filereadable(vundlepath . '/README.md')
 
 	Plugin 'taglist.vim'
 	Plugin 'bkad/CamelCaseMotion'
-	Plugin 'bling/vim-airline'
 	Plugin 'bradford-smith94/quick-scope'
 	Plugin 'chikamichi/mediawiki.vim'
 	Plugin 'dhruvasagar/vim-table-mode'
@@ -64,6 +63,7 @@ if filereadable(vundlepath . '/README.md')
 	vmap gx <Plug>(openbrowser-smart-search)
 
 	Plugin 'udalov/kotlin-vim'
+	Plugin 'vim-airline/vim-airline'
 	Plugin 'vim-scripts/argtextobj.vim'
 
 	call vundle#end()            " required
