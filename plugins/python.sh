@@ -1,6 +1,15 @@
 test "$DEBUG" && echo "[dotfiles] Loading plugin 'python'..."
 
-pypath() { python -c 'import sys; print("\n".join(sys.path))'; }
+py() {
+  if command -v python >/dev/null 2>&1; then
+    python "$@"
+  elif command -v python3 >/dev/null 2>&1; then
+    python3 "$@"
+  else
+    >&2 echo "[ERROR] No python binary found on the path."
+  fi
+}
+pypath() { py -c 'import sys; print("\n".join(sys.path))'; }
 
 # --== pip ==--
 
