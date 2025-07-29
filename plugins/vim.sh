@@ -24,7 +24,10 @@ test -z "$EDITOR" || export VISUAL="$EDITOR"
 vif() { vi $(wi "$@"); }
 
 # grep for a particular string and open all matching files in vim
-vig() { vi $(grep -l $@); }
+vgrp() { grpl -z $@ | xargs -0o vi; }
+
+# ripgrep for a particular string and open all matching files in vim
+vrg() { rg -l0 $@ | xargs -0o vi; }
 
 # format the clipboard as an email quote
 alias viq="vi \
