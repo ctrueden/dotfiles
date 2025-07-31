@@ -1,5 +1,8 @@
 # Appose - https://apposed.org/
 
+[code/appose/Appose.jl]
+checkout = git clone git@github.com:apposed/Appose.jl
+
 [code/appose/appose]
 checkout = git clone git@github.com:apposed/appose
 

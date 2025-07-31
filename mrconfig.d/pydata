@@ -3,6 +3,9 @@
 [code/pydata/app-model]
 checkout = git clone git@github.com:pyapp-kit/app-model
 
+[code/pydata/bffile]
+checkout = git clone git@github.com:tlambert03/bffile
+
 [code/pydata/cmap]
 checkout = git clone git@github.com:tlambert03/cmap
 
