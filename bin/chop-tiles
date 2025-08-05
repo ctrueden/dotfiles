@@ -1,0 +1,22 @@
+#!/bin/sh
+
+# Chops an image into tiles of the given size.
+
+case "$1" in
+  *x*) tw=${1%%x*}; th=${1#*x} ;;
+  *)   tw=$1;       th=$1      ;;
+esac
+test "$#" -eq 0 || shift
+
+test "$tw" -gt 0 -a "$th" -gt 0 2>/dev/null || {
+  echo "Please specify tile size in pixels as first argument."
+  exit 1
+}
+
+while [ $# -gt 0 ]; do
+  f=$1
+  shift
+  n=${f%.*}
+  ext=${f##*.}
+  convert "$f" -crop "$tw"x"$th" +repage "$n-tile%d.$ext"
+done
