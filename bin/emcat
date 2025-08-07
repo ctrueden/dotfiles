@@ -1,0 +1,38 @@
+#!/usr/bin/env python3
+
+"""
+Decode base64-encoded EML files.
+"""
+
+import base64
+import email
+import sys
+
+
+def print_base64(filepath):
+    with open(filepath) as file:
+        base64_content = file.read().strip()
+
+    decoded_bytes = base64.b64decode(base64_content)
+    decoded_text = decoded_bytes.decode('utf-8')
+
+    print(decoded_text)
+
+
+def print_eml(filepath):
+    with open(filepath) as file:
+        msg = email.message_from_file(file)
+
+    for part in msg.walk():
+        if part.get_content_type() == "text/html":
+            payload = part.get_payload(decode=True)
+            if payload:
+                decoded_text = payload.decode('utf-8')
+                print(decoded_text)
+
+
+for arg in sys.argv[1:]:
+    if arg.endswith('.eml'):
+        print_eml(arg)
+    else:
+        print_base64(arg)
