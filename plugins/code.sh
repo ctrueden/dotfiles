@@ -18,7 +18,7 @@ path_prepend "$CODE_SCRIPTS"
 # second brain
 export CODE_BRAIN="$CODE_PERSONAL/brain"
 alias gob='cd $CODE_BRAIN'
-alias gobx='cd $CODE_BRAIN/notes/external'
+alias gobx='cd $CODE_BRAIN/assets/external'
 
 # public projects
 alias gomq='cd $CODE_PERSONAL/monoqueue'
