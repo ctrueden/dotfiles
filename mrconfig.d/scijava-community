@@ -2,41 +2,41 @@
 
 # BIOP
 
-[code/sj-stuff/ijp-frc]
-checkout = git clone git@github.com:BIOP/ijp-frc
-
-[code/sj-stuff/ijl-utilities-wrappers]
-checkout = git clone git@github.com:BIOP/ijl-utilities-wrappers
-
-[code/sj-stuff/pyimagej-scijava-command]
-checkout = git clone git@github.com:BIOP/pyimagej-scijava-command
-
-[code/sj-stuff/bigdataviewer-bioformats]
-checkout = git clone git@github.com:BIOP/bigdataviewer-bioformats
-
-[code/sj-stuff/bigdataviewer-playground-display]
-checkout = git clone git@github.com:BIOP/bigdataviewer-playground-display
-
-[code/sj-stuff/ijp-imagetoatlas]
-checkout = git clone git@github.com:BIOP/ijp-imagetoatlas
+[code/sj-stuff/EasyXT-FIJI]
+checkout = git clone git@github.com:BIOP/EasyXT-FIJI
 
 [code/sj-stuff/bigdataviewer-biop-tools]
 checkout = git clone git@github.com:BIOP/bigdataviewer-biop-tools
 
-[code/sj-stuff/ijp-kheops]
-checkout = git clone git@github.com:BIOP/ijp-kheops
+[code/sj-stuff/bigdataviewer-image-loaders]
+checkout = git clone git@github.com:BIOP/bigdataviewer-image-loaders
 
-[code/sj-stuff/bigdataviewer-spimdata-extras]
-checkout = git clone git@github.com:BIOP/bigdataviewer-spimdata-extras
+[code/sj-stuff/bigdataviewer-playground-display]
+checkout = git clone git@github.com:BIOP/bigdataviewer-playground-display
 
 [code/sj-stuff/bigdataviewer-selector]
 checkout = git clone git@github.com:BIOP/bigdataviewer-selector
 
+[code/sj-stuff/bigdataviewer-spimdata-extras]
+checkout = git clone git@github.com:BIOP/bigdataviewer-spimdata-extras
+
+[code/sj-stuff/ijl-utilities-wrappers]
+checkout = git clone git@github.com:BIOP/ijl-utilities-wrappers
+
+[code/sj-stuff/ijp-frc]
+checkout = git clone git@github.com:BIOP/ijp-frc
+
+[code/sj-stuff/ijp-imagetoatlas]
+checkout = git clone git@github.com:BIOP/ijp-imagetoatlas
+
+[code/sj-stuff/ijp-kheops]
+checkout = git clone git@github.com:BIOP/ijp-kheops
+
 [code/sj-stuff/ijp-operetta-importer]
 checkout = git clone git@github.com:BIOP/ijp-operetta-importer
 
-[code/sj-stuff/EasyXT-FIJI]
-checkout = git clone git@github.com:BIOP/EasyXT-FIJI
+[code/sj-stuff/pyimagej-scijava-command]
+checkout = git clone git@github.com:BIOP/pyimagej-scijava-command
 
 # HenriquesLab
 
