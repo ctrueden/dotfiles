@@ -159,6 +159,14 @@ checkout = git clone git@github.com:juglab/labkit-ui
 [code/sj-stuff/metaseg]
 checkout = git clone git@github.com:juglab/metaseg
 
+# mitobo
+
+[code/sj-stuff/mitobo]
+checkout = git clone git@github.com:mitobo-hub/mitobo
+
+[code/sj-stuff/mitobo-plugins]
+checkout = git clone git@github.com:mitobo-hub/mitobo-plugins
+
 # mobie
 
 [code/sj-stuff/mobie-io]
@@ -210,6 +218,9 @@ checkout = git clone git@github.com:ekatrukha/BigTrace
 [code/sj-stuff/ComDet]
 checkout = git clone git@github.com:UU-cellbiology/ComDet
 
+[code/sj-stuff/DM3D]
+checkout = git clone git@github.com:Living-Technologies/DM3D
+
 [code/sj-stuff/DeformingMesh3D-plugin]
 checkout = git clone git@github.com:PaluchLabUCL/DeformingMesh3D-plugin
 
@@ -243,6 +254,9 @@ checkout = git clone git@github.com:nstifani/KinemaJ
 [code/sj-stuff/LimeSeg]
 checkout = git clone git@github.com:NicoKiaru/LimeSeg
 
+[code/sj-stuff/LookingGlass]
+checkout = git clone git@github.com:bene51/LookingGlass
+
 [code/sj-stuff/MTrack]
 checkout = git clone git@github.com:Kapoorlabs-paris/MTrack
 
@@ -267,6 +281,12 @@ checkout = git clone git@github.com:biocompibens/SME
 [code/sj-stuff/SNT]
 checkout = git clone git@github.com:morphonets/SNT
 
+[code/sj-stuff/SPTAnalysis]
+checkout = git clone git@github.com:holcman-lab/SPTAnalysis
+
+[code/sj-stuff/SteerableWaveletKitt]
+checkout = git clone git@github.com:mkitti/SteerableWaveletKitt
+
 [code/sj-stuff/Unet-Segmentation]
 checkout = git clone git@github.com:lmb-freiburg/Unet-Segmentation
 
@@ -275,6 +295,9 @@ checkout = git clone git@bitbucket.org:anduril-dev/anima.git
 
 [code/sj-stuff/antibiogramj]
 checkout = git clone git://git.code.sf.net/p/antibiogramj/code antibiogramj
+
+[code/sj-stuff/bioimage-informatics-BIO410-project]
+checkout = git clone git@github.com:C-Achard/bioimage-informatics-BIO410-project
 
 [code/sj-stuff/colocalization-influences]
 checkout = git clone git@github.com:bic-kn/colocalization-influences
@@ -290,6 +313,9 @@ checkout = git clone git@github.com:funimagej/fun.imagej
 
 [code/sj-stuff/funimage.figure]
 checkout = git clone git@github.com:kephale/funimage.figure
+
+[code/sj-stuff/geff]
+checkout = git clone git@github.com:live-image-tracking-tools/geff
 
 [code/sj-stuff/ij-ridgedetection]
 checkout = git clone git@github.com:thorstenwagner/ij-ridgedetection
