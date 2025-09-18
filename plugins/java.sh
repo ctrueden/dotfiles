@@ -71,6 +71,14 @@ $(/usr/libexec/java_home -V 2>&1 | grep jdk | sed 's/.* //')"
 $(/usr/sbin/update-java-alternatives -l | sed 's/.* //')"
   fi
 
+  # Java installations from Homebrew.
+  for d in /opt/homebrew/Cellar/openjdk /usr/local/Cellar/openjdk
+  do
+    test -d "$d" || continue
+    javas="$javas
+$(find "$d" -mindepth 1 -maxdepth 1 -type d)"
+  done
+
   # Return union of results
   if [ $# -gt 0 ]
   then
