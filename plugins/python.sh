@@ -65,6 +65,27 @@ if [ -x "$UV" ]; then
   alias uvi='uv tool install'
   alias uvu='uv tool uninstall'
   alias uvl='uv tool list'
+  alias uvd=deactivate
+  uva() {
+: << 'DOC'
+Activate a uv-based Python environment. The optional argument can be:
+* The name of a uv-installed tool (from an earlier `uv tool install`).
+* A relative or absolute directory path to a uv environment.
+Or no argument to activate the .venv in the current project directory.
+DOC
+    local d
+    if [ $# -gt 0 ]; then
+      # First, look for a tool directory with this name.
+      d="$HOME/.local/share/uv/tools/$1"
+      # If no such tool is installed, assume it's a plain directory path.
+      test -d "$d" || d="$1"
+    else
+      # No argument given; assume we are in a uv project directory.
+      d=.venv
+    fi
+    test -d "$d" || { >&2 echo "[ERROR] No env directory for $d"; return 1; }
+    source "$d/bin/activate"
+  }
   uve() {
 : << 'DOC'
 Install the Python project in the current working directory as an editable
@@ -77,7 +98,7 @@ Intended as an approximate replacement for `pip install -e . --user`,
 although the hotlinked tool is installed into its own isolated environment.
 DOC
     test -e pyproject.toml || { >&2 echo '[ERROR] No pyproject.toml.'; return 1; }
-    proj=$(grep '^[ \t]*name[ \t]*=' pyproject.toml |
+    local proj=$(grep '^[ \t]*name[ \t]*=' pyproject.toml |
       sed "s/name[ \t]*=[ \t]*[\"']\([^\"']*\).*/\1/")
     test "$proj" || { >&2 echo '[ERROR] Cannot discern project name.'; return 2; }
     uv tool install --reinstall-package "$proj" --with-editable . "$proj"
