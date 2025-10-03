@@ -1,5 +1,7 @@
 $env:CODEBASE = "$HOME\code"
 
+$env:PATH = "$HOME\.local\bin;$env:PATH"
+
 Set-Alias grep sls
 Set-Alias less more
 Set-Alias which gcm
