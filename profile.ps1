@@ -5,6 +5,7 @@ $env:PATH = "$HOME\.local\bin;$env:PATH"
 Set-Alias grep sls
 Set-Alias less more
 Set-Alias which gcm
+function asdf { cd "$HOME"; clear }
 function c { clear; ls $args }
 function gocfg { cd "$env:DOTFILES" }
 function up { cd .. }
