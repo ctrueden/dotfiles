@@ -23,3 +23,6 @@ checkout = git clone git@github.com:Labelings/napari-labeling
 
 [code/napari/napari-plugin-engine]
 checkout = git clone git@github.com:napari/napari-plugin-engine
+
+[code/napari/yanse]
+checkout = git clone git@github.com:ctrueden/yanse

@@ -30,6 +30,9 @@ checkout = git clone git@github.com:pyapp-kit/psygnal
 [code/pydata/pydata-nyc-2018-tutorial]
 checkout = git clone git@github.com:mrocklin/pydata-nyc-2018-tutorial
 
+[code/pydata/scenex]
+checkout = git clone git@github.com:pyapp-kit/scenex
+
 [code/pydata/scikit-image]
 checkout = git clone git@github.com:scikit-image/scikit-image
 

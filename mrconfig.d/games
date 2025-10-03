@@ -3,6 +3,9 @@
 [code/games/Ikemen-GO]
 checkout = git clone git@github.com:ikemen-engine/Ikemen-GO
 
+[code/games/jeopardy]
+checkout = git clone git@github.com:pfroud/jeopardy && git remote add ctrueden git@github.com:ctrueden/jeopardy && git fetch ctrueden
+
 [code/games/pbnsolve]
 checkout = git clone git@github.com:avi-levy/pbnsolve
 
