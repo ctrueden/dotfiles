@@ -1,10 +1,12 @@
 $env:CODEBASE = "$HOME\code"
 
+$env:PATH = "$HOME\scoop\apps\git\current\usr\bin;$env:PATH"
 $env:PATH = "$HOME\.local\bin;$env:PATH"
 
 Set-Alias grep sls
 Set-Alias less more
 Set-Alias which gcm
+Set-Alias vi vim
 function asdf { cd "$HOME"; clear }
 function c { clear; ls $args }
 function gocfg { cd "$env:DOTFILES" }
@@ -17,8 +19,6 @@ function up6 { cd ..\..\..\..\..\.. }
 function up7 { cd ..\..\..\..\..\..\.. }
 function up8 { cd ..\..\..\..\..\..\..\.. }
 function up9 { cd ..\..\..\..\..\..\..\..\.. }
-
-function vi { cmd /c 'C:\Program Files\Git\usr\bin\vim.exe' $args }
 
 function z {
     param(
