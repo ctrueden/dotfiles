@@ -12,20 +12,11 @@ checkout = git clone git@github.com:twosigma/beakerx
 [code/polyglot/beakerx_kernel_groovy]
 checkout = git clone git@github.com:twosigma/beakerx_kernel_groovy
 
-[code/polyglot/graal]
-checkout = git clone git@github.com:oracle/graal
-
 [code/polyglot/graal-js-jdk11-maven-demo]
 checkout = git clone git@github.com:graalvm/graal-js-jdk11-maven-demo
 
 [code/polyglot/graal-polyglot-experiments]
 checkout = git clone git@github.com:ctrueden/graal-polyglot-experiments
-
-[code/polyglot/graalpython]
-checkout = git clone git@github.com:graalvm/graalpython
-
-[code/polyglot/graalvm-demos]
-checkout = git clone git@github.com:graalvm/graalvm-demos
 
 [code/polyglot/graalvm-ten-things]
 checkout = git clone git@github.com:chrisseaton/graalvm-ten-things

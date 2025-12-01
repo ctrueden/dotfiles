@@ -1,4 +1,13 @@
 # Repositories that make combining languages easier (large)
 
+[code/polyglot/graal]
+checkout = git clone git@github.com:oracle/graal
+
+[code/polyglot/graalpython]
+checkout = git clone git@github.com:graalvm/graalpython
+
+[code/polyglot/graalvm-demos]
+checkout = git clone git@github.com:graalvm/graalvm-demos
+
 [code/polyglot/java2script]
 checkout = git clone git@github.com:java2script/java2script
