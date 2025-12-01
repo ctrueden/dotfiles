@@ -1,0 +1,987 @@
+# Historical source code (mostly old video games)
+
+[code/historicalsource/7kaa]
+checkout = git clone git@github.com:historicalsource/7kaa
+
+[code/historicalsource/AberMUD]
+checkout = git clone git@github.com:historicalsource/AberMUD
+
+[code/historicalsource/abuse]
+checkout = git clone git@github.com:historicalsource/abuse
+
+[code/historicalsource/abyss]
+checkout = git clone git@github.com:historicalsource/abyss
+
+[code/historicalsource/actuasoccer96]
+checkout = git clone git@github.com:historicalsource/actuasoccer96
+
+[code/historicalsource/agi-utilities]
+checkout = git clone git@github.com:historicalsource/agi-utilities
+
+[code/historicalsource/akalabeth]
+checkout = git clone git@github.com:historicalsource/akalabeth
+
+[code/historicalsource/alienbashii]
+checkout = git clone git@github.com:historicalsource/alienbashii
+
+[code/historicalsource/alienbreed3dii]
+checkout = git clone git@github.com:historicalsource/alienbreed3dii
+
+[code/historicalsource/allegiance]
+checkout = git clone git@github.com:historicalsource/allegiance
+
+[code/historicalsource/ambermoon]
+checkout = git clone git@github.com:historicalsource/ambermoon
+
+[code/historicalsource/amberstar]
+checkout = git clone git@github.com:historicalsource/amberstar
+
+[code/historicalsource/amfv]
+checkout = git clone git@github.com:historicalsource/amfv
+
+[code/historicalsource/AmuletsArmor]
+checkout = git clone git@github.com:historicalsource/AmuletsArmor
+
+[code/historicalsource/aof]
+checkout = git clone git@github.com:historicalsource/aof
+
+[code/historicalsource/AOTMC89]
+checkout = git clone git@github.com:historicalsource/AOTMC89
+
+[code/historicalsource/aquaplus-sources]
+checkout = git clone git@github.com:historicalsource/aquaplus-sources
+
+[code/historicalsource/arabian]
+checkout = git clone git@github.com:historicalsource/arabian
+
+[code/historicalsource/area51]
+checkout = git clone git@github.com:historicalsource/area51
+
+[code/historicalsource/arthur]
+checkout = git clone git@github.com:historicalsource/arthur
+
+[code/historicalsource/arxfatalis]
+checkout = git clone git@github.com:historicalsource/arxfatalis
+
+[code/historicalsource/asteroids]
+checkout = git clone git@github.com:historicalsource/asteroids
+
+[code/historicalsource/asteroids-7800]
+checkout = git clone git@github.com:historicalsource/asteroids-7800
+
+[code/historicalsource/asteroids-cocktail]
+checkout = git clone git@github.com:historicalsource/asteroids-cocktail
+
+[code/historicalsource/asteroids-deluxe]
+checkout = git clone git@github.com:historicalsource/asteroids-deluxe
+
+[code/historicalsource/atari-coin-op-assembler]
+checkout = git clone git@github.com:historicalsource/atari-coin-op-assembler
+
+[code/historicalsource/avalanche]
+checkout = git clone git@github.com:historicalsource/avalanche
+
+[code/historicalsource/avp]
+checkout = git clone git@github.com:historicalsource/avp
+
+[code/historicalsource/ballyhoo]
+checkout = git clone git@github.com:historicalsource/ballyhoo
+
+[code/historicalsource/baseball]
+checkout = git clone git@github.com:historicalsource/baseball
+
+[code/historicalsource/basketball]
+checkout = git clone git@github.com:historicalsource/basketball
+
+[code/historicalsource/bass]
+checkout = git clone git@github.com:historicalsource/bass
+
+[code/historicalsource/battlezone]
+checkout = git clone git@github.com:historicalsource/battlezone
+
+[code/historicalsource/beyondzork]
+checkout = git clone git@github.com:historicalsource/beyondzork
+
+[code/historicalsource/bilestoad-apple2]
+checkout = git clone git@github.com:historicalsource/bilestoad-apple2
+
+[code/historicalsource/black-widow]
+checkout = git clone git@github.com:historicalsource/black-widow
+
+[code/historicalsource/blood]
+checkout = git clone git@github.com:historicalsource/blood
+
+[code/historicalsource/blood2]
+checkout = git clone git@github.com:historicalsource/blood2
+
+[code/historicalsource/BOB_Src]
+checkout = git clone git@github.com:historicalsource/BOB_Src
+
+[code/historicalsource/borderzone]
+checkout = git clone git@github.com:historicalsource/borderzone
+
+[code/historicalsource/bureaucracy]
+checkout = git clone git@github.com:historicalsource/bureaucracy
+
+[code/historicalsource/canabaltios]
+checkout = git clone git@github.com:historicalsource/canabaltios
+
+[code/historicalsource/canyon-bomber]
+checkout = git clone git@github.com:historicalsource/canyon-bomber
+
+[code/historicalsource/carnivores2]
+checkout = git clone git@github.com:historicalsource/carnivores2
+
+[code/historicalsource/carnivoresiceage]
+checkout = git clone git@github.com:historicalsource/carnivoresiceage
+
+[code/historicalsource/cartlife_src]
+checkout = git clone git@github.com:historicalsource/cartlife_src
+
+[code/historicalsource/catacomb]
+checkout = git clone git@github.com:historicalsource/catacomb
+
+[code/historicalsource/catacomb3d]
+checkout = git clone git@github.com:historicalsource/catacomb3d
+
+[code/historicalsource/catacombabyss]
+checkout = git clone git@github.com:historicalsource/catacombabyss
+
+[code/historicalsource/catacombapocalypse]
+checkout = git clone git@github.com:historicalsource/catacombapocalypse
+
+[code/historicalsource/catacombarmageddon]
+checkout = git clone git@github.com:historicalsource/catacombarmageddon
+
+[code/historicalsource/cat-box]
+checkout = git clone git@github.com:historicalsource/cat-box
+
+[code/historicalsource/centipede]
+checkout = git clone git@github.com:historicalsource/centipede
+
+[code/historicalsource/centipede-7800]
+checkout = git clone git@github.com:historicalsource/centipede-7800
+
+[code/historicalsource/checkpoint]
+checkout = git clone git@github.com:historicalsource/checkpoint
+
+[code/historicalsource/Chris_Crawford_games]
+checkout = git clone git@github.com:historicalsource/Chris_Crawford_games
+
+[code/historicalsource/Civil-War-Strategy-Game]
+checkout = git clone git@github.com:historicalsource/Civil-War-Strategy-Game
+
+[code/historicalsource/CnC_Remastered_Collection]
+checkout = git clone git@github.com:historicalsource/CnC_Remastered_Collection
+
+[code/historicalsource/cocktail-lunar-lander]
+checkout = git clone git@github.com:historicalsource/cocktail-lunar-lander
+
+[code/historicalsource/colossalcaveadventure]
+checkout = git clone git@github.com:historicalsource/colossalcaveadventure
+
+[code/historicalsource/commando-7800]
+checkout = git clone git@github.com:historicalsource/commando-7800
+
+[code/historicalsource/copsandrobbers]
+checkout = git clone git@github.com:historicalsource/copsandrobbers
+
+[code/historicalsource/CrazeeRiderBBC]
+checkout = git clone git@github.com:historicalsource/CrazeeRiderBBC
+
+[code/historicalsource/CrazeeRiderElectron]
+checkout = git clone git@github.com:historicalsource/CrazeeRiderElectron
+
+[code/historicalsource/crossbow-7800]
+checkout = git clone git@github.com:historicalsource/crossbow-7800
+
+[code/historicalsource/cruisin-usa]
+checkout = git clone git@github.com:historicalsource/cruisin-usa
+
+[code/historicalsource/crystal-castles]
+checkout = git clone git@github.com:historicalsource/crystal-castles
+
+[code/historicalsource/cutthroats]
+checkout = git clone git@github.com:historicalsource/cutthroats
+
+[code/historicalsource/darkreign2]
+checkout = git clone git@github.com:historicalsource/darkreign2
+
+[code/historicalsource/Darwinia-and-Multiwinia-Source-Code]
+checkout = git clone git@github.com:historicalsource/Darwinia-and-Multiwinia-Source-Code
+
+[code/historicalsource/deadline]
+checkout = git clone git@github.com:historicalsource/deadline
+
+[code/historicalsource/deadlythirdcombat]
+checkout = git clone git@github.com:historicalsource/deadlythirdcombat
+
+[code/historicalsource/defender]
+checkout = git clone git@github.com:historicalsource/defender
+
+[code/historicalsource/defender-1]
+checkout = git clone git@github.com:historicalsource/defender-1
+
+[code/historicalsource/DeluxePaint]
+checkout = git clone git@github.com:historicalsource/DeluxePaint
+
+[code/historicalsource/descent]
+checkout = git clone git@github.com:historicalsource/descent
+
+[code/historicalsource/descent2]
+checkout = git clone git@github.com:historicalsource/descent2
+
+[code/historicalsource/Descent3]
+checkout = git clone git@github.com:historicalsource/Descent3
+
+[code/historicalsource/destroyer]
+checkout = git clone git@github.com:historicalsource/destroyer
+
+[code/historicalsource/dig-dug]
+checkout = git clone git@github.com:historicalsource/dig-dug
+
+[code/historicalsource/digdug-7800]
+checkout = git clone git@github.com:historicalsource/digdug-7800
+
+[code/historicalsource/dominos]
+checkout = git clone git@github.com:historicalsource/dominos
+
+[code/historicalsource/dominos4]
+checkout = git clone git@github.com:historicalsource/dominos4
+
+[code/historicalsource/donald-ducks-playground]
+checkout = git clone git@github.com:historicalsource/donald-ducks-playground
+
+[code/historicalsource/doom]
+checkout = git clone git@github.com:historicalsource/doom
+
+[code/historicalsource/doom3]
+checkout = git clone git@github.com:historicalsource/doom3
+
+[code/historicalsource/doom3bfg]
+checkout = git clone git@github.com:historicalsource/doom3bfg
+
+[code/historicalsource/doomios]
+checkout = git clone git@github.com:historicalsource/doomios
+
+[code/historicalsource/doomios2]
+checkout = git clone git@github.com:historicalsource/doomios2
+
+[code/historicalsource/dragrace]
+checkout = git clone git@github.com:historicalsource/dragrace
+
+[code/historicalsource/DRGNSRC]
+checkout = git clone git@github.com:historicalsource/DRGNSRC
+
+[code/historicalsource/dukenukem3d]
+checkout = git clone git@github.com:historicalsource/dukenukem3d
+
+[code/historicalsource/edfries-anteater]
+checkout = git clone git@github.com:historicalsource/edfries-anteater
+
+[code/historicalsource/edfries-chess]
+checkout = git clone git@github.com:historicalsource/edfries-chess
+
+[code/historicalsource/edfries-frog]
+checkout = git clone git@github.com:historicalsource/edfries-frog
+
+[code/historicalsource/edfries-nitro]
+checkout = git clone git@github.com:historicalsource/edfries-nitro
+
+[code/historicalsource/edfries-seachase]
+checkout = git clone git@github.com:historicalsource/edfries-seachase
+
+[code/historicalsource/enchanter]
+checkout = git clone git@github.com:historicalsource/enchanter
+
+[code/historicalsource/enemyterritory]
+checkout = git clone git@github.com:historicalsource/enemyterritory
+
+[code/historicalsource/fast-freddie]
+checkout = git clone git@github.com:historicalsource/fast-freddie
+
+[code/historicalsource/fire-truck]
+checkout = git clone git@github.com:historicalsource/fire-truck
+
+[code/historicalsource/flyball]
+checkout = git clone git@github.com:historicalsource/flyball
+
+[code/historicalsource/food-fight]
+checkout = git clone git@github.com:historicalsource/food-fight
+
+[code/historicalsource/foodfight-7800]
+checkout = git clone git@github.com:historicalsource/foodfight-7800
+
+[code/historicalsource/food-fight-cocktail]
+checkout = git clone git@github.com:historicalsource/food-fight-cocktail
+
+[code/historicalsource/football]
+checkout = git clone git@github.com:historicalsource/football
+
+[code/historicalsource/football-4-player]
+checkout = git clone git@github.com:historicalsource/football-4-player
+
+[code/historicalsource/football-ii-retrofit]
+checkout = git clone git@github.com:historicalsource/football-ii-retrofit
+
+[code/historicalsource/forsaken]
+checkout = git clone git@github.com:historicalsource/forsaken
+
+[code/historicalsource/FortApocalypse]
+checkout = git clone git@github.com:historicalsource/FortApocalypse
+
+[code/historicalsource/freespace2]
+checkout = git clone git@github.com:historicalsource/freespace2
+
+[code/historicalsource/freesynd]
+checkout = git clone git@github.com:historicalsource/freesynd
+
+[code/historicalsource/frenzy]
+checkout = git clone git@github.com:historicalsource/frenzy
+
+[code/historicalsource/Galaforce1BBC]
+checkout = git clone git@github.com:historicalsource/Galaforce1BBC
+
+[code/historicalsource/Galaforce1Electron]
+checkout = git clone git@github.com:historicalsource/Galaforce1Electron
+
+[code/historicalsource/galaga-7800]
+checkout = git clone git@github.com:historicalsource/galaga-7800
+
+[code/historicalsource/gish]
+checkout = git clone git@github.com:historicalsource/gish
+
+[code/historicalsource/glider_4]
+checkout = git clone git@github.com:historicalsource/glider_4
+
+[code/historicalsource/glider_pro]
+checkout = git clone git@github.com:historicalsource/glider_pro
+
+[code/historicalsource/GloomAmiga]
+checkout = git clone git@github.com:historicalsource/GloomAmiga
+
+[code/historicalsource/glypha_III]
+checkout = git clone git@github.com:historicalsource/glypha_III
+
+[code/historicalsource/golgotha]
+checkout = git clone git@github.com:historicalsource/golgotha
+
+[code/historicalsource/gravitar]
+checkout = git clone git@github.com:historicalsource/gravitar
+
+[code/historicalsource/gravityforce2]
+checkout = git clone git@github.com:historicalsource/gravityforce2
+
+[code/historicalsource/gtkradiant]
+checkout = git clone git@github.com:historicalsource/gtkradiant
+
+[code/historicalsource/guts]
+checkout = git clone git@github.com:historicalsource/guts
+
+[code/historicalsource/GW-BASIC]
+checkout = git clone git@github.com:historicalsource/GW-BASIC
+
+[code/historicalsource/habitat]
+checkout = git clone git@github.com:historicalsource/habitat
+
+[code/historicalsource/hattrick-7800]
+checkout = git clone git@github.com:historicalsource/hattrick-7800
+
+[code/historicalsource/hercules]
+checkout = git clone git@github.com:historicalsource/hercules
+
+[code/historicalsource/heretic]
+checkout = git clone git@github.com:historicalsource/heretic
+
+[code/historicalsource/hexen]
+checkout = git clone git@github.com:historicalsource/hexen
+
+[code/historicalsource/hexen2]
+checkout = git clone git@github.com:historicalsource/hexen2
+
+[code/historicalsource/hitchhikersguide]
+checkout = git clone git@github.com:historicalsource/hitchhikersguide
+
+[code/historicalsource/hitchhikersguide-gold]
+checkout = git clone git@github.com:historicalsource/hitchhikersguide-gold
+
+[code/historicalsource/hollywoodhijinx]
+checkout = git clone git@github.com:historicalsource/hollywoodhijinx
+
+[code/historicalsource/homeworld]
+checkout = git clone git@github.com:historicalsource/homeworld
+
+[code/historicalsource/hovertank3d]
+checkout = git clone git@github.com:historicalsource/hovertank3d
+
+[code/historicalsource/ia-frontpage]
+checkout = git clone git@github.com:historicalsource/ia-frontpage
+
+[code/historicalsource/indy-4]
+checkout = git clone git@github.com:historicalsource/indy-4
+
+[code/historicalsource/infidel]
+checkout = git clone git@github.com:historicalsource/infidel
+
+[code/historicalsource/infocom-sampler]
+checkout = git clone git@github.com:historicalsource/infocom-sampler
+
+[code/historicalsource/infocom-zcode-terps]
+checkout = git clone git@github.com:historicalsource/infocom-zcode-terps
+
+[code/historicalsource/ironseed]
+checkout = git clone git@github.com:historicalsource/ironseed
+
+[code/historicalsource/jaggedalliance2]
+checkout = git clone git@github.com:historicalsource/jaggedalliance2
+
+[code/historicalsource/jediacademypc]
+checkout = git clone git@github.com:historicalsource/jediacademypc
+
+[code/historicalsource/jediacademyxbox]
+checkout = git clone git@github.com:historicalsource/jediacademyxbox
+
+[code/historicalsource/jjffe]
+checkout = git clone git@github.com:historicalsource/jjffe
+
+[code/historicalsource/journey]
+checkout = git clone git@github.com:historicalsource/journey
+
+[code/historicalsource/joust]
+checkout = git clone git@github.com:historicalsource/joust
+
+[code/historicalsource/joust-7800]
+checkout = git clone git@github.com:historicalsource/joust-7800
+
+[code/historicalsource/kangaroo]
+checkout = git clone git@github.com:historicalsource/kangaroo
+
+[code/historicalsource/keen]
+checkout = git clone git@github.com:historicalsource/keen
+
+[code/historicalsource/kelly-slaters-pro-surfer]
+checkout = git clone git@github.com:historicalsource/kelly-slaters-pro-surfer
+
+[code/historicalsource/kings-quest-3]
+checkout = git clone git@github.com:historicalsource/kings-quest-3
+
+[code/historicalsource/leathergoddesses]
+checkout = git clone git@github.com:historicalsource/leathergoddesses
+
+[code/historicalsource/leathergoddesses-gold]
+checkout = git clone git@github.com:historicalsource/leathergoddesses-gold
+
+[code/historicalsource/leisuresuitlarry]
+checkout = git clone git@github.com:historicalsource/leisuresuitlarry
+
+[code/historicalsource/leisure-suit-larry-1]
+checkout = git clone git@github.com:historicalsource/leisure-suit-larry-1
+
+[code/historicalsource/leisure-suit-larry-1-alt]
+checkout = git clone git@github.com:historicalsource/leisure-suit-larry-1-alt
+
+[code/historicalsource/leisure-suit-larry-1-vga]
+checkout = git clone git@github.com:historicalsource/leisure-suit-larry-1-vga
+
+[code/historicalsource/leisure-suit-larry-2]
+checkout = git clone git@github.com:historicalsource/leisure-suit-larry-2
+
+[code/historicalsource/leisure-suit-larry-3]
+checkout = git clone git@github.com:historicalsource/leisure-suit-larry-3
+
+[code/historicalsource/leisure-suit-larry-5]
+checkout = git clone git@github.com:historicalsource/leisure-suit-larry-5
+
+[code/historicalsource/liberator]
+checkout = git clone git@github.com:historicalsource/liberator
+
+[code/historicalsource/liberator-2]
+checkout = git clone git@github.com:historicalsource/liberator-2
+
+[code/historicalsource/lunar-lander]
+checkout = git clone git@github.com:historicalsource/lunar-lander
+
+[code/historicalsource/lunar-lander-international]
+checkout = git clone git@github.com:historicalsource/lunar-lander-international
+
+[code/historicalsource/lurkinghorror]
+checkout = git clone git@github.com:historicalsource/lurkinghorror
+
+[code/historicalsource/major-havoc-dasm]
+checkout = git clone git@github.com:historicalsource/major-havoc-dasm
+
+[code/historicalsource/marathon2]
+checkout = git clone git@github.com:historicalsource/marathon2
+
+[code/historicalsource/maze-invaders]
+checkout = git clone git@github.com:historicalsource/maze-invaders
+
+[code/historicalsource/mechcommander2]
+checkout = git clone git@github.com:historicalsource/mechcommander2
+
+[code/historicalsource/Meridian59]
+checkout = git clone git@github.com:historicalsource/Meridian59
+
+[code/historicalsource/micropolis]
+checkout = git clone git@github.com:historicalsource/micropolis
+
+[code/historicalsource/midwayvideo]
+checkout = git clone git@github.com:historicalsource/midwayvideo
+
+[code/historicalsource/mig_src]
+checkout = git clone git@github.com:historicalsource/mig_src
+
+[code/historicalsource/millipede]
+checkout = git clone git@github.com:historicalsource/millipede
+
+[code/historicalsource/minigolf]
+checkout = git clone git@github.com:historicalsource/minigolf
+
+[code/historicalsource/minizork-1982]
+checkout = git clone git@github.com:historicalsource/minizork-1982
+
+[code/historicalsource/minizork-1987]
+checkout = git clone git@github.com:historicalsource/minizork-1987
+
+[code/historicalsource/minizork2-1988]
+checkout = git clone git@github.com:historicalsource/minizork2-1988
+
+[code/historicalsource/missile-command]
+checkout = git clone git@github.com:historicalsource/missile-command
+
+[code/historicalsource/monte-carlo]
+checkout = git clone git@github.com:historicalsource/monte-carlo
+
+[code/historicalsource/moonmist]
+checkout = git clone git@github.com:historicalsource/moonmist
+
+[code/historicalsource/MS-DOS]
+checkout = git clone git@github.com:historicalsource/MS-DOS
+
+[code/historicalsource/mspacman-7800]
+checkout = git clone git@github.com:historicalsource/mspacman-7800
+
+[code/historicalsource/narc]
+checkout = git clone git@github.com:historicalsource/narc
+
+[code/historicalsource/nba-hangtime]
+checkout = git clone git@github.com:historicalsource/nba-hangtime
+
+[code/historicalsource/nba-jam]
+checkout = git clone git@github.com:historicalsource/nba-jam
+
+[code/historicalsource/nbajam-complete]
+checkout = git clone git@github.com:historicalsource/nbajam-complete
+
+[code/historicalsource/nba-jam-tournament-edition]
+checkout = git clone git@github.com:historicalsource/nba-jam-tournament-edition
+
+[code/historicalsource/nba-workproduct]
+checkout = git clone git@github.com:historicalsource/nba-workproduct
+
+[code/historicalsource/nflblitz2000]
+checkout = git clone git@github.com:historicalsource/nflblitz2000
+
+[code/historicalsource/nightdriver]
+checkout = git clone git@github.com:historicalsource/nightdriver
+
+[code/historicalsource/nnjhtrkn]
+checkout = git clone git@github.com:historicalsource/nnjhtrkn
+
+[code/historicalsource/nordandbert]
+checkout = git clone git@github.com:historicalsource/nordandbert
+
+[code/historicalsource/not-mk2]
+checkout = git clone git@github.com:historicalsource/not-mk2
+
+[code/historicalsource/open-ice]
+checkout = git clone git@github.com:historicalsource/open-ice
+
+[code/historicalsource/orbit-space-wars]
+checkout = git clone git@github.com:historicalsource/orbit-space-wars
+
+[code/historicalsource/oregontrail]
+checkout = git clone git@github.com:historicalsource/oregontrail
+
+[code/historicalsource/pararena_2]
+checkout = git clone git@github.com:historicalsource/pararena_2
+
+[code/historicalsource/penumbraoverture]
+checkout = git clone git@github.com:historicalsource/penumbraoverture
+
+[code/historicalsource/pinballfantasies]
+checkout = git clone git@github.com:historicalsource/pinballfantasies
+
+[code/historicalsource/planetfall]
+checkout = git clone git@github.com:historicalsource/planetfall
+
+[code/historicalsource/planetfall-gold]
+checkout = git clone git@github.com:historicalsource/planetfall-gold
+
+[code/historicalsource/plunderedhearts]
+checkout = git clone git@github.com:historicalsource/plunderedhearts
+
+[code/historicalsource/pole-position]
+checkout = git clone git@github.com:historicalsource/pole-position
+
+[code/historicalsource/police-quest-1]
+checkout = git clone git@github.com:historicalsource/police-quest-1
+
+[code/historicalsource/poolshark]
+checkout = git clone git@github.com:historicalsource/poolshark
+
+[code/historicalsource/pop]
+checkout = git clone git@github.com:historicalsource/pop
+
+[code/historicalsource/postal]
+checkout = git clone git@github.com:historicalsource/postal
+
+[code/historicalsource/princeofpersia]
+checkout = git clone git@github.com:historicalsource/princeofpersia
+
+[code/historicalsource/qc]
+checkout = git clone git@github.com:historicalsource/qc
+
+[code/historicalsource/quake]
+checkout = git clone git@github.com:historicalsource/quake
+
+[code/historicalsource/quake2]
+checkout = git clone git@github.com:historicalsource/quake2
+
+[code/historicalsource/quake2tools]
+checkout = git clone git@github.com:historicalsource/quake2tools
+
+[code/historicalsource/quake3arena]
+checkout = git clone git@github.com:historicalsource/quake3arena
+
+[code/historicalsource/quaketools]
+checkout = git clone git@github.com:historicalsource/quaketools
+
+[code/historicalsource/quantum]
+checkout = git clone git@github.com:historicalsource/quantum
+
+[code/historicalsource/quizshow]
+checkout = git clone git@github.com:historicalsource/quizshow
+
+[code/historicalsource/raceintospace]
+checkout = git clone git@github.com:historicalsource/raceintospace
+
+[code/historicalsource]
+
+[code/historicalsource/reconstruction-of-zzt]
+checkout = git clone git@github.com:historicalsource/reconstruction-of-zzt
+
+[code/historicalsource/red-baron]
+checkout = git clone git@github.com:historicalsource/red-baron
+
+[code/historicalsource/restaurant]
+checkout = git clone git@github.com:historicalsource/restaurant
+
+[code/historicalsource/revengeofthetitans]
+checkout = git clone git@github.com:historicalsource/revengeofthetitans
+
+[code/historicalsource/revolution-x]
+checkout = git clone git@github.com:historicalsource/revolution-x
+
+[code/historicalsource/roadkill]
+checkout = git clone git@github.com:historicalsource/roadkill
+
+[code/historicalsource/robotron]
+checkout = git clone git@github.com:historicalsource/robotron
+
+[code/historicalsource/robotron-7800]
+checkout = git clone git@github.com:historicalsource/robotron-7800
+
+[code/historicalsource/rott]
+checkout = git clone git@github.com:historicalsource/rott
+
+[code/historicalsource/rtcwmp]
+checkout = git clone git@github.com:historicalsource/rtcwmp
+
+[code/historicalsource/rtcwsp]
+checkout = git clone git@github.com:historicalsource/rtcwsp
+
+[code/historicalsource/rushtherock]
+checkout = git clone git@github.com:historicalsource/rushtherock
+
+[code/historicalsource/SBSPSS]
+checkout = git clone git@github.com:historicalsource/SBSPSS
+
+[code/historicalsource/sci-utilities]
+checkout = git clone git@github.com:historicalsource/sci-utilities
+
+[code/historicalsource/seastalker]
+checkout = git clone git@github.com:historicalsource/seastalker
+
+[code/historicalsource/Serious-Engine]
+checkout = git clone git@github.com:historicalsource/Serious-Engine
+
+[code/historicalsource/sevenkingdoms]
+checkout = git clone git@github.com:historicalsource/sevenkingdoms
+
+[code/historicalsource/sherlock]
+checkout = git clone git@github.com:historicalsource/sherlock
+
+[code/historicalsource/shockmac]
+checkout = git clone git@github.com:historicalsource/shockmac
+
+[code/historicalsource/shogun]
+checkout = git clone git@github.com:historicalsource/shogun
+
+[code/historicalsource/sinistar]
+checkout = git clone git@github.com:historicalsource/sinistar
+
+[code/historicalsource/sinistar_synamax]
+checkout = git clone git@github.com:historicalsource/sinistar_synamax
+
+[code/historicalsource/sky-diver]
+checkout = git clone git@github.com:historicalsource/sky-diver
+
+[code/historicalsource/sky-raider]
+checkout = git clone git@github.com:historicalsource/sky-raider
+
+[code/historicalsource/smashtv]
+checkout = git clone git@github.com:historicalsource/smashtv
+
+[code/historicalsource/soccer]
+checkout = git clone git@github.com:historicalsource/soccer
+
+[code/historicalsource/softporn]
+checkout = git clone git@github.com:historicalsource/softporn
+
+[code/historicalsource/sorcerer]
+checkout = git clone git@github.com:historicalsource/sorcerer
+
+[code/historicalsource/spaceaceiigs]
+checkout = git clone git@github.com:historicalsource/spaceaceiigs
+
+[code/historicalsource/space-duel]
+checkout = git clone git@github.com:historicalsource/space-duel
+
+[code/historicalsource/space-riders]
+checkout = git clone git@github.com:historicalsource/space-riders
+
+[code/historicalsource/spacetrader]
+checkout = git clone git@github.com:historicalsource/spacetrader
+
+[code/historicalsource/Spacewar]
+checkout = git clone git@github.com:historicalsource/Spacewar
+
+[code/historicalsource/spellbreaker]
+checkout = git clone git@github.com:historicalsource/spellbreaker
+
+[code/historicalsource/spelunky]
+checkout = git clone git@github.com:historicalsource/spelunky
+
+[code/historicalsource/sphinx-7800]
+checkout = git clone git@github.com:historicalsource/sphinx-7800
+
+[code/historicalsource/sprint-1]
+checkout = git clone git@github.com:historicalsource/sprint-1
+
+[code/historicalsource/sprint-2]
+checkout = git clone git@github.com:historicalsource/sprint-2
+
+[code/historicalsource/sprint-4]
+checkout = git clone git@github.com:historicalsource/sprint-4
+
+[code/historicalsource/sprint-4-update]
+checkout = git clone git@github.com:historicalsource/sprint-4-update
+
+[code/historicalsource/sprint-8]
+checkout = git clone git@github.com:historicalsource/sprint-8
+
+[code/historicalsource/starcontrol2]
+checkout = git clone git@github.com:historicalsource/starcontrol2
+
+[code/historicalsource/starcross]
+checkout = git clone git@github.com:historicalsource/starcross
+
+[code/historicalsource/star_fighter_3do]
+checkout = git clone git@github.com:historicalsource/star_fighter_3do
+
+[code/historicalsource/stargate]
+checkout = git clone git@github.com:historicalsource/stargate
+
+[code/historicalsource/starship]
+checkout = git clone git@github.com:historicalsource/starship
+
+[code/historicalsource/star-wars]
+checkout = git clone git@github.com:historicalsource/star-wars
+
+[code/historicalsource/stationfall]
+checkout = git clone git@github.com:historicalsource/stationfall
+
+[code/historicalsource/subs]
+checkout = git clone git@github.com:historicalsource/subs
+
+[code/historicalsource/super-breakout-cocktail]
+checkout = git clone git@github.com:historicalsource/super-breakout-cocktail
+
+[code/historicalsource/super-breakout-domestic]
+checkout = git clone git@github.com:historicalsource/super-breakout-domestic
+
+[code/historicalsource/super-breakout-european]
+checkout = git clone git@github.com:historicalsource/super-breakout-european
+
+[code/historicalsource/superbug]
+checkout = git clone git@github.com:historicalsource/superbug
+
+[code/historicalsource/superman]
+checkout = git clone git@github.com:historicalsource/superman
+
+[code/historicalsource/supermario]
+checkout = git clone git@github.com:historicalsource/supermario
+
+[code/historicalsource/superstuntcycle-7800]
+checkout = git clone git@github.com:historicalsource/superstuntcycle-7800
+
+[code/historicalsource/suspect]
+checkout = git clone git@github.com:historicalsource/suspect
+
+[code/historicalsource/suspended]
+checkout = git clone git@github.com:historicalsource/suspended
+
+[code/historicalsource/swars]
+checkout = git clone git@github.com:historicalsource/swars
+
+[code/historicalsource/tank-8]
+checkout = git clone git@github.com:historicalsource/tank-8
+
+[code/historicalsource/tempest]
+checkout = git clone git@github.com:historicalsource/tempest
+
+[code/historicalsource/the-black-cauldron]
+checkout = git clone git@github.com:historicalsource/the-black-cauldron
+
+[code/historicalsource/thecatacomb]
+checkout = git clone git@github.com:historicalsource/thecatacomb
+
+[code/historicalsource/theoperative]
+checkout = git clone git@github.com:historicalsource/theoperative
+
+[code/historicalsource/thug]
+checkout = git clone git@github.com:historicalsource/thug
+
+[code/historicalsource/tornado-dos-flightsim]
+checkout = git clone git@github.com:historicalsource/tornado-dos-flightsim
+
+[code/historicalsource/total-carnage]
+checkout = git clone git@github.com:historicalsource/total-carnage
+
+[code/historicalsource/tournament-table]
+checkout = git clone git@github.com:historicalsource/tournament-table
+
+[code/historicalsource/TreadMarks]
+checkout = git clone git@github.com:historicalsource/TreadMarks
+
+[code/historicalsource/trinity]
+checkout = git clone git@github.com:historicalsource/trinity
+
+[code/historicalsource/triplehunt]
+checkout = git clone git@github.com:historicalsource/triplehunt
+
+[code/historicalsource/trog]
+checkout = git clone git@github.com:historicalsource/trog
+
+[code/historicalsource/tube-chase]
+checkout = git clone git@github.com:historicalsource/tube-chase
+
+[code/historicalsource/txtelite]
+checkout = git clone git@github.com:historicalsource/txtelite
+
+[code/historicalsource/ucb-csrg-bsd]
+checkout = git clone git@github.com:historicalsource/ucb-csrg-bsd
+
+[code/historicalsource/ufo]
+checkout = git clone git@github.com:historicalsource/ufo
+
+[code/historicalsource/ultra-tank]
+checkout = git clone git@github.com:historicalsource/ultra-tank
+
+[code/historicalsource/video-pinball]
+checkout = git clone git@github.com:historicalsource/video-pinball
+
+[code/historicalsource/VVVVVV]
+checkout = git clone git@github.com:historicalsource/VVVVVV
+
+[code/historicalsource/warlords]
+checkout = git clone git@github.com:historicalsource/warlords
+
+[code/historicalsource/williams-soundroms]
+checkout = git clone git@github.com:historicalsource/williams-soundroms
+
+[code/historicalsource/winfile]
+checkout = git clone git@github.com:historicalsource/winfile
+
+[code/historicalsource/wishbringer]
+checkout = git clone git@github.com:historicalsource/wishbringer
+
+[code/historicalsource/wishbringer-gold]
+checkout = git clone git@github.com:historicalsource/wishbringer-gold
+
+[code/historicalsource/witness]
+checkout = git clone git@github.com:historicalsource/witness
+
+[code/historicalsource/wolf3d]
+checkout = git clone git@github.com:historicalsource/wolf3d
+
+[code/historicalsource/wolf3dbrowser]
+checkout = git clone git@github.com:historicalsource/wolf3dbrowser
+
+[code/historicalsource/wolf3dios]
+checkout = git clone git@github.com:historicalsource/wolf3dios
+
+[code/historicalsource/wolf-pack]
+checkout = git clone git@github.com:historicalsource/wolf-pack
+
+[code/historicalsource/worms]
+checkout = git clone git@github.com:historicalsource/worms
+
+[code/historicalsource/wwf-wrestlemania]
+checkout = git clone git@github.com:historicalsource/wwf-wrestlemania
+
+[code/historicalsource/xevious]
+checkout = git clone git@github.com:historicalsource/xevious
+
+[code/historicalsource/xevious-7800]
+checkout = git clone git@github.com:historicalsource/xevious-7800
+
+[code/historicalsource/xray]
+checkout = git clone git@github.com:historicalsource/xray
+
+[code/historicalsource/zil]
+checkout = git clone git@github.com:historicalsource/zil
+
+[code/historicalsource/zork]
+checkout = git clone git@github.com:historicalsource/zork
+
+[code/historicalsource/zork-1]
+checkout = git clone git@github.com:historicalsource/zork-1
+
+[code/historicalsource/zork1]
+checkout = git clone git@github.com:historicalsource/zork1
+
+[code/historicalsource/zork-1977-source]
+checkout = git clone git@github.com:historicalsource/zork-1977-source
+
+[code/historicalsource/zork1-gold]
+checkout = git clone git@github.com:historicalsource/zork1-gold
+
+[code/historicalsource/zork2]
+checkout = git clone git@github.com:historicalsource/zork2
+
+[code/historicalsource/zork3]
+checkout = git clone git@github.com:historicalsource/zork3
+
+[code/historicalsource/zork-fortran]
+checkout = git clone git@github.com:historicalsource/zork-fortran
+
+[code/historicalsource/zork-german]
+checkout = git clone git@github.com:historicalsource/zork-german
+
+[code/historicalsource/zork-mdl]
+checkout = git clone git@github.com:historicalsource/zork-mdl
+
+[code/historicalsource/zorkzero]
+checkout = git clone git@github.com:historicalsource/zorkzero
