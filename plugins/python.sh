@@ -11,6 +11,14 @@ py() {
 }
 pypath() { py -c 'import sys; print("\n".join(sys.path))'; }
 
+alias py38='mamba run -n py38 python'
+alias py39='mamba run -n py39 python'
+alias py310='mamba run -n py310 python'
+alias py311='mamba run -n py311 python'
+alias py312='mamba run -n py312 python'
+alias py313='mamba run -n py313 python'
+alias py314='mamba run -n py314 python'
+
 # --== pip ==--
 
 pip=$(command -v pip)
