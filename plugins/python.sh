@@ -109,6 +109,6 @@ DOC
     local proj=$(grep '^[ \t]*name[ \t]*=' pyproject.toml |
       sed "s/name[ \t]*=[ \t]*[\"']\([^\"']*\).*/\1/")
     test "$proj" || { >&2 echo '[ERROR] Cannot discern project name.'; return 2; }
-    uv tool install --reinstall-package "$proj" --with-editable . "$proj"
+    uv tool install --reinstall-package "$proj" --with-editable . "$proj" "$@"
   }
 fi
