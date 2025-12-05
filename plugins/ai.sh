@@ -11,14 +11,15 @@ install_tool() {
 # Install AI coding assistant TUIs.
 if available npm
 then
-  install_tool  copilot  @github/copilot
-  install_tool  claude   @anthropic-ai/claude-code
-  install_tool  codex    @openai/codex
-  install_tool  gemini   @google/gemini-cli
-  #install_tool grok     @vibe-kit/grok-cli
-  install_tool  crush    @charmland/crush
-  install_tool  opencode opencode-ai
-  install_tool  kilocode @kilocode/cli
+  install_tool  copilot   @github/copilot
+  install_tool  claude    @anthropic-ai/claude-code
+  install_tool  codex     @openai/codex
+  install_tool  gemini    @google/gemini-cli
+  #install_tool grok      @vibe-kit/grok-cli
+  install_tool  crush     @charmland/crush
+  install_tool  opencode  opencode-ai
+  install_tool  kilocode  @kilocode/cli
+  #install_tool nanocoder @nanocollective/nanocoder
 
   alias copilot='copilot --banner'
 fi
