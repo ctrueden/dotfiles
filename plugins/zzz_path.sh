@@ -15,6 +15,5 @@ path_prepend "$HOME"/.local/bin  # Python (uv, Linux)
 macPythonDir=$(echo "$HOME"/Library/Python/*/bin | head -n1) 2>/dev/null
 path_prepend "$macPythonDir"     # Python (macOS system)
 path_prepend "$HOME"/bin
-path_prepend "$HOME"/.npm/bin
 
 path_update

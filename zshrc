@@ -88,6 +88,7 @@ zsh_plugins=(
 	@omz/z                                # z "jump around" command
 	esc/conda-zsh-completion              # tab completion for conda
 	gradle/gradle-completion              # gradle completion
+	lukechilds/zsh-nvm                    # node version manager (nvm)
 	micrenda/zsh-nohup                    # add nohup to command by pressing ctrl+H
 	zpm-zsh/check-deps                    # check for needed but missing dependencies
 	zpm-zsh/clipboard                     # add pbcopy, pbpaste, and clip functions
