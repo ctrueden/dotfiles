@@ -55,16 +55,6 @@ fi
 if [ -x "$UV" ]; then
   # Enable uv shell completion.
   eval "$("$UV" generate-shell-completion $(shell_name))"
-  # Fix completions for uv run to autocomplete .py files.
-  # Credit: https://github.com/astral-sh/uv/issues/8432#issuecomment-2965692994
-  _uv_run_mod() {
-    if [[ "$words[2]" == "run" && "$words[CURRENT]" != -* ]]; then
-      _arguments '*:filename:_files -g "*.py"'
-    else
-      _uv "$@"
-    fi
-  }
-  compdef _uv_run_mod uv
 
   # Add uv convenience shorthands.
   alias uvp='uv run python'
