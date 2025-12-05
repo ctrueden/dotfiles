@@ -62,7 +62,13 @@ echo "--> Linking up your dotfiles..."
 for cfgFile in bashrc bash_profile zshrc
 do
   tmpFile="$CONFIG_DIR/$cfgFile.stub"
-  echo "export DOTFILES=\"$CONFIG_DIR\"" > "$tmpFile"
+  rm -f "$tmpFile"
+  if [ "$cfgFile" = "bashrc" ]; then
+    # Bash interactive guard: prevent non-interactive sessions (e.g., gdm3 login)
+    # from sourcing bashrc, which would leak exports into the X session environment.
+    echo '[ -z "$PS1" ] && return # Continue only if shell is interactive.' >> "$tmpFile"
+  fi
+  echo "export DOTFILES=\"$CONFIG_DIR\"" >> "$tmpFile"
   echo ". \"\$DOTFILES/$cfgFile\"" >> "$tmpFile"
   install_file "$tmpFile" ".$cfgFile"
   rm -f "$tmpFile"
