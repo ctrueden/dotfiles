@@ -1,1 +1,3 @@
-[ -r ~/.bashrc ] && source ~/.bashrc
+case $- in
+	*i*) [ -r ~/.bashrc ] && source ~/.bashrc ;;
+esac
