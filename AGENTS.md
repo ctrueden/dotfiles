@@ -1,19 +1,16 @@
-# Working with Claude
+# Working with AI Coding Assistants
 
-This document summarizes how I work with Claude.ai across all projects.
+This document summarizes how I work with AI coding assistants across all projects.
 
 ## My Environment
 
 - **Shell**: zsh with oh-my-zsh, zpm package manager, vi-mode
 - **Dotfiles**: `~/code/ctrueden/dotfiles`
 - **Preferred tools**: git, vim, z (jump)
-- **Platform**: Linux
+- **Platforms**: Linux, macOS, Windows
 
 ## Communication Preferences
 
-- **Verbosity**: Concise and direct - minimize output tokens
-- **Style**: No unnecessary preamble/postamble, get straight to the point
-- **Planning**: Use TodoWrite tool for multi-step tasks
 - **Code**: Follow existing conventions, no comments for self-documenting code unless asked
 
 ## Standard Project Structure
@@ -28,23 +25,23 @@ spec/
 
 ## Workflow
 
-1. **Session start**: "Read my ~/code/ctrueden/brain/CLAUDE.md, then read this project's spec/"
-2. **Planning**: Break complex tasks into todos, mark progress as we go
-3. **Implementation**: Follow existing patterns, run lint/typecheck when available
-4. **Verification**: Test solutions, never assume test frameworks
+1. **Session start**: "Read my ~/code/ctrueden/brain/AGENTS.md, then read this project's spec/"
+2. **Planning**: Break complex tasks into todos, mark progress as we go.
+3. **Implementation**: Follow existing patterns, run lint/typecheck when available.
+4. **Verification**: Test solutions, never assume test frameworks.
 
 ## Code Preferences
 
-- **Style**: Match existing codebase conventions exactly
-- **Libraries**: Always verify dependencies exist before using
-- **Security**: Never expose secrets, follow best practices
-- **Comments**: Only add when explicitly requested
+- **Style**: Match existing codebase conventions exactly.
+- **Libraries**: Always verify dependencies exist before using.
+- **Security**: Never expose secrets, follow best practices.
+- **Comments**: Only add when explicitly requested, end line comments with period symbol.
 
 ### Language/Framework Preferences
 
-**Java**: Maven-based projects, typically extending `org.scijava:pom-scijava` parent POM/BOM
-- Maintained orgs: scijava, imglib, scifio, apposed, imagej, fiji, trackmate, trakem2
-- Projects in `~/code/<org>/<repo>` (cloned from `git@github.com:<org>/<repo>`)
+**Java**: Maven-based projects, typically extending `org.scijava:pom-scijava` parent POM/BOM.
+- Maintained orgs: scijava, imglib, scifio, apposed, imagej, fiji, trackmate, trakem2.
+- Projects in `~/code/<org>/<repo>` (cloned from `git@github.com:<org>/<repo>`).
 
 **Python**: uv-based projects preferred
 - Modern uv projects: appose/appose-python, scijava/scyjava, imglib/imglyb, imagej/pyimagej, napari/napari-imagej
