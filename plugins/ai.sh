@@ -21,7 +21,7 @@ then
   install_tool  kilocode  @kilocode/cli
   #install_tool nanocoder @nanocollective/nanocoder
 
-  alias copilot='copilot --banner'
+  alias cop='copilot --banner'
 fi
 
 if available aider
