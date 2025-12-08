@@ -7,7 +7,7 @@ checkout = git clone git@github.com:Kruptein/PlanarAlly
 checkout = git clone git@github.com:RPTools/TokenTool
 
 [code/tabletop/cauldron]
-checkout = git clone git@gitlab.com:hsleisink/cauldron
+checkout = git clone https://gitlab.com/hsleisink/cauldron.git
 
 [code/tabletop/dungeoneer]
 checkout = git clone git@github.com:durtur/dungeoneer

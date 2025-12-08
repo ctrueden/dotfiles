@@ -7,7 +7,7 @@ checkout = git clone git@github.com:adamjakab/BeetsPluginTemplate
 checkout = git clone git@github.com:clementine-player/Clementine
 
 [code/music/beetle]
-checkout = git clone git@gitlab.com:maxburon/beetle
+checkout = git clone https://gitlab.com/maxburon/beetle.git
 
 [code/music/beets]
 checkout = git clone git@github.com:beetbox/beets
