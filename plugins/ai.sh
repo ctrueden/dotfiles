@@ -21,7 +21,10 @@ then
   install_tool  kilocode  @kilocode/cli
   #install_tool nanocoder @nanocollective/nanocoder
 
-  alias cop='copilot --banner'
+  # WARNING: While allowing all paths and tools broadly makes
+  # the assistant more autonomous, it also removes some of the
+  # safety and security guardrails in place. Use with caution.
+  alias cop='copilot --banner --allow-all-paths --allow-all-tools'
 fi
 
 if available aider
