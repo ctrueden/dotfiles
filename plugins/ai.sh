@@ -22,9 +22,10 @@ then
   #install_tool nanocoder @nanocollective/nanocoder
 
   # WARNING: While allowing all paths and tools broadly makes
-  # the assistant more autonomous, it also removes some of the
+  # the assistants more autonomous, it also removes some of the
   # safety and security guardrails in place. Use with caution.
   alias cop='copilot --banner --allow-all-paths --allow-all-tools'
+  alias claude='claude --dangerously-skip-permissions'
 fi
 
 if available aider
