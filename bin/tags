@@ -1,0 +1,15 @@
+#!/bin/sh
+
+# Dumps metadata tags from audio files.
+# Requires mediainfo to be installed:
+#   apt install mediainfo
+
+err() { >&2 printf "$*\n"; }
+
+while [ $# -gt 0 ]
+do
+  f=$1
+  shift
+  err "[$f]"
+  mediainfo "$f"
+done

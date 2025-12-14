@@ -1,0 +1,132 @@
+#!/bin/sh
+
+# Combines WAV audio + MP3 metadata into lossless metadata-rich FLAC.
+# Requires ffmpeg to be installed:
+#   apt install ffmpeg
+
+usage() {
+  cat >&2 <<EOF
+Usage: $0 <mp3_folder> <wav_folder> [output_folder]
+
+Transcodes WAV files to FLAC while preserving metadata from MP3 files.
+Output folder defaults to the WAV folder's parent with -FLAC suffix.
+
+Example:
+  $0 "Killer Frequency Original Soundtrack-MP3" "Killer Frequency Original Soundtrack-WAV"
+  -> Creates "Killer Frequency Original Soundtrack-FLAC"
+EOF
+  exit 1
+}
+
+normalize_name() {
+  # Remove extension, transliterate accents, lowercase, strip non-alphanumeric
+  basename "$1" |
+    sed 's/\.[^.]*$//' |
+    iconv -f UTF-8 -t ASCII//TRANSLIT 2>/dev/null |
+    tr '[:upper:]' '[:lower:]' |
+    sed 's/[^a-z0-9]//g'
+}
+
+pretend=
+if [ "$1" = "-p" ]; then
+  pretend=1
+  shift
+fi
+
+[ $# -lt 2 ] && usage
+
+mp3_dir="$1"
+wav_dir="$2"
+
+[ ! -d "$mp3_dir" ] && { echo "Error: MP3 folder not found: $mp3_dir" >&2; exit 1; }
+[ ! -d "$wav_dir" ] && { echo "Error: WAV folder not found: $wav_dir" >&2; exit 1; }
+
+# Determine output folder
+if [ -n "$3" ]; then
+  flac_dir="$3"
+else
+  # Replace -MP3 or -WAV with -FLAC in the wav_dir name
+  parent=$(dirname "$wav_dir")
+  basename_wav=$(basename "$wav_dir")
+  flac_basename=$(echo "$basename_wav" | sed 's/-WAV$/-FLAC/')
+  flac_dir="$parent/$flac_basename"
+fi
+
+mkdir -p "$flac_dir"
+
+echo "Converting WAV to FLAC with MP3 metadata..."
+echo "MP3 folder: $mp3_dir"
+echo "WAV folder: $wav_dir"
+echo "Output folder: $flac_dir"
+echo ""
+
+matched=0
+missing_mp3=0
+missing_wav=0
+
+# Find all WAV files
+for wavfile in "$wav_dir"/*.wav; do
+  [ ! -f "$wavfile" ] && continue
+
+  wav_basename=$(basename "$wavfile" .wav)
+  wav_norm=$(normalize_name "$wavfile")
+
+  # Find matching MP3
+  mp3file=""
+  for candidate in "$mp3_dir"/*.mp3; do
+    [ ! -f "$candidate" ] && continue
+    cand_norm=$(normalize_name "$candidate")
+    if [ "$wav_norm" = "$cand_norm" ]; then
+      mp3file="$candidate"
+      break
+    fi
+  done
+
+  flacfile="$flac_dir/$wav_basename.flac"
+
+  if [ -z "$mp3file" ]; then
+    echo "⚠️  NO MATCH: $wav_basename.wav (no corresponding MP3)"
+    missing_mp3=$((missing_mp3 + 1))
+    continue
+  fi
+
+  matched=$((matched + 1))
+  echo "--> Converting: $wav_basename"
+  test "$pretend" ||
+  ffmpeg -i "$wavfile" -i "$mp3file" -c:a flac -compression_level 8 \
+    -map_metadata 1 -y "$flacfile" 2>/dev/null
+
+  if [ $? -eq 0 ]; then
+    echo "  ✓ $flacfile"
+  else
+    echo "  ✗ Failed to convert"
+  fi
+done
+
+# Check for MP3s with no matching WAV
+for mp3file in "$mp3_dir"/*.mp3; do
+  [ ! -f "$mp3file" ] && continue
+
+  mp3_norm=$(normalize_name "$mp3file")
+  found=0
+
+  for wavfile in "$wav_dir"/*.wav; do
+    [ ! -f "$wavfile" ] && continue
+    wav_norm=$(normalize_name "$wavfile")
+    if [ "$mp3_norm" = "$wav_norm" ]; then
+      found=1
+      break
+    fi
+  done
+
+  if [ $found -eq 0 ]; then
+    echo "⚠️  NO MATCH: $(basename "$mp3file") (no corresponding WAV)"
+    missing_wav=$((missing_wav + 1))
+  fi
+done
+
+echo ""
+echo "Summary:"
+echo "  Converted: $matched"
+echo "  Missing MP3: $missing_mp3"
+echo "  Missing WAV: $missing_wav"

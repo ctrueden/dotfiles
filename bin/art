@@ -1,0 +1,15 @@
+#!/bin/sh
+
+# Dumps embedded cover art from an audio file.
+# Requires exiftool to be installed:
+#   apt install libimage-exiftool-perl
+
+error() { >&2 printf "$*\n"; }
+
+while [ $# -gt 0 ]
+do
+  f=$1
+  shift
+  test -f "$f" || { error "No such file: $f"; continue; }
+  exiftool -b -Picture "$f" | icat -w 80 -
+done
