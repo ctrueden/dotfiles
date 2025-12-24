@@ -1,0 +1,13 @@
+#!/bin/bash
+
+# Add missing EOF newlines to text files.
+# Uses tail to test the last byte and appends a newline only when it's missing.
+
+for f in "$@"; do
+  test -f "$f" || continue
+  test "$(tail -c1 "$f" | wc -l)" -eq 0 && {
+    grep -q $'\r\n' "$f" &&
+      printf '\r\n' >>"$f" ||
+      printf '\n' >>"$f"
+  }
+done
