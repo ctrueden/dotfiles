@@ -22,7 +22,7 @@ run() {
   $cmd $@
 }
 
-run neofetch
+run fastfetch
 run inxi -Fx
 run hwinfo
 run --root dmidecode
