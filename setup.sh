@@ -96,8 +96,8 @@ then
   done
 fi
 
-# ~/.jgorc
-link_file "$CONFIG_DIR/jgorc" .jgorc
+# ~/.config/jgo.conf
+link_file "$CONFIG_DIR/jgo.conf" .config/jgo.conf
 
 # ~/.mrconfig
 link_file "$CONFIG_DIR/mrconfig" .mrconfig
@@ -124,7 +124,6 @@ link_file "$CONFIG_DIR/XCompose" .XCompose
 mkdir -p bin
 link_file "../code/git/git-diff-blame/git-diff-blame" bin/git-diff-blame
 link_file "../code/git/git-recover/git-recover" bin/git-recover
-link_file "../code/scijava/jgo/jgo.sh" bin/jgo
 link_file "../code/util/icat/icat" bin/icat
 
 # ~/Library/KeyBindings [macOS]
