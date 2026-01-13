@@ -17,3 +17,6 @@ checkout = git clone git@github.com:apposed/apposed.org
 
 [code/apposed/jaunch]
 checkout = git clone git@github.com:apposed/jaunch
+
+[code/apposed/jgo]
+checkout = git clone git@github.com:apposed/jgo
