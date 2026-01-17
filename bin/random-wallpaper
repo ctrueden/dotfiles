@@ -27,14 +27,20 @@ die() { error $@; exit 1; }
 wallpaper=$(gsettings get org.gnome.desktop.background picture-uri)
 test "$wallpaper" || die "Cannot glean current wallpaper."
 
+test -z "$DEBUG" || printf "current wallpaper URL: %s\n" "$wallpaper"
+
 # Extract the directory path from the currently set wallpaper.
 dir=${wallpaper#\'file://}
 dir=${dir%/*}
 test "$dir" || die "Cannot glean wallpaper directory."
 test -d "$dir" || die "Invalid wallpaper directory: $dir"
 
+test -z "$DEBUG" || printf "wallpaper directory: %s\n" "$dir"
+
 # Choose a random new wallpaper from that same directory.
 wallpaper=$(find "$dir" -type f | shuf | head -n1)
+
+test -z "$DEBUG" || printf "new wallpaper -> %s\n" "$wallpaper"
 
 # Update the current wallpaper accordingly.
 gsettings set org.gnome.desktop.background picture-uri "file://$wallpaper"
