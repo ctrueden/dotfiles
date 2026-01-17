@@ -35,6 +35,10 @@ dir=${dir%/*}
 test "$dir" || die "Cannot glean wallpaper directory."
 test -d "$dir" || die "Invalid wallpaper directory: $dir"
 
+# If wallpaper dir is ~/.config (happens when you right-click an image in
+# Nautilus and "Set as background"), reset to ~/.local/share/backgrounds.
+test "$dir" = "${dir%/.config}" || dir="$HOME/.local/share/backgrounds"
+
 test -z "$DEBUG" || printf "wallpaper directory: %s\n" "$dir"
 
 # Choose a random new wallpaper from that same directory.
