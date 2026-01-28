@@ -12,7 +12,7 @@ install_tool() {
 if available npm
 then
   install_tool  copilot   @github/copilot
-  install_tool  claude    @anthropic-ai/claude-code
+  #install_tool  claude    @anthropic-ai/claude-code
   install_tool  codex     @openai/codex
   install_tool  gemini    @google/gemini-cli
   #install_tool grok      @vibe-kit/grok-cli
