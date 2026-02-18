@@ -8,7 +8,12 @@ if [ -d "$DOTFILES" ]
 then
   echo
   echo "--== Updating dotfiles ==--"
-  (cd "$DOTFILES" && git pull --rebase)
+
+  # Only use fast-forward merge, not rebase. If dotfiles
+  # have diverged from remote, this returns non-zero by design.
+  (cd "$DOTFILES" &&
+    git fetch --all --tags --prune --jobs=10 &&
+    git merge --ff --ff-only 'HEAD@{u}')
   code=$?; test $code -lt $exit_code || exit_code=$code
   test $code -eq 0 || echo "=> returned $code"
 fi
