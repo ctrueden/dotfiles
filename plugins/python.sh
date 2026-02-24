@@ -54,7 +54,22 @@ fi
 
 if [ -x "$UV" ]; then
   # Enable uv shell completion.
-  eval "$("$UV" generate-shell-completion $(shell_name))"
+  # HACK: For some reason, shell_name sometimes reports as zsh
+  # and other times as /bin/zsh. But uv does not like the latter:
+  #
+  #   error: invalid value '/bin/zsh' for '<SHELL>'
+  #     [possible values: bash, elvish, fish, nushell, powershell, zsh]
+  #
+  # Rather than painstakingly scrutinizing login vs non-login and
+  # interactive vs non-interactive and macOS vs Linux and so forth,
+  # let's just crop off the invalid bit here, if it's present.
+  shortshell=$(shell_name)
+  shortshell=${shortshell##*/}
+  case "$shortshell" in
+    bash|elvish|fish|nushell|powershell|zsh)
+      eval "$("$UV" generate-shell-completion "$shortshell")"
+      ;;
+  esac
 
   # Add uv convenience shorthands.
   alias uvp='uv run python'
