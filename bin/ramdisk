@@ -1,0 +1,25 @@
+#!/bin/sh
+
+location=$1
+size=$2
+
+if [ -z "$location" -o -z "$size" ]; then
+  echo "Usage: ramdisk /path/to/empty-folder-to-mount size-in-GB"
+  exit 1
+fi
+
+test "$size" -gt 0 || {
+  echo "Size must be a positive integer."
+  exit 2
+}
+
+kbRam=$(cat /proc/meminfo | grep ^MemTotal: | sed 's;.* \([0-9]\+\) kB.*;\1;')
+if [ "$kbRam" -gt 0 ]; then
+  test "$((size*1024*1024))" -lt "$kbRam" || {
+    echo "Cowardly refusing to allocate more than detected system RAM of $((kbRam/1024/1024)) GB."
+    exit 3
+  }
+fi
+
+set -x
+sudo mount -t tmpfs -o size="${size}G" tmpfs "$location"
