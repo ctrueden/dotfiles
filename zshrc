@@ -114,6 +114,7 @@ for plugin in "$DOTFILES"/plugins/*.sh "$DOTFILES"/plugins/*.zsh
 do
 	source "$plugin"
 done
-source "$DOTFILES"/themes/curtis.zsh-theme
+#source "$DOTFILES"/themes/curtis.zsh-theme
+eval "$(starship init zsh)"
 
 test "$DEBUG" && echo "[zshrc] Done!"
