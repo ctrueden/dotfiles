@@ -96,6 +96,9 @@ then
   done
 fi
 
+# ~/.config/starship.toml
+link_file "$CONFIG_DIR/starship.toml" .config/starship.toml
+
 # ~/.config/jgo.conf
 link_file "$CONFIG_DIR/jgo.conf" .config/jgo.conf
 
