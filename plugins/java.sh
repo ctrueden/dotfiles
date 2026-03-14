@@ -130,7 +130,7 @@ DOC
         _jinfo "$d"
       done
     done
-  } | sort -u | if [ $# -gt 0 ]; then awk -v pat="$*" '$1 ~ pat'; else cat; fi
+  } | sort -u | if [ $# -gt 0 ]; then PAT="$*" awk '$1 ~ ENVIRON["PAT"]'; else cat; fi
 }
 
 jhome() {
