@@ -238,6 +238,14 @@ if ! command -v uv >/dev/null 2>&1; then
   fi
 fi
 
+# Claude Code -- AI coding assistant
+# Note: We use curl|sh -- if the claude.ai domain were compromised, running
+# claude at all would be equally dangerous, so this is an acceptable risk.
+if ! command -v claude >/dev/null 2>&1; then
+  echo "Installing Claude Code..."
+  curl -fsSL https://claude.ai/install.sh | bash
+fi
+
 # AI coding assistant TUIs via npm.
 if command -v npm >/dev/null 2>&1; then
   install_npm_tool() {
