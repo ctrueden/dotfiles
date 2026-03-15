@@ -193,10 +193,18 @@ case "$(uname)" in
     ;;
 esac
 
-# ~/.config/nvim -- kickstart.nvim
+# ~/.config/nvim -- kickstart.nvim + custom plugins from dotfiles
 if command -v nvim >/dev/null 2>&1 && [ ! -d "$HOME/.config/nvim" ]; then
   echo "Installing kickstart.nvim into ~/.config/nvim..."
   git clone git@github.com:nvim-lua/kickstart.nvim "$HOME/.config/nvim"
+fi
+if command -v nvim >/dev/null 2>&1 && [ -d "$HOME/.config/nvim" ]; then
+  # Symlink dotfiles/nvim/ as lua/custom/ so kickstart's { import = 'custom.plugins' }
+  # picks up our plugin specs from dotfiles/nvim/plugins/*.lua.
+  link_file "$CONFIG_DIR/nvim" "$HOME/.config/nvim/lua/custom"
+  # Uncomment the custom plugins import line (idempotent).
+  perl -i -pe "s/-- \{ import = 'custom\.plugins' \}/{ import = 'custom.plugins' }/" \
+    "$HOME/.config/nvim/init.lua"
 fi
 
 # tree-sitter-cli via npm (apt package is 0.20.x, too old for nvim-treesitter which requires 0.22+)
