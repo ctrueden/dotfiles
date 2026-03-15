@@ -157,7 +157,10 @@ case "$(uname)" in
     fi
     ;;
   Darwin)
-    # TODO: brew install neovim ripgrep fd ...
+    if ! command -v nvim >/dev/null 2>&1; then
+      echo "Installing neovim and dependencies..."
+      brew install gcc ripgrep neovim
+    fi
     ;;
 esac
 
