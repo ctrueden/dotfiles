@@ -155,6 +155,23 @@ case "$(uname)" in
     ;;
 esac
 
+# starship -- cross-shell prompt
+case "$(uname)" in
+  Linux)
+    # Available in Ubuntu 25.04+; silently skipped on older releases.
+    command -v starship >/dev/null 2>&1 || {
+      echo "Installing starship..."
+      sudo apt-get install -y starship
+    }
+    ;;
+  Darwin)
+    command -v starship >/dev/null 2>&1 || {
+      echo "Installing starship..."
+      brew install starship
+    }
+    ;;
+esac
+
 # ~/.config/nvim -- kickstart.nvim
 if command -v nvim >/dev/null 2>&1 && [ ! -d "$HOME/.config/nvim" ]; then
   echo "Installing kickstart.nvim into ~/.config/nvim..."
