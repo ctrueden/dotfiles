@@ -37,7 +37,7 @@ What does this configuration include?
     -   [Vim] with [Vundle] as a fallback on systems without neovim
         (e.g. Windows/MSYS), with plugins including [vim-fugitive],
         [vim-airline], and [vim-sensible].
-    -   [vim-sneak] and [vim-surround] for both editors.
+    -   [vim-sneak] and [vim-surround] and more for both editors.
     -   See the [vimrc](vimrc) and [nvim/](nvim/) for details.
 
 3.  A managed set of SCM repositories for the [SciJava] ecosystem:
