@@ -199,12 +199,19 @@ case "$(uname)" in
     ;;
 esac
 
+# kickstart.nvim requires nvim 0.10+. Ubuntu 24.04 apt ships 0.9.x; skip
+# gracefully there rather than installing a config that errors on startup.
+# Ubuntu 26.04 LTS (due ~April 2026) will ship 0.10+.
+nvim_ok() {
+  nvim --version 2>/dev/null | head -1 | grep -qE '^NVIM v(0\.(1[0-9]|[2-9][0-9])|[1-9])'
+}
+
 # ~/.config/nvim -- kickstart.nvim + custom plugins from dotfiles
-if command -v nvim >/dev/null 2>&1 && [ ! -d "$HOME/.config/nvim" ]; then
+if command -v nvim >/dev/null 2>&1 && nvim_ok && [ ! -d "$HOME/.config/nvim" ]; then
   echo "Installing kickstart.nvim into ~/.config/nvim..."
   git clone git@github.com:nvim-lua/kickstart.nvim "$HOME/.config/nvim"
 fi
-if command -v nvim >/dev/null 2>&1 && [ -d "$HOME/.config/nvim" ]; then
+if command -v nvim >/dev/null 2>&1 && nvim_ok && [ -d "$HOME/.config/nvim" ]; then
   # Symlink each plugin spec from dotfiles/nvim/plugins/ into lua/custom/plugins/
   # so kickstart's { import = 'custom.plugins' } picks them up. Per-file symlinks
   # are used (not a directory symlink) because kickstart's clone already contains
