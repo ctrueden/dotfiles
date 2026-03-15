@@ -61,6 +61,9 @@ echo "--> Linking up your dotfiles..."
 # ~/.bashrc
 for cfgFile in bashrc bash_profile zshrc
 do
+  # Skip if the file already sources the dotfiles -- it may have tool-managed
+  # blocks appended (conda init, nvm, etc.) that we must not clobber.
+  grep -qF '$DOTFILES' ".$cfgFile" 2>/dev/null && continue
   tmpFile="$CONFIG_DIR/$cfgFile.stub"
   rm -f "$tmpFile"
   if [ "$cfgFile" = "bashrc" ]; then
@@ -77,11 +80,14 @@ done
 # ~/.gitconfig
 # NB: We use a stub for .gitconfig so that it can be extended with a
 # [user] section without causing git to see the gitconfig here as dirty.
-GITCONFIG_STUB="$CONFIG_DIR/gitconfig.stub"
-echo '[include]' > "$GITCONFIG_STUB"
-printf "\tpath = $CONFIG_DIR/gitconfig\n" >> "$GITCONFIG_STUB"
-install_file "$GITCONFIG_STUB" .gitconfig
-rm -f "$GITCONFIG_STUB"
+# Skip if it already exists -- it likely has a [user] section appended.
+if [ ! -f .gitconfig ]; then
+  GITCONFIG_STUB="$CONFIG_DIR/gitconfig.stub"
+  echo '[include]' > "$GITCONFIG_STUB"
+  printf "\tpath = $CONFIG_DIR/gitconfig\n" >> "$GITCONFIG_STUB"
+  install_file "$GITCONFIG_STUB" .gitconfig
+  rm -f "$GITCONFIG_STUB"
+fi
 
 # ~/.ssh/config
 # NB: We write out a starter .ssh/config so that it can be extended with
@@ -265,22 +271,24 @@ if command -v npm >/dev/null 2>&1; then
   #install_npm_tool nanocoder @nanocollective/nanocoder
 fi
 
-echo
-echo "--> Personalizing your experience..."
-cat "$CONFIG_DIR/old-man.txt"
-echo "Answer me these questions three, ere the other side ye see!"
-printf "What... is your full name? "
-read committer_name
-printf "What... is your email address? "
-read committer_email
-echo "What... is the airspeed velocity of an unladen --"
-echo "The people responsible for this shell script have been sacked."
-(set -x; git config --global user.name "$committer_name")
-(set -x; git config --global user.email "$committer_email")
-(clear_file .forward; set -x; echo "$committer_email" > .forward)
+if [ ! -f .gitconfig ]; then
+  echo
+  echo "--> Personalizing your experience..."
+  cat "$CONFIG_DIR/old-man.txt"
+  echo "Answer me these questions three, ere the other side ye see!"
+  printf "What... is your full name? "
+  read committer_name
+  printf "What... is your email address? "
+  read committer_email
+  echo "What... is the airspeed velocity of an unladen --"
+  echo "The people responsible for this shell script have been sacked."
+  (set -x; git config --global user.name "$committer_name")
+  (set -x; git config --global user.email "$committer_email")
+  (clear_file .forward; set -x; echo "$committer_email" > .forward)
 
-# ~/.plan
-test "$committer_name" = "Curtis Rueden" && link_file "$CONFIG_DIR/plan" .plan
+  # ~/.plan
+  test "$committer_name" = "Curtis Rueden" && link_file "$CONFIG_DIR/plan" .plan
+fi
 
 echo
 echo "--> Done! Now open a new terminal. :-)"
