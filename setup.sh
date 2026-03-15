@@ -230,6 +230,11 @@ if command -v nvim >/dev/null 2>&1 && nvim_ok && [ -d "$HOME/.config/nvim" ]; th
   # Uncomment the custom plugins import line (idempotent).
   perl -i -pe "s/-- \{ import = 'custom\.plugins' \}/{ import = 'custom.plugins' }/" \
     "$HOME/.config/nvim/init.lua"
+  # Symlink options override file and hook it into init.lua (idempotent).
+  link_file "$CONFIG_DIR/nvim/options.lua" "$HOME/.config/nvim/lua/custom/options.lua"
+  grep -qF 'custom.options' "$HOME/.config/nvim/init.lua" || \
+    perl -i -pe "s|-- The line beneath this is called .modeline.|-- Load local overrides (options, mappings, etc.) from dotfiles if present\npcall(require, 'custom.options')\n\n-- The line beneath this is called \`modeline\`|" \
+      "$HOME/.config/nvim/init.lua"
 fi
 
 # tree-sitter-cli via npm (apt package is 0.20.x, too old for nvim-treesitter which requires 0.22+)
