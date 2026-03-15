@@ -9,7 +9,7 @@ Getting Started
 ---------------
 
 1. Clone this repository somewhere.
-2. Run the `setup.sh` script.
+2. Run the `setup.sh` script to link configuration files and install tools.
 
 
 LICENSE
@@ -27,12 +27,18 @@ What does this configuration include?
     -   Functional vi mode on the terminal for easy multi-line commands.
     -   Syntax highlighted terminal commands as you type.
     -   Vastly improved tab completion support for git, mvn and many more.
+    -   A [Starship] prompt with git status, language version info, and more.
     -   See the [zshrc](zshrc) for the full list of zsh plugins.
 
-2.  A supercharged [vim] configuration built on [Vundle]:
--   Several amazing vim plugins, including [vim-sensible], [vim-airline],
-    [vim-fugitive], [vim-repeat], [vim-sneak] and [vim-surround].
-    -   See the [vimrc](vimrc) for the full list.
+2.  A supercharged editor configuration:
+    -   [Neovim] with [kickstart.nvim] on systems with nvim 0.10+, providing
+        LSP integration, treesitter syntax, fuzzy finding via [Telescope],
+        completion via [nvim-cmp], debugging via [nvim-dap], and more.
+    -   [Vim] with [Vundle] as a fallback on systems without neovim
+        (e.g. Windows/MSYS), with plugins including [vim-fugitive],
+        [vim-airline], and [vim-sensible].
+    -   [vim-sneak] and [vim-surround] for both editors.
+    -   See the [vimrc](vimrc) and [nvim/](nvim/) for details.
 
 3.  A managed set of SCM repositories for the [SciJava] ecosystem:
     -   Sensible defaults for an extensible source code folder structure,
@@ -68,18 +74,24 @@ everything [POSIX]-friendly&mdash;but I haven't tested them.
 [Groovy]: https://groovy-lang.org/
 [ImageJ]: https://imagej.net/
 [Jython]: https://www.jython.org/
+[Neovim]: https://neovim.io/
 [Oh My Zsh]: https://ohmyz.sh/
 [POSIX]: https://en.wikipedia.org/wiki/POSIX
+[SCIFIO]: https://scif.io/
 [SciJava]: https://scijava.org/
+[Starship]: https://starship.rs/
+[Telescope]: https://github.com/nvim-telescope/telescope.nvim
 [TrueNAS]: https://www.truenas.com/
 [Ubuntu]: https://ubuntu.com/
 [Vundle]: https://github.com/VundleVim/Vundle.vim
 [WSL]: https://docs.microsoft.com/en-us/windows/wsl/about
 [jgo]: https://github.com/scijava/jgo
+[kickstart.nvim]: https://github.com/nvim-lua/kickstart.nvim
 [myrepos]: https://myrepos.branchable.com/
+[nvim-cmp]: https://github.com/hrsh7th/nvim-cmp
+[nvim-dap]: https://github.com/mfussenegger/nvim-dap
 [vim-airline]: https://github.com/vim-airline/vim-airline
 [vim-fugitive]: https://github.com/tpope/vim-fugitive
-[vim-repeat]: https://github.com/tpope/vim-repeat
 [vim-sensible]: https://github.com/tpope/vim-sensible
 [vim-sneak]: https://github.com/justinmk/vim-sneak
 [vim-surround]: https://github.com/tpope/vim-surround
