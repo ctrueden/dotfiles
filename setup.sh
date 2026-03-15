@@ -221,7 +221,7 @@ if command -v nvim >/dev/null 2>&1 && nvim_ok && [ -d "$HOME/.config/nvim" ]; th
   # lua/custom/plugins/ as a real directory, which ln -sf cannot replace.
   mkdir -p "$HOME/.config/nvim/lua/custom/plugins"
   for _f in "$CONFIG_DIR/nvim/plugins/"*.lua; do
-    [ -f "$_f" ] && link_file "$_f" "$HOME/.config/nvim/lua/custom/plugins/$(basename "$_f")"
+    link_file "$_f" "$HOME/.config/nvim/lua/custom/plugins/$(basename "$_f")"
   done
   # Symlink dotfiles/nvim/after/ so our after/plugin/*.lua files run after all
   # plugins load -- more reliable than lazy.nvim spec overrides for plugins that
