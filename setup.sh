@@ -227,6 +227,11 @@ if command -v nvim >/dev/null 2>&1 && nvim_ok && [ -d "$HOME/.config/nvim" ]; th
   # plugins load -- more reliable than lazy.nvim spec overrides for plugins that
   # use config = function() rather than opts.
   link_file "$CONFIG_DIR/nvim/after" "$HOME/.config/nvim/after"
+  # Symlink each ftplugin file (filetype-specific config, e.g. nvim-jdtls).
+  mkdir -p "$HOME/.config/nvim/ftplugin"
+  for _f in "$CONFIG_DIR/nvim/ftplugin/"*.lua; do
+    link_file "$_f" "$HOME/.config/nvim/ftplugin/$(basename "$_f")"
+  done
   # Uncomment the custom plugins import line (idempotent).
   perl -i -pe "s/-- \{ import = 'custom\.plugins' \}/{ import = 'custom.plugins' }/" \
     "$HOME/.config/nvim/init.lua"

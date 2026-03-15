@@ -6,5 +6,6 @@
 --   neo-tree - file explorer sidebar
 --   gitsigns - git hunk signs + keymaps
 return {
+	{ import = "kickstart.plugins.debug" },
 	{ import = "kickstart.plugins.indent_line" },
 }
