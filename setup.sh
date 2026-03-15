@@ -172,6 +172,27 @@ case "$(uname)" in
     ;;
 esac
 
+# Hack Nerd Font -- required for starship prompt glyphs and nvim icons
+case "$(uname)" in
+  Linux)
+    if [ ! -d "$HOME/.fonts/Hack" ]; then
+      echo "Installing Hack Nerd Font..."
+      mkdir -p "$HOME/.fonts/Hack"
+      curl -fsSL https://github.com/ryanoasis/nerd-fonts/releases/download/v3.4.0/Hack.zip \
+        -o /tmp/Hack.zip &&
+      unzip -o /tmp/Hack.zip -d "$HOME/.fonts/Hack" &&
+      rm /tmp/Hack.zip &&
+      fc-cache -f
+    fi
+    ;;
+  Darwin)
+    if ! brew list --cask font-hack-nerd-font >/dev/null 2>&1; then
+      echo "Installing Hack Nerd Font..."
+      brew install --cask font-hack-nerd-font
+    fi
+    ;;
+esac
+
 # ~/.config/nvim -- kickstart.nvim
 if command -v nvim >/dev/null 2>&1 && [ ! -d "$HOME/.config/nvim" ]; then
   echo "Installing kickstart.nvim into ~/.config/nvim..."
