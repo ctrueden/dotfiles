@@ -1,10 +1,13 @@
 test "$DEBUG" && echo "[dotfiles] Loading plugin 'vim'..."
 
-command -v vundle-init >/dev/null &&
-	test ! -d "$HOME/.vim/bundle/Vundle.vim" &&
-	vundle-init && vundle-update
-
-if [ "$(command -v vim)" ]
+# Set up vim command aliases.
+if [ "$(command -v nvim)" ]
+then
+	alias vi='nvim'
+	alias vim='nvim'
+	alias :e='nvim'
+	export EDITOR=nvim
+elif [ "$(command -v vim)" ]
 then
 	alias vi='vim'
 	alias :e='vim'
@@ -16,7 +19,7 @@ then
 	export EDITOR=vi
 fi
 
-# use vim to edit commit messages
+# use nvim/vim/vi to edit commit messages
 test -z "$EDITOR" || export VISUAL="$EDITOR"
 
 # search for the given filename in the current subtree and open in vim

@@ -139,6 +139,79 @@ case "$(uname)" in
 esac
 
 echo
+echo "--> Installing tools..."
+
+# neovim and system dependencies.
+case "$(uname)" in
+  Linux)
+    if ! command -v nvim >/dev/null 2>&1; then
+      echo "Installing neovim and dependencies..."
+      sudo apt-get update &&
+      sudo apt-get install -y make gcc ripgrep fd-find unzip xclip neovim
+    fi
+    ;;
+  Darwin)
+    # TODO: brew install neovim ripgrep fd ...
+    ;;
+esac
+
+# ~/.config/nvim -- kickstart.nvim
+if command -v nvim >/dev/null 2>&1 && [ ! -d "$HOME/.config/nvim" ]; then
+  echo "Installing kickstart.nvim into ~/.config/nvim..."
+  git clone git@github.com:nvim-lua/kickstart.nvim "$HOME/.config/nvim"
+fi
+
+# tree-sitter-cli via npm (apt package is 0.20.x, too old for nvim-treesitter which requires 0.22+)
+if command -v nvim >/dev/null 2>&1 && ! command -v tree-sitter >/dev/null 2>&1; then
+  if command -v npm >/dev/null 2>&1; then
+    echo "Installing tree-sitter-cli via npm..."
+    npm install -g tree-sitter-cli
+  fi
+fi
+
+# ~/.vim/bundle/Vundle.vim -- vim plugin manager (fallback for systems without nvim)
+if [ ! -d "$HOME/.vim/bundle/Vundle.vim" ]; then
+  git clone https://github.com/VundleVim/Vundle.vim.git "$HOME/.vim/bundle/Vundle.vim"
+  command -v vim >/dev/null 2>&1 &&
+    vim -c "execute 'PluginInstall' | qa"
+fi
+
+# uv -- Python package manager
+if ! command -v uv >/dev/null 2>&1; then
+  echo "Installing uv..."
+  if command -v pip >/dev/null 2>&1; then
+    _pip=pip
+  elif command -v pip3 >/dev/null 2>&1; then
+    _pip=pip3
+  else
+    _pip=
+  fi
+  if [ -n "$_pip" ]; then
+    "$_pip" install --user uv ||
+    "$_pip" install --break-system-packages --user uv
+  fi
+fi
+
+# AI coding assistant TUIs via npm.
+if command -v npm >/dev/null 2>&1; then
+  install_npm_tool() {
+    command -v "$1" >/dev/null 2>&1 || {
+      echo "Installing $1..."
+      npm install -g "$2"
+    }
+  }
+  install_npm_tool copilot   @github/copilot
+  #install_npm_tool claude   @anthropic-ai/claude-code
+  install_npm_tool codex     @openai/codex
+  install_npm_tool gemini    @google/gemini-cli
+  #install_npm_tool grok     @vibe-kit/grok-cli
+  install_npm_tool crush     @charmland/crush
+  install_npm_tool opencode  opencode-ai
+  install_npm_tool kilocode  @kilocode/cli
+  #install_npm_tool nanocoder @nanocollective/nanocoder
+fi
+
+echo
 echo "--> Personalizing your experience..."
 cat "$CONFIG_DIR/old-man.txt"
 echo "Answer me these questions three, ere the other side ye see!"

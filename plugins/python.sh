@@ -44,13 +44,6 @@ case "$(uname)" in
   Linux) UV="$HOME"/.local/bin/uv ;;
   *) UV= ;;
 esac
-if [ ! -x "$UV" ]; then
-  # Install uv via pip if possible.
-  if [ -x "$PIP" ]; then
-    "$PIP" install --user uv ||
-    "$PIP" install --break-system-packages --user uv
-  fi
-fi
 
 if [ -x "$UV" ]; then
   # Enable uv shell completion.
