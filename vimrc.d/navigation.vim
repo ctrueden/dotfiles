@@ -4,8 +4,6 @@
 " Also try :find MyClass<cr> to jump to the specified class's source file
 " (from http://everything101.sourceforge.net/docs/papers/java_and_vim.html)
 set path+=.
-set path+=~/svn/java/**
-set path+=~/cvs/OME-JAVA/src/**
 autocmd BufRead *.java set include=^#\s*import
 autocmd BufRead *.java set includeexpr=substitute(v:fname,'\\.','/','g')
 autocmd BufRead *.java set suffixesadd=.java
