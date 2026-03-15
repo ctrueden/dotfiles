@@ -205,9 +205,18 @@ if command -v nvim >/dev/null 2>&1 && [ ! -d "$HOME/.config/nvim" ]; then
   git clone git@github.com:nvim-lua/kickstart.nvim "$HOME/.config/nvim"
 fi
 if command -v nvim >/dev/null 2>&1 && [ -d "$HOME/.config/nvim" ]; then
-  # Symlink dotfiles/nvim/ as lua/custom/ so kickstart's { import = 'custom.plugins' }
-  # picks up our plugin specs from dotfiles/nvim/plugins/*.lua.
-  link_file "$CONFIG_DIR/nvim" "$HOME/.config/nvim/lua/custom"
+  # Symlink each plugin spec from dotfiles/nvim/plugins/ into lua/custom/plugins/
+  # so kickstart's { import = 'custom.plugins' } picks them up. Per-file symlinks
+  # are used (not a directory symlink) because kickstart's clone already contains
+  # lua/custom/plugins/ as a real directory, which ln -sf cannot replace.
+  mkdir -p "$HOME/.config/nvim/lua/custom/plugins"
+  for _f in "$CONFIG_DIR/nvim/plugins/"*.lua; do
+    [ -f "$_f" ] && link_file "$_f" "$HOME/.config/nvim/lua/custom/plugins/$(basename "$_f")"
+  done
+  # Symlink dotfiles/nvim/after/ so our after/plugin/*.lua files run after all
+  # plugins load -- more reliable than lazy.nvim spec overrides for plugins that
+  # use config = function() rather than opts.
+  link_file "$CONFIG_DIR/nvim/after" "$HOME/.config/nvim/after"
   # Uncomment the custom plugins import line (idempotent).
   perl -i -pe "s/-- \{ import = 'custom\.plugins' \}/{ import = 'custom.plugins' }/" \
     "$HOME/.config/nvim/init.lua"
