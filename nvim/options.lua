@@ -1,7 +1,9 @@
 vim.o.autowrite = true -- save automatically at strategic points
+vim.o.ignorecase = false -- case-sensitive search by default
 vim.o.joinspaces = false -- no double space after . symbol
 vim.o.scrolloff = 2 -- the default of 10 is obnoxious
 vim.o.shiftwidth = 2 -- two spaces per shift
+vim.o.smartcase = false -- no automatic case-insensitivity
 vim.o.tabstop = 2 -- two spaces per tab
 
 -- Treesitter-based folding (upgrade from foldmethod=indent)
