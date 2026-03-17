@@ -26,6 +26,13 @@ vim.o.foldexpr = "v:lua.vim.treesitter.foldexpr()"
 vim.o.foldlevel = 99 -- start with everything open
 vim.o.foldenable = true
 
+-- Let :term terminals start in insert mode
+vim.api.nvim_create_autocmd("TermOpen", {
+	callback = function()
+		vim.cmd("startinsert")
+	end,
+})
+
 -- Highlight trailing whitespace and tab/space mix
 vim.api.nvim_set_hl(0, "WhiteSpaceEOL", { bg = "lightgreen" })
 vim.fn.matchadd("WhiteSpaceEOL", [[\s\+$]])
