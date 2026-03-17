@@ -33,6 +33,7 @@ $time\
 [ ](fg:color_bg1)\
 $line_break$character"""
 
+scan_timeout = 100 # Timeout for starship to scan files (in milliseconds).
 right_format = """$status$cmd_duration"""
 
 palette = 'gruvbox_dark'
