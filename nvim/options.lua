@@ -6,6 +6,20 @@ vim.o.shiftwidth = 2 -- two spaces per shift
 vim.o.smartcase = false -- no automatic case-insensitivity
 vim.o.tabstop = 2 -- two spaces per tab
 
+-- Clipboard handling
+-- The scheduling is necessary because kickstart.nvim schedules
+-- its own setting of the clipboard for startup performance reasons,
+-- and we want our override to happen after kickstart.nvim's.
+vim.schedule(function()
+	if vim.fn.has("linux") == 1 then
+		-- Sync " with PRIMARY; middle-click pastes last yank
+		vim.o.clipboard = "unnamed"
+	else
+		-- This platform has no PRIMARY; do not clobber clipboard
+		vim.opt.clipboard = ""
+	end
+end)
+
 -- Treesitter-based folding (upgrade from foldmethod=indent)
 vim.o.foldmethod = "expr"
 vim.o.foldexpr = "v:lua.vim.treesitter.foldexpr()"
