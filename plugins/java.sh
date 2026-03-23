@@ -88,27 +88,27 @@ DOC
 
     # Java installations from cjdk cache.
     local cjdk_cache=
-    if [ -d "$HOME/Library/Caches/cjdk" ]
+    if [ -d "${XDG_CACHE_HOME:-$HOME/.cache}/cjdk" ]
     then
-      cjdk_cache="$HOME/Library/Caches/cjdk"
-    elif [ -d "${XDG_CACHE_HOME:-$HOME/.cache}/cjdk" ]
-    then
+      # Linux
       cjdk_cache="${XDG_CACHE_HOME:-$HOME/.cache}/cjdk"
+      java_binary=java
+    elif [ -d "$HOME/Library/Caches/cjdk" ]
+    then
+      # macOS
+      cjdk_cache="$HOME/Library/Caches/cjdk"
+      java_binary=java
+    elif [ -d "$HOME/AppData/Local/cjdk/cache" ]
+    then
+      # Windows
+      cjdk_cache="$HOME/AppData/Local/cjdk/cache"
+      java_binary=java.exe
     fi
     if [ -n "$cjdk_cache" ]
     then
-      find -L "$cjdk_cache" -mindepth 6 -maxdepth 8 -name java -path "*/bin/java" 2>/dev/null | while IFS= read -r j
+      find -L "$cjdk_cache" -mindepth 6 -maxdepth 8 -name "$java_binary" -path "*/bin/$java_binary" 2>/dev/null | while IFS= read -r j
       do
         _jinfo "$(dirname "$(dirname "$j")")"
-      done
-    fi
-
-    # Java installations from java_home (macOS).
-    if [ -x /usr/libexec/java_home ]
-    then
-      /usr/libexec/java_home -V 2>&1 | grep ' jdk' | sed 's/.* //' | while IFS= read -r d
-      do
-        _jinfo "$d"
       done
     fi
 
@@ -121,8 +121,20 @@ DOC
       done
     fi
 
-    # Java installations from Homebrew.
-    for prefix in /opt/homebrew/Cellar/openjdk /usr/local/Cellar/openjdk
+    # Java installations from java_home (macOS).
+    if [ -x /usr/libexec/java_home ]
+    then
+      /usr/libexec/java_home -V 2>&1 | grep ' jdk' | sed 's/.* //' | while IFS= read -r d
+      do
+        _jinfo "$d"
+      done
+    fi
+
+    # Java installations from Homebrew or scoop.
+    for prefix in \
+      /opt/homebrew/Cellar/openjdk \
+      /usr/local/Cellar/openjdk \
+      "$HOME/scoop/apps/openjdk"
     do
       test -d "$prefix" || continue
       find "$prefix" -mindepth 1 -maxdepth 1 -type d 2>/dev/null | while IFS= read -r d
