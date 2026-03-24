@@ -167,10 +167,15 @@ esac
 # starship -- cross-shell prompt
 case "$(uname)" in
   Linux)
-    # Available in Ubuntu 25.04+; silently skipped on older releases.
     command -v starship >/dev/null 2>&1 || {
       echo "Installing starship..."
-      sudo apt-get install -y starship
+      if apt-cache show starship >/dev/null 2>&1; then
+        # Available as a package (Ubuntu 25.04+).
+        sudo apt-get install -y starship
+      else
+        # Fall back to curl-based installer.
+        curl -sS https://starship.rs/install.sh | sh
+      fi
     }
     ;;
   Darwin)
@@ -191,6 +196,11 @@ case "$(uname)" in
         -o /tmp/Hack.zip &&
       unzip -o /tmp/Hack.zip -d "$HOME/.fonts/Hack" &&
       rm /tmp/Hack.zip &&
+      command -v fc-cache >/dev/null 2>&1 || {
+        echo "Installing fontconfig utilities..."
+        sudo apt-get install -y fontconfig
+      }
+      echo "Rebuilding font cache..."
       fc-cache -f
     fi
     ;;
