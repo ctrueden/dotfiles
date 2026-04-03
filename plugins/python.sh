@@ -11,6 +11,15 @@ py() {
 }
 pypath() { py -c 'import sys; print("\n".join(sys.path))'; }
 
+act() {
+  if [ -e .venv/bin/activate ]; then
+    source .venv/bin/activate
+  else
+    echo 'No virtual environment found to activate.'
+  fi
+}
+alias dea=deactivate
+
 alias py38='mamba run -n py38 python'
 alias py39='mamba run -n py39 python'
 alias py310='mamba run -n py310 python'
