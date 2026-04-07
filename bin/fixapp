@@ -1,0 +1,28 @@
+#!/bin/sh
+# Reset TCC permissions for one or more apps.
+# Usage: fixapp <bundle-id-or-app-path> [...]
+
+if [ $# -eq 0 ]; then
+    echo "Usage: fixapp <bundle-id-or-app-path> [...]" >&2
+    exit 1
+fi
+
+for arg in "$@"; do
+    if [ -d "$arg" ] && echo "$arg" | grep -q '\.app$'; then
+        plist="$arg/Contents/Info.plist"
+        if [ ! -f "$plist" ]; then
+            echo "fixapp: no Info.plist found in $arg" >&2
+            continue
+        fi
+        bundle_id=$(defaults read "$arg/Contents/Info" CFBundleIdentifier 2>/dev/null)
+        if [ -z "$bundle_id" ]; then
+            echo "fixapp: could not read CFBundleIdentifier from $plist" >&2
+            continue
+        fi
+    else
+        bundle_id="$arg"
+    fi
+
+    echo "Resetting TCC permissions for: $bundle_id"
+    tccutil reset All "$bundle_id"
+done
