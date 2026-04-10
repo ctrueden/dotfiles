@@ -35,6 +35,10 @@ openjdk-11-jdk
 openjdk-11-source
 openjdk-17-jdk
 openjdk-17-source
+openjdk-21-jdk
+openjdk-21-source
+openjdk-25-jdk
+openjdk-25-source
 "
 
 packages_gnome="
