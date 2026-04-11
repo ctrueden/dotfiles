@@ -19,13 +19,13 @@ alias 7zc='7za a -t7z -m0=lzma2 -mx=9 -mfb=273 -md=29 -ms=8g -mmt=off -mmtf=off 
 # Print a dividing line in ASCII.
 div() {
 	local len=$1
-  test "$len" -gt 0 2>/dev/null || len=$((COLUMNS-1)) 2>/dev/null
+	test "$len" -gt 0 2>/dev/null || len=$((COLUMNS-1)) 2>/dev/null
 	test "$len" -gt 0 || len=36
 	local symbol=$2
 	test "$symbol" || symbol=—
-  local div=
-  for i in $(seq "$len"); do div="$div$symbol"; done
-  echo "$div"
+	local div=
+	for i in $(seq "$len"); do div="$div$symbol"; done
+	echo "$div"
 }
 
 alias mv='mv -i'
@@ -63,7 +63,7 @@ alias histime='HISTTIMEFORMAT="%F %T " history'
 # --== eject ==--
 
 if [ -x "$(command -v diskutil)" ]; then
-  alias eject='diskutil eject'
+	alias eject='diskutil eject'
 fi
 
 # --== ldd ==--
