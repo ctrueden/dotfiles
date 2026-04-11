@@ -14,7 +14,7 @@ export BAT_THEME=TwoDark
 # "7-zip compress" -- solid mode -- https://stackoverflow.com/a/52771612
 alias 7zc='7za a -t7z -m0=lzma2 -mx=9 -mfb=273 -md=29 -ms=8g -mmt=off -mmtf=off -mqs=on -bt -bb3'
 
-# --== shell ==--
+# --== ls ==--
 
 # Print a dividing line in ASCII.
 div() {
@@ -28,10 +28,37 @@ div() {
 	echo "$div"
 }
 
-alias mv='mv -i'
+# use readable ls colors
+if [ "$IS_LINUX" ]; then
+	alias ls='ls -F --color=auto'
+	export LS_COLORS="ow=30;42"
+else
+	alias ls='ls -FG'
+fi
+if [ "$IS_MACOS" ]; then
+	export LSCOLORS="ExGxBxDxCxEgedabagacad"
+fi
+
+# Note: Aliases from oh-my-zsh include:
+# alias l='ls -lah'
+# alias la='ls -lAh'
+# alias ll='ls -lh'
+# alias lsa='ls -lah'
+
+# Add one more: include hidden files, but not in a long listing.
+alias lsA='ls -A'
+
 # NB: To get clear on Cygwin, install ncurses.
+alias cl='clear;pwd;div;l'
+alias cla='clear;pwd;div;la'
+alias cll='clear;pwd;div;ll'
 alias cls='clear;pwd;div;ls'
-alias cll='clear;pwd;div;ls -la'
+alias clsa='clear;pwd;div;lsa'
+alias clsA='clear;pwd;div;lsA'
+
+# --== various ==--
+
+alias mv='mv -i'
 alias cdiff='colordiff 2> /dev/null'
 alias grep='grep --color=auto'
 alias cgrep='grep --color=always'

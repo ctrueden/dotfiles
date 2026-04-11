@@ -1,6 +1,6 @@
 test "$DEBUG" && echo "[dotfiles] Loading bash plugin 'git'..."
 
-# --== bash shortcuts ==--
+# --== bash git shortcuts ==--
 
 # The git oh-my-zsh plugin has lots of useful shortcuts.
 # Unfortunately, they aren't available in bash.
