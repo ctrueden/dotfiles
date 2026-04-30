@@ -4,8 +4,17 @@ set cpo&vim
 set nocompatible              " be iMproved, required
 filetype off                  " required
 
+" XDG Base Directory support
+if !empty($XDG_DATA_HOME)
+  set runtimepath^=$XDG_DATA_HOME/vim
+  set runtimepath+=$XDG_DATA_HOME/vim/after
+endif
+if !empty($XDG_STATE_HOME)
+  set viminfo+=n$XDG_STATE_HOME/vim/viminfo
+endif
+
 """ BEGIN VUNDLE CONFIGURATION
-let vundlepath = $HOME . "/.vim/bundle/Vundle.vim"
+let vundlepath = (!empty($XDG_DATA_HOME) ? $XDG_DATA_HOME : $HOME . "/.vim") . "/vim/bundle/Vundle.vim"
 let &runtimepath .= ',' . vundlepath
 if filereadable(vundlepath . '/README.md')
 	" set the runtime path to include Vundle and initialize
