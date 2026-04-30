@@ -1,33 +1,96 @@
 #!/bin/sh
 
 # Installs the packages I like.
-# TODO: Make it work on macOS with brew, too.
+
+# -- Detect package manager --
+
+if command -v apt-get >/dev/null; then
+  PM=apt
+elif command -v brew >/dev/null; then
+  PM=brew
+else
+  echo "No supported package manager (apt-get or brew) found." >&2
+  exit 1
+fi
+
+# -- Packages with the same name on both apt and brew --
 
 packages_shell="
+ansiweather
 aspell
+bash
 bat
 boxes
-curl
-exuberant-ctags
+fzf
 htop
-lastpass-cli
-lm-sensors
-nfs-common
-pass
 pwgen
 ripgrep
 tldr
 toilet
 tree
-zsh
 "
 
 packages_dev="
+cmake
+gcc
+gh
+git-lfs
+gnupg
+maven
+neovim
+pandoc
+"
+
+packages_media="
+ffmpeg
+imagemagick
+"
+
+packages_apps="
+1password
+discord
+firefox
+ghostty
+gimp
+libreoffice
+vlc
+zoom
+"
+
+packages_system="
+ca-certificates
+coreutils
+fontconfig
+gettext
+graphviz
+libtool
+m4
+netpbm
+p11-kit
+pkgconf
+ruby
+shared-mime-info
+webp
+wireguard-tools
+zstd
+"
+
+# -- Platform-specific packages --
+
+if [ "$PM" = apt ]; then
+
+  packages_shell="$packages_shell
+curl
+exuberant-ctags
+lastpass-cli
+lm-sensors
+nfs-common
+zsh
+"
+
+  packages_dev="$packages_dev
 ant
 build-essential
-cmake
-gh
-maven
 myrepos
 openjdk-8-jdk
 openjdk-8-source
@@ -41,7 +104,7 @@ openjdk-25-jdk
 openjdk-25-source
 "
 
-packages_gnome="
+  packages_gnome="
 dconf-editor
 diodon
 gnome-shell-extension-manager
@@ -49,38 +112,54 @@ gnome-system-monitor
 gnome-tweaks
 "
 
-packages_media="
-ffmpeg
-imagemagick
+  packages_media="$packages_media
 kid3-qt
 libtiff-tools
 picard
 "
 
-packages_other="
-flatpak
-"
-
-packages_apps="
+  packages_apps="$packages_apps
 barrier
-gimp
 guake
 meshlab
-vlc
 "
+
+  packages_other="flatpak"
+
+elif [ "$PM" = brew ]; then
+
+  packages_dev="$packages_dev
+mr
+"
+
+  packages_media="$packages_media
+libtiff
+"
+
+  packages_other="duti"
+
+  packages_java="
+zulu@8
+zulu@11
+zulu@17
+zulu@21
+"
+
+fi
 
 all_packages="
 $packages_shell
 $packages_dev
-$packages_gnome
 $packages_media
-$packages_other
 $packages_apps
+$packages_system
+${packages_gnome:-}
+${packages_other:-}
 "
 
-if command -v apt-get >/dev/null
-then
-  # -- Set up apt sources --
+# -- Install --
+
+if [ "$PM" = apt ]; then
 
   # gh - adapted from: https://github.com/cli/cli/blob/trunk/docs/install_linux.md
   gh_keyring=/usr/share/keyrings/githubcli-archive-keyring.gpg
@@ -96,8 +175,11 @@ then
     echo "deb [arch=$(dpkg --print-architecture) signed-by=$gh_keyring] https://cli.github.com/packages stable main" | sudo tee $gh_apt_list > /dev/null
   fi
 
-  # -- Install the packages --
-
   sudo apt-get update &&
   sudo apt-get install $all_packages
+
+elif [ "$PM" = brew ]; then
+
+  brew install $all_packages $packages_java
+
 fi
