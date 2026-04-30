@@ -1,0 +1,248 @@
+#!/bin/bash
+
+#
+# monitor-nsurlsessiond - identify which app is driving nsurlsessiond downloads
+#
+# Usage: monitor-nsurlsessiond [--interval SECONDS] [--logdir DIR]
+#
+# Run this when you notice nsurlsessiond downloading heavily.
+# Logs go to ~/Library/Logs/nsurlsessiond-monitor/ by default.
+# Stop with Ctrl-C or: kill $(cat /tmp/monitor-nsurlsessiond.pid)
+#
+
+set -euo pipefail
+
+# --- defaults ---
+INTERVAL=15
+LOGDIR="${HOME}/Library/Logs/nsurlsessiond-monitor"
+CACHE_DIR="${HOME}/Library/Caches/com.apple.nsurlsessiond"
+DOWNLOADS_DIR="${CACHE_DIR}/Downloads"
+
+# tasks.sqlite lives under /var/folders/…/0/com.apple.nsurlsessiond/, not in
+# ~/Library/Caches. Locate it dynamically so we find the real, populated file.
+find_tasks_db() {
+    local path
+
+    # Best: ask lsof which file nsurlsessiond actually has open right now.
+    path=$(lsof -c nsurlsessiond 2>/dev/null \
+           | grep '/tasks\.sqlite$' \
+           | awk '{ print $NF; exit }')
+    if [[ -n "$path" && -f "$path" ]]; then
+        echo "$path"; return
+    fi
+
+    # Fallback: derive from DARWIN_USER_CACHE_DIR.
+    # getconf returns e.g. /var/folders/xx/yyyy/C/  — strip the trailing C/
+    # to get the per-user base, then append 0/com.apple.nsurlsessiond/…
+    local base
+    base=$(getconf DARWIN_USER_CACHE_DIR 2>/dev/null)
+    base="${base%/}"          # strip trailing slash
+    base="${base%/*}"         # strip last path component (C)
+    path="${base}/0/com.apple.nsurlsessiond/tasks.sqlite"
+    if [[ -f "$path" ]]; then
+        echo "$path"; return
+    fi
+
+    # Last resort: the ~/Library/Caches copy (usually empty, but worth a try).
+    echo "${CACHE_DIR}/tasks.sqlite"
+}
+
+# --- argument parsing ---
+while [[ $# -gt 0 ]]; do
+    case "$1" in
+        --interval) INTERVAL="$2"; shift 2 ;;
+        --logdir)   LOGDIR="$2";   shift 2 ;;
+        -h|--help)
+            sed -n '/^#$/,/^[^#]/p' "$0" | grep '^#' | sed 's/^# \{0,1\}//'
+            exit 0
+            ;;
+        *) echo "Unknown argument: $1" >&2; exit 1 ;;
+    esac
+done
+
+# --- setup ---
+mkdir -p "$LOGDIR"
+TIMESTAMP=$(date +%Y%m%d-%H%M%S)
+MAIN_LOG="${LOGDIR}/session-${TIMESTAMP}.log"
+STREAM_LOG="${LOGDIR}/logstream-${TIMESTAMP}.log"
+STREAM_PID=""
+
+echo $$ > /tmp/monitor-nsurlsessiond.pid
+
+# --- logging helpers ---
+ts() { date '+%Y-%m-%d %H:%M:%S'; }
+
+log() {
+    echo "[$(ts)] $*" | tee -a "$MAIN_LOG"
+}
+
+log_section() {
+    echo "" >> "$MAIN_LOG"
+    echo "[$(ts)] ======== $* ========" | tee -a "$MAIN_LOG"
+}
+
+log_cmd() {
+    # Run a command, append stdout+stderr to log, return its exit code.
+    # Usage: log_cmd label cmd [args...]
+    local label="$1"; shift
+    echo "[$(ts)] --- ${label} ---" >> "$MAIN_LOG"
+    "$@" >> "$MAIN_LOG" 2>&1 || {
+        echo "[$(ts)] (exit $? from: $*)" >> "$MAIN_LOG"
+    }
+}
+
+# --- cleanup ---
+cleanup() {
+    log_section "monitor stopping"
+    if [[ -n "$STREAM_PID" ]] && kill -0 "$STREAM_PID" 2>/dev/null; then
+        kill "$STREAM_PID" 2>/dev/null || true
+        log "log stream (PID $STREAM_PID) stopped"
+    fi
+    rm -f /tmp/monitor-nsurlsessiond.pid
+    log "main log:    $MAIN_LOG"
+    log "log stream:  $STREAM_LOG"
+    echo ""
+    echo "Logs saved to: $LOGDIR"
+}
+trap cleanup EXIT INT TERM
+
+# --- start log stream ---
+start_log_stream() {
+    if command -v log >/dev/null 2>&1; then
+        log "starting log stream -> $STREAM_LOG"
+        # --info includes Info-level messages where bundle IDs appear
+        log stream \
+            --predicate 'process == "nsurlsessiond"' \
+            --info \
+            >> "$STREAM_LOG" 2>&1 &
+        STREAM_PID=$!
+        log "log stream PID: $STREAM_PID"
+    else
+        log "WARNING: 'log' command not found; skipping log stream"
+    fi
+}
+
+# --- snapshot functions ---
+
+snapshot_pids() {
+    local pids
+    pids=$(pgrep nsurlsessiond 2>/dev/null || true)
+    if [[ -z "$pids" ]]; then
+        log "nsurlsessiond: not running"
+        echo ""
+        return
+    fi
+    log "nsurlsessiond PIDs: $(echo "$pids" | tr '\n' ' ')"
+    echo "$pids"
+}
+
+snapshot_lsof() {
+    local pids="$1"
+    [[ -z "$pids" ]] && return
+    if ! command -v lsof >/dev/null 2>&1; then
+        log "lsof not available"
+        return
+    fi
+    for pid in $pids; do
+        # -i: internet files, -n: no hostname resolution, -P: no port name resolution
+        log_cmd "lsof -p $pid (internet)" lsof -p "$pid" -i -n -P
+    done
+}
+
+snapshot_cache_sizes() {
+    if [[ ! -d "$DOWNLOADS_DIR" ]]; then
+        log "Downloads dir not found: $DOWNLOADS_DIR"
+        return
+    fi
+    log_cmd "download cache sizes" du -sh "${DOWNLOADS_DIR}"/*/
+    # Also capture any files modified in the last minute as a change signal
+    echo "[$(ts)] --- files modified <60s ago in cache ---" >> "$MAIN_LOG"
+    find "$DOWNLOADS_DIR" -mmin -1 -ls 2>/dev/null >> "$MAIN_LOG" || true
+}
+
+snapshot_tasks_sqlite() {
+    local TASKS_DB
+    TASKS_DB=$(find_tasks_db)
+    log "tasks.sqlite path: $TASKS_DB"
+    if [[ ! -f "$TASKS_DB" ]]; then
+        log "tasks.sqlite: not found"
+        return
+    fi
+    if [[ ! -s "$TASKS_DB" ]]; then
+        log "tasks.sqlite: empty (download may have finished)"
+        return
+    fi
+    if ! command -v sqlite3 >/dev/null 2>&1; then
+        log "sqlite3 not available; skipping tasks.sqlite"
+        return
+    fi
+    # First discover schema defensively, then query what we can
+    {
+        echo "[$(ts)] --- tasks.sqlite schema ---"
+        sqlite3 "$TASKS_DB" ".schema" 2>&1 || echo "(schema query failed)"
+        echo "[$(ts)] --- tasks.sqlite rows ---"
+        # Try known column names; fall back to a wildcard select if that fails
+        sqlite3 -header -column "$TASKS_DB" \
+            "SELECT bundle_identifier, url, state, bytes_received, bytes_total
+             FROM tasks
+             ORDER BY bytes_received DESC
+             LIMIT 30;" 2>/dev/null \
+        || sqlite3 -header -column "$TASKS_DB" \
+            "SELECT * FROM tasks LIMIT 30;" 2>/dev/null \
+        || echo "(tasks query failed)"
+    } >> "$MAIN_LOG"
+}
+
+snapshot_nettop() {
+    if ! command -v nettop >/dev/null 2>&1; then
+        log "nettop not available"
+        return
+    fi
+    echo "[$(ts)] --- nettop (1 sample, all interfaces) ---" >> "$MAIN_LOG"
+    # -l 1: one sample then exit; -P: per-process; -x: wide output
+    # nettop exits non-zero sometimes; tolerate that
+    timeout 10 nettop -l 1 -P -x 2>/dev/null \
+        | grep -i "nsurlsession\|nsurlsess" \
+        >> "$MAIN_LOG" \
+    || echo "(nettop: no nsurlsessiond entries or command failed)" >> "$MAIN_LOG"
+}
+
+snapshot_recent_log() {
+    # Pull last N lines of the streaming log so the main log is self-contained
+    if [[ -f "$STREAM_LOG" ]]; then
+        echo "[$(ts)] --- last 20 lines of log stream ---" >> "$MAIN_LOG"
+        tail -20 "$STREAM_LOG" >> "$MAIN_LOG" 2>/dev/null || true
+    fi
+}
+
+# --- full snapshot ---
+snapshot() {
+    local label="$1"
+    log_section "snapshot: $label"
+    local pids
+    pids=$(snapshot_pids)
+    snapshot_lsof "$pids"
+    snapshot_cache_sizes
+    snapshot_tasks_sqlite
+    snapshot_nettop
+    snapshot_recent_log
+}
+
+# --- main ---
+log_section "monitor started"
+log "interval:    ${INTERVAL}s"
+log "main log:    $MAIN_LOG"
+log "log stream:  $STREAM_LOG"
+log "stop with:   kill \$\$ (PID $$) or Ctrl-C"
+
+start_log_stream
+sleep 1  # give log stream a moment to start
+
+snapshot "initial"
+
+count=0
+while true; do
+    sleep "$INTERVAL"
+    count=$((count + 1))
+    snapshot "poll-${count}"
+done
