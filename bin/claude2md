@@ -1,0 +1,109 @@
+#!/usr/bin/env python3
+
+"""Convert Claude Code .jsonl conversation files to Markdown."""
+
+import json
+import sys
+import re
+from pathlib import Path
+
+
+def extract_text(content):
+    """Return plain text from a message content field (str or block list)."""
+    if isinstance(content, str):
+        return content.strip()
+    parts = []
+    for block in content:
+        btype = block.get("type")
+        if btype == "text":
+            parts.append(block["text"].strip())
+        elif btype == "thinking":
+            pass  # skip internal reasoning
+        elif btype == "tool_use":
+            name = block.get("name", "tool")
+            inp = json.dumps(block.get("input", {}), indent=2)
+            parts.append(f"```tool:{name}\n{inp}\n```")
+        elif btype == "tool_result":
+            inner = block.get("content", "")
+            if isinstance(inner, list):
+                inner = "\n".join(
+                    b.get("text", "") for b in inner if b.get("type") == "text"
+                )
+            parts.append(f"```tool-result\n{str(inner).strip()}\n```")
+    return "\n\n".join(p for p in parts if p)
+
+
+def strip_meta_tags(text):
+    """Remove system-injected XML tags from user messages."""
+    text = re.sub(r"<local-command-caveat>.*?</local-command-caveat>", "", text, flags=re.DOTALL)
+    text = re.sub(r"<local-command-stdout>.*?</local-command-stdout>", "", text, flags=re.DOTALL)
+    text = re.sub(r"<command-name>.*?</command-name>", "", text, flags=re.DOTALL)
+    text = re.sub(r"<command-message>.*?</command-message>", "", text, flags=re.DOTALL)
+    text = re.sub(r"<command-args>.*?</command-args>", "", text, flags=re.DOTALL)
+    text = re.sub(r"<system-reminder>.*?</system-reminder>", "", text, flags=re.DOTALL)
+    return text.strip()
+
+
+def jsonl_to_md(path: Path) -> str:
+    records = []
+    with open(path) as f:
+        for line in f:
+            line = line.strip()
+            if line:
+                records.append(json.loads(line))
+
+    lines = [f"# Conversation: {path.stem}\n"]
+
+    # Build ordered message list (follow parentUuid chain for linear history)
+    by_uuid = {r.get("uuid"): r for r in records if r.get("uuid")}
+    roots = [r for r in records if r.get("type") in ("user", "assistant") and r.get("parentUuid") is None]
+    # Fall back to timestamp order if chain is complex
+    messages = [r for r in records if r.get("type") in ("user", "assistant")]
+    messages.sort(key=lambda r: r.get("timestamp", ""))
+
+    for msg in messages:
+        if msg.get("isMeta"):
+            continue
+        role = msg["type"]
+        text = extract_text(msg["message"].get("content", ""))
+        if role == "user":
+            text = strip_meta_tags(text)
+        if not text:
+            continue
+        ts = msg.get("timestamp", "")[:19].replace("T", " ")
+        header = f"## {'You' if role == 'user' else 'Claude'}"
+        if ts:
+            header += f"  <sub>{ts}</sub>"
+        lines.append(header)
+        lines.append(text)
+        lines.append("")
+
+    return "\n\n".join(lines)
+
+
+def main():
+    if len(sys.argv) < 2:
+        print("Usage: claude2md <file.jsonl> [file2.jsonl ...] [-o outdir]")
+        sys.exit(1)
+
+    args = sys.argv[1:]
+    outdir = None
+    if "-o" in args:
+        idx = args.index("-o")
+        outdir = Path(args[idx + 1])
+        outdir.mkdir(parents=True, exist_ok=True)
+        args = args[:idx] + args[idx + 2:]
+
+    for arg in args:
+        path = Path(arg)
+        md = jsonl_to_md(path)
+        if outdir:
+            out = outdir / (path.stem + ".md")
+            out.write_text(md)
+            print(f"Wrote {out}")
+        else:
+            print(md)
+
+
+if __name__ == "__main__":
+    main()
