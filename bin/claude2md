@@ -2,14 +2,208 @@
 
 """Convert Claude Code .jsonl conversation files to Markdown."""
 
+import html as html_lib
 import json
 import sys
 import re
 from pathlib import Path
 
+STYLE = """\
+<style>
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  font-size: 15px;
+  line-height: 1.6;
+  color: #24292e;
+  max-width: 860px;
+  margin: 2rem auto;
+  padding: 0 1.5rem;
+  background: #ffffff;
+}
+h1 {
+  font-size: 1.4rem;
+  font-weight: 600;
+  color: #444;
+  border-bottom: 2px solid #e1e4e8;
+  padding-bottom: 0.4rem;
+  margin-bottom: 1.5rem;
+}
+.turn {
+  border-radius: 8px;
+  padding: 1rem 1.25rem;
+  margin-bottom: 1rem;
+}
+.turn h2 {
+  font-size: 0.8rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  margin: 0 0 0.6rem 0;
+  padding: 0;
+  border: none;
+}
+.turn h2 sub {
+  font-weight: 400;
+  text-transform: none;
+  letter-spacing: 0;
+  font-size: 0.75rem;
+  opacity: 0.6;
+  margin-left: 0.5rem;
+}
+.user {
+  background: #f0f4ff;
+  border-left: 4px solid #6b8cff;
+}
+.user h2 { color: #3a56c5; }
+.claude {
+  background: #f6f8f6;
+  border-left: 4px solid #57a86c;
+}
+.claude h2 { color: #2d7a42; }
+pre {
+  background: #f6f8fa;
+  border: 1px solid #e1e4e8;
+  border-radius: 6px;
+  padding: 0.85rem 1rem;
+  overflow-x: auto;
+  font-size: 0.85em;
+  line-height: 1.45;
+  margin: 0.5rem 0 0 0;
+}
+code {
+  font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
+  background: #f0f0f0;
+  border-radius: 3px;
+  padding: 0.1em 0.35em;
+  font-size: 0.88em;
+}
+pre code {
+  background: none;
+  padding: 0;
+  font-size: inherit;
+}
+blockquote {
+  border-left: 3px solid #d0d7de;
+  margin-left: 0;
+  padding-left: 1rem;
+  color: #57606a;
+}
+details {
+  border: 1px solid #d0d7de;
+  border-radius: 6px;
+  margin: 0.6rem 0;
+  overflow: hidden;
+  font-size: 0.88em;
+}
+details summary {
+  padding: 0.45rem 0.75rem;
+  cursor: pointer;
+  background: #f6f8fa;
+  color: #555;
+  user-select: none;
+  display: flex;
+  align-items: baseline;
+  gap: 0.4em;
+  list-style: none;
+}
+details summary::-webkit-details-marker { display: none; }
+details summary::before {
+  content: "▶";
+  font-size: 0.65em;
+  opacity: 0.5;
+  flex-shrink: 0;
+}
+details[open] summary::before { content: "▼"; }
+.tool-label {
+  font-weight: 600;
+  font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
+  color: #6f42c1;
+}
+.tool-desc { color: #444; }
+details pre {
+  border-radius: 0;
+  border: none;
+  border-top: 1px solid #e1e4e8;
+  margin: 0;
+}
+details pre + pre {
+  border-top: 1px dashed #e1e4e8;
+  background: #fffef8;
+}
+</style>
+"""
 
-def extract_text(content):
-    """Return plain text from a message content field (str or block list)."""
+
+def _esc(s):
+    return html_lib.escape(str(s))
+
+
+def render_tool_use(block, tool_results):
+    """Render a tool_use block as a collapsible <details> HTML element."""
+    name = block.get("name", "tool")
+    inp = block.get("input", {})
+    uid = block.get("id", "")
+    result = tool_results.get(uid, "")
+
+    def output_block():
+        if not result:
+            return ""
+        return f"\n<pre><code>{_esc(result)}</code></pre>"
+
+    if "command" in inp:
+        command = inp["command"]
+        desc = inp.get("description", "")
+        brief = desc or (command.split("\n")[0][:80] + ("…" if len(command) > 80 else ""))
+        return (
+            f'<details>\n'
+            f'<summary><span class="tool-label">{_esc(name)}</span>'
+            f' <span class="tool-desc">{_esc(brief)}</span></summary>\n'
+            f'<pre><code>{_esc(command)}</code></pre>'
+            f'{output_block()}\n'
+            f'</details>'
+        )
+
+    if "file_path" in inp and "content" in inp:
+        file_path = inp["file_path"]
+        content = inp["content"]
+        return (
+            f'<details>\n'
+            f'<summary><span class="tool-label">{_esc(name)}</span>'
+            f' <code>{_esc(file_path)}</code></summary>\n'
+            f'<pre><code>{_esc(content)}</code></pre>\n'
+            f'</details>'
+        )
+
+    if "file_path" in inp:
+        file_path = inp["file_path"]
+        extra = {k: v for k, v in inp.items() if k != "file_path"}
+        body = ""
+        if extra:
+            body = f"\n<pre><code>{_esc(json.dumps(extra, indent=2))}</code></pre>"
+        return (
+            f'<details>\n'
+            f'<summary><span class="tool-label">{_esc(name)}</span>'
+            f' <code>{_esc(file_path)}</code></summary>'
+            f'{body}'
+            f'{output_block()}\n'
+            f'</details>'
+        )
+
+    # Generic fallback
+    inp_json = json.dumps(inp, indent=2)
+    return (
+        f'<details>\n'
+        f'<summary><span class="tool-label">{_esc(name)}</span></summary>\n'
+        f'<pre><code>{_esc(inp_json)}</code></pre>'
+        f'{output_block()}\n'
+        f'</details>'
+    )
+
+
+def extract_text(content, tool_results=None):
+    """Return rendered text from a message content field (str or block list)."""
+    if tool_results is None:
+        tool_results = {}
     if isinstance(content, str):
         return content.strip()
     parts = []
@@ -20,17 +214,21 @@ def extract_text(content):
         elif btype == "thinking":
             pass  # skip internal reasoning
         elif btype == "tool_use":
-            name = block.get("name", "tool")
-            inp = json.dumps(block.get("input", {}), indent=2)
-            parts.append(f"```tool:{name}\n{inp}\n```")
+            parts.append(render_tool_use(block, tool_results))
         elif btype == "tool_result":
+            # Unpaired fallback (shouldn't normally appear here)
             inner = block.get("content", "")
             if isinstance(inner, list):
-                inner = "\n".join(
-                    b.get("text", "") for b in inner if b.get("type") == "text"
-                )
-            parts.append(f"```tool-result\n{str(inner).strip()}\n```")
+                inner = "\n".join(b.get("text", "") for b in inner if b.get("type") == "text")
+            parts.append(f"```\n{str(inner).strip()}\n```")
     return "\n\n".join(p for p in parts if p)
+
+
+def is_tool_result_message(content):
+    """Return True if this user message is purely tool results (not human text)."""
+    if not isinstance(content, list) or not content:
+        return False
+    return all(b.get("type") == "tool_result" for b in content)
 
 
 def strip_meta_tags(text):
@@ -52,12 +250,21 @@ def jsonl_to_md(path: Path) -> str:
             if line:
                 records.append(json.loads(line))
 
-    lines = [f"# Conversation: {path.stem}\n"]
+    # Build tool_use_id → output text lookup from all tool_result records
+    tool_results = {}
+    for r in records:
+        if r.get("type") == "user":
+            for block in r["message"].get("content", []) if isinstance(r["message"].get("content"), list) else []:
+                if block.get("type") == "tool_result":
+                    uid = block.get("tool_use_id", "")
+                    inner = block.get("content", "")
+                    if isinstance(inner, list):
+                        inner = "\n".join(b.get("text", "") for b in inner if b.get("type") == "text")
+                    if uid:
+                        tool_results[uid] = str(inner).strip()
 
-    # Build ordered message list (follow parentUuid chain for linear history)
-    by_uuid = {r.get("uuid"): r for r in records if r.get("uuid")}
-    roots = [r for r in records if r.get("type") in ("user", "assistant") and r.get("parentUuid") is None]
-    # Fall back to timestamp order if chain is complex
+    parts = [STYLE, f"# Conversation: {path.stem}\n"]
+
     messages = [r for r in records if r.get("type") in ("user", "assistant")]
     messages.sort(key=lambda r: r.get("timestamp", ""))
 
@@ -65,20 +272,26 @@ def jsonl_to_md(path: Path) -> str:
         if msg.get("isMeta"):
             continue
         role = msg["type"]
-        text = extract_text(msg["message"].get("content", ""))
+        raw_content = msg["message"].get("content", "")
+
+        # Skip pure tool-result messages — results are embedded in details blocks above
+        if role == "user" and is_tool_result_message(raw_content):
+            continue
+
+        text = extract_text(raw_content, tool_results)
         if role == "user":
             text = strip_meta_tags(text)
         if not text:
             continue
-        ts = msg.get("timestamp", "")[:19].replace("T", " ")
-        header = f"## {'You' if role == 'user' else 'Claude'}"
-        if ts:
-            header += f"  <sub>{ts}</sub>"
-        lines.append(header)
-        lines.append(text)
-        lines.append("")
 
-    return "\n\n".join(lines)
+        ts = msg.get("timestamp", "")[:19].replace("T", " ")
+        label = "You" if role == "user" else "Claude"
+        css_class = "user" if role == "user" else "claude"
+        ts_tag = f"  <sub>{ts}</sub>" if ts else ""
+        # Fenced div — pandoc converts ::: {.foo} blocks to <div class="foo">
+        parts.append(f"::: {{.turn .{css_class}}}\n## {label}{ts_tag}\n\n{text}\n\n:::")
+
+    return "\n\n".join(parts)
 
 
 def main():
