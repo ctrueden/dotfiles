@@ -1,0 +1,18 @@
+#!/bin/sh
+
+# Converts all Claude conversations to Markdown
+# and HTML format in ~/.claude/transcripts.
+
+mkdir -p ~/.claude/transcripts
+find ~/.claude/ -name '*.jsonl' -exec grep -H '"aiTitle":' "{}" \; |
+	sort -u |
+	sed 's/^\([^:]*\).*:.*"aiTitle":"\([^"]*\).*/\1:\2/' |
+	while read line
+do
+	p="${line%%:*}"
+	title=$(echo "${line#*:}" | sed 's;[^a-zA-Z0-9 _-];_;g')
+	result=$(claude2md "$p" -o ~/.claude/transcripts/)
+	echo "$result"
+	md=${result#Wrote }
+	pandoc "$md" -o ~/.claude/transcripts/"$title".html
+done
