@@ -5,18 +5,14 @@
 count=${1:-1}
 i=0
 while [ "$i" -lt "$count" ]; do
-  if [ "$(uname)" = "Darwin" ]; then
+  if command -v afplay > /dev/null 2>&1; then
     for sound in /System/Library/Sounds/*.aiff
     do
       afplay "$sound" &
     done
-  # TODO: Actually test on Linux.
   elif command -v paplay > /dev/null 2>&1; then
-    paplay /usr/share/sounds/freedesktop/stereo/bell.oga 2>/dev/null ||
-    paplay /usr/share/sounds/gnome/default/alerts/glass.ogg 2>/dev/null ||
+    paplay /usr/share/sounds/freedesktop/stereo/complete.oga 2>/dev/null ||
     printf '\a'
-  elif command -v aplay > /dev/null 2>&1; then
-    aplay /usr/share/sounds/alsa/Front_Left.wav 2>/dev/null || printf '\a'
   else
     printf '\a'
   fi
