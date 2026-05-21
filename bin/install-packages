@@ -1,6 +1,26 @@
 #!/bin/sh
 
 # Installs the packages I like.
+#
+# Usage: install-packages [--gui] [--heavy] [--system]
+#   --gui     Include GUI-only packages (require a graphical environment)
+#   --heavy   Include large/slow-to-install packages
+#   --system  Include host-system packages (hardware, kernel modules, system daemons)
+
+# -- Parse flags --
+
+opt_gui=
+opt_heavy=
+opt_system=
+
+for arg in "$@"; do
+  case "$arg" in
+    --gui) opt_gui=1 ;;
+    --heavy) opt_heavy=1 ;;
+    --system) opt_system=1 ;;
+    *) echo "Unknown option: $arg" >&2; exit 1 ;;
+  esac
+done
 
 # -- Detect package manager --
 
@@ -13,9 +33,10 @@ else
   exit 1
 fi
 
-# -- Packages with the same name on both apt and brew --
+# -- Core packages (always installed) --
 
-packages_shell="
+# shell
+packages="
 ansiweather
 aspell
 bash
@@ -25,40 +46,28 @@ fzf
 htop
 pwgen
 ripgrep
-tldr
 toilet
 tree
 "
 
-packages_dev="
+# dev
+packages="$packages
 cmake
 gcc
 gh
 git-lfs
 gnupg
-maven
 neovim
-pandoc
 vim
 "
 
-packages_media="
-ffmpeg
+# media
+packages="$packages
 imagemagick
 "
 
-packages_apps="
-1password
-discord
-firefox
-ghostty
-gimp
-libreoffice
-vlc
-zoom
-"
-
-packages_system="
+# system
+packages="$packages
 ca-certificates
 coreutils
 fontconfig
@@ -69,98 +78,108 @@ m4
 netpbm
 p11-kit
 pkgconf
-ruby
 shared-mime-info
 webp
-wireguard-tools
 zstd
 "
+
+# -- Heavy packages (--heavy) --
+
+# dev
+packages_heavy="
+pandoc
+"
+
+# media
+packages_heavy="$packages_heavy
+ffmpeg
+"
+
+# system
+packages_heavy="$packages_heavy
+ruby
+"
+
+# -- System/host packages (--system) --
+
+packages_system="
+wireguard-tools
+"
+
+# -- GUI packages (--gui) --
+
+packages_gui=
 
 # -- Platform-specific packages --
 
 if [ "$PM" = apt ]; then
 
-  packages_shell="$packages_shell
+  # shell
+  packages="$packages
 curl
 exuberant-ctags
-lastpass-cli
-lm-sensors
-nfs-common
 openssh-client
 zsh
 "
 
-  packages_dev="$packages_dev
-ant
+  # dev
+  packages="$packages
 build-essential
 myrepos
 python-is-python3
-openjdk-8-jdk
-openjdk-8-source
-openjdk-11-jdk
-openjdk-11-source
-openjdk-17-jdk
-openjdk-17-source
-openjdk-21-jdk
-openjdk-21-source
-openjdk-25-jdk
-openjdk-25-source
 "
 
-  packages_gnome="
+  # media
+  packages="$packages
+libtiff-tools
+"
+
+  # system/host: hardware + network filesystems
+  packages_system="$packages_system
+lm-sensors
+nfs-common
+"
+
+  # gui
+  packages_gui="$packages_gui
+barrier
 dconf-editor
 diodon
+flatpak
 gnome-shell-extension-manager
 gnome-system-monitor
 gnome-tweaks
-"
-
-  packages_media="$packages_media
+guake
 kid3-qt
-libtiff-tools
+libreoffice
 picard
 "
 
-  packages_apps="$packages_apps
-barrier
-guake
-meshlab
-"
-
-  packages_other="flatpak"
-
 elif [ "$PM" = brew ]; then
 
-  packages_dev="$packages_dev
+  # dev
+  packages="$packages
 mr
 "
 
-  packages_media="$packages_media
+  # media
+  packages="$packages
 libtiff
 "
 
-  packages_other="duti"
-
-  packages_java="
-zulu@8
-zulu@11
-zulu@17
-zulu@21
+  # other
+  packages="$packages
+duti
 "
 
 fi
 
-all_packages="
-$packages_shell
-$packages_dev
-$packages_media
-$packages_apps
-$packages_system
-${packages_gnome:-}
-${packages_other:-}
-"
+# -- Assemble and install --
 
-# -- Install --
+all_packages="$packages"
+test "$opt_heavy"  && all_packages="$all_packages $packages_heavy"
+test "$opt_system" && all_packages="$all_packages $packages_system"
+test "$opt_gui"    && all_packages="$all_packages $packages_gui"
 
 if [ "$PM" = apt ]; then
 
@@ -185,6 +204,6 @@ if [ "$PM" = apt ]; then
 
 elif [ "$PM" = brew ]; then
 
-  brew install $all_packages $packages_java
+  brew install $all_packages
 
 fi
