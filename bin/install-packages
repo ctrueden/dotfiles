@@ -200,7 +200,7 @@ if [ "$PM" = apt ]; then
 	&& sudo apt install gh -y
 
   sudo apt-get update &&
-  sudo apt-get install $all_packages
+  sudo apt-get install -y $all_packages
 
 elif [ "$PM" = brew ]; then
 
