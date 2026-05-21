@@ -165,18 +165,20 @@ ${packages_other:-}
 if [ "$PM" = apt ]; then
 
   # gh - adapted from: https://github.com/cli/cli/blob/trunk/docs/install_linux.md
-  gh_keyring=/usr/share/keyrings/githubcli-archive-keyring.gpg
-  if [ ! -e "$gh_keyring" ]
-  then
-    command -v curl >/dev/null || sudo apt-get install -y curl
-    curl -fsSL https://cli.github.com/packages/githubcli-archive-keyring.gpg | sudo dd of="$gh_keyring" &&
-    sudo chmod go+r "$gh_keyring"
-  fi
-  gh_apt_list=/etc/apt/sources.list.d/github-cli.list
-  if [ ! -e "$gh_apt_list" ]
-  then
-    echo "deb [arch=$(dpkg --print-architecture) signed-by=$gh_keyring] https://cli.github.com/packages stable main" | sudo tee $gh_apt_list > /dev/null
-  fi
+  # Known-good fingerprints: https://github.com/cli/cli/blob/trunk/docs/install_linux.md
+  gh_fp1=2C6106201985B60E6C7AC87323F3D4EA75716059
+  gh_fp2=7F38BBB59D064DBCB3D84D725612B36462313325
+  (type -p curl >/dev/null || (sudo apt update && sudo apt install curl -y)) \
+	&& sudo mkdir -p -m 755 /etc/apt/keyrings \
+	&& out=$(mktemp) && curl -fsSL -o $out https://cli.github.com/packages/githubcli-archive-keyring.gpg \
+	&& gpg --show-keys $out | grep -q "$gh_fp1" \
+	&& gpg --show-keys $out | grep -q "$gh_fp2" \
+	&& cat $out | sudo tee /etc/apt/keyrings/githubcli-archive-keyring.gpg > /dev/null \
+	&& sudo chmod go+r /etc/apt/keyrings/githubcli-archive-keyring.gpg \
+	&& sudo mkdir -p -m 755 /etc/apt/sources.list.d \
+	&& echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/githubcli-archive-keyring.gpg] https://cli.github.com/packages stable main" | sudo tee /etc/apt/sources.list.d/github-cli.list > /dev/null \
+	&& sudo apt update \
+	&& sudo apt install gh -y
 
   sudo apt-get update &&
   sudo apt-get install $all_packages
