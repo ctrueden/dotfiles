@@ -2,7 +2,7 @@ FROM condaforge/miniforge3
 
 RUN apt-get update && \
     apt-get install -y sudo vim zsh && \
-    adduser --disabled-password --gecos "" me && \
+    useradd --comment "It's-a me" me && \
     echo "me ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers && \
     chsh -s /bin/zsh me
 

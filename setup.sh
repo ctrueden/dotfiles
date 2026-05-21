@@ -102,6 +102,8 @@ then
   done
 fi
 
+mkdir -p .config
+
 # ~/.config/starship.toml
 link_file "$CONFIG_DIR/starship.toml" .config/starship.toml
 
