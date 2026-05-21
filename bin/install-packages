@@ -39,6 +39,7 @@ gnupg
 maven
 neovim
 pandoc
+vim
 "
 
 packages_media="
@@ -85,6 +86,7 @@ exuberant-ctags
 lastpass-cli
 lm-sensors
 nfs-common
+openssh-client
 zsh
 "
 
@@ -92,6 +94,7 @@ zsh
 ant
 build-essential
 myrepos
+python-is-python3
 openjdk-8-jdk
 openjdk-8-source
 openjdk-11-jdk

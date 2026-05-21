@@ -224,7 +224,7 @@ nvim_ok() {
 # ~/.config/nvim -- kickstart.nvim + custom plugins from dotfiles
 if command -v nvim >/dev/null 2>&1 && nvim_ok && [ ! -d "$HOME/.config/nvim" ]; then
   echo "Installing kickstart.nvim into ~/.config/nvim..."
-  git clone git@github.com:nvim-lua/kickstart.nvim "$HOME/.config/nvim"
+  git clone https://github.com/nvim-lua/kickstart.nvim "$HOME/.config/nvim"
 fi
 if command -v nvim >/dev/null 2>&1 && nvim_ok && [ -d "$HOME/.config/nvim" ]; then
   # Symlink each plugin spec from dotfiles/nvim/plugins/ into lua/custom/plugins/
