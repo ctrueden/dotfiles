@@ -263,7 +263,7 @@ if command -v nvim >/dev/null 2>&1 && ! command -v tree-sitter >/dev/null 2>&1; 
 fi
 
 # ~/.vim/bundle/Vundle.vim -- vim plugin manager (fallback for systems without nvim)
-if [ ! -d "$HOME/.vim/bundle/Vundle.vim" ]; then
+if ! command -v nvim >/dev/null 2>&1 && [ ! -d "$HOME/.vim/bundle/Vundle.vim" ]; then
   git clone https://github.com/VundleVim/Vundle.vim.git "$HOME/.vim/bundle/Vundle.vim"
   command -v vim >/dev/null 2>&1 &&
     vim -c "execute 'PluginInstall' | qa"
