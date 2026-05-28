@@ -75,8 +75,6 @@ webp
 packages="$packages
 ca-certificates
 gettext
-m4
-p11-kit
 pkgconf
 shared-mime-info
 zstd
