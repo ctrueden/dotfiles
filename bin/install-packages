@@ -42,6 +42,7 @@ aspell
 bash
 bat
 boxes
+coreutils
 fzf
 htop
 pwgen
@@ -57,29 +58,27 @@ gcc
 gh
 git-lfs
 gnupg
+libtool
 neovim
 vim
 "
 
 # media
 packages="$packages
+graphviz
 imagemagick
+netpbm
+webp
 "
 
-# system
+# other
 packages="$packages
 ca-certificates
-coreutils
-fontconfig
 gettext
-graphviz
-libtool
 m4
-netpbm
 p11-kit
 pkgconf
 shared-mime-info
-webp
 zstd
 "
 
@@ -108,7 +107,10 @@ wireguard-tools
 
 # -- GUI packages (--gui) --
 
-packages_gui=
+packages_gui="
+fontconfig
+libreoffice
+"
 
 # -- Platform-specific packages --
 
@@ -152,7 +154,6 @@ gnome-system-monitor
 gnome-tweaks
 guake
 kid3-qt
-libreoffice
 picard
 "
 
@@ -176,6 +177,15 @@ libtiff
   # other
   packages="$packages
 duti
+"
+
+  # gui
+  packages_gui="$packages_gui
+iterm2
+maccy
+rectangle
+rocket
+stats
 "
 
 fi
