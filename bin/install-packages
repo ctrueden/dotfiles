@@ -119,6 +119,7 @@ if [ "$PM" = apt ]; then
 curl
 exuberant-ctags
 openssh-client
+tldr
 zsh
 "
 
@@ -156,6 +157,11 @@ picard
 "
 
 elif [ "$PM" = brew ]; then
+
+  # shell
+  packages="$packages
+tlrc
+"
 
   # dev
   packages="$packages
