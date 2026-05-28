@@ -14,5 +14,5 @@ do
 	result=$(claude2md "$p" -o ~/.claude/transcripts/)
 	echo "$result"
 	md=${result#Wrote }
-	pandoc "$md" -o ~/.claude/transcripts/"$title".html
+	pandoc "$md" -f 'markdown-tex_math_dollars' --quiet -o ~/.claude/transcripts/"$title".html
 done
