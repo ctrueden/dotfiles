@@ -6,7 +6,7 @@ alias gogit='cd $CODE_GIT'
 
 # use git for superior diff formatting
 alias diff='' && unalias diff
-diff() { git diff --no-index $@; }
+diff() { git diff --no-index "$@"; }
 
 # --== shortcuts =-
 
@@ -87,7 +87,7 @@ gll() {
   local num=$(echo "$1" | sed 's/[^0-9]//g')
   shift
   test "$num" || num=1
-  glgp -$num $@
+  glgp -$num "$@"
 }
 
 gri() {
@@ -102,7 +102,7 @@ gri() {
       if echo "$1" | grep -q '^[0-9]\+$'; then ref="HEAD~$1"; shift; fi
       ;;
   esac
-  if [ "$ref" ]; then grbi "$ref" $@; else grbi $@; fi
+  if [ "$ref" ]; then grbi "$ref" "$@"; else grbi "$@"; fi
 }
 
 gtagsv() {
@@ -116,7 +116,7 @@ gtagsv() {
   done
 }
 
-clsg() { /usr/bin/clear; pwd; div; ls $@; div; if git status >/dev/null 2>&1; then git status; fi; }
+clsg() { /usr/bin/clear; pwd; div; ls "$@"; div; if git status >/dev/null 2>&1; then git status; fi; }
 alias c=clsg
 
 # --== git-svn ==--

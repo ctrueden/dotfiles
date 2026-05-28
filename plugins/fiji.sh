@@ -19,7 +19,7 @@ ij() {
   done
   if [ -x "$ijcmd" ]
   then
-    "$ijcmd" $@
+    "$ijcmd" "$@"
   else
     echo "No ImageJ executable found."
     return 1

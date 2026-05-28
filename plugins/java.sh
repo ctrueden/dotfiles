@@ -17,13 +17,13 @@ DOC
   shift
   if [ "$JAVA_HOME" -a -x "$JAVA_HOME/bin/$cmd" ]
   then
-    "$JAVA_HOME/bin/$cmd" $@
+    "$JAVA_HOME/bin/$cmd" "$@"
   elif [ "$JAVA_HOME" -a -x "$JAVA_HOME/jre/bin/$cmd" ]
   then
-    "$JAVA_HOME/jre/bin/$cmd" $@
+    "$JAVA_HOME/jre/bin/$cmd" "$@"
   elif [ "$SYSTEM_JAVA_BIN" -a -x "$SYSTEM_JAVA_BIN/$cmd" ]
   then
-    "$SYSTEM_JAVA_BIN/$cmd" $@
+    "$SYSTEM_JAVA_BIN/$cmd" "$@"
   else
     >&2 echo "No $cmd executable found."
   fi

@@ -15,7 +15,7 @@ then
 fi
 
 # look for matching directories
-for dir in $@
+for dir in "$@"
 do
   if [ -d "$dir" ]
   then
