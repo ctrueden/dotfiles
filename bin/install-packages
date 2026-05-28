@@ -159,6 +159,7 @@ elif [ "$PM" = brew ]; then
 
   # shell
   packages="$packages
+fastfetch
 tlrc
 "
 
