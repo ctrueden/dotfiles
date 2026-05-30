@@ -1,0 +1,28 @@
+#!/bin/sh
+# Re-unify fetch and push URLs for git repositories where they are equal.
+# This removes the separate pushurl entry, restoring normal git remote set-url behavior.
+
+set -e
+
+search_dir="${1:-.}"
+
+find "$search_dir" -maxdepth 3 -type d -name .git 2>/dev/null | sort | while read -r gitdir; do
+  repo_dir="${gitdir%/.git}"
+
+  # Get fetch and push URLs
+  fetch_url=$(git -C "$repo_dir" config --get remote.origin.url 2>/dev/null || true)
+  push_url=$(git -C "$repo_dir" config --get remote.origin.pushurl 2>/dev/null || true)
+
+  # Only process if origin exists and has a pushurl
+  if [ -z "$fetch_url" ] || [ -z "$push_url" ]; then
+    continue
+  fi
+
+  # If they match, remove the separate pushurl
+  if [ "$fetch_url" = "$push_url" ]; then
+    echo "Re-unifying: $repo_dir"
+    git -C "$repo_dir" config --unset remote.origin.pushurl
+  fi
+done
+
+echo "Done."
