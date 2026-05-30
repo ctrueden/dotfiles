@@ -10,7 +10,7 @@
 include = if [ -d /usr/local/Cellar/mr ]; then cat "$(brew --prefix mr)/share/mr/git-svn"; fi
 
 # Make the git update command more thorough.
-git_update = git remote update --prune && git fetch --tags -f && git merge --ff 'HEAD@{u}'
+git_update = git remote update --prune && git fetch --tags -f && git merge --ff --ff-only 'HEAD@{u}'
 
 # Include the ~/.mrconfig.d folder.
 include = if [ -d "$HOME"/.config/mr ]; then cat "$HOME"/.config/mr/* 2> /dev/null; fi
