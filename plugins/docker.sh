@@ -6,7 +6,7 @@ dksh() {
   then
     docker build -t dksh "$DOTFILES"
   fi
-  ssh_opts=""
-  test "$SSH_AUTH_SOCK" && ssh_opts="-v $SSH_AUTH_SOCK:/ssh-agent -e SSH_AUTH_SOCK=/ssh-agent"
-  docker run --hostname "$hn" $ssh_opts -it dksh
+  local ssh_opts=()
+  [ -n "$SSH_AUTH_SOCK" ] && ssh_opts=(-v "$SSH_AUTH_SOCK:/ssh-agent" -e "SSH_AUTH_SOCK=/ssh-agent")
+  docker run --hostname "$hn" "${ssh_opts[@]}" -it dksh
 }
