@@ -201,6 +201,9 @@ checkout = git clone git@github.com:codehaus-plexus/plexus-compiler
 [code/maven/quickdeps]
 checkout = git clone git@github.com:ingenieux/quickdeps
 
+[code/maven/spdx-maven-plugin]
+checkout = git clone git@github.com:spdx/spdx-maven-plugin
+
 [code/maven/tidy-maven-plugin]
 checkout = git clone git@github.com:mojohaus/tidy-maven-plugin
 

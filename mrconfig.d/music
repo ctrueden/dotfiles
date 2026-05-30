@@ -6,6 +6,9 @@ checkout = git clone git@github.com:adamjakab/BeetsPluginTemplate
 [code/music/Clementine]
 checkout = git clone git@github.com:clementine-player/Clementine
 
+[code/music/beets-artistcountry]
+checkout = git clone git@github.com:agrausem/beets-artistcountry
+
 [code/music/beetle]
 checkout = git clone git@gitlab.com:maxburon/beetle.git
 

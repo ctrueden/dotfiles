@@ -1,0 +1,21 @@
+[code/openscan-lsm/OpenScan]
+checkout = git clone git@github.com:openscan-lsm/OpenScan
+
+[code/openscan-lsm/OpenScan-BH_SPC]
+checkout = git clone git@github.com:openscan-lsm/OpenScan-BH_SPC
+
+[code/openscan-lsm/OpenScan-Hardware]
+checkout = git clone git@github.com:openscan-lsm/OpenScan-Hardware
+
+[code/openscan-lsm/OpenScanLib]
+checkout = git clone git@github.com:openscan-lsm/OpenScanLib
+
+[code/openscan-lsm/openscan-mm-adapter]
+checkout = git clone git@github.com:openscan-lsm/openscan-mm-adapter
+
+[code/openscan-lsm/OpenScan-OpeNScanNIDAQ]
+checkout = git clone git@github.com:openscan-lsm/OpenScan-OpeNScanNIDAQ
+
+[code/openscan-lsm/OpenScan-OpenScanNIFPGA]
+checkout = git clone git@github.com:openscan-lsm/OpenScan-OpenScanNIFPGA
+

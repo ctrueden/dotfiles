@@ -1,0 +1,4 @@
+# Git-related repositories for Linux
+
+[code/git/turtle]
+checkout = git clone https://gitlab.gnome.org/philippun1/turtle.git

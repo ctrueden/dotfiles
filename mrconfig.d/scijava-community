@@ -5,6 +5,9 @@
 [code/sj-stuff/EasyXT-FIJI]
 checkout = git clone git@github.com:BIOP/EasyXT-FIJI
 
+[code/sj-stuff/bigdataviewer-bioformats]
+checkout = git clone git@github.com:BIOP/bigdataviewer-bioformats
+
 [code/sj-stuff/bigdataviewer-biop-tools]
 checkout = git clone git@github.com:BIOP/bigdataviewer-biop-tools
 
@@ -49,16 +52,18 @@ checkout = git clone git@github.com:HenriquesLab/NanoJ-Fluidics
 [code/sj-stuff/NanoJ-SRRF]
 checkout = git clone git@github.com:HenriquesLab/NanoJ-SRRF
 
-# PreibischLab
-
+# JaneliaSciComp
+#
 [code/sj-stuff/BigStitcher]
-checkout = git clone git@github.com:PreibischLab/BigStitcher
+checkout = git clone git@github.com:JaneliaSciComp/BigStitcher
+
+[code/sj-stuff/multiview-reconstruction]
+checkout = git clone git@github.com:JaneliaSciComp/multiview-reconstruction
+
+# PreibischLab
 
 [code/sj-stuff/RS-FISH]
 checkout = git clone git@github.com:PreibischLab/RS-FISH
-
-[code/sj-stuff/multiview-reconstruction]
-checkout = git clone git@github.com:PreibischLab/multiview-reconstruction
 
 [code/sj-stuff/multiview-simulation]
 checkout = git clone git@github.com:PreibischLab/multiview-simulation
@@ -218,6 +223,9 @@ checkout = git clone git@github.com:ekatrukha/BigTrace
 [code/sj-stuff/ComDet]
 checkout = git clone git@github.com:UU-cellbiology/ComDet
 
+[code/sj-stuff/CopilotJ]
+checkout = git clone git@github.com:neurogeom/CopilotJ
+
 [code/sj-stuff/DM3D]
 checkout = git clone git@github.com:Living-Technologies/DM3D
 
@@ -275,6 +283,9 @@ checkout = git clone git@github.com:nicjac/PHANTAST-FIJI
 [code/sj-stuff/RadialIntensityProfile]
 checkout = git clone git@github.com:PTschaikner/RadialIntensityProfile
 
+[code/sj-stuff/RadiomicsJ]
+checkout = git clone git@github.com:tatsunidas/RadiomicsJ
+
 [code/sj-stuff/SME]
 checkout = git clone git@github.com:biocompibens/SME
 
@@ -289,9 +300,6 @@ checkout = git clone git@github.com:mkitti/SteerableWaveletKitt
 
 [code/sj-stuff/Unet-Segmentation]
 checkout = git clone git@github.com:lmb-freiburg/Unet-Segmentation
-
-[code/sj-stuff/anima]
-checkout = git clone git@bitbucket.org:anduril-dev/anima.git
 
 [code/sj-stuff/antibiogramj]
 checkout = git clone git://git.code.sf.net/p/antibiogramj/code antibiogramj
