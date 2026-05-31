@@ -1,0 +1,536 @@
+#!/usr/bin/env -S uv run --script
+# /// script
+# requires-python = ">=3.11"
+# ///
+
+"""mrcu — mr cleanup: analyze and triage git branches across all mr-tracked repos."""
+
+import argparse
+import subprocess
+import sys
+from concurrent.futures import ThreadPoolExecutor, as_completed
+from dataclasses import dataclass, field
+from enum import Enum
+from pathlib import Path
+from typing import Optional
+
+
+MAINLINE_NAMES = frozenset({"main", "master", "develop", "trunk"})
+
+
+# ── Git helpers ───────────────────────────────────────────────────────────────
+
+def git(path: Path, *args: str) -> subprocess.CompletedProcess:
+    return subprocess.run(
+        ["git", *args], cwd=path, capture_output=True, text=True
+    )
+
+
+def git_out(path: Path, *args: str) -> str:
+    return git(path, *args).stdout.strip()
+
+
+# ── Data model ────────────────────────────────────────────────────────────────
+
+class Confidence(Enum):
+    SAFE = "safe"
+    LIKELY = "likely"
+    MANUAL = "manual"
+
+
+@dataclass
+class Triage:
+    confidence: Confidence
+    command: list[str]   # empty = manual only, no automated command
+    reason: str
+
+
+@dataclass
+class Branch:
+    name: str
+    sha: str
+    upstream: Optional[str]   # e.g. "origin/main"; None = no upstream set
+    ahead: int
+    behind: int
+    gone: bool                # upstream was deleted remotely
+    is_mainline: bool
+    triage: Optional[Triage] = None
+
+
+@dataclass
+class Repo:
+    path: Path
+    name: str
+    dirty: bool
+    untracked: bool
+    stash_count: int
+    detached_head: Optional[str]   # short sha when HEAD is detached
+    branches: list[Branch] = field(default_factory=list)
+
+
+# ── Analysis ──────────────────────────────────────────────────────────────────
+
+def detect_mainline(path: Path) -> Optional[str]:
+    ref = git_out(path, "symbolic-ref", "refs/remotes/origin/HEAD")
+    if ref:
+        return ref.split("/")[-1]
+    for line in git_out(path, "branch", "-vv").splitlines():
+        parts = line.lstrip("* ").split()
+        if parts and parts[0] in MAINLINE_NAMES:
+            return parts[0]
+    return None
+
+
+def parse_branches(path: Path, mainline: Optional[str]) -> tuple[list[Branch], Optional[str]]:
+    """Parse `git branch -vv`. Returns (branches, detached_sha)."""
+    branches: list[Branch] = []
+    detached: Optional[str] = None
+
+    for raw in git_out(path, "branch", "-vv").splitlines():
+        line = raw.lstrip("* ").strip()
+
+        if "(HEAD detached" in line:
+            parts = line.split()
+            # "( H E A D   d e t a c h e d   a t   <sha> )"
+            if len(parts) >= 4:
+                detached = parts[3].rstrip(")")
+            continue
+
+        parts = line.split(None, 2)
+        if len(parts) < 2:
+            continue
+        name, sha = parts[0], parts[1]
+        rest = parts[2] if len(parts) > 2 else ""
+
+        upstream: Optional[str] = None
+        ahead = behind = 0
+        gone = False
+
+        if rest.startswith("["):
+            end = rest.find("]")
+            if end != -1:
+                info = rest[1:end]
+                rest = rest[end + 1:].strip()
+
+                if info.strip() == "gone":
+                    gone = True
+                elif ": gone" in info:
+                    upstream = info.split(":")[0].strip()
+                    gone = True
+                elif ":" in info:
+                    upstream = info.split(":")[0].strip()
+                    for part in info.split(":", 1)[1].split(","):
+                        part = part.strip()
+                        if part.startswith("ahead "):
+                            ahead = int(part[6:])
+                        elif part.startswith("behind "):
+                            behind = int(part[7:])
+                else:
+                    upstream = info.strip()
+
+        is_mainline = name == mainline or (mainline is None and name in MAINLINE_NAMES)
+
+        # Skip mainline branches that are clean — nothing to report
+        if is_mainline and not gone and ahead == 0 and behind == 0 and upstream:
+            continue
+
+        branches.append(Branch(
+            name=name,
+            sha=sha,
+            upstream=upstream,
+            ahead=ahead,
+            behind=behind,
+            gone=gone,
+            is_mainline=is_mainline,
+        ))
+
+    return branches, detached
+
+
+def get_active_branches(path: Path) -> set[str]:
+    """Return names of all branches checked out in any worktree (main or linked)."""
+    out = git_out(path, "worktree", "list", "--porcelain")
+    active: set[str] = set()
+    for line in out.splitlines():
+        if line.startswith("branch refs/heads/"):
+            active.add(line[len("branch refs/heads/"):])
+    return active
+
+
+def _rename_triage(path: Path, old_name: str, new_ref: str, label: str) -> Optional[Triage]:
+    """Return a SAFE rename Triage if old_name is an ancestor of new_ref, else None."""
+    r = git(path, "merge-base", "--is-ancestor", old_name, new_ref)
+    if r.returncode == 0:
+        return Triage(
+            confidence=Confidence.SAFE,
+            command=["master-to-main"],
+            reason=f"'{old_name}' is ancestor of '{label}'; likely a branch rename",
+        )
+    return None
+
+
+def triage_gone(path: Path, branch: Branch, mainline: Optional[str],
+                active_branches: set[str]) -> Triage:
+    """Classify a gone-upstream branch and return a recommendation."""
+
+    def is_wip(commit_line: str) -> bool:
+        msg = commit_line.split(None, 1)[-1] if " " in commit_line else commit_line
+        return msg.startswith("WIP:") or msg.startswith("wip:")
+
+    # ── Special case: mainline branch itself has a gone upstream ─────────────
+    # Must handle before normal logic — comparing a branch against itself is
+    # always trivially "clean" and would produce a bogus safe recommendation.
+    if branch.name == mainline:
+        for alt in sorted(MAINLINE_NAMES - {branch.name}):
+            alt_sha = git_out(path, "rev-parse", "--verify", f"refs/remotes/origin/{alt}")
+            if alt_sha:
+                t = _rename_triage(path, branch.name, f"refs/remotes/origin/{alt}",
+                                   f"origin/{alt}")
+                if t:
+                    return t
+        return Triage(
+            confidence=Confidence.MANUAL,
+            command=[],
+            reason=f"mainline '{branch.name}' upstream gone; check whether remote was renamed or deleted",
+        )
+
+    # ── Rename: branch has a mainline-like name but a different mainline is current ──
+    if branch.name in MAINLINE_NAMES:
+        if mainline and mainline != branch.name:
+            t = _rename_triage(path, branch.name, mainline, mainline)
+            if t:
+                return t
+        for alt in sorted(MAINLINE_NAMES - {branch.name}):
+            if alt == mainline:
+                continue
+            alt_sha = git_out(path, "rev-parse", "--verify", f"refs/remotes/origin/{alt}")
+            if alt_sha:
+                t = _rename_triage(path, branch.name, f"refs/remotes/origin/{alt}",
+                                   f"origin/{alt}")
+                if t:
+                    return t
+        return Triage(
+            confidence=Confidence.MANUAL,
+            command=[],
+            reason=f"'{branch.name}' looks like an old mainline name but no rename target was found",
+        )
+
+    # ── Active branch: checked out in main worktree or a linked worktree ─────
+    if branch.name in active_branches:
+        return Triage(
+            confidence=Confidence.MANUAL,
+            command=[],
+            reason="branch is currently checked out (worktree); cannot delete",
+        )
+
+    # ── Normal triage ─────────────────────────────────────────────────────────
+    mainline_sha = git_out(path, "rev-parse", mainline) if mainline else None
+
+    # Case 1: tip is ancestor of mainline (use branch name, not abbreviated sha)
+    if mainline_sha:
+        r = git(path, "merge-base", "--is-ancestor", branch.name, mainline_sha)
+        if r.returncode == 0:
+            return Triage(
+                confidence=Confidence.SAFE,
+                command=["git", "branch", "-d", branch.name],
+                reason=f"tip is ancestor of '{mainline}' (clean merge)",
+            )
+
+    # Case 2a: merge commit on mainline references this branch by name
+    if mainline:
+        merge_log = git_out(
+            path, "log", "--merges", "--oneline",
+            f"--grep={branch.name}", mainline,
+        )
+        if merge_log:
+            first = merge_log.splitlines()[0]
+            return Triage(
+                confidence=Confidence.LIKELY,
+                command=["git", "branch", "-D", branch.name],
+                reason=f"merge commit found: {first}",
+            )
+
+    # Collect commits unique to this branch
+    log_args = (
+        ["log", "--oneline", f"{mainline}..{branch.name}"]
+        if mainline
+        else ["log", "--oneline", branch.name]
+    )
+    unique = [l for l in git_out(path, *log_args).splitlines() if l]
+
+    if not unique:
+        return Triage(
+            confidence=Confidence.SAFE,
+            command=["git", "branch", "-D", branch.name],
+            reason="no unique commits (all reachable from mainline)",
+        )
+
+    # Case 2b: all unique commits are WIP
+    if all(is_wip(c) for c in unique):
+        return Triage(
+            confidence=Confidence.LIKELY,
+            command=["git", "branch", "-D", branch.name],
+            reason=f"all {len(unique)} unique commit(s) are WIP",
+        )
+
+    return Triage(
+        confidence=Confidence.MANUAL,
+        command=[],
+        reason=f"{len(unique)} non-WIP commit(s), no merge reference found",
+    )
+
+
+def analyze(path: Path) -> Optional[Repo]:
+    if not (path / ".git").is_dir():
+        return None
+
+    dirty = bool(git_out(path, "diff", "--shortstat"))
+    porcelain = git_out(path, "status", "--porcelain")
+    untracked = any(l.startswith("??") for l in porcelain.splitlines())
+    stash_count = len([l for l in git_out(path, "stash", "list").splitlines() if l])
+
+    mainline = detect_mainline(path)
+    branches, detached = parse_branches(path, mainline)
+    active_branches = get_active_branches(path)
+
+    for b in branches:
+        if b.gone:
+            b.triage = triage_gone(path, b, mainline, active_branches)
+
+    return Repo(
+        path=path,
+        name=path.name,
+        dirty=dirty,
+        untracked=untracked,
+        stash_count=stash_count,
+        detached_head=detached,
+        branches=branches,
+    )
+
+
+# ── Execution ─────────────────────────────────────────────────────────────────
+
+def execute_triage(repo: Repo, min_confidence: Confidence) -> None:
+    order = [Confidence.SAFE, Confidence.LIKELY, Confidence.MANUAL]
+    min_idx = order.index(min_confidence)
+
+    for branch in repo.branches:
+        if not branch.gone or not branch.triage:
+            continue
+        t = branch.triage
+        if order.index(t.confidence) > min_idx:
+            continue
+        if not t.command:
+            print(f"  [{repo.name}] {branch.name}: manual review required — {t.reason}")
+            continue
+        print(f"  [{repo.name}] {' '.join(t.command)}")
+        subprocess.run(t.command, cwd=repo.path)
+
+
+# ── Reporting ─────────────────────────────────────────────────────────────────
+
+RESET  = "\033[0m"
+BOLD   = "\033[1m"
+DIM    = "\033[2m"
+RED    = "\033[31m"
+YELLOW = "\033[33m"
+GREEN  = "\033[32m"
+CYAN   = "\033[36m"
+
+
+def c(text: str, code: str) -> str:
+    return f"{code}{text}{RESET}" if sys.stdout.isatty() else text
+
+
+def section_header(title: str, count: int) -> None:
+    bar = "─" * max(0, 62 - len(title) - len(str(count)) - 6)
+    print(f"\n{c(f'── {title} ({count}) {bar}', BOLD)}")
+
+
+def display_names(repos: list[Repo]) -> dict[Path, str]:
+    """Return display name for each repo: basename if unique, org/repo if not."""
+    from collections import Counter
+    counts = Counter(r.name for r in repos)
+    return {
+        r.path: r.name if counts[r.name] == 1 else f"{r.path.parent.name}/{r.name}"
+        for r in repos
+    }
+
+
+def print_report(repos: list[Repo]) -> None:
+    renames:  list[tuple[Repo, Branch]] = []
+    safe:     list[tuple[Repo, Branch]] = []
+    likely:   list[tuple[Repo, Branch]] = []
+    manual:   list[tuple[Repo, Branch]] = []
+    wip_repos: list[Repo] = []
+    clean = 0
+
+    for repo in repos:
+        has_gone = False
+        for b in repo.branches:
+            if not b.gone:
+                continue
+            has_gone = True
+            t = b.triage
+            if t and t.command == ["master-to-main"]:
+                renames.append((repo, b))
+            elif t and t.confidence == Confidence.SAFE:
+                safe.append((repo, b))
+            elif t and t.confidence == Confidence.LIKELY:
+                likely.append((repo, b))
+            else:
+                manual.append((repo, b))
+
+        has_wip = (
+            repo.dirty
+            or repo.untracked
+            or repo.stash_count > 0
+            or repo.detached_head is not None
+            or any(not b.gone for b in repo.branches)
+        )
+        if has_wip:
+            wip_repos.append(repo)
+        elif not has_gone:
+            clean += 1
+
+    names = display_names(repos)
+    w = max((len(n) for n in names.values()), default=20)
+
+    def branch_row(repo: Repo, branch: Branch, extra: str = "") -> None:
+        print(f"  {names[repo.path]:>{w}} : {branch.name}  {extra}")
+
+    # ── Renames ──────────────────────────────────────────────────────────────
+    if renames:
+        section_header("Renames needed", len(renames))
+        for repo, b in renames:
+            t = b.triage
+            branch_row(repo, b,
+                c("master-to-main", GREEN) + "  " + c(f"({t.reason})", DIM))
+
+    # ── Safe ─────────────────────────────────────────────────────────────────
+    if safe:
+        section_header("Safe to clean up", len(safe))
+        for repo, b in safe:
+            t = b.triage
+            branch_row(repo, b,
+                c(" ".join(t.command), GREEN) + "  " + c(f"({t.reason})", DIM))
+
+    # ── Likely safe ──────────────────────────────────────────────────────────
+    if likely:
+        section_header("Likely safe to force-delete", len(likely))
+        for repo, b in likely:
+            t = b.triage
+            branch_row(repo, b,
+                c(" ".join(t.command), YELLOW) + "  " + c(f"({t.reason})", DIM))
+
+    # ── Manual ───────────────────────────────────────────────────────────────
+    if manual:
+        section_header("Needs manual attention", len(manual))
+        for repo, b in manual:
+            t = b.triage
+            reason = c(f"({t.reason if t else 'unknown'})", DIM)
+            branch_row(repo, b, c("[gone]", RED) + f"  {reason}")
+
+    # ── Active WIP ───────────────────────────────────────────────────────────
+    if wip_repos:
+        section_header("Active WIP", len(wip_repos))
+        for repo in wip_repos:
+            state_flags: list[str] = []
+            if repo.dirty:
+                state_flags.append(c("{DIRTY}", YELLOW))
+            if repo.untracked:
+                state_flags.append(c("{UNTRACKED}", DIM))
+            if repo.stash_count:
+                label = "{STASH}" if repo.stash_count == 1 else f"{{STASH×{repo.stash_count}}}"
+                state_flags.append(c(label, DIM))
+            if repo.detached_head:
+                state_flags.append(c(f"(detached {repo.detached_head})", DIM))
+            n = names[repo.path]
+            if state_flags:
+                print(f"  {n:>{w}} :  {' '.join(state_flags)}")
+
+            for b in repo.branches:
+                if b.gone:
+                    continue
+                if b.upstream:
+                    delta: list[str] = []
+                    if b.ahead:
+                        delta.append(c(f"↑{b.ahead}", YELLOW))
+                    if b.behind:
+                        delta.append(c(f"↓{b.behind}", CYAN))
+                    delta_str = (": " + " ".join(delta)) if delta else ""
+                    tracking = f"[{b.upstream}{delta_str}]"
+                else:
+                    tracking = c("[no upstream]", DIM)
+                sha = c(b.sha[:8], DIM)
+                print(f"  {n:>{w}} : {b.name} {sha} {tracking}")
+
+    # ── Summary ───────────────────────────────────────────────────────────────
+    total = len(renames) + len(safe) + len(likely) + len(manual) + len(wip_repos)
+    print()
+    if clean:
+        print(c(f"  {clean} clean repo(s) omitted.", DIM))
+    if not total:
+        print(c("  All tracked repos are clean!", GREEN))
+
+
+# ── Entry point ───────────────────────────────────────────────────────────────
+
+def load_mr_repos() -> list[Path]:
+    result = subprocess.run(["mrls"], capture_output=True, text=True)
+    seen: set[Path] = set()
+    paths: list[Path] = []
+    for line in result.stdout.splitlines():
+        line = line.strip()
+        if not line:
+            continue
+        rel = line.split("\t", 1)[0]
+        if rel == "DEFAULT":
+            continue
+        path = (Path.home() / rel).resolve()
+        if path not in seen:
+            seen.add(path)
+            paths.append(path)
+    return paths
+
+
+def main() -> None:
+    parser = argparse.ArgumentParser(
+        description="mr cleanup — analyze and triage git branches across mr-tracked repos"
+    )
+    parser.add_argument(
+        "paths", nargs="*", type=Path,
+        help="repos to analyze (default: all mr-tracked repos)",
+    )
+    parser.add_argument(
+        "-f", dest="execute_safe", action="store_true",
+        help="execute safe recommendations for the given repo(s)",
+    )
+    parser.add_argument(
+        "-F", dest="execute_likely", action="store_true",
+        help="execute safe + likely-safe recommendations for the given repo(s)",
+    )
+    args = parser.parse_args()
+
+    repo_paths = [p.resolve() for p in args.paths] if args.paths else load_mr_repos()
+
+    repos: list[Repo] = []
+    with ThreadPoolExecutor(max_workers=16) as pool:
+        futures = {pool.submit(analyze, p): p for p in repo_paths}
+        for future in as_completed(futures):
+            result = future.result()
+            if result is not None:
+                repos.append(result)
+
+    repos.sort(key=lambda r: r.path)
+
+    if args.execute_safe or args.execute_likely:
+        min_conf = Confidence.LIKELY if args.execute_likely else Confidence.SAFE
+        for repo in repos:
+            execute_triage(repo, min_conf)
+    else:
+        print_report(repos)
+
+
+if __name__ == "__main__":
+    main()
