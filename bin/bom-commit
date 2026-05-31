@@ -1,0 +1,29 @@
+#!/bin/sh
+# Commit pom.xml BOM version changes with an auto-generated message.
+#
+# Usage: bom-commit [pom.xml]
+#
+# Prefers staged changes to the given file; falls back to unstaged.
+# Opens $GIT_EDITOR so the message can be reviewed before committing.
+
+pom="${1:-pom.xml}"
+
+if ! git diff --cached --quiet -- "$pom" 2>/dev/null; then
+    diff=$(git diff --cached -- "$pom")
+elif ! git diff --quiet -- "$pom" 2>/dev/null; then
+    diff=$(git diff -- "$pom")
+else
+    echo >&2 "No changes found in $pom"
+    exit 1
+fi
+
+bullets=$(printf '%s\n' "$diff" | bom-changes)
+if [ -z "$bullets" ]; then
+    echo >&2 "No version changes found in $pom"
+    exit 1
+fi
+
+tmp=$(mktemp)
+trap 'rm -f "$tmp"' EXIT
+printf 'Update component versions\n\n%s\n' "$bullets" > "$tmp"
+git commit --edit -F "$tmp"
