@@ -12,8 +12,17 @@ alias gocfg='cd $DOTFILES'
 
 # useful scripts
 export CODE_SCRIPTS="$DOTFILES/bin"
-alias gosc='cd $CODE_SCRIPTS'
+for d in "$CODE_SCRIPTS"/*
+do
+  [ -d "$d" ] || continue
+  case "${d##*/}" in
+    linux) [ "$(uname)" != Linux ] || path_prepend "$d" ;;
+    macos) [ "$(uname)" != Darwin ] || path_prepend "$d" ;;
+    *) path_prepend "$d" ;;
+  esac
+done
 path_prepend "$CODE_SCRIPTS"
+alias gosc='cd $CODE_SCRIPTS'
 
 # second brain
 export CODE_BRAIN="$CODE_PERSONAL/brain"
