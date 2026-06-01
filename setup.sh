@@ -304,7 +304,7 @@ if command -v npm >/dev/null 2>&1; then
   install_npm_tool copilot   @github/copilot
   #install_npm_tool claude   @anthropic-ai/claude-code
   install_npm_tool codex     @openai/codex
-  install_npm_tool gemini    @google/gemini-cli
+  #install_npm_tool gemini    @google/gemini-cli
   #install_npm_tool grok     @vibe-kit/grok-cli
   install_npm_tool crush     @charmland/crush
   install_npm_tool opencode  opencode-ai
