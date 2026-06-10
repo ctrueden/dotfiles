@@ -35,129 +35,11 @@ alias javap='jexec javap'
 alias javadoc='jexec javadoc'
 alias jshell='jexec jshell'
 
-_jinfo() {
-  : << 'DOC'
-Emit a tab-separated version+path line for the given JDK directory,
-if it contains a java executable and a readable release file.
-DOC
-  local d="$1" ver
-  [ -x "$d/bin/java" ] || [ -x "$d/bin/java.exe" ] || return
-  ver=$(jver "$d")
-  [ "$ver" ] && printf '%s\t%s\n' "$ver" "$d"
-}
-
-jver() {
-  : << 'DOC'
-Extract the version from the release file of the given JDK dir.
-For standard JDKs, returns the JAVA_VERSION value (e.g. 21.0.10).
-For GraalVM, returns graalvm-JAVA_VERSION (e.g. graalvm-17.0.6).
-DOC
-  local release="$1/release" java_ver
-  java_ver=$(grep '^JAVA_VERSION=' "$release" 2>/dev/null | sed 's/^JAVA_VERSION="\(.*\)"$/\1/')
-  [ "$java_ver" ] || return
-  if grep -q '^GRAALVM_VERSION=' "$release" 2>/dev/null
-  then
-    printf 'graalvm-%s\n' "$java_ver"
-  else
-    echo "$java_ver"
-  fi
-}
-
-jlist() {
-  : << 'DOC'
-List the available Java installations, for both the user and system-wide.
-Emits two tab-separated columns: version number and absolute path.
-Installations are discovered beneath ~/Java, the cjdk cache, macOS java_home,
-Linux update-java-alternatives, and Homebrew. An optional filter pattern
-is matched against the version column (first column) only.
-DOC
-  {
-    # Java installations in ~/Java.
-    if [ -d "$HOME/Java" ]
-    then
-      find "$HOME/Java" -mindepth 1 -maxdepth 1 -type d 2>/dev/null | while IFS= read -r d
-      do
-        if [ -x "$d/Contents/Home/bin/java" ]
-        then
-          _jinfo "$d/Contents/Home"
-        else
-          _jinfo "$d"
-        fi
-      done
-    fi
-
-    # Java installations from cjdk cache.
-    local cjdk_cache=
-    if [ -d "${XDG_CACHE_HOME:-$HOME/.cache}/cjdk" ]
-    then
-      # Linux
-      cjdk_cache="${XDG_CACHE_HOME:-$HOME/.cache}/cjdk"
-      java_binary=java
-    elif [ -d "$HOME/Library/Caches/cjdk" ]
-    then
-      # macOS
-      cjdk_cache="$HOME/Library/Caches/cjdk"
-      java_binary=java
-    elif [ -d "$HOME/AppData/Local/cjdk/cache" ]
-    then
-      # Windows
-      cjdk_cache="$HOME/AppData/Local/cjdk/cache"
-      java_binary=java.exe
-    fi
-    if [ -n "$cjdk_cache" ]
-    then
-      find -L "$cjdk_cache" -mindepth 6 -maxdepth 8 -name "$java_binary" -path "*/bin/$java_binary" 2>/dev/null | while IFS= read -r j
-      do
-        _jinfo "$(dirname "$(dirname "$j")")"
-      done
-    fi
-
-    # Java installations from update-java-alternatives (Linux).
-    if [ -x /usr/sbin/update-java-alternatives ]
-    then
-      /usr/sbin/update-java-alternatives -l | sed 's/.* //' | while IFS= read -r d
-      do
-        _jinfo "$d"
-      done
-    fi
-
-    # Java installations from java_home (macOS).
-    if [ -x /usr/libexec/java_home ]
-    then
-      /usr/libexec/java_home -V 2>&1 | grep ' jdk' | sed 's/.* //' | while IFS= read -r d
-      do
-        _jinfo "$d"
-      done
-    fi
-
-    # Java installations from Homebrew or scoop.
-    for prefix in \
-      /opt/homebrew/Cellar/openjdk \
-      /usr/local/Cellar/openjdk \
-      "$HOME/scoop/apps/openjdk"
-    do
-      test -d "$prefix" || continue
-      find "$prefix" -mindepth 1 -maxdepth 1 -type d 2>/dev/null | while IFS= read -r d
-      do
-        _jinfo "$d"
-      done
-    done
-  } | sort -u | if [ $# -gt 0 ]; then PAT="$*" awk '$1 ~ ENVIRON["PAT"]'; else cat; fi
-}
-
-jhome() {
-  : << 'DOC'
-Report the path of the first Java installation matching the given pattern,
-or the current value of JAVA_HOME if no arguments are given. The pattern
-is matched against the version column of jlist output.
-DOC
-  if [ $# -eq 0 ]
-  then
-    echo "$JAVA_HOME"
-  else
-    jlist "$@" | head -n1 | cut -f2
-  fi
-}
+# NB: The pure-query commands jlist and jhome live in bin/java/ (on PATH), so
+# they are usable from any context -- scripts, CI, non-interactive shells -- via
+# e.g. `JAVA_HOME=$(jhome "^17") mvn ...`. The shell-state-mutating commands
+# below (jswitch, jgswitch) must remain functions, since they export JAVA_HOME
+# into the current shell, which a subshell script cannot do.
 
 jswitch() {
   : << 'DOC'
@@ -287,7 +169,9 @@ alias j64='jswitch "^64\."'   # 2045-03
 # 2045-05: Curtis turns 65 and retires ;_;
 
 # use OpenJDK 8 by default if available
-export J8=$(jhome "^1\.8\.")
+# NB: Call jhome by explicit path: at plugin load time the dotfiles PATH has
+# not been assembled yet (zzz_path.sh runs last), so bin/java is not yet on it.
+export J8=$("$DOTFILES/bin/java/jhome" "^1\.8\.")
 test "$J8" && export JAVA_HOME="$J8"
 
 # add aliases for launching Java

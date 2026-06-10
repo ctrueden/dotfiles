@@ -11,6 +11,24 @@ Reference layout: `~/code/scijava/parsington`
 - `b` — `lic -q && mvn clean install` (full build with license update)
 - `bs` — `mvn clean install -DskipTests -Denforcer.skip`
 
+## JDK Version Switching
+
+The shell defaults to JDK 8, but SciJava POMs require 11+. Don't hardcode JDK
+paths; use the dotfiles tooling:
+
+- `jlist [pattern]` — list installed JDKs (`version<TAB>path`); `bin/java/` script.
+- `jhome [pattern]` — print the first matching JDK path; `bin/java/` script.
+- `jswitch <pattern>` — set `JAVA_HOME` in the current shell; `java.sh` function.
+  Aliases: `j8`, `j11`, `j17`, `j21`, … (and `jg11`/`jg17`/… for GraalVM).
+
+`jlist`/`jhome` are pure-query scripts on `PATH`, so they work non-interactively
+(scripts, CI, agents). For a one-off build on a specific JDK without changing the
+shell:
+
+    JAVA_HOME=$(jhome "^17") mvn ...
+
+`jswitch` must stay a shell function (it exports into the current shell).
+
 ## Testing
 
 JUnit.

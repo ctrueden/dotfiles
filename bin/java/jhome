@@ -1,0 +1,25 @@
+#!/usr/bin/env bash
+
+# jhome - Emit the path to a Java installation.
+#
+# Reports the path of the first Java installation matching the given
+# pattern, or the current value of JAVA_HOME if no arguments are given.
+# The pattern is matched against the version column of jlist output.
+#
+# Pure query, no side effects -- usable from any context. For one-off or
+# scripted builds needing a specific JDK without changing the shell, use e.g.:
+#
+#   JAVA_HOME=$(jhome "^17") mvn ...
+#
+# To change the current shell's JDK instead, use the jswitch function from
+# plugins/java.sh.
+
+if [ $# -eq 0 ]
+then
+  echo "$JAVA_HOME"
+else
+  # Resolve jlist as a sibling rather than via PATH, so jhome works even when
+  # invoked before the dotfiles PATH is assembled (e.g. at plugin load time).
+  dir=$(CDPATH= cd -- "$(dirname -- "$0")" && pwd)
+  "$dir/jlist" "$@" | head -n1 | cut -f2
+fi
