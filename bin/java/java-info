@@ -1,4 +1,4 @@
-#/bin/bash
+#!/bin/sh
 
 # java-info - spits out reminders about the zillion different locations
 #             where Java-relevant things are stashed on macOS.
