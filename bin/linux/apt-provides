@@ -1,0 +1,14 @@
+#!/bin/sh
+
+# apt-provides - Hacky shell script to find which packages provide a (virtual) package.
+
+if [ $# -eq 0 ]; then
+	echo "Usage: apt-provides package-name [ package-name ... ]"
+	exit 1
+fi
+while [ $# -gt 0 ]; do
+	echo
+	echo "[$1]"
+	grep -h -B11 "^Provides: .*\b$1\b" /var/lib/apt/lists/*Packages* | grep '^Package:' | sort -u
+	shift
+done
