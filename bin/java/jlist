@@ -89,7 +89,7 @@ _jinfo() {
   # Java installations from java_home (macOS).
   if [ -x /usr/libexec/java_home ]
   then
-    /usr/libexec/java_home -V 2>&1 | grep ' jdk' | sed 's/.* //' | while IFS= read -r d
+    /usr/libexec/java_home -V 2>&1 | grep '[ \.]jdk' | sed 's/.* //' | while IFS= read -r d
     do
       _jinfo "$d"
     done
