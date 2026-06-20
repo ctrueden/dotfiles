@@ -1,13 +1,13 @@
 # ClearVolume-related repositories
 
 [code/clearvolume/clearcl]
-checkout = git clone git@github.com:ClearVolume/ClearCL
+checkout = git clone git@github.com:ClearVolume/clearcl
 
 [code/clearvolume/clearcuda]
-checkout = git clone git@github.com:ClearVolume/ClearCUDA
+checkout = git clone git@github.com:ClearVolume/clearcuda
 
 [code/clearvolume/cleargl]
-checkout = git clone git@github.com:ClearVolume/ClearGL
+checkout = git clone git@github.com:ClearVolume/cleargl
 
 [code/clearvolume/coremem]
 checkout = git clone git@github.com:ClearVolume/coremem
