@@ -1,7 +1,16 @@
 # QuPath - https://qupath.github.io/
 
+[code/qupath/QPSC]
+checkout = git clone git@github.com:uw-loci/QPSC
+
+[code/qupath/basic-stitching]
+checkout = git clone git@github.com:uw-loci/basic-stitching
+
 [code/qupath/i2k-qupath-for-python-programmers]
 checkout = git clone git@github.com:qupath/i2k-qupath-for-python-programmers
+
+[code/qupath/microscope_command_server]
+checkout = git clone git@github.com:uw-loci/microscope_command_server
 
 [code/qupath/paquo]
 checkout = git clone git@github.com:Bayer-Group/paquo
@@ -12,11 +21,65 @@ checkout = git clone git@github.com:qupath/qubalab
 [code/qupath/qupath]
 checkout = git clone git@github.com:qupath/qupath
 
+[code/qupath/qupath-catalog-mikenelson]
+checkout = git clone git@github.com:uw-loci/qupath-catalog-mikenelson
+
+[code/qupath/qupath-catalog-qpsc]
+checkout = git clone git@github.com:uw-loci/qupath-catalog-qpsc
+
 [code/qupath/qupath-extension-DL-pixel-classifier]
 checkout = git clone git@github.com:MichaelSNelson/qupath-extension-DL-pixel-classifier
+
+[code/qupath/qupath-extension-cell-analysis-tools]
+checkout = git clone git@github.com:uw-loci/qupath-extension-cell-analysis-tools
 
 [code/qupath/qupath-extension-cellpose]
 checkout = git clone git@github.com:BIOP/qupath-extension-cellpose
 
+[code/qupath/qupath-extension-channel-names-viewer]
+checkout = git clone git@github.com:uw-loci/qupath-extension-channel-names-viewer
+
+[code/qupath/qupath-extension-class-distribution]
+checkout = git clone git@github.com:uw-loci/qupath-extension-class-distribution
+
+[code/qupath/qupath-extension-dialog-manager]
+checkout = git clone git@github.com:uw-loci/qupath-extension-dialog-manager
+
+[code/qupath/qupath-extension-dl-pixel-classifier]
+checkout = git clone git@github.com:uw-loci/qupath-extension-dl-pixel-classifier
+
+[code/qupath/qupath-extension-fiber-analysis]
+checkout = git clone git@github.com:uw-loci/qupath-extension-fiber-analysis
+
+[code/qupath/qupath-extension-gated-object-classifier]
+checkout = git clone git@github.com:uw-loci/qupath-extension-gated-object-classifier
+
+[code/qupath/qupath-extension-image-export-toolkit]
+checkout = git clone git@github.com:uw-loci/qupath-extension-image-export-toolkit
+
+[code/qupath/qupath-extension-ocr4labels]
+checkout = git clone git@github.com:uw-loci/qupath-extension-ocr4labels
+
+[code/qupath/qupath-extension-polyline-wand]
+checkout = git clone git@github.com:uw-loci/qupath-extension-polyline-wand
+
+[code/qupath/qupath-extension-ppm]
+checkout = git clone git@github.com:uw-loci/qupath-extension-ppm
+
+[code/qupath/qupath-extension-project-metadata-browser]
+checkout = git clone git@github.com:uw-loci/qupath-extension-project-metadata-browser
+
 [code/qupath/qupath-extension-py4j]
 checkout = git clone git@github.com:qupath/qupath-extension-py4j
+
+[code/qupath/qupath-extension-qpsc]
+checkout = git clone git@github.com:uw-loci/qupath-extension-qpsc
+
+[code/qupath/qupath-extension-tiles-to-pyramid]
+checkout = git clone git@github.com:uw-loci/qupath-extension-tiles-to-pyramid
+
+[code/qupath/qupath-extension-wizard-wand]
+checkout = git clone git@github.com:uw-loci/qupath-extension-wizard-wand
+
+[code/qupath/qupath-scripts]
+checkout = git clone git@github.com:uw-loci/qupath-scripts
