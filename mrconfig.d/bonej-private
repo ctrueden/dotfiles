@@ -1,0 +1,7 @@
+# BoneJ - https://bonej.org/ (private)
+
+[code/bonej/beancounter]
+checkout = git clone git@github.com:bonej-org/beancounter
+
+[code/bonej/bonej-plus]
+checkout = git clone git@github.com:bonej-org/bonej-plus

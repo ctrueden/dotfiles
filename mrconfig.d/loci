@@ -15,11 +15,14 @@ checkout = git clone git@github.com:ctrueden/RustFDCT
 [code/loci/adaptive-coloc]
 checkout = git clone git@github.com:uw-loci/adaptive-coloc
 
+[code/loci/calendars.loci.wisc.edu]
+checkout = git clone git@github.com:uw-loci/calendars.loci.wisc.edu
+
+[code/loci/cellcast]
+checkout = git clone git@github.com:uw-loci/cellcast
+
 [code/loci/coding-club]
 checkout = git clone git@github.com:uw-loci/coding-club
-
-[code/loci/curvelets]
-checkout = git clone git@github.com:uw-loci/curvelets
 
 [code/loci/github-backup-java]
 checkout = git clone git@github.com:uw-loci/github-backup-java
@@ -32,6 +35,9 @@ checkout = git clone git@github.com:uw-loci/loci-utils
 
 [code/loci/misc-plugins]
 checkout = git clone git@github.com:uw-loci/misc-plugins
+
+[code/loci/smart-wsi-scanner]
+checkout = git clone git@github.com:uw-loci/smart-wsi-scanner
 
 [code/loci/tickets]
 checkout = git clone git@github.com:uw-loci/tickets

@@ -1,0 +1,13 @@
+# AI-related components that use or build upon SciJava libraries
+
+[code/sj-ai/Agentic-J]
+checkout = git clone git@github.com:MMV-Lab/Agentic-J
+
+[code/sj-ai/CopilotJ]
+checkout = git clone git@github.com:neurogeom/CopilotJ
+
+[code/sj-ai/fiji-llm]
+checkout = git clone git@github.com:fiji/fiji-llm
+
+[code/sj-ai/fiji-mcp]
+checkout = git clone git@github.com:SteffenPL/fiji-mcp

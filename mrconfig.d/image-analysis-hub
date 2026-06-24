@@ -1,0 +1,13 @@
+# Image Analysis Hub @ Pasteur - https://github.com/Image-Analysis-Hub
+
+[code/iah/DeXtrusion]
+checkout = git clone git@github.com:Image-Analysis-Hub/DeXtrusion
+
+[code/iah/cellpose-appose]
+checkout = git clone git@github.com:Image-Analysis-Hub/cellpose-appose
+
+[code/iah/dextrusion-appose]
+checkout = git clone git@github.com:Image-Analysis-Hub/dextrusion-appose
+
+[code/iah/yolo-appose]
+checkout = git clone git@github.com:Image-Analysis-Hub/yolo-appose

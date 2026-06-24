@@ -1,10 +1,13 @@
 # Icy Bioimaging repositories
 
-[code/icy/Icy-Kernel]
+[code/icy2/Icy-Kernel]
 checkout = git clone https://github.com/Icy-imaging/Icy-Kernel
 
-[code/icy/Mask-RCNN-DeepIcy]
+[code/icy2/Mask-RCNN-DeepIcy]
 checkout = git clone git@github.com:carlosuc3m/Mask-RCNN-DeepIcy
 
-[code/icy/deepicy]
+[code/icy2/deepicy]
 checkout = git clone git@github.com:deepicy/deepicy
+
+[code/icy3]
+checkout = git clone git@github.com:ctrueden/icy3-build

@@ -3,8 +3,8 @@
 [code/loci/curvelets-imagej]
 checkout = git clone git@github.com:uw-loci/curvelets-imagej
 
-[code/loci/interviews]
-checkout = git clone git@github.com:uw-loci/interviews
+[code/loci/hiring]
+checkout = git clone git@github.com:uw-loci/hiring
 
 [code/loci/loci-docker]
 checkout = git clone git@github.com:uw-loci/loci-docker
