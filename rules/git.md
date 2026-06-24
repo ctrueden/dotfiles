@@ -2,7 +2,9 @@
 
 ## Branches
 
-- Naming: web-case (`fix-the-thing`, `add-feature-x`)
+- Default: commit directly to `main`. Topic branches are optional — use them
+  only when I ask, or for a project that uses a PR-based review flow.
+- Naming (when branching): web-case (`fix-the-thing`, `add-feature-x`)
 - Base: topic branches off `main`
 
 ## Commits

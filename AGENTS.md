@@ -29,9 +29,11 @@ See `plugins/AGENTS.md` for dotfiles plugin conventions.
 
 ## Git
 
-- Branch names: web-case (`fix-the-thing`, not `fixTheThing`)
+- Default: commit directly to `main`. Do not create a topic branch unless I ask,
+  or the project clearly uses a PR-based flow.
+- Branch names (when branching): web-case (`fix-the-thing`, not `fixTheThing`)
 - Commits: imperative tense, no trailing period; blank line before body if needed
-- Integration: rebase topic branch onto main, then non-fast-forward merge
+- Integration (only when a branch exists): rebase onto main, then non-fast-forward merge
 - Every commit on main must compile with passing tests (for `git bisect`)
 
 ## Comments
