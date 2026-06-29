@@ -1,7 +1,7 @@
 # Repositories related to retrogaming/emulation
 
 [code/retrogames/1g1r-romset-generator]
-checkout = git clone git://github.com/andrebrait/1g1r-romset-generator
+checkout = git clone git@github.com:andrebrait/1g1r-romset-generator
 
 [code/retrogames/Lipx]
 checkout = git clone git@github.com:kylon/Lipx
