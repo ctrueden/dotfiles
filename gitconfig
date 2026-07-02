@@ -76,7 +76,11 @@
 	spop = !deprecated 'Use gpop!' # !git checkout 'stash^{tree}' -- . && git stash drop
 
 [core]
-	pager = less -FSX
+	pager = delta
+
+[delta]
+	navigate = true  # use n and N to move between diff sections
+	dark = true      # or light = true, or omit for auto-detection
 
 [diff]
 	color = auto
@@ -103,8 +107,12 @@
 [init]
 	defaultBranch = main
 
+[interactive]
+	diffFilter = delta --color-only
+
 [merge]
-	tool = meld
+	conflictStyle = zdiff3
+	#tool = meld
 
 [mergetool "meld"]
 	cmd = meld "$LOCAL" "$MERGED" "$REMOTE" --output "$MERGED"

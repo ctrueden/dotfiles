@@ -8,6 +8,14 @@ alias gogit='cd $CODE_GIT'
 alias diff='' && unalias diff
 diff() { git diff --no-index "$@"; }
 
+# Add a shortcut for delta's side-by-side diff mode.
+# Example usages:
+# - sxs git diff
+# - sxs gd
+# - sxs gdcw
+# - sxs gds
+alias sxs='DELTA_FEATURES=+side-by-side'
+
 # --== shortcuts =-
 
 # alias some common git typos

@@ -54,6 +54,7 @@ tree
 # dev
 packages="$packages
 cmake
+delta
 gcc
 gh
 git-lfs
