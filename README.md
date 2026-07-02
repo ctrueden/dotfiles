@@ -85,7 +85,7 @@ everything [POSIX]-friendly&mdash;but I haven't tested them.
 [Ubuntu]: https://ubuntu.com/
 [Vundle]: https://github.com/VundleVim/Vundle.vim
 [WSL]: https://docs.microsoft.com/en-us/windows/wsl/about
-[jgo]: https://github.com/scijava/jgo
+[jgo]: https://jgo.apposed.org/
 [kickstart.nvim]: https://github.com/nvim-lua/kickstart.nvim
 [myrepos]: https://myrepos.branchable.com/
 [nvim-cmp]: https://github.com/hrsh7th/nvim-cmp
