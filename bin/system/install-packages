@@ -54,7 +54,6 @@ tree
 # dev
 packages="$packages
 cmake
-delta
 gcc
 gh
 git-lfs
@@ -127,6 +126,7 @@ zsh
   # dev
   packages="$packages
 build-essential
+git-delta
 myrepos
 python-is-python3
 "
@@ -166,6 +166,7 @@ tlrc
 
   # dev
   packages="$packages
+delta
 mr
 "
 
