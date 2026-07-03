@@ -1,4 +1,4 @@
-return {
-  'tpope/vim-abolish',
-  dependencies = { 'tpope/vim-repeat' },
+vim.pack.add {
+  'https://github.com/tpope/vim-abolish',
+  'https://github.com/tpope/vim-repeat',
 }

@@ -222,36 +222,64 @@ nvim_ok() {
 }
 
 # ~/.config/nvim -- kickstart.nvim + custom plugins from dotfiles
-if command -v nvim >/dev/null 2>&1 && nvim_ok && [ ! -d "$HOME/.config/nvim" ]; then
-  echo "Installing kickstart.nvim into ~/.config/nvim..."
-  git clone https://github.com/nvim-lua/kickstart.nvim "$HOME/.config/nvim"
+NVIM_CONFIG_DIR="$HOME/.config/nvim"
+NVIM_CONFIG="$NVIM_CONFIG_DIR/init.lua"
+if command -v nvim >/dev/null 2>&1 && nvim_ok && [ ! -d "$NVIM_CONFIG_DIR" ]; then
+  echo "Installing kickstart.nvim into $NVIM_CONFIG_DIR..."
+  git clone https://github.com/nvim-lua/kickstart.nvim "$NVIM_CONFIG_DIR"
 fi
-if command -v nvim >/dev/null 2>&1 && nvim_ok && [ -d "$HOME/.config/nvim" ]; then
-  # Symlink each plugin spec from dotfiles/nvim/plugins/ into lua/custom/plugins/
-  # so kickstart's { import = 'custom.plugins' } picks them up. Per-file symlinks
-  # are used (not a directory symlink) because kickstart's clone already contains
+if command -v nvim >/dev/null 2>&1 && nvim_ok && [ -d "$NVIM_CONFIG_DIR" ]; then
+  # Symlink each plugin file from dotfiles/nvim/plugins/ into lua/custom/plugins/
+  # so kickstart's custom.plugins import picks them up. Per-file symlinks are
+  # used (not a directory symlink) because kickstart's clone already contains
   # lua/custom/plugins/ as a real directory, which ln -sf cannot replace.
-  mkdir -p "$HOME/.config/nvim/lua/custom/plugins"
+  mkdir -p "$NVIM_CONFIG_DIR/lua/custom/plugins"
   for _f in "$CONFIG_DIR/nvim/plugins/"*.lua; do
-    link_file "$_f" "$HOME/.config/nvim/lua/custom/plugins/$(basename "$_f")"
+    link_file "$_f" "$NVIM_CONFIG_DIR/lua/custom/plugins/$(basename "$_f")"
   done
+
   # Symlink dotfiles/nvim/after/ so our after/plugin/*.lua files run after all
-  # plugins load -- more reliable than lazy.nvim spec overrides for plugins that
-  # use config = function() rather than opts.
-  link_file "$CONFIG_DIR/nvim/after" "$HOME/.config/nvim/after"
+  # plugins load -- reliable for config that must execute after everything else.
+  link_file "$CONFIG_DIR/nvim/after" "$NVIM_CONFIG_DIR/after"
+
   # Symlink each ftplugin file (filetype-specific config, e.g. nvim-jdtls).
-  mkdir -p "$HOME/.config/nvim/ftplugin"
+  mkdir -p "$NVIM_CONFIG_DIR/ftplugin"
   for _f in "$CONFIG_DIR/nvim/ftplugin/"*.lua; do
-    link_file "$_f" "$HOME/.config/nvim/ftplugin/$(basename "$_f")"
+    link_file "$_f" "$NVIM_CONFIG_DIR/ftplugin/$(basename "$_f")"
   done
+
+  # -- BEGIN blink.cmp OVERRIDES --
+
+  # Set blink.cmp to use rust fuzzy matcher rather than lua (idempotent).
+  perl -i -pe "s|fuzzy = { implementation = 'lua' },|fuzzy = { implementation = 'prefer_rust_with_warning' },|" "$NVIM_CONFIG"
+
+  # Add blink.cmp keymap overrides: Tab/C-./C-Space/CR (idempotent).
+  grep -qF "'<Tab>'" "$NVIM_CONFIG" || \
+    perl -i -pe "s|(preset = 'default',)|\$1\n      ['<Tab>'] = { 'accept', 'fallback' },\n      ['<C-.>'] = { 'show', 'accept', 'fallback' },\n      ['<C-Space>'] = { 'show', 'fallback' },\n      ['<CR>'] = { 'accept', 'fallback' },|" "$NVIM_CONFIG"
+
+  # Disable blink.cmp auto-trigger on insert and keyword (idempotent).
+  grep -qF 'show_on_keyword' "$NVIM_CONFIG" || \
+    perl -i -pe "s|(documentation = \{ auto_show = false, auto_show_delay_ms = 500 \},)|\$1\n      trigger = { show_on_insert_on_trigger_character = false, show_on_keyword = false },|" "$NVIM_CONFIG"
+
+  # Add buffer source to blink.cmp defaults (idempotent).
+  perl -i -pe "s|default = \{ 'lsp', 'path', 'snippets' \},|default = { 'lsp', 'path', 'snippets', 'buffer' },|" "$NVIM_CONFIG"
+
+  # -- END blink.cmp OVERRIDES --
+
   # Uncomment the custom plugins import line (idempotent).
-  perl -i -pe "s/-- \{ import = 'custom\.plugins' \}/{ import = 'custom.plugins' }/" \
-    "$HOME/.config/nvim/init.lua"
-  # Symlink options override file and hook it into init.lua (idempotent).
-  link_file "$CONFIG_DIR/nvim/options.lua" "$HOME/.config/nvim/lua/custom/options.lua"
-  grep -qF 'custom.options' "$HOME/.config/nvim/init.lua" || \
-    perl -i -pe "s|-- The line beneath this is called .modeline.|-- Load local overrides (options, mappings, etc.) from dotfiles if present\npcall(require, 'custom.options')\n\n-- The line beneath this is called \`modeline\`|" \
-      "$HOME/.config/nvim/init.lua"
+  perl -i -pe "s/-- ((require|\{ import =) 'custom\.plugins)'/\$1/" "$NVIM_CONFIG"
+
+  # Symlink options override file and hook it into nvim config (idempotent).
+  link_file "$CONFIG_DIR/nvim/options.lua" "$NVIM_CONFIG_DIR/lua/custom/options.lua"
+  grep -qF 'custom.options' "$NVIM_CONFIG" || \
+    perl -i -pe "s|-- The line beneath this is called .modeline.|-- Load local overrides (options, mappings, etc.) from dotfiles if present\npcall(require, 'custom.options')\n\n\$&|" "$NVIM_CONFIG"
+
+  # Set nerd font flag as appropriate.
+  case "$(uname)" in
+    Linux|Darwin)
+      perl -i -pe "s|vim.g.have_nerd_font = false|vim.g.have_nerd_font = true|" "$NVIM_CONFIG"
+      ;;
+  esac
 fi
 
 # tree-sitter-cli via npm (apt package is 0.20.x, too old for nvim-treesitter which requires 0.22+)

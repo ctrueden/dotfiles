@@ -1,4 +1,2 @@
-return {
-  'mfussenegger/nvim-jdtls',
-  ft = 'java', -- load only when a Java file is opened
-}
+-- ftplugin/java.lua handles lazy initialization via pcall(require, 'jdtls').
+vim.pack.add { 'https://github.com/mfussenegger/nvim-jdtls' }

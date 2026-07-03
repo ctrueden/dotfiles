@@ -1,3 +1,1 @@
-return {
-  'rhysd/conflict-marker.vim',
-}
+vim.pack.add { 'https://github.com/rhysd/conflict-marker.vim' }
