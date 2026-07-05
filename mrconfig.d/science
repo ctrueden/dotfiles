@@ -27,6 +27,9 @@ checkout = git clone git@github.com:imagejs/imagejs.github.com imagejs
 [code/science/imagepy]
 checkout = git clone git@github.com:Image-Py/imagepy
 
+[code/science/imgal]
+checkout = git clone git@github.com:imgal-sc/imgal
+
 [code/science/jicbioimage]
 checkout = git clone git@github.com:JIC-CSB/jicbioimage
 

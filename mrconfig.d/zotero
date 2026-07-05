@@ -1,0 +1,2 @@
+[code/zotero/on-prem-zotero-webui]
+checkout = git clone git@github.com:joonsoome/on-prem-zotero-webui

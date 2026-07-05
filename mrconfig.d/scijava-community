@@ -223,9 +223,6 @@ checkout = git clone git@github.com:ekatrukha/BigTrace
 [code/sj-stuff/ComDet]
 checkout = git clone git@github.com:UU-cellbiology/ComDet
 
-[code/sj-stuff/CopilotJ]
-checkout = git clone git@github.com:neurogeom/CopilotJ
-
 [code/sj-stuff/DM3D]
 checkout = git clone git@github.com:Living-Technologies/DM3D
 

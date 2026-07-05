@@ -32,3 +32,6 @@ checkout = git clone git@github.com:skalarproduktraum/sciview-tutorial
 
 [code/training/tutorial-scipy2021-bioimage-analysis-fundamentals]
 checkout = git clone git@github.com:sofroniewn/tutorial-scipy2021-bioimage-analysis-fundamentals
+
+[code/training/unseg-fiji]
+checkout = git clone git@github.com:ctrueden/unseg-fiji
