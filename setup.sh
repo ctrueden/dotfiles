@@ -269,6 +269,9 @@ if command -v nvim >/dev/null 2>&1 && nvim_ok && [ -d "$NVIM_CONFIG_DIR" ]; then
   # Uncomment the custom plugins import line (idempotent).
   perl -i -pe "s/-- ((require|\{ import =) 'custom\.plugins')/\$1/" "$NVIM_CONFIG"
 
+  # Enable the pyright LSP server (idempotent).
+  perl -i -pe "s/-- (pyright = \{\},)/\$1/" "$NVIM_CONFIG"
+
   # Symlink options override file and hook it into nvim config (idempotent).
   link_file "$CONFIG_DIR/nvim/options.lua" "$NVIM_CONFIG_DIR/lua/custom/options.lua"
   grep -qF 'custom.options' "$NVIM_CONFIG" || \
