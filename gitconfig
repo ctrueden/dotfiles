@@ -76,7 +76,8 @@
 	spop = !deprecated 'Use gpop!' # !git checkout 'stash^{tree}' -- . && git stash drop
 
 [core]
-	pager = delta
+	pager = less -FSX
+	#pager = delta
 
 [delta]
 	navigate = true  # use n and N to move between diff sections
@@ -108,7 +109,7 @@
 	defaultBranch = main
 
 [interactive]
-	diffFilter = delta --color-only
+	#diffFilter = delta --color-only
 
 [merge]
 	conflictStyle = zdiff3
