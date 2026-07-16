@@ -1,4 +1,5 @@
 vim.o.autowrite = true -- save automatically at strategic points
+vim.o.fixendofline = false -- do not mess with EOF newlines
 vim.o.ignorecase = false -- case-sensitive search by default
 vim.o.joinspaces = false -- no double space after . symbol
 vim.o.scrolloff = 2 -- the default of 10 is obnoxious
