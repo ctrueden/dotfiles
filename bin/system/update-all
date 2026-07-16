@@ -90,6 +90,14 @@ if [ -d "$BREW" -a -x "$(command -v brew)" ]; then
   brew upgrade
   code=$?; test $code -lt $exit_code || exit_code=$code
   test $code -eq 0 || echo "=> returned $code"
+
+  if [ "$(uname)" = Darwin ] && command -v fixapps >/dev/null; then
+    echo
+    echo "--== Resetting stale TCC grants ==--"
+    fixapps
+    code=$?; test $code -lt $exit_code || exit_code=$code
+    test $code -eq 0 || echo "=> returned $code"
+  fi
 fi
 
 echo

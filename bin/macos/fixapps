@@ -1,0 +1,77 @@
+#!/bin/sh
+# Find ad-hoc-signed .app bundles whose TCC permission grants have gone
+# stale, and reset those grants via fixapp so macOS re-prompts instead of
+# silently denying.
+#
+# Background: TCC pins each permission grant to a code requirement. For
+# ad-hoc signed apps (no Developer ID / certificate), that requirement is
+# just the binary's cdhash. Rebuilding the app (e.g. via `brew upgrade
+# --cask`) produces a new ad-hoc signature and thus a new cdhash, so the
+# requirement TCC stored no longer matches. System Settings still shows
+# the permission toggled on, but the app is nonetheless denied
+# (errAEEventNotPermitted / -1719) until you re-grant it by hand.
+# See: https://nick-liu.com/posts/tcc-cdhash-trap/
+#
+# This script detects that mismatch by comparing the app's current cdhash
+# against the csreq blob(s) TCC has on file for its bundle ID, and calls
+# fixapp to reset (not re-grant) the permissions so the next launch
+# re-prompts cleanly.
+#
+# A more persistent alternative exists: re-sign each ad-hoc app with a
+# stable local code-signing identity (created once via `security` +
+# `openssl`), which pins the requirement to a certificate hash instead of
+# a cdhash, so it survives rebuilds and you never get re-prompted at all.
+# That's more complex to set up and, unlike this script, modifies the
+# app's binary/signature, which then deviates from Homebrew's recorded
+# hash for the cask and might complicate reinstalls/updates or upstream
+# auto-update checks -- so it isn't what this script does.
+#
+# Requires Full Disk Access for whatever terminal app runs this script,
+# since macOS blocks reads of TCC.db without it (even as root).
+#
+# Usage: fixapps [base-directory]   (default: /Applications)
+
+basedir="${1:-/Applications}"
+tccdb="/Library/Application Support/com.apple.TCC/TCC.db"
+
+if [ ! -r "$tccdb" ]; then
+    echo "fixapps: cannot read $tccdb" >&2
+    echo "fixapps: grant Full Disk Access to your terminal app in" >&2
+    echo "         System Settings > Privacy & Security, then retry." >&2
+    exit 1
+fi
+
+find "$basedir" -iname '*.app' -type d -prune | while read -r app; do
+    codesign -dv "$app" 2>&1 | grep -q 'Signature=adhoc' || continue
+
+    bundle_id=$(defaults read "$app/Contents/Info" CFBundleIdentifier 2>/dev/null)
+    [ -n "$bundle_id" ] || continue
+
+    cdhash=$(codesign -dvvv "$app" 2>&1 | sed -n 's/^CDHash=//p' | tr 'A-Z' 'a-z')
+    if [ -z "$cdhash" ]; then
+        echo "fixapps: could not determine cdhash for $app" >&2
+        continue
+    fi
+
+    escaped_id=$(printf '%s' "$bundle_id" | sed "s/'/''/g")
+    csreqs=$(sqlite3 -readonly "$tccdb" \
+        "SELECT hex(csreq) FROM access WHERE client='$escaped_id' AND csreq IS NOT NULL;" 2>/dev/null)
+    [ -n "$csreqs" ] || continue
+
+    mismatch=1
+    old_ifs=$IFS
+    IFS='
+'
+    for row in $csreqs; do
+        row_lc=$(printf '%s' "$row" | tr 'A-Z' 'a-z')
+        case "$row_lc" in
+            *"$cdhash"*) mismatch=0 ;;
+        esac
+    done
+    IFS=$old_ifs
+
+    if [ "$mismatch" -eq 1 ]; then
+        echo "fixapps: stale TCC grant detected for $bundle_id ($app)"
+        fixapp "$bundle_id"
+    fi
+done
