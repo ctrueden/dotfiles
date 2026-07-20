@@ -120,7 +120,6 @@ if [ "$PM" = apt ]; then
 curl
 exuberant-ctags
 openssh-client
-tldr
 zsh
 "
 
