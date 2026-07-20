@@ -272,6 +272,9 @@ if command -v nvim >/dev/null 2>&1 && nvim_ok && [ -d "$NVIM_CONFIG_DIR" ]; then
   # Enable the pyright LSP server (idempotent).
   perl -i -pe "s/-- (pyright = \{\},)/\$1/" "$NVIM_CONFIG"
 
+  # Disable delve plugin auto-install (idempotent).
+  perl -i -pe "s/^(\s*)('delve',)/\$1-- \$2/" "$NVIM_CONFIG_DIR/lua/kickstart/plugins/debug.lua"
+
   # Symlink options override file and hook it into nvim config (idempotent).
   link_file "$CONFIG_DIR/nvim/options.lua" "$NVIM_CONFIG_DIR/lua/custom/options.lua"
   grep -qF 'custom.options' "$NVIM_CONFIG" || \
