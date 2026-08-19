@@ -1,4 +1,4 @@
-#!/usr/bin/env groovy
+#!/usr/bin/env jgo --class-path-only org.apache.groovy:groovy:5.1.0
 for (arg in args) {
   println("[$arg]")
   jarPath = new java.io.File(arg).getAbsolutePath()
