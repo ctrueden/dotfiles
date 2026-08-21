@@ -41,20 +41,19 @@ vim.api.nvim_set_hl(0, "LeadingTabSpaceMix", { bg = "lightgreen" })
 vim.fn.matchadd("LeadingTabSpaceMix", [[^\s*\(\t \)\|\( \t\)\s*]])
 
 -- Toggle terminal background transparency
-local transparent = false
-vim.api.nvim_create_autocmd("ColorScheme", {
-	callback = function()
-		if transparent then
-			vim.api.nvim_set_hl(0, "Normal", { bg = "NONE", ctermbg = "NONE" })
-			vim.api.nvim_set_hl(0, "NormalNC", { bg = "NONE", ctermbg = "NONE" })
-		end
-	end,
-})
-vim.keymap.set("n", "<leader>bg", function()
-	transparent = not transparent
+local transparent = true
+local function apply_transparency()
 	if transparent then
 		vim.api.nvim_set_hl(0, "Normal", { bg = "NONE", ctermbg = "NONE" })
 		vim.api.nvim_set_hl(0, "NormalNC", { bg = "NONE", ctermbg = "NONE" })
+	end
+end
+vim.api.nvim_create_autocmd("ColorScheme", { callback = apply_transparency })
+apply_transparency() -- colorscheme is already loaded by the time this file runs
+vim.keymap.set("n", "<leader>bg", function()
+	transparent = not transparent
+	if transparent then
+		apply_transparency()
 	else
 		vim.cmd.colorscheme(vim.g.colors_name)
 	end
