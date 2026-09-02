@@ -242,19 +242,53 @@ def strip_meta_tags(text):
     return text.strip()
 
 
+def parse_line(line, path, lineno, records):
+    """Parse one JSONL line, salvaging as many records as possible.
+
+    Note: interrupted writes can leave a line truncated mid-record, or two
+    records concatenated without an intervening newline. So rather than
+    decoding the whole line at once, walk it object by object, and skip
+    whatever cannot be decoded.
+    """
+    decoder = json.JSONDecoder()
+    pos = 0
+    complained = False
+    while pos < len(line):
+        try:
+            obj, pos = decoder.raw_decode(line, pos)
+        except json.JSONDecodeError:
+            # Resynchronize at the next plausible record start, if any.
+            nxt = line.find('{"', pos + 1)
+            if not complained:
+                print(
+                    f"{path}:{lineno}: skipping malformed JSON at offset {pos}",
+                    file=sys.stderr,
+                )
+                complained = True
+            if nxt < 0:
+                break
+            pos = nxt
+            continue
+        if isinstance(obj, dict):
+            records.append(obj)
+        while pos < len(line) and line[pos].isspace():
+            pos += 1
+
+
 def jsonl_to_md(path: Path) -> str:
     records = []
-    with open(path) as f:
-        for line in f:
+    with open(path, errors="replace") as f:
+        for lineno, line in enumerate(f, 1):
             line = line.strip()
             if line:
-                records.append(json.loads(line))
+                parse_line(line, path, lineno, records)
 
     # Build tool_use_id → output text lookup from all tool_result records
     tool_results = {}
     for r in records:
         if r.get("type") == "user":
-            for block in r["message"].get("content", []) if isinstance(r["message"].get("content"), list) else []:
+            content = (r.get("message") or {}).get("content")
+            for block in content if isinstance(content, list) else []:
                 if block.get("type") == "tool_result":
                     uid = block.get("tool_use_id", "")
                     inner = block.get("content", "")
@@ -265,7 +299,10 @@ def jsonl_to_md(path: Path) -> str:
 
     parts = [STYLE, f"# Conversation: {path.stem}\n"]
 
-    messages = [r for r in records if r.get("type") in ("user", "assistant")]
+    messages = [
+        r for r in records
+        if r.get("type") in ("user", "assistant") and isinstance(r.get("message"), dict)
+    ]
     messages.sort(key=lambda r: r.get("timestamp", ""))
 
     for msg in messages:
