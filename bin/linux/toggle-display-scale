@@ -1,0 +1,115 @@
+#!/usr/bin/env python3
+
+# Toggles the GNOME/Mutter display scale between its current value and 100%,
+# without touching ~/.config/monitors.xml.
+#
+# == Why? ==
+# Some dialogs (looking at you, certain GTK apps) render at a fixed pixel
+# size that doesn't account for HiDPI scaling, so at 200% scale their action
+# buttons end up below the bottom of the screen -- with no way to move,
+# resize, or Tab to them. Temporarily dropping to 100% scale shrinks the
+# dialog back into view.
+#
+# GNOME's Xorg HiDPI scaling here is per-logical-monitor (see
+# ~/.config/monitors.xml), not the older global org.gnome.desktop.interface
+# scaling-factor key, so it can't be flipped with a single gsettings call.
+# Instead this talks to Mutter's org.gnome.Mutter.DisplayConfig D-Bus
+# interface directly (the same API GNOME Settings > Displays uses) and
+# applies the change with method=1 (Temporary), which takes effect
+# immediately but is never written to monitors.xml.
+#
+# Run once to drop to 100%; run again to restore the original scale.
+
+import json
+import os
+import sys
+
+import gi
+
+gi.require_version("Gio", "2.0")
+from gi.repository import Gio, GLib
+
+STATE_FILE = os.path.expanduser("~/.cache/toggle-display-scale.json")
+BUS_NAME = "org.gnome.Mutter.DisplayConfig"
+OBJECT_PATH = "/org/gnome/Mutter/DisplayConfig"
+
+
+def get_proxy():
+    bus = Gio.bus_get_sync(Gio.BusType.SESSION, None)
+    return Gio.DBusProxy.new_sync(
+        bus, Gio.DBusProxyFlags.NONE, None, BUS_NAME, OBJECT_PATH, BUS_NAME, None
+    )
+
+
+def get_state(proxy):
+    result = proxy.call_sync("GetCurrentState", None, Gio.DBusCallFlags.NONE, -1, None)
+    serial, monitors, logical_monitors, _properties = result.unpack()
+    return serial, monitors, logical_monitors
+
+
+def current_mode(monitors, connector):
+    for conn_info, modes, _props in monitors:
+        if conn_info[0] != connector:
+            continue
+        for mode_id, _w, _h, _refresh, _pref_scale, supported_scales, mode_props in modes:
+            if mode_props.get("is-current"):
+                return mode_id, supported_scales
+    raise RuntimeError(f"no current mode found for connector {connector!r}")
+
+
+def build_apply_config(logical_monitors, monitors, scale_by_index):
+    apply_list = []
+    for i, (x, y, _scale, transform, primary, mons, _props) in enumerate(logical_monitors):
+        new_mons = []
+        supported_scales = None
+        for connector, _vendor, _product, _serial in mons:
+            mode_id, supported_scales = current_mode(monitors, connector)
+            new_mons.append((connector, mode_id, {}))
+        target_scale = scale_by_index(i, supported_scales)
+        apply_list.append((x, y, target_scale, transform, primary, new_mons))
+    return apply_list
+
+
+def apply_config(proxy, serial, apply_list):
+    variant = GLib.Variant(
+        "(uua(iiduba(ssa{sv}))a{sv})", (serial, 1, apply_list, {})
+    )
+    proxy.call_sync("ApplyMonitorsConfig", variant, Gio.DBusCallFlags.NONE, -1, None)
+
+
+def main():
+    proxy = get_proxy()
+    serial, monitors, logical_monitors = get_state(proxy)
+
+    if os.path.exists(STATE_FILE):
+        with open(STATE_FILE) as f:
+            saved_scales = json.load(f)
+
+        def restore_scale(i, supported_scales):
+            return saved_scales[i]
+
+        apply_list = build_apply_config(logical_monitors, monitors, restore_scale)
+        apply_config(proxy, serial, apply_list)
+        os.remove(STATE_FILE)
+        print("Restored original display scale.")
+    else:
+        original_scales = [lm[2] for lm in logical_monitors]
+
+        def drop_to_100(i, supported_scales):
+            return 1.0 if 1.0 in supported_scales else min(supported_scales)
+
+        apply_list = build_apply_config(logical_monitors, monitors, drop_to_100)
+        apply_config(proxy, serial, apply_list)
+
+        os.makedirs(os.path.dirname(STATE_FILE), exist_ok=True)
+        with open(STATE_FILE, "w") as f:
+            json.dump(original_scales, f)
+        print("Dropped display scale to 100%. Run again to restore.")
+
+
+if __name__ == "__main__":
+    try:
+        main()
+    except GLib.Error as e:
+        print(f"D-Bus error: {e}", file=sys.stderr)
+        sys.exit(1)
