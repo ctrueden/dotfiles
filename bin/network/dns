@@ -1,0 +1,41 @@
+#!/bin/sh
+
+emit() {
+	if [ "$1" -a -n "$(echo "$1" | grep -v CNAME)" ]
+	then
+		if command -v boxes >/dev/null 2>&1
+		then
+			echo "$1" | boxes -d ansi-rounded
+		else
+			echo "$1"
+			echo "--------------------"
+		fi
+	fi
+}
+
+verbose=
+while [ $# -gt 0 ]
+do
+	domain=$1
+	shift
+	case "$domain" in
+		-v) verbose=true; continue ;;
+		-*) echo "Ignoring invalid flag: $domain"; continue ;;
+	esac
+	for sub in "" "www." "mail."
+	do
+		for record in A AAAA MX NS PTR SOA SPF SRV TXT
+		do
+			emit "$(dig +noall +answer +nocmd "$sub$domain" "$record")"
+		done
+		if [ "$verbose" ]
+		then
+			for record in \
+				AFSDB CAA TLSA CERT DHCID DNSKEY DS HINFO KEY LOC \
+				NAPTR NSEC NSEC3 NSEC3PARAM OPENPGPKEY RRSIG SIG SSHFP
+			do
+				emit "$(dig +noall +answer "$sub$domain" "$record")"
+			done
+		fi
+	done
+done
