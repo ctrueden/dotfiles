@@ -168,13 +168,23 @@ alias j63='jswitch "^63\."'   # 2044-09
 alias j64='jswitch "^64\."'   # 2045-03
 # 2045-05: Curtis turns 65 and retires ;_;
 
-# use OpenJDK 8 by default if available
+# Preset the Java LTS versions into dedicated env vars.
 # NB: Call jhome by explicit path: at plugin load time the dotfiles PATH has
 # not been assembled yet (zzz_path.sh runs last), so bin/java is not yet on it.
 export J8=$("$DOTFILES/bin/java/jhome" "^1\.8\.")
-test "$J8" && export JAVA_HOME="$J8"
+export J11=$("$DOTFILES/bin/java/jhome" "^11\.")
+export J17=$("$DOTFILES/bin/java/jhome" "^17\.")
+export J21=$("$DOTFILES/bin/java/jhome" "^21\.")
+export J25=$("$DOTFILES/bin/java/jhome" "^25\.")
 
-# add aliases for launching Java
+# Use OpenJDK 11 (or other available JVM) by default if available.
+test "$JAVA_HOME" -o -z "$J11" || export JAVA_HOME="$J11"
+test "$JAVA_HOME" -o -z "$J17" || export JAVA_HOME="$J17"
+test "$JAVA_HOME" -o -z "$J21" || export JAVA_HOME="$J21"
+test "$JAVA_HOME" -o -z "$J25" || export JAVA_HOME="$J25"
+test "$JAVA_HOME" -o -z "$J8" || export JAVA_HOME="$J8"
+
+# Add aliases for launching Java.
 alias j='java'
 alias jc='javac'
 alias jp='javap'
