@@ -5,6 +5,9 @@ test "$DEBUG" && echo "[dotfiles] Loading plugin 'ai'..."
 # safety and security guardrails in place. Use with caution.
 alias cop='copilot --banner --allow-all-paths --allow-all-tools'
 alias claude='claude --dangerously-skip-permissions'
+alias haiku='claude --model haiku'
+alias sonnet='claude --model sonnet'
+alias opus='claude --model opus'
 alias qwen='ollama launch claude --model qwen3.5 -- --dangerously-skip-permissions'
 
 if command -v aider >/dev/null 2>&1
