@@ -54,6 +54,9 @@ checkout = git clone git@github.com:coursier/jvm-index
 [code/java/larray]
 checkout = git clone git@github.com:xerial/larray
 
+[code/java/miglayout]
+checkout = git clone git@github.com:mikaelgrev/miglayout
+
 [code/java/object-inspector]
 checkout = git clone git@github.com:sbridges/object-inspector
 
