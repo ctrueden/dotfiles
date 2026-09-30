@@ -177,7 +177,6 @@ done
 - `o=open`
 - `count='LC_ALL=C sort | uniq -c | LC_ALL=C sort -nr'` - Count occurrences
 - `detab` - Replace tabs with spaces in files
-- `dlv` / `dla` - youtube-dl with rate limiting (video/audio)
 
 **Tool Detection**:
 - `bat` → `batcat` on Ubuntu

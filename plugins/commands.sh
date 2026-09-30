@@ -120,7 +120,7 @@ gravhash() {
 	php -r "echo md5(strtolower(trim('$@'))) . \"\n\";"
 }
 
-# --== youtube-dl ==--
+# --== yt-dlp ==--
 
-alias dlv='youtube-dl -i --sleep-interval 3 --max-sleep-interval 10'
-alias dla='youtube-dl -i --sleep-interval 3 --max-sleep-interval 10 -x'
+alias dlv='yt-dlp -i --sleep-interval 3 --max-sleep-interval 10'
+alias dla='yt-dlp -i --sleep-interval 3 --max-sleep-interval 10 -x'
