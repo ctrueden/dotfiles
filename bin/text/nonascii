@@ -1,0 +1,6 @@
+#!/bin/sh
+
+# nonascii - greps for any non-ASCII characters. Portably,
+# by forcing the C locale, so each byte is one character.
+
+LC_ALL=C grep "[$(printf '\200-\377')]" "$@"
