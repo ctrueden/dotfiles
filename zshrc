@@ -110,10 +110,25 @@ bindkey "\C]" nohup-command-line
 export WD_CONFIG=$HOME/.config/wd/warprc
 
 test "$DEBUG" && echo "[zshrc] Loading personal plugins..."
-for plugin in "$DOTFILES"/plugins/*.sh "$DOTFILES"/plugins/*.zsh
+_plugins=("$DOTFILES"/plugins/*.sh "$DOTFILES"/plugins/*.zsh)
+_total=${#_plugins}
+_n=0
+# Render a progress bar for interactive terminals only.
+_bar=; test -z "$DEBUG" && test -t 2 && _bar=1
+for plugin in $_plugins
 do
+	if test "$_bar"
+	then
+		# Update the progress bar.
+		_done=$((20 * _n / _total))
+		printf '\r\033[K[%s%s] %s' "${(l:_done::#:)}" "${(l:$((20 - _done))::-:)}" "${${plugin:t}%.*}" >&2
+		_n=$((_n + 1))
+	fi
 	source "$plugin"
 done
+test "$_bar" && printf '\r\033[K' >&2
+unset _plugins _total _n _bar _done
+
 #source "$DOTFILES"/themes/curtis.zsh-theme
 eval "$(starship init zsh)"
 
