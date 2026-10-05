@@ -110,6 +110,12 @@ link_file "$CONFIG_DIR/starship.toml" .config/starship.toml
 # ~/.config/jgo.conf
 link_file "$CONFIG_DIR/jgo.conf" .config/jgo.conf
 
+# ~/.config/byobu/.tmux.conf
+# NB: We link only this file, not the whole directory, because byobu
+# writes its own state and settings into ~/.config/byobu.
+mkdir -p .config/byobu
+link_file "$CONFIG_DIR/byobu/tmux.conf" .config/byobu/.tmux.conf
+
 # ~/.mrconfig
 link_file "$CONFIG_DIR/mrconfig" .mrconfig
 
@@ -187,6 +193,33 @@ case "$(uname)" in
     }
     ;;
 esac
+
+# byobu -- tmux with batteries
+case "$(uname)" in
+  Linux)
+    command -v byobu >/dev/null 2>&1 || {
+      echo "Installing byobu..."
+      sudo apt-get install -y byobu
+    }
+    ;;
+  Darwin)
+    command -v byobu >/dev/null 2>&1 || {
+      echo "Installing byobu..."
+      brew install byobu
+    }
+    ;;
+esac
+# Note: byobu-enable hooks only login shells (e.g. ssh, iTerm2);
+# zshrc launches byobu for non-login local terminals (e.g. Guake).
+command -v byobu-enable >/dev/null 2>&1 && byobu-enable
+
+# Guake -- free up Ctrl+F1..F12 for byobu, rather than switching Guake tabs.
+if gsettings list-schemas 2>/dev/null | grep -qx guake.keybindings.local; then
+  for i in $(seq 1 10); do
+    gsettings set guake.keybindings.local switch-tab$i ''
+  done
+  gsettings set guake.keybindings.local switch-tab-last ''
+fi
 
 # Hack Nerd Font -- required for starship prompt glyphs and nvim icons
 case "$(uname)" in

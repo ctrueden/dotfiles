@@ -4,6 +4,28 @@ test "$DEBUG" && echo "[zshrc] Initializing..."
 # https://youtrack.jetbrains.com/articles/SUPPORT-A-1727/Shell-Environment-Loading
 test -z "$INTELLIJ_ENVIRONMENT_READER" || return
 
+# --== byobu ==--
+
+# Note: byobu-enable hooks only login shells, but local terminals like Guake
+# start non-login shells, so launch byobu here too. It runs before anything
+# else, so the outer shell (which just waits on byobu) starts up fast.
+# byobu-launch itself skips the launch if .zprofile already did it.
+is_embedded_terminal() {
+	[[ -n "$NVIM" ]] ||                              # Neovim's :terminal.
+	[[ -n "$VIM_TERMINAL" ]] ||                      # Vim's :terminal.
+	[[ "$TERM_PROGRAM" == vscode ]] ||               # VS Code and its forks.
+	[[ "$TERMINAL_EMULATOR" == JetBrains-JediTerm ]] # IntelliJ and friends.
+}
+
+should_launch_byobu() {
+	[[ -o interactive ]] || return 1        # Scripts and commands (zsh -c).
+	[[ -z "$TMUX" ]] || return 1            # Already inside tmux.
+	! is_embedded_terminal || return 1      # Editors and IDEs host their own.
+	(( $+commands[byobu-launch] ))          # Byobu is installed.
+}
+
+should_launch_byobu && _byobu_sourced=1 . "$commands[byobu-launch]"
+
 # --== progress bar ==--
 
 source "$DOTFILES"/lib/progress.sh
