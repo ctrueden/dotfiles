@@ -1,0 +1,266 @@
+#!/bin/sh
+
+# bootinfo - Report details of the boot configuration:
+#   firmware type, secure boot state, boot entries, and boot loaders per disk.
+#
+# Works unprivileged, but reports more when run as root
+# (MBR boot code, ESP contents, unmounted ESPs).
+
+EFI_GUID=8be4df61-93ca-11d2-aa0d-00e098032b8c
+ESP_TYPE=c12a7328-f81f-11d2-ba4b-00a0c93ec93b
+BIOS_BOOT_TYPE=21686148-6449-6e6f-744e-656564454649
+
+is_root() { [ "$(id -u)" -eq 0 ]; }
+
+section() {
+  echo
+  echo "--== $* ==--"
+}
+
+field() {
+  printf '%-16s %s\n' "$1:" "$2"
+}
+
+have() { command -v "$1" >/dev/null 2>&1; }
+
+# Guess which boot loader an EFI binary is, from its path.
+efi_label() {
+  lc=$(echo "$1" | tr 'A-Z' 'a-z')
+  case "$lc" in
+    */microsoft/boot/bootmgfw.efi) echo "Windows Boot Manager" ;;
+    */shim*.efi)                   echo "shim" ;;
+    */mm*.efi)                     echo "MOK manager" ;;
+    */mokenroll*.efi)              echo "MOK key enrollment" ;;
+    */fb*.efi)                     echo "shim fallback" ;;
+    */grub*.efi)                   echo "GRUB" ;;
+    */systemd-boot*.efi)           echo "systemd-boot" ;;
+    */refind*.efi)                 echo "rEFInd" ;;
+    */fwup*.efi)                   echo "firmware updater" ;;
+    */boot/boot*.efi)              echo "removable-media fallback" ;;
+    *)                             echo "" ;;
+  esac
+}
+
+# List EFI binaries beneath an ESP mount point.
+list_esp() {
+  if [ ! -r "$1/EFI" ] && [ ! -r "$1/efi" ]; then
+    echo "    (EFI directory not readable; run as root)"
+    return
+  fi
+  find "$1" -maxdepth 4 -type f -iname '*.efi' 2>/dev/null | sort |
+  while read -r f; do
+    rel=${f#"$1"}
+    label=$(efi_label "$rel")
+    if [ "$label" ]; then
+      printf '    %-40s [%s]\n' "$rel" "$label"
+    else
+      printf '    %s\n' "$rel"
+    fi
+  done
+}
+
+# Identify boot code in a disk's MBR (requires root).
+mbr_info() {
+  mbr=$(dd if="$1" bs=512 count=1 2>/dev/null | tr -c '[:print:]' '.')
+  case "$mbr" in
+    *GRUB*)                    echo "GRUB" ;;
+    *SYSLINUX*|*ISOLINUX*)     echo "SYSLINUX" ;;
+    *"Invalid partition table"*|*BOOTMGR*) echo "Windows" ;;
+    *)                         echo "none recognized" ;;
+  esac
+}
+
+linux_firmware() {
+  section Firmware
+  if [ -d /sys/firmware/efi ]; then
+    bits=$(cat /sys/firmware/efi/fw_platform_size 2>/dev/null)
+    field Mode "UEFI${bits:+ ($bits-bit)}"
+  else
+    field Mode "Legacy BIOS"
+  fi
+  bios=$(cat /sys/class/dmi/id/bios_vendor 2>/dev/null)
+  biosver=$(cat /sys/class/dmi/id/bios_version 2>/dev/null)
+  biosdate=$(cat /sys/class/dmi/id/bios_date 2>/dev/null)
+  [ "$bios" ] && field Firmware "$bios $biosver ($biosdate)"
+}
+
+linux_secureboot() {
+  section "Secure Boot"
+  if [ ! -d /sys/firmware/efi ]; then
+    field "Secure Boot" "n/a (not UEFI)"
+    return
+  fi
+  # Note: efivars begin with 4 bytes of attributes; the value follows.
+  sb_var=/sys/firmware/efi/efivars/SecureBoot-$EFI_GUID
+  sm_var=/sys/firmware/efi/efivars/SetupMode-$EFI_GUID
+  if [ -r "$sb_var" ]; then
+    sb=$(od -An -tu1 -j4 -N1 "$sb_var" | tr -d ' ')
+    case "$sb" in
+      1) field "Secure Boot" enabled ;;
+      0) field "Secure Boot" disabled ;;
+      *) field "Secure Boot" "unknown ($sb)" ;;
+    esac
+  elif have mokutil; then
+    field "Secure Boot" "$(mokutil --sb-state 2>&1 | head -n1)"
+  else
+    field "Secure Boot" "unknown (SecureBoot variable not present)"
+  fi
+  if [ -r "$sm_var" ]; then
+    sm=$(od -An -tu1 -j4 -N1 "$sm_var" | tr -d ' ')
+    case "$sm" in
+      1) field "Setup Mode" "yes (keys not enrolled)" ;;
+      0) field "Setup Mode" "no (user mode)" ;;
+    esac
+  fi
+  if [ -r /sys/kernel/security/lockdown ]; then
+    lockdown=$(sed 's/.*\[\(.*\)\].*/\1/' /sys/kernel/security/lockdown)
+    field "Kernel lockdown" "$lockdown"
+  fi
+}
+
+linux_bootentries() {
+  [ -d /sys/firmware/efi ] || return
+  section "UEFI boot entries"
+  if have efibootmgr; then
+    efibootmgr 2>&1 | sed 's/^/  /'
+  else
+    echo "  (install efibootmgr to list boot entries)"
+  fi
+}
+
+linux_disks() {
+  section "Boot media"
+  if ! have lsblk; then
+    echo "  (lsblk not found)"
+    return
+  fi
+  # Note: -P output is used because empty columns break whitespace splitting.
+  lsblk -dnpP -o NAME,TYPE,PTTYPE,SIZE,TRAN,MODEL 2>/dev/null |
+  while read -r line; do
+    eval "$line"
+    disk=$NAME pttype=$PTTYPE tran=$TRAN
+    [ "$TYPE" = disk ] || continue
+    echo
+    echo "$disk ($SIZE${tran:+, $tran}${pttype:+, $pttype}) $MODEL"
+    if is_root && [ "$pttype" != gpt ]; then
+      field "  MBR boot code" "$(mbr_info "$disk")"
+    fi
+    lsblk -npP -o NAME,TYPE,PARTTYPE,FSTYPE,MOUNTPOINT "$disk" 2>/dev/null |
+    while read -r line; do
+      eval "$line"
+      part=$NAME parttype=$PARTTYPE fstype=$FSTYPE mnt=$MOUNTPOINT
+      [ "$TYPE" = part ] || continue
+      case "$parttype" in
+        "$ESP_TYPE"|0xef) ;;
+        "$BIOS_BOOT_TYPE")
+          echo "  $part: BIOS boot partition (legacy GRUB on GPT)"
+          continue ;;
+        *) continue ;;
+      esac
+      echo "  $part: EFI system partition${mnt:+, mounted at $mnt}"
+      if [ "$mnt" ]; then
+        list_esp "$mnt"
+      elif is_root; then
+        tmp=$(mktemp -d)
+        if mount -o ro -t "${fstype:-vfat}" "$part" "$tmp" 2>/dev/null; then
+          list_esp "$tmp"
+          umount "$tmp"
+        else
+          echo "    (could not mount)"
+        fi
+        rmdir "$tmp"
+      else
+        echo "    (not mounted; run as root to inspect)"
+      fi
+    done
+  done
+}
+
+linux_loaders() {
+  section "Installed boot loader configs"
+  found=
+  for d in /boot/grub /boot/grub2; do
+    [ -f "$d/grub.cfg" ] && { echo "  GRUB: $d/grub.cfg"; found=1; }
+  done
+  if have bootctl && bootctl is-installed >/dev/null 2>&1; then
+    echo "  systemd-boot: installed"; found=1
+  fi
+  [ -d /boot/loader/entries ] && { echo "  systemd-boot entries: /boot/loader/entries"; found=1; }
+  [ -f /boot/refind_linux.conf ] && { echo "  rEFInd: /boot/refind_linux.conf"; found=1; }
+  [ -f /boot/syslinux/syslinux.cfg ] && { echo "  SYSLINUX: /boot/syslinux/syslinux.cfg"; found=1; }
+  [ "$found" ] || echo "  (none found)"
+  [ -r /proc/cmdline ] && { echo; field "Kernel cmdline" "$(cat /proc/cmdline)"; }
+}
+
+macos_report() {
+  arch=$(uname -m)
+  section Firmware
+  if [ "$arch" = arm64 ]; then
+    field Mode "Apple Silicon (iBoot)"
+  else
+    field Mode "Intel Mac (EFI)"
+  fi
+  fw=$(system_profiler SPHardwareDataType 2>/dev/null |
+    sed -En 's/^ *(System Firmware Version|Boot ROM Version): *//p' | head -n1)
+  [ "$fw" ] && field Firmware "$fw"
+
+  section "Secure Boot"
+  if [ "$arch" = arm64 ]; then
+    if is_root && have bputil; then
+      bputil -d 2>/dev/null | grep -i -E 'security mode|secure boot|kext|mdm' | sed 's/^ */  /'
+    else
+      echo "  (run as root to query boot policy via bputil)"
+    fi
+  else
+    # Note: This variable only exists on Macs with a T2 chip.
+    policy=$(nvram 94b73556-2197-4702-82a8-3e1337dafbfb:AppleSecureBootPolicy 2>/dev/null | awk '{print $2}')
+    case "$policy" in
+      %00) field "Secure Boot" "No Security" ;;
+      %01) field "Secure Boot" "Medium Security" ;;
+      %02) field "Secure Boot" "Full Security" ;;
+      "")  field "Secure Boot" "n/a (no T2 chip?)" ;;
+      *)   field "Secure Boot" "unknown ($policy)" ;;
+    esac
+  fi
+  have csrutil && field SIP "$(csrutil status 2>/dev/null | sed 's/^System Integrity Protection status: //')"
+
+  section "Startup disk"
+  if have bless; then
+    field "Boot device" "$(bless --info --getBoot 2>/dev/null)"
+  fi
+  bootargs=$(nvram boot-args 2>/dev/null | cut -f2-)
+  [ "$bootargs" ] && field "Boot args" "$bootargs"
+
+  section "Boot media"
+  if have diskutil; then
+    diskutil list 2>/dev/null | grep -E '^/dev/|EFI|Apple_Boot|Microsoft Basic|Linux' | sed 's/^/  /'
+  fi
+}
+
+case "$(uname -s)" in
+  Linux)
+    linux_firmware
+    linux_secureboot
+    linux_bootentries
+    linux_disks
+    linux_loaders
+    ;;
+  Darwin)
+    macos_report
+    ;;
+  MINGW*|MSYS*|CYGWIN*)
+    echo "Unsupported platform: Windows."
+    echo "Try msinfo32 (BIOS Mode, Secure Boot State), or from an elevated"
+    echo "PowerShell: Confirm-SecureBootUEFI; bcdedit /enum firmware"
+    exit 1
+    ;;
+  *)
+    echo "Unsupported platform: $(uname -s)"
+    exit 1
+    ;;
+esac
+
+if ! is_root; then
+  echo
+  echo "Note: run as root for more details."
+fi
