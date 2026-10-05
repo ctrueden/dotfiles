@@ -1,5 +1,3 @@
-test "$DEBUG" && echo "[dotfiles] Loading plugin 'xterm'..."
-
 # update terminal title as appropriate
 case "$TERM" in
 	xterm*|rxvt*)

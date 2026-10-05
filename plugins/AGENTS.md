@@ -19,6 +19,7 @@ The plugins are loaded automatically by `zshrc` using this pattern:
 ```zsh
 for plugin in "$DOTFILES"/plugins/*.sh "$DOTFILES"/plugins/*.zsh
 do
+    _progress "plugin '${plugin:t}'"
     source "$plugin"
 done
 ```
@@ -261,11 +262,10 @@ DOC
 
 ### Debug Mode
 
-All plugins should support debug mode:
-
-```sh
-test "$DEBUG" && echo "[dotfiles] Loading plugin 'name'..."
-```
+Plugins need no debug line of their own: `zshrc` and `bashrc` call `_progress`
+(from `progress.sh` in the repo root) before sourcing each plugin. It prints
+`[dotfiles] Loading plugin '<file>'...` when `DEBUG` is set, and otherwise
+renders an in-place progress bar on interactive terminals.
 
 Run with `DEBUG=1 zsh` to see loading order.
 
@@ -288,10 +288,9 @@ return 1
 ### Adding a New Plugin
 
 1. Create `<name>.sh` (or `.zsh` for zsh-specific, `.bash` for bash-specific)
-2. Add debug line: `test "$DEBUG" && echo "[dotfiles] Loading plugin '<name>'..."`
-3. Use cross-platform patterns (see above)
-4. Test with `source <name>.sh` or restart shell
-5. For PATH changes, use path_prepend/path_append
+2. Use cross-platform patterns (see above)
+3. Test with `source <name>.sh` or restart shell
+4. For PATH changes, use path_prepend/path_append
 
 ### Modifying Existing Plugins
 

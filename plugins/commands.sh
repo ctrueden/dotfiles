@@ -1,5 +1,3 @@
-test "$DEBUG" && echo "[dotfiles] Loading plugin 'commands'..."
-
 # --== xterm ==--
 
 alias xterm='xterm -geometry 80x60 -fg white -bg black'

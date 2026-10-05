@@ -1,5 +1,3 @@
-test "$DEBUG" && echo "[dotfiles] Loading plugin 'myrepos'..."
-
 alias mr='mr --stats'
 
 mrln() {

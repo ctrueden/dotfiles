@@ -1,5 +1,3 @@
-test "$DEBUG" && echo "[dotfiles] Loading plugin 'highlight'..."
-
 # --== terminal syntax highlighting ==--
 
 # Credit to @F1LT3R:

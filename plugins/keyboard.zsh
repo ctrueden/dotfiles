@@ -1,5 +1,3 @@
-test "$DEBUG" && echo "[dotfiles] Loading zsh plugin 'keyboard'..."
-
 # --== zsh keyboard fixes ==--
 
 # Make numpad keys work as expected even with NumLock off.

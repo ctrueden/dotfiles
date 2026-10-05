@@ -1,5 +1,3 @@
-test "$DEBUG" && echo "[dotfiles] Loading plugin 'nav'..."
-
 # "where is" - find a command or filename
 wi() {
 	cmd=$(command -v "$@")

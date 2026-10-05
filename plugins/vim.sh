@@ -1,5 +1,3 @@
-test "$DEBUG" && echo "[dotfiles] Loading plugin 'vim'..."
-
 # Set up vim command aliases.
 if [ "$(command -v nvim)" ]
 then

@@ -1,5 +1,3 @@
-test "$DEBUG" && echo "[dotfiles] Loading plugin 'ai'..."
-
 # WARNING: While allowing all paths and tools broadly makes
 # the assistants more autonomous, it also removes some of the
 # safety and security guardrails in place. Use with caution.

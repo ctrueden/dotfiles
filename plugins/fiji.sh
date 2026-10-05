@@ -1,5 +1,3 @@
-test "$DEBUG" && echo "[dotfiles] Loading plugin 'fiji'..."
-
 ij() {
   ijexe=
   bits=$(getconf LONG_BIT 2>/dev/null)

@@ -1,5 +1,3 @@
-test "$DEBUG" && echo "[dotfiles] Loading plugin 'shell'..."
-
 interlogin() {
   : << 'DOC'
 Reports whether the current shell is interactive and/or login shell.

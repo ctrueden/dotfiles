@@ -73,10 +73,16 @@ set -o vi
 
 # --== shell plugins ==--
 
-for f in "$DOTFILES"/plugins/*.sh "$DOTFILES"/plugins/*.bash
+source "$DOTFILES"/lib/progress.sh
+_plugins=("$DOTFILES"/plugins/*.sh "$DOTFILES"/plugins/*.bash)
+_progress_init ${#_plugins[@]}
+for f in "${_plugins[@]}"
 do
-	source $f
+	_progress "plugin '${f##*/}'"
+	source "$f"
 done
+_progress_done
+unset _plugins f
 
 export PERL5LIB="$CODE_GIT/perl:$CODE_GIT/contrib/mw-to-git"
 

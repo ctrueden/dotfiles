@@ -1,5 +1,3 @@
-test "$DEBUG" && echo "[dotfiles] Loading zsh plugin 'uv'..."
-
 if [ -x "$UV" ]; then
   # Fix completions for uv run to autocomplete .py files.
   # Credit: https://github.com/astral-sh/uv/issues/8432#issuecomment-2965692994

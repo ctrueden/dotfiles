@@ -1,5 +1,3 @@
-test "$DEBUG" && echo "[dotfiles] Loading plugin 'gnome'..."
-
 # Credit: https://askubuntu.com/a/1343895/432860
 if { command -v gsettings >/dev/null 2>&1 && gsettings list-schemas >/dev/null 2>&1; }
 then

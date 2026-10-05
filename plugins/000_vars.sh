@@ -1,5 +1,3 @@
-test "$DEBUG" && echo "[dotfiles] Loading plugin 'vars'..."
-
 # --== Early PATH update ==--
 #
 # Plugins load alphabetically, with zzz_path.sh running last to do the final

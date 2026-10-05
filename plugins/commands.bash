@@ -1,5 +1,3 @@
-test "$DEBUG" && echo "[dotfiles] Loading bash plugin 'commands'..."
-
 # --== bash command shortcuts ==--
 
 # The oh-my-zsh project has lots of useful command shortcuts.

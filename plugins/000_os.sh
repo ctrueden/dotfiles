@@ -1,5 +1,3 @@
-test "$DEBUG" && echo "[dotfiles] Loading plugin 'os'..."
-
 # --== operating system (Darwin, Linux, etc.) ==--
 
 export OS_NAME="$(uname)"

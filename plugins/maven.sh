@@ -1,5 +1,3 @@
-test "$DEBUG" && echo "[dotfiles] Loading plugin 'maven'..."
-
 export MAVEN_OPTS="-Xmx1536m"
 
 # license-maven-plugin

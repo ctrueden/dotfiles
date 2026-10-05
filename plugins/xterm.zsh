@@ -1,5 +1,3 @@
-test "$DEBUG" && echo "[dotfiles] Loading zsh plugin 'xterm'..."
-
 # change the title of the current xterm
 tt() {
   if [ "$@" ]

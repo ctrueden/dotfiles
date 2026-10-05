@@ -1,5 +1,3 @@
-test "$DEBUG" && echo "[dotfiles] Loading plugin 'docker'..."
-
 dksh() {
   hn=${1:-dksh}
   if [ -z "$(docker ps -a | grep ' dksh ')" ]

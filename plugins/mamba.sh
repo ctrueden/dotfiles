@@ -1,5 +1,3 @@
-test "$DEBUG" && echo "[dotfiles] Loading plugin 'mamba'..."
-
 # Yes, the CONDA_PREFIX variable will hold this same directory later,
 # thanks to conda/mamba's injected block in bashrc/zshrc. But it happens
 # too late, after this and other plugins have already been sourced.

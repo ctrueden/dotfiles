@@ -4,6 +4,13 @@ test "$DEBUG" && echo "[zshrc] Initializing..."
 # https://youtrack.jetbrains.com/articles/SUPPORT-A-1727/Shell-Environment-Loading
 test -z "$INTELLIJ_ENVIRONMENT_READER" || return
 
+# --== progress bar ==--
+
+source "$DOTFILES"/lib/progress.sh
+_plugins=("$DOTFILES"/plugins/*.sh "$DOTFILES"/plugins/*.zsh)
+_progress_init $((${#_plugins} + 4))  # Note: 4 for the zpm, oh-my-zsh, libs, and plugins steps.
+_progress "zpm"
+
 # --== zpm ==--
 
 if [[ ! -f ~/.zpm/zpm.zsh ]]; then
@@ -18,12 +25,10 @@ if [[ ! -f ~/.zpm/zpm.zsh ]]; then
 	$GIT clone --recursive https://github.com/zpm-zsh/zpm ~/.zpm
 fi
 
-test "$DEBUG" && echo "[zshrc] Initializing zpm..."
 source ~/.zpm/zpm.zsh
+_progress oh-my-zsh
 
 # --== oh-my-zsh ==--
-
-test "$DEBUG" && echo "[zshrc] Configuring oh-my-zsh..."
 
 # Disable oh-my-zsh's automatic updates; we'll use "zgen update" instead.
 export DISABLE_AUTO_UPDATE="true"
@@ -46,7 +51,7 @@ DISABLE_UNTRACKED_FILES_DIRTY="true"
 # The optional three formats: "mm/dd/yyyy"|"dd.mm.yyyy"|"yyyy-mm-dd"
 HIST_STAMPS="yyyy-mm-dd"
 
-test "$DEBUG" && echo "[zshrc] Loading oh-my-zsh..."
+_progress "oh-my-zsh libs"
 zpm load @omz
 omz_libs=(
 	@omz/lib/async_prompt          # dependency of lib/git
@@ -66,7 +71,7 @@ zpm load $omz_libs
 
 # --== plugins ==--
 
-test "$DEBUG" && echo "[zshrc] Loading plugins..."
+_progress "zpm plugins"
 zsh_plugins=(
 	@omz/vi-mode                          # vi mode CLI instead of emacs
 	@omz/brew                             # homebrew completion
@@ -109,25 +114,13 @@ bindkey "\C]" nohup-command-line
 
 export WD_CONFIG=$HOME/.config/wd/warprc
 
-test "$DEBUG" && echo "[zshrc] Loading personal plugins..."
-_plugins=("$DOTFILES"/plugins/*.sh "$DOTFILES"/plugins/*.zsh)
-_total=${#_plugins}
-_n=0
-# Render a progress bar for interactive terminals only.
-_bar=; test -z "$DEBUG" && test -t 2 && _bar=1
 for plugin in $_plugins
 do
-	if test "$_bar"
-	then
-		# Update the progress bar.
-		_done=$((20 * _n / _total))
-		printf '\r\033[K[%s%s] %s' "${(l:_done::#:)}" "${(l:$((20 - _done))::-:)}" "${${plugin:t}%.*}" >&2
-		_n=$((_n + 1))
-	fi
+	_progress "plugin '${plugin:t}'"
 	source "$plugin"
 done
-test "$_bar" && printf '\r\033[K' >&2
-unset _plugins _total _n _bar _done
+_progress_done
+unset _plugins
 
 #source "$DOTFILES"/themes/curtis.zsh-theme
 eval "$(starship init zsh)"
