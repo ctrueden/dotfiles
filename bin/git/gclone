@@ -1,0 +1,44 @@
+#!/bin/sh
+
+# Like "git clone", but rewrites GitHub and GitLab HTTPS URLs to SSH form:
+#
+#   https://github.com/org/repo[.git][/]  ->  git@github.com:org/repo
+#   https://gitlab.com/org/repo[.git][/]  ->  git@gitlab.com:org/repo.git
+#
+# Browser-style URLs (e.g. https://github.com/org/repo/tree/main/src) and
+# "www." hosts are also accepted, and the scheme may be omitted entirely
+# (e.g. "github.com/org/repo"). All other arguments pass through untouched.
+
+# Note: GitLab requires the .git suffix, whereas GitHub does not need it.
+
+n=$#
+i=0
+while [ "$i" -lt "$n" ]
+do
+  arg=$1
+  shift
+  # Normalize for matching: drop any scheme and "www." prefix.
+  bare=${arg#http://}
+  bare=${bare#https://}
+  bare=${bare#www.}
+  case "$bare" in
+    github.com/*)
+      path=${bare#github.com/}
+      # Keep only org/repo, dropping /tree/..., /blob/..., query, and fragment.
+      path=$(printf '%s' "$path" | sed -E 's/[?#].*//; s#^([^/]+/[^/]+).*#\1#; s/\.git$//')
+      arg="git@github.com:$path"
+      ;;
+    gitlab.com/*)
+      path=${bare#gitlab.com/}
+      # GitLab projects may be nested in subgroups, so keep everything up to
+      # any /-/ route (GitLab's separator for tree/blob/etc.).
+      path=$(printf '%s' "$path" | sed -E 's/[?#].*//; s#/-/.*##; s#/+$##; s/\.git$//')
+      arg="git@gitlab.com:$path.git"
+      ;;
+  esac
+  set -- "$@" "$arg"
+  i=$((i + 1))
+done
+
+# Show what is actually being run, in case the rewrite surprises anyone.
+(set -x && git clone "$@")
