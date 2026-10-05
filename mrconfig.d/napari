@@ -3,8 +3,20 @@
 [code/napari/NapariPlayground]
 checkout = git clone git@github.com:VolkerH/NapariPlayground
 
+[code/napari/docs]
+checkout = git clone git@github.com:napari/docs
+
+[code/napari/empanada-napari]
+checkout = git clone git@github.com:volume-em/empanada-napari
+
+[code/napari/island-dispatch]
+checkout = git clone git@github.com:napari/island-dispatch
+
 [code/napari/napari]
 checkout = git clone git@github.com:napari/napari
+
+[code/napari/napari-chatgpt]
+checkout = git clone git@github.com:royerlab/napari-chatgpt
 
 [code/napari/napari-core]
 checkout = git clone git@github.com:napari/napari-core
@@ -23,6 +35,12 @@ checkout = git clone git@github.com:Labelings/napari-labeling
 
 [code/napari/napari-plugin-engine]
 checkout = git clone git@github.com:napari/napari-plugin-engine
+
+[code/napari/npe2]
+checkout = git clone git@github.com:napari/npe2
+
+[code/napari/workshops]
+checkout = git clone git@github.com:napari/workshops
 
 [code/napari/yanse]
 checkout = git clone git@github.com:ctrueden/yanse

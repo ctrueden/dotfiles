@@ -1,49 +1,7 @@
 # Projects in the PyData stack
 
-[code/pydata/app-model]
-checkout = git clone git@github.com:pyapp-kit/app-model
-
-[code/pydata/bffile]
-checkout = git clone git@github.com:tlambert03/bffile
-
-[code/pydata/cmap]
-checkout = git clone git@github.com:tlambert03/cmap
-
-[code/pydata/fieldz]
-checkout = git clone git@github.com:pyapp-kit/fieldz
-
-[code/pydata/in-n-out]
-checkout = git clone git@github.com:pyapp-kit/in-n-out
-
-[code/pydata/magicgui]
-checkout = git clone git@github.com:pyapp-kit/magicgui
-
-[code/pydata/ndv]
-checkout = git clone git@github.com:pyapp-kit/ndv
-
 [code/pydata/numpy]
 checkout = git clone git@github.com:numpy/numpy
 
-[code/pydata/psygnal]
-checkout = git clone git@github.com:pyapp-kit/psygnal
-
-[code/pydata/pydata-nyc-2018-tutorial]
-checkout = git clone git@github.com:mrocklin/pydata-nyc-2018-tutorial
-
-[code/pydata/scenex]
-checkout = git clone git@github.com:pyapp-kit/scenex
-
-[code/pydata/scikit-image]
-checkout = git clone git@github.com:scikit-image/scikit-image
-
-[code/pydata/scikit-image-paper]
-checkout = git clone git@github.com:scikit-image/scikit-image-paper
-
-[code/pydata/scikit-image-web]
-checkout = git clone git@github.com:scikit-image/scikit-image-web
-
 [code/pydata/scipy]
 checkout = git clone git@github.com:scipy/scipy
-
-[code/pydata/superqt]
-checkout = git clone git@github.com:pyapp-kit/superqt

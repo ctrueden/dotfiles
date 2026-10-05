@@ -1,0 +1,4 @@
+# Orbit Image Analysis - https://www.orbit.bio/
+
+[code/orbit/orbit-image-analysis]
+checkout = git clone git@github.com:mstritt/orbit-image-analysis

@@ -21,14 +21,14 @@ checkout = git clone git@github.com:saalfeldlab/bigcat
 [code/science/htcondor]
 checkout = git clone git@github.com:htcondor/htcondor
 
+[code/science/icechunk]
+checkout = git clone git@github.com:earth-mover/icechunk
+
 [code/science/imagejs]
 checkout = git clone git@github.com:imagejs/imagejs.github.com imagejs
 
 [code/science/imagepy]
 checkout = git clone git@github.com:Image-Py/imagepy
-
-[code/science/imgal]
-checkout = git clone git@github.com:imgal-sc/imgal
 
 [code/science/jicbioimage]
 checkout = git clone git@github.com:JIC-CSB/jicbioimage
@@ -65,9 +65,6 @@ checkout = git clone git@github.com:svi-opensource/libics
 
 [code/science/neuroglancer]
 checkout = git clone git@github.com:google/neuroglancer
-
-[code/science/orbit-image-analysis]
-checkout = git clone git@github.com:mstritt/orbit-image-analysis
 
 [code/science/pixlib]
 checkout = git clone git@github.com:dprodanov/pixlib && cd pixlib && git remote add sf git://git.code.sf.net/p/pixlib/code && git remote update

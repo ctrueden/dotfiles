@@ -9,6 +9,9 @@ checkout = git clone git@github.com:micro-manager/micro-manager.github.io
 [code/micro-manager/micromanager-gui]
 checkout = git clone git@github.com:fdrgsp/micromanager-gui
 
+[code/micro-manager/mmdev-SimulatedCamera]
+checkout = git clone git@github.com:marktsuchida/mmdev-SimulatedCamera
+
 [code/micro-manager/napari-micromanager]
 checkout = git clone git@github.com:pymmcore-plus/napari-micromanager
 

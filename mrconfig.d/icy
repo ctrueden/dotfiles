@@ -11,3 +11,33 @@ checkout = git clone git@github.com:deepicy/deepicy
 
 [code/icy3]
 checkout = git clone git@github.com:ctrueden/icy3-build
+
+[code/icy3/Icy-Cellpose]
+checkout = git clone git@github.com:Image-Analysis-Hub/Icy-Cellpose
+
+[code/icy3/appose]
+checkout = git clone git@gitlab.pasteur.fr:bia/icy/extensions/appose
+
+[code/icy3/ezplug]
+checkout = git clone git@gitlab.pasteur.fr:bia/icy/extensions/ezplug
+
+[code/icy3/icy]
+checkout = git clone https://github.com/icy-imaging/icy
+
+[code/icy3/kernel-extensions]
+checkout = git clone git@gitlab.pasteur.fr:bia/icy/extensions/kernel-extensions
+
+[code/icy3/maven-extension-properties]
+checkout = git clone git@gitlab.pasteur.fr:bia/icy/maven/maven-extension-properties
+
+[code/icy3/parent-pom-base]
+checkout = git clone git@gitlab.pasteur.fr:bia/icy/parent-pom-base
+
+[code/icy3/protocols]
+checkout = git clone git@gitlab.pasteur.fr:bia/icy/extensions/protocols
+
+[code/icy3/script-manager]
+checkout = git clone git@gitlab.pasteur.fr:bia/icy/extensions/script-manager
+
+[code/icy3/script-manager-gui]
+checkout = git clone git@gitlab.pasteur.fr:bia/icy/extensions/script-manager-gui

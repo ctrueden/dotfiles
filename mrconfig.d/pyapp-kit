@@ -1,0 +1,31 @@
+# pyapp-kit - https://github.com/pyapp-kit
+
+[code/pyapp-kit/app-model]
+checkout = git clone git@github.com:pyapp-kit/app-model
+
+[code/pyapp-kit/bffile]
+checkout = git clone git@github.com:tlambert03/bffile
+
+[code/pyapp-kit/cmap]
+checkout = git clone git@github.com:tlambert03/cmap
+
+[code/pyapp-kit/fieldz]
+checkout = git clone git@github.com:pyapp-kit/fieldz
+
+[code/pyapp-kit/in-n-out]
+checkout = git clone git@github.com:pyapp-kit/in-n-out
+
+[code/pyapp-kit/magicgui]
+checkout = git clone git@github.com:pyapp-kit/magicgui
+
+[code/pyapp-kit/ndv]
+checkout = git clone git@github.com:pyapp-kit/ndv
+
+[code/pyapp-kit/psygnal]
+checkout = git clone git@github.com:pyapp-kit/psygnal
+
+[code/pyapp-kit/scenex]
+checkout = git clone git@github.com:pyapp-kit/scenex
+
+[code/pyapp-kit/superqt]
+checkout = git clone git@github.com:pyapp-kit/superqt

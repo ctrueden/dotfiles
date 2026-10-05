@@ -12,6 +12,9 @@ checkout = git clone git@github.com:bioimage-io/bioimage.io
 [code/bioimage-io/bioimageio-chatbot]
 checkout = git clone git@github.com:bioimage-io/bioimageio-chatbot
 
+[code/bioimage-io/collection]
+checkout = git clone git@github.com:bioimage-io/collection
+
 [code/bioimage-io/collection-bioimage-io]
 checkout = git clone git@github.com:bioimage-io/collection-bioimage-io
 

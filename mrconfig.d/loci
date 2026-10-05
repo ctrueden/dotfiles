@@ -27,6 +27,9 @@ checkout = git clone git@github.com:uw-loci/coding-club
 [code/loci/github-backup-java]
 checkout = git clone git@github.com:uw-loci/github-backup-java
 
+[code/loci/imgal]
+checkout = git clone git@github.com:imgal-sc/imgal
+
 [code/loci/loci-scripts]
 checkout = git clone git@github.com:uw-loci/loci-scripts
 

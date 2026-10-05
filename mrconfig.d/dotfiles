@@ -1,0 +1,4 @@
+# Other people's dotfiles
+
+[code/dotfiles/gnodar01]
+checkout = git clone git@github.com:gnodar01/dotfiles

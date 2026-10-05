@@ -1,0 +1,10 @@
+# scikit-image - https://scikit-image.org/
+
+[code/skimage/scikit-image]
+checkout = git clone git@github.com:scikit-image/scikit-image
+
+[code/skimage/scikit-image-paper]
+checkout = git clone git@github.com:scikit-image/scikit-image-paper
+
+[code/skimage/scikit-image-web]
+checkout = git clone git@github.com:scikit-image/scikit-image-web

@@ -212,6 +212,17 @@ checkout = git clone git@github.com:tinevez/CircleSkinner
 [code/sj-stuff/imglib2-icy]
 checkout = git clone git@github.com:tinevez/imglib2-icy
 
+# unige-biochem
+
+[code/sj-stuff/bdvplayground-omezarr-adapter]
+checkout = git clone git@github.com:unige-biochem/bdvplayground-omezarr-adapter
+
+[code/sj-stuff/bioformats-to-incarta]
+checkout = git clone git@github.com:unige-biochem/bioformats-to-incarta
+
+[code/sj-stuff/fiji-robot]
+checkout = git clone git@github.com:unige-biochem/fiji-robot
+
 # other
 
 [code/sj-stuff/3Dscript]
@@ -360,6 +371,9 @@ checkout = git clone git@github.com:stelfrich/legacy-update-bug-mcve
 
 [code/sj-stuff/mcib3d-core]
 checkout = git clone git@github.com:mcib3d/mcib3d-core
+
+[code/sj-stuff/metaedit]
+checkout = git clone git@github.com:elevans/metaedit
 
 [code/sj-stuff/mroi]
 checkout = git clone git@github.com:madhadron/mroi
