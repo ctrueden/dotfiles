@@ -1,0 +1,4 @@
+# Open Microscopy Environment - https://openmicroscopy.org/ (large)
+
+[code/ome/openmicroscopy]
+checkout = git clone git@github.com:ome/openmicroscopy

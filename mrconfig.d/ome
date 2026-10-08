@@ -36,6 +36,3 @@ update = git pull --rebase && git submodule update
 
 [code/ome/omero-insight]
 checkout = git clone git@github.com:ome/omero-insight
-
-[code/ome/openmicroscopy]
-checkout = git clone git@github.com:ome/openmicroscopy
