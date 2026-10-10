@@ -2,21 +2,28 @@
 
 # Converts all Claude conversations to Markdown
 # and HTML format in ~/.claude/transcripts.
+# Conversations unchanged since their last conversion are skipped.
 
-mkdir -p ~/.claude/transcripts
-find ~/.claude/ -name '*.jsonl' -exec grep -H '"aiTitle":' "{}" \; |
-	sort -u |
-	sed 's/^\([^:]*\).*:.*"aiTitle":"\([^"]*\).*/\1:\2/' |
-	while read line
+out=~/.claude/transcripts
+mkdir -p "$out"
+find ~/.claude/ -name '*.jsonl' | while read p
 do
-	p="${line%%:*}"
-	title=$(echo "${line#*:}" | sed 's;[^a-zA-Z0-9 _-];_;g')
-	result=$(claude2md "$p" -o ~/.claude/transcripts/)
-	echo "$result"
-	md=${result#Wrote }
+	md="$out/$(basename "$p" .jsonl).md"
+	test "$md" -nt "$p" && continue
+
+	# Note: aiTitle can appear many times; the last one is the most current.
+	title=$(grep -o '"aiTitle":"[^"]*' "$p" | tail -n 1 | sed 's/^"aiTitle":"//')
+	test "$title" || continue
+	title=$(echo "$title" | sed 's;[^a-zA-Z0-9 _-];_;g')
+
+	claude2md "$p" -o "$out/"
 	test -f "$md" || {
 		echo "Skipping $p: conversion failed" >&2
 		continue
 	}
-	pandoc "$md" -f 'markdown-tex_math_dollars' --quiet -o ~/.claude/transcripts/"$title".html
+	pandoc "$md" -f 'markdown-tex_math_dollars' --quiet -o "$out/$title.html" || {
+		# Note: Remove the Markdown so the conversion is retried next time.
+		rm -f "$md"
+		echo "Skipping $p: HTML rendering failed" >&2
+	}
 done
