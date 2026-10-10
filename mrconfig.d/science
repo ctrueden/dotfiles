@@ -21,9 +21,6 @@ checkout = git clone git@github.com:saalfeldlab/bigcat
 [code/science/htcondor]
 checkout = git clone git@github.com:htcondor/htcondor
 
-[code/science/icechunk]
-checkout = git clone git@github.com:earth-mover/icechunk
-
 [code/science/imagejs]
 checkout = git clone git@github.com:imagejs/imagejs.github.com imagejs
 

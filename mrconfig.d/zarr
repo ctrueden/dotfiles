@@ -1,0 +1,33 @@
+[code/zarr/fidnii]
+checkout = git clone git@github.com:fideus-labs/fidnii
+
+[code/zarr/fiff]
+checkout = git clone git@github.com:fideus-labs/fiff
+
+[code/zarr/icechunk]
+checkout = git clone git@github.com:earth-mover/icechunk
+
+[code/zarr/nd-image-codecs]
+checkout = git clone git@github.com:fideus-labs/nd-image-codecs
+
+[code/zarr/ngff-zarr]
+checkout = git clone git@github.com:fideus-labs/ngff-zarr
+
+[code/zarr/ome-zarr-book]
+checkout = git clone git@github.com:ome-zarr-py/ome-zarr-book
+
+[code/zarr/ome-zarr-models-py]
+checkout = git clone git@github.com:ome-zarr-py/ome-zarr-models-py
+
+[code/zarr/ome-zarr-py]
+checkout = git clone git@github.com:ome/ome-zarr-py
+
+[code/zarr/ome-zarr-rfc4-validation]
+checkout = git clone git@github.com:fideus-labs/ome-zarr-rfc4-validation
+
+[code/zarr/scientific-ai-omezarr-tutorial]
+checkout = git clone git@github.com:fideus-labs/scientific-ai-omezarr-tutorial
+
+[code/zarr/SlicerOMEZarr]
+checkout = git clone git@github.com:fideus-labs/SlicerOMEZarr
+

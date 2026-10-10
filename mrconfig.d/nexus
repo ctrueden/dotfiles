@@ -1,3 +1,8 @@
+[code/nexus/kkRepo]
+checkout = git clone git@github.com:klboke/kkRepo
+
 [code/nexus/nexus-public]
 checkout = git clone git@github.com:sonatype/nexus-public
 
+[code/nexus/reposilite]
+checkout = git clone git@github.com:dzikoysk/reposilite
