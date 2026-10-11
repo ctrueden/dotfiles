@@ -115,6 +115,7 @@ link_file "$CONFIG_DIR/jgo.conf" .config/jgo.conf
 # writes its own state and settings into ~/.config/byobu.
 mkdir -p .config/byobu
 link_file "$CONFIG_DIR/byobu/tmux.conf" .config/byobu/.tmux.conf
+link_file "$CONFIG_DIR/byobu/palette.sh" .config/byobu/palette.sh
 
 # ~/.mrconfig
 link_file "$CONFIG_DIR/mrconfig" .mrconfig
@@ -194,18 +195,18 @@ case "$(uname)" in
     ;;
 esac
 
-# byobu -- tmux with batteries
+# byobu -- tmux with batteries; fzf powers its command palette (prefix+Space)
 case "$(uname)" in
   Linux)
-    command -v byobu >/dev/null 2>&1 || {
-      echo "Installing byobu..."
-      sudo apt-get install -y byobu
+    command -v byobu >/dev/null 2>&1 && command -v fzf >/dev/null 2>&1 || {
+      echo "Installing byobu and fzf..."
+      sudo apt-get install -y byobu fzf
     }
     ;;
   Darwin)
-    command -v byobu >/dev/null 2>&1 || {
-      echo "Installing byobu..."
-      brew install byobu
+    command -v byobu >/dev/null 2>&1 && command -v fzf >/dev/null 2>&1 || {
+      echo "Installing byobu and fzf..."
+      brew install byobu fzf
     }
     ;;
 esac
