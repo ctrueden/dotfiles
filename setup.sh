@@ -272,6 +272,11 @@ if command -v nvim >/dev/null 2>&1 && nvim_ok && [ -d "$NVIM_CONFIG_DIR" ]; then
   # Enable the pyright LSP server (idempotent).
   perl -i -pe "s/-- (pyright = \{\},)/\$1/" "$NVIM_CONFIG"
 
+  # Have mason-tool-installer install the Java toolchain (jdtls + debug/test
+  # bundles used by ftplugin/java.lua) and bash-language-server (idempotent).
+  grep -qF "'java-debug-adapter'" "$NVIM_CONFIG" || \
+    perl -i -pe "s|(-- You can add other tools here that you want Mason to install)|\$1\n    'jdtls',\n    'java-debug-adapter',\n    'java-test',\n    'bash-language-server',|" "$NVIM_CONFIG"
+
   # Disable delve plugin auto-install (idempotent).
   perl -i -pe "s/^(\s*)('delve',)/\$1-- \$2/" "$NVIM_CONFIG_DIR/lua/kickstart/plugins/debug.lua"
 

@@ -75,6 +75,11 @@ local function on_attach(_, bufnr)
 	map("<leader>jt", jdtls.test_nearest_method, "Run nearest test")
 	map("<leader>jT", jdtls.test_class, "Run class tests")
 
+	-- Run/debug a main class (same as kickstart's <F5>). Note: grx is Neovim's
+	-- default "run code lens" key, but jdtls emits no run/debug lenses (those
+	-- are client-side in VS Code), so we reuse the key for the same intent.
+	map("grx", require("dap").continue, "Run/debug main class")
+
 	-- Re-discover main classes (e.g. after adding a new main method)
 	map("<leader>jd", require("jdtls.dap").setup_dap_main_class_configs, "Discover main classes")
 
