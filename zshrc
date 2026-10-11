@@ -79,8 +79,8 @@ zsh_plugins=(
 	@omz/cp                               # cpv shows progress while file is copying
 	@omz/encode64                         # e64 and d64 for base64 encoding and decoding
 	@omz/extract                          # extract command for unpacking many archives
+	@omz/gh                               # gh (github CLI) completion logic
 	@omz/git                              # git aliases and improved completion
-	@omz/github                           # hub and other github functions
 	@omz/history                          # history aliases
 	@omz/jsontools                        # json functions
 	@omz/last-working-dir                 # return to last dir in new shell instances
