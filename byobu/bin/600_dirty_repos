@@ -1,0 +1,32 @@
+#!/bin/sh
+
+# 600_dirty_repos - Byobu status widget: count mr-tracked repos needing a push.
+#
+# A repo counts if it has uncommitted changes to tracked files, or a branch
+# with commits its upstream lacks. Untracked files, stashes, and branches with
+# no upstream are ignored, being too common to be worth a nag. Run mrcu for
+# the full picture.
+#
+# Note: Scanning ~1000 repos takes a while, so this prints the previous
+# result and refreshes it in the background. Byobu reruns it every 600s.
+
+cache="${XDG_CACHE_HOME:-$HOME/.cache}/byobu/dirty_repos"
+mrls="$(dirname "$(readlink -f "$0")")/../../bin/repos/mrls"
+
+n=$(cat "$cache" 2>/dev/null)
+test "${n:-0}" -gt 0 && printf '±%s\n' "$n"
+
+mkdir -p "$(dirname "$cache")"
+(
+  "$mrls" | cut -f1 | sed "s|^|$HOME/|" | tr '\n' '\0' |
+  xargs -0 -n1 -P8 sh -c '
+    test -d "$1/.git" || exit 0
+    if ! git -C "$1" diff --quiet HEAD 2>/dev/null ||
+      git -C "$1" for-each-ref --format="%(upstream:trackshort)" refs/heads |
+      grep -q ">"
+    then
+      echo "$1"
+    fi
+  ' _ | wc -l | tr -d ' ' > "$cache.tmp" &&
+  mv "$cache.tmp" "$cache"
+) </dev/null >/dev/null 2>&1 &
