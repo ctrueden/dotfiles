@@ -234,10 +234,12 @@ case "$(uname)" in
     if [ ! -d "$HOME/.fonts/Hack" ]; then
       echo "Installing Hack Nerd Font..."
       mkdir -p "$HOME/.fonts/Hack"
+      # Note: mktemp avoids a predictable /tmp path that could be symlink-hijacked.
+      hack_zip=$(mktemp) &&
       curl -fsSL https://github.com/ryanoasis/nerd-fonts/releases/download/v3.4.0/Hack.zip \
-        -o /tmp/Hack.zip &&
-      unzip -o /tmp/Hack.zip -d "$HOME/.fonts/Hack" &&
-      rm /tmp/Hack.zip &&
+        -o "$hack_zip" &&
+      unzip -o "$hack_zip" -d "$HOME/.fonts/Hack" &&
+      rm "$hack_zip" &&
       command -v fc-cache >/dev/null 2>&1 || {
         echo "Installing fontconfig utilities..."
         sudo apt-get install -y fontconfig
