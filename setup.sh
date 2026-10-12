@@ -188,8 +188,30 @@ case "$(uname)" in
         # Available as a package (Ubuntu 25.04+).
         sudo apt-get install -y starship
       else
-        # Fall back to curl-based installer.
-        curl -sS https://starship.rs/install.sh | sh
+        # Fall back to a pinned release binary, verified against a SHA-256
+        # recorded here (bump version and hashes together).
+        starship_ver=1.26.0
+        case "$(uname -m)" in
+          x86_64)
+            starship_arch=x86_64
+            starship_sha=b7c232b0e8249d8e55a40beb79c5c43a7d370f3f9408bd215deb0170daeaadf3 ;;
+          aarch64|arm64)
+            starship_arch=aarch64
+            starship_sha=dc30189378d2f2e287384e8a692d3f95ad1df64cf0e8c36aa9201516028aed6b ;;
+          *) starship_arch= ;;
+        esac
+        if [ -z "$starship_arch" ]; then
+          echo "Unsupported architecture for starship: $(uname -m)" >&2
+        else
+          starship_tgz=$(mktemp) &&
+          curl -fsSL "https://github.com/starship/starship/releases/download/v$starship_ver/starship-$starship_arch-unknown-linux-musl.tar.gz" \
+            -o "$starship_tgz" &&
+          echo "$starship_sha  $starship_tgz" | sha256sum -c - >/dev/null &&
+          mkdir -p "$HOME/.local/bin" &&
+          tar -xzf "$starship_tgz" -C "$HOME/.local/bin" starship ||
+            echo "Failed to install starship." >&2
+          rm -f "$starship_tgz"
+        fi
       fi
     }
     ;;
