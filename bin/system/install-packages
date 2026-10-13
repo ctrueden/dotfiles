@@ -253,3 +253,14 @@ for kind in npm uv; do
 done
 
 test -n "$did" || echo "All packages are already installed."
+
+# Note: nvm sets a default on its first install, after which its Node comes
+# first in new shells, hiding the global npm packages installed above.
+nvm_default=$(cat "${NVM_DIR:-$HOME/.nvm}/alias/default" 2>/dev/null)
+if [ -n "$(global_node_bin)" ] && [ -n "$nvm_default" ] &&
+  [ "$nvm_default" != system ]
+then
+  echo "Warning: nvm's default Node is $nvm_default, so new shells use it" >&2
+  echo "rather than the Node that owns global npm packages." >&2
+  echo "Run \`nvm alias default system\` to fix that." >&2
+fi
