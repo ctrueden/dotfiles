@@ -45,14 +45,10 @@ fi
 
 # --== uv ==--
 
-# Note: ~/.local/bin is not yet on the PATH; see zzz_path.sh.
-case "$(uname)" in
-  Darwin) UV=$(printf "$HOME"/Library/Python/*/bin/uv) 2>/dev/null ;;
-  Linux) UV="$HOME"/.local/bin/uv ;;
-  *) UV= ;;
-esac
+# Note: 000_vars.sh has already put ~/.local/bin and Homebrew on the PATH.
+UV=$(command -v uv)
 
-if [ -x "$UV" ]; then
+if [ -n "$UV" ]; then
   # Enable uv shell completion.
   # HACK: For some reason, shell_name sometimes reports as zsh
   # and other times as /bin/zsh. But uv does not like the latter:

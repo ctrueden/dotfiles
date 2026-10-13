@@ -209,6 +209,12 @@ if [ -s "$tmp/custom.run" ]; then
 fi
 
 # npm and uv come after, as the managers themselves may have just been installed.
+# Note: Custom installers put tools in ~/.local/bin, which may not be on the
+# PATH yet, e.g. on a fresh machine during setup.sh.
+case ":$PATH:" in
+  *":$HOME/.local/bin:"*) ;;
+  *) PATH="$PATH:$HOME/.local/bin" ;;
+esac
 for kind in npm uv; do
   test -f "$tmp/$kind.want" || continue
   # Note: in dry-run mode a not-yet-installed npm/uv yields no listing.

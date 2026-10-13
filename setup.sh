@@ -292,22 +292,6 @@ if ! command -v nvim >/dev/null 2>&1 && [ ! -d "$HOME/.vim/bundle/Vundle.vim" ];
     vim -c "execute 'PluginInstall' | qa"
 fi
 
-# uv -- Python package manager
-if ! command -v uv >/dev/null 2>&1; then
-  echo "Installing uv..."
-  if command -v pip >/dev/null 2>&1; then
-    _pip=pip
-  elif command -v pip3 >/dev/null 2>&1; then
-    _pip=pip3
-  else
-    _pip=
-  fi
-  if [ -n "$_pip" ]; then
-    "$_pip" install --user uv ||
-    "$_pip" install --break-system-packages --user uv
-  fi
-fi
-
 # Claude Code -- AI coding assistant
 # Note: We use curl|sh -- if the claude.ai domain were compromised, running
 # claude at all would be equally dangerous, so this is an acceptable risk.

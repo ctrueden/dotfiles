@@ -55,6 +55,8 @@ apt:xclip
 git-delta
 brew:fd
 brew:mr
+brew:uv
+apt-custom:uv
 
 # media
 graphviz
