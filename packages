@@ -119,7 +119,7 @@ apt:build-essential
 apt:make
 
 [dev: build]
-brew:pnpm
+npm:pnpm                scripts  # Links its native binary.
 npm:svg-term-cli
 uv:prysk
 uv:pydeps
