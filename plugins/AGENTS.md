@@ -200,7 +200,6 @@ done
 
 ### Other Plugins
 
-- **direnv.sh** - Load direnv if available
 - **docker.sh** - Docker aliases and shortcuts
 - **fiji.sh** - Fiji/ImageJ launcher shortcuts
 - **gnome.sh** - GNOME desktop settings
