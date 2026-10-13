@@ -162,82 +162,11 @@ esac
 echo
 echo "--> Installing tools..."
 
-# neovim and system dependencies.
-case "$(uname)" in
-  Linux)
-    if ! command -v nvim >/dev/null 2>&1; then
-      echo "Installing neovim and dependencies..."
-      sudo apt-get update &&
-      sudo apt-get install -y make gcc ripgrep fd-find unzip xclip neovim
-    fi
-    ;;
-  Darwin)
-    if ! command -v nvim >/dev/null 2>&1; then
-      echo "Installing neovim and dependencies..."
-      brew install gcc ripgrep neovim
-    fi
-    ;;
-esac
 
-# starship -- cross-shell prompt
-case "$(uname)" in
-  Linux)
-    command -v starship >/dev/null 2>&1 || {
-      echo "Installing starship..."
-      if apt-cache show starship >/dev/null 2>&1; then
-        # Available as a package (Ubuntu 25.04+).
-        sudo apt-get install -y starship
-      else
-        # Fall back to a pinned release binary, verified against a SHA-256
-        # recorded here (bump version and hashes together).
-        starship_ver=1.26.0
-        case "$(uname -m)" in
-          x86_64)
-            starship_arch=x86_64
-            starship_sha=b7c232b0e8249d8e55a40beb79c5c43a7d370f3f9408bd215deb0170daeaadf3 ;;
-          aarch64|arm64)
-            starship_arch=aarch64
-            starship_sha=dc30189378d2f2e287384e8a692d3f95ad1df64cf0e8c36aa9201516028aed6b ;;
-          *) starship_arch= ;;
-        esac
-        if [ -z "$starship_arch" ]; then
-          echo "Unsupported architecture for starship: $(uname -m)" >&2
-        else
-          starship_tgz=$(mktemp) &&
-          curl -fsSL "https://github.com/starship/starship/releases/download/v$starship_ver/starship-$starship_arch-unknown-linux-musl.tar.gz" \
-            -o "$starship_tgz" &&
-          echo "$starship_sha  $starship_tgz" | sha256sum -c - >/dev/null &&
-          mkdir -p "$HOME/.local/bin" &&
-          tar -xzf "$starship_tgz" -C "$HOME/.local/bin" starship ||
-            echo "Failed to install starship." >&2
-          rm -f "$starship_tgz"
-        fi
-      fi
-    }
-    ;;
-  Darwin)
-    command -v starship >/dev/null 2>&1 || {
-      echo "Installing starship..."
-      brew install starship
-    }
-    ;;
-esac
+# Packages from the manifest (neovim, starship, byobu, fzf, AI TUIs, etc.).
+"$CONFIG_DIR/bin/system/install-packages"
 
-# byobu -- tmux with batteries; fzf powers its command palette (prefix+Space)
-case "$(uname)" in
-  Linux)
-    command -v byobu >/dev/null 2>&1 && command -v fzf >/dev/null 2>&1 || {
-      echo "Installing byobu and fzf..."
-      sudo apt-get install -y byobu fzf
-    }
-    ;;
-  Darwin)
-    command -v byobu >/dev/null 2>&1 && command -v fzf >/dev/null 2>&1 || {
-      echo "Installing byobu and fzf..."
-      brew install byobu fzf
-    }
-    ;;
-esac
+# byobu -- tmux with batteries (installed via packages; fzf powers its command palette)
 # Note: byobu-enable hooks only login shells (e.g. ssh, iTerm2);
 # zshrc launches byobu for non-login local terminals (e.g. Guake).
 command -v byobu-enable >/dev/null 2>&1 && byobu-enable
@@ -396,24 +325,6 @@ if ! command -v claude >/dev/null 2>&1; then
   curl -fsSL https://claude.ai/install.sh | bash
 fi
 
-# AI coding assistant TUIs via npm.
-if command -v npm >/dev/null 2>&1; then
-  install_npm_tool() {
-    command -v "$1" >/dev/null 2>&1 || {
-      echo "Installing $1..."
-      npm install -g "$2"
-    }
-  }
-  install_npm_tool copilot   @github/copilot
-  #install_npm_tool claude   @anthropic-ai/claude-code
-  install_npm_tool codex     @openai/codex
-  #install_npm_tool gemini    @google/gemini-cli
-  #install_npm_tool grok     @vibe-kit/grok-cli
-  install_npm_tool crush     @charmland/crush
-  install_npm_tool opencode  opencode-ai
-  install_npm_tool kilocode  @kilocode/cli
-  #install_npm_tool nanocoder @nanocollective/nanocoder
-fi
 
 if [ ! -f .gitconfig ]; then
   echo
