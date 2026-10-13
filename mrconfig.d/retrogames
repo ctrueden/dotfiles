@@ -23,3 +23,4 @@ checkout = git clone git@github.com:unexpectedpanda/retool
 
 [code/retrogames/rommer]
 checkout = git clone git@github.com:ctrueden/rommer
+fixups = devlink
