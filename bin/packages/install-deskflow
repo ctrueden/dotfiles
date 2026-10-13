@@ -1,0 +1,49 @@
+#!/bin/sh
+
+# Installs Deskflow, for sharing one keyboard and mouse across machines.
+# Not in the packages manifest, since only some machines need it; run this
+# by hand on those.
+#
+#   macOS   the cask from Deskflow's own Homebrew tap, which Homebrew
+#           requires be trusted explicitly; running this script does so.
+#   Linux   the apt package where the distro has one (Ubuntu 25.10+),
+#           or else the Flathub flatpak, per user.
+#
+# With --check, reports via exit code whether Deskflow is installed.
+
+set -eu
+
+app=org.deskflow.deskflow
+
+if [ "${1:-}" = --check ]; then
+  case "$(uname)" in
+    Darwin) brew list --cask deskflow >/dev/null 2>&1 ;;
+    *) command -v deskflow >/dev/null || flatpak info "$app" >/dev/null 2>&1 ;;
+  esac
+  exit
+fi
+
+SUDO=sudo
+test "$(id -u)" -eq 0 && SUDO=
+
+case "$(uname)" in
+  Darwin)
+    brew tap deskflow/tap
+    brew trust deskflow/tap
+    brew install --cask deskflow
+    ;;
+  *)
+    if command -v apt-cache >/dev/null &&
+      apt-cache policy deskflow 2>/dev/null | grep -q 'Candidate: [0-9]'
+    then
+      $SUDO apt-get install -y deskflow
+    elif command -v flatpak >/dev/null; then
+      flatpak remote-add --user --if-not-exists flathub \
+        https://dl.flathub.org/repo/flathub.flatpakrepo
+      flatpak install --user -y flathub "$app"
+    else
+      echo "No deskflow package, and no flatpak to fall back on." >&2
+      exit 1
+    fi
+    ;;
+esac
