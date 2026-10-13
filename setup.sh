@@ -156,6 +156,17 @@ esac
 echo
 echo "--> Installing tools..."
 
+# Which opt-in sections of the packages manifest this machine wants. Asked
+# once, then remembered; edit the file to change it.
+profile="${XDG_CONFIG_HOME:-$HOME/.config}/dotfiles/sections"
+if [ ! -f "$profile" ] && [ -t 0 ]; then
+  echo "What... is your quest?"
+  sed -n "s/^#   \([a-z]*  \)/  \1/p" "$CONFIG_DIR/packages"
+  printf "Opt-in package sections, space-separated [none]: "
+  read quest
+  mkdir -p "$(dirname "$profile")"
+  printf "%s\n" $quest > "$profile"
+fi
 
 # Packages from the manifest (neovim, starship, byobu, fzf, AI TUIs, etc.).
 "$CONFIG_DIR/bin/system/install-packages"

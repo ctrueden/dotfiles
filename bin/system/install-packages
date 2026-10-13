@@ -5,22 +5,29 @@
 #
 # Usage: install-packages [-n] [--with SECTION]... [--without SECTION]...
 #   -n, --dry-run   Report what would be installed, without installing it.
-#   --with SECTION  Also install an opt-in section (heavy, system, gui, java).
+#   --with SECTION  Also install an opt-in section (dev, heavy, java, system).
 #   --without S     Skip a section, even a default one (e.g. gui on a desktop).
 #
 # The core section always installs; gui installs when a desktop is detected.
-# See the header of the packages file for its syntax.
+# The opt-in sections this machine wants are read from the profile file,
+# ~/.config/dotfiles/sections, which setup.sh writes. See the header of the
+# packages file for its syntax.
 
 set -u
 
 here=$(cd "$(dirname "$0")" && pwd)
 manifest="$here/../../packages"
 custom_dir="$here/../packages"
+profile="${XDG_CONFIG_HOME:-$HOME/.config}/dotfiles/sections"
+
+# Note: The custom installers find shared code through DOTFILES,
+# which is unset if this runs before the shell config is in place.
+export DOTFILES="${DOTFILES:-$(cd "$here/../.." && pwd)}"
 
 # -- Parse flags --
 
 dry_run=
-with=
+with=$(cat "$profile" 2>/dev/null | tr '\n' ' ')
 without=
 
 while [ $# -gt 0 ]; do

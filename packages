@@ -4,11 +4,18 @@
 # Prefixes limit an entry to one manager:
 #   apt:NAME   brew:NAME   cask:NAME (macOS GUI apps)
 #   npm:NAME   uv:NAME
-# A package unavailable from its manager falls back to the script
-# bin/packages/install-NAME, if one exists.
+#   custom:NAME   apt-custom:NAME   brew-custom:NAME
+# A custom entry runs the script bin/packages/install-NAME, as does a package
+# unavailable from its manager, if such a script exists. Each script must
+# support --check, exiting 0 when its tool is installed and current.
 #
 # [sections]: core always installs. gui installs on desktops only.
-# The rest are opt-in via --with SECTION.
+# The rest are opt-in, via --with SECTION or the machine's profile file
+# (~/.config/dotfiles/sections, written by setup.sh):
+#   dev     development tools beyond the basics
+#   heavy   big packages, for primary machines
+#   java    JDKs and Java tooling
+#   system  hardware and network utilities
 
 [core]
 # shell
