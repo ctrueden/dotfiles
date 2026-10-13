@@ -22,7 +22,7 @@ test -z "$EDITOR" || export VISUAL="$EDITOR"
 
 # search for the given filename in the current subtree and open in vim
 # Requires: plugins/nav
-vif() { vi $(wi "$@"); }
+vif() { "$EDITOR" $(wi "$@"); }
 
 # grep for a particular string and open all matching files in vim
 vgrp() { grpl -z "$@" | xargs -0o vi; }
