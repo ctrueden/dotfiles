@@ -5,7 +5,7 @@
 # older than 25.04). To upgrade, bump starship_ver and both hashes together;
 # the hashes are published as .sha256 files beside each release asset.
 
-set -u
+. "$(dirname "$0")/lib.sh"
 
 starship_ver=1.26.0
 case "$(uname -m)" in
@@ -20,11 +20,6 @@ case "$(uname -m)" in
     exit 1 ;;
 esac
 
-tgz=$(mktemp) || exit 1
-trap 'rm -f "$tgz"' EXIT
-
-curl -fsSL "https://github.com/starship/starship/releases/download/v$starship_ver/starship-$arch-unknown-linux-musl.tar.gz" \
-  -o "$tgz" &&
-echo "$sha  $tgz" | sha256sum -c - >/dev/null &&
+download_verified "https://github.com/starship/starship/releases/download/v$starship_ver/starship-$arch-unknown-linux-musl.tar.gz" "$sha" &&
 mkdir -p "$HOME/.local/bin" &&
-tar -xzf "$tgz" -C "$HOME/.local/bin" starship
+tar -xzf "$downloaded" -C "$HOME/.local/bin" starship
