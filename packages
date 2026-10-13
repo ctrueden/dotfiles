@@ -75,6 +75,10 @@ brew:duti
 # prompt
 starship
 
+# java
+uv:cjdk
+uv:jgo
+
 # AI coding assistants
 npm:@github/copilot
 npm:@openai/codex
