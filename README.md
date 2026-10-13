@@ -40,7 +40,27 @@ What does this configuration include?
     -   [vim-sneak] and [vim-surround] and more for both editors.
     -   See the [vimrc](vimrc) and [nvim/](nvim/) for details.
 
-3.  A managed set of SCM repositories for the [SciJava] ecosystem:
+3.  A terminal multiplexer setup using [byobu] on top of [tmux]:
+    -   Byobu launches automatically, for login shells and local terminals.
+    -   Ctrl+A and Ctrl+B as prefix keys, leaving F12 free for a
+        drop-down terminal such as Guake or iTerm2.
+    -   Prefix + Space opens a fuzzy-find command palette (via [fzf]).
+    -   Prefix + h opens the current pane's full scrollback in your editor.
+    -   Custom status bar widgets counting unread GitHub notifications
+        and local repositories with unpushed changes.
+    -   See [byobu/](byobu/) for details.
+
+4.  A declarative package manifest, installed by `install-packages`:
+    -   One [packages](packages) file lists tools for both apt and Homebrew,
+        with prefixes for manager-specific entries, including npm and uv.
+    -   Sections for core tools (always), GUI apps (desktops only), and
+        opt-in groups (heavy, system, java) via `--with SECTION`.
+    -   Installs only what is missing, in as few package manager
+        invocations as possible; use `--dry-run` to preview.
+    -   Falls back to custom installers in [bin/packages/](bin/packages/)
+        when a package manager cannot supply something.
+
+5.  A managed set of SCM repositories for the [SciJava] ecosystem:
     -   Sensible defaults for an extensible source code folder structure,
         anchored at `~/code`, and subdivided into categories.
     -   Extensible configuration for [myrepos] to work with
@@ -48,12 +68,12 @@ What does this configuration include?
     -   Shell aliases (type `go` and press tab) for jumping to
         specific code folders for SciJava et al., or use [wd].
 
-4.  Configuration for using [jgo] to
+6.  Configuration for using [jgo] to
     easily launch useful Java code, particularly SciJava-related code,
     including [ImageJ], [Fiji], [Bio-Formats], [SCIFIO], and script REPLs
     including [Jython], [Groovy] and the multi-language SciJava REPL.
 
-5.  Limited legacy support for those stuck on bash, including bash 3.x.
+7.  Limited legacy support for those stuck on bash, including bash 3.x.
 
 Supported platforms include:
 
@@ -85,11 +105,14 @@ everything [POSIX]-friendly&mdash;but I haven't tested them.
 [Ubuntu]: https://ubuntu.com/
 [Vundle]: https://github.com/VundleVim/Vundle.vim
 [WSL]: https://docs.microsoft.com/en-us/windows/wsl/about
+[byobu]: https://www.byobu.org/
+[fzf]: https://github.com/junegunn/fzf
 [jgo]: https://jgo.apposed.org/
 [kickstart.nvim]: https://github.com/nvim-lua/kickstart.nvim
 [myrepos]: https://myrepos.branchable.com/
 [nvim-cmp]: https://github.com/hrsh7th/nvim-cmp
 [nvim-dap]: https://github.com/mfussenegger/nvim-dap
+[tmux]: https://github.com/tmux/tmux
 [vim-airline]: https://github.com/vim-airline/vim-airline
 [vim-fugitive]: https://github.com/tpope/vim-fugitive
 [vim-sensible]: https://github.com/tpope/vim-sensible
