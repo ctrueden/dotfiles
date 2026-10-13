@@ -120,7 +120,7 @@ apt:make
 
 [dev: build]
 npm:pnpm                scripts  # Links its native binary.
-npm:svg-term-cli
+#npm:svg-term-cli                # Unmaintained since 2018.
 uv:prysk
 uv:pydeps
 uv:twine
