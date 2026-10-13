@@ -1,4 +1,4 @@
-# Shared helpers for the install-* scripts; source, don't execute.
+# Checksummed downloads, shared by the bin/packages/install-* scripts.
 
 set -u
 

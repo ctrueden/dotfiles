@@ -263,7 +263,7 @@ DOC
 ### Debug Mode
 
 Plugins need no debug line of their own: `zshrc` and `bashrc` call `_progress`
-(from `progress.sh` in the repo root) before sourcing each plugin. It prints
+(from `lib/progress.sh`) before sourcing each plugin. It prints
 `[dotfiles] Loading plugin '<file>'...` when `DEBUG` is set, and otherwise
 renders an in-place progress bar on interactive terminals.
 
