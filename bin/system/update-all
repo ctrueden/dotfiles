@@ -132,7 +132,7 @@ fi
 if [ -n "$(global_node_bin)" ]; then
   echo
   echo "--== Updating global npm packages ==--"
-  global_npm update -g
+  global_npm update -g $(allow_scripts_option)
   code=$?; test $code -lt $exit_code || exit_code=$code
   test $code -eq 0 || echo "=> returned $code"
 fi

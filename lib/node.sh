@@ -11,6 +11,14 @@ global_node_bin() {
   fi
 }
 
+# Prints an --allow-scripts option naming the npm packages that the manifest
+# marks as allowed to run install scripts, if any.
+allow_scripts_option() {
+  _allowed=$(awk '$1 ~ /^npm:/ && $2 == "scripts" { print substr($1, 5) }' \
+    "${DOTFILES:?}/packages" | paste -sd, -)
+  test -z "$_allowed" || echo "--allow-scripts=$_allowed"
+}
+
 # Runs npm from the Node that owns global npm packages.
 # Note: npm finds its global prefix relative to the node running it, so that
 # node must come first on the PATH, ahead of any nvm-managed one.

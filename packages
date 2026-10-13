@@ -8,6 +8,8 @@
 # A custom entry runs the script bin/packages/install-NAME, as does a package
 # unavailable from its manager, if such a script exists. Each script must
 # support --check, exiting 0 when its tool is installed and current.
+# An npm entry followed by the word scripts may run its install scripts,
+# which npm otherwise warns about, and will someday refuse to run.
 #
 # [sections]: core always installs. gui installs on desktops only.
 # The rest are opt-in, via --with SECTION or the machine's profile file
@@ -58,7 +60,7 @@ npm:emoj
 # editors
 neovim
 vim
-npm:tree-sitter-cli
+npm:tree-sitter-cli     scripts  # Fetches its binary.
 
 # git
 git-delta
@@ -98,8 +100,8 @@ uv:jgo
 # AI coding assistants
 npm:@github/copilot
 npm:@openai/codex
-npm:opencode-ai
-npm:@kilocode/cli
+npm:opencode-ai         scripts  # Fetches its binary.
+npm:@kilocode/cli        scripts  # Fetches its binary.
 brew:ollama
 uv:oterm
 #npm:@anthropic-ai/claude-code

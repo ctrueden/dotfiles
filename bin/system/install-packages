@@ -164,7 +164,7 @@ install_kind() { # kind names...
     apt)  run $SUDO apt-get install -y "$@" ;;
     brew) run brew install "$@" ;;
     cask) run brew install --cask "$@" ;;
-    npm)  run global_npm install -g "$@" ;;
+    npm)  run global_npm install -g $(allow_scripts_option) "$@" ;;
     uv)   for p in "$@"; do run uv tool install "$p"; done ;;
   esac
 }
