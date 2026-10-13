@@ -3,3 +3,9 @@
 [code/scijava/dotfiles]
 checkout = git clone git@github.com:scijava/dotfiles
 include = cat $CODE_BASE/scijava/dotfiles/mrconfig 2> /dev/null || true
+
+# Note: These sections extend ones in the included SciJava mrconfig,
+# adding hooks that rely on scripts from these dotfiles.
+
+[code/scijava/pombast]
+fixups = devlink
