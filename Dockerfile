@@ -15,7 +15,7 @@ USER me
 WORKDIR /home/me
 
 RUN git clone https://github.com/ctrueden/dotfiles && \
-    dotfiles/bin/install-packages && \
+    dotfiles/bin/system/install-packages && \
     printf 'Curtis Rueden\nctrueden@wisc.edu\n' | dotfiles/setup.sh && \
     /bin/zsh -i -c echo 'Bootstrapping complete!'
 
