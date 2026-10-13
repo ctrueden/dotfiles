@@ -68,10 +68,22 @@ What does this configuration include?
     -   Shell aliases (type `go` and press tab) for jumping to
         specific code folders for SciJava et al., or use [wd].
 
-6.  Configuration for using [jgo] to
-    easily launch useful Java code, particularly SciJava-related code,
-    including [ImageJ], [Fiji], [Bio-Formats], [SCIFIO], and script REPLs
-    including [Jython], [Groovy] and the multi-language SciJava REPL.
+6.  A toolbox for managing and working with Java:
+    -   `jlist` lists the Java installations, found beneath `~/Java`,
+        the [cjdk] cache, macOS `java_home`, Linux alternatives, and Homebrew.
+    -   `jhome` prints the path of a matching installation, for one-off use
+        without changing the shell, e.g. `JAVA_HOME=$(jhome "^17") mvn ...`.
+    -   `jswitch` changes the current shell's Java, downloading it via
+        [cjdk] if needed, e.g. `jswitch zulu:21`; or use shortcuts like
+        `j8`, `j21`, and `jg21` (GraalVM).
+    -   `java`, `javac`, etc. follow `JAVA_HOME`, which defaults to an
+        installed LTS release, preferring Java 21.
+    -   Utilities for inspecting JAR files: `catjar`, `jar-manifest`,
+        `jardiff`, `find-class`, `list-classes`, and more in [bin/java/](bin/java/).
+    -   Configuration for using [jgo] to easily launch useful Java code,
+        particularly SciJava-related code, including [ImageJ], [Fiji],
+        [Bio-Formats], [SCIFIO], and script REPLs including [Jython],
+        [Groovy] and the multi-language SciJava REPL.
 
 7.  Limited legacy support for those stuck on bash, including bash 3.x.
 
@@ -106,6 +118,7 @@ everything [POSIX]-friendly&mdash;but I haven't tested them.
 [Vundle]: https://github.com/VundleVim/Vundle.vim
 [WSL]: https://docs.microsoft.com/en-us/windows/wsl/about
 [byobu]: https://www.byobu.org/
+[cjdk]: https://github.com/cachedjdk/cjdk
 [fzf]: https://github.com/junegunn/fzf
 [jgo]: https://jgo.apposed.org/
 [kickstart.nvim]: https://github.com/nvim-lua/kickstart.nvim
