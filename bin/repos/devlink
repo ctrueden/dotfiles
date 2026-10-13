@@ -98,6 +98,14 @@ fi
 
 # -- Link --
 
+# Note: mr runs commands from the physical path, so when ~/code is a
+# symlink (e.g. to another disk), map the project path back through it.
+code=${CODE_BASE:-$HOME/code}
+code_phys=$(cd "$code" 2>/dev/null && pwd -P)
+case "$project/" in
+  "$code_phys"/*) project="$code${project#"$code_phys"}" ;;
+esac
+
 # Note: A relative link survives the home folder moving (e.g. to a new disk).
 case "$project/" in
   "$HOME"/*) test "$dest" = "$HOME/bin" && project="..${project#"$HOME"}" ;;
