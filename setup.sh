@@ -5,6 +5,9 @@ set -e
 # -- Global variables --
 
 CONFIG_DIR=$(cd "$(dirname $0)"; pwd)
+# Note: Tool installers invoked below (e.g. bin/packages/install-*) need this,
+# and on a fresh machine no shell has exported it yet.
+export DOTFILES="$CONFIG_DIR"
 cd
 
 OS_NAME=$(uname)

@@ -5,7 +5,7 @@
 # older than 25.04). To upgrade, bump starship_ver and both hashes together;
 # the hashes are published as .sha256 files beside each release asset.
 
-. "$(dirname "$0")/../../lib/download.sh"
+. "${DOTFILES:?}/lib/download.sh"
 
 starship_ver=1.26.0
 case "$(uname -m)" in

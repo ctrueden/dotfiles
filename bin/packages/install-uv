@@ -9,7 +9,7 @@
 # pins the whole chain. To upgrade, bump uv_ver and the hash together; no
 # hash is published for the installer, so compute it with sha256sum.
 
-. "$(dirname "$0")/../../lib/download.sh"
+. "${DOTFILES:?}/lib/download.sh"
 
 uv_ver=0.12.18
 sha=e62a5ea089de9c6a9b1f767166c9f33194e18d350e9f375c6355fac3ba0fb42b
