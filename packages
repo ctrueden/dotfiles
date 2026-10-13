@@ -30,17 +30,23 @@ apt:npm
 coreutils
 fzf
 glow
+highlight
 htop
 pwgen
 ripgrep
 toilet
 tree
+xmlstarlet
 apt:curl
 apt:exuberant-ctags
+apt:jq
 apt:openssh-client
 apt:zsh
 brew:fastfetch
+brew:gnu-sed
+brew:gnu-tar
 brew:tlrc
+npm:emoj
 
 # dev
 cmake
@@ -93,17 +99,30 @@ npm:@github/copilot
 npm:@openai/codex
 npm:opencode-ai
 npm:@kilocode/cli
+brew:ollama
+uv:oterm
 #npm:@anthropic-ai/claude-code
 #npm:@charmland/crush
 #npm:@google/gemini-cli
 #npm:@vibe-kit/grok-cli
 #npm:@nanocollective/nanocoder
 
+[dev]
+brew:pnpm
+npm:svg-term-cli
+npm:tree-sitter-cli
+uv:prysk
+uv:pydeps
+uv:twine
+uv:yamllint
+
 [heavy]
 ffmpeg
 pandoc
 ruby
-maven
+cask:google-chrome
+cask:jetbrains-toolbox
+cask:visual-studio-code
 
 [system]
 wireguard-tools
@@ -112,6 +131,8 @@ apt:nfs-common
 
 [gui]
 fontconfig
+apt-custom:font-hack-nerd-font
+cask:font-hack-nerd-font
 apt:libreoffice
 cask:libreoffice
 apt:barrier
@@ -127,6 +148,7 @@ apt:picard
 apt:gimp
 apt:vlc
 apt:meshlab
+cask:claude
 cask:1password
 cask:discord
 cask:firefox
@@ -135,11 +157,17 @@ cask:vlc
 cask:ghostty
 cask:iterm2
 cask:maccy
+cask:nextcloud
 cask:rectangle
 cask:stats
+cask:xquartz
 cask:zoom
+cask:zulip
 
 [java]
+custom:mvn
+brew:cfr-decompiler
+brew:procyon-decompiler
 apt:openjdk-8-jdk
 apt:openjdk-11-jdk
 apt:openjdk-17-jdk

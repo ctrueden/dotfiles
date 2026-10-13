@@ -1,0 +1,37 @@
+#!/bin/sh
+
+# Installs a pinned Apache Maven release into ~/.local/opt, verified against
+# a SHA-512 recorded here, and links mvn into ~/.local/bin. Used instead of
+# the OS packages: apt's maven drags in dozens of Debian-packaged JARs, and
+# Homebrew's drags in openjdk, whereas a JDK comes from cjdk or the java
+# section. To upgrade, bump mvn_ver and the hash together; the hash is
+# published as a .sha512 file beside the release archive.
+#
+# With --check, reports via exit code whether the pinned version is linked.
+
+. "${DOTFILES:?}/lib/download.sh"
+
+mvn_ver=3.9.16
+sha=831a8591fe20c8243b1dbe7d71e3244f31d1665b0804b2e825e38cbbe5ce0cafb8338851f90780735568773e0a6cd07bbec107cda0b896b008b861075358b6f6
+
+opt="$HOME/.local/opt"
+bin="$HOME/.local/bin"
+
+# Note: This checks the link rather than running mvn --version,
+# which fails whenever no JDK is active.
+if [ "${1:-}" = --check ]; then
+  test "$(readlink "$bin/mvn")" = "$opt/apache-maven-$mvn_ver/bin/mvn"
+  exit
+fi
+
+# Note: archive.apache.org keeps every release, whereas the
+# dlcdn.apache.org mirrors drop all but the latest few.
+download_verified "https://archive.apache.org/dist/maven/maven-3/$mvn_ver/binaries/apache-maven-$mvn_ver-bin.tar.gz" "$sha" &&
+mkdir -p "$opt" "$bin" &&
+tar -xzf "$downloaded" -C "$opt" &&
+ln -sfn "$opt/apache-maven-$mvn_ver/bin/mvn" "$bin/mvn" || exit 1
+
+# Remove any versions this one replaces.
+for d in "$opt"/apache-maven-*; do
+  test "$d" = "$opt/apache-maven-$mvn_ver" || rm -rf "$d"
+done

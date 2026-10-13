@@ -184,34 +184,6 @@ if gsettings list-schemas 2>/dev/null | grep -qx guake.keybindings.local; then
   gsettings set guake.keybindings.local switch-tab-last ''
 fi
 
-# Hack Nerd Font -- required for starship prompt glyphs and nvim icons
-case "$(uname)" in
-  Linux)
-    if [ ! -d "$HOME/.fonts/Hack" ]; then
-      echo "Installing Hack Nerd Font..."
-      mkdir -p "$HOME/.fonts/Hack"
-      # Note: mktemp avoids a predictable /tmp path that could be symlink-hijacked.
-      hack_zip=$(mktemp) &&
-      curl -fsSL https://github.com/ryanoasis/nerd-fonts/releases/download/v3.4.0/Hack.zip \
-        -o "$hack_zip" &&
-      unzip -o "$hack_zip" -d "$HOME/.fonts/Hack" &&
-      rm "$hack_zip" &&
-      command -v fc-cache >/dev/null 2>&1 || {
-        echo "Installing fontconfig utilities..."
-        sudo apt-get install -y fontconfig
-      }
-      echo "Rebuilding font cache..."
-      fc-cache -f
-    fi
-    ;;
-  Darwin)
-    if ! brew list --cask font-hack-nerd-font >/dev/null 2>&1; then
-      echo "Installing Hack Nerd Font..."
-      brew install --cask font-hack-nerd-font
-    fi
-    ;;
-esac
-
 # kickstart.nvim requires nvim 0.10+. Ubuntu 24.04 apt ships 0.9.x; skip
 # gracefully there rather than installing a config that errors on startup.
 # Ubuntu 26.04 LTS (due ~April 2026) will ship 0.10+.
@@ -289,14 +261,6 @@ if command -v nvim >/dev/null 2>&1 && nvim_ok && [ -d "$NVIM_CONFIG_DIR" ]; then
       perl -i -pe "s|vim.g.have_nerd_font = false|vim.g.have_nerd_font = true|" "$NVIM_CONFIG"
       ;;
   esac
-fi
-
-# tree-sitter-cli via npm (apt package is 0.20.x, too old for nvim-treesitter which requires 0.22+)
-if command -v nvim >/dev/null 2>&1 && ! command -v tree-sitter >/dev/null 2>&1; then
-  if command -v npm >/dev/null 2>&1; then
-    echo "Installing tree-sitter-cli via npm..."
-    npm install -g tree-sitter-cli
-  fi
 fi
 
 # ~/.vim/bundle/Vundle.vim -- vim plugin manager (fallback for systems without nvim)

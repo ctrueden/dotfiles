@@ -1,0 +1,26 @@
+#!/bin/sh
+
+# Installs a pinned Hack Nerd Font release into ~/.fonts/Hack, verified
+# against a SHA-256 recorded here. Used on Linux; macOS uses the cask.
+# To upgrade, bump font_ver and the hash together; the hashes are listed
+# in the SHA-256.txt file beside each release's assets.
+#
+# With --check, reports via exit code whether the pinned version is installed.
+
+. "${DOTFILES:?}/lib/download.sh"
+
+font_ver=3.4.0
+sha=8ca33a60c791392d872b80d26c42f2bfa914a480f9eb2d7516d9f84373c36897
+
+dir="$HOME/.fonts/Hack"
+
+if [ "${1:-}" = --check ]; then
+  test "$(cat "$dir/.version" 2>/dev/null)" = "$font_ver"
+  exit
+fi
+
+download_verified "https://github.com/ryanoasis/nerd-fonts/releases/download/v$font_ver/Hack.zip" "$sha" &&
+mkdir -p "$dir" &&
+unzip -oq "$downloaded" -d "$dir" &&
+echo "$font_ver" > "$dir/.version" &&
+fc-cache -f
