@@ -149,6 +149,13 @@ install_kind() { # kind names...
   esac
 }
 
+# Queues the custom installer for a name, unless its --check reports the tool
+# installed and current. Fails if there is no such installer.
+queue_custom() { # name
+  test -x "$custom_dir/install-$1" || return 1
+  sh "$custom_dir/install-$1" --check || echo "$1" >> "$tmp/custom.run"
+}
+
 # -- Work out what is missing --
 
 : > "$tmp/custom.run"
@@ -171,24 +178,16 @@ for kind in $PM cask; do
   available "$kind" "$tmp/$kind.missing" | sort -u > "$tmp/$kind.avail"
   difference "$tmp/$kind.missing" "$tmp/$kind.avail" > "$tmp/$kind.unavail"
   while IFS= read -r name; do
-    if [ -x "$custom_dir/install-$name" ]; then
-      echo "$name" >> "$tmp/custom.run"
-    else
+    queue_custom "$name" ||
       echo "Warning: $kind package '$name' is unavailable; skipping." >&2
-    fi
   done < "$tmp/$kind.unavail"
   cp "$tmp/$kind.avail" "$tmp/$kind.missing"
 done
 
-# Explicit custom entries are missing if their command is absent.
 if [ -f "$tmp/custom.want" ]; then
   while IFS= read -r name; do
-    command -v "$name" >/dev/null 2>&1 && continue
-    if [ -x "$custom_dir/install-$name" ]; then
-      echo "$name" >> "$tmp/custom.run"
-    else
+    queue_custom "$name" ||
       echo "Warning: no installer for '$name' ($custom_dir/install-$name)." >&2
-    fi
   done < "$tmp/custom.want"
 fi
 

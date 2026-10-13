@@ -4,10 +4,19 @@
 # a SHA-256 recorded here. Used where the OS package is unavailable (Ubuntu
 # older than 25.04). To upgrade, bump starship_ver and both hashes together;
 # the hashes are published as .sha256 files beside each release asset.
+#
+# With --check, reports via exit code whether the pinned version is installed.
 
 . "${DOTFILES:?}/lib/download.sh"
 
 starship_ver=1.26.0
+
+if [ "${1:-}" = --check ]; then
+  "$HOME/.local/bin/starship" --version 2>/dev/null |
+    grep -qF "starship $starship_ver"
+  exit
+fi
+
 case "$(uname -m)" in
   x86_64)
     arch=x86_64

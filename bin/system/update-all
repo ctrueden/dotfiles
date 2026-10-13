@@ -100,6 +100,42 @@ if [ -d "$BREW" -a -x "$(command -v brew)" ]; then
   fi
 fi
 
+# Note: This picks up packages newly added to the manifest,
+# and reruns custom installers whose pinned versions were bumped.
+if [ -d "$DOTFILES" ]; then
+  echo
+  echo "--== Installing packages from the manifest ==--"
+  "$DOTFILES/bin/system/install-packages"
+  code=$?; test $code -lt $exit_code || exit_code=$code
+  test $code -eq 0 || echo "=> returned $code"
+fi
+
+# Note: Only an installer-made uv can update itself;
+# a Homebrew uv is upgraded along with the other formulae.
+if [ -f "${XDG_CONFIG_HOME:-$HOME/.config}/uv/uv-receipt.json" ]; then
+  echo
+  echo "--== Updating uv ==--"
+  uv self update
+  code=$?; test $code -lt $exit_code || exit_code=$code
+  test $code -eq 0 || echo "=> returned $code"
+fi
+
+if [ -x "$(command -v uv)" ]; then
+  echo
+  echo "--== Updating uv tools ==--"
+  uv tool upgrade --all
+  code=$?; test $code -lt $exit_code || exit_code=$code
+  test $code -eq 0 || echo "=> returned $code"
+fi
+
+if [ -x "$(command -v npm)" ]; then
+  echo
+  echo "--== Updating global npm packages ==--"
+  npm update -g
+  code=$?; test $code -lt $exit_code || exit_code=$code
+  test $code -eq 0 || echo "=> returned $code"
+fi
+
 echo
 echo "--== Done ==--"
 

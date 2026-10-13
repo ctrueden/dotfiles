@@ -3,8 +3,13 @@
 # Installs the GitHub CLI from its official apt repository (the distro package
 # lags behind). Adapted from:
 # https://github.com/cli/cli/blob/trunk/docs/install_linux.md
+#
+# With --check, reports via exit code whether gh is already installed;
+# once it is, apt keeps it up to date.
 
 set -eu
+
+if [ "${1:-}" = --check ]; then command -v gh >/dev/null; exit; fi
 
 # Known-good fingerprints: https://github.com/cli/cli/blob/trunk/docs/install_linux.md
 fp1=2C6106201985B60E6C7AC87323F3D4EA75716059
