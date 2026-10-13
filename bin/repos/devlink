@@ -1,0 +1,123 @@
+#!/bin/sh
+
+# devlink - Build a project checkout and link its executables into ~/bin.
+#
+# Usage: devlink [-n] [NAME...]
+#   -n, --dry-run   Report what would be done, without doing it.
+#
+# Run from the project's root folder. Since ~/bin comes first on the PATH,
+# the linked executables shadow any released version installed elsewhere
+# (e.g. by install-packages). Meant to be invoked as an mr fixups hook, so
+# that links are made on checkout and kept fresh on update:
+#
+#   [code/java/cjdk]
+#   checkout = git clone git@github.com:cachedjdk/cjdk
+#   fixups = devlink
+#
+# The project type is detected from its files, first match wins:
+#
+#   pyproject.toml  uv sync; links [project.scripts] from .venv/bin
+#   pixi.toml       pixi install; links from .pixi/envs/default/bin
+#   package.json    npm install; links the "bin" entries
+#   Cargo.toml      cargo build --release; links from target/release
+#   Makefile        make; links from the project root
+#   (otherwise)     links from the project root
+#
+# Without NAMEs, links the executables the project declares, or else the
+# one named after the project folder.
+
+set -u
+
+dry_run=
+case "${1:-}" in
+  -n|--dry-run) dry_run=1; shift ;;
+esac
+
+dest=${DEVLINK_DIR:-$HOME/bin}
+project=$(pwd)
+tab=$(printf '\t')
+
+run() {
+  echo "+ $*"
+  test -n "$dry_run" || "$@"
+}
+
+# -- Detect project type, build it, and gather declared executables --
+
+# Each declaration is a line: name<TAB>path, with path relative to project.
+decls=
+if [ -f pyproject.toml ]; then
+  bindir=.venv/bin
+  run uv sync || exit 1
+  decls=$(uv run --no-project --python '>=3.11' python -I -c '
+import tomllib
+with open("pyproject.toml", "rb") as f:
+    scripts = tomllib.load(f).get("project", {}).get("scripts", {})
+for name in scripts:
+    print(f"{name}\t.venv/bin/{name}")
+')
+elif [ -f pixi.toml ]; then
+  bindir=.pixi/envs/default/bin
+  run pixi install || exit 1
+elif [ -f package.json ]; then
+  bindir=node_modules/.bin
+  if [ -f package-lock.json ]; then run npm ci || exit 1
+  else run npm install || exit 1
+  fi
+  decls=$(node -e '
+const p = require("./package.json");
+const bin = typeof p.bin === "string"
+  ? { [p.name.replace(/^@.*\//, "")]: p.bin } : p.bin || {};
+for (const [name, path] of Object.entries(bin)) console.log(`${name}\t${path}`);
+')
+elif [ -f Cargo.toml ]; then
+  bindir=target/release
+  run cargo build --release || exit 1
+elif [ -f Makefile ]; then
+  bindir=.
+  run make || exit 1
+else
+  bindir=.
+fi
+
+# -- Decide what to link --
+
+# Prints the path declared for the given name, or the bindir default.
+path_of() {
+  p=$(printf '%s\n' "$decls" | sed -n "s/^$1$tab//p" | head -n1)
+  echo "${p:-$bindir/$1}"
+}
+
+if [ $# -eq 0 ]; then
+  if [ -n "$decls" ]; then
+    set -- $(printf '%s\n' "$decls" | cut -f1)
+  else
+    set -- "$(basename "$project")"
+  fi
+fi
+
+# -- Link --
+
+# Note: A relative link survives the home folder moving (e.g. to a new disk).
+case "$project/" in
+  "$HOME"/*) test "$dest" = "$HOME/bin" && project="..${project#"$HOME"}" ;;
+esac
+
+status=0
+run mkdir -p "$dest"
+for name in "$@"; do
+  path=$(path_of "$name")
+  path=${path#./}
+  if [ -z "$dry_run" ] && [ ! -x "$path" ]; then
+    echo "devlink: $path is not an executable; skipping." >&2
+    status=1
+    continue
+  fi
+  if [ -e "$dest/$name" ] && [ ! -L "$dest/$name" ]; then
+    echo "devlink: $dest/$name exists and is not a symlink; skipping." >&2
+    status=1
+    continue
+  fi
+  run ln -sfn "$project/$path" "$dest/$name"
+done
+exit $status

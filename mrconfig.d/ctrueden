@@ -26,6 +26,7 @@ checkout = git clone git@github.com:ctrueden/minecraft-python-extras
 
 [code/ctrueden/monoqueue]
 checkout = git clone git@github.com:ctrueden/monoqueue
+fixups = devlink
 
 [code/ctrueden/puzzler]
 checkout = git clone git@github.com:ctrueden/puzzler

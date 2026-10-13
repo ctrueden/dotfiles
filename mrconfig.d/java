@@ -20,6 +20,7 @@ checkout = git clone git@github.com:joshmarinacci/aminojava
 
 [code/java/cjdk]
 checkout = git clone git@github.com:cachedjdk/cjdk
+fixups = devlink
 
 [code/java/fastutil]
 checkout = git clone git@github.com:vigna/fastutil

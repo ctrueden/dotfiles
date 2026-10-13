@@ -67,6 +67,9 @@ What does this configuration include?
         many repositories en masse.
     -   Shell aliases (type `go` and press tab) for jumping to
         specific code folders for SciJava et al., or use [wd].
+    -   `devlink` builds tool checkouts (uv, pixi, npm, cargo, make, or
+        plain scripts) and links their executables into `~/bin`, shadowing
+        released versions; mr runs it on checkout and update.
 
 6.  A toolbox for managing and working with Java:
     -   `jlist` lists the Java installations, found beneath `~/Java`,
