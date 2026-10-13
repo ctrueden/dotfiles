@@ -1,28 +1,39 @@
 #!/bin/sh
 
-# Installs the packages I like.
+# Installs the packages listed in $DOTFILES/packages that are not yet present,
+# using as few package manager invocations as possible.
 #
-# Usage: install-packages [--gui] [--heavy] [--system]
-#   --gui     Include GUI-only packages (require a graphical environment)
-#   --heavy   Include large/slow-to-install packages
-#   --system  Include host-system packages (hardware, kernel modules, system daemons)
+# Usage: install-packages [-n] [--with SECTION]... [--without SECTION]...
+#   -n, --dry-run   Report what would be installed, without installing it.
+#   --with SECTION  Also install an opt-in section (heavy, system, gui, java).
+#   --without S     Skip a section, even a default one (e.g. gui on a desktop).
+#
+# The core section always installs; gui installs when a desktop is detected.
+# See the header of the packages file for its syntax.
+
+set -u
+
+here=$(cd "$(dirname "$0")" && pwd)
+manifest="$here/../../packages"
+custom_dir="$here/../packages"
 
 # -- Parse flags --
 
-opt_gui=
-opt_heavy=
-opt_system=
+dry_run=
+with=
+without=
 
-for arg in "$@"; do
-  case "$arg" in
-    --gui) opt_gui=1 ;;
-    --heavy) opt_heavy=1 ;;
-    --system) opt_system=1 ;;
-    *) echo "Unknown option: $arg" >&2; exit 1 ;;
+while [ $# -gt 0 ]; do
+  case "$1" in
+    -n|--dry-run) dry_run=1 ;;
+    --with) shift; with="$with ${1:?--with needs a section}" ;;
+    --without) shift; without="$without ${1:?--without needs a section}" ;;
+    *) echo "Unknown option: $1" >&2; exit 1 ;;
   esac
+  shift
 done
 
-# -- Detect package manager --
+# -- Detect package manager and environment --
 
 if command -v apt-get >/dev/null; then
   PM=apt
@@ -33,194 +44,183 @@ else
   exit 1
 fi
 
-# -- Core packages (always installed) --
+SUDO=sudo
+test "$(id -u)" -eq 0 && SUDO=
 
-# shell
-packages="
-ansiweather
-aspell
-bash
-bat
-boxes
-coreutils
-fzf
-glow
-htop
-pwgen
-ripgrep
-toilet
-tree
-"
+is_desktop() {
+  test "$(uname)" = Darwin && return 0
+  test -n "${XDG_CURRENT_DESKTOP:-}" && return 0
+  test -d /usr/share/xsessions -o -d /usr/share/wayland-sessions
+}
 
-# dev
-packages="$packages
-cmake
-gcc
-gh
-git-lfs
-gnupg
-libtool
-neovim
-vim
-"
+sections=" core $with "
+is_desktop && sections="$sections gui "
+for s in $without; do
+  sections=$(echo "$sections" | sed "s/ $s / /g")
+done
 
-# media
-packages="$packages
-graphviz
-imagemagick
-netpbm
-webp
-"
+# -- Read the manifest into one want-list per kind --
 
-# other
-packages="$packages
-ca-certificates
-gettext
-pkgconf
-shared-mime-info
-zstd
-"
+tmp=$(mktemp -d) || exit 1
+trap 'rm -rf "$tmp"' EXIT
 
-# -- Heavy packages (--heavy) --
+add() { echo "$2" >> "$tmp/$1.want"; }
 
-# dev
-packages_heavy="
-pandoc
-"
+section=
+while IFS= read -r line; do
+  line=${line%%#*}
+  set -f; set -- $line; set +f
+  line=${1:-}
+  test -n "$line" || continue
+  case "$line" in
+    \[*\]) section=${line#\[}; section=${section%\]}; continue ;;
+  esac
+  case "$sections" in *" $section "*) ;; *) continue ;; esac
+  case "$line" in
+    apt:*)          test $PM = apt  && add apt "${line#apt:}" ;;
+    brew:*)         test $PM = brew && add brew "${line#brew:}" ;;
+    cask:*)         test $PM = brew && add cask "${line#cask:}" ;;
+    npm:*)          add npm "${line#npm:}" ;;
+    uv:*)           add uv "${line#uv:}" ;;
+    custom:*)       add custom "${line#custom:}" ;;
+    apt-custom:*)   test $PM = apt  && add custom "${line#apt-custom:}" ;;
+    brew-custom:*)  test $PM = brew && add custom "${line#brew-custom:}" ;;
+    *)              add $PM "$line" ;;
+  esac
+done < "$manifest"
 
-# media
-packages_heavy="$packages_heavy
-ffmpeg
-"
+for f in "$tmp"/*.want; do
+  test -e "$f" && sort -u "$f" -o "$f"
+done
 
-# system
-packages_heavy="$packages_heavy
-ruby
-"
+# -- Helpers --
 
-# -- System/host packages (--system) --
+# Lists the wanted names of a kind that are absent from the installed list.
+subtract() { # kind
+  test -f "$tmp/$1.want" || return 0
+  grep -vxFf "$tmp/$1.have" "$tmp/$1.want"
+}
 
-packages_system="
-wireguard-tools
-"
+run() {
+  echo "+ $*"
+  test -n "$dry_run" || "$@"
+}
 
-# -- GUI packages (--gui) --
 
-packages_gui="
-fontconfig
-libreoffice
-"
+# Names in $1 that do not appear in $2.
+difference() { grep -vxFf "$2" "$1"; }
 
-# -- Platform-specific packages --
+# Lists installed names for a kind, one per line.
+installed() {
+  case "$1" in
+    apt)  dpkg-query -W -f='${db:Status-Abbrev}${Package}\n' 2>/dev/null |
+            sed -n 's/^ii  *//p' ;;
+    brew) brew list --formula -1 ;;
+    cask) brew list --cask -1 ;;
+    npm)  command -v npm >/dev/null &&
+            npm ls -g --depth=0 --parseable 2>/dev/null |
+            sed -n 's|.*/node_modules/||p' ;;
+    uv)   command -v uv >/dev/null &&
+            uv tool list 2>/dev/null | awk '!/^-/ && NF {print $1}' ;;
+  esac
+}
 
-if [ "$PM" = apt ]; then
+# Lists which of the names in file $2 are available from manager $1.
+available() {
+  case "$1" in
+    apt)  apt-cache policy $(cat "$2") 2>/dev/null |
+            awk '/^[^ ]/ {p=$1; sub(/:$/, "", p)}
+                 /Candidate:/ && $2 != "(none)" {print p}' ;;
+    brew) brew formulae | grep -xFf "$2" ;;
+    cask) brew casks | grep -xFf "$2" ;;
+    *)    cat "$2" ;;
+  esac
+}
 
-  # shell
-  packages="$packages
-curl
-exuberant-ctags
-openssh-client
-zsh
-"
+# Prints the install command for a kind and its package list.
+install_kind() { # kind names...
+  kind=$1; shift
+  case "$kind" in
+    apt)  run $SUDO apt-get install -y "$@" ;;
+    brew) run brew install "$@" ;;
+    cask) run brew install --cask "$@" ;;
+    npm)  run npm install -g "$@" ;;
+    uv)   for p in "$@"; do run uv tool install "$p"; done ;;
+  esac
+}
 
-  # dev
-  packages="$packages
-build-essential
-git-delta
-myrepos
-python-is-python3
-"
+# -- Work out what is missing --
 
-  # media
-  packages="$packages
-libtiff-tools
-"
+: > "$tmp/custom.run"
+updated=
 
-  # system/host: hardware + network filesystems
-  packages_system="$packages_system
-lm-sensors
-nfs-common
-"
+for kind in $PM cask; do
+  test -f "$tmp/$kind.want" || continue
+  test "$kind" = cask -a $PM != brew && continue
 
-  # gui
-  packages_gui="$packages_gui
-barrier
-dconf-editor
-diodon
-flatpak
-gnome-shell-extension-manager
-gnome-system-monitor
-gnome-tweaks
-guake
-kid3-qt
-picard
-"
+  installed "$kind" | sort -u > "$tmp/$kind.have"
+  subtract "$kind" > "$tmp/$kind.missing"
+  test -s "$tmp/$kind.missing" || continue
 
-elif [ "$PM" = brew ]; then
+  if [ "$kind" = apt ] && [ -z "$updated" ]; then
+    updated=1
+    run $SUDO apt-get update
+  fi
 
-  # shell
-  packages="$packages
-fastfetch
-tlrc
-"
+  # Drop packages the manager cannot supply; use a custom installer if any.
+  available "$kind" "$tmp/$kind.missing" | sort -u > "$tmp/$kind.avail"
+  difference "$tmp/$kind.missing" "$tmp/$kind.avail" > "$tmp/$kind.unavail"
+  while IFS= read -r name; do
+    if [ -x "$custom_dir/install-$name" ]; then
+      echo "$name" >> "$tmp/custom.run"
+    else
+      echo "Warning: $kind package '$name' is unavailable; skipping." >&2
+    fi
+  done < "$tmp/$kind.unavail"
+  cp "$tmp/$kind.avail" "$tmp/$kind.missing"
+done
 
-  # dev
-  packages="$packages
-delta
-mr
-"
-
-  # media
-  packages="$packages
-libtiff
-"
-
-  # other
-  packages="$packages
-duti
-"
-
-  # gui
-  packages_gui="$packages_gui
-iterm2
-maccy
-rectangle
-rocket
-stats
-"
-
+# Explicit custom entries are missing if their command is absent.
+if [ -f "$tmp/custom.want" ]; then
+  while IFS= read -r name; do
+    command -v "$name" >/dev/null 2>&1 && continue
+    if [ -x "$custom_dir/install-$name" ]; then
+      echo "$name" >> "$tmp/custom.run"
+    else
+      echo "Warning: no installer for '$name' ($custom_dir/install-$name)." >&2
+    fi
+  done < "$tmp/custom.want"
 fi
 
-# -- Assemble and install --
+# -- Install, in dependency order --
 
-all_packages="$packages"
-test "$opt_heavy"  && all_packages="$all_packages $packages_heavy"
-test "$opt_system" && all_packages="$all_packages $packages_system"
-test "$opt_gui"    && all_packages="$all_packages $packages_gui"
+did=
+for kind in $PM cask; do
+  test -s "$tmp/$kind.missing" 2>/dev/null || continue
+  install_kind "$kind" $(cat "$tmp/$kind.missing") || exit 1
+  did=1
+done
 
-if [ "$PM" = apt ]; then
-
-  # gh - adapted from: https://github.com/cli/cli/blob/trunk/docs/install_linux.md
-  # Known-good fingerprints: https://github.com/cli/cli/blob/trunk/docs/install_linux.md
-  gh_fp1=2C6106201985B60E6C7AC87323F3D4EA75716059
-  gh_fp2=7F38BBB59D064DBCB3D84D725612B36462313325
-  (type -p curl >/dev/null || (sudo apt update && sudo apt install curl -y)) \
-	&& sudo mkdir -p -m 755 /etc/apt/keyrings \
-	&& out=$(mktemp) && curl -fsSL -o $out https://cli.github.com/packages/githubcli-archive-keyring.gpg \
-	&& gpg --show-keys $out | grep -q "$gh_fp1" \
-	&& gpg --show-keys $out | grep -q "$gh_fp2" \
-	&& cat $out | sudo tee /etc/apt/keyrings/githubcli-archive-keyring.gpg > /dev/null \
-	&& sudo chmod go+r /etc/apt/keyrings/githubcli-archive-keyring.gpg \
-	&& sudo mkdir -p -m 755 /etc/apt/sources.list.d \
-	&& echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/githubcli-archive-keyring.gpg] https://cli.github.com/packages stable main" | sudo tee /etc/apt/sources.list.d/github-cli.list > /dev/null \
-	&& sudo apt update \
-	&& sudo apt install gh -y
-
-  sudo apt-get update &&
-  sudo apt-get install -y $all_packages
-
-elif [ "$PM" = brew ]; then
-
-  brew install $all_packages
-
+if [ -s "$tmp/custom.run" ]; then
+  for name in $(sort -u "$tmp/custom.run"); do
+    run sh "$custom_dir/install-$name" || echo "Failed: install-$name" >&2
+  done
+  did=1
 fi
+
+# npm and uv come after, as the managers themselves may have just been installed.
+for kind in npm uv; do
+  test -f "$tmp/$kind.want" || continue
+  # Note: in dry-run mode a not-yet-installed npm/uv yields no listing.
+  installed "$kind" | sort -u > "$tmp/$kind.have"
+  subtract "$kind" > "$tmp/$kind.missing"
+  test -s "$tmp/$kind.missing" || continue
+  command -v "$kind" >/dev/null || {
+    echo "Skipping $kind packages: $kind is not installed." >&2
+    continue
+  }
+  install_kind "$kind" $(cat "$tmp/$kind.missing")
+  did=1
+done
+
+test -n "$did" || echo "All packages are already installed."

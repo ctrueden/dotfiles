@@ -1,0 +1,30 @@
+#!/bin/sh
+
+# Installs a pinned starship release binary into ~/.local/bin, verified against
+# a SHA-256 recorded here. Used where the OS package is unavailable (Ubuntu
+# older than 25.04). To upgrade, bump starship_ver and both hashes together;
+# the hashes are published as .sha256 files beside each release asset.
+
+set -u
+
+starship_ver=1.26.0
+case "$(uname -m)" in
+  x86_64)
+    arch=x86_64
+    sha=b7c232b0e8249d8e55a40beb79c5c43a7d370f3f9408bd215deb0170daeaadf3 ;;
+  aarch64|arm64)
+    arch=aarch64
+    sha=dc30189378d2f2e287384e8a692d3f95ad1df64cf0e8c36aa9201516028aed6b ;;
+  *)
+    echo "Unsupported architecture for starship: $(uname -m)" >&2
+    exit 1 ;;
+esac
+
+tgz=$(mktemp) || exit 1
+trap 'rm -f "$tgz"' EXIT
+
+curl -fsSL "https://github.com/starship/starship/releases/download/v$starship_ver/starship-$arch-unknown-linux-musl.tar.gz" \
+  -o "$tgz" &&
+echo "$sha  $tgz" | sha256sum -c - >/dev/null &&
+mkdir -p "$HOME/.local/bin" &&
+tar -xzf "$tgz" -C "$HOME/.local/bin" starship

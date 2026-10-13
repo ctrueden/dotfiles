@@ -1,0 +1,139 @@
+# Packages to install, read by bin/system/install-packages.
+#
+# One entry per line. A bare name is the same package on apt and brew.
+# Prefixes limit an entry to one manager:
+#   apt:NAME   brew:NAME   cask:NAME (macOS GUI apps)
+#   npm:NAME   uv:NAME
+# A package unavailable from its manager falls back to the script
+# bin/packages/install-NAME, if one exists.
+#
+# [sections]: core always installs. gui installs on desktops only.
+# The rest are opt-in via --with SECTION.
+
+[core]
+# shell
+ansiweather
+aspell
+bash
+bat
+boxes
+byobu
+brew:node
+apt:npm
+coreutils
+fzf
+glow
+htop
+pwgen
+ripgrep
+toilet
+tree
+apt:curl
+apt:exuberant-ctags
+apt:openssh-client
+apt:zsh
+brew:fastfetch
+brew:tlrc
+
+# dev
+cmake
+gcc
+brew:gh
+apt-custom:gh
+git-lfs
+gnupg
+libtool
+neovim
+vim
+apt:build-essential
+apt:fd-find
+apt:make
+apt:myrepos
+apt:python-is-python3
+apt:unzip
+apt:xclip
+git-delta
+brew:fd
+brew:mr
+
+# media
+graphviz
+imagemagick
+netpbm
+webp
+apt:libtiff-tools
+brew:libtiff
+
+# other
+ca-certificates
+gettext
+pkgconf
+shared-mime-info
+zstd
+brew:duti
+
+# prompt
+starship
+
+# AI coding assistants
+npm:@github/copilot
+npm:@openai/codex
+npm:@charmland/crush
+npm:opencode-ai
+npm:@kilocode/cli
+#npm:@anthropic-ai/claude-code
+#npm:@google/gemini-cli
+#npm:@vibe-kit/grok-cli
+#npm:@nanocollective/nanocoder
+
+[heavy]
+ffmpeg
+pandoc
+ruby
+maven
+
+[system]
+wireguard-tools
+apt:lm-sensors
+apt:nfs-common
+
+[gui]
+fontconfig
+apt:libreoffice
+cask:libreoffice
+apt:barrier
+apt:dconf-editor
+apt:diodon
+apt:flatpak
+apt:gnome-shell-extension-manager
+apt:gnome-system-monitor
+apt:gnome-tweaks
+apt:guake
+apt:kid3-qt
+apt:picard
+apt:gimp
+apt:vlc
+apt:meshlab
+cask:1password
+cask:discord
+cask:firefox
+cask:gimp
+cask:vlc
+cask:ghostty
+cask:iterm2
+cask:maccy
+cask:rectangle
+cask:stats
+cask:zoom
+
+[java]
+ant
+apt:openjdk-8-jdk
+apt:openjdk-11-jdk
+apt:openjdk-17-jdk
+apt:openjdk-21-jdk
+apt:openjdk-25-jdk
+cask:zulu@8
+cask:zulu@11
+cask:zulu@17
+cask:zulu@21
