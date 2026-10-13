@@ -28,7 +28,7 @@ bat
 boxes
 byobu
 brew:node
-apt:npm
+apt-custom:node
 coreutils
 fzf
 glow

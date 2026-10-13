@@ -1,0 +1,51 @@
+#!/bin/sh
+
+# Installs a pinned Node.js LTS release into ~/.local/opt, verified against a
+# SHA-256 recorded here, and links node, npm, and npx into ~/.local/bin. Used
+# on Linux, where apt's Node is too old for many tools; macOS uses Homebrew's.
+# To upgrade, bump node_ver and both hashes together; the hashes are listed
+# in the SHASUMS256.txt file beside each release's archives.
+#
+# Global npm packages go to ~/.local rather than into the versioned install,
+# so they survive upgrades. This is set in the install's own etc/npmrc, not
+# in ~/.npmrc, where a prefix setting would break nvm.
+#
+# With --check, reports via exit code whether the pinned version is linked.
+
+. "${DOTFILES:?}/lib/download.sh"
+
+node_ver=24.21.0
+case "$(uname -m)" in
+  x86_64)
+    arch=x64
+    sha=fd8e59d5a511510f6a298afb548f18c7d2b1be404d8b4a27d94fbe49f56cb2d6 ;;
+  aarch64|arm64)
+    arch=arm64
+    sha=6ad1325edbdb5649c379b75a237147a666c95d4f9ae8d340fef2d1575d289ad2 ;;
+  *)
+    echo "Unsupported architecture for Node: $(uname -m)" >&2
+    exit 1 ;;
+esac
+
+opt="$HOME/.local/opt"
+bin="$HOME/.local/bin"
+dir="$opt/node-v$node_ver-linux-$arch"
+
+if [ "${1:-}" = --check ]; then
+  test "$(readlink "$bin/node")" = "$dir/bin/node"
+  exit
+fi
+
+download_verified "https://nodejs.org/dist/v$node_ver/node-v$node_ver-linux-$arch.tar.xz" "$sha" &&
+mkdir -p "$opt" "$bin" &&
+tar -xJf "$downloaded" -C "$opt" &&
+mkdir -p "$dir/etc" &&
+echo "prefix=$HOME/.local" > "$dir/etc/npmrc" || exit 1
+for cmd in node npm npx; do
+  ln -sfn "$dir/bin/$cmd" "$bin/$cmd" || exit 1
+done
+
+# Remove any versions this one replaces.
+for d in "$opt"/node-v*; do
+  test "$d" = "$dir" || rm -rf "$d"
+done

@@ -128,10 +128,11 @@ if [ -x "$(command -v uv)" ]; then
   test $code -eq 0 || echo "=> returned $code"
 fi
 
-if [ -x "$(command -v npm)" ]; then
+. "$DOTFILES/lib/node.sh"
+if [ -n "$(global_node_bin)" ]; then
   echo
   echo "--== Updating global npm packages ==--"
-  npm update -g
+  global_npm update -g
   code=$?; test $code -lt $exit_code || exit_code=$code
   test $code -eq 0 || echo "=> returned $code"
 fi

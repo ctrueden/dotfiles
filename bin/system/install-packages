@@ -25,6 +25,8 @@ profile="${XDG_CONFIG_HOME:-$HOME/.config}/dotfiles/sections"
 # which is unset if this runs before the shell config is in place.
 export DOTFILES="${DOTFILES:-$(cd "$here/../.." && pwd)}"
 
+. "$DOTFILES/lib/node.sh"
+
 # -- Parse flags --
 
 dry_run=
@@ -136,8 +138,7 @@ installed() {
             sed -n 's/^ii  *//p' ;;
     brew) brew list --formula -1 ;;
     cask) brew list --cask -1 ;;
-    npm)  command -v npm >/dev/null &&
-            npm ls -g --depth=0 --parseable 2>/dev/null |
+    npm)  global_npm ls -g --depth=0 --parseable 2>/dev/null |
             sed -n 's|.*/node_modules/||p' ;;
     uv)   command -v uv >/dev/null &&
             uv tool list 2>/dev/null | awk '!/^-/ && NF {print $1}' ;;
@@ -163,7 +164,7 @@ install_kind() { # kind names...
     apt)  run $SUDO apt-get install -y "$@" ;;
     brew) run brew install "$@" ;;
     cask) run brew install --cask "$@" ;;
-    npm)  run npm install -g "$@" ;;
+    npm)  run global_npm install -g "$@" ;;
     uv)   for p in "$@"; do run uv tool install "$p"; done ;;
   esac
 }
@@ -239,7 +240,11 @@ for kind in npm uv; do
   installed "$kind" | sort -u > "$tmp/$kind.have"
   subtract "$kind" > "$tmp/$kind.missing"
   test -s "$tmp/$kind.missing" || continue
-  command -v "$kind" >/dev/null || {
+  case "$kind" in
+    npm) manager=$(global_node_bin) ;;
+    *) manager=$(command -v "$kind") ;;
+  esac
+  test -n "$manager" || {
     echo "Skipping $kind packages: $kind is not installed." >&2
     continue
   }
