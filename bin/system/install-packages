@@ -5,7 +5,8 @@
 #
 # Usage: install-packages [-n] [--with SECTION]... [--without SECTION]...
 #   -n, --dry-run   Report what would be installed, without installing it.
-#   --with SECTION  Also install an opt-in section (dev, heavy, java, system).
+#   --with SECTION  Also install an opt-in section
+#                   (build, dev, heavy, java, system).
 #   --without S     Skip a section, even a default one (e.g. gui on a desktop).
 #
 # The core section always installs; gui installs when a desktop is detected.
@@ -62,6 +63,16 @@ is_desktop() {
 
 sections=" core $with "
 is_desktop && sections="$sections gui "
+
+# Add the sections that enabled ones require, per headers like [dev: build].
+while read -r name deps; do
+  case "$sections" in
+    *" $name "*) for d in $deps; do sections="$sections$d "; done ;;
+  esac
+done <<EOF
+$(sed -n "s/^\[\([a-z]*\): *\(.*\)\]$/\1 \2/p" "$manifest")
+EOF
+
 for s in $without; do
   sections=$(echo "$sections" | sed "s/ $s / /g")
 done
@@ -80,7 +91,8 @@ while IFS= read -r line; do
   line=${1:-}
   test -n "$line" || continue
   case "$line" in
-    \[*\]) section=${line#\[}; section=${section%\]}; continue ;;
+    # Note: Only a header's first word is left, e.g. [dev: build] -> [dev:
+    \[*) section=${line#\[}; section=${section%[]:]}; continue ;;
   esac
   case "$sections" in *" $section "*) ;; *) continue ;; esac
   case "$line" in

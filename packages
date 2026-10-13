@@ -12,10 +12,12 @@
 # [sections]: core always installs. gui installs on desktops only.
 # The rest are opt-in, via --with SECTION or the machine's profile file
 # (~/.config/dotfiles/sections, written by setup.sh):
+#   build   compilers and build tools, for building software from source
 #   dev     development tools beyond the basics
 #   heavy   big packages, for primary machines
 #   java    JDKs and Java tooling
 #   system  hardware and network utilities
+# A section header may name sections it requires, e.g. [dev: build].
 
 [core]
 # shell
@@ -30,6 +32,7 @@ apt:npm
 coreutils
 fzf
 glow
+gnupg
 highlight
 htop
 pwgen
@@ -39,35 +42,34 @@ tree
 xmlstarlet
 apt:curl
 apt:exuberant-ctags
+apt:fd-find
 apt:jq
 apt:openssh-client
+apt:unzip
+apt:xclip
 apt:zsh
+brew:fd
 brew:fastfetch
 brew:gnu-sed
 brew:gnu-tar
 brew:tlrc
 npm:emoj
 
-# dev
-cmake
-gcc
-brew:gh
-apt-custom:gh
-git-lfs
-gnupg
-libtool
+# editors
 neovim
 vim
-apt:build-essential
-apt:fd-find
-apt:make
-apt:myrepos
-apt:python-is-python3
-apt:unzip
-apt:xclip
+npm:tree-sitter-cli
+
+# git
 git-delta
-brew:fd
+git-lfs
+apt:myrepos
+brew:gh
+apt-custom:gh
 brew:mr
+
+# python
+apt:python-is-python3
 brew:uv
 apt-custom:uv
 
@@ -82,7 +84,6 @@ brew:libtiff
 # other
 ca-certificates
 gettext
-pkgconf
 shared-mime-info
 zstd
 brew:duti
@@ -107,10 +108,17 @@ uv:oterm
 #npm:@vibe-kit/grok-cli
 #npm:@nanocollective/nanocoder
 
-[dev]
+[build]
+cmake
+gcc
+libtool
+pkgconf
+apt:build-essential
+apt:make
+
+[dev: build]
 brew:pnpm
 npm:svg-term-cli
-npm:tree-sitter-cli
 uv:prysk
 uv:pydeps
 uv:twine

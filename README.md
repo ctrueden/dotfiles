@@ -54,7 +54,7 @@ What does this configuration include?
     -   One [packages](packages) file lists tools for both apt and Homebrew,
         with prefixes for manager-specific entries, including npm and uv.
     -   Sections for core tools (always), GUI apps (desktops only), and
-        opt-in groups (dev, heavy, java, system), chosen per machine when
+        opt-in groups (build, dev, heavy, java, system), chosen per machine when
         `setup.sh` first runs and saved in `~/.config/dotfiles/sections`.
     -   Installs only what is missing, in as few package manager
         invocations as possible; use `--dry-run` to preview.
