@@ -24,26 +24,19 @@ rm -f "$out"
 
 prefix=$(tmux show -gv prefix)
 
-# Lines are: table<TAB>key<TAB>shown-text. The shown text is the binding's
-# note (description) if it has one, or else its command.
+# Lines are: table<TAB>key<TAB>shown-text. The key is escaped for tmux's
+# command parser; the shown text is the binding's note (description) if it
+# has one, or else its command.
+tab=$(printf '\t')
+label="#{?#{==:#{key_table},prefix},$prefix ,}#{key_string}"
+desc='#{=/100/...:#{?key_note,#{key_note},#{key_command}}}'
+format="#{key_table}$tab#{q:key_string}$tab#{p12:$label} $desc"
 choice=$(
   {
-    tmux list-keys -N -T prefix | sed 's/^/N /'
-    tmux list-keys -T prefix
-    tmux list-keys -T root
-  } | awk -v prefix="$prefix" '
-    $1 == "N" { k = $2; sub(/^N +[^ ]+ +/, ""); note[k] = $0; next }
-    {
-      i = ($2 == "-r") ? 4 : 3
-      table = $i; key = $(i + 1)
-      if (key ~ /Mouse|Wheel|Drag/) next
-      cmd = $0; sub("^bind-key +(-r +)?-T +[^ ]+ +[^ ]+ +", "", cmd)
-      label = (table == "prefix") ? prefix " " key : key
-      desc = (key in note && table == "prefix") ? note[key] : cmd
-      if (length(desc) > 100) desc = substr(desc, 1, 97) "..."
-      printf "%s\t%s\t%-12s %s\n", table, key, label, desc
-    }' |
-  fzf --reverse --delimiter='\t' --with-nth=3.. --prompt='tmux> '
+    tmux list-keys -T prefix -F "$format"
+    tmux list-keys -T root -F "$format"
+  } | grep -v -E "^root${tab}[^${tab}]*(Mouse|Wheel|Drag|Click)" |
+  fzf --reverse --delimiter="$tab" --with-nth=3.. --prompt='tmux> '
 ) || exit 0
 
 table=$(printf '%s' "$choice" | cut -f1)

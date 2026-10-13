@@ -1,0 +1,106 @@
+# Notes (descriptions) for byobu's key bindings, sourced from tmux.conf.
+# They show up in `list-keys -N` and the command palette (Prefix + Space).
+#
+# Note: bind-key -N without a command only attaches a note to an existing
+# binding, leaving the command itself alone; for an unbound key, it does
+# nothing. Rebinding a key drops its note, so this file must be sourced
+# after byobu's bindings are in place.
+
+# -- Prefix table: byobu's replacements for tmux's defaults --
+
+bind-key -N "Select the next pane" Tab
+bind-key -N "Select the previous pane" BTab
+bind-key -N "Choose a window from a list" '"'
+bind-key -N "List clients" '*'
+bind-key -N "Send the prefix key" a
+bind-key -N "Create a new window in the current directory" c
+bind-key -N "Create a new window in the current directory" C-c
+bind-key -N "Rename current window" A
+bind-key -N "Kill current window, after confirming" k
+bind-key -N "Kill current window, after confirming" K
+bind-key -N "Kill the tmux server and all sessions, after confirming" '\'
+bind-key -N "Select the next window" n
+bind-key -N "Select the next window" C-n
+bind-key -N "Select the next window" C-@
+bind-key -N "Select the previous window" p
+bind-key -N "Select the previous window" C-p
+bind-key -N "Select the previous window" C-h
+bind-key -N "Select the previous window" BSpace
+bind-key -N "List windows" w
+bind-key -N "List windows" C-w
+bind-key -N "Lock the server" x
+bind-key -N "Lock the server" C-x
+bind-key -N "Redraw the client" l
+bind-key -N "Redraw the client" C-l
+bind-key -N "Detach the current client" C-d
+
+# -- Root table: byobu's function keys (no prefix needed) --
+
+# Help and configuration.
+bind-key -N "Show byobu help" -n F1
+bind-key -N "Show byobu help" -n S-F1
+bind-key -N "Open byobu configuration menu" -n F9
+bind-key -N "Reload byobu profile and tmux configuration" -n F5
+bind-key -N "Toggle UTF-8 in the status bar" -n M-F5
+bind-key -N "Cycle status bar widgets" -n S-F5
+bind-key -N "Switch to a random color theme" -n C-S-F5
+bind-key -N "Reconnect SSH/GPG agent sockets in this pane" -n C-F5
+bind-key -N "Enable mouse support" -n M-F12
+bind-key -N "Disable byobu function keys (toggle)" -n S-F12
+
+# Windows.
+bind-key -N "Create a new window in the current directory" -n F2
+bind-key -N "Select the previous window" -n F3
+bind-key -N "Select the next window" -n F4
+bind-key -N "Select the previous window" -n M-Left
+bind-key -N "Select the next window" -n M-Right
+bind-key -N "Move current window left" -n C-S-F3
+bind-key -N "Move current window right" -n C-S-F4
+bind-key -N "Rename current window" -n F8
+bind-key -N "Send a command to all windows" -n C-F9
+
+# Panes.
+bind-key -N "Split pane left/right" -n C-F2
+bind-key -N "Split pane top/bottom" -n S-F2
+bind-key -N "Select the previous pane" -n S-F3
+bind-key -N "Select the next pane" -n S-F4
+bind-key -N "Select the pane above" -n S-Up
+bind-key -N "Select the pane below" -n S-Down
+bind-key -N "Select the pane to the left" -n S-Left
+bind-key -N "Select the pane to the right" -n S-Right
+bind-key -N "Swap pane with the previous pane" -n C-F3
+bind-key -N "Swap pane with the next pane" -n C-F4
+bind-key -N "Resize the pane up" -n M-S-Up
+bind-key -N "Resize the pane down" -n M-S-Down
+bind-key -N "Resize the pane left" -n M-S-Left
+bind-key -N "Resize the pane right" -n M-S-Right
+bind-key -N "Zoom the current pane" -n S-F11
+bind-key -N "Break pane to a new window" -n M-F11
+bind-key -N "Join pane into the previous window" -n C-F11
+bind-key -N "Kill the current pane" -n C-F6
+bind-key -N "Toggle typing into all panes at once" -n M-F9
+bind-key -N "Send a command to all panes" -n S-F9
+
+# Layouts.
+bind-key -N "Arrange panes in the next layout" -n S-F8
+bind-key -N "Save the current layout" -n C-S-F8
+bind-key -N "Restore a saved layout" -n M-S-F8
+
+# Sessions and clients.
+bind-key -N "Create a new session" -n C-S-F2
+bind-key -N "Switch to the previous session" -n M-Up
+bind-key -N "Switch to the next session" -n M-Down
+bind-key -N "Rename current session" -n C-F8
+bind-key -N "Detach the current client" -n F6
+bind-key -N "Detach, keeping the shell logged in" -n S-F6
+bind-key -N "Detach all other clients" -n M-F6
+
+# Scrollback and buffers.
+bind-key -N "Enter copy mode" -n F7
+bind-key -N "Scroll up a page in copy mode" -n M-PPage
+bind-key -N "Scroll down a page in copy mode" -n M-NPage
+bind-key -N "Save the scrollback to a file and view it" -n S-F7
+bind-key -N "Paste the most recent buffer" -n M-IC
+
+# Fun.
+bind-key -N "Draw Mondrian squares" -n C-S-F12

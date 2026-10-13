@@ -119,6 +119,7 @@ link_file "$CONFIG_DIR/jgo.conf" .config/jgo.conf
 mkdir -p .config/byobu
 link_file "$CONFIG_DIR/byobu/tmux.conf" .config/byobu/.tmux.conf
 link_file "$CONFIG_DIR/byobu/palette.sh" .config/byobu/palette.sh
+link_file "$CONFIG_DIR/byobu/notes.tmux" .config/byobu/notes.tmux
 link_file "$CONFIG_DIR/byobu/status" .config/byobu/status
 link_file "$CONFIG_DIR/byobu/statusrc" .config/byobu/statusrc
 mkdir -p .config/byobu/bin
