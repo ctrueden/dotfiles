@@ -101,14 +101,14 @@ uv:jgo
 npm:@github/copilot
 npm:@openai/codex
 npm:opencode-ai         scripts  # Fetches its binary.
-npm:@kilocode/cli        scripts  # Fetches its binary.
+npm:@kilocode/cli       scripts  # Fetches its binary.
 brew:ollama
 uv:oterm
 #npm:@anthropic-ai/claude-code
 #npm:@charmland/crush
 #npm:@google/gemini-cli
-#npm:@vibe-kit/grok-cli
 #npm:@nanocollective/nanocoder
+#npm:@vibe-kit/grok-cli
 
 [build]
 cmake
