@@ -38,11 +38,16 @@ A section may require others, which are then enabled too.
 See the header of the packages file for its syntax.
 
 Statuses shown by --list:
-  installed     installed, and in an enabled section
-  missing       not installed, but would be
-  extra         installed, though in no enabled section
-  inactive      not installed, and in no enabled section
-  unavailable   the manager lacks it and there is no custom installer
+  installed       installed, and in an enabled section
+  installed-dep   installed only as another package's dependency, and in an
+                  enabled section (a run marks it as wanted, so autoremove
+                  will not remove it)
+  missing         not installed, but would be
+  extra           installed, though in no enabled section
+  extra-dep       installed only as another package's dependency,
+                  and in no enabled section
+  inactive        not installed, and in no enabled section
+  unavailable     the manager lacks it and there is no custom installer
 EOF
 }
 
@@ -170,6 +175,15 @@ installed() {
   esac
 }
 
+# Lists installed names for a kind, minus those installed only as dependencies.
+requested() {
+  case "$1" in
+    apt)  apt-mark showmanual 2>/dev/null ;;
+    brew) brew list --formula --installed-on-request -1 ;;
+    *)    installed "$1" ;;
+  esac
+}
+
 # Lists which of the names in file $2 are available from manager $1.
 available() {
   case "$1" in
@@ -194,6 +208,16 @@ install_kind() { # kind names...
   esac
 }
 
+# Marks installed packages of a kind as wanted, so that removing what pulled
+# them in, then autoremoving, does not remove them too.
+mark_kind() { # kind names...
+  kind=$1; shift
+  case "$kind" in
+    apt)  run $SUDO apt-mark manual "$@" ;;
+    brew) run brew tab --installed-on-request "$@" ;;
+  esac
+}
+
 # Queues the custom installer for a name, unless its --check reports the tool
 # installed and current. Fails if there is no such installer.
 queue_custom() { # name
@@ -206,6 +230,7 @@ list_packages() {
   for kind in $(cut -d' ' -f1 "$tmp/entries" | sort -u); do
     test "$kind" = custom && continue
     installed "$kind" | sort -u > "$tmp/$kind.have"
+    requested "$kind" | sort -u > "$tmp/$kind.requested"
   done
 
   # Merge each package's sections into one line, in manifest order:
@@ -236,11 +261,13 @@ list_packages() {
   fi
   color() { test -n "$esc" && printf '%s[%sm' "$esc" "$1"; }
 
-  printf '%-12s%-8s%-32s%s\n' STATUS KIND NAME SECTIONS
+  printf '%-16s%-8s%-32s%s\n' STATUS KIND NAME SECTIONS
   while read -r kind name secs enabled; do
     how=$kind
-    if grep -qxF "$name" "$tmp/$kind.have" 2>/dev/null; then
+    if grep -qxF "$name" "$tmp/$kind.requested" 2>/dev/null; then
       status=installed
+    elif grep -qxF "$name" "$tmp/$kind.have" 2>/dev/null; then
+      status=installed-dep
     else
       # As when installing, a package its manager lacks falls back to custom.
       case "$kind" in
@@ -262,13 +289,14 @@ list_packages() {
     if [ "$enabled" = 0 ]; then
       case "$status" in
         installed) status=extra ;;
+        installed-dep) status=extra-dep ;;
         missing) status=inactive ;;
       esac
     fi
     case "$status" in
-      installed) c=32 ;; missing) c=33 ;; extra) c=36 ;; inactive) c=2 ;; *) c=31 ;;
+      installed*) c=32 ;; missing) c=33 ;; extra*) c=36 ;; inactive) c=2 ;; *) c=31 ;;
     esac
-    printf '%s%-12s%s%-8s%-32s%s\n' "$(color $c)" "$status" "$off" "$how" "$name" "$secs"
+    printf '%s%-16s%s%-8s%-32s%s\n' "$(color $c)" "$status" "$off" "$how" "$name" "$secs"
     echo "$status" >> "$tmp/statuses"
   done < "$tmp/list"
 
@@ -295,6 +323,9 @@ for kind in $PM cask; do
   test "$kind" = cask -a $PM != brew && continue
 
   installed "$kind" | sort -u > "$tmp/$kind.have"
+  requested "$kind" | sort -u > "$tmp/$kind.requested"
+  grep -xFf "$tmp/$kind.have" "$tmp/$kind.want" |
+    difference - "$tmp/$kind.requested" > "$tmp/$kind.unmarked"
   subtract "$kind" > "$tmp/$kind.missing"
   test -s "$tmp/$kind.missing" || continue
 
@@ -323,6 +354,11 @@ fi
 # -- Install, in dependency order --
 
 did=
+if [ -s "$tmp/$PM.unmarked" ]; then
+  mark_kind $PM $(cat "$tmp/$PM.unmarked") || exit 1
+  did=1
+fi
+
 for kind in $PM cask; do
   test -s "$tmp/$kind.missing" 2>/dev/null || continue
   install_kind "$kind" $(cat "$tmp/$kind.missing") || exit 1
