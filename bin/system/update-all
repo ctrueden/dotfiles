@@ -1,6 +1,10 @@
 #!/bin/sh
 
-sudo -v
+# Note: Abort the whole run on ^C, not just the step that was interrupted.
+# Otherwise sudo's cancelled password prompt fails that step and the rest continue.
+trap 'echo; echo "Interrupted."; exit 130' INT
+
+sudo -v || exit 1
 
 exit_code=0
 
