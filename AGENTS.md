@@ -16,8 +16,11 @@ Read the relevant file(s) before working in that domain:
 
 ## Language Hints
 
-**Python**: Use `uv` — `uv run python` (not `python3`), `uv add` (not `pip install`),
-`uv sync` to install deps. Never invoke bare `python3` or `pip`.
+**Python**: In uv-managed projects (those with `pyproject.toml`/`uv.lock`), run
+project code, tests and tools via `uv` — `uv run python` (not `python3`),
+`uv add` (not `pip install`), `uv sync` to install deps — never bare `python3`
+or `pip`, which miss the project's environment. Throwaway one-off snippets
+unrelated to any project (parsing output, data munging) may use `python3`.
 
 **Java**: Maven-based, typically extending `org.scijava:pom-scijava` parent POM.
 Maintained orgs: scijava, imglib, scifio, apposed, imagej, fiji, trackmate, trakem2.

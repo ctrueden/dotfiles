@@ -2,7 +2,10 @@
 
 ## Tooling: uv
 
-All Python projects use `uv`. Never use bare `python3`, `pip`, or `venv` directly.
+All Python projects use `uv`. Within a project, never use bare `python3`, `pip`,
+or `venv` directly: they bypass the project's environment, so imports and tests
+fail. This rule is about project code; a throwaway snippet unrelated to any
+project (e.g. parsing some command output) may use `python3`.
 
 | Task | Command |
 |---|---|
