@@ -1,18 +1,7 @@
 #!/bin/sh
 
 # Installs the packages listed in $DOTFILES/packages that are not yet present,
-# using as few package manager invocations as possible.
-#
-# Usage: install-packages [-n] [--with SECTION]... [--without SECTION]...
-#   -n, --dry-run   Report what would be installed, without installing it.
-#   --with SECTION  Also install an opt-in section
-#                   (build, dev, heavy, java, system).
-#   --without S     Skip a section, even a default one (e.g. gui on a desktop).
-#
-# The core section always installs; gui installs when a desktop is detected.
-# The opt-in sections this machine wants are read from the profile file,
-# ~/.config/dotfiles/sections, which setup.sh writes. See the header of the
-# packages file for its syntax.
+# using as few package manager invocations as possible. See --help for usage.
 
 set -u
 
@@ -27,18 +16,51 @@ export DOTFILES="${DOTFILES:-$(cd "$here/../.." && pwd)}"
 
 . "$DOTFILES/lib/node.sh"
 
+usage() {
+  cat <<EOF
+Usage: install-packages [-n | -l] [--with SECTION]... [--without SECTION]...
+
+Installs the packages listed in \$DOTFILES/packages that are not yet present.
+
+Options:
+  -n, --dry-run       Report what would be installed, without installing it.
+  -l, --list          List every package relevant to this OS: its status, how
+                      it installs, and its sections. Installs nothing.
+  --with SECTION      Also enable an opt-in section
+                      (build, dev, heavy, java, system).
+  --without SECTION   Skip a section, even a default one (e.g. gui on a desktop).
+  -h, --help          Show this help.
+
+The core section is always enabled; gui is enabled when a desktop is detected.
+The opt-in sections this machine wants are read from the profile file,
+$profile, which setup.sh writes.
+A section may require others, which are then enabled too.
+See the header of the packages file for its syntax.
+
+Statuses shown by --list:
+  installed     installed, and in an enabled section
+  missing       not installed, but would be
+  extra         installed, though in no enabled section
+  inactive      not installed, and in no enabled section
+  unavailable   the manager lacks it and there is no custom installer
+EOF
+}
+
 # -- Parse flags --
 
 dry_run=
+list=
 with=$(cat "$profile" 2>/dev/null | tr '\n' ' ')
 without=
 
 while [ $# -gt 0 ]; do
   case "$1" in
     -n|--dry-run) dry_run=1 ;;
+    -l|--list) list=1 ;;
+    -h|--help) usage; exit ;;
     --with) shift; with="$with ${1:?--with needs a section}" ;;
     --without) shift; without="$without ${1:?--without needs a section}" ;;
-    *) echo "Unknown option: $1" >&2; exit 1 ;;
+    *) echo "Unknown option: $1 (see --help)" >&2; exit 1 ;;
   esac
   shift
 done
@@ -84,7 +106,11 @@ done
 tmp=$(mktemp -d) || exit 1
 trap 'rm -rf "$tmp"' EXIT
 
-add() { echo "$2" >> "$tmp/$1.want"; }
+# Records an entry relevant to this OS, and wants it if its section is enabled.
+add() { # kind name
+  echo "$1 $2 $section" >> "$tmp/entries"
+  case "$sections" in *" $section "*) echo "$2" >> "$tmp/$1.want" ;; esac
+}
 
 section=
 while IFS= read -r line; do
@@ -96,7 +122,6 @@ while IFS= read -r line; do
     # Note: Only a header's first word is left, e.g. [dev: build] -> [dev:
     \[*) section=${line#\[}; section=${section%[]:]}; continue ;;
   esac
-  case "$sections" in *" $section "*) ;; *) continue ;; esac
   case "$line" in
     apt:*)          test $PM = apt  && add apt "${line#apt:}" ;;
     brew:*)         test $PM = brew && add brew "${line#brew:}" ;;
@@ -176,6 +201,90 @@ queue_custom() { # name
   sh "$custom_dir/install-$1" --check || echo "$1" >> "$tmp/custom.run"
 }
 
+# Prints each package relevant to this OS, with its status, kind and sections.
+list_packages() {
+  for kind in $(cut -d' ' -f1 "$tmp/entries" | sort -u); do
+    test "$kind" = custom && continue
+    installed "$kind" | sort -u > "$tmp/$kind.have"
+  done
+
+  # Merge each package's sections into one line, in manifest order:
+  # kind name sections enabled.
+  awk -v enabled="$sections" '
+    BEGIN { n = split(enabled, a, " "); for (i = 1; i <= n; i++) on[a[i]] = 1 }
+    {
+      k = $1 " " $2
+      if (!(k in secs)) { order[++count] = k; secs[k] = $3 }
+      else if (index("," secs[k] ",", "," $3 ",") == 0) secs[k] = secs[k] "," $3
+      if ($3 in on) act[k] = 1
+    }
+    END { for (i = 1; i <= count; i++) print order[i], secs[order[i]], (order[i] in act) ? 1 : 0 }
+  ' "$tmp/entries" > "$tmp/list"
+
+  for kind in apt brew cask; do
+    awk -v k="$kind" '$1 == k { print $2 }' "$tmp/list" | sort -u > "$tmp/$kind.all"
+    test -s "$tmp/$kind.all" || continue
+    difference "$tmp/$kind.all" "$tmp/$kind.have" > "$tmp/$kind.absent"
+    available "$kind" "$tmp/$kind.absent" | sort -u > "$tmp/$kind.avail"
+  done
+
+  if [ -t 1 ] && [ -z "${NO_COLOR:-}" ]; then
+    esc=$(printf '\033')
+    off="$esc[0m"
+  else
+    esc= off=
+  fi
+  color() { test -n "$esc" && printf '%s[%sm' "$esc" "$1"; }
+
+  printf '%-12s%-8s%-32s%s\n' STATUS KIND NAME SECTIONS
+  while read -r kind name secs enabled; do
+    how=$kind
+    if grep -qxF "$name" "$tmp/$kind.have" 2>/dev/null; then
+      status=installed
+    else
+      # As when installing, a package its manager lacks falls back to custom.
+      case "$kind" in
+        apt|brew|cask)
+          grep -qxF "$name" "$tmp/$kind.avail" ||
+            { test -x "$custom_dir/install-$name" && how=custom; } ;;
+      esac
+      case "$how" in
+        apt|brew|cask)
+          grep -qxF "$name" "$tmp/$kind.avail" && status=missing || status=unavailable ;;
+        custom)
+          if [ ! -x "$custom_dir/install-$name" ]; then status=unavailable
+          elif sh "$custom_dir/install-$name" --check >/dev/null 2>&1; then status=installed
+          else status=missing
+          fi ;;
+        *) status=missing ;;
+      esac
+    fi
+    if [ "$enabled" = 0 ]; then
+      case "$status" in
+        installed) status=extra ;;
+        missing) status=inactive ;;
+      esac
+    fi
+    case "$status" in
+      installed) c=32 ;; missing) c=33 ;; extra) c=36 ;; inactive) c=2 ;; *) c=31 ;;
+    esac
+    printf '%s%-12s%s%-8s%-32s%s\n' "$(color $c)" "$status" "$off" "$how" "$name" "$secs"
+    echo "$status" >> "$tmp/statuses"
+  done < "$tmp/list"
+
+  echo
+  sort "$tmp/statuses" | uniq -c | awk '{ printf "%s%s %s", sep, $1, $2; sep = ", " } END { print "" }'
+}
+
+# Note: Custom installers put tools in ~/.local/bin, which may not be on the
+# PATH yet, e.g. on a fresh machine during setup.sh.
+case ":$PATH:" in
+  *":$HOME/.local/bin:"*) ;;
+  *) PATH="$PATH:$HOME/.local/bin" ;;
+esac
+
+test -n "$list" && { list_packages; exit; }
+
 # -- Work out what is missing --
 
 : > "$tmp/custom.run"
@@ -228,12 +337,6 @@ if [ -s "$tmp/custom.run" ]; then
 fi
 
 # npm and uv come after, as the managers themselves may have just been installed.
-# Note: Custom installers put tools in ~/.local/bin, which may not be on the
-# PATH yet, e.g. on a fresh machine during setup.sh.
-case ":$PATH:" in
-  *":$HOME/.local/bin:"*) ;;
-  *) PATH="$PATH:$HOME/.local/bin" ;;
-esac
 for kind in npm uv; do
   test -f "$tmp/$kind.want" || continue
   # Note: in dry-run mode a not-yet-installed npm/uv yields no listing.
