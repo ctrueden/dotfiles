@@ -1,0 +1,255 @@
+#!/bin/sh
+
+#
+# privacy-checkup - report macOS settings that send data to Apple
+#
+# Usage: privacy-checkup [--fix]
+#
+# Checks each setting below and reports whether it is in the private state.
+# With --fix, applies whatever can be applied from the command line (asking
+# for sudo where needed), then re-checks. Finally prints the settings that
+# still need toggling by hand in the GUI.
+#
+# Run this after every macOS upgrade, since upgrades sometimes flip these
+# back on. When a check stops making sense on a new macOS, find the new key
+# by snapshotting `defaults export` of every domain, toggling the setting in
+# System Settings, and diffing. NIST's macOS Security Compliance Project
+# (https://github.com/usnistgov/macos_security, src/mscp/data/rules) tracks
+# many of these keys per macOS release, and is a good place to cross-check.
+#
+# Note: Safari's preferences live in its sandbox container, so the terminal
+# needs Full Disk Access (System Settings > Privacy & Security) to read them.
+#
+
+fix=
+case "$1" in
+  --fix) fix=1 ;;
+  "") ;;
+  *) echo "Usage: privacy-checkup [--fix]" >&2; exit 1 ;;
+esac
+
+diaghist='/Library/Application Support/CrashReporter/DiagnosticMessagesHistory'
+safariplist="$HOME/Library/Containers/com.apple.Safari/Data/Library/Preferences/com.apple.Safari.plist"
+todo=$(mktemp) || exit 1
+trap 'rm -f "$todo"' EXIT
+fixable=0
+
+# Print the value of a default, or nothing if unset.
+rd() { defaults read "$@" 2>/dev/null; }
+
+# Print the enabled flag of a Spotlight category, or nothing if absent.
+spotlight_category() {
+  plist=$(mktemp) || return
+  defaults export com.apple.Spotlight "$plist" 2>/dev/null
+  i=0
+  while name=$(plutil -extract "orderedItems.$i.name" raw "$plist" 2>/dev/null); do
+    test "$name" = "$1" && plutil -extract "orderedItems.$i.enabled" raw "$plist"
+    i=$((i + 1))
+  done
+  rm -f "$plist"
+}
+
+# Usage: check <label> <gui-hint> <check-fn> [fix-fn]
+# The check function returns 0 if the setting is private, 1 if not, and 2
+# if its state cannot be determined from the command line.
+check() {
+  label=$1 hint=$2 chk=$3 fx=$4
+  $chk; status=$?
+  if [ $status -eq 0 ]; then
+    echo "  ✓ $label"
+    return
+  fi
+  if [ $status -eq 1 ] && [ "$fx" ] && [ "$fix" ]; then
+    $fx >/dev/null 2>&1
+    if $chk; then
+      echo "  ✓ $label (fixed)"
+      return
+    fi
+  fi
+  if [ $status -eq 2 ]; then
+    echo "  ? $label (cannot be checked)"
+    echo "- $hint (verify)" >> "$todo"
+  elif [ "$fx" ] && [ -z "$fix" ]; then
+    echo "  ✗ $label (fixable with --fix)"
+    fixable=$((fixable + 1))
+  else
+    echo "  ✗ $label"
+    echo "- $hint" >> "$todo"
+  fi
+}
+
+# -- Spotlight --
+
+chk_improve_search() { [ "$(rd com.apple.assistant.support 'Search Queries Data Sharing Status')" = 2 ]; }
+fix_improve_search() { defaults write com.apple.assistant.support 'Search Queries Data Sharing Status' -int 2; }
+
+# Note: despite its name, EnabledPreferenceRules lists the rules that are
+# toggled *off*, so related content is off when its rule is present.
+chk_related_content() { rd com.apple.Spotlight EnabledPreferenceRules | grep -q 'Custom\.relatedContents'; }
+fix_related_content() {
+  defaults write com.apple.Spotlight EnabledPreferenceRules -array-add Custom.relatedContents &&
+    killall Spotlight
+}
+
+# Legacy "Siri Suggestions" category; no longer shown in macOS 26+ settings.
+chk_spotlight_suggestions() {
+  case "$(spotlight_category MENU_SPOTLIGHT_SUGGESTIONS)" in
+    1|true) return 1 ;;
+  esac
+}
+fix_spotlight_suggestions() {
+  plist=$(mktemp) || return
+  defaults export com.apple.Spotlight "$plist"
+  i=0
+  while name=$(plutil -extract "orderedItems.$i.name" raw "$plist" 2>/dev/null); do
+    test "$name" = MENU_SPOTLIGHT_SUGGESTIONS &&
+      plutil -replace "orderedItems.$i.enabled" -bool NO "$plist"
+    i=$((i + 1))
+  done
+  defaults import com.apple.Spotlight "$plist"
+  rm -f "$plist"
+  killall Spotlight
+}
+
+# Hidden default for online suggestions in Look Up; not shown in the GUI.
+chk_lookup_suggestions() { [ "$(rd com.apple.lookup.shared LookupSuggestionsDisabled)" = 1 ]; }
+fix_lookup_suggestions() { defaults write com.apple.lookup.shared LookupSuggestionsDisabled -bool true; }
+
+# -- Siri & Apple Intelligence --
+
+chk_siri() { [ "$(rd com.apple.assistant.support 'Assistant Enabled')" != 1 ]; }
+
+chk_apple_intelligence() { [ "$(rd com.apple.CloudSubscriptionFeatures.optIn device)" != 1 ]; }
+
+chk_improve_siri() { [ "$(rd com.apple.assistant.support 'Siri Data Sharing Opt-In Status')" != 1 ]; }
+fix_improve_siri() { defaults write com.apple.assistant.support 'Siri Data Sharing Opt-In Status' -int 2; }
+
+chk_assistive_voice() { [ "$(rd com.apple.Accessibility AXSAudioDonationSiriImprovementEnabled)" != 1 ]; }
+fix_assistive_voice() { defaults write com.apple.Accessibility AXSAudioDonationSiriImprovementEnabled -bool false; }
+
+# -- Analytics & advertising --
+
+chk_mac_analytics() { [ "$(rd "$diaghist" AutoSubmit)" = 0 ]; }
+fix_mac_analytics() { sudo defaults write "$diaghist" AutoSubmit -bool false; }
+
+chk_dev_analytics() { [ "$(rd "$diaghist" ThirdPartyDataSubmit)" = 0 ]; }
+fix_dev_analytics() { sudo defaults write "$diaghist" ThirdPartyDataSubmit -bool false; }
+
+chk_personalized_ads() { [ "$(rd com.apple.AdLib allowApplePersonalizedAdvertising)" = 0 ]; }
+fix_personalized_ads() { defaults write com.apple.AdLib allowApplePersonalizedAdvertising -bool false; }
+
+chk_ad_identifier() { [ "$(rd com.apple.AdLib allowIdentifierForAdvertising)" = 0 ]; }
+fix_ad_identifier() { defaults write com.apple.AdLib allowIdentifierForAdvertising -bool false; }
+
+# -- Location --
+
+# Note: as of macOS 26, locationd no longer records authorizations in
+# /var/db/locationd/clients.plist, so this one can only be verified by eye.
+chk_location_search() { return 2; }
+
+# -- Photos --
+
+chk_photos_visual_search() { [ "$(rd com.apple.photos.shareddefaults IPXDefaultEnhancedVisualSearchEnabled)" = 0 ]; }
+fix_photos_visual_search() { defaults write com.apple.photos.shareddefaults IPXDefaultEnhancedVisualSearchEnabled -bool false; }
+
+# -- Safari --
+
+safari_readable() { [ -r "$safariplist" ] && head -c1 "$safariplist" >/dev/null 2>&1; }
+
+# Wrap a Safari check so it reports "cannot be checked" without disk access.
+safari_chk() { safari_readable || return 2; "$@"; }
+
+# Safari overwrites its preferences on quit, so only write while it's closed.
+safari_fix() { pgrep -xq Safari && return 1; "$@"; }
+
+chk_safari_engine_suggestions() { safari_chk eval '[ "$(rd com.apple.Safari SuppressSearchSuggestions)" = 1 ]'; }
+fix_safari_engine_suggestions() { safari_fix defaults write com.apple.Safari SuppressSearchSuggestions -bool true; }
+
+# Note: "Include Safari Suggestions" is grayed out and inactive when
+# search engine suggestions are off.
+chk_safari_suggestions() {
+  safari_chk eval '[ "$(rd com.apple.Safari UniversalSearchEnabled)" = 0 ] ||
+    [ "$(rd com.apple.Safari SuppressSearchSuggestions)" = 1 ]'
+}
+fix_safari_suggestions() { safari_fix defaults write com.apple.Safari UniversalSearchEnabled -bool false; }
+
+chk_safari_quick_search() { safari_chk eval '[ "$(rd com.apple.Safari WebsiteSpecificSearchEnabled)" = 0 ]'; }
+fix_safari_quick_search() { safari_fix defaults write com.apple.Safari WebsiteSpecificSearchEnabled -bool false; }
+
+chk_safari_preload() { safari_chk eval '[ "$(rd com.apple.Safari PreloadTopHit)" = 0 ]'; }
+fix_safari_preload() { safari_fix defaults write com.apple.Safari PreloadTopHit -bool false; }
+
+# -- Gatekeeper --
+
+# Gatekeeper's online notarization checks tell Apple which apps you launch.
+chk_gatekeeper() { spctl --status 2>/dev/null | grep -q 'assessments disabled'; }
+fix_gatekeeper() { sudo spctl --global-disable; }
+
+# Apple's OCSP server is asked about the developer certificate of each app
+# you launch; blocking it in /etc/hosts stops those lookups.
+chk_ocsp_blocked() {
+  awk '!/^[[:space:]]*#/ && ($1 == "127.0.0.1" || $1 == "0.0.0.0" || $1 == "::1") {
+    for (i = 2; i <= NF; i++) if ($i == "ocsp.apple.com") found = 1
+  } END { exit !found }' /etc/hosts
+}
+fix_ocsp_blocked() {
+  printf '127.0.0.1\tocsp.apple.com\n' | sudo tee -a /etc/hosts &&
+    sudo dscacheutil -flushcache && sudo killall -HUP mDNSResponder
+}
+
+
+SS='System Settings ›'
+PS="$SS Privacy & Security ›"
+AI="$PS Analytics & Improvements ›"
+SAF='Safari › Settings › Search ›'
+
+echo "Spotlight:"
+check 'Help Apple Improve Search off' "$SS Spotlight › Help Apple Improve Search" chk_improve_search fix_improve_search
+check 'Show Related Content off' "$SS Spotlight › Show Related Content" chk_related_content fix_related_content
+check 'Siri Suggestions category off' "$SS Spotlight › Siri Suggestions" chk_spotlight_suggestions fix_spotlight_suggestions
+check 'Look Up online suggestions off' "(hidden) defaults write com.apple.lookup.shared LookupSuggestionsDisabled -bool true" chk_lookup_suggestions fix_lookup_suggestions
+
+echo "Siri & Apple Intelligence:"
+check 'Siri off' "$SS Apple Intelligence & Siri › Siri" chk_siri
+check 'Apple Intelligence off' "$SS Apple Intelligence & Siri › Apple Intelligence" chk_apple_intelligence
+check 'Improve Siri & Dictation off' "$AI Improve Siri & Dictation" chk_improve_siri fix_improve_siri
+check 'Improve Assistive Voice Features off' "$AI Improve Assistive Voice Features" chk_assistive_voice fix_assistive_voice
+
+echo "Analytics & advertising:"
+check 'Share Mac Analytics off' "$AI Share Mac Analytics" chk_mac_analytics fix_mac_analytics
+check 'Share with app developers off' "$AI Share with app developers" chk_dev_analytics fix_dev_analytics
+check 'Personalized Ads off' "$PS Apple Advertising › Personalized Ads" chk_personalized_ads fix_personalized_ads
+check 'Advertising identifier off' "$PS Apple Advertising › Personalized Ads" chk_ad_identifier fix_ad_identifier
+
+echo "Location:"
+check 'Suggestions & Search location off' "$PS Location Services › System Services (Details…) › Suggestions & Search" chk_location_search
+
+echo "Photos:"
+check 'Enhanced Visual Search off' "Photos › Settings › General › Enhanced Visual Search" chk_photos_visual_search fix_photos_visual_search
+
+echo "Safari:"
+check 'Search engine suggestions off' "$SAF Include search engine suggestions" chk_safari_engine_suggestions fix_safari_engine_suggestions
+check 'Safari Suggestions off' "$SAF Include Safari Suggestions" chk_safari_suggestions fix_safari_suggestions
+check 'Quick Website Search off' "$SAF Enable Quick Website Search" chk_safari_quick_search fix_safari_quick_search
+check 'Preload Top Hit off' "$SAF Preload Top Hit in the background" chk_safari_preload fix_safari_preload
+
+echo "Gatekeeper:"
+check 'Gatekeeper off' "$PS Allow applications from › Anywhere (after: sudo spctl --global-disable)" chk_gatekeeper fix_gatekeeper
+check 'OCSP lookups blocked' "Add to /etc/hosts: 127.0.0.1 ocsp.apple.com" chk_ocsp_blocked fix_ocsp_blocked
+
+echo
+if [ $fixable -gt 0 ]; then
+  echo "$fixable setting(s) can be fixed by running: privacy-checkup --fix"
+fi
+if safari_readable; then :; else
+  echo "Grant your terminal Full Disk Access to check Safari's settings."
+fi
+if [ "$fix" ] && pgrep -xq Safari; then
+  echo "Quit Safari and rerun with --fix to apply any Safari settings."
+fi
+if [ -s "$todo" ]; then
+  echo "Toggle off in the GUI:"
+  cat "$todo"
+else
+  echo "Nothing to toggle in the GUI."
+fi
