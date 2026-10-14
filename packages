@@ -16,7 +16,7 @@
 # (~/.config/dotfiles/sections, written by setup.sh):
 #   build   compilers and build tools, for building software from source
 #   dev     development tools beyond the basics
-#   heavy   big packages, for primary machines
+#   heavy   large installs (hundreds of MB), for primary machines
 #   java    JDKs and Java tooling
 #   system  hardware and network utilities
 # A section header may name sections it requires, e.g. [dev: build].
@@ -76,9 +76,11 @@ brew:uv
 apt-custom:uv
 
 # media
+ffmpeg
 graphviz
 imagemagick
 netpbm
+pandoc
 webp
 apt:libtiff-tools
 brew:libtiff
@@ -119,6 +121,7 @@ apt:build-essential
 apt:make
 
 [dev: build]
+ruby
 npm:pnpm                scripts  # Links its native binary.
 #npm:svg-term-cli                # Unmaintained since 2018.
 uv:prysk
@@ -127,9 +130,6 @@ uv:twine
 uv:yamllint
 
 [heavy]
-ffmpeg
-pandoc
-ruby
 cask:google-chrome
 cask:jetbrains-toolbox
 cask:visual-studio-code
