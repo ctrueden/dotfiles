@@ -5,6 +5,9 @@ set -e
 # -- Global variables --
 
 CONFIG_DIR=$(cd "$(dirname $0)"; pwd)
+# NB: Git Bash's pwd gives C:/... or /c/..., depending on how bash started;
+# settle on one, so the stubs written below stay the same from run to run.
+! command -v cygpath >/dev/null || CONFIG_DIR=$(cygpath -u "$CONFIG_DIR")
 # Note: Tool installers invoked below (e.g. bin/packages/install-*) need this,
 # and on a fresh machine no shell has exported it yet.
 export DOTFILES="$CONFIG_DIR"
