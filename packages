@@ -143,12 +143,11 @@ cask:visual-studio-code | winget:Microsoft.VisualStudioCode
 cask:discord | winget:Discord.Discord
 cask:nextcloud | winget:Nextcloud.NextcloudDesktop  # My Nextcloud only works with Wireguard.
 cask:zoom | winget:Zoom.Zoom
-apt|brew:wireguard-tools
+apt|brew:wireguard-tools | winget:WireGuard.WireGuard
 
 [system]
 apt:lm-sensors
 apt:nfs-common
-winget:WireGuard.WireGuard
 
 [gui]
 apt|brew:fontconfig
