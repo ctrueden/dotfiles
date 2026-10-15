@@ -17,11 +17,12 @@
 # [sections]: core always installs. gui installs on desktops only.
 # The rest are opt-in, via --with SECTION or the machine's profile file
 # (~/.config/dotfiles/sections, written by setup.sh):
-#   build   compilers and build tools, for building software from source
-#   dev     development tools beyond the basics
-#   heavy   large installs (hundreds of MB), for primary machines
-#   java    JDKs and Java tooling
-#   system  hardware and network utilities
+#   build    compilers and build tools, for building software from source
+#   dev      development tools beyond the basics
+#   heavy    large installs (hundreds of MB)
+#   primary  tools I only want installed on my main machines
+#   java     JDKs and Java tooling
+#   system   hardware and network utilities
 # A section header may name sections it requires, e.g. [dev: build].
 
 [core]
@@ -164,17 +165,25 @@ uv:prysk
 uv:pydeps
 uv:twine
 uv:yamllint
+cask:google-chrome               # Chrome is for testing, not my daily driver.
+winget:Google.Chrome             # Chrome is for testing, not my daily driver.
 
 [heavy]
-cask:google-chrome
 cask:jetbrains-toolbox
 cask:visual-studio-code
-winget:Google.Chrome
 winget:JetBrains.Toolbox
 winget:Microsoft.VisualStudioCode
 
-[system]
+[primary]
+cask:discord
+winget:Discord.Discord
+cask:nextcloud                     # My Nextcloud setup only works with Wireguard.
+winget:Nextcloud.NextcloudDesktop  # My Nextcloud setup only works with Wireguard.
+cask:zoom
+winget:Zoom.Zoom
 wireguard-tools
+
+[system]
 apt:lm-sensors
 apt:nfs-common
 winget:WireGuard.WireGuard
@@ -200,18 +209,14 @@ apt:vlc
 apt:meshlab
 cask:claude
 cask:1password
-cask:discord
 cask:firefox
 cask:gimp
 cask:vlc
-cask:ghostty
 cask:iterm2
 cask:maccy
-cask:nextcloud
 cask:rectangle
 cask:stats
 cask:xquartz
-cask:zoom
 cask:zulip
 scoop:nerd-fonts/Hack-NF
 winget:Microsoft.WindowsTerminal
@@ -220,12 +225,9 @@ winget:Microsoft.PowerToys
 winget:TheDocumentFoundation.LibreOffice
 winget:Anthropic.Claude
 winget:AgileBits.1Password
-winget:Discord.Discord
 winget:Mozilla.Firefox
 winget:GIMP.GIMP.3
 winget:VideoLAN.VLC
-winget:Nextcloud.NextcloudDesktop
-winget:Zoom.Zoom
 winget:Zulip.Zulip
 
 [java]
