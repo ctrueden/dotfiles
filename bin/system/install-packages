@@ -255,7 +255,11 @@ install_kind() { # kind names...
     apt)  run $SUDO apt-get install -y "$@" ;;
     brew) run brew install "$@" ;;
     cask) run brew install --cask "$@" ;;
-    scoop) run scoop install "$@" ;;
+    # Note: One at a time, as scoop abandons the rest when one fails.
+    scoop)
+      for p in "$@"; do
+        run scoop install "$p" || echo "Failed: scoop install $p" >&2
+      done ;;
     winget)
       for p in "$@"; do
         run winget install --id "$p" --exact --silent \
@@ -391,7 +395,11 @@ for kind in $KINDS; do
     updated=1
     run $SUDO apt-get update
   fi
-  test "$kind" = scoop && add_buckets "$tmp/$kind.missing"
+  if [ "$kind" = scoop ]; then
+    # Note: Stale buckets have stale hashes, which fail installs.
+    run scoop update
+    add_buckets "$tmp/$kind.missing"
+  fi
 
   # Drop packages the manager cannot supply; use a custom installer if any.
   available "$kind" "$tmp/$kind.missing" | sort -u > "$tmp/$kind.avail"
