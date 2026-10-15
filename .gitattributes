@@ -1,0 +1,3 @@
+# Note: Check out LF line endings everywhere, overriding Git for Windows'
+# CRLF default, which breaks the shell scripts and the files they read.
+* text=auto eol=lf
