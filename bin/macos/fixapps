@@ -34,40 +34,57 @@
 # Requires Full Disk Access for whatever terminal app runs this script,
 # since macOS blocks reads of TCC.db without it (even as root).
 #
-# Usage: fixapps [-n] [-o] [-v]
+# Usage: fixapps [-n] [-o] [-v[v]]
 #   -n  dry run: report stale grants, but do not reset them
 #   -o  also report grants whose bundle ID matches no installed app
-#   -v  verbose: show each grant's requirement and the apps checked
-#       against it, with their signatures (implies -o)
+#   -v  verbose: one line per grant, marked with its status (implies -o):
+#         ✓ current  ✗ stale  ⚠ invalid code signature  ∅ app not installed
+#   -vv very verbose: also show each grant's requirement and the apps
+#       checked against it, with their signatures
 
 usage() {
-    echo "Usage: fixapps [-n] [-o] [-v]" >&2
+    echo "Usage: fixapps [-n] [-o] [-v[v]]" >&2
     exit 1
 }
 
 dry_run=
 orphans=
-verbose=
+verbose=0
 while getopts nov opt; do
     case "$opt" in
         n) dry_run=1 ;;
         o) orphans=1 ;;
-        v) verbose=1; orphans=1 ;;
+        v) verbose=$((verbose + 1)); orphans=1 ;;
         *) usage ;;
     esac
 done
 shift $((OPTIND - 1))
 [ $# -eq 0 ] || usage
 
-say() {
-    [ -z "$verbose" ] || echo "$@"
-}
-
 # Describe an app's signature: ad-hoc, its leaf authority, or unsigned.
 signature() {
     sig=$(codesign -dvv "$1" 2>&1 |
         sed -n 's/^Authority=//p; s/^Signature=adhoc$/ad-hoc/p' | head -n 1)
     echo "${sig:-unsigned}"
+}
+
+# Accumulate a line of -vv output for the current grant.
+detail() {
+    details="$details
+  $*"
+}
+
+# Report the current grant's status: with -v, as a line marked with the
+# given symbol (plus details with -vv); otherwise, as the given message
+# (if any) on the given file descriptor (default stdout).
+report() {
+    if [ "$verbose" -ge 1 ]; then
+        echo "$1 $bundle_id [$scope] ($services)${2:+ -- $2}"
+        [ "$verbose" -lt 2 ] || [ -z "$details" ] ||
+            printf '%s\n' "${details#?}"
+    elif [ -n "$3" ]; then
+        echo "fixapps: $3" >&"${4:-1}"
+    fi
 }
 
 systemdb="/Library/Application Support/com.apple.TCC/TCC.db"
@@ -95,19 +112,19 @@ for db in "$systemdb" "$userdb"; do
          FROM access WHERE client_type=0 AND csreq IS NOT NULL
          GROUP BY client, csreq;"
 done | while IFS='|' read -r scope bundle_id csreq services; do
-    say
-    say "$bundle_id [$scope] ($services)"
+    details=
     escaped_id=$(printf '%s' "$bundle_id" | sed "s/'/\\\\'/g")
     apps=$(mdfind "kMDItemCFBundleIdentifier == '$escaped_id'" 2>/dev/null |
         grep '\.app$' | grep -v '/\.Trash/')
     if [ -z "$apps" ]; then
         [ -z "$orphans" ] ||
-            echo "fixapps: no app found for $bundle_id ($services)"
+            report ∅ "app not installed" "no app found for $bundle_id ($services)"
         continue
     fi
 
     printf '%s' "$csreq" | xxd -r -p > "$reqfile"
-    say "  requirement: $(csreq -r "$reqfile" -t 2>/dev/null)"
+    [ "$verbose" -lt 2 ] ||
+        detail "requirement: $(csreq -r "$reqfile" -t 2>/dev/null)"
 
     # Note: If several copies share a bundle ID, any one satisfying the
     # requirement counts as current, to avoid resetting on every run due
@@ -131,18 +148,19 @@ done | while IFS='|' read -r scope bundle_id csreq services; do
             invalid="$invalid $app"
             result="INVALID SIGNATURE"
         fi
-        [ -z "$verbose" ] || say "  $app: $(signature "$app") => $result"
+        [ "$verbose" -lt 2 ] || detail "$app: $(signature "$app") => $result"
     done
     IFS=$old_ifs
-    [ -z "$satisfied" ] || continue
 
-    if [ -z "$mismatched" ]; then
-        echo "fixapps: invalid code signature, skipping $bundle_id:$invalid" >&2
-        continue
+    if [ -n "$satisfied" ]; then
+        report ✓
+    elif [ -z "$mismatched" ]; then
+        report ⚠ "invalid code signature, skipping" \
+            "invalid code signature, skipping $bundle_id:$invalid" 2
+    else
+        report ✗ "stale" "stale TCC grant detected for $bundle_id ($services)"
+        echo "$bundle_id" >> "$stale"
     fi
-
-    echo "fixapps: stale TCC grant detected for $bundle_id ($services)"
-    echo "$bundle_id" >> "$stale"
 done
 
 [ -z "$dry_run" ] || exit 0
