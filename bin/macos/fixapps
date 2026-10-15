@@ -1,24 +1,29 @@
 #!/bin/sh
-# Find ad-hoc-signed .app bundles whose TCC permission grants have gone
-# stale, and reset those grants via fixapp so macOS re-prompts instead of
-# silently denying.
+# Find .app bundles whose TCC permission grants have gone stale, and reset
+# those grants via fixapp so macOS re-prompts instead of silently denying.
 #
-# Background: TCC pins each permission grant to a code requirement. For
-# ad-hoc signed apps (no Developer ID / certificate), that requirement is
-# just the binary's cdhash. Rebuilding the app (e.g. via `brew upgrade
-# --cask`) produces a new ad-hoc signature and thus a new cdhash, so the
-# requirement TCC stored no longer matches. System Settings still shows
-# the permission toggled on, but the app is nonetheless denied
-# (errAEEventNotPermitted / -1719) until you re-grant it by hand.
+# Background: TCC pins each permission grant to a code requirement (csreq)
+# captured when the grant was made. For ad-hoc signed apps (no Developer
+# ID / certificate), that requirement is just the binary's cdhash, so any
+# rebuild (e.g. via `brew upgrade --cask`) invalidates it. For properly
+# signed apps, it is usually the designated requirement (bundle ID + team
+# ID), which survives updates -- unless the signing identity changes, e.g.
+# an app that switches from ad-hoc to Developer ID signing, or to a new
+# team. Either way, System Settings still shows the permission toggled
+# on, but the app is nonetheless denied (errAEEventNotPermitted / -1719)
+# until you re-grant it by hand.
 # See: https://nick-liu.com/posts/tcc-cdhash-trap/
 #
-# This script detects that mismatch by comparing the app's current cdhash
-# against the csreq blob(s) TCC has on file for its bundle ID, and calls
+# This script detects that mismatch by asking codesign whether each app
+# still satisfies the csreq TCC has on file for its bundle ID, and calls
 # fixapp to reset (not re-grant) the permissions so the next launch
-# re-prompts cleanly.
+# re-prompts cleanly. Since the csreq itself records the app's identity at
+# grant time, no snapshot of prior state is needed: this catches apps
+# updated by any means (Homebrew, Sparkle, manual reinstall), whenever
+# the update happened.
 #
-# A more persistent alternative exists: re-sign each ad-hoc app with a
-# stable local code-signing identity (created once via `security` +
+# A more persistent alternative exists for ad-hoc apps: re-sign each with
+# a stable local code-signing identity (created once via `security` +
 # `openssl`), which pins the requirement to a certificate hash instead of
 # a cdhash, so it survives rebuilds and you never get re-prompted at all.
 # That's more complex to set up and, unlike this script, modifies the
@@ -29,49 +34,98 @@
 # Requires Full Disk Access for whatever terminal app runs this script,
 # since macOS blocks reads of TCC.db without it (even as root).
 #
-# Usage: fixapps [base-directory]   (default: /Applications)
+# Usage: fixapps [-n] [-o]
+#   -n  dry run: report stale grants, but do not reset them
+#   -o  also report grants whose bundle ID matches no installed app
 
-basedir="${1:-/Applications}"
-tccdb="/Library/Application Support/com.apple.TCC/TCC.db"
+usage() {
+    echo "Usage: fixapps [-n] [-o]" >&2
+    exit 1
+}
 
-if [ ! -r "$tccdb" ]; then
-    echo "fixapps: cannot read $tccdb" >&2
+dry_run=
+orphans=
+while getopts no opt; do
+    case "$opt" in
+        n) dry_run=1 ;;
+        o) orphans=1 ;;
+        *) usage ;;
+    esac
+done
+shift $((OPTIND - 1))
+[ $# -eq 0 ] || usage
+
+systemdb="/Library/Application Support/com.apple.TCC/TCC.db"
+userdb="$HOME/Library/Application Support/com.apple.TCC/TCC.db"
+
+if [ ! -r "$systemdb" ]; then
+    echo "fixapps: cannot read $systemdb" >&2
     echo "fixapps: grant Full Disk Access to your terminal app in" >&2
     echo "         System Settings > Privacy & Security, then retry." >&2
     exit 1
 fi
 
-find "$basedir" -iname '*.app' -type d -prune | while read -r app; do
-    codesign -dv "$app" 2>&1 | grep -q 'Signature=adhoc' || continue
+tmpdir=$(mktemp -d "${TMPDIR:-/tmp}/fixapps.XXXXXX") || exit 1
+trap 'rm -rf "$tmpdir"' EXIT
+reqfile="$tmpdir/csreq"
+stale="$tmpdir/stale"
+: > "$stale"
 
-    bundle_id=$(defaults read "$app/Contents/Info" CFBundleIdentifier 2>/dev/null)
-    [ -n "$bundle_id" ] || continue
-
-    cdhash=$(codesign -dvvv "$app" 2>&1 | sed -n 's/^CDHash=//p' | tr 'A-Z' 'a-z')
-    if [ -z "$cdhash" ]; then
-        echo "fixapps: could not determine cdhash for $app" >&2
+for db in "$systemdb" "$userdb"; do
+    [ -r "$db" ] || continue
+    # Note: client_type 0 = bundle ID; 1 = absolute path (not handled here).
+    sqlite3 -readonly -separator '|' "$db" \
+        "SELECT client, hex(csreq), group_concat(service, ',') FROM access
+         WHERE client_type=0 AND csreq IS NOT NULL
+         GROUP BY client, csreq;"
+done | while IFS='|' read -r bundle_id csreq services; do
+    escaped_id=$(printf '%s' "$bundle_id" | sed "s/'/\\\\'/g")
+    apps=$(mdfind "kMDItemCFBundleIdentifier == '$escaped_id'" 2>/dev/null |
+        grep '\.app$' | grep -v '/\.Trash/')
+    if [ -z "$apps" ]; then
+        [ -z "$orphans" ] ||
+            echo "fixapps: no app found for $bundle_id ($services)"
         continue
     fi
 
-    escaped_id=$(printf '%s' "$bundle_id" | sed "s/'/''/g")
-    csreqs=$(sqlite3 -readonly "$tccdb" \
-        "SELECT hex(csreq) FROM access WHERE client='$escaped_id' AND csreq IS NOT NULL;" 2>/dev/null)
-    [ -n "$csreqs" ] || continue
+    printf '%s' "$csreq" | xxd -r -p > "$reqfile"
 
-    mismatch=1
+    # Note: If several copies share a bundle ID, any one satisfying the
+    # requirement counts as current, to avoid resetting on every run due
+    # to some old stray copy.
+    satisfied=
+    mismatched=
+    invalid=
     old_ifs=$IFS
     IFS='
 '
-    for row in $csreqs; do
-        row_lc=$(printf '%s' "$row" | tr 'A-Z' 'a-z')
-        case "$row_lc" in
-            *"$cdhash"*) mismatch=0 ;;
-        esac
+    for app in $apps; do
+        if codesign --verify -R "$reqfile" "$app" >/dev/null 2>&1; then
+            satisfied=1
+            break
+        fi
+        # Distinguish a mismatched requirement from a broken signature,
+        # which resetting TCC would not fix.
+        if codesign --verify "$app" >/dev/null 2>&1; then
+            mismatched=1
+        else
+            invalid="$invalid $app"
+        fi
     done
     IFS=$old_ifs
+    [ -z "$satisfied" ] || continue
 
-    if [ "$mismatch" -eq 1 ]; then
-        echo "fixapps: stale TCC grant detected for $bundle_id ($app)"
-        fixapp "$bundle_id"
+    if [ -z "$mismatched" ]; then
+        echo "fixapps: invalid code signature, skipping $bundle_id:$invalid" >&2
+        continue
     fi
+
+    echo "fixapps: stale TCC grant detected for $bundle_id ($services)"
+    echo "$bundle_id" >> "$stale"
+done
+
+[ -z "$dry_run" ] || exit 0
+
+sort -u "$stale" | while read -r bundle_id; do
+    fixapp "$bundle_id"
 done
