@@ -52,7 +52,7 @@ checkout = git clone git@github.com:dhale/jtk
 checkout = git clone git@github.com:locationtech/jts
 
 [code/science/keller-lab-block-filetype]
-checkout = git clone https://bitbucket.org/fernandoamat/keller-lab-block-filetype
+checkout = git clone git@ssh.bitbucket.org:fernandoamat/keller-lab-block-filetype
 
 [code/science/labis]
 checkout = git clone git://git.code.sf.net/p/labinfsyst/code labis
