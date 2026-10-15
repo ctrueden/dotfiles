@@ -1,4 +1,45 @@
-$dotfiles = Split-Path $MyInvocation.MyCommand.Path -Parent
+# Sets up the dotfiles on Windows, where this is the entry point: it runs
+# setup.sh in Git Bash, then sets up PowerShell and Windows Terminal.
+#
+# To bootstrap a new machine, run it straight from GitHub:
+#
+#   irm https://raw.githubusercontent.com/ctrueden/dotfiles/main/setup.ps1 | iex
+#
+# which installs scoop and git, clones the dotfiles into
+# ~/code/ctrueden/dotfiles, then runs the clone's copy of this script.
+
+# Note: Piped into iex, the script has no file, and so is bootstrapping.
+if (-not $PSCommandPath) {
+    # Both scoop's installer and the cloned scripts need local scripts allowed.
+    if ((Get-ExecutionPolicy -Scope CurrentUser) -notin 'RemoteSigned', 'Unrestricted', 'Bypass') {
+        Set-ExecutionPolicy RemoteSigned -Scope CurrentUser -Force
+    }
+    if (-not (Get-Command scoop -ErrorAction SilentlyContinue)) {
+        Invoke-RestMethod https://get.scoop.sh | Invoke-Expression
+    }
+    if (-not (Get-Command git -ErrorAction SilentlyContinue)) {
+        scoop install git
+    }
+    $clone = "$HOME\code\ctrueden\dotfiles"
+    if (-not (Test-Path $clone)) {
+        git clone https://github.com/ctrueden/dotfiles $clone
+    }
+    & "$clone\setup.ps1"
+    return
+}
+
+$dotfiles = Split-Path $PSCommandPath -Parent
+
+# Git for Windows, from scoop, or else from its own installer.
+$git = "$HOME\scoop\apps\git\current"
+if (-not (Test-Path $git)) {
+    $git = Split-Path (Split-Path (Get-Command git).Source)
+}
+
+# Run setup.sh, which tells from this variable that it need not defer to here.
+$env:DOTFILES_SETUP_PS1 = 1
+& "$git\bin\bash.exe" "$($dotfiles -replace '\\', '/')/setup.sh"
+Remove-Item Env:DOTFILES_SETUP_PS1
 
 # Install stub profiles (CurrentUserAllHosts) which source the profile.ps1 here,
 # for both Windows PowerShell 5.1 and PowerShell 7+.
@@ -19,7 +60,6 @@ foreach ($dir in 'WindowsPowerShell', 'PowerShell') {
 # profiles, and giving the built-in profiles Hack Nerd Font.
 # Note: A fragment can neither choose the default profile nor set defaults for
 # all profiles, so those remain for the user, in Terminal's settings.
-$git = "$HOME\scoop\apps\git\current"
 $font = @{ face = 'Hack Nerd Font' }
 $icon = "$git\usr\share\git\git-for-windows.ico"
 $profiles = @(

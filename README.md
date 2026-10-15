@@ -11,6 +11,17 @@ Getting Started
 1. Clone this repository somewhere.
 2. Run the `setup.sh` script to link configuration files and install tools.
 
+On Windows, run this in PowerShell instead:
+
+```powershell
+irm https://raw.githubusercontent.com/ctrueden/dotfiles/main/setup.ps1 | iex
+```
+
+It installs [scoop] and git, clones this repository into
+`~/code/ctrueden/dotfiles`, and runs its `setup.ps1`, which runs `setup.sh`
+in Git Bash, then sets up PowerShell and Windows Terminal. Later, rerun
+`setup.ps1` (or `setup.sh`, which defers to it) from the clone.
+
 
 LICENSE
 -------
@@ -34,8 +45,8 @@ What does this configuration include?
     -   [Neovim] with [kickstart.nvim] on systems with nvim 0.10+, providing
         LSP integration, treesitter syntax, fuzzy finding via [Telescope],
         completion via [nvim-cmp], debugging via [nvim-dap], and more.
-    -   [Vim] with [Vundle] as a fallback on systems without neovim
-        (e.g. Windows/MSYS), with plugins including [vim-fugitive],
+    -   [Vim] with [Vundle] as a fallback on systems without neovim,
+        with plugins including [vim-fugitive],
         [vim-airline], and [vim-sensible].
     -   [vim-sneak] and [vim-surround] and more for both editors.
     -   See the [vimrc](vimrc) and [nvim/](nvim/) for details.
@@ -51,10 +62,11 @@ What does this configuration include?
     -   See [byobu/](byobu/) for details.
 
 4.  A declarative package manifest, installed by `install-packages`:
-    -   One [packages](packages) file lists tools for both apt and Homebrew,
-        with prefixes for manager-specific entries, including npm and uv.
+    -   One [packages](packages) file lists tools for apt, Homebrew, and, on
+        Windows, scoop and winget, plus npm and uv; each entry names its
+        alternatives in order of preference, e.g. `apt:fd-find | brew|scoop:fd`.
     -   Sections for core tools (always), GUI apps (desktops only), and
-        opt-in groups (build, dev, heavy, java, system), chosen per machine when
+        opt-in groups (build, dev, heavy, primary, java, system), chosen per machine when
         `setup.sh` first runs and saved in `~/.config/dotfiles/sections`.
     -   Installs only what is missing, in as few package manager
         invocations as possible; use `--dry-run` to preview.
@@ -132,6 +144,7 @@ everything [POSIX]-friendly&mdash;but I haven't tested them.
 [myrepos]: https://myrepos.branchable.com/
 [nvim-cmp]: https://github.com/hrsh7th/nvim-cmp
 [nvim-dap]: https://github.com/mfussenegger/nvim-dap
+[scoop]: https://scoop.sh/
 [tmux]: https://github.com/tmux/tmux
 [vim-airline]: https://github.com/vim-airline/vim-airline
 [vim-fugitive]: https://github.com/tpope/vim-fugitive

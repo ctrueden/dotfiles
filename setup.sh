@@ -79,6 +79,13 @@ unlink_file() {
 
 # -- Main --
 
+# NB: On Windows, setup.ps1 is the entry point, which runs this script and
+# then sets up PowerShell and Windows Terminal. Run directly, defer to it.
+if [ -n "$WINDOWS" ] && [ -z "${DOTFILES_SETUP_PS1:-}" ]; then
+  exec powershell -NoProfile -ExecutionPolicy Bypass \
+    -File "$(cygpath -w "$CONFIG_DIR/setup.ps1")"
+fi
+
 echo
 echo "--> Linking up your dotfiles..."
 
@@ -182,14 +189,6 @@ case "$(uname)" in
     cd Library
     link_file "$CONFIG_DIR/KeyBindings" KeyBindings
     cd ..
-    ;;
-esac
-
-# PowerShell profiles [Windows]
-case "$(uname)" in
-  MINGW*|MSYS*|CYGWIN*)
-    (set -x; powershell -NoProfile -ExecutionPolicy Bypass \
-      -File "$(cygpath -w "$CONFIG_DIR/setup.ps1")")
     ;;
 esac
 
