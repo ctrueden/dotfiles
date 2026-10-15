@@ -20,6 +20,10 @@ function up7 { cd ..\..\..\..\..\..\.. }
 function up8 { cd ..\..\..\..\..\..\..\.. }
 function up9 { cd ..\..\..\..\..\..\..\..\.. }
 
+if (Get-Command starship -ErrorAction SilentlyContinue) {
+    Invoke-Expression (&starship init powershell)
+}
+
 function z {
     param(
         [Parameter(Mandatory=$true)]

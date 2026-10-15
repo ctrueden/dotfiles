@@ -86,6 +86,10 @@ unset _plugins f
 
 export PERL5LIB="$CODE_GIT/perl:$CODE_GIT/contrib/mw-to-git"
 
+# Note: This replaces the prompt set above, where starship is installed;
+# it comes after the plugins, keeping their PROMPT_COMMAND.
+command -v starship >/dev/null && eval "$(starship init bash)"
+
 # Local customized path and environment settings, etc.
 if [ -f ~/.bash_local ]; then
 	test "$DEBUG" && echo "[bashrc] Sourcing ~/.bash_local..."
