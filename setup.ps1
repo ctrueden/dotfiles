@@ -56,6 +56,26 @@ foreach ($dir in 'WindowsPowerShell', 'PowerShell') {
     )
 }
 
+# Install a stub psmux (tmux for Windows) config, which sources the shared
+# tmux.conf, then psmux.conf.
+# Note: Its panes start Git's zsh (else bash) directly, without the launcher
+# that Git Bash uses, so the stub sets what that launcher would: the full
+# Windows PATH, and the MSYSTEM matching this build of Git.
+$shell = "$git\usr\bin\zsh.exe"
+if (-not (Test-Path $shell)) { $shell = "$git\usr\bin\bash.exe" }
+$msystem = if (Test-Path "$git\ucrt64") { 'UCRT64' } else { 'MINGW64' }
+$unixDotfiles = $dotfiles -replace '\\', '/'
+$psmuxConf = "$HOME\.psmux.conf"
+Write-Host "Writing $psmuxConf"
+[IO.File]::WriteAllText($psmuxConf, ((@(
+    '# Written by dotfiles/setup.ps1.'
+    "set -g default-shell `"$($shell -replace '\\', '/')`""
+    'set-environment -g MSYS2_PATH_TYPE inherit'
+    "set-environment -g MSYSTEM $msystem"
+    "source-file `"$unixDotfiles/tmux.conf`""
+    "source-file `"$unixDotfiles/psmux.conf`""
+) -join "`n") + "`n"))
+
 # Install a Windows Terminal fragment, adding Git Bash (and zsh, once there)
 # profiles, and giving the built-in profiles Hack Nerd Font.
 # Note: A fragment can neither choose the default profile nor set defaults for

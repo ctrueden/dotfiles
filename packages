@@ -39,7 +39,7 @@ apt|brew|scoop:aspell
 apt|brew:bash
 apt|brew|scoop:bat
 apt|brew|scoop:boxes
-apt|brew:byobu
+apt|brew:byobu | winget:marlocarlo.psmux
 brew|custom:node
 apt|brew:coreutils
 apt|brew|scoop:fzf
