@@ -58,11 +58,25 @@ brew:fastfetch
 brew:gnu-sed
 brew:gnu-tar
 brew:tlrc
+scoop:aspell
+scoop:bat
+scoop:boxes
+scoop:fastfetch
+scoop:fd
+scoop:fzf
+scoop:glow
+scoop:highlight
+scoop:jq
+scoop:ripgrep
+scoop:tlrc
+scoop:xmlstarlet
+winget:Microsoft.PowerShell
 npm:emoj
 
 # editors
 neovim
 vim
+scoop:neovim
 npm:tree-sitter-cli     scripts  # Fetches its binary.
 
 # git
@@ -72,11 +86,14 @@ apt:myrepos
 brew:gh
 apt-custom:gh
 brew:mr
+scoop:delta
+scoop:gh
 
 # python
 apt:python-is-python3
 brew:uv
 apt-custom:uv
+scoop:uv
 
 # media
 ffmpeg
@@ -87,6 +104,11 @@ pandoc
 webp
 apt:libtiff-tools
 brew:libtiff
+scoop:ffmpeg
+scoop:graphviz
+scoop:imagemagick
+scoop:libwebp
+scoop:pandoc
 
 # other
 ca-certificates
@@ -94,9 +116,12 @@ gettext
 shared-mime-info
 zstd
 brew:duti
+scoop:gettext
+scoop:zstd
 
 # prompt
 starship
+scoop:starship
 
 # java
 uv:cjdk
@@ -108,6 +133,7 @@ npm:@openai/codex
 npm:opencode-ai         scripts  # Fetches its binary.
 npm:@kilocode/cli       scripts  # Fetches its binary.
 brew:ollama
+scoop:ollama
 uv:oterm
 #npm:@anthropic-ai/claude-code
 #npm:@charmland/crush
@@ -122,9 +148,14 @@ libtool
 pkgconf
 apt:build-essential
 apt:make
+scoop:cmake
+scoop:gcc
+scoop:make
+scoop:pkgconf
 
 [dev: build]
 ruby
+scoop:ruby
 npm:pnpm                scripts  # Links its native binary.
 #npm:svg-term-cli                # Unmaintained since 2018.
 uv:prysk
@@ -136,11 +167,15 @@ uv:yamllint
 cask:google-chrome
 cask:jetbrains-toolbox
 cask:visual-studio-code
+winget:Google.Chrome
+winget:JetBrains.Toolbox
+winget:Microsoft.VisualStudioCode
 
 [system]
 wireguard-tools
 apt:lm-sensors
 apt:nfs-common
+winget:WireGuard.WireGuard
 
 [gui]
 fontconfig
@@ -176,6 +211,20 @@ cask:stats
 cask:xquartz
 cask:zoom
 cask:zulip
+scoop:nerd-fonts/Hack-NF
+winget:Microsoft.WindowsTerminal
+winget:9MSMLRH6LZF3             # Windows Notepad, from the Microsoft Store.
+winget:Microsoft.PowerToys
+winget:TheDocumentFoundation.LibreOffice
+winget:Anthropic.Claude
+winget:AgileBits.1Password
+winget:Discord.Discord
+winget:Mozilla.Firefox
+winget:GIMP.GIMP.3
+winget:VideoLAN.VLC
+winget:Nextcloud.NextcloudDesktop
+winget:Zoom.Zoom
+winget:Zulip.Zulip
 
 [java]
 custom:mvn
@@ -191,3 +240,8 @@ cask:zulu@11
 cask:zulu@17
 cask:zulu@21
 cask:zulu@25
+scoop:java/zulu8-jdk
+scoop:java/zulu11-jdk
+scoop:java/zulu17-jdk
+scoop:java/zulu21-jdk
+scoop:java/zulu25-jdk
