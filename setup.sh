@@ -276,7 +276,12 @@ fi
 # claude at all would be equally dangerous, so this is an acceptable risk.
 if ! command -v claude >/dev/null 2>&1; then
   echo "Installing Claude Code..."
-  curl -fsSL https://claude.ai/install.sh | bash
+  case "$(uname)" in
+    # Note: install.sh refuses to run on Windows; it has a PowerShell twin.
+    MINGW*|MSYS*|CYGWIN*)
+      powershell -NoProfile -ExecutionPolicy Bypass -Command 'irm https://claude.ai/install.ps1 | iex' ;;
+    *) curl -fsSL https://claude.ai/install.sh | bash ;;
+  esac
 fi
 
 # Note: We ask whenever the identity is unset, rather than when .gitconfig is
