@@ -1,7 +1,12 @@
 # Which shell am I running? zsh? bash?
+# Note: zsh and bash identify themselves, since some ps lack -o (e.g. MSYS).
 shell_name() {
-  local shell=$(ps -o comm= $$)
-  echo "${shell#-}"
+  if [ -n "${ZSH_VERSION:-}" ]; then echo zsh
+  elif [ -n "${BASH_VERSION:-}" ]; then echo bash
+  else
+    local shell=$(ps -o comm= $$)
+    echo "${shell#-}"
+  fi
 }
 
 # Path interrogation and manipulation functions.
