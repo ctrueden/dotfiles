@@ -1,8 +1,11 @@
 # Packages to install, read by bin/system/install-packages.
 #
 # One entry per line. A bare name is the same package on apt and brew.
+# Windows ignores bare names; its packages need scoop or winget entries.
 # Prefixes limit an entry to one manager:
 #   apt:NAME   brew:NAME   cask:NAME (macOS GUI apps)
+#   scoop:NAME (Windows CLI tools; BUCKET/NAME for a bucket other than main)
+#   winget:ID (Windows apps, including Microsoft Store ones)
 #   npm:NAME   uv:NAME
 #   custom:NAME   apt-custom:NAME   brew-custom:NAME
 # A custom entry runs the script bin/packages/install-NAME, as does a package

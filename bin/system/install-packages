@@ -70,22 +70,40 @@ while [ $# -gt 0 ]; do
   shift
 done
 
-# -- Detect package manager and environment --
+# -- Detect package managers and environment --
 
-if command -v apt-get >/dev/null; then
-  PM=apt
-elif command -v brew >/dev/null; then
-  PM=brew
-else
-  echo "No supported package manager (apt-get or brew) found." >&2
+# KINDS lists the package managers to use, in install order. PM is the one that
+# bare manifest names go to; Windows has none, as its package names differ too
+# much from those of apt and brew.
+PM= KINDS=
+case "$(uname)" in
+  MINGW*|MSYS*|CYGWIN*)
+    command -v scoop >/dev/null && KINDS=scoop
+    command -v winget >/dev/null && KINDS="$KINDS winget"
+    ;;
+  *)
+    if command -v apt-get >/dev/null; then
+      PM=apt KINDS=apt
+    elif command -v brew >/dev/null; then
+      PM=brew KINDS="brew cask"
+    fi
+    ;;
+esac
+if [ -z "$KINDS" ]; then
+  echo "No supported package manager (apt-get, brew, scoop or winget) found." >&2
   exit 1
 fi
+
+has_kind() { case " $KINDS " in *" $1 "*) ;; *) return 1 ;; esac; }
+
+scoop_dir=${SCOOP:-$HOME/scoop}
 
 SUDO=sudo
 test "$(id -u)" -eq 0 && SUDO=
 
 is_desktop() {
   test "$(uname)" = Darwin && return 0
+  case "$(uname)" in MINGW*|MSYS*|CYGWIN*) return 0 ;; esac
   test -n "${XDG_CURRENT_DESKTOP:-}" && return 0
   test -d /usr/share/xsessions -o -d /usr/share/wayland-sessions
 }
@@ -128,15 +146,17 @@ while IFS= read -r line; do
     \[*) section=${line#\[}; section=${section%[]:]}; continue ;;
   esac
   case "$line" in
-    apt:*)          test $PM = apt  && add apt "${line#apt:}" ;;
-    brew:*)         test $PM = brew && add brew "${line#brew:}" ;;
-    cask:*)         test $PM = brew && add cask "${line#cask:}" ;;
+    apt:*)          has_kind apt    && add apt "${line#apt:}" ;;
+    brew:*)         has_kind brew   && add brew "${line#brew:}" ;;
+    cask:*)         has_kind cask   && add cask "${line#cask:}" ;;
+    scoop:*)        has_kind scoop  && add scoop "${line#scoop:}" ;;
+    winget:*)       has_kind winget && add winget "${line#winget:}" ;;
     npm:*)          add npm "${line#npm:}" ;;
     uv:*)           add uv "${line#uv:}" ;;
     custom:*)       add custom "${line#custom:}" ;;
-    apt-custom:*)   test $PM = apt  && add custom "${line#apt-custom:}" ;;
-    brew-custom:*)  test $PM = brew && add custom "${line#brew-custom:}" ;;
-    *)              add $PM "$line" ;;
+    apt-custom:*)   has_kind apt    && add custom "${line#apt-custom:}" ;;
+    brew-custom:*)  has_kind brew   && add custom "${line#brew-custom:}" ;;
+    *)              test -n "$PM"   && add $PM "$line" ;;
   esac
 done < "$manifest"
 
@@ -168,6 +188,21 @@ installed() {
             sed -n 's/^ii  *//p' ;;
     brew) brew list --formula -1 ;;
     cask) brew list --cask -1 ;;
+    scoop)
+      for f in "$scoop_dir"/apps/*/current/*install.json; do
+        test -e "$f" || continue
+        app=${f%/current/*}; app=${app##*/}
+        echo "$app"
+        # Note: Also list it as BUCKET/NAME, as manifest entries from
+        # buckets other than main name it that way.
+        sed -n "s|.*\"bucket\": *\"\([^\"]*\)\".*|\1/$app|p" "$f"
+      done ;;
+    winget)
+      # Note: winget's tabular listing truncates long names; its export does not.
+      winget export -o "$(cygpath -w "$tmp/winget.json")" \
+        --accept-source-agreements --disable-interactivity >/dev/null 2>&1
+      sed -n 's/.*"PackageIdentifier" *: *"\([^"]*\)".*/\1/p' \
+        "$tmp/winget.json" 2>/dev/null ;;
     npm)  global_npm ls -g --depth=0 --parseable 2>/dev/null |
             sed -n 's|.*/node_modules/||p' ;;
     uv)   command -v uv >/dev/null &&
@@ -180,7 +215,8 @@ requested() {
   case "$1" in
     apt)  apt-mark showmanual 2>/dev/null ;;
     brew) brew list --formula --installed-on-request -1 ;;
-    *)    installed "$1" ;;
+    # Note: Callers list what is installed first; reuse that (winget is slow).
+    *)    cat "$tmp/$1.have" ;;
   esac
 }
 
@@ -192,8 +228,24 @@ available() {
                  /Candidate:/ && $2 != "(none)" {print p}' ;;
     brew) brew formulae | grep -xFf "$2" ;;
     cask) brew casks | grep -xFf "$2" ;;
+    scoop)
+      while IFS= read -r name; do
+        case "$name" in
+          # Note: A bucket not yet added cannot be checked; assume the best.
+          */*) test ! -d "$scoop_dir/buckets/${name%%/*}" ||
+                 test -f "$scoop_dir/buckets/${name%%/*}/bucket/${name#*/}.json" ;;
+          *) ls "$scoop_dir"/buckets/*/bucket/"$name".json >/dev/null 2>&1 ;;
+        esac && echo "$name"
+      done < "$2" ;;
     *)    cat "$2" ;;
   esac
+}
+
+# Adds the scoop buckets that BUCKET/NAME entries in file $1 come from.
+add_buckets() {
+  for b in $(sed -n 's|/.*||p' "$1" | sort -u); do
+    test -d "$scoop_dir/buckets/$b" || run scoop bucket add "$b"
+  done
 }
 
 # Prints the install command for a kind and its package list.
@@ -203,6 +255,13 @@ install_kind() { # kind names...
     apt)  run $SUDO apt-get install -y "$@" ;;
     brew) run brew install "$@" ;;
     cask) run brew install --cask "$@" ;;
+    scoop) run scoop install "$@" ;;
+    winget)
+      for p in "$@"; do
+        run winget install --id "$p" --exact --silent \
+          --accept-package-agreements --accept-source-agreements \
+          --disable-interactivity || echo "Failed: winget install $p" >&2
+      done ;;
     npm)  run global_npm install -g $(allow_scripts_option) "$@" ;;
     uv)   for p in "$@"; do run uv tool install "$p"; done ;;
   esac
@@ -246,7 +305,7 @@ list_packages() {
     END { for (i = 1; i <= count; i++) print order[i], secs[order[i]], (order[i] in act) ? 1 : 0 }
   ' "$tmp/entries" > "$tmp/list"
 
-  for kind in apt brew cask; do
+  for kind in $KINDS; do
     awk -v k="$kind" '$1 == k { print $2 }' "$tmp/list" | sort -u > "$tmp/$kind.all"
     test -s "$tmp/$kind.all" || continue
     difference "$tmp/$kind.all" "$tmp/$kind.have" > "$tmp/$kind.absent"
@@ -261,7 +320,7 @@ list_packages() {
   fi
   color() { test -n "$esc" && printf '%s[%sm' "$esc" "$1"; }
 
-  printf '%-16s%-8s%-32s%s\n' STATUS KIND NAME SECTIONS
+  printf '%-16s%-8s%-36s%s\n' STATUS KIND NAME SECTIONS
   while read -r kind name secs enabled; do
     how=$kind
     if grep -qxF "$name" "$tmp/$kind.requested" 2>/dev/null; then
@@ -271,12 +330,12 @@ list_packages() {
     else
       # As when installing, a package its manager lacks falls back to custom.
       case "$kind" in
-        apt|brew|cask)
+        apt|brew|cask|scoop|winget)
           grep -qxF "$name" "$tmp/$kind.avail" ||
             { test -x "$custom_dir/install-$name" && how=custom; } ;;
       esac
       case "$how" in
-        apt|brew|cask)
+        apt|brew|cask|scoop|winget)
           grep -qxF "$name" "$tmp/$kind.avail" && status=missing || status=unavailable ;;
         custom)
           if [ ! -x "$custom_dir/install-$name" ]; then status=unavailable
@@ -296,7 +355,7 @@ list_packages() {
     case "$status" in
       installed*) c=32 ;; missing) c=33 ;; extra*) c=36 ;; inactive) c=2 ;; *) c=31 ;;
     esac
-    printf '%s%-16s%s%-8s%-32s%s\n' "$(color $c)" "$status" "$off" "$how" "$name" "$secs"
+    printf '%s%-16s%s%-8s%-36s%s\n' "$(color $c)" "$status" "$off" "$how" "$name" "$secs"
     echo "$status" >> "$tmp/statuses"
   done < "$tmp/list"
 
@@ -318,9 +377,8 @@ test -n "$list" && { list_packages; exit; }
 : > "$tmp/custom.run"
 updated=
 
-for kind in $PM cask; do
+for kind in $KINDS; do
   test -f "$tmp/$kind.want" || continue
-  test "$kind" = cask -a $PM != brew && continue
 
   installed "$kind" | sort -u > "$tmp/$kind.have"
   requested "$kind" | sort -u > "$tmp/$kind.requested"
@@ -333,6 +391,7 @@ for kind in $PM cask; do
     updated=1
     run $SUDO apt-get update
   fi
+  test "$kind" = scoop && add_buckets "$tmp/$kind.missing"
 
   # Drop packages the manager cannot supply; use a custom installer if any.
   available "$kind" "$tmp/$kind.missing" | sort -u > "$tmp/$kind.avail"
@@ -359,7 +418,7 @@ if [ -s "$tmp/$PM.unmarked" ]; then
   did=1
 fi
 
-for kind in $PM cask; do
+for kind in $KINDS; do
   test -s "$tmp/$kind.missing" 2>/dev/null || continue
   install_kind "$kind" $(cat "$tmp/$kind.missing") || exit 1
   did=1
