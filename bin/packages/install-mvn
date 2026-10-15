@@ -7,6 +7,10 @@
 # section. To upgrade, bump mvn_ver and the hash together; the hash is
 # published as a .sha512 file beside the release archive.
 #
+# Platforms: linux macos
+# Note: Not Windows, where Git Bash's ln -s copies rather than links, and the
+# copied mvn script then cannot find the rest of Maven.
+#
 # With --check, reports via exit code whether the pinned version is linked.
 
 . "${DOTFILES:?}/lib/download.sh"

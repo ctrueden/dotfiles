@@ -9,6 +9,8 @@
 #   Linux   the apt package where the distro has one (Ubuntu 25.10+),
 #           or else the Flathub flatpak, per user.
 #
+# Platforms: linux macos
+#
 # With --check, reports via exit code whether Deskflow is installed.
 
 set -eu

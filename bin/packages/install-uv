@@ -9,6 +9,8 @@
 # pins the whole chain. To upgrade, bump uv_ver and the hash together; no
 # hash is published for the installer, so compute it with sha256sum.
 #
+# Platforms: linux macos
+#
 # With --check, reports via exit code whether any uv is installed.
 # Note: The pin applies only to a fresh install; from then on, uv keeps
 # itself current via `uv self update`, so a newer version is not outdated.

@@ -4,6 +4,8 @@
 # lags behind). Adapted from:
 # https://github.com/cli/cli/blob/trunk/docs/install_linux.md
 #
+# Platforms: linux
+#
 # With --check, reports via exit code whether gh is already installed;
 # once it is, apt keeps it up to date.
 

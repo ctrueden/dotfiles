@@ -5,6 +5,8 @@
 # older than 25.04). To upgrade, bump starship_ver and both hashes together;
 # the hashes are published as .sha256 files beside each release asset.
 #
+# Platforms: linux
+#
 # With --check, reports via exit code whether the pinned version is installed.
 
 . "${DOTFILES:?}/lib/download.sh"

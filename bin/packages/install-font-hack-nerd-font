@@ -5,6 +5,8 @@
 # To upgrade, bump font_ver and the hash together; the hashes are listed
 # in the SHA-256.txt file beside each release's assets.
 #
+# Platforms: linux
+#
 # With --check, reports via exit code whether the pinned version is installed.
 
 . "${DOTFILES:?}/lib/download.sh"

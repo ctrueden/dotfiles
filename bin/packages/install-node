@@ -10,6 +10,8 @@
 # so they survive upgrades. This is set in the install's own etc/npmrc, not
 # in ~/.npmrc, where a prefix setting would break nvm.
 #
+# Platforms: linux
+#
 # With --check, reports via exit code whether the pinned version is linked.
 
 . "${DOTFILES:?}/lib/download.sh"
