@@ -1,16 +1,21 @@
 # Packages to install, read by bin/system/install-packages.
 #
-# One entry per line. A bare name is the same package on apt and brew.
-# Windows ignores bare names; its packages need scoop or winget entries.
-# Prefixes limit an entry to one manager:
-#   apt:NAME   brew:NAME   cask:NAME (macOS GUI apps)
-#   scoop:NAME (Windows CLI tools; BUCKET/NAME for a bucket other than main)
-#   winget:ID (Windows apps, including Microsoft Store ones)
-#   npm:NAME   uv:NAME
-#   custom:NAME   apt-custom:NAME   brew-custom:NAME
-# A custom entry runs the script bin/packages/install-NAME, as does a package
-# unavailable from its manager, if such a script exists. Each script must
-# support --check, exiting 0 when its tool is installed and current.
+# One entry per line: one or more alternatives separated by |, in order of
+# preference. The first alternative whose manager this machine has, and which
+# can supply the package, installs it. Each alternative is MANAGER:NAME, or
+# just MANAGER to take the name of the next alternative that has one. By
+# convention, " | " separates alternatives naming different packages:
+#   apt:fd-find | brew|scoop:fd
+#
+# Managers:
+#   apt   brew   cask (macOS GUI apps)
+#   scoop (Windows CLI tools; BUCKET/NAME for a bucket other than main)
+#   winget (Windows apps, by package ID, including Microsoft Store ones)
+#   npm   uv
+#   custom (runs the script bin/packages/install-NAME)
+# Each custom script must support --check, exiting 0 when its tool is
+# installed and current. A "# Platforms:" line in its header (linux, macos,
+# windows) limits the OSes where it counts as an alternative.
 # An npm entry followed by the word scripts may run its install scripts,
 # which npm otherwise warns about, and will someday refuse to run.
 #
@@ -27,116 +32,84 @@
 
 [core]
 # shell
-ansiweather
-aspell
-bash
-bat
-boxes
-byobu
-brew:node
-apt-custom:node
-coreutils
-fzf
-glow
-gnupg
-highlight
-htop
-pwgen
-ripgrep
-toilet
-tree
-xmlstarlet
+apt|brew:ansiweather
+apt|brew|scoop:aspell
+apt|brew:bash
+apt|brew|scoop:bat
+apt|brew|scoop:boxes
+apt|brew:byobu
+brew|custom:node
+apt|brew:coreutils
+apt|brew|scoop:fzf
+apt|brew|scoop:glow
+apt|brew:gnupg
+apt|brew|scoop:highlight
+apt|brew:htop
+apt|brew:pwgen
+apt|brew|scoop:ripgrep
+apt|brew:toilet
+apt|brew:tree
+apt|brew|scoop:xmlstarlet
 apt:curl
 apt:exuberant-ctags
-apt:fd-find
-apt:jq
+apt:fd-find | brew|scoop:fd
+apt|scoop:jq
 apt:openssh-client
 apt:unzip
 apt:xclip
 apt:zsh
-brew:fd
-brew:fastfetch
+brew|scoop:fastfetch
 brew:gnu-sed
 brew:gnu-tar
-brew:tlrc
-scoop:aspell
-scoop:bat
-scoop:boxes
-scoop:fastfetch
-scoop:fd
-scoop:fzf
-scoop:glow
-scoop:highlight
-scoop:jq
-scoop:ripgrep
-scoop:tlrc
-scoop:xmlstarlet
+brew|scoop:tlrc
 winget:Microsoft.PowerShell
 npm:emoj
 
 # editors
-neovim
-vim
-scoop:neovim
+apt|brew|scoop:neovim
+apt|brew:vim
 npm:tree-sitter-cli     scripts  # Fetches its binary.
 
 # git
-git-delta
-git-lfs
-apt:myrepos
-brew:gh
-apt-custom:gh
-brew:mr
-scoop:delta
-scoop:gh
+apt|brew:git-delta | scoop:delta
+apt|brew:git-lfs
+apt:myrepos | brew:mr
+brew|scoop|custom:gh
 
 # python
 apt:python-is-python3
-brew:uv
-apt-custom:uv
-scoop:uv
+brew|scoop|custom:uv
 
 # media
-ffmpeg
-graphviz
-imagemagick
-netpbm
-pandoc
-webp
-apt:libtiff-tools
-brew:libtiff
-scoop:ffmpeg
-scoop:graphviz
-scoop:imagemagick
-scoop:libwebp
-scoop:pandoc
+apt|brew|scoop:ffmpeg
+apt|brew|scoop:graphviz
+apt|brew|scoop:imagemagick
+apt|brew:netpbm
+apt|brew|scoop:pandoc
+apt|brew:webp | scoop:libwebp
+apt:libtiff-tools | brew:libtiff
 
 # other
-ca-certificates
-gettext
-shared-mime-info
-zstd
+apt|brew:ca-certificates
+apt|brew|scoop:gettext
+apt|brew:shared-mime-info
+apt|brew|scoop:zstd
 brew:duti
-scoop:gettext
-scoop:zstd
 
 # prompt
-starship
-scoop:starship
+apt|brew|scoop|custom:starship
 
 # java
 uv:cjdk
 uv:jgo
 
 # AI coding assistants
-cask:claude-code
-scoop:claude-code
+cask|scoop:claude-code
 npm:@github/copilot
 npm:@openai/codex
 npm:opencode-ai         scripts  # Fetches its binary.
 npm:@kilocode/cli       scripts  # Fetches its binary.
-brew:ollama
-scoop:ollama
+brew|scoop:ollama
 uv:oterm
 #npm:@charmland/crush
 #npm:@google/gemini-cli
@@ -144,44 +117,33 @@ uv:oterm
 #npm:@vibe-kit/grok-cli
 
 [build]
-cmake
-gcc
-libtool
-pkgconf
-custom:mvn
+apt|brew|scoop:cmake
+apt|brew|scoop:gcc
+apt|brew:libtool
+apt|brew|scoop:pkgconf
+scoop:maven | custom:mvn
 apt:build-essential
-apt:make
-scoop:cmake
-scoop:gcc
-scoop:make
-scoop:pkgconf
+apt|scoop:make
 
 [dev: build]
-ruby
-scoop:ruby
+apt|brew|scoop:ruby
 npm:pnpm                scripts  # Links its native binary.
 #npm:svg-term-cli                # Unmaintained since 2018.
 uv:prysk
 uv:pydeps
 uv:twine
 uv:yamllint
-cask:google-chrome               # Chrome is for testing, not my daily driver.
-winget:Google.Chrome             # Chrome is for testing, not my daily driver.
+cask:google-chrome | winget:Google.Chrome  # Chrome is for testing, not my daily driver.
 
 [heavy]
-cask:jetbrains-toolbox
-cask:visual-studio-code
-winget:JetBrains.Toolbox
-winget:Microsoft.VisualStudioCode
+cask:jetbrains-toolbox | winget:JetBrains.Toolbox
+cask:visual-studio-code | winget:Microsoft.VisualStudioCode
 
 [primary]
-cask:discord
-winget:Discord.Discord
-cask:nextcloud                     # My Nextcloud setup only works with Wireguard.
-winget:Nextcloud.NextcloudDesktop  # My Nextcloud setup only works with Wireguard.
-cask:zoom
-winget:Zoom.Zoom
-wireguard-tools
+cask:discord | winget:Discord.Discord
+cask:nextcloud | winget:Nextcloud.NextcloudDesktop  # My Nextcloud setup only works with Wireguard.
+cask:zoom | winget:Zoom.Zoom
+apt|brew:wireguard-tools
 
 [system]
 apt:lm-sensors
@@ -189,11 +151,9 @@ apt:nfs-common
 winget:WireGuard.WireGuard
 
 [gui]
-fontconfig
-apt-custom:font-hack-nerd-font
-cask:font-hack-nerd-font
-apt:libreoffice
-cask:libreoffice
+apt|brew:fontconfig
+cask|custom:font-hack-nerd-font | scoop:nerd-fonts/Hack-NF
+apt|cask:libreoffice | winget:TheDocumentFoundation.LibreOffice
 apt:barrier
 apt:dconf-editor
 apt:diodon
@@ -204,47 +164,27 @@ apt:gnome-tweaks
 apt:guake
 apt:kid3-qt
 apt:picard
-apt:gimp
-apt:vlc
+apt|cask:gimp | winget:GIMP.GIMP.3
+apt|cask:vlc | winget:VideoLAN.VLC
 apt:meshlab
-cask:claude
-cask:1password
-cask:firefox
-cask:gimp
-cask:vlc
+cask:claude | winget:Anthropic.Claude
+cask:1password | winget:AgileBits.1Password
+cask:firefox | winget:Mozilla.Firefox
 cask:iterm2
 cask:maccy
 cask:rectangle
 cask:stats
 cask:xquartz
-cask:zulip
-scoop:nerd-fonts/Hack-NF
+cask:zulip | winget:Zulip.Zulip
 winget:Microsoft.WindowsTerminal
 winget:9MSMLRH6LZF3             # Windows Notepad, from the Microsoft Store.
 winget:Microsoft.PowerToys
-winget:TheDocumentFoundation.LibreOffice
-winget:Anthropic.Claude
-winget:AgileBits.1Password
-winget:Mozilla.Firefox
-winget:GIMP.GIMP.3
-winget:VideoLAN.VLC
-winget:Zulip.Zulip
 
 [java]
 brew:cfr-decompiler
 brew:procyon-decompiler
-apt:openjdk-8-jdk
-apt:openjdk-11-jdk
-apt:openjdk-17-jdk
-apt:openjdk-21-jdk
-apt:openjdk-25-jdk
-cask:zulu@8
-cask:zulu@11
-cask:zulu@17
-cask:zulu@21
-cask:zulu@25
-scoop:java/zulu8-jdk
-scoop:java/zulu11-jdk
-scoop:java/zulu17-jdk
-scoop:java/zulu21-jdk
-scoop:java/zulu25-jdk
+apt:openjdk-8-jdk | cask:zulu@8 | scoop:java/zulu8-jdk
+apt:openjdk-11-jdk | cask:zulu@11 | scoop:java/zulu11-jdk
+apt:openjdk-17-jdk | cask:zulu@17 | scoop:java/zulu17-jdk
+apt:openjdk-21-jdk | cask:zulu@21 | scoop:java/zulu21-jdk
+apt:openjdk-25-jdk | cask:zulu@25 | scoop:java/zulu25-jdk

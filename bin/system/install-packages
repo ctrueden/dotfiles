@@ -27,7 +27,7 @@ Options:
   -l, --list          List every package relevant to this OS: its status, how
                       it installs, and its sections. Installs nothing.
   --with SECTION      Also enable an opt-in section
-                      (build, dev, heavy, java, system).
+                      (build, dev, heavy, primary, java, system).
   --without SECTION   Skip a section, even a default one (e.g. gui on a desktop).
   -h, --help          Show this help.
 
@@ -47,7 +47,7 @@ Statuses shown by --list:
   extra-dep       installed only as another package's dependency,
                   and in no enabled section
   inactive        not installed, and in no enabled section
-  unavailable     the manager lacks it and there is no custom installer
+  unavailable     none of its alternatives here can supply it
 EOF
 }
 
@@ -72,20 +72,24 @@ done
 
 # -- Detect package managers and environment --
 
-# KINDS lists the package managers to use, in install order. PM is the one that
-# bare manifest names go to; Windows has none, as its package names differ too
-# much from those of apt and brew.
-PM= KINDS=
 case "$(uname)" in
-  MINGW*|MSYS*|CYGWIN*)
+  Darwin) os=macos ;;
+  MINGW*|MSYS*|CYGWIN*) os=windows ;;
+  *) os=linux ;;
+esac
+
+# The package managers to use, in install order.
+KINDS=
+case $os in
+  windows)
     command -v scoop >/dev/null && KINDS=scoop
     command -v winget >/dev/null && KINDS="$KINDS winget"
     ;;
   *)
     if command -v apt-get >/dev/null; then
-      PM=apt KINDS=apt
+      KINDS=apt
     elif command -v brew >/dev/null; then
-      PM=brew KINDS="brew cask"
+      KINDS="brew cask"
     fi
     ;;
 esac
@@ -94,16 +98,13 @@ if [ -z "$KINDS" ]; then
   exit 1
 fi
 
-has_kind() { case " $KINDS " in *" $1 "*) ;; *) return 1 ;; esac; }
-
 scoop_dir=${SCOOP:-$HOME/scoop}
 
 SUDO=sudo
 test "$(id -u)" -eq 0 && SUDO=
 
 is_desktop() {
-  test "$(uname)" = Darwin && return 0
-  case "$(uname)" in MINGW*|MSYS*|CYGWIN*) return 0 ;; esac
+  test $os = linux || return 0
   test -n "${XDG_CURRENT_DESKTOP:-}" && return 0
   test -d /usr/share/xsessions -o -d /usr/share/wayland-sessions
 }
@@ -124,62 +125,41 @@ for s in $without; do
   sections=$(echo "$sections" | sed "s/ $s / /g")
 done
 
-# -- Read the manifest into one want-list per kind --
-
-tmp=$(mktemp -d) || exit 1
-trap 'rm -rf "$tmp"' EXIT
-
-# Records an entry relevant to this OS, and wants it if its section is enabled.
-add() { # kind name
-  echo "$1 $2 $section" >> "$tmp/entries"
-  case "$sections" in *" $section "*) echo "$2" >> "$tmp/$1.want" ;; esac
-}
-
-section=
-while IFS= read -r line; do
-  line=${line%%#*}
-  set -f; set -- $line; set +f
-  line=${1:-}
-  test -n "$line" || continue
-  case "$line" in
-    # Note: Only a header's first word is left, e.g. [dev: build] -> [dev:
-    \[*) section=${line#\[}; section=${section%[]:]}; continue ;;
-  esac
-  case "$line" in
-    apt:*)          has_kind apt    && add apt "${line#apt:}" ;;
-    brew:*)         has_kind brew   && add brew "${line#brew:}" ;;
-    cask:*)         has_kind cask   && add cask "${line#cask:}" ;;
-    scoop:*)        has_kind scoop  && add scoop "${line#scoop:}" ;;
-    winget:*)       has_kind winget && add winget "${line#winget:}" ;;
-    npm:*)          add npm "${line#npm:}" ;;
-    uv:*)           add uv "${line#uv:}" ;;
-    custom:*)       add custom "${line#custom:}" ;;
-    apt-custom:*)   has_kind apt    && add custom "${line#apt-custom:}" ;;
-    brew-custom:*)  has_kind brew   && add custom "${line#brew-custom:}" ;;
-    *)              test -n "$PM"   && add $PM "$line" ;;
-  esac
-done < "$manifest"
-
-for f in "$tmp"/*.want; do
-  test -e "$f" && sort -u "$f" -o "$f"
-done
+# Note: Custom installers put tools in ~/.local/bin, which may not be on the
+# PATH yet, e.g. on a fresh machine during setup.sh.
+case ":$PATH:" in
+  *":$HOME/.local/bin:"*) ;;
+  *) PATH="$PATH:$HOME/.local/bin" ;;
+esac
 
 # -- Helpers --
 
-# Lists the wanted names of a kind that are absent from the installed list.
-subtract() { # kind
-  test -f "$tmp/$1.want" || return 0
-  grep -vxFf "$tmp/$1.have" "$tmp/$1.want"
-}
+tmp=$(mktemp -d) || exit 1
+trap 'rm -rf "$tmp"' EXIT
 
 run() {
   echo "+ $*"
   test -n "$dry_run" || "$@"
 }
 
-
 # Names in $1 that do not appear in $2.
 difference() { grep -vxFf "$2" "$1"; }
+
+# Lists the wanted names of a kind that are absent from the installed list.
+subtract() { # kind
+  test -f "$tmp/$1.want" || return 0
+  difference "$tmp/$1.want" "$tmp/$1.have"
+}
+
+# Lists the custom installers that do not support this OS, per the
+# "# Platforms:" line in their headers. Those without one support any OS.
+unsupported_customs() {
+  for f in "$custom_dir"/install-*; do
+    platforms=$(sed -n 's/^# Platforms: *//p' "$f")
+    test -n "$platforms" || continue
+    case " $platforms " in *" $os "*) ;; *) echo "${f##*/install-}" ;; esac
+  done
+}
 
 # Lists installed names for a kind, one per line.
 installed() {
@@ -282,39 +262,127 @@ mark_kind() { # kind names...
 }
 
 # Queues the custom installer for a name, unless its --check reports the tool
-# installed and current. Fails if there is no such installer.
+# installed and current.
 queue_custom() { # name
-  test -x "$custom_dir/install-$1" || return 1
   sh "$custom_dir/install-$1" --check || echo "$1" >> "$tmp/custom.run"
 }
 
+# -- Read the manifest --
+
+# Each line of $tmp/entries is an entry relevant to this OS: its section,
+# whether that is enabled (1 or 0), then its alternatives usable here, as
+# KIND:NAME, in order of preference. An alternative without a name takes
+# that of the next one with a name, so apt:fd-find | brew|scoop:fd yields
+# brew:fd. Spaces around each | are only for legibility.
+sed -e 's/#.*//' -e 's/[[:space:]]*|[[:space:]]*/|/g' "$manifest" |
+awk -v kinds=" $KINDS npm uv custom " -v enabled="$sections" \
+  -v unsupported=" $(unsupported_customs | tr '\n' ' ') " '
+  /^\[/ {
+    section = $1
+    sub(/^\[/, "", section); sub(/:$/, "", section); sub(/\]$/, "", section)
+    next
+  }
+  NF {
+    n = split($1, alt, "|"); name = ""; out = ""
+    for (i = n; i >= 1; i--) {
+      c = index(alt[i], ":")
+      if (c) { kind[i] = substr(alt[i], 1, c - 1); name = substr(alt[i], c + 1) }
+      else kind[i] = alt[i]
+      if (name == "") {
+        print "Warning: skipping entry with no package name: " $1 | "cat >&2"
+        next
+      }
+      named[i] = name
+    }
+    for (i = 1; i <= n; i++) {
+      if (!index(kinds, " " kind[i] " ")) continue
+      if (kind[i] == "custom" && index(unsupported, " " named[i] " ")) continue
+      out = out " " kind[i] ":" named[i]
+    }
+    if (out != "") print section, (index(enabled, " " section " ") ? 1 : 0) out
+  }
+' > "$tmp/entries"
+
+# Installing concerns only the enabled entries; listing concerns them all.
+if [ -z "$list" ]; then
+  awk '$2 == 1' "$tmp/entries" > "$tmp/enabled"
+  mv "$tmp/enabled" "$tmp/entries"
+fi
+
+# -- Work out which alternative supplies each entry --
+
+# $tmp/ok lists, as KIND:NAME, the alternatives that can supply their package:
+# those installed or available from their manager, and existing custom ones.
+# Note: Its first line is a placeholder, so that awk can tell it is first.
+echo - > "$tmp/ok"
+for kind in $KINDS; do
+  awk -v k="$kind:" '{
+    for (i = 3; i <= NF; i++)
+      if (index($i, k) == 1) print substr($i, length(k) + 1)
+  }' "$tmp/entries" | sort -u > "$tmp/$kind.cand"
+  test -s "$tmp/$kind.cand" || continue
+
+  installed "$kind" | sort -u > "$tmp/$kind.have"
+  requested "$kind" | sort -u > "$tmp/$kind.requested"
+  difference "$tmp/$kind.cand" "$tmp/$kind.have" > "$tmp/$kind.absent"
+  : > "$tmp/$kind.avail"
+  if [ -s "$tmp/$kind.absent" ]; then
+    if [ -z "$list" ]; then
+      case "$kind" in
+        apt) run $SUDO apt-get update ;;
+        # Note: Stale buckets have stale hashes, which fail installs.
+        scoop) run scoop update; add_buckets "$tmp/$kind.absent" ;;
+      esac
+    fi
+    available "$kind" "$tmp/$kind.absent" | sort -u > "$tmp/$kind.avail"
+  fi
+  cat "$tmp/$kind.have" "$tmp/$kind.avail" | sed "s|^|$kind:|" >> "$tmp/ok"
+done
+for f in "$custom_dir"/install-*; do
+  echo "custom:${f##*/install-}"
+done >> "$tmp/ok"
+
+# Each line of $tmp/chosen is an entry's first alternative that can supply it,
+# or else its first alternative: kind, name, section, enabled, and whether
+# it can supply it (1 or 0).
+# Note: npm and uv may be installed only during the run, so they always can.
+awk '
+  FNR == NR { ok[$1] = 1; next }
+  {
+    pick = $3; can = 0
+    for (i = 3; i <= NF; i++) {
+      k = substr($i, 1, index($i, ":") - 1)
+      if (k == "npm" || k == "uv" || ($i in ok)) { pick = $i; can = 1; break }
+    }
+    c = index(pick, ":")
+    print substr(pick, 1, c - 1), substr(pick, c + 1), $1, $2, can
+  }
+' "$tmp/ok" "$tmp/entries" > "$tmp/chosen"
+
+# -- List --
+
 # Prints each package relevant to this OS, with its status, kind and sections.
 list_packages() {
-  for kind in $(cut -d' ' -f1 "$tmp/entries" | sort -u); do
-    test "$kind" = custom && continue
+  for kind in npm uv; do
+    grep -q "^$kind " "$tmp/chosen" || continue
     installed "$kind" | sort -u > "$tmp/$kind.have"
     requested "$kind" | sort -u > "$tmp/$kind.requested"
   done
 
   # Merge each package's sections into one line, in manifest order:
-  # kind name sections enabled.
-  awk -v enabled="$sections" '
-    BEGIN { n = split(enabled, a, " "); for (i = 1; i <= n; i++) on[a[i]] = 1 }
+  # kind name sections enabled can.
+  awk '
     {
       k = $1 " " $2
-      if (!(k in secs)) { order[++count] = k; secs[k] = $3 }
+      if (!(k in secs)) { order[++count] = k; secs[k] = $3; can[k] = $5 }
       else if (index("," secs[k] ",", "," $3 ",") == 0) secs[k] = secs[k] "," $3
-      if ($3 in on) act[k] = 1
+      if ($4) act[k] = 1
     }
-    END { for (i = 1; i <= count; i++) print order[i], secs[order[i]], (order[i] in act) ? 1 : 0 }
-  ' "$tmp/entries" > "$tmp/list"
-
-  for kind in $KINDS; do
-    awk -v k="$kind" '$1 == k { print $2 }' "$tmp/list" | sort -u > "$tmp/$kind.all"
-    test -s "$tmp/$kind.all" || continue
-    difference "$tmp/$kind.all" "$tmp/$kind.have" > "$tmp/$kind.absent"
-    available "$kind" "$tmp/$kind.absent" | sort -u > "$tmp/$kind.avail"
-  done
+    END {
+      for (i = 1; i <= count; i++)
+        print order[i], secs[order[i]], (order[i] in act) ? 1 : 0, can[order[i]]
+    }
+  ' "$tmp/chosen" > "$tmp/list"
 
   if [ -t 1 ] && [ -z "${NO_COLOR:-}" ]; then
     esc=$(printf '\033')
@@ -325,29 +393,20 @@ list_packages() {
   color() { test -n "$esc" && printf '%s[%sm' "$esc" "$1"; }
 
   printf '%-16s%-8s%-36s%s\n' STATUS KIND NAME SECTIONS
-  while read -r kind name secs enabled; do
-    how=$kind
+  while read -r kind name secs enabled can; do
     if grep -qxF "$name" "$tmp/$kind.requested" 2>/dev/null; then
       status=installed
     elif grep -qxF "$name" "$tmp/$kind.have" 2>/dev/null; then
       status=installed-dep
+    elif [ "$can" = 0 ]; then
+      status=unavailable
+    elif [ "$kind" = custom ]; then
+      if sh "$custom_dir/install-$name" --check >/dev/null 2>&1
+      then status=installed
+      else status=missing
+      fi
     else
-      # As when installing, a package its manager lacks falls back to custom.
-      case "$kind" in
-        apt|brew|cask|scoop|winget)
-          grep -qxF "$name" "$tmp/$kind.avail" ||
-            { test -x "$custom_dir/install-$name" && how=custom; } ;;
-      esac
-      case "$how" in
-        apt|brew|cask|scoop|winget)
-          grep -qxF "$name" "$tmp/$kind.avail" && status=missing || status=unavailable ;;
-        custom)
-          if [ ! -x "$custom_dir/install-$name" ]; then status=unavailable
-          elif sh "$custom_dir/install-$name" --check >/dev/null 2>&1; then status=installed
-          else status=missing
-          fi ;;
-        *) status=missing ;;
-      esac
+      status=missing
     fi
     if [ "$enabled" = 0 ]; then
       case "$status" in
@@ -359,7 +418,7 @@ list_packages() {
     case "$status" in
       installed*) c=32 ;; missing) c=33 ;; extra*) c=36 ;; inactive) c=2 ;; *) c=31 ;;
     esac
-    printf '%s%-16s%s%-8s%-36s%s\n' "$(color $c)" "$status" "$off" "$how" "$name" "$secs"
+    printf '%s%-16s%s%-8s%-36s%s\n' "$(color $c)" "$status" "$off" "$kind" "$name" "$secs"
     echo "$status" >> "$tmp/statuses"
   done < "$tmp/list"
 
@@ -367,64 +426,44 @@ list_packages() {
   sort "$tmp/statuses" | uniq -c | awk '{ printf "%s%s %s", sep, $1, $2; sep = ", " } END { print "" }'
 }
 
-# Note: Custom installers put tools in ~/.local/bin, which may not be on the
-# PATH yet, e.g. on a fresh machine during setup.sh.
-case ":$PATH:" in
-  *":$HOME/.local/bin:"*) ;;
-  *) PATH="$PATH:$HOME/.local/bin" ;;
-esac
-
 test -n "$list" && { list_packages; exit; }
 
 # -- Work out what is missing --
 
-: > "$tmp/custom.run"
-updated=
+while read -r kind name section enabled can; do
+  if [ "$can" = 1 ]; then
+    echo "$name" >> "$tmp/$kind.want"
+  else
+    echo "Warning: nothing here can supply '$name' ($kind); skipping." >&2
+  fi
+done < "$tmp/chosen"
 
+for f in "$tmp"/*.want; do
+  test -e "$f" && sort -u "$f" -o "$f"
+done
+
+: > "$tmp/custom.run"
 for kind in $KINDS; do
   test -f "$tmp/$kind.want" || continue
-
-  installed "$kind" | sort -u > "$tmp/$kind.have"
-  requested "$kind" | sort -u > "$tmp/$kind.requested"
   grep -xFf "$tmp/$kind.have" "$tmp/$kind.want" |
     difference - "$tmp/$kind.requested" > "$tmp/$kind.unmarked"
   subtract "$kind" > "$tmp/$kind.missing"
-  test -s "$tmp/$kind.missing" || continue
-
-  if [ "$kind" = apt ] && [ -z "$updated" ]; then
-    updated=1
-    run $SUDO apt-get update
-  fi
-  if [ "$kind" = scoop ]; then
-    # Note: Stale buckets have stale hashes, which fail installs.
-    run scoop update
-    add_buckets "$tmp/$kind.missing"
-  fi
-
-  # Drop packages the manager cannot supply; use a custom installer if any.
-  available "$kind" "$tmp/$kind.missing" | sort -u > "$tmp/$kind.avail"
-  difference "$tmp/$kind.missing" "$tmp/$kind.avail" > "$tmp/$kind.unavail"
-  while IFS= read -r name; do
-    queue_custom "$name" ||
-      echo "Warning: $kind package '$name' is unavailable; skipping." >&2
-  done < "$tmp/$kind.unavail"
-  cp "$tmp/$kind.avail" "$tmp/$kind.missing"
 done
 
 if [ -f "$tmp/custom.want" ]; then
   while IFS= read -r name; do
-    queue_custom "$name" ||
-      echo "Warning: no installer for '$name' ($custom_dir/install-$name)." >&2
+    queue_custom "$name"
   done < "$tmp/custom.want"
 fi
 
 # -- Install, in dependency order --
 
 did=
-if [ -s "$tmp/$PM.unmarked" ]; then
-  mark_kind $PM $(cat "$tmp/$PM.unmarked") || exit 1
+for kind in $KINDS; do
+  test -s "$tmp/$kind.unmarked" 2>/dev/null || continue
+  mark_kind "$kind" $(cat "$tmp/$kind.unmarked") || exit 1
   did=1
-fi
+done
 
 for kind in $KINDS; do
   test -s "$tmp/$kind.missing" 2>/dev/null || continue
