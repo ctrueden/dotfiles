@@ -1,8 +1,7 @@
 #!/bin/sh
 
 # Installs Deskflow, for sharing one keyboard and mouse across machines.
-# Not in the packages manifest, since only some machines need it; run this
-# by hand on those.
+# Windows uses its winget package instead.
 #
 #   macOS   the cask from Deskflow's own Homebrew tap, which Homebrew
 #           requires be trusted explicitly; running this script does so.

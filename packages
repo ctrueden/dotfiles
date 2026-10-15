@@ -156,6 +156,7 @@ apt|brew:fontconfig
 cask|custom:font-hack-nerd-font | scoop:nerd-fonts/Hack-NF
 apt|cask:libreoffice | winget:TheDocumentFoundation.LibreOffice
 apt:barrier
+custom:deskflow | winget:Deskflow.Deskflow
 apt:dconf-editor
 apt:diodon
 apt:flatpak
