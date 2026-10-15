@@ -135,7 +135,7 @@ zpm load $zsh_plugins 2> >(grep -v '^cp: \(cannot copy cyclic symbolic link\|.*d
 # use ctrl+] for zsh-nohup plugin
 bindkey "\C]" nohup-command-line
 
-export WD_CONFIG=$HOME/.config/wd/warprc
+export WD_CONFIG=$DOTFILES/warprc
 
 for plugin in $_plugins
 do

@@ -22,6 +22,11 @@ if [ -x "$(command -v brew)" ]; then
 	export BREW="$(brew --prefix)"
 fi
 
+# --== starship ==--
+
+# read the prompt config straight from the dotfiles
+export STARSHIP_CONFIG="$DOTFILES/starship.toml"
+
 # --== CVS ==--
 
 export CVS_RSH=ssh

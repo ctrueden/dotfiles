@@ -12,6 +12,10 @@ cd
 
 OS_NAME=$(uname)
 STAMP=$(date +%Y%m%dT%H%M%S)
+case "$OS_NAME" in
+  MINGW*|MSYS*|CYGWIN*) WINDOWS=1 ;;
+  *) WINDOWS= ;;
+esac
 
 # -- Functions --
 
@@ -38,17 +42,36 @@ install_file() {
 }
 
 # Symlinks the given source to the specified destination.
+# Note: Windows restricts creating symlinks, so there it copies the file
+# instead. A hard link would be no better: it detaches silently whenever git
+# replaces the file in the working copy.
 link_file() {
   src="$1"
   dest="$2"
+  if [ -n "$WINDOWS" ]; then
+    install_file "$src" "$dest"
+    return
+  fi
   clear_file "$dest"
-  case "$(uname)" in
-    # Note: We cannot use `ln -s` nor `mklink` due to Windows
-    # restricting creation of symbolic links by default.
-    # And we can only hard link a file that actually exists.
-    MINGW*) test ! -f "$src" || (set -x; ln "$src" "$dest") ;;
-    *) (set -x; ln -sf "$src" "$dest") ;;
-  esac
+  (set -x; ln -sf "$src" "$dest")
+}
+
+# Writes a stub to the given destination, whose lines are the remaining
+# arguments, replacing what is there unless it already matches.
+stub_file() {
+  stub_dest="$1"; shift
+  stub=$(mktemp)
+  printf '%s\n' "$@" > "$stub"
+  install_file "$stub" "$stub_dest"
+  rm -f "$stub"
+}
+
+# Removes a link (on Windows, a copy) that this script once made,
+# which a stub or setting now replaces.
+unlink_file() {
+  if [ -h "$1" ] || { [ -n "$WINDOWS" ] && [ -f "$1" ]; }; then
+    (set -x; rm "$1")
+  fi
 }
 
 # -- Main --
@@ -108,42 +131,47 @@ fi
 mkdir -p .config
 
 # ~/.config/starship.toml
-link_file "$CONFIG_DIR/starship.toml" .config/starship.toml
+# NB: The shells set STARSHIP_CONFIG to the dotfiles' copy instead.
+unlink_file .config/starship.toml
 
 # ~/.config/jgo.conf
+# NB: jgo has no way to read its config from elsewhere, nor to include it.
 link_file "$CONFIG_DIR/jgo.conf" .config/jgo.conf
 
-# ~/.config/byobu/.tmux.conf
+# ~/.config/byobu/.tmux.conf [not Windows, which lacks byobu]
 # NB: We link only this file, not the whole directory, because byobu
 # writes its own state and settings into ~/.config/byobu.
-mkdir -p .config/byobu
-link_file "$CONFIG_DIR/byobu/tmux.conf" .config/byobu/.tmux.conf
-link_file "$CONFIG_DIR/byobu/palette.sh" .config/byobu/palette.sh
-link_file "$CONFIG_DIR/byobu/notes.tmux" .config/byobu/notes.tmux
-link_file "$CONFIG_DIR/byobu/status" .config/byobu/status
-link_file "$CONFIG_DIR/byobu/statusrc" .config/byobu/statusrc
-mkdir -p .config/byobu/bin
-for f in "$CONFIG_DIR"/byobu/bin/*; do
-  link_file "$f" ".config/byobu/bin/$(basename "$f")"
-done
+if [ -z "$WINDOWS" ]; then
+  mkdir -p .config/byobu
+  link_file "$CONFIG_DIR/byobu/tmux.conf" .config/byobu/.tmux.conf
+  link_file "$CONFIG_DIR/byobu/palette.sh" .config/byobu/palette.sh
+  link_file "$CONFIG_DIR/byobu/notes.tmux" .config/byobu/notes.tmux
+  link_file "$CONFIG_DIR/byobu/status" .config/byobu/status
+  link_file "$CONFIG_DIR/byobu/statusrc" .config/byobu/statusrc
+  mkdir -p .config/byobu/bin
+  for f in "$CONFIG_DIR"/byobu/bin/*; do
+    link_file "$f" ".config/byobu/bin/$(basename "$f")"
+  done
+fi
 
 # ~/.mrconfig
-link_file "$CONFIG_DIR/mrconfig" .mrconfig
+# NB: A stub lets `mr register` add to it without dirtying the dotfiles.
+stub_file .mrconfig "include = cat \"$CONFIG_DIR/mrconfig\""
 
 # ~/.config/mr
 mkdir -p .config/mr
-link_file "$CONFIG_DIR/mrconfig.d/essential" .config/mr/essential
+stub_file .config/mr/essential "include = cat \"$CONFIG_DIR/mrconfig.d/essential\""
 
-# ~/.config/wd
-mkdir -p .config/wd
-link_file "$CONFIG_DIR/warprc" .config/wd/warprc
+# ~/.config/wd/warprc
+# NB: zshrc sets WD_CONFIG to the dotfiles' copy instead.
+unlink_file .config/wd/warprc
 
 # ~/.vim/vimrc
 mkdir -p .vim
-link_file "$CONFIG_DIR/vimrc" .vim/vimrc
+stub_file .vim/vimrc "source $CONFIG_DIR/vimrc"
 
-# ~/.XCompose
-link_file "$CONFIG_DIR/XCompose" .XCompose
+# ~/.XCompose [not Windows, which lacks X]
+test -n "$WINDOWS" || link_file "$CONFIG_DIR/XCompose" .XCompose
 
 # ~/Library/KeyBindings [macOS]
 case "$(uname)" in
@@ -203,31 +231,43 @@ nvim_ok() {
 }
 
 # ~/.config/nvim -- kickstart.nvim + custom plugins from dotfiles
-NVIM_CONFIG_DIR="$HOME/.config/nvim"
+# NB: Neovim on Windows reads its config from %LOCALAPPDATA%\nvim instead.
+if [ -n "$WINDOWS" ]; then
+  NVIM_CONFIG_DIR="$(cygpath -u "$LOCALAPPDATA")/nvim"
+  # Move the config from where earlier versions of this script put it.
+  if [ -d "$HOME/.config/nvim" ] && [ ! -e "$NVIM_CONFIG_DIR" ]; then
+    (set -x; mv "$HOME/.config/nvim" "$NVIM_CONFIG_DIR")
+  fi
+else
+  NVIM_CONFIG_DIR="$HOME/.config/nvim"
+fi
 NVIM_CONFIG="$NVIM_CONFIG_DIR/init.lua"
 if command -v nvim >/dev/null 2>&1 && nvim_ok && [ ! -d "$NVIM_CONFIG_DIR" ]; then
   echo "Installing kickstart.nvim into $NVIM_CONFIG_DIR..."
   git clone https://github.com/nvim-lua/kickstart.nvim "$NVIM_CONFIG_DIR"
 fi
 if command -v nvim >/dev/null 2>&1 && nvim_ok && [ -d "$NVIM_CONFIG_DIR" ]; then
-  # Symlink each plugin file from dotfiles/nvim/plugins/ into lua/custom/plugins/
-  # so kickstart's custom.plugins import picks them up. Per-file symlinks are
-  # used (not a directory symlink) because kickstart's clone already contains
-  # lua/custom/plugins/ as a real directory, which ln -sf cannot replace.
+  # Stub dotfiles/nvim/init.lua into lua/custom/plugins/, which kickstart's
+  # custom.plugins loads. It loads everything else under dotfiles/nvim, so
+  # files can come and go there without rerunning this script.
+  # NB: Native Neovim on Windows needs a Windows path.
+  nvim_dir="$CONFIG_DIR/nvim"
+  test -z "$WINDOWS" || nvim_dir=$(cygpath -m "$nvim_dir")
   mkdir -p "$NVIM_CONFIG_DIR/lua/custom/plugins"
+  stub_file "$NVIM_CONFIG_DIR/lua/custom/plugins/dotfiles.lua" \
+    "-- Written by dotfiles/setup.sh." \
+    "dofile '$nvim_dir/init.lua'"
+
+  # Remove the per-file links that the stub replaces.
   for _f in "$CONFIG_DIR/nvim/plugins/"*.lua; do
-    link_file "$_f" "$NVIM_CONFIG_DIR/lua/custom/plugins/$(basename "$_f")"
+    unlink_file "$NVIM_CONFIG_DIR/lua/custom/plugins/$(basename "$_f")"
   done
-
-  # Symlink dotfiles/nvim/after/ so our after/plugin/*.lua files run after all
-  # plugins load -- reliable for config that must execute after everything else.
-  link_file "$CONFIG_DIR/nvim/after" "$NVIM_CONFIG_DIR/after"
-
-  # Symlink each ftplugin file (filetype-specific config, e.g. nvim-jdtls).
-  mkdir -p "$NVIM_CONFIG_DIR/ftplugin"
   for _f in "$CONFIG_DIR/nvim/ftplugin/"*.lua; do
-    link_file "$_f" "$NVIM_CONFIG_DIR/ftplugin/$(basename "$_f")"
+    unlink_file "$NVIM_CONFIG_DIR/ftplugin/$(basename "$_f")"
   done
+  test ! -h "$NVIM_CONFIG_DIR/after" || (set -x; rm "$NVIM_CONFIG_DIR/after")
+  unlink_file "$NVIM_CONFIG_DIR/lua/custom/options.lua"
+  perl -0 -i -pe "s|-- Load local overrides \(options, mappings, etc\.\) from dotfiles if present\npcall\(require, 'custom\.options'\)\n\n||" "$NVIM_CONFIG"
 
   # -- BEGIN blink.cmp OVERRIDES --
 
@@ -261,14 +301,9 @@ if command -v nvim >/dev/null 2>&1 && nvim_ok && [ -d "$NVIM_CONFIG_DIR" ]; then
   # Disable delve plugin auto-install (idempotent).
   perl -i -pe "s/^(\s*)('delve',)/\$1-- \$2/" "$NVIM_CONFIG_DIR/lua/kickstart/plugins/debug.lua"
 
-  # Symlink options override file and hook it into nvim config (idempotent).
-  link_file "$CONFIG_DIR/nvim/options.lua" "$NVIM_CONFIG_DIR/lua/custom/options.lua"
-  grep -qF 'custom.options' "$NVIM_CONFIG" || \
-    perl -i -pe "s|-- The line beneath this is called .modeline.|-- Load local overrides (options, mappings, etc.) from dotfiles if present\npcall(require, 'custom.options')\n\n\$&|" "$NVIM_CONFIG"
-
   # Set nerd font flag as appropriate.
   case "$(uname)" in
-    Linux|Darwin)
+    Linux|Darwin|MINGW*|MSYS*|CYGWIN*)
       perl -i -pe "s|vim.g.have_nerd_font = false|vim.g.have_nerd_font = true|" "$NVIM_CONFIG"
       ;;
   esac

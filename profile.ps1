@@ -20,6 +20,7 @@ function up7 { cd ..\..\..\..\..\..\.. }
 function up8 { cd ..\..\..\..\..\..\..\.. }
 function up9 { cd ..\..\..\..\..\..\..\..\.. }
 
+$env:STARSHIP_CONFIG = "$env:DOTFILES\starship.toml"
 if (Get-Command starship -ErrorAction SilentlyContinue) {
     Invoke-Expression (&starship init powershell)
 }
