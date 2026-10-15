@@ -154,6 +154,14 @@ case "$(uname)" in
     ;;
 esac
 
+# PowerShell profiles [Windows]
+case "$(uname)" in
+  MINGW*|MSYS*|CYGWIN*)
+    (set -x; powershell -NoProfile -ExecutionPolicy Bypass \
+      -File "$(cygpath -w "$CONFIG_DIR/setup.ps1")")
+    ;;
+esac
+
 echo
 echo "--> Installing tools..."
 
