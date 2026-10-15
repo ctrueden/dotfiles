@@ -34,26 +34,41 @@
 # Requires Full Disk Access for whatever terminal app runs this script,
 # since macOS blocks reads of TCC.db without it (even as root).
 #
-# Usage: fixapps [-n] [-o]
+# Usage: fixapps [-n] [-o] [-v]
 #   -n  dry run: report stale grants, but do not reset them
 #   -o  also report grants whose bundle ID matches no installed app
+#   -v  verbose: show each grant's requirement and the apps checked
+#       against it, with their signatures (implies -o)
 
 usage() {
-    echo "Usage: fixapps [-n] [-o]" >&2
+    echo "Usage: fixapps [-n] [-o] [-v]" >&2
     exit 1
 }
 
 dry_run=
 orphans=
-while getopts no opt; do
+verbose=
+while getopts nov opt; do
     case "$opt" in
         n) dry_run=1 ;;
         o) orphans=1 ;;
+        v) verbose=1; orphans=1 ;;
         *) usage ;;
     esac
 done
 shift $((OPTIND - 1))
 [ $# -eq 0 ] || usage
+
+say() {
+    [ -z "$verbose" ] || echo "$@"
+}
+
+# Describe an app's signature: ad-hoc, its leaf authority, or unsigned.
+signature() {
+    sig=$(codesign -dvv "$1" 2>&1 |
+        sed -n 's/^Authority=//p; s/^Signature=adhoc$/ad-hoc/p' | head -n 1)
+    echo "${sig:-unsigned}"
+}
 
 systemdb="/Library/Application Support/com.apple.TCC/TCC.db"
 userdb="$HOME/Library/Application Support/com.apple.TCC/TCC.db"
@@ -73,12 +88,15 @@ stale="$tmpdir/stale"
 
 for db in "$systemdb" "$userdb"; do
     [ -r "$db" ] || continue
+    [ "$db" = "$systemdb" ] && scope=system || scope=user
     # Note: client_type 0 = bundle ID; 1 = absolute path (not handled here).
     sqlite3 -readonly -separator '|' "$db" \
-        "SELECT client, hex(csreq), group_concat(service, ',') FROM access
-         WHERE client_type=0 AND csreq IS NOT NULL
+        "SELECT '$scope', client, hex(csreq), group_concat(service, ',')
+         FROM access WHERE client_type=0 AND csreq IS NOT NULL
          GROUP BY client, csreq;"
-done | while IFS='|' read -r bundle_id csreq services; do
+done | while IFS='|' read -r scope bundle_id csreq services; do
+    say
+    say "$bundle_id [$scope] ($services)"
     escaped_id=$(printf '%s' "$bundle_id" | sed "s/'/\\\\'/g")
     apps=$(mdfind "kMDItemCFBundleIdentifier == '$escaped_id'" 2>/dev/null |
         grep '\.app$' | grep -v '/\.Trash/')
@@ -89,6 +107,7 @@ done | while IFS='|' read -r bundle_id csreq services; do
     fi
 
     printf '%s' "$csreq" | xxd -r -p > "$reqfile"
+    say "  requirement: $(csreq -r "$reqfile" -t 2>/dev/null)"
 
     # Note: If several copies share a bundle ID, any one satisfying the
     # requirement counts as current, to avoid resetting on every run due
@@ -102,15 +121,17 @@ done | while IFS='|' read -r bundle_id csreq services; do
     for app in $apps; do
         if codesign --verify -R "$reqfile" "$app" >/dev/null 2>&1; then
             satisfied=1
-            break
-        fi
+            result=ok
         # Distinguish a mismatched requirement from a broken signature,
         # which resetting TCC would not fix.
-        if codesign --verify "$app" >/dev/null 2>&1; then
+        elif codesign --verify "$app" >/dev/null 2>&1; then
             mismatched=1
+            result=MISMATCH
         else
             invalid="$invalid $app"
+            result="INVALID SIGNATURE"
         fi
+        [ -z "$verbose" ] || say "  $app: $(signature "$app") => $result"
     done
     IFS=$old_ifs
     [ -z "$satisfied" ] || continue
