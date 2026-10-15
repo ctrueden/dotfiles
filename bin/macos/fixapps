@@ -68,6 +68,44 @@ signature() {
     echo "${sig:-unsigned}"
 }
 
+# Map a TCC service name to its label in System Settings > Privacy &
+# Security, falling back to the service name minus its kTCCService prefix.
+label() {
+    case "$1" in
+        kTCCServiceAccessibility|kTCCServicePostEvent) echo "Accessibility" ;;
+        kTCCServiceAddressBook) echo "Contacts" ;;
+        kTCCServiceAppleEvents) echo "Automation" ;;
+        kTCCServiceBluetoothAlways) echo "Bluetooth" ;;
+        kTCCServiceCalendar) echo "Calendars" ;;
+        kTCCServiceCamera) echo "Camera" ;;
+        kTCCServiceDeveloperTool) echo "Developer Tools" ;;
+        kTCCServiceFocusStatus) echo "Focus" ;;
+        kTCCServiceListenEvent) echo "Input Monitoring" ;;
+        kTCCServiceMediaLibrary) echo "Media & Apple Music" ;;
+        kTCCServiceMicrophone) echo "Microphone" ;;
+        kTCCServicePhotos) echo "Photos" ;;
+        kTCCServiceReminders) echo "Reminders" ;;
+        kTCCServiceRemoteDesktop) echo "Remote Desktop" ;;
+        kTCCServiceScreenCapture) echo "Screen & System Audio Recording" ;;
+        kTCCServiceSpeechRecognition) echo "Speech Recognition" ;;
+        kTCCServiceSystemPolicyAllFiles) echo "Full Disk Access" ;;
+        kTCCServiceSystemPolicyAppBundles) echo "App Management" ;;
+        kTCCServiceSystemPolicyDesktopFolder) echo "Files & Folders: Desktop" ;;
+        kTCCServiceSystemPolicyDocumentsFolder) echo "Files & Folders: Documents" ;;
+        kTCCServiceSystemPolicyDownloadsFolder) echo "Files & Folders: Downloads" ;;
+        kTCCServiceSystemPolicyNetworkVolumes) echo "Files & Folders: Network Volumes" ;;
+        kTCCServiceSystemPolicyRemovableVolumes) echo "Files & Folders: Removable Volumes" ;;
+        *) echo "${1#kTCCService}" ;;
+    esac
+}
+
+# Map a comma-separated list of TCC service names to unique labels.
+labels() {
+    printf '%s\n' "$1" | tr ',' '\n' | while read -r service; do
+        label "$service"
+    done | awk '!seen[$0]++' | paste -sd ',' - | sed 's/,/, /g'
+}
+
 # Accumulate a line of -vv output for the current grant.
 detail() {
     details="$details
@@ -79,7 +117,7 @@ detail() {
 # (if any) on the given file descriptor (default stdout).
 report() {
     if [ "$verbose" -ge 1 ]; then
-        echo "$1 $bundle_id [$scope] ($services)${2:+ -- $2}"
+        echo "$1 $bundle_id [$scope] ($labels)${2:+ -- $2}"
         [ "$verbose" -lt 2 ] || [ -z "$details" ] ||
             printf '%s\n' "${details#?}"
     elif [ -n "$3" ]; then
@@ -112,13 +150,15 @@ for db in "$systemdb" "$userdb"; do
          FROM access WHERE client_type=0 AND csreq IS NOT NULL
          GROUP BY client, csreq;"
 done | while IFS='|' read -r scope bundle_id csreq services; do
+    labels=$(labels "$services")
     details=
+    [ "$verbose" -lt 2 ] || detail "services: $services"
     escaped_id=$(printf '%s' "$bundle_id" | sed "s/'/\\\\'/g")
     apps=$(mdfind "kMDItemCFBundleIdentifier == '$escaped_id'" 2>/dev/null |
         grep '\.app$' | grep -v '/\.Trash/')
     if [ -z "$apps" ]; then
         [ -z "$orphans" ] ||
-            report ∅ "app not installed" "no app found for $bundle_id ($services)"
+            report ∅ "app not installed" "no app found for $bundle_id ($labels)"
         continue
     fi
 
@@ -158,7 +198,7 @@ done | while IFS='|' read -r scope bundle_id csreq services; do
         report ⚠ "invalid code signature, skipping" \
             "invalid code signature, skipping $bundle_id:$invalid" 2
     else
-        report ✗ "stale" "stale TCC grant detected for $bundle_id ($services)"
+        report ✗ "stale" "stale TCC grant detected for $bundle_id ($labels)"
         echo "$bundle_id" >> "$stale"
     fi
 done
