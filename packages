@@ -133,7 +133,7 @@ uv:prysk
 uv:pydeps
 uv:twine
 uv:yamllint
-cask:google-chrome | winget:Google.Chrome  # Chrome is for testing, not my daily driver.
+cask:google-chrome | winget:Google.Chrome  # For dev testing, not my daily driver.
 
 [heavy]
 cask:jetbrains-toolbox | winget:JetBrains.Toolbox
@@ -141,7 +141,7 @@ cask:visual-studio-code | winget:Microsoft.VisualStudioCode
 
 [primary]
 cask:discord | winget:Discord.Discord
-cask:nextcloud | winget:Nextcloud.NextcloudDesktop  # My Nextcloud setup only works with Wireguard.
+cask:nextcloud | winget:Nextcloud.NextcloudDesktop  # My Nextcloud only works with Wireguard.
 cask:zoom | winget:Zoom.Zoom
 apt|brew:wireguard-tools
 
