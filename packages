@@ -18,6 +18,8 @@
 # windows) limits the OSes where it counts as an alternative.
 # An npm entry followed by the word scripts may run its install scripts,
 # which npm otherwise warns about, and will someday refuse to run.
+# A uv entry followed by python=VERSION installs its tool on that Python,
+# e.g. when the newest Python lacks wheels the tool needs.
 #
 # [sections]: core always installs. gui installs on desktops only.
 # The rest are opt-in, via --with SECTION or the machine's profile file
@@ -110,7 +112,7 @@ npm:@openai/codex
 npm:opencode-ai         scripts  # Fetches its binary.
 npm:@kilocode/cli       scripts  # Fetches its binary.
 brew|scoop:ollama
-uv:oterm
+uv:oterm                python=3.14  # pyyaml has no 3.15 wheels for Windows yet.
 #npm:@charmland/crush
 #npm:@google/gemini-cli
 #npm:@nanocollective/nanocoder

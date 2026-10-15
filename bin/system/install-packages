@@ -247,7 +247,11 @@ install_kind() { # kind names...
           --disable-interactivity || echo "Failed: winget install $p" >&2
       done ;;
     npm)  run global_npm install -g $(allow_scripts_option) "$@" ;;
-    uv)   for p in "$@"; do run uv tool install "$p"; done ;;
+    uv)
+      for p in "$@"; do
+        py=$(awk -v p="$p" '$1 == p { print $2 }' "$tmp/uv.python")
+        run uv tool install ${py:+--python $py} "$p"
+      done ;;
   esac
 }
 
@@ -274,9 +278,12 @@ queue_custom() { # name
 # KIND:NAME, in order of preference. An alternative without a name takes
 # that of the next one with a name, so apt:fd-find | brew|scoop:fd yields
 # brew:fd. Spaces around each | are only for legibility.
+# $tmp/uv.python pairs uv tools with the Python their entries ask for.
 sed -e 's/#.*//' -e 's/[[:space:]]*|[[:space:]]*/|/g' "$manifest" |
 awk -v kinds=" $KINDS npm uv custom " -v enabled="$sections" \
-  -v unsupported=" $(unsupported_customs | tr '\n' ' ') " '
+  -v unsupported=" $(unsupported_customs | tr '\n' ' ') " \
+  -v pyfile="$tmp/uv.python" '
+  BEGIN { printf "" > pyfile }
   /^\[/ {
     section = $1
     sub(/^\[/, "", section); sub(/:$/, "", section); sub(/\]$/, "", section)
@@ -298,6 +305,9 @@ awk -v kinds=" $KINDS npm uv custom " -v enabled="$sections" \
       if (!index(kinds, " " kind[i] " ")) continue
       if (kind[i] == "custom" && index(unsupported, " " named[i] " ")) continue
       out = out " " kind[i] ":" named[i]
+      if (kind[i] == "uv")
+        for (j = 2; j <= NF; j++)
+          if ($j ~ /^python=/) print named[i], substr($j, 8) > pyfile
     }
     if (out != "") print section, (index(enabled, " " section " ") ? 1 : 0) out
   }
