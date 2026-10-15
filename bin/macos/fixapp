@@ -1,22 +1,35 @@
 #!/bin/sh
 # Reset TCC permissions for one or more apps.
-# Usage: fixapp <bundle-id-or-app-path> [...]
 
+usage() {
+    echo "Usage: fixapp <bundle-id-or-app-path> [...]"
+    echo
+    echo "Reset all TCC (Privacy & Security) permissions for the given apps,"
+    echo "so that macOS prompts again the next time each app needs them."
+    echo "Use fixapps to find apps whose permissions have gone stale."
+}
+
+case "$1" in
+    -h|--help) usage; exit 0 ;;
+esac
 if [ $# -eq 0 ]; then
-    echo "Usage: fixapp <bundle-id-or-app-path> [...]" >&2
+    usage >&2
     exit 1
 fi
 
+status=0
 for arg in "$@"; do
     if [ -d "$arg" ] && echo "$arg" | grep -q '\.app$'; then
         plist="$arg/Contents/Info.plist"
         if [ ! -f "$plist" ]; then
             echo "fixapp: no Info.plist found in $arg" >&2
+            status=1
             continue
         fi
         bundle_id=$(defaults read "$arg/Contents/Info" CFBundleIdentifier 2>/dev/null)
         if [ -z "$bundle_id" ]; then
             echo "fixapp: could not read CFBundleIdentifier from $plist" >&2
+            status=1
             continue
         fi
     else
@@ -24,5 +37,14 @@ for arg in "$@"; do
     fi
 
     echo "Resetting TCC permissions for: $bundle_id"
-    tccutil reset All "$bundle_id"
+    if ! tccutil reset All "$bundle_id"; then
+        status=1
+        # Note: tccutil resolves the bundle ID via LaunchServices, so it
+        # cannot reset grants for apps that are no longer installed. And the
+        # system TCC.db is SIP-protected, so editing it directly is no option.
+        echo "fixapp: if $bundle_id is no longer installed, remove its" >&2
+        echo "        entries in System Settings > Privacy & Security instead" >&2
+        echo "        (select the app in each list and click the - button)." >&2
+    fi
 done
+exit $status
