@@ -149,11 +149,14 @@ unlink_file .config/starship.toml
 unlink_file .config/jgo.conf
 
 # ~/.config/byobu/.tmux.conf [not Windows, which lacks byobu]
-# NB: We link only this file, not the whole directory, because byobu
-# writes its own state and settings into ~/.config/byobu.
+# NB: We stub or link only these files, not the whole directory, because
+# byobu writes its own state and settings into ~/.config/byobu.
+# On Windows, setup.ps1 writes a similar stub for psmux instead.
 if [ -z "$WINDOWS" ]; then
   mkdir -p .config/byobu
-  link_file "$CONFIG_DIR/byobu/tmux.conf" .config/byobu/.tmux.conf
+  stub_file .config/byobu/.tmux.conf \
+    "source-file \"$CONFIG_DIR/tmux.conf\"" \
+    "source-file \"$CONFIG_DIR/byobu/tmux.conf\""
   link_file "$CONFIG_DIR/byobu/palette.sh" .config/byobu/palette.sh
   link_file "$CONFIG_DIR/byobu/notes.tmux" .config/byobu/notes.tmux
   link_file "$CONFIG_DIR/byobu/status" .config/byobu/status
