@@ -70,7 +70,7 @@ npm:emoj
 # editors
 apt|brew|scoop:neovim
 apt|brew:vim
-npm:tree-sitter-cli     scripts  # Fetches its binary.
+scoop:tree-sitter | npm:tree-sitter-cli  scripts  # Fetches its binary.
 
 # git
 apt|brew:git-delta | scoop:delta
@@ -107,9 +107,9 @@ uv:jgo
 
 # AI coding assistants
 cask|scoop:claude-code
-npm:@github/copilot
-npm:@openai/codex
-npm:opencode-ai         scripts  # Fetches its binary.
+winget:GitHub.Copilot | npm:@github/copilot
+scoop:codex | npm:@openai/codex
+scoop:opencode | npm:opencode-ai  scripts  # Fetches its binary.
 npm:@kilocode/cli       scripts  # Fetches its binary.
 brew|scoop:ollama
 uv:oterm                python=3.14  # pyyaml has no 3.15 wheels for Windows yet.

@@ -14,8 +14,11 @@ global_node_bin() {
 # Prints an --allow-scripts option naming the npm packages that the manifest
 # marks as allowed to run install scripts, if any.
 allow_scripts_option() {
-  _allowed=$(awk '$1 ~ /^npm:/ && $2 == "scripts" { print substr($1, 5) }' \
-    "${DOTFILES:?}/packages" | paste -sd, -)
+  _allowed=$(sed 's/[[:space:]]*|[[:space:]]*/|/g' "${DOTFILES:?}/packages" |
+    awk '$2 == "scripts" {
+      n = split($1, alt, "|")
+      for (i = 1; i <= n; i++) if (alt[i] ~ /^npm:/) print substr(alt[i], 5)
+    }' | paste -sd, -)
   test -z "$_allowed" || echo "--allow-scripts=$_allowed"
 }
 
