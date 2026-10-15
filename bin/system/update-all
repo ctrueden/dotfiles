@@ -4,7 +4,11 @@
 # Otherwise sudo's cancelled password prompt fails that step and the rest continue.
 trap 'echo; echo "Interrupted."; exit 130' INT
 
-sudo -v || exit 1
+# Note: Windows package managers prompt for elevation themselves, when needed.
+case "$(uname)" in
+  MINGW*|MSYS*|CYGWIN*) ;;
+  *) sudo -v || exit 1 ;;
+esac
 
 exit_code=0
 
@@ -102,6 +106,23 @@ if [ -d "$BREW" -a -x "$(command -v brew)" ]; then
     code=$?; test $code -lt $exit_code || exit_code=$code
     test $code -eq 0 || echo "=> returned $code"
   fi
+fi
+
+if [ -x "$(command -v scoop)" ]; then
+  echo
+  echo "--== Updating Scoop packages ==--"
+  scoop update && scoop update '*'
+  code=$?; test $code -lt $exit_code || exit_code=$code
+  test $code -eq 0 || echo "=> returned $code"
+fi
+
+if [ -x "$(command -v winget)" ]; then
+  echo
+  echo "--== Updating winget packages ==--"
+  winget upgrade --all --silent --accept-package-agreements \
+    --accept-source-agreements --disable-interactivity
+  code=$?; test $code -lt $exit_code || exit_code=$code
+  test $code -eq 0 || echo "=> returned $code"
 fi
 
 # Note: This picks up packages newly added to the manifest,
