@@ -40,6 +40,7 @@ if [[ ! -f ~/.zpm/zpm.zsh ]]; then
 	GIT=git
 	test -x $GIT || GIT=/usr/bin/git
 	test -x $GIT || GIT=/usr/local/bin/git
+	test -x $GIT || GIT=/ucrt64/bin/git
 	test -x $GIT || {
 		echo "[ERROR] No git executable found. Cannot install zpm."
 		exit 1
