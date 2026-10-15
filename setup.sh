@@ -279,8 +279,9 @@ if ! command -v claude >/dev/null 2>&1; then
   curl -fsSL https://claude.ai/install.sh | bash
 fi
 
-
-if [ ! -f .gitconfig ]; then
+# Note: We ask whenever the identity is unset, rather than when .gitconfig is
+# absent, since the stub written above has already created .gitconfig.
+if [ -z "$(git config --global user.email)" ] && [ -t 0 ]; then
   echo
   echo "--> Personalizing your experience..."
   cat "$CONFIG_DIR/old-man.txt"
