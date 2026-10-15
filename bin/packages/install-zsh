@@ -1,0 +1,45 @@
+#!/bin/sh
+
+# Installs MSYS2's zsh package into Git for Windows, whose Git Bash lacks zsh,
+# verified against a SHA-256 recorded here. zsh must sit within Git's own
+# MSYS root, beside the runtime it links against, so the package unpacks into
+# ~/.local/opt, then is copied from there into Git's root. A scoop update of
+# Git starts afresh in a new folder, so --check then fails, and the next run
+# (e.g. via update-all) copies zsh back in, without downloading it again.
+# To upgrade, bump zsh_ver and the hash together; MSYS2 publishes no hashes,
+# so compute it with sha256sum. Packages: https://repo.msys2.org/msys/x86_64/
+#
+# Platforms: windows
+#
+# With --check, reports via exit code whether the pinned zsh is in Git's root.
+
+. "${DOTFILES:?}/lib/download.sh"
+
+zsh_ver=5.9.2-1
+sha=9a134200a152d90a0f1820d6aa74c3369d8539c068b523852549d74b16739fa8
+
+opt="$HOME/.local/opt"
+dir="$opt/zsh-$zsh_ver"
+
+# Note: In Git Bash, / is the root of the Git for Windows install.
+if [ "${1:-}" = --check ]; then
+  /usr/bin/zsh --version 2>/dev/null | grep -qF "zsh ${zsh_ver%-*} "
+  exit
+fi
+
+if [ ! -x "$dir/usr/bin/zsh.exe" ]; then
+  command -v zstd >/dev/null || {
+    echo "zstd is needed to unpack zsh; install it first (scoop install zstd)." >&2
+    exit 1
+  }
+  download_verified "https://repo.msys2.org/msys/x86_64/zsh-$zsh_ver-x86_64.pkg.tar.zst" "$sha" &&
+  rm -rf "$dir" && mkdir -p "$dir" &&
+  zstd -dcq "$downloaded" | tar -xf - -C "$dir" usr etc || exit 1
+
+  # Remove any versions this one replaces.
+  for d in "$opt"/zsh-*; do
+    test "$d" = "$dir" || rm -rf "$d"
+  done
+fi
+
+cp -R "$dir/usr/." /usr/ && cp -R "$dir/etc/." /etc/

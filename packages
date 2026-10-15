@@ -59,7 +59,7 @@ apt|scoop:jq
 apt:openssh-client
 apt:unzip
 apt:xclip
-apt:zsh
+apt|custom:zsh
 brew|scoop:fastfetch
 brew:gnu-sed
 brew:gnu-tar
