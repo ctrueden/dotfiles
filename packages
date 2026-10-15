@@ -128,6 +128,8 @@ uv:cjdk
 uv:jgo
 
 # AI coding assistants
+cask:claude-code
+scoop:claude-code
 npm:@github/copilot
 npm:@openai/codex
 npm:opencode-ai         scripts  # Fetches its binary.
@@ -135,7 +137,6 @@ npm:@kilocode/cli       scripts  # Fetches its binary.
 brew:ollama
 scoop:ollama
 uv:oterm
-#npm:@anthropic-ai/claude-code
 #npm:@charmland/crush
 #npm:@google/gemini-cli
 #npm:@nanocollective/nanocoder

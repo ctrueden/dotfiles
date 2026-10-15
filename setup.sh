@@ -282,6 +282,8 @@ if ! command -v nvim >/dev/null 2>&1 && [ ! -d "$HOME/.vim/bundle/Vundle.vim" ];
 fi
 
 # Claude Code -- AI coding assistant
+# Note: The packages manifest installs it on macOS and Windows; this covers
+# the rest, e.g. Linux, or Windows without scoop.
 # Note: We use curl|sh -- if the claude.ai domain were compromised, running
 # claude at all would be equally dangerous, so this is an acceptable risk.
 if ! command -v claude >/dev/null 2>&1; then
