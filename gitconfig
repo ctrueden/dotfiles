@@ -77,6 +77,9 @@
 
 [core]
 	pager = less -FSX
+	# Note: This overrides Git for Windows' default of true, which checks out
+	# CRLF line endings; elsewhere, it just guards against committing them.
+	autocrlf = input
 	#pager = delta
 
 [delta]
