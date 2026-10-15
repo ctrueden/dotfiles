@@ -1,8 +1,16 @@
 $dotfiles = Split-Path $MyInvocation.MyCommand.Path -Parent
 
-# Install a stub profile (CurrentUserCurrentHost) which sources the profile.ps1 here.
-$profileDir = "$HOME\Documents\WindowsPowerShell"
-mkdir $profileDir -ErrorAction SilentlyContinue
-$userProfile = "$profileDir\profile.ps1"
-echo "`$env:DOTFILES = \"$dotfiles\"" > $userProfile
-echo ". `$env:DOTFILES\profile.ps1" >> $userProfile
+# Install stub profiles (CurrentUserAllHosts) which source the profile.ps1 here,
+# for both Windows PowerShell 5.1 and PowerShell 7+.
+# Note: Documents may be redirected (e.g. by OneDrive), so ask for its real location.
+$documents = [Environment]::GetFolderPath('MyDocuments')
+foreach ($dir in 'WindowsPowerShell', 'PowerShell') {
+    $profileDir = Join-Path $documents $dir
+    New-Item -ItemType Directory -Force $profileDir | Out-Null
+    $userProfile = Join-Path $profileDir 'profile.ps1'
+    Write-Host "Writing $userProfile"
+    Set-Content -Encoding UTF8 $userProfile @(
+        "`$env:DOTFILES = `"$dotfiles`""
+        ". `$env:DOTFILES\profile.ps1"
+    )
+}
