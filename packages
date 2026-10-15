@@ -147,6 +147,7 @@ cmake
 gcc
 libtool
 pkgconf
+custom:mvn
 apt:build-essential
 apt:make
 scoop:cmake
@@ -228,7 +229,6 @@ winget:Zoom.Zoom
 winget:Zulip.Zulip
 
 [java]
-custom:mvn
 brew:cfr-decompiler
 brew:procyon-decompiler
 apt:openjdk-8-jdk
