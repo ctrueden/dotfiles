@@ -27,6 +27,11 @@ fi
 # read the prompt config straight from the dotfiles
 export STARSHIP_CONFIG="$DOTFILES/starship.toml"
 
+# --== jgo ==--
+
+# read the jgo config straight from the dotfiles (jgo 3.2.0+)
+export JGO_CONFIG_FILE="$DOTFILES/jgo.conf"
+
 # --== CVS ==--
 
 export CVS_RSH=ssh

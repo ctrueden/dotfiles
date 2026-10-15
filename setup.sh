@@ -145,8 +145,8 @@ mkdir -p .config
 unlink_file .config/starship.toml
 
 # ~/.config/jgo.conf
-# NB: jgo has no way to read its config from elsewhere, nor to include it.
-link_file "$CONFIG_DIR/jgo.conf" .config/jgo.conf
+# NB: The shells set JGO_CONFIG_FILE to the dotfiles' copy instead.
+unlink_file .config/jgo.conf
 
 # ~/.config/byobu/.tmux.conf [not Windows, which lacks byobu]
 # NB: We link only this file, not the whole directory, because byobu

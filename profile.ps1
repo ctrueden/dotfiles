@@ -21,6 +21,7 @@ function up8 { cd ..\..\..\..\..\..\..\.. }
 function up9 { cd ..\..\..\..\..\..\..\..\.. }
 
 $env:STARSHIP_CONFIG = "$env:DOTFILES\starship.toml"
+$env:JGO_CONFIG_FILE = "$env:DOTFILES\jgo.conf"
 if (Get-Command starship -ErrorAction SilentlyContinue) {
     Invoke-Expression (&starship init powershell)
 }
