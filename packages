@@ -109,7 +109,7 @@ uv:jgo
 cask|scoop:claude-code
 winget:GitHub.Copilot | npm:@github/copilot
 scoop:codex | npm:@openai/codex
-scoop:opencode | npm:opencode-ai  scripts  # Fetches its binary.
+brew:opencode | scoop:versions/opencode2 | npm:opencode-ai  scripts  # Fetches its binary.
 npm:@kilocode/cli       scripts  # Fetches its binary.
 brew|scoop:ollama
 uv:oterm                python=3.14  # pyyaml has no 3.15 wheels for Windows yet.
