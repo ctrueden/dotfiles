@@ -34,6 +34,11 @@ bind-key -N "Redraw the client" l
 bind-key -N "Redraw the client" C-l
 bind-key -N "Detach the current client" C-d
 
+# -- Prefix table: tmux defaults that older tmux (e.g. 3.4) leaves undescribed --
+
+bind-key -N "Display window menu" <
+bind-key -N "Display pane menu" >
+
 # -- Root table: byobu's function keys (no prefix needed) --
 
 # Help and configuration.
