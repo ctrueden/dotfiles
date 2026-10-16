@@ -28,14 +28,39 @@ prefix=$(tmux show -gv prefix)
 # command parser; the shown text is the binding's note (description) if it
 # has one, or else its command.
 tab=$(printf '\t')
-label="#{?#{==:#{key_table},prefix},$prefix ,}#{key_string}"
-desc='#{=/100/...:#{?key_note,#{key_note},#{key_command}}}'
-format="#{key_table}$tab#{q:key_string}$tab#{p12:$label} $desc"
+bindings() {
+  if tmux list-keys -T "$1" -F x >/dev/null 2>&1; then
+    label="#{?#{==:#{key_table},prefix},$prefix ,}#{key_string}"
+    desc='#{=/100/...:#{?key_note,#{key_note},#{key_command}}}'
+    tmux list-keys -T "$1" -F "#{key_table}$tab#{q:key_string}$tab#{p12:$label} $desc"
+  else
+    # Note: tmux before 3.5 lacks list-keys -F, so parse the default listing
+    # (bind-key [-r] -T table key command), which escapes the key, and the
+    # notes listing (key note), which does not.
+    { tmux list-keys -N -P '' -T "$1"; echo; tmux list-keys -T "$1"; } |
+    awk -v table="$1" -v prefix="$prefix" -v tab="$tab" '
+      !plain && /^$/ { plain = 1; next }
+      !plain {
+        sub(/^ +/, ""); key = $1; sub(/^[^ ]+ +/, ""); note[key] = $0; next
+      }
+      {
+        line = $0
+        sub(/^bind-key +(-r +)?-T +[^ ]+ +/, "", line)
+        key = line; sub(/ .*/, "", key)
+        cmd = line; sub(/^[^ ]+ +/, "", cmd)
+        bare = key
+        if (bare ~ /^\\./) bare = substr(bare, 2)
+        else if (bare ~ /^\047.*\047$/ || bare ~ /^".*"$/) bare = substr(bare, 2, length(bare) - 2)
+        desc = (bare in note) ? note[bare] : cmd
+        if (length(desc) > 100) desc = substr(desc, 1, 100) "..."
+        label = (table == "prefix" ? prefix " " : "") bare
+        printf "%s%s%s%s%-12s %s\n", table, tab, key, tab, label, desc
+      }'
+  fi
+}
 choice=$(
-  {
-    tmux list-keys -T prefix -F "$format"
-    tmux list-keys -T root -F "$format"
-  } | grep -v -E "^root${tab}[^${tab}]*(Mouse|Wheel|Drag|Click)" |
+  { bindings prefix; bindings root; } |
+  grep -v -E "^root${tab}[^${tab}]*(Mouse|Wheel|Drag|Click)" |
   fzf --reverse --delimiter="$tab" --with-nth=3.. --prompt='tmux> '
 ) || exit 0
 
