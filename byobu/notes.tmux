@@ -46,7 +46,6 @@ bind-key -N "Cycle status bar widgets" -n S-F5
 bind-key -N "Switch to a random color theme" -n C-S-F5
 bind-key -N "Reconnect SSH/GPG agent sockets in this pane" -n C-F5
 bind-key -N "Enable mouse support" -n M-F12
-bind-key -N "Disable byobu function keys (toggle)" -n S-F12
 
 # Windows.
 bind-key -N "Create a new window in the current directory" -n F2

@@ -159,6 +159,7 @@ if [ -z "$WINDOWS" ]; then
     "source-file \"$CONFIG_DIR/byobu/tmux.conf\""
   link_file "$CONFIG_DIR/byobu/palette.sh" .config/byobu/palette.sh
   link_file "$CONFIG_DIR/byobu/notes.tmux" .config/byobu/notes.tmux
+  link_file "$CONFIG_DIR/byobu/fkeys-toggle.tmux" .config/byobu/fkeys-toggle.tmux
   link_file "$CONFIG_DIR/byobu/status" .config/byobu/status
   link_file "$CONFIG_DIR/byobu/statusrc" .config/byobu/statusrc
   mkdir -p .config/byobu/bin
