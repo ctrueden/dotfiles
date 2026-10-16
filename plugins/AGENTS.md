@@ -346,7 +346,6 @@ From this directory's plugins:
 - `$CODE_GIT` - git/git repository path (git.sh)
 - `$SVN_AUTHORS` - SVN authors file for git-svn (git.sh)
 - `$PERL5LIB` - Perl library path for Git-Mediawiki (git.sh)
-- `$WD_CONFIG` - wd warp directory config (zshrc, uses this)
 - `$LESS` - Less pager options (000_vars.sh)
 - `$SPHINXOPTS` - Sphinx build options (000_vars.sh)
 - `$XMLLINT_INDENT` - XML indentation character (000_vars.sh)
@@ -359,7 +358,7 @@ From this directory's plugins:
 ### oh-my-zsh Plugins
 
 The dotfiles use oh-my-zsh with these plugins (from zshrc):
-- vi-mode, git, github, mvn, npm, vundle, wd, z (jump), history, etc.
+- vi-mode, git, github, mvn, npm, vundle, z (jump), history, etc.
 
 The custom plugins here **complement** oh-my-zsh, not replace it.
 

@@ -111,7 +111,6 @@ zsh_plugins=(
 	@omz/npm                              # npm completion
 	@omz/urltools                         # urlencode and urldecode functions
 	@omz/vundle                           # plugin manager for vim
-	@omz/wd                               # wd "warp directory" command
 	@omz/web-search                       # web search commands (google etc.)
 	@omz/z                                # z "jump around" command
 	esc/conda-zsh-completion              # tab completion for conda
@@ -134,8 +133,6 @@ zpm load $zsh_plugins 2> >(grep -v '^cp: \(cannot copy cyclic symbolic link\|.*d
 
 # use ctrl+] for zsh-nohup plugin
 bindkey "\C]" nohup-command-line
-
-export WD_CONFIG=$DOTFILES/warprc
 
 for plugin in $_plugins
 do

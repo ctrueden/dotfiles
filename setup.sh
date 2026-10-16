@@ -175,10 +175,6 @@ stub_file .mrconfig "include = cat \"$CONFIG_DIR/mrconfig\""
 mkdir -p .config/mr
 stub_file .config/mr/essential "include = cat \"$CONFIG_DIR/mrconfig.d/essential\""
 
-# ~/.config/wd/warprc
-# NB: zshrc sets WD_CONFIG to the dotfiles' copy instead.
-unlink_file .config/wd/warprc
-
 # ~/.vim/vimrc
 mkdir -p .vim
 stub_file .vim/vimrc "source $CONFIG_DIR/vimrc"

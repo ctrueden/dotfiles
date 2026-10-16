@@ -84,7 +84,7 @@ What does this configuration include?
     -   Extensible configuration for [myrepos] to work with
         many repositories en masse.
     -   Shell aliases (type `go` and press tab) for jumping to
-        specific code folders for SciJava et al., or use [wd].
+        specific code folders for SciJava et al., or use [z].
     -   `devlink` builds tool checkouts (uv, pixi, npm, cargo, make, or
         plain scripts) and links their executables into `~/bin`, shadowing
         released versions; mr runs it on checkout and update.
@@ -155,6 +155,5 @@ everything [POSIX]-friendly&mdash;but I haven't tested them.
 [vim-sneak]: https://github.com/justinmk/vim-sneak
 [vim-surround]: https://github.com/tpope/vim-surround
 [vim]: https://www.vim.org/
-[wd]: https://github.com/mfaerevaag/wd
 [z]: https://github.com/rupa/z
 [zpm]: https://github.com/zpm-zsh/zpm
