@@ -53,8 +53,9 @@ What does this configuration include?
 
 3.  A terminal multiplexer setup using [byobu] on top of [tmux]:
     -   Byobu launches automatically, for login shells and local terminals.
-    -   Ctrl+A and Ctrl+B as prefix keys, leaving F12 free for a
+    -   Ctrl+A as the prefix key, leaving F12 free for a
         drop-down terminal such as Guake or iTerm2.
+    -   Ctrl+B instead over SSH, so nested sessions each have their own prefix.
     -   Prefix + Space opens a fuzzy-find command palette (via [fzf]).
     -   Prefix + h opens the current pane's full scrollback in your editor.
     -   Custom status bar widgets counting unread GitHub notifications
