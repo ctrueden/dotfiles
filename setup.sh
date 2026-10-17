@@ -305,7 +305,7 @@ if command -v nvim >/dev/null 2>&1 && nvim_ok && [ -d "$NVIM_CONFIG_DIR" ]; then
 
   # Set nerd font flag as appropriate.
   case "$(uname)" in
-    Linux|Darwin|MINGW*|MSYS*|CYGWIN*)
+    Linux|Darwin|FreeBSD|MINGW*|MSYS*|CYGWIN*)
       perl -i -pe "s|vim.g.have_nerd_font = false|vim.g.have_nerd_font = true|" "$NVIM_CONFIG"
       ;;
   esac
@@ -328,10 +328,11 @@ fi
 if ! command -v claude >/dev/null 2>&1; then
   echo "Installing Claude Code..."
   case "$(uname)" in
+    Linux|Darwin) curl -fsSL https://claude.ai/install.sh | bash ;;
     # Note: install.sh refuses to run on Windows; it has a PowerShell twin.
     MINGW*|MSYS*|CYGWIN*)
       powershell -NoProfile -ExecutionPolicy Bypass -Command 'irm https://claude.ai/install.ps1 | iex' ;;
-    *) curl -fsSL https://claude.ai/install.sh | bash ;;
+    *) echo "Claude Code does not support $(uname)." >&2; false ;;
   esac ||
     echo "Warning: Claude Code install failed; continuing setup." >&2
 fi

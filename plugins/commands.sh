@@ -27,13 +27,11 @@ div() {
 }
 
 # use readable ls colors
-if [ "$IS_LINUX" ]; then
+if [ "$IS_LINUX" ] || [ "$IS_WINDOWS" ]; then
 	alias ls='ls -F --color=auto'
 	export LS_COLORS="ow=30;42"
-else
+elif [ "$IS_MACOS" ] || [ "$IS_FREEBSD" ]; then
 	alias ls='ls -FG'
-fi
-if [ "$IS_MACOS" ]; then
 	export LSCOLORS="ExGxBxDxCxEgedabagacad"
 fi
 

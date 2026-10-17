@@ -73,9 +73,11 @@ done
 # -- Detect package managers and environment --
 
 case "$(uname)" in
+  Linux) os=linux ;;
   Darwin) os=macos ;;
+  FreeBSD) os=freebsd ;;
   MINGW*|MSYS*|CYGWIN*) os=windows ;;
-  *) os=linux ;;
+  *) echo "Unsupported OS: $(uname)" >&2; exit 1 ;;
 esac
 
 # The package managers to use, in install order.
@@ -85,15 +87,21 @@ case $os in
     command -v scoop >/dev/null && KINDS=scoop
     command -v winget >/dev/null && KINDS="$KINDS winget"
     ;;
-  *)
+  linux)
     if command -v apt-get >/dev/null; then
       KINDS=apt
     elif command -v brew >/dev/null; then
       KINDS="brew cask"
     fi
     ;;
+  macos)
+    command -v brew >/dev/null && KINDS="brew cask"
+    ;;
+  freebsd)
+    echo "Note: pkg is not supported yet; installing only npm and uv packages." >&2
+    ;;
 esac
-if [ -z "$KINDS" ]; then
+if [ -z "$KINDS" ] && [ $os != freebsd ]; then
   echo "No supported package manager (apt-get, brew, scoop or winget) found." >&2
   exit 1
 fi
@@ -104,9 +112,12 @@ SUDO=sudo
 test "$(id -u)" -eq 0 && SUDO=
 
 is_desktop() {
-  test $os = linux || return 0
+  case $os in macos|windows) return 0 ;; esac
   test -n "${XDG_CURRENT_DESKTOP:-}" && return 0
-  test -d /usr/share/xsessions -o -d /usr/share/wayland-sessions
+  for d in /usr/share /usr/local/share; do
+    test -d $d/xsessions -o -d $d/wayland-sessions && return 0
+  done
+  return 1
 }
 
 sections=" core $with "

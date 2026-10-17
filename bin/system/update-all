@@ -4,10 +4,12 @@
 # Otherwise sudo's cancelled password prompt fails that step and the rest continue.
 trap 'echo; echo "Interrupted."; exit 130' INT
 
-# Note: Windows package managers prompt for elevation themselves, when needed.
+# Note: Windows package managers prompt for elevation themselves, when needed,
+# and nothing below needs sudo on FreeBSD.
 case "$(uname)" in
-  MINGW*|MSYS*|CYGWIN*) ;;
-  *) sudo -v || exit 1 ;;
+  Linux|Darwin) sudo -v || exit 1 ;;
+  FreeBSD|MINGW*|MSYS*|CYGWIN*) ;;
+  *) echo "Unsupported OS: $(uname)" >&2; exit 1 ;;
 esac
 
 exit_code=0

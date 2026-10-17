@@ -53,7 +53,7 @@ done
 - `path_filter` - Remove duplicates and non-existent directories
 
 **000_os.sh** - OS-specific configuration:
-- Sets `$IS_MACOS`, `$IS_LINUX`, or `$IS_WINDOWS`
+- Sets `$IS_MACOS`, `$IS_LINUX`, `$IS_FREEBSD`, or `$IS_WINDOWS`
 - Configures `ls` colors for each OS
 - Defines `sedi` alias for cross-platform in-place sed editing
 

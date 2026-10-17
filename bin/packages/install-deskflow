@@ -19,7 +19,8 @@ app=org.deskflow.deskflow
 if [ "${1:-}" = --check ]; then
   case "$(uname)" in
     Darwin) brew list --cask deskflow >/dev/null 2>&1 ;;
-    *) command -v deskflow >/dev/null || flatpak info "$app" >/dev/null 2>&1 ;;
+    Linux) command -v deskflow >/dev/null || flatpak info "$app" >/dev/null 2>&1 ;;
+    *) false ;;
   esac
   exit
 fi
@@ -33,7 +34,7 @@ case "$(uname)" in
     brew trust deskflow/tap
     brew install --cask deskflow
     ;;
-  *)
+  Linux)
     if command -v apt-cache >/dev/null &&
       apt-cache policy deskflow 2>/dev/null | grep -q 'Candidate: [0-9]'
     then
@@ -46,5 +47,9 @@ case "$(uname)" in
       echo "No deskflow package, and no flatpak to fall back on." >&2
       exit 1
     fi
+    ;;
+  *)
+    echo "Unsupported OS for Deskflow: $(uname)" >&2
+    exit 1
     ;;
 esac

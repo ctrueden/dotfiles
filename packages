@@ -15,7 +15,7 @@
 #   custom (runs the script bin/packages/install-NAME)
 # Each custom script must support --check, exiting 0 when its tool is
 # installed and current. A "# Platforms:" line in its header (linux, macos,
-# windows) limits the OSes where it counts as an alternative.
+# freebsd, windows) limits the OSes where it counts as an alternative.
 # An npm entry followed by the word scripts may run its install scripts,
 # which npm otherwise warns about, and will someday refuse to run.
 # A uv entry followed by python=VERSION installs its tool on that Python,
