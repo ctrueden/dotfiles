@@ -323,6 +323,8 @@ fi
 # the rest, e.g. Linux, or Windows without scoop.
 # Note: We use curl|sh -- if the claude.ai domain were compromised, running
 # claude at all would be equally dangerous, so this is an acceptable risk.
+# Note: The installer refuses unsupported platforms (e.g. FreeBSD), and the
+# rest of setup does not depend on it, so a failure is not fatal.
 if ! command -v claude >/dev/null 2>&1; then
   echo "Installing Claude Code..."
   case "$(uname)" in
@@ -330,7 +332,8 @@ if ! command -v claude >/dev/null 2>&1; then
     MINGW*|MSYS*|CYGWIN*)
       powershell -NoProfile -ExecutionPolicy Bypass -Command 'irm https://claude.ai/install.ps1 | iex' ;;
     *) curl -fsSL https://claude.ai/install.sh | bash ;;
-  esac
+  esac ||
+    echo "Warning: Claude Code install failed; continuing setup." >&2
 fi
 
 # Note: We ask whenever the identity is unset, rather than when .gitconfig is
