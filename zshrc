@@ -17,14 +17,31 @@ is_embedded_terminal() {
 	[[ "$TERMINAL_EMULATOR" == JetBrains-JediTerm ]] # IntelliJ and friends.
 }
 
-should_launch_byobu() {
+wants_multiplexer() {
 	[[ -o interactive ]] || return 1        # Scripts and commands (zsh -c).
 	[[ -z "$TMUX" ]] || return 1            # Already inside tmux.
-	! is_embedded_terminal || return 1      # Editors and IDEs host their own.
+	! is_embedded_terminal                  # Editors and IDEs host their own.
+}
+
+should_launch_byobu() {
+	wants_multiplexer || return 1
 	(( $+commands[byobu-launch] ))          # Byobu is installed.
 }
 
-should_launch_byobu && _byobu_sourced=1 . "$commands[byobu-launch]"
+# Note: Where byobu is unavailable (e.g. TrueNAS), fall back to plain tmux,
+# but only for SSH logins; locally, the terminal is the session.
+should_launch_tmux() {
+	wants_multiplexer || return 1
+	[[ -n "$SSH_CONNECTION" ]] || return 1  # Logged in over SSH.
+	(( $+commands[tmux] ))                  # tmux is installed.
+}
+
+if should_launch_byobu; then
+	_byobu_sourced=1 . "$commands[byobu-launch]"
+elif should_launch_tmux; then
+	# Note: exec, so that leaving tmux (exit or detach) ends the SSH session.
+	exec tmux new-session -A -s main
+fi
 
 # --== progress bar ==--
 
