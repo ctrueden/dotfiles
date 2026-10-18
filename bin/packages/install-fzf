@@ -1,0 +1,32 @@
+#!/bin/sh
+
+# Installs a pinned fzf release binary into ~/.local/bin, verified against a
+# SHA-256 recorded here. Used where the OS package is unavailable (FreeBSD
+# without pkg, e.g. TrueNAS). To upgrade, bump fzf_ver and the hash together;
+# the hashes are published in fzf_VERSION_checksums.txt beside the assets.
+#
+# Platforms: freebsd
+#
+# With --check, reports via exit code whether the pinned version is installed.
+
+. "${DOTFILES:?}/lib/download.sh"
+
+fzf_ver=0.74.5
+
+if [ "${1:-}" = --check ]; then
+  "$HOME/.local/bin/fzf" --version 2>/dev/null | grep -q "^$fzf_ver "
+  exit
+fi
+
+case "$(uname)-$(uname -m)" in
+  FreeBSD-amd64)
+    target=freebsd_amd64
+    sha=a1740d86e8e061d99d13925ba85432948d23d9cf9d0a9d0f7ab547931a2d6fdb ;;
+  *)
+    echo "Unsupported platform for fzf: $(uname) $(uname -m)" >&2
+    exit 1 ;;
+esac
+
+download_verified "https://github.com/junegunn/fzf/releases/download/v$fzf_ver/fzf-$fzf_ver-$target.tar.gz" "$sha" &&
+mkdir -p "$HOME/.local/bin" &&
+tar -xzf "$downloaded" -C "$HOME/.local/bin" fzf

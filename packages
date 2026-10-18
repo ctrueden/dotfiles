@@ -42,7 +42,7 @@ apt|brew|scoop:boxes
 apt|brew:byobu | winget:marlocarlo.psmux
 brew|custom:node
 apt|brew:coreutils
-apt|brew|scoop:fzf
+apt|brew|scoop|custom:fzf
 apt|brew|scoop:glow
 apt|brew:gnupg
 apt|brew|scoop:highlight
