@@ -169,6 +169,16 @@ if [ -z "$WINDOWS" ]; then
   done
 fi
 
+# ~/.tmux.conf [not Windows, where setup.ps1 writes ~/.psmux.conf instead]
+# NB: Byobu reads its own config above, so this is for plain tmux,
+# as zshrc launches over SSH where byobu is missing.
+if [ -z "$WINDOWS" ]; then
+  stub_file .tmux.conf \
+    "source-file \"$CONFIG_DIR/tmux/tmux.conf\"" \
+    "source-file \"$CONFIG_DIR/tmux/fkeys.conf\"" \
+    'bind-key -N "Reload the tmux configuration" -n F5 source-file ~/.tmux.conf'
+fi
+
 # ~/.mrconfig
 # NB: A stub lets `mr register` add to it without dirtying the dotfiles.
 stub_file .mrconfig "include = cat \"$CONFIG_DIR/mrconfig\""

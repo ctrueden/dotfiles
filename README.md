@@ -60,8 +60,9 @@ What does this configuration include?
     -   Prefix + h opens the current pane's full scrollback in your editor.
     -   Custom status bar widgets counting unread GitHub notifications
         and local repositories with unpushed changes.
-    -   On Windows, [psmux] reads the same [tmux.conf](tmux/tmux.conf),
-        plus byobu's main function keys from [psmux.conf](tmux/psmux.conf).
+    -   Where byobu is missing, plain tmux (over SSH) and, on Windows, [psmux]
+        read the same [tmux.conf](tmux/tmux.conf), plus byobu's main
+        function keys from [fkeys.conf](tmux/fkeys.conf).
     -   See [tmux/](tmux/) and [byobu/](byobu/) for details.
 
 4.  A declarative package manifest, installed by `install-packages`:
