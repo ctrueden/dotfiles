@@ -16,7 +16,8 @@ download_verified() { # url hash
   downloaded=$(mktemp) || return 1
   trap 'rm -f "$downloaded"' EXIT
   curl -fsSL "$1" -o "$downloaded" || return 1
-  echo "$2  $downloaded" | $_sum -c - >/dev/null || {
+  # Note: FreeBSD 13's sha256sum cannot -c from stdin, so compare by hand.
+  test "$($_sum "$downloaded" | cut -d' ' -f1)" = "$2" || {
     echo "Checksum mismatch for $1" >&2
     return 1
   }

@@ -98,7 +98,7 @@ case $os in
     command -v brew >/dev/null && KINDS="brew cask"
     ;;
   freebsd)
-    echo "Note: pkg is not supported yet; installing only npm and uv packages." >&2
+    echo "Note: pkg is not supported yet; installing only npm, uv and custom packages." >&2
     ;;
 esac
 if [ -z "$KINDS" ] && [ $os != freebsd ]; then
