@@ -18,9 +18,9 @@ rm -f "$out"
 
 prefix=$(tmux show -gv prefix)
 
-# Lines are: table<TAB>key<TAB>shown-text. The key is escaped for tmux's
-# command parser; the shown text is the binding's note (description) if it
-# has one, or else its command.
+# Lines are: table<TAB>key<TAB>shown-text, plus <TAB>command for tmux before
+# 3.5 (see below). The key is escaped for tmux's command parser; the shown
+# text is the binding's note (description) if it has one, or else its command.
 tab=$(printf '\t')
 bindings() {
   if tmux list-keys -T "$1" -F x >/dev/null 2>&1; then
@@ -48,15 +48,22 @@ bindings() {
         desc = (bare in note) ? note[bare] : cmd
         if (length(desc) > 100) desc = substr(desc, 1, 100) "..."
         label = (table == "prefix" ? prefix " " : "") bare
-        printf "%s%s%s%s%-12s %s\n", table, tab, key, tab, label, desc
+        printf "%s%s%s%s%-12s %s%s%s\n", table, tab, key, tab, label, desc, tab, cmd
       }'
   fi
 }
 choice=$(
   { bindings prefix; bindings root; } |
   grep -v -E "^root${tab}[^${tab}]*(Mouse|Wheel|Drag|Click)" |
-  fzf --reverse --delimiter="$tab" --with-nth=3.. --prompt='tmux> '
+  fzf --reverse --delimiter="$tab" --with-nth=3 --prompt='tmux> '
 ) || exit 0
+
+# Note: send-keys -K, which presses a key as the client would, needs tmux 3.4;
+# before that, run the binding's command instead.
+version=$(tmux -V | sed 's/^[^0-9]*//; s/[^0-9.].*//')
+case "$version" in
+  [0-2].*|3.[0-3]) printf '%s\n' "$choice" | cut -f4- > "$out"; exit ;;
+esac
 
 table=$(printf '%s' "$choice" | cut -f1)
 key=$(printf '%s' "$choice" | cut -f2)
