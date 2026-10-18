@@ -155,11 +155,12 @@ unlink_file .config/jgo.conf
 if [ -z "$WINDOWS" ]; then
   mkdir -p .config/byobu
   stub_file .config/byobu/.tmux.conf \
-    "source-file \"$CONFIG_DIR/tmux.conf\"" \
-    "source-file \"$CONFIG_DIR/byobu/tmux.conf\""
-  link_file "$CONFIG_DIR/byobu/palette.sh" .config/byobu/palette.sh
-  link_file "$CONFIG_DIR/byobu/notes.tmux" .config/byobu/notes.tmux
-  link_file "$CONFIG_DIR/byobu/fkeys-toggle.tmux" .config/byobu/fkeys-toggle.tmux
+    "source-file \"$CONFIG_DIR/tmux/tmux.conf\"" \
+    "source-file \"$CONFIG_DIR/byobu/byobu.conf\""
+  link_file "$CONFIG_DIR/tmux/palette.sh" .config/byobu/palette.sh
+  # Note: byobu.conf sources these from the dotfiles directly.
+  unlink_file .config/byobu/notes.tmux
+  unlink_file .config/byobu/fkeys-toggle.tmux
   link_file "$CONFIG_DIR/byobu/status" .config/byobu/status
   link_file "$CONFIG_DIR/byobu/statusrc" .config/byobu/statusrc
   mkdir -p .config/byobu/bin
