@@ -17,7 +17,10 @@ if filereadable(vundlepath . '/README.md')
 
 	" Indent Guides
 	" See also https://github.com/nathanaelkane/vim-indent-guides/issues/31
-	colorscheme default
+	" Note: Minimal vims (e.g. FreeBSD's vim-tiny) ship no color schemes.
+	if !empty(globpath(&runtimepath, 'colors/default.vim'))
+		colorscheme default
+	endif
 	Plugin 'nathanaelkane/vim-indent-guides'
 	let g:indent_guides_enable_on_vim_startup = 1
 	let g:indent_guides_guide_size = 1

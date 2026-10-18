@@ -1,6 +1,9 @@
 " Enable syntax highlighting for dark background
 set background=dark
-syntax on
+" Note: Minimal vims (e.g. FreeBSD's vim-tiny) ship no syntax files.
+if filereadable($VIMRUNTIME . '/syntax/syntax.vim')
+	syntax on
+endif
 
 set cursorline
 
