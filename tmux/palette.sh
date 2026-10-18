@@ -2,16 +2,10 @@
 
 # palette.sh - Fuzzy-find a tmux key binding, then press it.
 #
-# Meant to run inside a tmux popup (see ../byobu/byobu.conf). Rather than
-# running the chosen binding directly, it writes a send-keys command into
-# tmux's socket directory, as palette-<client-pid>, for the caller to source
-# once the popup has closed and the keys can reach the client again.
-#
-# Example binding for ~/.byobu/.tmux.conf:
-#
-#   bind-key Space display-popup -E -w 80% -h 60% \
-#   '~/.config/byobu/palette.sh' \; \
-#   source-file -qF '#{d:socket_path}/palette-#{client_pid}'
+# Meant to run inside a tmux popup (see tmux.conf). Rather than running the
+# chosen binding directly, it writes a send-keys command into tmux's socket
+# directory, as palette-<client-pid>, for the caller to source once the popup
+# has closed and the keys can reach the client again.
 
 command -v fzf >/dev/null 2>&1 || {
   echo "palette.sh: fzf is not installed."

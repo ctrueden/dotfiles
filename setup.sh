@@ -157,8 +157,8 @@ if [ -z "$WINDOWS" ]; then
   stub_file .config/byobu/.tmux.conf \
     "source-file \"$CONFIG_DIR/tmux/tmux.conf\"" \
     "source-file \"$CONFIG_DIR/byobu/byobu.conf\""
-  link_file "$CONFIG_DIR/tmux/palette.sh" .config/byobu/palette.sh
-  # Note: byobu.conf sources these from the dotfiles directly.
+  # Note: tmux.conf and byobu.conf find these in the dotfiles directly.
+  unlink_file .config/byobu/palette.sh
   unlink_file .config/byobu/notes.tmux
   unlink_file .config/byobu/fkeys-toggle.tmux
   link_file "$CONFIG_DIR/byobu/status" .config/byobu/status
