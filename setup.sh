@@ -191,6 +191,15 @@ stub_file .config/mr/essential "include = cat \"$CONFIG_DIR/mrconfig.d/essential
 mkdir -p .vim
 stub_file .vim/vimrc "source $CONFIG_DIR/vimrc"
 
+# ~/.config/kitty [not Windows, which kitty does not support]
+# NB: A stub lets `kitten themes` edit kitty.conf without dirtying the dotfiles.
+if [ -z "$WINDOWS" ]; then
+  mkdir -p .config/kitty
+  stub_file .config/kitty/kitty.conf "include $CONFIG_DIR/kitty/kitty.conf"
+  link_file "$CONFIG_DIR/kitty/quick-access-terminal.conf" \
+    .config/kitty/quick-access-terminal.conf
+fi
+
 # ~/.XCompose [not Windows, which lacks X]
 test -n "$WINDOWS" || link_file "$CONFIG_DIR/XCompose" .XCompose
 
