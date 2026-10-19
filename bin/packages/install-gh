@@ -6,17 +6,23 @@
 #
 # Platforms: linux
 #
-# With --check, reports via exit code whether gh is already installed;
-# once it is, apt keeps it up to date.
+# With --check, reports via exit code whether gh is installed with GitHub's
+# repository configured; once it is, apt keeps it up to date. A gh from the
+# distro alone does not count, so that this replaces it.
 
 set -eu
 
-if [ "${1:-}" = --check ]; then command -v gh >/dev/null; exit; fi
+keyring=/etc/apt/keyrings/githubcli-archive-keyring.gpg
+sources=/etc/apt/sources.list.d/github-cli.list
+
+if [ "${1:-}" = --check ]; then
+  command -v gh >/dev/null && test -e "$keyring" -a -e "$sources"
+  exit
+fi
 
 # Known-good fingerprints: https://github.com/cli/cli/blob/trunk/docs/install_linux.md
 fp1=2C6106201985B60E6C7AC87323F3D4EA75716059
 fp2=7F38BBB59D064DBCB3D84D725612B36462313325
-keyring=/etc/apt/keyrings/githubcli-archive-keyring.gpg
 
 SUDO=sudo
 test "$(id -u)" -eq 0 && SUDO=
@@ -34,6 +40,6 @@ fi
 
 $SUDO mkdir -p -m 755 /etc/apt/sources.list.d
 echo "deb [arch=$(dpkg --print-architecture) signed-by=$keyring] https://cli.github.com/packages stable main" |
-  $SUDO tee /etc/apt/sources.list.d/github-cli.list >/dev/null
+  $SUDO tee "$sources" >/dev/null
 $SUDO apt-get update
 $SUDO apt-get install -y gh
