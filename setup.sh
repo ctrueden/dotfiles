@@ -235,12 +235,22 @@ _mk=org.gnome.settings-daemon.plugins.media-keys
 if [ -x "$HOME/.local/bin/kitten" ] &&
   gsettings list-schemas 2>/dev/null | grep -qx "$_mk"; then
   _mk_path=$(echo "/$_mk/custom-keybindings/kitty-quick-access/" | tr . /)
-  _mk_list=$(gsettings get "$_mk" custom-keybindings)
-  case "$_mk_list" in
-    *"$_mk_path"*) ;;
-    "@as []"|"[]") gsettings set "$_mk" custom-keybindings "['$_mk_path']" ;;
-    *) gsettings set "$_mk" custom-keybindings "${_mk_list%]}, '$_mk_path']" ;;
-  esac
+  # Remove other custom shortcuts bound to F12 (e.g. Guake's, which outlives
+  # the package), since GNOME gives the key to only one of them.
+  _mk_list=
+  for _p in $(gsettings get "$_mk" custom-keybindings |
+    sed "s/^@as //; s/[][',]/ /g"); do
+    test "$_p" = "$_mk_path" && continue
+    _k="$_mk.custom-keybinding:$_p"
+    if [ "$(gsettings get "$_k" binding)" = "'F12'" ]; then
+      echo "Warning: removing conflicting F12 shortcut" \
+        "$(gsettings get "$_k" name): $(gsettings get "$_k" command)" >&2
+      gsettings reset-recursively "$_k"
+    else
+      _mk_list="$_mk_list'$_p', "
+    fi
+  done
+  gsettings set "$_mk" custom-keybindings "[$_mk_list'$_mk_path']"
   _mk_key="$_mk.custom-keybinding:$_mk_path"
   gsettings set "$_mk_key" name 'kitty quick-access terminal'
   gsettings set "$_mk_key" command "$HOME/.local/bin/kitten quick-access-terminal"
