@@ -235,7 +235,7 @@ fi
 # byobu -- tmux with batteries (installed via packages; fzf powers its command palette)
 # Note: byobu-enable hooks only login shells (e.g. ssh, iTerm2 on macOS);
 # zshrc launches byobu for non-login local terminals (e.g. kitty on Linux).
-command -v byobu-enable >/dev/null 2>&1 && byobu-enable
+command -v byobu-enable >/dev/null 2>&1 && env -u BYOBU_PREFIX byobu-enable
 
 # kitty -- configure F12 to toggle its quick-access (drop-down) terminal.
 # Note: The kitten has no hotkey of its own; running it again shows or
