@@ -1,0 +1,59 @@
+#!/bin/sh
+
+# Installs a pinned kitty release into ~/.local/opt, verified against a SHA-256
+# recorded here, links kitty and kitten into ~/.local/bin, and registers its
+# desktop entries. Used instead of apt, whose kitty lags far behind: Ubuntu
+# 24.04 ships 0.32.x. To upgrade, bump kitty_ver and the hashes together;
+# GitHub shows each asset's SHA-256 on the release page, and as its digest via
+# https://api.github.com/repos/kovidgoyal/kitty/releases/tags/vVERSION
+#
+# Platforms: linux
+#
+# With --check, reports via exit code whether the pinned version is linked.
+
+. "${DOTFILES:?}/lib/download.sh"
+
+kitty_ver=0.49.2
+
+opt="$HOME/.local/opt"
+bin="$HOME/.local/bin"
+apps="$HOME/.local/share/applications"
+dir="$opt/kitty-$kitty_ver"
+
+if [ "${1:-}" = --check ]; then
+  test "$(readlink "$bin/kitty")" = "$dir/bin/kitty"
+  exit
+fi
+
+case "$(uname -m)" in
+  x86_64)
+    target=x86_64
+    sha=d573618b911e9c461bd421b96c13c74c7f1cb2f1ac9c327818d4ff84366cf5c6 ;;
+  aarch64|arm64)
+    target=arm64
+    sha=0c81a995614426cccf0fecaf7d104d47cd63bbccf173d14976e9f92e3d60fce6 ;;
+  *)
+    echo "Unsupported architecture for kitty: $(uname -m)" >&2
+    exit 1 ;;
+esac
+
+download_verified "https://github.com/kovidgoyal/kitty/releases/download/v$kitty_ver/kitty-$kitty_ver-$target.txz" "$sha" &&
+rm -rf "$dir" && mkdir -p "$dir" "$bin" "$apps" &&
+tar -xJf "$downloaded" -C "$dir" &&
+ln -sfn "$dir/bin/kitty" "$bin/kitty" &&
+ln -sfn "$dir/bin/kitten" "$bin/kitten" || exit 1
+
+# Register with the desktop, so that launchers find kitty and its icon.
+# Note: The entries name kitty and its icon relatively, which only resolves
+# if the launcher's PATH and icon theme include this directory; use full paths.
+for f in kitty kitty-open; do
+  sed -e "s|^Exec=kitty|Exec=$dir/bin/kitty|" \
+      -e "s|^TryExec=kitty|TryExec=$dir/bin/kitty|" \
+      -e "s|^Icon=kitty|Icon=$dir/share/icons/hicolor/256x256/apps/kitty.png|" \
+      "$dir/share/applications/$f.desktop" > "$apps/$f.desktop" || exit 1
+done
+
+# Remove any versions this one replaces.
+for d in "$opt"/kitty-*; do
+  test "$d" = "$dir" || rm -rf "$d"
+done
