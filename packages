@@ -172,7 +172,6 @@ apt:meshlab
 cask:claude | winget:Anthropic.Claude
 cask:1password | winget:AgileBits.1Password
 cask:firefox | winget:Mozilla.Firefox
-cask:iterm2
 cask:maccy
 cask:rectangle
 cask:stats
