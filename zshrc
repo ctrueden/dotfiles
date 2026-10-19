@@ -36,13 +36,17 @@ should_launch_tmux() {
 	(( $+commands[tmux] ))                  # tmux is installed.
 }
 
+# Note: The tmux server keeps the PATH of the shell that starts it, for the
+# commands it runs itself (e.g. the palette's fzf, or the editor that opens
+# scrollback), and the plugins have yet to add the user bin dirs to it.
+# Duplicates are harmless; path_update filters them out.
 if should_launch_byobu; then
+	export PATH="$HOME/bin:$HOME/.local/bin:$PATH"
 	_byobu_sourced=1 . "$commands[byobu-launch]"
 elif should_launch_tmux; then
 	# Note: exec, so that leaving tmux (exit or detach) ends the SSH session.
-	# The tmux server keeps this PATH, for the commands it runs itself (e.g.
-	# the palette's fzf), and the plugins have yet to add ~/.local/bin to it.
-	PATH="$HOME/.local/bin:$PATH" exec tmux new-session -A -s main
+	export PATH="$HOME/bin:$HOME/.local/bin:$PATH"
+	exec tmux new-session -A -s main
 fi
 
 # --== progress bar ==--
