@@ -289,6 +289,7 @@ queue_custom() { # name
 # KIND:NAME, in order of preference. An alternative without a name takes
 # that of the next one with a name, so apt:fd-find | brew|scoop:fd yields
 # brew:fd. Spaces around each | are only for legibility.
+# An entry's replaces= token, if any, follows its alternatives.
 # $tmp/uv.python pairs uv tools with the Python their entries ask for.
 sed -e 's/#.*//' -e 's/[[:space:]]*|[[:space:]]*/|/g' "$manifest" |
 awk -v kinds=" $KINDS npm uv custom " -v enabled="$sections" \
@@ -320,6 +321,8 @@ awk -v kinds=" $KINDS npm uv custom " -v enabled="$sections" \
         for (j = 2; j <= NF; j++)
           if ($j ~ /^python=/) print named[i], substr($j, 8) > pyfile
     }
+    if (out != "")
+      for (j = 2; j <= NF; j++) if ($j ~ /^replaces=/) out = out " " $j
     if (out != "") print section, (index(enabled, " " section " ") ? 1 : 0) out
   }
 ' > "$tmp/entries"
@@ -366,19 +369,53 @@ done >> "$tmp/ok"
 # Each line of $tmp/chosen is an entry's first alternative that can supply it,
 # or else its first alternative: kind, name, section, enabled, and whether
 # it can supply it (1 or 0).
+# $tmp/superseded lists, as KIND:NAME, the packages that the replaces= tokens
+# of enabled entries name, other than the alternative chosen for each.
 # Note: npm and uv may be installed only during the run, so they always can.
-awk '
+awk -v superseded="$tmp/superseded" '
+  BEGIN { printf "" > superseded }
   FNR == NR { ok[$1] = 1; next }
   {
-    pick = $3; can = 0
+    pick = $3; can = 0; replaces = ""
     for (i = 3; i <= NF; i++) {
+      if ($i ~ /^replaces=/) { replaces = substr($i, 10); continue }
       k = substr($i, 1, index($i, ":") - 1)
-      if (k == "npm" || k == "uv" || ($i in ok)) { pick = $i; can = 1; break }
+      if (!can && (k == "npm" || k == "uv" || ($i in ok))) { pick = $i; can = 1 }
+    }
+    if ($2 && can) {
+      n = split(replaces, r, ",")
+      for (i = 1; i <= n; i++) if (r[i] != pick) print r[i] > superseded
     }
     c = index(pick, ":")
     print substr(pick, 1, c - 1), substr(pick, c + 1), $1, $2, can
   }
 ' "$tmp/ok" "$tmp/entries" > "$tmp/chosen"
+
+# Warns about superseded packages that are still installed,
+# with the command to remove them.
+report_superseded() {
+  found=
+  for kind in $KINDS; do
+    names=$(sed -n "s/^$kind://p" "$tmp/superseded" | sort -u)
+    test -n "$names" || continue
+    test -f "$tmp/$kind.have" || installed "$kind" | sort -u > "$tmp/$kind.have"
+    names=$(echo "$names" | grep -xFf "$tmp/$kind.have" | tr '\n' ' ')
+    names=${names% }
+    test -n "$names" || continue
+    test -n "$found" || {
+      echo
+      echo "Warning: these packages are superseded by other installs:"
+      found=1
+    }
+    case "$kind" in
+      apt)    echo "  $SUDO apt-get remove $names && $SUDO apt-get autoremove" ;;
+      brew)   echo "  brew uninstall $names && brew autoremove" ;;
+      cask)   echo "  brew uninstall --cask $names" ;;
+      scoop)  echo "  scoop uninstall $names" ;;
+      winget) for p in $names; do echo "  winget uninstall --id $p --exact"; done ;;
+    esac
+  done >&2
+}
 
 # -- List --
 
@@ -447,7 +484,7 @@ list_packages() {
   sort "$tmp/statuses" | uniq -c | awk '{ printf "%s%s %s", sep, $1, $2; sep = ", " } END { print "" }'
 }
 
-test -n "$list" && { list_packages; exit; }
+test -n "$list" && { list_packages; report_superseded; exit; }
 
 # -- Work out what is missing --
 
@@ -519,6 +556,8 @@ for kind in npm uv; do
 done
 
 test -n "$did" || echo "All packages are already installed."
+
+report_superseded
 
 # Note: nvm sets a default on its first install, after which its Node comes
 # first in new shells, hiding the global npm packages installed above.

@@ -20,6 +20,10 @@
 # which npm otherwise warns about, and will someday refuse to run.
 # A uv entry followed by python=VERSION installs its tool on that Python,
 # e.g. when the newest Python lacks wheels the tool needs.
+# Any entry may be followed by replaces=MANAGER:NAME[,MANAGER:NAME...],
+# naming packages it supersedes when another of its alternatives installs it,
+# e.g. distro packages too old to use; install-packages warns about any of
+# those still installed, and suggests how to remove them.
 #
 # [sections]: core always installs. gui installs on desktops only.
 # The rest are opt-in, via --with SECTION or the machine's profile file
@@ -40,7 +44,7 @@ apt|brew:bash
 apt|brew|scoop:bat
 apt|brew|scoop:boxes
 apt|brew:byobu | winget:marlocarlo.psmux
-brew|custom:node
+brew|custom:node  replaces=apt:nodejs,apt:npm
 apt|brew:coreutils
 apt|brew|scoop|custom:fzf
 apt|brew|scoop:glow
@@ -68,7 +72,7 @@ winget:Microsoft.PowerShell
 npm:emoj
 
 # editors
-brew|scoop|custom:neovim
+brew|scoop|custom:neovim  replaces=apt:neovim
 apt|brew:vim
 scoop:tree-sitter | npm:tree-sitter-cli  scripts  # npm installer fetches its binary.
 
@@ -123,7 +127,7 @@ apt|brew|scoop:cmake
 apt|brew|scoop:gcc
 apt|brew:libtool
 apt|brew|scoop:pkgconf
-scoop:maven | custom:mvn
+scoop:maven | custom:mvn  replaces=apt:maven
 apt:build-essential
 apt|scoop:make
 
