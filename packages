@@ -163,8 +163,7 @@ apt:flatpak
 apt:gnome-shell-extension-manager
 apt:gnome-system-monitor
 apt:gnome-tweaks
-apt:guake
-custom:kitty
+brew|custom:kitty
 apt:kid3-qt
 apt:picard
 apt|cask:gimp | winget:GIMP.GIMP.3

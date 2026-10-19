@@ -6,7 +6,7 @@ test -z "$INTELLIJ_ENVIRONMENT_READER" || return
 
 # --== byobu ==--
 
-# Note: byobu-enable hooks only login shells, but local terminals like Guake
+# Note: byobu-enable hooks only login shells, but local terminals on Linux
 # start non-login shells, so launch byobu here too. It runs before anything
 # else, so the outer shell (which just waits on byobu) starts up fast.
 # byobu-launch itself skips the launch if .zprofile already did it.

@@ -224,16 +224,27 @@ fi
   echo "Warning: install-packages failed; continuing setup." >&2
 
 # byobu -- tmux with batteries (installed via packages; fzf powers its command palette)
-# Note: byobu-enable hooks only login shells (e.g. ssh, iTerm2);
-# zshrc launches byobu for non-login local terminals (e.g. Guake).
+# Note: byobu-enable hooks only login shells (e.g. ssh, iTerm2 on macOS);
+# zshrc launches byobu for non-login local terminals (e.g. kitty on Linux).
 command -v byobu-enable >/dev/null 2>&1 && byobu-enable
 
-# Guake -- free up Ctrl+F1..F12 for byobu, rather than switching Guake tabs.
-if gsettings list-schemas 2>/dev/null | grep -qx guake.keybindings.local; then
-  for i in $(seq 1 10); do
-    gsettings set guake.keybindings.local switch-tab$i ''
-  done
-  gsettings set guake.keybindings.local switch-tab-last ''
+# kitty -- configure F12 to toggle its quick-access (drop-down) terminal.
+# Note: The kitten has no hotkey of its own; running it again shows or
+# hides the terminal, so we bind it as a GNOME custom shortcut.
+_mk=org.gnome.settings-daemon.plugins.media-keys
+if [ -x "$HOME/.local/bin/kitten" ] &&
+  gsettings list-schemas 2>/dev/null | grep -qx "$_mk"; then
+  _mk_path=$(echo "/$_mk/custom-keybindings/kitty-quick-access/" | tr . /)
+  _mk_list=$(gsettings get "$_mk" custom-keybindings)
+  case "$_mk_list" in
+    *"$_mk_path"*) ;;
+    "@as []"|"[]") gsettings set "$_mk" custom-keybindings "['$_mk_path']" ;;
+    *) gsettings set "$_mk" custom-keybindings "${_mk_list%]}, '$_mk_path']" ;;
+  esac
+  _mk_key="$_mk.custom-keybinding:$_mk_path"
+  gsettings set "$_mk_key" name 'kitty quick-access terminal'
+  gsettings set "$_mk_key" command "$HOME/.local/bin/kitten quick-access-terminal"
+  gsettings set "$_mk_key" binding 'F12'
 fi
 
 # kickstart.nvim requires nvim 0.10+. Ubuntu 24.04 apt ships 0.9.x; skip
