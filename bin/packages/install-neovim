@@ -1,0 +1,47 @@
+#!/bin/sh
+
+# Installs a pinned Neovim release into ~/.local/opt, verified against a
+# SHA-256 recorded here, and links nvim into ~/.local/bin. Used instead of
+# apt, whose neovim lags far behind: Ubuntu 24.04 ships 0.9.x, too old for
+# kickstart.nvim. To upgrade, bump nvim_ver and the hashes together; GitHub
+# shows each asset's SHA-256 on the release page, and as its digest via
+# https://api.github.com/repos/neovim/neovim/releases/tags/vVERSION
+#
+# Platforms: linux
+#
+# With --check, reports via exit code whether the pinned version is linked.
+
+. "${DOTFILES:?}/lib/download.sh"
+
+nvim_ver=0.12.6
+
+opt="$HOME/.local/opt"
+bin="$HOME/.local/bin"
+dir="$opt/nvim-$nvim_ver"
+
+if [ "${1:-}" = --check ]; then
+  test "$(readlink "$bin/nvim")" = "$dir/bin/nvim"
+  exit
+fi
+
+case "$(uname -m)" in
+  x86_64)
+    target=linux-x86_64
+    sha=474430d53e6264f6d6dd18db42d6dc9df3a1b56ca9e88a325bbf860e1a811d87 ;;
+  aarch64|arm64)
+    target=linux-arm64
+    sha=8f1f64a0bdb97247034038c3823c6cbad5bdf9ecd5751b85494b71c3ee04c815 ;;
+  *)
+    echo "Unsupported architecture for Neovim: $(uname -m)" >&2
+    exit 1 ;;
+esac
+
+download_verified "https://github.com/neovim/neovim/releases/download/v$nvim_ver/nvim-$target.tar.gz" "$sha" &&
+rm -rf "$dir" && mkdir -p "$dir" "$bin" &&
+tar -xzf "$downloaded" -C "$dir" --strip-components=1 &&
+ln -sfn "$dir/bin/nvim" "$bin/nvim" || exit 1
+
+# Remove any versions this one replaces.
+for d in "$opt"/nvim-*; do
+  test "$d" = "$dir" || rm -rf "$d"
+done

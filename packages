@@ -68,7 +68,7 @@ winget:Microsoft.PowerShell
 npm:emoj
 
 # editors
-apt|brew|scoop:neovim
+brew|scoop|custom:neovim
 apt|brew:vim
 scoop:tree-sitter | npm:tree-sitter-cli  scripts  # npm installer fetches its binary.
 
