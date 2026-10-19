@@ -11,12 +11,29 @@ vim.o.tabstop = 2 -- two spaces per tab
 -- The scheduling is necessary because kickstart.nvim schedules
 -- its own setting of the clipboard for startup performance reasons,
 -- and we want our override to happen after kickstart.nvim's.
+-- Without a display (e.g. over SSH) there is no X clipboard to talk to, so
+-- send "+ and "* to the local terminal via OSC 52 instead, which tmux forwards.
+-- Note: OSC 52 is write-only; terminals refuse to reveal the clipboard, so
+-- "+p pastes the last yank from nvim. Paste from the system with the terminal.
+local has_display = (vim.env.DISPLAY or "") ~= "" or (vim.env.WAYLAND_DISPLAY or "") ~= ""
+local has_osc52, osc52 = pcall(require, "vim.ui.clipboard.osc52") -- nvim 0.10+
+if vim.fn.has("linux") == 1 and not has_display and has_osc52 then
+	local function paste()
+		return { vim.split(vim.fn.getreg(""), "\n"), vim.fn.getregtype("") }
+	end
+	vim.g.clipboard = {
+		name = "OSC 52",
+		copy = { ["+"] = osc52.copy("+"), ["*"] = osc52.copy("*") },
+		paste = { ["+"] = paste, ["*"] = paste },
+	}
+end
+
 vim.schedule(function()
-	if vim.fn.has("linux") == 1 then
+	if vim.fn.has("linux") == 1 and has_display then
 		-- Sync " with PRIMARY; middle-click pastes last yank
 		vim.o.clipboard = "unnamed"
 	else
-		-- This platform has no PRIMARY; do not clobber clipboard
+		-- No PRIMARY here; do not clobber the clipboard, so only "+y sends text out.
 		vim.opt.clipboard = ""
 	end
 end)
