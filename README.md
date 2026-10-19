@@ -33,25 +33,25 @@ See the UNLICENSE file or http://unlicense.org/ for details.
 What does this configuration include?
 -------------------------------------
 
-1.  A supercharged zsh configuration built on [zpm] and [Oh My Zsh]:
+1.  A **supercharged shell** configuration built on [zpm] and [Oh My Zsh]:
     -   Jump to directories quickly using [z].
     -   Functional vi mode on the terminal for easy multi-line commands.
     -   Syntax highlighted terminal commands as you type.
     -   Vastly improved tab completion support for git, mvn and many more.
     -   A [Starship] prompt with git status, language version info, and more.
+    -   Limited legacy support for those stuck on bash, including bash 3.x.
     -   See the [zshrc](zshrc) for the full list of zsh plugins.
 
-2.  A supercharged editor configuration:
+2.  A **supercharged editor** configuration:
     -   [Neovim] with [kickstart.nvim] on systems with nvim 0.10+, providing
         LSP integration, treesitter syntax, fuzzy finding via [Telescope],
         completion via [nvim-cmp], debugging via [nvim-dap], and more.
     -   [Vim] with [Vundle] as a fallback on systems without neovim,
-        with plugins including [vim-fugitive],
-        [vim-airline], and [vim-sensible].
+        with plugins like [vim-fugitive], [vim-airline], and [vim-sensible].
     -   [vim-sneak] and [vim-surround] and more for both editors.
     -   See the [vimrc](vimrc) and [nvim/](nvim/) for details.
 
-3.  A terminal multiplexer setup using [byobu] on top of [tmux]:
+3.  A **terminal multiplexer setup** using [byobu] on top of [tmux]:
     -   Byobu launches automatically, for login shells and local terminals.
     -   Ctrl+A as the prefix key, leaving F12 free for a drop-down terminal.
     -   Ctrl+B instead over SSH, so nested sessions each have their own prefix.
@@ -59,18 +59,20 @@ What does this configuration include?
     -   Prefix + h opens the current pane's full scrollback in your editor.
     -   Custom status bar widgets counting unread GitHub notifications
         and local repositories with unpushed changes.
-    -   Where byobu is missing, plain tmux (over SSH) and, on Windows, [psmux]
-        read the same [tmux.conf](tmux/tmux.conf), plus byobu's main
-        function keys from [fkeys.conf](tmux/fkeys.conf).
+    -   Where byobu is missing, plain tmux (over SSH) and [psmux] (on Windows)
+        read the same [tmux.conf](tmux/tmux.conf), plus byobu's main function
+        keys from [fkeys.conf](tmux/fkeys.conf).
     -   See [tmux/](tmux/) and [byobu/](byobu/) for details.
 
-4.  A declarative package manifest, installed by `install-packages`:
-    -   One [packages](packages) file lists tools for apt, Homebrew, and, on
-        Windows, scoop and winget, plus npm and uv; each entry names its
-        alternatives in order of preference, e.g. `apt:fd-find | brew|scoop:fd`.
+4.  A **curated set of packages**, installed by `install-packages`:
+    -   One declarative [packages](packages) manifest lists tools for apt
+        (Debian/Ubuntu), Homebrew (macOS), scoop and winget (Windows), plus
+        npm and uv; each entry names its alternatives in order of preference,
+        e.g. `apt:fd-find | brew|scoop:fd`.
     -   Sections for core tools (always), GUI apps (desktops only), and
-        opt-in groups (build, dev, heavy, primary, java, system), chosen per machine when
-        `setup.sh` first runs and saved in `~/.config/dotfiles/sections`.
+        opt-in groups (build, dev, heavy, primary, java, system),
+        chosen per machine when `setup.sh` first runs and saved in
+        `~/.config/dotfiles/sections`.
     -   Installs only what is missing, in as few package manager
         invocations as possible; use `--dry-run` to preview.
     -   Custom installers in [bin/packages/](bin/packages/) for things no
@@ -79,7 +81,7 @@ What does this configuration include?
     -   `update-all` reruns it, so new manifest entries and bumped pins
         reach existing machines, then upgrades uv tools and npm packages.
 
-5.  A managed set of SCM repositories for the [SciJava] ecosystem:
+5.  A **managed set of SCM repositories** for the [SciJava] ecosystem:
     -   Sensible defaults for an extensible source code folder structure,
         anchored at `~/code`, and subdivided into categories.
     -   Extensible configuration for [myrepos] to work with
@@ -87,10 +89,10 @@ What does this configuration include?
     -   Shell aliases (type `go` and press tab) for jumping to
         specific code folders for SciJava et al., or use [z].
     -   `devlink` builds tool checkouts (uv, pixi, npm, cargo, make, or
-        plain scripts) and links their executables into `~/bin`, shadowing
-        released versions; mr runs it on checkout and update.
+        plain scripts) and links their executables into `~/bin`,
+        shadowing released versions; mr runs it on checkout and update.
 
-6.  A toolbox for managing and working with Java:
+6.  A **toolbox for managing and working with Java**:
     -   `jlist` lists the Java installations, found beneath `~/Java`,
         the [cjdk] cache, macOS `java_home`, Linux alternatives, and Homebrew.
     -   `jhome` prints the path of a matching installation, for one-off use
@@ -107,12 +109,10 @@ What does this configuration include?
         [Bio-Formats], [SCIFIO], and script REPLs including [Jython],
         [Groovy] and the multi-language SciJava REPL.
 
-7.  Limited legacy support for those stuck on bash, including bash 3.x.
-
 Supported platforms include:
 
 * Linux (tested foremost on [Ubuntu])
-* FreeBSD (tested on [TrueNAS])
+* FreeBSD (tested on [TrueNAS] CORE 13.0)
 * macOS
 * Windows (via [WSL], [Git Bash], or [Cygwin])
 
