@@ -48,6 +48,10 @@ Statuses shown by --list:
                   and in no enabled section
   inactive        not installed, and in no enabled section
   unavailable     none of its alternatives here can supply it
+  unlisted        no entry names it, but devlink links it from a checkout
+
+Its DEVLINK column names the checkout that devlink links it from, if any,
+which shadows any installed version.
 EOF
 }
 
@@ -419,6 +423,23 @@ report_superseded() {
 
 # -- List --
 
+# Prints the checkout that ~/bin/NAME links into, if devlink made it,
+# with ~ for the home folder.
+devlink_checkout() { # name
+  test -L "$HOME/bin/$1" && test -x "$HOME/bin/$1" || return 1
+  target=$(readlink "$HOME/bin/$1")
+  dir=$(cd "$HOME/bin" && cd "$(dirname "$target")" 2>/dev/null && pwd -P) ||
+    return 1
+  code=${CODE_BASE:-$HOME/code}
+  code_phys=$(cd "$code" 2>/dev/null && pwd -P) || return 1
+  case "$dir/" in "$code_phys"/*) ;; *) return 1 ;; esac
+  # Note: The link may point into the checkout's build output, e.g. .venv/bin.
+  top=$(git -C "$dir" rev-parse --show-toplevel 2>/dev/null) || top=$dir
+  top=$code${top#"$code_phys"}
+  case "$top/" in "$HOME"/*) top="~${top#"$HOME"}" ;; esac
+  echo "$top"
+}
+
 # Prints each package relevant to this OS, with its status, kind and sections.
 list_packages() {
   for kind in npm uv; do
@@ -450,7 +471,15 @@ list_packages() {
   fi
   color() { test -n "$esc" && printf '%s[%sm' "$esc" "$1"; }
 
-  printf '%-16s%-8s%-36s%s\n' STATUS KIND NAME SECTIONS
+  w=$(awk 'length($3) > w { w = length($3) } END { print w + 2 }' "$tmp/list")
+  test "$w" -ge 10 || w=10
+  row() { # color status kind name sections checkout
+    printf "%s%-16s%s%-8s%-36s%-${w}s%s\n" "$(color $1)" "$2" "$off" "$3" "$4" "$5" "$6" |
+      sed 's/ *$//'
+  }
+
+  row 0 STATUS KIND NAME SECTIONS DEVLINK
+  : > "$tmp/devlinked"
   while read -r kind name secs enabled can; do
     if grep -qxF "$name" "$tmp/$kind.requested" 2>/dev/null; then
       status=installed
@@ -473,15 +502,35 @@ list_packages() {
         missing) status=inactive ;;
       esac
     fi
+    checkout=$(devlink_checkout "$name") && echo "$name" >> "$tmp/devlinked"
     case "$status" in
-      installed*) c=32 ;; missing) c=33 ;; extra*) c=36 ;; inactive) c=2 ;; *) c=31 ;;
+      installed*) c=32 ;; missing) c=33 ;; extra*) c=36 ;; inactive) c=2 ;;
+      *) c=31 ;;
     esac
-    printf '%s%-16s%s%-8s%-36s%s\n' "$(color $c)" "$status" "$off" "$kind" "$name" "$secs"
+    row $c "$status" "$kind" "$name" "$secs" "$checkout"
     echo "$status" >> "$tmp/statuses"
   done < "$tmp/list"
 
+  # Devlinks that no entry names.
+  awk '{
+    for (i = 3; i <= NF; i++)
+      if ($i !~ /^replaces=/) { n = $i; sub(/^[^:]*:/, "", n); print n }
+  }' "$tmp/entries" | sort -u > "$tmp/names"
+  for f in "$HOME"/bin/*; do
+    name=${f##*/}
+    grep -qxF "$name" "$tmp/names" && continue
+    checkout=$(devlink_checkout "$name") || continue
+    echo "$name" >> "$tmp/devlinked"
+    row 35 unlisted - "$name" "" "$checkout"
+    echo unlisted >> "$tmp/statuses"
+  done
+
   echo
-  sort "$tmp/statuses" | uniq -c | awk '{ printf "%s%s %s", sep, $1, $2; sep = ", " } END { print "" }'
+  sort "$tmp/statuses" | uniq -c |
+    awk -v d="$(wc -l < "$tmp/devlinked")" '
+      { printf "%s%s %s", sep, $1, $2; sep = ", " }
+      END { if (d) printf "; %d devlinked", d; print "" }
+    '
 }
 
 test -n "$list" && { list_packages; report_superseded; exit; }
