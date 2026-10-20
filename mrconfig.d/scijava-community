@@ -41,6 +41,11 @@ checkout = git clone git@github.com:BIOP/ijp-operetta-importer
 [code/sj-stuff/pyimagej-scijava-command]
 checkout = git clone git@github.com:BIOP/pyimagej-scijava-command
 
+# biovoxxel
+
+[code/sj-stuff/BioVoxxel-Toolbox]
+checkout = git clone git@github.com:biovoxxel/BioVoxxel-Toolbox
+
 # HenriquesLab
 
 [code/sj-stuff/NanoJ-Core]
