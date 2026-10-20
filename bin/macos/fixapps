@@ -128,10 +128,13 @@ report() {
 systemdb="/Library/Application Support/com.apple.TCC/TCC.db"
 userdb="$HOME/Library/Application Support/com.apple.TCC/TCC.db"
 
-if [ ! -r "$systemdb" ]; then
+# Note: TCC.db is world-readable by file mode, so a -r test passes even when
+# TCC itself denies access; only actually opening the database tells.
+if ! sqlite3 -readonly "$systemdb" 'SELECT 1;' >/dev/null 2>&1; then
     echo "fixapps: cannot read $systemdb" >&2
     echo "fixapps: grant Full Disk Access to your terminal app in" >&2
-    echo "         System Settings > Privacy & Security, then retry." >&2
+    echo "         System Settings > Privacy & Security, Full Disk Access" >&2
+    echo "         restart it, then retry." >&2
     exit 1
 fi
 
