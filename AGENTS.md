@@ -42,7 +42,7 @@ See `plugins/AGENTS.md` for dotfiles plugin conventions.
 ## Comments
 
 - Only when surprising — `Note:` for rationale, `HACK:` for dirty/confusing code
-- End-of-line comments end with a period
+- Use complete sentences including terminating period symbols
 
 ## Never Do Unless Asked
 
