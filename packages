@@ -116,7 +116,7 @@ scoop:codex | npm:@openai/codex
 brew:opencode | scoop:versions/opencode2 | npm:opencode-ai  scripts  # npm installer fetches its binary.
 npm:@kilocode/cli       scripts  # npm installer fetches its binary.
 brew|scoop:ollama
-uv:oterm                python=3.14  # pyyaml has no 3.15 wheels for Windows yet.
+uv:oterm  replaces=brew:oterm  python=3.14  # pyyaml has no 3.15 wheels for Windows yet.
 #npm:@charmland/crush
 #npm:@google/gemini-cli
 #npm:@nanocollective/nanocoder
