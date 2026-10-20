@@ -265,14 +265,11 @@ if [ -x "$HOME/.local/bin/kitten" ] &&
   gsettings set "$_mk_key" command "$HOME/.local/bin/kitten quick-access-terminal"
   gsettings set "$_mk_key" binding 'F12'
 fi
-# On macOS, kitty instead provides a "Quick access to kitty" Service,
-# which we bind to F12 the same way System Settings would.
-# Note: The key equivalent is NSF12FunctionKey (U+F70F), encoded as UTF-8.
-if [ "$(uname)" = Darwin ] && [ -d /Applications/kitty.app ]; then
-  defaults write pbs NSServicesStatus -dict-add \
-    '"net.kovidgoyal.kitty-quick-access - Quick access to kitty - quickAccessTerminal"' \
-    "{ key_equivalent = \"$(printf '\357\234\217')\"; }"
-  /System/Library/CoreServices/pbs -update
+# On macOS, Hammerspoon binds F12 instead (see hammerspoon/init.lua),
+# which we point at the dotfiles' copy of its config.
+if [ "$(uname)" = Darwin ]; then
+  defaults write org.hammerspoon.Hammerspoon MJConfigFile \
+    "$CONFIG_DIR/hammerspoon/init.lua"
 fi
 
 # kickstart.nvim requires nvim 0.10+. Ubuntu 24.04 apt ships 0.9.x; skip
