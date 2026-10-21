@@ -144,6 +144,9 @@ uv:pydeps
 uv:twine
 uv:yamllint
 cask:google-chrome | winget:Google.Chrome  # For dev testing, not my daily driver.
+brew:notactuallytreyanastasio/shoehorn/shoehorn | custom:shoehorn
+brew|custom:llama.cpp
+brew|custom:qwen-code
 
 [heavy]
 cask:jetbrains-toolbox | winget:JetBrains.Toolbox

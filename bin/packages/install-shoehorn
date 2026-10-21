@@ -1,0 +1,34 @@
+#!/bin/sh
+
+# Installs the pinned shoehorn Linux binary into ~/.local/opt,
+# verified against the SHA-256 GitHub records for the release asset.
+#
+# Platforms: linux
+#
+# With --check, reports via exit code whether the pinned version is linked.
+
+. "${DOTFILES:?}/lib/download.sh"
+
+shoehorn_ver=0.3.0
+opt="$HOME/.local/opt"
+bin="$HOME/.local/bin"
+dir="$opt/shoehorn-v$shoehorn_ver"
+
+if [ "${1:-}" = --check ]; then
+  test "$(readlink "$bin/shoehorn")" = "$dir/shoehorn"
+  exit
+fi
+
+case "$(uname)-$(uname -m)" in
+  Linux-x86_64)
+    target=x86_64-unknown-linux-gnu
+    sha=a366ae17317a33f1e4c0a78e9b79a3a7ff3ed773d2f141dd2546ab35ffbc0778 ;;
+  *)
+    echo "Unsupported platform for shoehorn: $(uname) $(uname -m)" >&2
+    exit 1 ;;
+esac
+
+download_verified "https://github.com/notactuallytreyanastasio/shoehorn/releases/download/v$shoehorn_ver/shoehorn-v$shoehorn_ver-$target.tar.gz" "$sha" &&
+rm -rf "$dir" && mkdir -p "$dir" "$bin" &&
+tar -xzf "$downloaded" -C "$dir" &&
+ln -sfn "$dir/shoehorn" "$bin/shoehorn" || exit 1

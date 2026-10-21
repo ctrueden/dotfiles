@@ -1,0 +1,43 @@
+#!/bin/sh
+
+# Installs the pinned Qwen Code standalone Linux bundle into ~/.local/opt,
+# verified against the SHA-256 GitHub records for the release asset.
+#
+# Platforms: linux
+#
+# With --check, reports via exit code whether the pinned version is linked.
+
+. "${DOTFILES:?}/lib/download.sh"
+
+qwen_ver=v0.25.3
+opt="$HOME/.local/opt"
+bin="$HOME/.local/bin"
+
+case "$(uname)-$(uname -m)" in
+  Linux-x86_64)
+    target=x64
+    sha=6c33d85044eac409a2cceee25aad3ec54f3cd36240711cecbc264c9e7967f4d3 ;;
+  Linux-aarch64|Linux-arm64)
+    target=arm64
+    sha=d3e2d94f00b521175ca4f6ebeeef64c5e0a09ead85e1f1e67229754c5fc30180 ;;
+  *)
+    echo "Unsupported platform for Qwen Code: $(uname) $(uname -m)" >&2
+    exit 1 ;;
+esac
+
+dir="$opt/qwen-code-$qwen_ver-linux-$target"
+
+if [ "${1:-}" = --check ]; then
+  test -x "$bin/qwen" &&
+  grep -qxF "exec \"$dir/bin/qwen\" \"\$@\"" "$bin/qwen"
+  exit
+fi
+
+download_verified "https://github.com/QwenLM/qwen-code/releases/download/$qwen_ver/qwen-code-linux-$target.tar.gz" "$sha" &&
+rm -rf "$dir" && mkdir -p "$dir" "$bin" &&
+tar -xzf "$downloaded" -C "$dir" --strip-components=1 &&
+{
+  echo '#!/bin/sh'
+  echo "exec \"$dir/bin/qwen\" \"\$@\""
+} > "$bin/qwen" &&
+chmod +x "$bin/qwen" || exit 1
