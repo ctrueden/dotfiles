@@ -368,7 +368,7 @@ OPENAI_API_KEY=local \
 OPENAI_BASE_URL="http://127.0.0.1:$port/v1" \
 OPENAI_MODEL="dotfiles-local-llama-$tier" \
 QWEN_MODEL="dotfiles-local-llama-$tier" \
-"$qwen_bin" "$@"
+"$qwen_bin" --model "dotfiles-local-llama-$tier" "$@"
 qwen_status=$?
 
 exit "$qwen_status"
