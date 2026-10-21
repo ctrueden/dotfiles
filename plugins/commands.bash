@@ -10,3 +10,7 @@ alias l='ls -lah'
 alias la='ls -lAh'
 alias ll='ls -lh'
 alias lsa='ls -lah'
+
+# --== history ==--
+
+alias histime='HISTTIMEFORMAT="%F %T " history'

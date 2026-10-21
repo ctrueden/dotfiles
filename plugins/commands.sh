@@ -79,10 +79,6 @@ version() {
 
 alias count='LC_ALL=C sort | uniq -c | LC_ALL=C sort -nr'
 
-# --== history ==--
-
-alias histime='HISTTIMEFORMAT="%F %T " history'
-
 # --== eject ==--
 
 if [ -x "$(command -v diskutil)" ]; then
