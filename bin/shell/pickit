@@ -1,0 +1,151 @@
+#!/usr/bin/env python3
+
+"""Pick a value from a JSON dataset using fuzzy search."""
+
+import argparse
+import json
+import shutil
+import subprocess
+import sys
+from pathlib import Path
+
+
+def text(value):
+    if value is None:
+        return ""
+    if isinstance(value, (dict, list)):
+        return ""
+    return str(value)
+
+
+def display_text(value):
+    return " ".join(value.replace("\t", " ").replace("\r", " ").replace("\n", " ").split())
+
+
+def tags_from(metadata):
+    tags = []
+    for field in ("tags", "keywords", "original_tags", "new_tags"):
+        value = metadata.get(field, [])
+        if isinstance(value, str):
+            values = [value]
+        elif isinstance(value, list):
+            values = value
+        else:
+            continue
+        for tag in values:
+            tag = text(tag).strip()
+            if tag and tag not in tags:
+                tags.append(tag)
+    return tags
+
+
+def entry(value, metadata):
+    if not isinstance(metadata, dict):
+        metadata = {"description": text(metadata)}
+    value = text(value)
+    label = next(
+        (text(metadata.get(field)).strip() for field in ("label", "name", "title")
+         if text(metadata.get(field)).strip()),
+        value,
+    )
+    description = next(
+        (text(metadata.get(field)).strip() for field in ("description", "desc")
+         if text(metadata.get(field)).strip()),
+        "",
+    )
+    tags = tags_from(metadata)
+    shown_label = label if label == value else f"{label} ({value})"
+    details = "  ".join(part for part in (description, " ".join(tags)) if part)
+    return value, shown_label, details
+
+
+def entries_from(data):
+    if isinstance(data, dict):
+        source = data.items()
+        return [entry(value, metadata) for value, metadata in source]
+    if isinstance(data, list):
+        result = []
+        for index, item in enumerate(data):
+            if isinstance(item, str):
+                result.append(entry(item, {}))
+                continue
+            if not isinstance(item, dict):
+                raise ValueError(f"record {index + 1} must be an object or string")
+            value = next(
+                (item[field] for field in ("value", "text", "symbol", "icon", "name", "label", "title")
+                 if text(item.get(field)).strip()),
+                None,
+            )
+            if value is None:
+                raise ValueError(f"record {index + 1} has no value, text, symbol, icon, name, or label")
+            result.append(entry(value, item))
+        return result
+    raise ValueError("the JSON root must be an object keyed by value or an array of records")
+
+
+def main():
+    parser = argparse.ArgumentParser(
+        description="Interactively search a JSON dataset and print the chosen value.",
+        epilog=(
+            "Accepts an object keyed by value, with label/description/tags fields in each "
+            "metadata object, or an array of records with value (or text/symbol/icon/name/"
+            "label) and optional label/description/tags fields. Tags may also be named "
+            "keywords, original_tags, or new_tags."
+        ),
+    )
+    parser.add_argument("dataset", type=Path, help="JSON file (object keyed by value or array of records)")
+    parser.add_argument("-q", "--query", help="initial search query")
+    args = parser.parse_args()
+
+    if not shutil.which("fzf"):
+        parser.error("fzf is not installed")
+
+    try:
+        with args.dataset.open(encoding="utf-8-sig") as stream:
+            items = entries_from(json.load(stream))
+    except (OSError, json.JSONDecodeError, ValueError) as error:
+        parser.error(str(error))
+
+    rows = []
+    values = []
+    for value, label, details in items:
+        if not value:
+            continue
+        values.append(value)
+        rows.append(
+            f"{len(values) - 1}\t{display_text(label)}\t{display_text(details)}"
+        )
+
+    command = [
+        "fzf",
+        "--reverse",
+        "--no-multi",
+        "--delimiter=\t",
+        "--with-nth=2..",
+        "--prompt=dataset> ",
+    ]
+    if args.query:
+        command.append(f"--query={args.query}")
+
+    result = subprocess.run(
+        command,
+        input="".join(row + "\n" for row in rows),
+        text=True,
+        stdout=subprocess.PIPE,
+    )
+    if result.returncode:
+        return result.returncode
+
+    index_text = result.stdout.partition("\t")[0]
+    try:
+        index = int(index_text)
+        value = values[index]
+    except (ValueError, IndexError):
+        print("pickit: fzf returned an invalid selection", file=sys.stderr)
+        return 1
+    print(value)
+    return 0
+
+
+if __name__ == "__main__":
+    sys.exit(main())
