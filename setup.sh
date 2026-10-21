@@ -212,20 +212,76 @@ case "$(uname)" in
     ;;
 esac
 
+# Calculate questions we need to ask.
+_questions=0
+
+# Check for existing recorded git identity.
+# Note: We ask whenever the identity is unset, rather than when .gitconfig
+# is absent, since the stub written above has already created .gitconfig.
+_q_name=
+if [ -t 0 ] && [ -z "$(git config --global user.name)" ]; then
+  _q_name=1; _questions=$((_questions=1))
+fi
+_q_email=
+if [ -t 0 ] && [ -z "$(git config --global user.email)" ]; then
+  _q_email=1; _questions=$((_questions=1))
+fi
+
+# Check for existing recorded package section preferences.
+_q_quest=
+profile="${XDG_CONFIG_HOME:-$HOME/.config}/dotfiles/sections"
+if [ -t 0 ] && [ ! -f "$profile" ]; then
+  _q_quest=1; _questions=$((_questions+1))
+fi
+
+# Prompt the user if there are any questions to answer.
+if [ "$_questions" -gt 0 ]; then
+  echo
+  echo "--> Personalizing your experience..."
+
+  _questions=$((_questions+1))  # Always ask about the swallow.
+  case "$_questions" in
+    1) _q_count="this question one";      _q_verb="not shun";;
+    2) _q_count="these questions two";    _q_verb="run to";;
+    3) _q_count="these questions three";  _q_verb="see";;
+    4) _q_count="these questions four";   _q_verb="explore";;
+    *) _q_count="these questions galore"; _q_verb="explore";;
+  esac
+
+  cat "$CONFIG_DIR/old-man.txt"
+  echo "Answer me $_q_count, ere the other side ye $_q_verb!"
+
+  if [ "$_q_name" ]; then
+    printf "What... is your full name? "
+    read committer_name
+    (set -x; git config --global user.name "$committer_name")
+    test "$committer_name" = "Curtis Rueden" && link_file "$CONFIG_DIR/plan" .plan
+  fi
+
+  # Which opt-in sections of the packages manifest this machine wants.
+  # Asked once, then remembered; edit the file to change it.
+  if [ "$_q_quest" ]; then
+    echo "What... is your quest?"
+    sed -n "s/^#   \([a-z]*  \)/  \1/p" "$CONFIG_DIR/packages"
+    printf "Opt-in package sections, space-separated [none]: "
+    read quest
+    mkdir -p "$(dirname "$profile")"
+    printf "%s\n" $quest > "$profile"
+  fi
+
+  if [ "$_q_email" ]; then
+    printf "What... is your email address? "
+    read committer_email
+    (set -x; git config --global user.email "$committer_email")
+    (clear_file .forward; set -x; echo "$committer_email" > .forward)
+  fi
+
+  echo "What... is the airspeed velocity of an unladen --"
+  echo "The people responsible for this shell script have been sacked."
+fi
+
 echo
 echo "--> Installing tools..."
-
-# Which opt-in sections of the packages manifest this machine wants. Asked
-# once, then remembered; edit the file to change it.
-profile="${XDG_CONFIG_HOME:-$HOME/.config}/dotfiles/sections"
-if [ ! -f "$profile" ] && [ -t 0 ]; then
-  echo "What... is your quest?"
-  sed -n "s/^#   \([a-z]*  \)/  \1/p" "$CONFIG_DIR/packages"
-  printf "Opt-in package sections, space-separated [none]: "
-  read quest
-  mkdir -p "$(dirname "$profile")"
-  printf "%s\n" $quest > "$profile"
-fi
 
 # Packages from the manifest (neovim, starship, byobu, fzf, AI TUIs, etc.).
 # Note: The rest of setup does not depend on these, so a failure is not fatal.
@@ -382,27 +438,6 @@ if ! command -v claude >/dev/null 2>&1; then
     *) echo "Claude Code does not support $(uname)." >&2; false ;;
   esac ||
     echo "Warning: Claude Code install failed; continuing setup." >&2
-fi
-
-# Note: We ask whenever the identity is unset, rather than when .gitconfig is
-# absent, since the stub written above has already created .gitconfig.
-if [ -z "$(git config --global user.email)" ] && [ -t 0 ]; then
-  echo
-  echo "--> Personalizing your experience..."
-  cat "$CONFIG_DIR/old-man.txt"
-  echo "Answer me these questions three, ere the other side ye see!"
-  printf "What... is your full name? "
-  read committer_name
-  printf "What... is your email address? "
-  read committer_email
-  echo "What... is the airspeed velocity of an unladen --"
-  echo "The people responsible for this shell script have been sacked."
-  (set -x; git config --global user.name "$committer_name")
-  (set -x; git config --global user.email "$committer_email")
-  (clear_file .forward; set -x; echo "$committer_email" > .forward)
-
-  # ~/.plan
-  test "$committer_name" = "Curtis Rueden" && link_file "$CONFIG_DIR/plan" .plan
 fi
 
 echo

@@ -8,11 +8,15 @@
 #   apt:fd-find | brew|scoop:fd
 #
 # Managers:
-#   apt   brew   cask (macOS GUI apps)
-#   scoop (Windows CLI tools; BUCKET/NAME for a bucket other than main)
-#   winget (Windows apps, by package ID, including Microsoft Store ones)
-#   npm   uv
-#   custom (runs the script bin/packages/install-NAME)
+# - apt    | Debian-based packages
+# - brew   | Homebrew bottles
+# - cask   | Homebrew GUI apps (macOS)
+# - scoop  | Windows CLI tools; BUCKET/NAME for a bucket other than main
+# - winget | Windows apps, by package ID, including Microsoft Store ones
+# - npm    | tools from the JavaScript world
+# - uv     | tools from the Python world
+# - custom | runs the script bin/packages/install-NAME
+#
 # Each custom script must support --check, exiting 0 when its tool is
 # installed and current. A "# Platforms:" line in its header (linux, macos,
 # freebsd, windows) limits the OSes where it counts as an alternative.
@@ -31,7 +35,7 @@
 #   build    compilers and build tools, for building software from source
 #   dev      development tools beyond the basics
 #   heavy    large installs (hundreds of MB)
-#   primary  tools I only want installed on my main machines
+#   primary  tools to install only on main machines
 #   java     JDKs and Java tooling
 #   system   hardware and network utilities
 # A section header may name sections it requires, e.g. [dev: build].
