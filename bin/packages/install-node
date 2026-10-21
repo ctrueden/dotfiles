@@ -1,8 +1,9 @@
 #!/bin/sh
 
-# Installs a pinned Node.js LTS release into ~/.local/opt, verified against a
-# SHA-256 recorded here, and links node, npm, and npx into ~/.local/bin. Used
-# on Linux, where apt's Node is too old for many tools; macOS uses Homebrew's.
+# Installs a pinned Node.js LTS release into ~/.local/opt, verified against
+# a SHA-256 recorded here, and links node, npm, and npx into ~/.local/bin.
+# Useful on Linux, where apt's Node is too old for many tools.
+#
 # To upgrade, bump node_ver and both hashes together; the hashes are listed
 # in the SHASUMS256.txt file beside each release's archives.
 #
