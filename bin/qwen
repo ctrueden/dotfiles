@@ -13,7 +13,8 @@ machine type and usable model memory, then fits smart, balanced, and fast
 models. Use -y to accept the slow initial setup without prompting.
 
 Options:
-  --tier TIER  Select smart (default), balanced, or fast.
+  --tier TIER  Select smart (default), balanced, or fast. The fast tier ignores
+               project context files and caps output; use it for quick questions.
   -y, --yes    Do not ask before fitting missing models.
   --force      Allow another local Qwen session to use the same server.
   --setup      Fit missing models, then exit.
@@ -276,6 +277,17 @@ try {
 } catch (error) {
   if (error.code !== 'ENOENT') throw error;
 }
+config.model ??= {};
+config.model.name = id;
+// Note: the fast model is too small to cope with project context files, so point
+// Qwen Code at a context file name that does not exist (an empty name is ignored).
+const noContext = ['-'];
+config.context ??= {};
+if (tier === 'fast') {
+  config.context.fileName = noContext;
+} else if (JSON.stringify(config.context.fileName) === JSON.stringify(noContext)) {
+  delete config.context.fileName;
+}
 config.modelProviders ??= {};
 const providers = config.modelProviders.openai ?? [];
 config.modelProviders.openai = providers.filter(
@@ -362,6 +374,9 @@ fi
 
 start_server
 configure_qwen
+
+# Note: the fast tier is for short answers; cap output so runaway text is cut off early.
+test "$tier" != fast || export QWEN_CODE_MAX_OUTPUT_TOKENS=1024
 
 DOTFILES_LOCAL_LLM_KEY=local \
 OPENAI_API_KEY=local \
