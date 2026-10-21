@@ -1,0 +1,374 @@
+#!/bin/sh
+
+# Runs Qwen Code against a local Qwen3.8 model managed by shoehorn.
+
+set -eu
+
+usage() {
+  cat <<EOF
+Usage: qwen [--tier smart|balanced|fast] [-y|--yes] [--force] [--setup] [--status] [-- QWEN_ARGS...]
+
+Runs Qwen Code with a local Qwen3.8 model. On first use, prompts for the
+machine type and usable model memory, then fits smart, balanced, and fast
+models. Use -y to accept the slow initial setup without prompting.
+
+Options:
+  --tier TIER  Select smart (default), balanced, or fast.
+  -y, --yes    Do not ask before fitting missing models.
+  --force      Allow another local Qwen session to use the same server.
+  --setup      Fit missing models, then exit.
+  --status     Show the configured tiers and llama-server status.
+EOF
+}
+
+fail() {
+  echo "qwen: $*" >&2
+  exit 1
+}
+
+config_home=${XDG_CONFIG_HOME:-$HOME/.config}
+data_home=${XDG_DATA_HOME:-$HOME/.local/share}
+state_home=${XDG_STATE_HOME:-$HOME/.local/state}
+config_dir="$config_home/qwen-local"
+config="$config_dir/config"
+models="$data_home/llm/models"
+state_dir="$state_home/qwen-local"
+pid_file="$state_dir/llama-server.pid"
+model_file="$state_dir/llama-server.model"
+log_file="$state_dir/llama-server.log"
+port=8080
+context=32768
+tier=smart
+yes=
+force=
+setup=
+status=
+
+while [ $# -gt 0 ]; do
+  case "$1" in
+    --tier)
+      shift
+      test $# -gt 0 || fail "--tier needs smart, balanced, or fast"
+      tier=$1 ;;
+    -y|--yes) yes=1 ;;
+    --force) force=1 ;;
+    --setup) setup=1 ;;
+    --status) status=1 ;;
+    -h|--help) usage; exit ;;
+    --) shift; break ;;
+    *) break ;;
+  esac
+  shift
+done
+
+case "$tier" in smart|balanced|fast) ;; *) fail "unknown tier: $tier" ;; esac
+
+script_dir=$(CDPATH= cd -- "$(dirname "$0")" && pwd)
+
+find_qwen() {
+  for candidate in "$HOME"/.local/opt/qwen-code-*/bin/qwen; do
+    test -x "$candidate" || continue
+    printf '%s\n' "$candidate"
+    return 0
+  done
+
+  saved_ifs=$IFS
+  IFS=:
+  for entry in $PATH; do
+    test -n "$entry" || entry=.
+    candidate_dir=$(CDPATH= cd -- "$entry" 2>/dev/null && pwd) || continue
+    test "$candidate_dir" = "$script_dir" && continue
+    candidate="$candidate_dir/qwen"
+    test -x "$candidate" || continue
+    printf '%s\n' "$candidate"
+    IFS=$saved_ifs
+    return 0
+  done
+  IFS=$saved_ifs
+  return 1
+}
+
+qwen_bin=$(find_qwen) ||
+  fail "Qwen Code is not installed; run install-packages --with dev first"
+command -v shoehorn >/dev/null ||
+  fail "shoehorn is not installed; run install-packages --with dev first"
+command -v llama-server >/dev/null ||
+  fail "llama.cpp is not installed; run install-packages --with dev first"
+command -v curl >/dev/null || fail "curl is required"
+command -v node >/dev/null ||
+  fail "Node.js is required to configure Qwen Code; run install-packages first"
+
+prompt() { # prompt default
+  test -t 0 || fail "initial hardware setup needs an interactive terminal"
+  printf '%s [%s] ' "$1" "$2" >&2
+  read -r answer </dev/tty
+  test -n "$answer" && printf '%s\n' "$answer" || printf '%s\n' "$2"
+}
+
+configure_hardware() {
+  mkdir -p "$config_dir"
+  backend=$(prompt "Backend (macos or nvidia)?" "$(uname | grep -q Darwin && echo macos || echo nvidia)")
+  case "$backend" in macos|nvidia) ;; *) fail "backend must be macos or nvidia" ;; esac
+  case "$backend" in
+    macos) memory_prompt="Total unified memory in GiB?" ;;
+    nvidia) memory_prompt="Total NVIDIA VRAM in GiB? (use the card's advertised capacity)" ;;
+  esac
+  memory_gib=$(prompt "$memory_prompt" "")
+  case "$memory_gib" in *[!0-9]*|'') fail "memory must be a whole number of GiB" ;; esac
+
+  case "$backend" in
+    macos)
+      if [ "$memory_gib" -ge 64 ]; then
+        smart_repo=empero-ai/Qwen3.8-35B-A3B-Distill-GGUF
+        balanced_repo=empero-ai/Qwen3.8-9B-Distill-GGUF
+        fast_repo=empero-ai/Qwen3.8-4B-Distill-GGUF
+      else
+        smart_repo=empero-ai/Qwen3.8-9B-Distill-GGUF
+        balanced_repo=empero-ai/Qwen3.8-4B-Distill-GGUF
+        fast_repo=empero-ai/Qwen3.8-2B-Distill-GGUF
+      fi
+      kv=f16
+      balanced_budget=
+      ;;
+    nvidia)
+      if [ "$memory_gib" -le 8 ]; then
+        smart_repo=empero-ai/Qwen3.8-4B-Distill-GGUF
+        balanced_repo=empero-ai/Qwen3.8-4B-Distill-GGUF
+        fast_repo=empero-ai/Qwen3.8-2B-Distill-GGUF
+        kv=q8_0
+        balanced_budget=6GiB
+      elif [ "$memory_gib" -le 15 ]; then
+        smart_repo=empero-ai/Qwen3.8-4B-Distill-GGUF
+        balanced_repo=empero-ai/Qwen3.8-4B-Distill-GGUF
+        fast_repo=empero-ai/Qwen3.8-2B-Distill-GGUF
+        kv=q8_0
+        balanced_budget=
+      else
+        smart_repo=empero-ai/Qwen3.8-9B-Distill-GGUF
+        balanced_repo=empero-ai/Qwen3.8-4B-Distill-GGUF
+        fast_repo=empero-ai/Qwen3.8-2B-Distill-GGUF
+        kv=q8_0
+        balanced_budget=
+      fi
+      ;;
+  esac
+
+  cat > "$config.tmp" <<EOF
+backend=$backend
+memory_gib=$memory_gib
+smart_repo=$smart_repo
+balanced_repo=$balanced_repo
+fast_repo=$fast_repo
+kv=$kv
+balanced_budget=$balanced_budget
+EOF
+  mv "$config.tmp" "$config"
+}
+
+test -f "$config" || configure_hardware
+. "$config"
+
+tier_repo() {
+  case "$1" in
+    smart) printf '%s\n' "$smart_repo" ;;
+    balanced) printf '%s\n' "$balanced_repo" ;;
+    fast) printf '%s\n' "$fast_repo" ;;
+  esac
+}
+
+tier_budget() {
+  case "$1" in balanced) printf '%s\n' "$balanced_budget" ;; *) printf '\n' ;; esac
+}
+
+tier_model() {
+  printf '%s/qwen38-%s-%s-%sg-32k.gguf\n' \
+    "$models" "$1" "$backend" "$memory_gib"
+}
+
+fit_missing_models() {
+  missing=
+  for requested_tier in smart balanced fast; do
+    test -f "$(tier_model "$requested_tier")" ||
+      missing="$missing $requested_tier"
+  done
+  test -z "$missing" && return
+
+  if [ -z "$yes" ]; then
+    test -t 0 || fail "model setup needs an interactive terminal; rerun with -y"
+    printf 'Fitting local Qwen models (%s) may take a long time and download large files. Continue? [y/N] ' "$missing" >&2
+    read -r answer </dev/tty
+    case "$answer" in y|Y|yes|YES) ;; *) exit 0 ;; esac
+  fi
+
+  mkdir -p "$models"
+  for requested_tier in smart balanced fast; do
+    model=$(tier_model "$requested_tier")
+    test -f "$model" && continue
+    repo=$(tier_repo "$requested_tier")
+    budget=$(tier_budget "$requested_tier")
+    set -- shoehorn fit "$repo" --ctx "$context" --kv "$kv" \
+      --reserve 1GiB --output "$model"
+    test -z "$budget" || set -- "$@" --budget "$budget"
+    "$@"
+  done
+}
+
+server_healthy() {
+  curl -fsS --connect-timeout 1 --max-time 2 \
+    "http://127.0.0.1:$port/health" >/dev/null 2>&1
+}
+
+stop_managed_server() {
+  test -f "$pid_file" || return
+  server_pid=$(cat "$pid_file" 2>/dev/null || true)
+  case "$server_pid" in *[!0-9]*|'') rm -f "$pid_file" "$model_file"; return ;; esac
+  kill -0 "$server_pid" 2>/dev/null || {
+    rm -f "$pid_file" "$model_file"
+    return
+  }
+  kill "$server_pid"
+  while kill -0 "$server_pid" 2>/dev/null; do sleep 1; done
+  rm -f "$pid_file" "$model_file"
+}
+
+start_server() {
+  requested_model=$(tier_model "$tier")
+  if test -f "$pid_file" && test -f "$model_file" &&
+    test "$(cat "$model_file")" = "$requested_model" && server_healthy
+  then
+    return
+  fi
+
+  test -f "$pid_file" && stop_managed_server
+  server_healthy &&
+    fail "port $port is in use by a llama-server not managed by this wrapper"
+
+  mkdir -p "$state_dir"
+  llama-server -m "$requested_model" -c "$context" -ngl 99 \
+    --cache-type-k "$kv" --cache-type-v "$kv" -np 1 -fa on \
+    --alias "dotfiles-local-llama-$tier" \
+    --host 127.0.0.1 --port "$port" > "$log_file" 2>&1 &
+  server_pid=$!
+  printf '%s\n' "$server_pid" > "$pid_file"
+  printf '%s\n' "$requested_model" > "$model_file"
+
+  waited=0
+  while ! server_healthy; do
+    kill -0 "$server_pid" 2>/dev/null ||
+      fail "llama-server exited; see $log_file"
+    waited=$((waited + 1))
+    test "$waited" -lt 120 ||
+      fail "llama-server did not become ready; see $log_file"
+    sleep 1
+  done
+}
+
+configure_qwen() {
+  settings="$HOME/.qwen/settings.json"
+  mkdir -p "$(dirname "$settings")"
+  node - "$settings" "$context" "$tier" <<'EOF'
+const fs = require('fs');
+const [settings, context, tier] = process.argv.slice(2);
+const id = `dotfiles-local-llama-${tier}`;
+let config = {};
+try {
+  config = JSON.parse(fs.readFileSync(settings, 'utf8'));
+} catch (error) {
+  if (error.code !== 'ENOENT') throw error;
+}
+config.modelProviders ??= {};
+const providers = config.modelProviders.openai ?? [];
+config.modelProviders.openai = providers.filter(
+  provider => provider.id !== id && provider.id !== 'dotfiles-local-llama',
+);
+config.modelProviders.openai.push({
+  id,
+  name: `Local Qwen3.8 ${tier} (llama.cpp)`,
+  baseUrl: 'http://127.0.0.1:8080/v1',
+  envKey: 'DOTFILES_LOCAL_LLM_KEY',
+  generationConfig: {
+    contextWindowSize: Number(context),
+    maxOutputTokens: 4096,
+    timeout: 300000,
+    streamIdleTimeoutMs: 600000,
+  },
+});
+const temporary = `${settings}.tmp-${process.pid}`;
+fs.writeFileSync(temporary, `${JSON.stringify(config, null, 2)}\n`, { mode: 0o600 });
+fs.renameSync(temporary, settings);
+EOF
+}
+
+show_status() {
+  printf 'Backend: %s, model memory: %s GiB, context: %s\n' \
+    "$backend" "$memory_gib" "$context"
+  for requested_tier in smart balanced fast; do
+    model=$(tier_model "$requested_tier")
+    if test -f "$model"; then
+      printf '%-8s %s\n' "$requested_tier:" "$model"
+    else
+      printf '%-8s not fitted\n' "$requested_tier:"
+    fi
+  done
+  if test -f "$pid_file" && server_healthy; then
+    printf 'Server: running (PID %s, %s)\n' "$(cat "$pid_file")" "$(cat "$model_file")"
+  else
+    printf 'Server: stopped\n'
+  fi
+}
+
+if [ -n "$status" ]; then
+  show_status
+  exit
+fi
+
+fit_missing_models
+test -z "$setup" || exit
+
+mkdir -p "$state_dir"
+lock="$state_dir/qwen.lock"
+requested_model=$(tier_model "$tier")
+if [ -n "$force" ] && test -d "$lock"; then
+  lock_pid=$(cat "$lock/pid" 2>/dev/null || true)
+  case "$lock_pid" in
+    *[!0-9]*|'') ;;
+    *)
+      if kill -0 "$lock_pid" 2>/dev/null; then
+        test -f "$model_file" &&
+          test "$(cat "$model_file")" = "$requested_model" ||
+          fail "--force can share only the tier already loaded by the active Qwen session"
+      fi ;;
+  esac
+fi
+
+if [ -z "$force" ]; then
+  if ! mkdir "$lock" 2>/dev/null; then
+    lock_pid=$(cat "$lock/pid" 2>/dev/null || true)
+    case "$lock_pid" in
+      *[!0-9]*|'')
+        fail "another local Qwen session is initializing; retry shortly" ;;
+    esac
+    if kill -0 "$lock_pid" 2>/dev/null; then
+      fail "another local Qwen session is active (PID $lock_pid); use --force to share the server"
+    fi
+    rm -f "$lock/pid"
+    rmdir "$lock" 2>/dev/null ||
+      fail "cannot clear stale local Qwen lock: $lock"
+    mkdir "$lock" || fail "cannot create local Qwen lock: $lock"
+  fi
+  printf '%s\n' "$$" > "$lock/pid"
+  trap 'rm -f "$lock/pid"; rmdir "$lock" 2>/dev/null || true' EXIT HUP INT TERM
+fi
+
+start_server
+configure_qwen
+
+DOTFILES_LOCAL_LLM_KEY=local \
+OPENAI_API_KEY=local \
+OPENAI_BASE_URL="http://127.0.0.1:$port/v1" \
+OPENAI_MODEL="dotfiles-local-llama-$tier" \
+QWEN_MODEL="dotfiles-local-llama-$tier" \
+"$qwen_bin" "$@"
+qwen_status=$?
+
+exit "$qwen_status"
