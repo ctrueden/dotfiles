@@ -2,7 +2,6 @@
 
 # kickstart.nvim requires nvim 0.10+. Ubuntu 24.04 apt ships 0.9.x; skip
 # gracefully there rather than installing a config that errors on startup.
-# Ubuntu 26.04 LTS (due ~April 2026) will ship 0.10+.
 
 command -v nvim >/dev/null 2>&1 || exit 0
 
@@ -10,7 +9,7 @@ nvim_ok() {
   nvim --version 2>/dev/null | head -1 | grep -qE '^NVIM v(0\.(1[0-9]|[2-9][0-9])|[1-9])'
 }
 
-nvim_ok || exit 0
+nvim_ok || { echo "Warning: nvim too old: $(nvim --version | head -1)"; exit 0; }
 
 here=$(cd "$(dirname "$0")" && pwd)
 export DOTFILES="${DOTFILES:-$(cd "$here/../.." && pwd)}"
