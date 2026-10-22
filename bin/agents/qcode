@@ -6,15 +6,15 @@ set -eu
 
 usage() {
   cat <<EOF
-Usage: qwen [--tier smart|balanced|fast] [-y|--yes] [--force] [--setup] [--status] [-- QWEN_ARGS...]
+Usage: qwen [--tier large|medium|small] [-y|--yes] [--force] [--setup] [--status] [-- QWEN_ARGS...]
 
 Runs Qwen Code with a local Qwen3.8 model. On first use, prompts for the
-machine type and usable model memory, then fits smart, balanced, and fast
+machine type and usable model memory, then fits large, medium, and small
 models. Use -y to accept the slow initial setup without prompting.
 
 Options:
-  --tier TIER  Select smart (128k context; default), balanced (64k), or fast
-               (32k). The fast tier ignores project context files and caps
+  --tier TIER  Select large (128k context; default), medium (64k), or small
+               (32k). The small tier ignores project context files and caps
                output; use it for quick questions.
   -y, --yes    Do not ask before fitting missing models.
   --force      Allow another local Qwen session to use the same server.
@@ -39,7 +39,7 @@ pid_file="$state_dir/llama-server.pid"
 model_file="$state_dir/llama-server.model"
 log_file="$state_dir/llama-server.log"
 port=8080
-tier=smart
+tier=large
 yes=
 force=
 setup=
@@ -49,7 +49,7 @@ while [ $# -gt 0 ]; do
   case "$1" in
     --tier)
       shift
-      test $# -gt 0 || fail "--tier needs smart, balanced, or fast"
+      test $# -gt 0 || fail "--tier needs large, medium, or small"
       tier=$1 ;;
     -y|--yes) yes=1 ;;
     --force) force=1 ;;
@@ -62,7 +62,7 @@ while [ $# -gt 0 ]; do
   shift
 done
 
-case "$tier" in smart|balanced|fast) ;; *) fail "unknown tier: $tier" ;; esac
+case "$tier" in large|medium|small) ;; *) fail "unknown tier: $tier" ;; esac
 
 script_dir=$(CDPATH= cd -- "$(dirname "$0")" && pwd)
 
@@ -120,39 +120,39 @@ configure_hardware() {
   case "$backend" in
     macos)
       if [ "$memory_gib" -ge 64 ]; then
-        smart_repo=empero-ai/Qwen3.8-35B-A3B-Distill-GGUF
-        balanced_repo=empero-ai/Qwen3.8-9B-Distill-GGUF
-        fast_repo=empero-ai/Qwen3.8-4B-Distill-GGUF
+        large_repo=empero-ai/Qwen3.8-35B-A3B-Distill-GGUF
+        medium_repo=empero-ai/Qwen3.8-9B-Distill-GGUF
+        small_repo=empero-ai/Qwen3.8-4B-Distill-GGUF
       else
-        smart_repo=empero-ai/Qwen3.8-9B-Distill-GGUF
-        balanced_repo=empero-ai/Qwen3.8-4B-Distill-GGUF
-        fast_repo=empero-ai/Qwen3.8-2B-Distill-GGUF
+        large_repo=empero-ai/Qwen3.8-9B-Distill-GGUF
+        medium_repo=empero-ai/Qwen3.8-4B-Distill-GGUF
+        small_repo=empero-ai/Qwen3.8-2B-Distill-GGUF
       fi
       kv=f16
-      balanced_budget=
+      medium_budget=
       reserve=12GiB
       ;;
     nvidia)
       if [ "$memory_gib" -le 8 ]; then
-        smart_repo=empero-ai/Qwen3.8-4B-Distill-GGUF
-        balanced_repo=empero-ai/Qwen3.8-4B-Distill-GGUF
-        fast_repo=empero-ai/Qwen3.8-2B-Distill-GGUF
+        large_repo=empero-ai/Qwen3.8-4B-Distill-GGUF
+        medium_repo=empero-ai/Qwen3.8-4B-Distill-GGUF
+        small_repo=empero-ai/Qwen3.8-2B-Distill-GGUF
         kv=q8_0
-        balanced_budget=6GiB
+        medium_budget=6GiB
         reserve=1GiB
       elif [ "$memory_gib" -le 15 ]; then
-        smart_repo=empero-ai/Qwen3.8-4B-Distill-GGUF
-        balanced_repo=empero-ai/Qwen3.8-4B-Distill-GGUF
-        fast_repo=empero-ai/Qwen3.8-2B-Distill-GGUF
+        large_repo=empero-ai/Qwen3.8-4B-Distill-GGUF
+        medium_repo=empero-ai/Qwen3.8-4B-Distill-GGUF
+        small_repo=empero-ai/Qwen3.8-2B-Distill-GGUF
         kv=q8_0
-        balanced_budget=
+        medium_budget=
         reserve=1GiB
       else
-        smart_repo=empero-ai/Qwen3.8-9B-Distill-GGUF
-        balanced_repo=empero-ai/Qwen3.8-4B-Distill-GGUF
-        fast_repo=empero-ai/Qwen3.8-2B-Distill-GGUF
+        large_repo=empero-ai/Qwen3.8-9B-Distill-GGUF
+        medium_repo=empero-ai/Qwen3.8-4B-Distill-GGUF
+        small_repo=empero-ai/Qwen3.8-2B-Distill-GGUF
         kv=q8_0
-        balanced_budget=
+        medium_budget=
         reserve=1GiB
       fi
       ;;
@@ -161,11 +161,11 @@ configure_hardware() {
   cat > "$config.tmp" <<EOF
 backend=$backend
 memory_gib=$memory_gib
-smart_repo=$smart_repo
-balanced_repo=$balanced_repo
-fast_repo=$fast_repo
+large_repo=$large_repo
+medium_repo=$medium_repo
+small_repo=$small_repo
 kv=$kv
-balanced_budget=$balanced_budget
+medium_budget=$medium_budget
 reserve=$reserve
 EOF
   mv "$config.tmp" "$config"
@@ -176,21 +176,21 @@ test -f "$config" || configure_hardware
 
 tier_repo() {
   case "$1" in
-    smart) printf '%s\n' "$smart_repo" ;;
-    balanced) printf '%s\n' "$balanced_repo" ;;
-    fast) printf '%s\n' "$fast_repo" ;;
+    large) printf '%s\n' "$large_repo" ;;
+    medium) printf '%s\n' "$medium_repo" ;;
+    small) printf '%s\n' "$small_repo" ;;
   esac
 }
 
 tier_budget() {
-  case "$1" in balanced) printf '%s\n' "$balanced_budget" ;; *) printf '\n' ;; esac
+  case "$1" in medium) printf '%s\n' "$medium_budget" ;; *) printf '\n' ;; esac
 }
 
 tier_context() {
   case "$1" in
-    smart) printf '%s\n' 131072 ;;
-    balanced) printf '%s\n' 65536 ;;
-    fast) printf '%s\n' 32768 ;;
+    large) printf '%s\n' 131072 ;;
+    medium) printf '%s\n' 65536 ;;
+    small) printf '%s\n' 32768 ;;
   esac
 }
 
@@ -202,7 +202,7 @@ tier_model() {
 
 fit_missing_models() {
   missing=
-  for requested_tier in smart balanced fast; do
+  for requested_tier in large medium small; do
     test -f "$(tier_model "$requested_tier")" ||
       missing="${missing}${missing:+ }${requested_tier}"
   done
@@ -216,7 +216,7 @@ fit_missing_models() {
   fi
 
   mkdir -p "$models"
-  for requested_tier in smart balanced fast; do
+  for requested_tier in large medium small; do
     model=$(tier_model "$requested_tier")
     test -f "$model" && continue
     repo=$(tier_repo "$requested_tier")
@@ -294,11 +294,11 @@ try {
 }
 config.model ??= {};
 config.model.name = id;
-// Note: the fast model is too small to cope with project context files, so point
+// Note: the small model is too small to cope with project context files, so point
 // Qwen Code at a context file name that does not exist (an empty name is ignored).
 const noContext = ['-'];
 config.context ??= {};
-if (tier === 'fast') {
+if (tier === 'small') {
   config.context.fileName = noContext;
 } else if (JSON.stringify(config.context.fileName) === JSON.stringify(noContext)) {
   delete config.context.fileName;
@@ -329,7 +329,7 @@ EOF
 show_status() {
   printf 'Backend: %s, model memory: %s GiB, reserve: %s\n' \
     "$backend" "$memory_gib" "$reserve"
-  for requested_tier in smart balanced fast; do
+  for requested_tier in large medium small; do
     model=$(tier_model "$requested_tier")
     model_context=$(tier_context "$requested_tier")
     if test -f "$model"; then
@@ -393,8 +393,8 @@ fi
 start_server
 configure_qwen "$(tier_context "$tier")"
 
-# Note: the fast tier is for short answers; cap output so runaway text is cut off early.
-test "$tier" != fast || export QWEN_CODE_MAX_OUTPUT_TOKENS=1024
+# Note: the small tier is for short answers; cap output so runaway text is cut off early.
+test "$tier" != small || export QWEN_CODE_MAX_OUTPUT_TOKENS=1024
 
 DOTFILES_LOCAL_LLM_KEY=local \
 OPENAI_API_KEY=local \
