@@ -6,16 +6,20 @@ set -eu
 
 usage() {
   cat <<EOF
-Usage: qwen [--tier large|medium|small] [-y|--yes] [--force] [--setup] [--status] [-- QWEN_ARGS...]
+Usage: qcode [--tier large|medium|small|flash-large|flash-medium] [-y|--yes] [--force] [--setup] [--status] [-- QWEN_ARGS...]
 
-Runs Qwen Code with a local Qwen3.8 model. On first use, prompts for the
-machine type and usable model memory, then fits large, medium, and small
-models. Use -y to accept the slow initial setup without prompting.
+Runs Qwen Code with a local Qwen model. On first use of standard tiers,
+prompts for the machine type and usable model memory, then fits missing
+models. Flash tiers download pre-quantized Qwen3.8-Flash-Next dynamic GGUFs.
 
 Options:
-  --tier TIER  Select large (128k context; default), medium (64k), or small
-               (32k). The small tier ignores project context files and caps
-               output; use it for quick questions.
+  --tier TIER  Select tier:
+                 flash-large   Qwen3.8-Flash-Next 125B MoE (128k context)
+                 flash-medium  Qwen3.8-Flash-Next 125B MoE (64k context)
+                 large         Local fit (128k context; default)
+                 medium        Local fit (64k context)
+                 small         Local fit (32k context; short answers)
+               Aliases: flash, flash-128k -> flash-large; flash-64k -> flash-medium
   -y, --yes    Do not ask before fitting missing models.
   --force      Allow another local Qwen session to use the same server.
   --setup      Fit missing models, then exit.
@@ -49,7 +53,7 @@ while [ $# -gt 0 ]; do
   case "$1" in
     --tier)
       shift
-      test $# -gt 0 || fail "--tier needs large, medium, or small"
+      test $# -gt 0 || fail "--tier needs large, medium, small, flash-large, or flash-medium"
       tier=$1 ;;
     -y|--yes) yes=1 ;;
     --force) force=1 ;;
@@ -62,7 +66,19 @@ while [ $# -gt 0 ]; do
   shift
 done
 
-case "$tier" in large|medium|small) ;; *) fail "unknown tier: $tier" ;; esac
+# Normalize tier aliases
+case "$tier" in
+  smart) tier=large ;;
+  balanced) tier=medium ;;
+  fast) tier=small ;;
+  flash|flash-128k) tier=flash-large ;;
+  flash-64k) tier=flash-medium ;;
+esac
+
+case "$tier" in
+  large|medium|small|flash-large|flash-medium) ;;
+  *) fail "unknown tier: $tier" ;;
+esac
 
 script_dir=$(CDPATH= cd -- "$(dirname "$0")" && pwd)
 
@@ -174,11 +190,18 @@ EOF
 test -f "$config" || configure_hardware
 . "$config"
 
+large_repo=${large_repo:-${smart_repo:-empero-ai/Qwen3.8-35B-A3B-Distill-GGUF}}
+medium_repo=${medium_repo:-${balanced_repo:-empero-ai/Qwen3.8-9B-Distill-GGUF}}
+small_repo=${small_repo:-${fast_repo:-empero-ai/Qwen3.8-4B-Distill-GGUF}}
+medium_budget=${medium_budget:-${balanced_budget:-}}
+reserve=${reserve:-12GiB}
+
 tier_repo() {
   case "$1" in
     large) printf '%s\n' "$large_repo" ;;
     medium) printf '%s\n' "$medium_repo" ;;
     small) printf '%s\n' "$small_repo" ;;
+    flash-large|flash-medium) printf '%s\n' "unsloth/Qwen3.8-Flash-Next-GGUF" ;;
   esac
 }
 
@@ -188,19 +211,91 @@ tier_budget() {
 
 tier_context() {
   case "$1" in
-    large) printf '%s\n' 131072 ;;
-    medium) printf '%s\n' 65536 ;;
+    large|flash-large) printf '%s\n' 131072 ;;
+    medium|flash-medium) printf '%s\n' 65536 ;;
     small) printf '%s\n' 32768 ;;
   esac
 }
 
+tier_kv() {
+  case "$1" in
+    flash-large|flash-medium) printf '%s\n' q8_0 ;;
+    *) printf '%s\n' "$kv" ;;
+  esac
+}
+
+flash_base_dir="$models/qwen38-flash-next"
+
 tier_model() {
-  model_context=$(tier_context "$1")
-  printf '%s/qwen38-%s-%s-%sg-%sk.gguf\n' \
-    "$models" "$1" "$backend" "$memory_gib" "$((model_context / 1024))"
+  case "$1" in
+    flash-large|flash-medium)
+      printf '%s/UD-Q3_K_XL/Qwen3.8-Flash-Next-UD-Q3_K_XL-00001-of-00003.gguf\n' "$flash_base_dir" ;;
+    *)
+      model_context=$(tier_context "$1")
+      printf '%s/qwen38-%s-%s-%sg-%sk.gguf\n' \
+        "$models" "$1" "$backend" "$memory_gib" "$((model_context / 1024))" ;;
+  esac
+}
+
+# Note: MTP is disabled until stock llama.cpp can load the shared MTP GGUF.
+# It omits token_embd.weight (shared with the main model), which needs the
+# custom branch https://github.com/danielhanchen/llama.cpp (qwen4exp/mtp).
+# To re-enable once llama.cpp supports it: restore the case below, restore the
+# MTP lines in flash_models_installed, download_flash_models and show_status.
+tier_mtp_model() {
+  printf '\n'
+  # case "$1" in
+  #   flash-large|flash-medium)
+  #     printf '%s/MTP/mtp-Qwen3.8-Flash-Next-shared-Q8_0.gguf\n' "$flash_base_dir" ;;
+  #   *)
+  #     printf '\n' ;;
+  # esac
+}
+
+flash_models_installed() {
+  test -f "$flash_base_dir/UD-Q3_K_XL/Qwen3.8-Flash-Next-UD-Q3_K_XL-00001-of-00003.gguf" &&
+  test -f "$flash_base_dir/UD-Q3_K_XL/Qwen3.8-Flash-Next-UD-Q3_K_XL-00002-of-00003.gguf" &&
+  test -f "$flash_base_dir/UD-Q3_K_XL/Qwen3.8-Flash-Next-UD-Q3_K_XL-00003-of-00003.gguf"
+  # && test -f "$flash_base_dir/MTP/mtp-Qwen3.8-Flash-Next-shared-Q8_0.gguf"
+}
+
+download_flash_models() {
+  flash_models_installed && return 0
+
+  if [ -z "$yes" ]; then
+    test -t 0 || fail "model setup needs an interactive terminal; rerun with -y"
+    printf 'Downloading Qwen3.8-Flash-Next (UD-Q3_K_XL, ~90GB). Continue? [y/N] ' >&2
+    read -r answer </dev/tty
+    case "$answer" in y|Y|yes|YES) ;; *) exit 0 ;; esac
+  fi
+
+  mkdir -p "$flash_base_dir"
+  if command -v uvx >/dev/null 2>&1; then
+    # MTP: also pass --include "MTP/mtp-Qwen3.8-Flash-Next-shared-Q8_0.gguf".
+    uvx --from huggingface_hub hf download "unsloth/Qwen3.8-Flash-Next-GGUF" \
+      --include "UD-Q3_K_XL/*" \
+      --local-dir "$flash_base_dir"
+  else
+    base_url="https://huggingface.co/unsloth/Qwen3.8-Flash-Next-GGUF/resolve/main"
+    # MTP: also fetch MTP/mtp-Qwen3.8-Flash-Next-shared-Q8_0.gguf.
+    for file in \
+      UD-Q3_K_XL/Qwen3.8-Flash-Next-UD-Q3_K_XL-00001-of-00003.gguf \
+      UD-Q3_K_XL/Qwen3.8-Flash-Next-UD-Q3_K_XL-00002-of-00003.gguf \
+      UD-Q3_K_XL/Qwen3.8-Flash-Next-UD-Q3_K_XL-00003-of-00003.gguf
+    do
+      mkdir -p "$flash_base_dir/$(dirname "$file")"
+      curl -fL -C - --progress-bar -o "$flash_base_dir/$file" "$base_url/$file"
+    done
+  fi
 }
 
 fit_missing_models() {
+  case "$tier" in
+    flash-large|flash-medium)
+      download_flash_models
+      return ;;
+  esac
+
   missing=
   for requested_tier in large medium small; do
     test -f "$(tier_model "$requested_tier")" ||
@@ -249,8 +344,10 @@ stop_managed_server() {
 start_server() {
   requested_model=$(tier_model "$tier")
   requested_context=$(tier_context "$tier")
+  requested_kv=$(tier_kv "$tier")
+  server_key="$tier:$requested_model:$requested_context"
   if test -f "$pid_file" && test -f "$model_file" &&
-    test "$(cat "$model_file")" = "$requested_model" && server_healthy
+    test "$(cat "$model_file")" = "$server_key" && server_healthy
   then
     return
   fi
@@ -260,13 +357,37 @@ start_server() {
     fail "port $port is in use by a llama-server not managed by this wrapper"
 
   mkdir -p "$state_dir"
-  llama-server -m "$requested_model" -c "$requested_context" -ngl 99 \
-    --cache-type-k "$kv" --cache-type-v "$kv" -np 1 -fa on \
-    --alias "dotfiles-local-llama-$tier" \
-    --host 127.0.0.1 --port "$port" > "$log_file" 2>&1 &
+
+  mtp_model=$(tier_mtp_model "$tier")
+  if [ -n "$mtp_model" ]; then
+    llama-server -m "$requested_model" -c "$requested_context" -ngl 99 \
+      --cache-type-k "$requested_kv" --cache-type-v "$requested_kv" -np 1 -fa on \
+      -md "$mtp_model" --spec-type draft-mtp --spec-draft-n-max 5 -ngld 99 \
+      --temp 1.0 --top-p 0.95 --top-k 20 --min-p 0.0 \
+      --chat-template-kwargs '{"reasoning_effort":"medium"}' \
+      --alias "dotfiles-local-llama-$tier" \
+      --host 127.0.0.1 --port "$port" > "$log_file" 2>&1 &
+  else
+    case "$tier" in
+      flash-large|flash-medium)
+        llama-server -m "$requested_model" -c "$requested_context" -ngl 99 \
+          --cache-type-k "$requested_kv" --cache-type-v "$requested_kv" -np 1 -fa on \
+          --temp 1.0 --top-p 0.95 --top-k 20 --min-p 0.0 \
+          --chat-template-kwargs '{"reasoning_effort":"medium"}' \
+          --alias "dotfiles-local-llama-$tier" \
+          --host 127.0.0.1 --port "$port" > "$log_file" 2>&1 &
+        ;;
+      *)
+        llama-server -m "$requested_model" -c "$requested_context" -ngl 99 \
+          --cache-type-k "$requested_kv" --cache-type-v "$requested_kv" -np 1 -fa on \
+          --alias "dotfiles-local-llama-$tier" \
+          --host 127.0.0.1 --port "$port" > "$log_file" 2>&1 &
+        ;;
+    esac
+  fi
   server_pid=$!
   printf '%s\n' "$server_pid" > "$pid_file"
-  printf '%s\n' "$requested_model" > "$model_file"
+  printf '%s\n' "$server_key" > "$model_file"
 
   waited=0
   while ! server_healthy; do
@@ -329,16 +450,29 @@ EOF
 show_status() {
   printf 'Backend: %s, model memory: %s GiB, reserve: %s\n' \
     "$backend" "$memory_gib" "$reserve"
-  for requested_tier in large medium small; do
+  for requested_tier in flash-large flash-medium large medium small; do
     model=$(tier_model "$requested_tier")
     model_context=$(tier_context "$requested_tier")
-    if test -f "$model"; then
-      printf '%-8s %3sk %s\n' "$requested_tier:" \
-        "$((model_context / 1024))" "$model"
-    else
-      printf '%-8s %3sk not fitted\n' "$requested_tier:" \
-        "$((model_context / 1024))"
-    fi
+    case "$requested_tier" in
+      flash-large|flash-medium)
+        if flash_models_installed; then
+          printf '%-13s %3sk %s\n' "$requested_tier:" \
+            "$((model_context / 1024))" "$model"
+        else
+          printf '%-13s %3sk not downloaded\n' "$requested_tier:" \
+            "$((model_context / 1024))"
+        fi
+        ;;
+      *)
+        if test -f "$model"; then
+          printf '%-13s %3sk %s\n' "$requested_tier:" \
+            "$((model_context / 1024))" "$model"
+        else
+          printf '%-13s %3sk not fitted\n' "$requested_tier:" \
+            "$((model_context / 1024))"
+        fi
+        ;;
+    esac
   done
   if test -f "$pid_file" && server_healthy; then
     printf 'Server: running (PID %s, %s)\n' "$(cat "$pid_file")" "$(cat "$model_file")"
@@ -358,6 +492,8 @@ test -z "$setup" || exit 0
 mkdir -p "$state_dir"
 lock="$state_dir/qwen.lock"
 requested_model=$(tier_model "$tier")
+requested_context=$(tier_context "$tier")
+server_key="$tier:$requested_model:$requested_context"
 if [ -n "$force" ] && test -d "$lock"; then
   lock_pid=$(cat "$lock/pid" 2>/dev/null || true)
   case "$lock_pid" in
@@ -365,7 +501,7 @@ if [ -n "$force" ] && test -d "$lock"; then
     *)
       if kill -0 "$lock_pid" 2>/dev/null; then
         test -f "$model_file" &&
-          test "$(cat "$model_file")" = "$requested_model" ||
+          test "$(cat "$model_file")" = "$server_key" ||
           fail "--force can share only the tier already loaded by the active Qwen session"
       fi ;;
   esac
