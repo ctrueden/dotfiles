@@ -506,7 +506,7 @@ list_packages() {
       installed*) c=32 ;; missing) c=33 ;; extra*) c=36 ;; inactive) c=2 ;;
       *) c=31 ;;
     esac
-    row $c "$status" "$kind" "$name" "$secs" "$checkout"
+    row $c "$status" "$kind" "${name##*/}" "$secs" "$checkout"
     echo "$status" >> "$tmp/statuses"
   done < "$tmp/list"
 
