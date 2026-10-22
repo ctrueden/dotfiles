@@ -90,11 +90,11 @@ find_qwen() {
 }
 
 qwen_bin=$(find_qwen) ||
-  fail "Qwen Code is not installed; run 'pack --with dev' first"
+  fail "Qwen Code is not installed; run 'pack --with ai' first"
 command -v shoehorn >/dev/null ||
-  fail "shoehorn is not installed; run 'pack --with dev' first"
+  fail "shoehorn is not installed; run 'pack --with ai' first"
 command -v llama-server >/dev/null ||
-  fail "llama.cpp is not installed; run 'pack --with dev' first"
+  fail "llama.cpp is not installed; run 'pack --with ai' first"
 command -v curl >/dev/null || fail "curl is required"
 command -v node >/dev/null ||
   fail "Node.js is required to configure Qwen Code; run 'pack' first"
