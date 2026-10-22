@@ -186,7 +186,7 @@ cask:google-chrome | winget:Google.Chrome  # For dev testing, not my daily drive
 [heavy]
 cask:jetbrains-toolbox | winget:JetBrains.Toolbox
 cask:visual-studio-code | winget:Microsoft.VisualStudioCode
-apt:meshlab
+cask|apt:meshlab | winget:CNR-ISTI.MeshLab
 
 [primary]
 cask:discord | winget:Discord.Discord
