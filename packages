@@ -43,6 +43,10 @@
 # A section header may name sections it requires, e.g. [dev: build].
 
 [core]
+# package managers
+brew|custom:node  replaces=apt:nodejs,apt:npm
+brew|scoop|custom:uv
+
 # shell
 apt:curl
 apt:unzip
@@ -59,7 +63,6 @@ apt|brew:ansiweather
 apt|brew|scoop:aspell
 apt|brew|scoop:bat
 apt|brew|scoop:boxes
-brew|custom:node  replaces=apt:nodejs,apt:npm
 apt|brew|scoop|custom:fzf
 apt|brew|scoop:glow
 apt|brew:gnupg
@@ -91,7 +94,6 @@ brew|scoop|custom:gh
 
 # python
 apt:python-is-python3
-brew|scoop|custom:uv
 
 # java
 uv:cjdk
