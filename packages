@@ -190,7 +190,7 @@ cask|apt:meshlab | winget:CNR-ISTI.MeshLab
 
 [primary]
 cask:discord | winget:Discord.Discord
-cask:nextcloud | winget:Nextcloud.NextcloudDesktop  # My Nextcloud only works with Wireguard.
+cask:nextcloud | apt:nextcloud-desktop | winget:Nextcloud.NextcloudDesktop  # My Nextcloud only works with Wireguard.
 cask:zoom | winget:Zoom.Zoom
 apt|brew:wireguard-tools | winget:WireGuard.WireGuard
 
