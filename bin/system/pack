@@ -26,8 +26,7 @@ Options:
   -n, --dry-run       Report what would be installed, without installing it.
   -l, --list          List every package relevant to this OS: its status, how
                       it installs, and its sections. Installs nothing.
-  --with SECTION      Also enable an opt-in section
-                      (build, dev, heavy, primary, java, system).
+  --with SECTION      Also enable an opt-in section (see packages manifest).
   --without SECTION   Skip a section, even a default one (e.g. gui on a desktop).
   -h, --help          Show this help.
 
