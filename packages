@@ -72,7 +72,7 @@ apt|brew:tree
 apt|brew|scoop:xmlstarlet
 apt:exuberant-ctags
 apt:fd-find | brew|scoop:fd
-apt|scoop:jq
+apt|scoop:jq  # Note: on macOS, jq comes preinstalled.
 brew|scoop:fastfetch
 brew|scoop:tlrc
 npm:emoj
