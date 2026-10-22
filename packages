@@ -78,6 +78,7 @@ brew|scoop:tlrc
 npm:emoj
 apt:xsel  # dependency of emoj on Linux
 apt:xclip
+#apt:wl-clipboard  # Wayland clipboard support
 
 # text reading, highlighting, and paging
 apt|brew|scoop:bat
@@ -147,6 +148,8 @@ apt|brew:netpbm
 apt|brew|scoop:pandoc
 apt|brew:webp | scoop:libwebp
 apt:libtiff-tools | brew|scoop:libtiff
+brew|scoop:exiftool | apt:libimage-exiftool-perl
+apt|brew|scoop:mediainfo
 #npm:svg-term-cli  # Unmaintained since 2018.
 
 [ai]
@@ -173,6 +176,7 @@ apt|brew|scoop:pkgconf
 scoop:maven | custom:mvn  replaces=apt:maven
 apt:build-essential
 apt|scoop:make
+brew|apt:ninja
 
 [dev: build]
 apt|brew|scoop:ruby
@@ -197,6 +201,12 @@ apt|brew:wireguard-tools | winget:WireGuard.WireGuard
 [system]
 apt:lm-sensors
 apt:nfs-common
+apt:inxi
+apt:hwinfo
+apt:dmidecode
+apt:lshw
+apt:pciutils  # for lspci
+apt:usbutils  # for lsusb
 
 [java]
 brew:cfr-decompiler
