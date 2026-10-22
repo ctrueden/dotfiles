@@ -109,6 +109,36 @@ apt|brew|scoop:gettext
 apt|brew:shared-mime-info
 apt|brew|scoop:zstd
 
+[gui]
+apt:flatpak
+brew:duti
+apt:dconf-editor
+apt|brew:fontconfig
+cask|custom:font-hack-nerd-font | scoop:nerd-fonts/Hack-NF
+cask|custom:kitty
+winget:Microsoft.WindowsTerminal
+winget:9MSMLRH6LZF3  # Windows Notepad, from the Microsoft Store.
+winget:Microsoft.PowerToys
+cask:firefox | winget:Mozilla.Firefox
+custom:deskflow | winget:Deskflow.Deskflow
+apt|cask:libreoffice | winget:TheDocumentFoundation.LibreOffice
+apt:diodon
+cask:maccy
+apt:gnome-shell-extension-manager
+apt:gnome-system-monitor
+apt:gnome-tweaks
+apt:kid3-qt
+apt:picard
+apt|cask:gimp | winget:GIMP.GIMP.3
+apt|cask:vlc | winget:VideoLAN.VLC
+cask:claude | winget:Anthropic.Claude
+cask:1password | winget:AgileBits.1Password
+cask:hammerspoon
+cask:rectangle
+cask:stats
+cask:xquartz
+cask:zulip | winget:Zulip.Zulip
+
 [media]
 apt|brew|scoop:ffmpeg
 apt|brew|scoop:graphviz
@@ -167,36 +197,6 @@ apt|brew:wireguard-tools | winget:WireGuard.WireGuard
 [system]
 apt:lm-sensors
 apt:nfs-common
-
-[gui]
-apt:flatpak
-brew:duti
-apt:dconf-editor
-apt|brew:fontconfig
-cask|custom:font-hack-nerd-font | scoop:nerd-fonts/Hack-NF
-cask|custom:kitty
-winget:Microsoft.WindowsTerminal
-winget:9MSMLRH6LZF3             # Windows Notepad, from the Microsoft Store.
-winget:Microsoft.PowerToys
-cask:firefox | winget:Mozilla.Firefox
-custom:deskflow | winget:Deskflow.Deskflow
-apt|cask:libreoffice | winget:TheDocumentFoundation.LibreOffice
-apt:diodon
-cask:maccy
-apt:gnome-shell-extension-manager
-apt:gnome-system-monitor
-apt:gnome-tweaks
-apt:kid3-qt
-apt:picard
-apt|cask:gimp | winget:GIMP.GIMP.3
-apt|cask:vlc | winget:VideoLAN.VLC
-cask:claude | winget:Anthropic.Claude
-cask:1password | winget:AgileBits.1Password
-cask:hammerspoon
-cask:rectangle
-cask:stats
-cask:xquartz
-cask:zulip | winget:Zulip.Zulip
 
 [java]
 brew:cfr-decompiler
