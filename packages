@@ -92,7 +92,7 @@ brew|scoop:tree-sitter | npm:tree-sitter-cli  scripts  # npm installer fetches i
 
 # git
 apt|brew:git-delta | scoop:delta
-apt|brew:git-lfs
+apt|brew|scoop:git-lfs
 apt:myrepos | brew:mr
 brew|scoop|custom:gh
 
@@ -146,7 +146,7 @@ apt|brew|scoop:imagemagick
 apt|brew:netpbm
 apt|brew|scoop:pandoc
 apt|brew:webp | scoop:libwebp
-apt:libtiff-tools | brew:libtiff
+apt:libtiff-tools | brew|scoop:libtiff
 #npm:svg-term-cli  # Unmaintained since 2018.
 
 [ai]
