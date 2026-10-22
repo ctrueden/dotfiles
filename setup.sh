@@ -288,6 +288,9 @@ echo "--> Installing tools..."
 "$CONFIG_DIR/bin/system/pack" ||
   echo "Warning: package installation failed; continuing setup." >&2
 
+echo
+echo "--> Configuring tools..."
+
 # byobu -- tmux with batteries (installed via packages; fzf powers its command palette)
 # Note: byobu-enable hooks only login shells (e.g. ssh, iTerm2 on macOS);
 # zshrc launches byobu for non-login local terminals (e.g. kitty on Linux).
