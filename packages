@@ -147,6 +147,7 @@ apt|brew:netpbm
 apt|brew|scoop:pandoc
 apt|brew:webp | scoop:libwebp
 apt:libtiff-tools | brew:libtiff
+#npm:svg-term-cli  # Unmaintained since 2018.
 
 [ai]
 cask|scoop:claude-code
@@ -176,7 +177,6 @@ apt|scoop:make
 [dev: build]
 apt|brew|scoop:ruby
 npm:pnpm                scripts  # Links its native binary.
-#npm:svg-term-cli                # Unmaintained since 2018.
 uv:prysk
 uv:pydeps
 uv:twine
