@@ -161,7 +161,7 @@ brew|custom:llama.cpp
 brew|custom:qwen-code
 #scoop:codex | npm:@openai/codex
 #npm:@charmland/crush
-#npm:@kilocode/cli       scripts  # npm installer fetches its binary.
+#npm:@kilocode/cli  scripts  # npm installer fetches its binary.
 #npm:@nanocollective/nanocoder
 #npm:@vibe-kit/grok-cli
 
@@ -176,7 +176,7 @@ apt|scoop:make
 
 [dev: build]
 apt|brew|scoop:ruby
-npm:pnpm                scripts  # Links its native binary.
+npm:pnpm  scripts  # Links its native binary.
 uv:prysk
 uv:pydeps
 uv:twine
