@@ -127,8 +127,8 @@ cask:maccy
 apt:gnome-shell-extension-manager
 apt:gnome-system-monitor
 apt:gnome-tweaks
-apt:kid3-qt
-apt:picard
+cask:kid3 | apt:kid3-qt | winget:Debian.Kid3
+cask:musicbrainz-picard | apt:picard | winget:MusicBrainz.Picard
 apt|cask:gimp | winget:GIMP.GIMP.3
 apt|cask:vlc | winget:VideoLAN.VLC
 cask:claude | winget:Anthropic.Claude
