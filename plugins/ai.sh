@@ -3,6 +3,12 @@
 # safety and security guardrails in place. Use with caution.
 alias cop='copilot --banner --allow-all-paths --allow-all-tools'
 alias claude='claude --dangerously-skip-permissions'
+
 alias haiku='claude --model haiku'
 alias sonnet='claude --model sonnet'
 alias opus='claude --model opus'
+
+alias q='qcode'
+alias qsmart='q --tier smart'
+alias qbal='q --tier balanced'
+alias qfast='q --tier fast'
