@@ -1,0 +1,12 @@
+#!/bin/sh
+
+# On macOS, Hammerspoon binds F12 (see hammerspoon/init.lua),
+# which we point at the dotfiles' copy of its config.
+
+[ "$(uname)" = Darwin ] || exit 0
+
+here=$(cd "$(dirname "$0")" && pwd)
+dotfiles="${DOTFILES:-$(cd "$here/../.." && pwd)}"
+
+defaults write org.hammerspoon.Hammerspoon MJConfigFile \
+  "$dotfiles/hammerspoon/init.lua"

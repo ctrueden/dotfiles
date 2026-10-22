@@ -1,0 +1,11 @@
+#!/bin/sh
+
+# ~/.vim/bundle/Vundle.vim -- vim plugin manager (fallback for systems without nvim)
+
+command -v nvim >/dev/null 2>&1 && exit 0
+command -v vim >/dev/null 2>&1 || exit 0
+
+if [ ! -d "$HOME/.vim/bundle/Vundle.vim" ]; then
+  git clone https://github.com/VundleVim/Vundle.vim.git "$HOME/.vim/bundle/Vundle.vim"
+  vim -c "execute 'PluginInstall' | qa"
+fi
