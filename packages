@@ -88,7 +88,7 @@ apt|brew|scoop:highlight
 # editors
 brew|scoop|custom:neovim  replaces=apt:neovim
 apt|brew:vim
-scoop:tree-sitter | npm:tree-sitter-cli  scripts  # npm installer fetches its binary.
+brew|scoop:tree-sitter | npm:tree-sitter-cli  scripts  # npm installer fetches its binary.
 
 # git
 apt|brew:git-delta | scoop:delta
