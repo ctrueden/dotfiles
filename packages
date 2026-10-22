@@ -34,7 +34,9 @@
 # (~/.config/dotfiles/sections, written by setup.sh):
 #   build    compilers and build tools, for building software from source
 #   dev      development tools beyond the basics
+#   ai       agentic coding assistants
 #   heavy    large installs (hundreds of MB)
+#   media    tools for working with and converting media files
 #   primary  tools to install only on main machines
 #   java     JDKs and Java tooling
 #   system   hardware and network utilities
@@ -90,15 +92,6 @@ brew|scoop|custom:gh
 apt:python-is-python3
 brew|scoop|custom:uv
 
-# media
-apt|brew|scoop:ffmpeg
-apt|brew|scoop:graphviz
-apt|brew|scoop:imagemagick
-apt|brew:netpbm
-apt|brew|scoop:pandoc
-apt|brew:webp | scoop:libwebp
-apt:libtiff-tools | brew:libtiff
-
 # other
 apt|brew:ca-certificates
 apt|brew|scoop:gettext
@@ -113,16 +106,28 @@ apt|brew|scoop|custom:starship
 uv:cjdk
 uv:jgo
 
-# AI coding assistants
+[media]
+apt|brew|scoop:ffmpeg
+apt|brew|scoop:graphviz
+apt|brew|scoop:imagemagick
+apt|brew:netpbm
+apt|brew|scoop:pandoc
+apt|brew:webp | scoop:libwebp
+apt:libtiff-tools | brew:libtiff
+
+[ai]
 cask|scoop:claude-code
 winget:GitHub.Copilot | npm:@github/copilot
-scoop:codex | npm:@openai/codex
+cask:antigravity-cli
 brew:opencode | scoop:versions/opencode2 | npm:opencode-ai  scripts  # npm installer fetches its binary.
-npm:@kilocode/cli       scripts  # npm installer fetches its binary.
 brew|scoop:ollama
 uv:oterm  replaces=brew:oterm  python=3.14  # pyyaml has no 3.15 wheels for Windows yet.
+brew:notactuallytreyanastasio/shoehorn/shoehorn | custom:shoehorn
+brew|custom:llama.cpp
+brew|custom:qwen-code
+#scoop:codex | npm:@openai/codex
 #npm:@charmland/crush
-#npm:@google/gemini-cli
+#npm:@kilocode/cli       scripts  # npm installer fetches its binary.
 #npm:@nanocollective/nanocoder
 #npm:@vibe-kit/grok-cli
 
@@ -144,9 +149,6 @@ uv:pydeps
 uv:twine
 uv:yamllint
 cask:google-chrome | winget:Google.Chrome  # For dev testing, not my daily driver.
-brew:notactuallytreyanastasio/shoehorn/shoehorn | custom:shoehorn
-brew|custom:llama.cpp
-brew|custom:qwen-code
 
 [heavy]
 cask:jetbrains-toolbox | winget:JetBrains.Toolbox
