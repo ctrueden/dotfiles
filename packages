@@ -153,7 +153,7 @@ apt|brew|scoop:mediainfo
 #npm:svg-term-cli  # Unmaintained since 2018.
 
 [ai]
-cask|scoop:claude-code
+cask|scoop:claude-code | custom:claude-code
 winget:GitHub.Copilot | npm:@github/copilot
 cask:antigravity-cli
 brew:opencode | scoop:versions/opencode2 | npm:opencode-ai  scripts  # npm installer fetches its binary.

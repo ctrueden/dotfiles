@@ -1,0 +1,17 @@
+#!/bin/sh
+
+# Installs Claude Code via its official installer script into ~/.local/bin.
+# macOS installs it via Homebrew Cask and Windows via Scoop.
+#
+# Platforms: linux
+#
+# With --check, reports via exit code whether claude is installed.
+
+if [ "${1:-}" = --check ]; then
+  command -v claude >/dev/null 2>&1
+  exit
+fi
+
+# Note: We use curl|bash -- if the claude.ai domain were compromised, running
+# claude at all would be equally dangerous, so this is an acceptable risk.
+curl -fsSL https://claude.ai/install.sh | bash

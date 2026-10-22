@@ -421,24 +421,6 @@ if ! command -v nvim >/dev/null 2>&1 && [ ! -d "$HOME/.vim/bundle/Vundle.vim" ];
     vim -c "execute 'PluginInstall' | qa"
 fi
 
-# Claude Code -- AI coding assistant
-# Note: The packages manifest installs it on macOS and Windows; this covers
-# the rest, e.g. Linux, or Windows without scoop.
-# Note: We use curl|sh -- if the claude.ai domain were compromised, running
-# claude at all would be equally dangerous, so this is an acceptable risk.
-# Note: The installer refuses unsupported platforms (e.g. FreeBSD), and the
-# rest of setup does not depend on it, so a failure is not fatal.
-if ! command -v claude >/dev/null 2>&1; then
-  echo "Installing Claude Code..."
-  case "$(uname)" in
-    Linux|Darwin) curl -fsSL https://claude.ai/install.sh | bash ;;
-    # Note: install.sh refuses to run on Windows; it has a PowerShell twin.
-    MINGW*|MSYS*|CYGWIN*)
-      powershell -NoProfile -ExecutionPolicy Bypass -Command 'irm https://claude.ai/install.ps1 | iex' ;;
-    *) echo "Claude Code does not support $(uname)." >&2; false ;;
-  esac ||
-    echo "Warning: Claude Code install failed; continuing setup." >&2
-fi
 
 echo
 echo "--> Done! Now open a new terminal. :-)"
