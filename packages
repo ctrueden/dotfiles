@@ -44,7 +44,7 @@
 
 [core]
 # package managers
-brew|custom:node  replaces=apt:nodejs,apt:npm
+brew|custom:node | scoop:nodejs  replaces=apt:nodejs,apt:npm
 brew|scoop|custom:uv
 
 # shell
