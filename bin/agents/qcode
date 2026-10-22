@@ -13,8 +13,9 @@ machine type and usable model memory, then fits smart, balanced, and fast
 models. Use -y to accept the slow initial setup without prompting.
 
 Options:
-  --tier TIER  Select smart (default), balanced, or fast. The fast tier ignores
-               project context files and caps output; use it for quick questions.
+  --tier TIER  Select smart (128k context; default), balanced (64k), or fast
+               (32k). The fast tier ignores project context files and caps
+               output; use it for quick questions.
   -y, --yes    Do not ask before fitting missing models.
   --force      Allow another local Qwen session to use the same server.
   --setup      Fit missing models, then exit.
@@ -38,7 +39,6 @@ pid_file="$state_dir/llama-server.pid"
 model_file="$state_dir/llama-server.model"
 log_file="$state_dir/llama-server.log"
 port=8080
-context=32768
 tier=smart
 yes=
 force=
@@ -130,6 +130,7 @@ configure_hardware() {
       fi
       kv=f16
       balanced_budget=
+      reserve=12GiB
       ;;
     nvidia)
       if [ "$memory_gib" -le 8 ]; then
@@ -138,18 +139,21 @@ configure_hardware() {
         fast_repo=empero-ai/Qwen3.8-2B-Distill-GGUF
         kv=q8_0
         balanced_budget=6GiB
+        reserve=1GiB
       elif [ "$memory_gib" -le 15 ]; then
         smart_repo=empero-ai/Qwen3.8-4B-Distill-GGUF
         balanced_repo=empero-ai/Qwen3.8-4B-Distill-GGUF
         fast_repo=empero-ai/Qwen3.8-2B-Distill-GGUF
         kv=q8_0
         balanced_budget=
+        reserve=1GiB
       else
         smart_repo=empero-ai/Qwen3.8-9B-Distill-GGUF
         balanced_repo=empero-ai/Qwen3.8-4B-Distill-GGUF
         fast_repo=empero-ai/Qwen3.8-2B-Distill-GGUF
         kv=q8_0
         balanced_budget=
+        reserve=1GiB
       fi
       ;;
   esac
@@ -162,6 +166,7 @@ balanced_repo=$balanced_repo
 fast_repo=$fast_repo
 kv=$kv
 balanced_budget=$balanced_budget
+reserve=$reserve
 EOF
   mv "$config.tmp" "$config"
 }
@@ -181,16 +186,25 @@ tier_budget() {
   case "$1" in balanced) printf '%s\n' "$balanced_budget" ;; *) printf '\n' ;; esac
 }
 
+tier_context() {
+  case "$1" in
+    smart) printf '%s\n' 131072 ;;
+    balanced) printf '%s\n' 65536 ;;
+    fast) printf '%s\n' 32768 ;;
+  esac
+}
+
 tier_model() {
-  printf '%s/qwen38-%s-%s-%sg-32k.gguf\n' \
-    "$models" "$1" "$backend" "$memory_gib"
+  model_context=$(tier_context "$1")
+  printf '%s/qwen38-%s-%s-%sg-%sk.gguf\n' \
+    "$models" "$1" "$backend" "$memory_gib" "$((model_context / 1024))"
 }
 
 fit_missing_models() {
   missing=
   for requested_tier in smart balanced fast; do
     test -f "$(tier_model "$requested_tier")" ||
-      missing="$missing $requested_tier"
+      missing="${missing}${missing:+ }${requested_tier}"
   done
   test -z "$missing" && return
 
@@ -207,10 +221,10 @@ fit_missing_models() {
     test -f "$model" && continue
     repo=$(tier_repo "$requested_tier")
     budget=$(tier_budget "$requested_tier")
-    set -- shoehorn fit "$repo" --ctx "$context" --kv "$kv" \
-      --reserve 1GiB --output "$model"
-    test -z "$budget" || set -- "$@" --budget "$budget"
-    "$@"
+    model_context=$(tier_context "$requested_tier")
+    shoehorn fit "$repo" --ctx "$model_context" --kv "$kv" \
+      --reserve "$reserve" --output "$model" \
+      ${budget:+--budget "$budget"}
   done
 }
 
@@ -234,6 +248,7 @@ stop_managed_server() {
 
 start_server() {
   requested_model=$(tier_model "$tier")
+  requested_context=$(tier_context "$tier")
   if test -f "$pid_file" && test -f "$model_file" &&
     test "$(cat "$model_file")" = "$requested_model" && server_healthy
   then
@@ -245,7 +260,7 @@ start_server() {
     fail "port $port is in use by a llama-server not managed by this wrapper"
 
   mkdir -p "$state_dir"
-  llama-server -m "$requested_model" -c "$context" -ngl 99 \
+  llama-server -m "$requested_model" -c "$requested_context" -ngl 99 \
     --cache-type-k "$kv" --cache-type-v "$kv" -np 1 -fa on \
     --alias "dotfiles-local-llama-$tier" \
     --host 127.0.0.1 --port "$port" > "$log_file" 2>&1 &
@@ -267,7 +282,7 @@ start_server() {
 configure_qwen() {
   settings="$HOME/.qwen/settings.json"
   mkdir -p "$(dirname "$settings")"
-  node - "$settings" "$context" "$tier" <<'EOF'
+  node - "$settings" "$1" "$tier" <<'EOF'
 const fs = require('fs');
 const [settings, context, tier] = process.argv.slice(2);
 const id = `dotfiles-local-llama-${tier}`;
@@ -312,14 +327,17 @@ EOF
 }
 
 show_status() {
-  printf 'Backend: %s, model memory: %s GiB, context: %s\n' \
-    "$backend" "$memory_gib" "$context"
+  printf 'Backend: %s, model memory: %s GiB, reserve: %s\n' \
+    "$backend" "$memory_gib" "$reserve"
   for requested_tier in smart balanced fast; do
     model=$(tier_model "$requested_tier")
+    model_context=$(tier_context "$requested_tier")
     if test -f "$model"; then
-      printf '%-8s %s\n' "$requested_tier:" "$model"
+      printf '%-8s %3sk %s\n' "$requested_tier:" \
+        "$((model_context / 1024))" "$model"
     else
-      printf '%-8s not fitted\n' "$requested_tier:"
+      printf '%-8s %3sk not fitted\n' "$requested_tier:" \
+        "$((model_context / 1024))"
     fi
   done
   if test -f "$pid_file" && server_healthy; then
@@ -335,7 +353,7 @@ if [ -n "$status" ]; then
 fi
 
 fit_missing_models
-test -z "$setup" || exit
+test -z "$setup" || exit 0
 
 mkdir -p "$state_dir"
 lock="$state_dir/qwen.lock"
@@ -373,7 +391,7 @@ if [ -z "$force" ]; then
 fi
 
 start_server
-configure_qwen
+configure_qwen "$(tier_context "$tier")"
 
 # Note: the fast tier is for short answers; cap output so runaway text is cut off early.
 test "$tier" != fast || export QWEN_CODE_MAX_OUTPUT_TOKENS=1024
