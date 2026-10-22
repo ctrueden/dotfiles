@@ -1,4 +1,4 @@
-# Packages to install, read by bin/system/install-packages.
+# Packages to install, read by bin/system/pack.
 #
 # One entry per line: one or more alternatives separated by |, in order of
 # preference. The first alternative whose manager this machine has, and which
@@ -26,7 +26,7 @@
 # e.g. when the newest Python lacks wheels the tool needs.
 # Any entry may be followed by replaces=MANAGER:NAME[,MANAGER:NAME...],
 # naming packages it supersedes when another of its alternatives installs it,
-# e.g. distro packages too old to use; install-packages warns about any of
+# e.g. distro packages too old to use; pack warns about any of
 # those still installed, and suggests how to remove them.
 #
 # [sections]: core always installs. gui installs on desktops only.

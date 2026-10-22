@@ -64,7 +64,7 @@ What does this configuration include?
         keys from [fkeys.conf](tmux/fkeys.conf).
     -   See [tmux/](tmux/) and [byobu/](byobu/) for details.
 
-4.  A **curated set of packages**, installed by `install-packages`:
+4.  A **curated set of packages**, installed by `pack`:
     -   One declarative [packages](packages) manifest lists tools for apt
         (Debian/Ubuntu), Homebrew (macOS), scoop and winget (Windows), plus
         npm and uv; each entry names its alternatives in order of preference,

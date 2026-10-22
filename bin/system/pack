@@ -18,7 +18,7 @@ export DOTFILES="${DOTFILES:-$(cd "$here/../.." && pwd)}"
 
 usage() {
   cat <<EOF
-Usage: install-packages [-n | -l] [--with SECTION]... [--without SECTION]...
+Usage: pack [-n | -l] [--with SECTION]... [--without SECTION]...
 
 Installs the packages listed in \$DOTFILES/packages that are not yet present.
 

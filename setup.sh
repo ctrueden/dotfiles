@@ -285,8 +285,8 @@ echo "--> Installing tools..."
 
 # Packages from the manifest (neovim, starship, byobu, fzf, AI TUIs, etc.).
 # Note: The rest of setup does not depend on these, so a failure is not fatal.
-"$CONFIG_DIR/bin/system/install-packages" ||
-  echo "Warning: install-packages failed; continuing setup." >&2
+"$CONFIG_DIR/bin/system/pack" ||
+  echo "Warning: package installation failed; continuing setup." >&2
 
 # byobu -- tmux with batteries (installed via packages; fzf powers its command palette)
 # Note: byobu-enable hooks only login shells (e.g. ssh, iTerm2 on macOS);

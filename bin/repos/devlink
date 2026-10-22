@@ -7,7 +7,7 @@
 #
 # Run from the project's root folder. Since ~/bin comes first on the PATH,
 # the linked executables shadow any released version installed elsewhere
-# (e.g. by install-packages). Meant to be invoked as an mr fixups hook, so
+# (e.g. by pack). Meant to be invoked as an mr fixups hook, so
 # that links are made on checkout and kept fresh on update:
 #
 #   [code/java/cjdk]

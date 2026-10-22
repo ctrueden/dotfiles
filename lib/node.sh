@@ -1,4 +1,4 @@
-# Global npm package helpers, shared by install-packages and update-all.
+# Global npm package helpers, shared by pack and update-all.
 
 # Prints the bin folder of the Node that owns global npm packages: our own
 # (see bin/packages/install-node), or else Homebrew's. Never an nvm-managed
