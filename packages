@@ -61,12 +61,9 @@ apt|brew:byobu | winget:marlocarlo.psmux
 apt|brew|scoop|custom:starship
 apt|brew:ansiweather
 apt|brew|scoop:aspell
-apt|brew|scoop:bat
 apt|brew|scoop:boxes
 apt|brew|scoop|custom:fzf
-apt|brew|scoop:glow
 apt|brew:gnupg
-apt|brew|scoop:highlight
 apt|brew:htop
 apt|brew:pwgen
 apt|brew|scoop:ripgrep
@@ -80,6 +77,12 @@ apt:xclip
 brew|scoop:fastfetch
 brew|scoop:tlrc
 npm:emoj
+
+# text reading, highlighting, and paging
+apt|brew|scoop:bat
+npm:@rivolink/leaf
+brew|scoop:glow
+apt|brew|scoop:highlight
 
 # editors
 brew|scoop|custom:neovim  replaces=apt:neovim
