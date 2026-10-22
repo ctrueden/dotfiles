@@ -73,10 +73,11 @@ apt|brew|scoop:xmlstarlet
 apt:exuberant-ctags
 apt:fd-find | brew|scoop:fd
 apt|scoop:jq
-apt:xclip
 brew|scoop:fastfetch
 brew|scoop:tlrc
 npm:emoj
+apt:xsel  # dependency of emoj on Linux
+apt:xclip
 
 # text reading, highlighting, and paging
 apt|brew|scoop:bat
