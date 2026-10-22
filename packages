@@ -44,14 +44,22 @@
 
 [core]
 # shell
+apt:curl
+apt:unzip
+apt|brew:bash
+apt|custom:zsh
+winget:Microsoft.PowerShell
+apt|brew:coreutils
+brew:gnu-sed
+brew:gnu-tar
+apt:openssh-client
+apt|brew:byobu | winget:marlocarlo.psmux
+apt|brew|scoop|custom:starship
 apt|brew:ansiweather
 apt|brew|scoop:aspell
-apt|brew:bash
 apt|brew|scoop:bat
 apt|brew|scoop:boxes
-apt|brew:byobu | winget:marlocarlo.psmux
 brew|custom:node  replaces=apt:nodejs,apt:npm
-apt|brew:coreutils
 apt|brew|scoop|custom:fzf
 apt|brew|scoop:glow
 apt|brew:gnupg
@@ -62,19 +70,12 @@ apt|brew|scoop:ripgrep
 apt|brew:toilet
 apt|brew:tree
 apt|brew|scoop:xmlstarlet
-apt:curl
 apt:exuberant-ctags
 apt:fd-find | brew|scoop:fd
 apt|scoop:jq
-apt:openssh-client
-apt:unzip
 apt:xclip
-apt|custom:zsh
 brew|scoop:fastfetch
-brew:gnu-sed
-brew:gnu-tar
 brew|scoop:tlrc
-winget:Microsoft.PowerShell
 npm:emoj
 
 # editors
@@ -92,19 +93,15 @@ brew|scoop|custom:gh
 apt:python-is-python3
 brew|scoop|custom:uv
 
+# java
+uv:cjdk
+uv:jgo
+
 # other
 apt|brew:ca-certificates
 apt|brew|scoop:gettext
 apt|brew:shared-mime-info
 apt|brew|scoop:zstd
-brew:duti
-
-# prompt
-apt|brew|scoop|custom:starship
-
-# java
-uv:cjdk
-uv:jgo
 
 [media]
 apt|brew|scoop:ffmpeg
@@ -153,6 +150,7 @@ cask:google-chrome | winget:Google.Chrome  # For dev testing, not my daily drive
 [heavy]
 cask:jetbrains-toolbox | winget:JetBrains.Toolbox
 cask:visual-studio-code | winget:Microsoft.VisualStudioCode
+apt:meshlab
 
 [primary]
 cask:discord | winget:Discord.Discord
@@ -165,34 +163,34 @@ apt:lm-sensors
 apt:nfs-common
 
 [gui]
+apt:flatpak
+brew:duti
+apt:dconf-editor
 apt|brew:fontconfig
 cask|custom:font-hack-nerd-font | scoop:nerd-fonts/Hack-NF
-apt|cask:libreoffice | winget:TheDocumentFoundation.LibreOffice
+cask|custom:kitty
+winget:Microsoft.WindowsTerminal
+winget:9MSMLRH6LZF3             # Windows Notepad, from the Microsoft Store.
+winget:Microsoft.PowerToys
+cask:firefox | winget:Mozilla.Firefox
 custom:deskflow | winget:Deskflow.Deskflow
-apt:dconf-editor
+apt|cask:libreoffice | winget:TheDocumentFoundation.LibreOffice
 apt:diodon
-apt:flatpak
+cask:maccy
 apt:gnome-shell-extension-manager
 apt:gnome-system-monitor
 apt:gnome-tweaks
-cask|custom:kitty
 apt:kid3-qt
 apt:picard
 apt|cask:gimp | winget:GIMP.GIMP.3
 apt|cask:vlc | winget:VideoLAN.VLC
-apt:meshlab
 cask:claude | winget:Anthropic.Claude
 cask:1password | winget:AgileBits.1Password
-cask:firefox | winget:Mozilla.Firefox
 cask:hammerspoon
-cask:maccy
 cask:rectangle
 cask:stats
 cask:xquartz
 cask:zulip | winget:Zulip.Zulip
-winget:Microsoft.WindowsTerminal
-winget:9MSMLRH6LZF3             # Windows Notepad, from the Microsoft Store.
-winget:Microsoft.PowerToys
 
 [java]
 brew:cfr-decompiler
