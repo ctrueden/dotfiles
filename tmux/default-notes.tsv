@@ -1,0 +1,63 @@
+# Descriptions for default key bindings that lack notes, as psmux's do,
+# in tmux's own words. palette.sh shows them for a binding with no note
+# whose command matches exactly. Lines are: command<TAB>description.
+
+new-window	Create a new window
+next-window	Select the next window
+previous-window	Select the previous window
+last-window	Select the previously current window
+choose-window	Choose a window from a list
+confirm-before -p 'kill-window #W? (y/n)' kill-window	Kill current window
+rename-window	Rename current window
+select-window-index	Prompt for window index to select
+command-prompt -T target "move-window -t '%%'"	Move the current window
+select-window -t :0	Select window 0
+select-window -t :1	Select window 1
+select-window -t :2	Select window 2
+select-window -t :3	Select window 3
+select-window -t :4	Select window 4
+select-window -t :5	Select window 5
+select-window -t :6	Select window 6
+select-window -t :7	Select window 7
+select-window -t :8	Select window 8
+select-window -t :9	Select window 9
+split-window -v	Split window vertically
+select-pane -U	Select the pane above the active pane
+select-pane -D	Select the pane below the active pane
+select-pane -L	Select the pane to the left of the active pane
+select-pane -R	Select the pane to the right of the active pane
+select-pane -t +	Select the next pane
+last-pane	Move to the previously active pane
+display-panes	Display pane numbers
+confirm-before -p 'kill-pane #P? (y/n)' kill-pane	Kill the active pane
+resize-pane -Z	Zoom the active pane
+swap-pane -U	Swap the active pane with the pane above
+swap-pane -D	Swap the active pane with the pane below
+break-pane	Break pane to a new window
+resize-pane -U	Resize the pane up
+resize-pane -D	Resize the pane down
+resize-pane -L	Resize the pane left
+resize-pane -R	Resize the pane right
+resize-pane -U 5	Resize the pane up by 5
+resize-pane -D 5	Resize the pane down by 5
+resize-pane -L 5	Resize the pane left by 5
+resize-pane -R 5	Resize the pane right by 5
+select-layout even-horizontal	Set the even-horizontal layout
+select-layout even-vertical	Set the even-vertical layout
+select-layout main-horizontal	Set the main-horizontal layout
+select-layout main-vertical	Set the main-vertical layout
+select-layout tiled	Set the tiled layout
+detach-client	Detach the current client
+rename-session	Rename current session
+choose-session	Choose a session from a list
+switch-client -p	Switch to previous client
+switch-client -n	Switch to next client
+copy-mode	Enter copy mode
+copy-mode -u	Enter copy mode and scroll up
+paste-buffer -p	Paste the most recent paste buffer
+choose-buffer	Choose a paste buffer from a list
+list-buffers	List all paste buffers
+command-prompt	Prompt for a command
+list-keys	List key bindings
+display-message	Display window information
+clock-mode	Show a clock

@@ -36,8 +36,9 @@ prefix=$(tmux display -p '#{prefix}')
 
 # Lines are: table<TAB>key<TAB>shown-text<TAB>command. The key is escaped for
 # tmux's command parser; the shown text is the binding's note (description) if
-# it has one, or else its command.
+# it has one, or else its command, described by default-notes.tsv if listed.
 tab=$(printf '\t')
+defaults="$(dirname "$0")/default-notes.tsv"
 bindings() {
   # Note: psmux ignores list-keys -F, printing its default listing instead,
   # so check the output, not just the exit status.
@@ -51,7 +52,13 @@ bindings() {
     # the notes listing (prefix key note), which does not. psmux ignores -P,
     # always printing its own prefix, so ask tmux for one too, to strip.
     { tmux list-keys -N -P "$prefix " -T "$1"; echo; tmux list-keys -T "$1"; } |
-    awk -v table="$1" -v prefix="$prefix" -v tab="$tab" '
+    awk -v table="$1" -v prefix="$prefix" -v tab="$tab" -v defaults="$defaults" '
+      BEGIN {
+        while ((getline line < defaults) > 0) {
+          i = index(line, tab)
+          if (i && line !~ /^#/) known[substr(line, 1, i - 1)] = substr(line, i + 1)
+        }
+      }
       !plain && /^$/ { plain = 1; next }
       !plain {
         sub(/^ *[^ ]+ +/, ""); key = $1; sub(/^[^ ]+ +/, ""); note[key] = $0; next
@@ -64,7 +71,7 @@ bindings() {
         bare = key
         if (bare ~ /^\\./) bare = substr(bare, 2)
         else if (bare ~ /^\047.*\047$/ || bare ~ /^".*"$/) bare = substr(bare, 2, length(bare) - 2)
-        desc = (bare in note) ? note[bare] : cmd
+        desc = (bare in note) ? note[bare] : (cmd in known) ? known[cmd] : cmd
         if (length(desc) > 100) desc = substr(desc, 1, 100) "..."
         label = (table == "prefix" ? prefix " " : "") bare
         printf "%s%s%s%s%-12s %s%s%s\n", table, tab, key, tab, label, desc, tab, cmd
