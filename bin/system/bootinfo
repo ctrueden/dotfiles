@@ -21,7 +21,7 @@ field() {
   printf '%-16s %s\n' "$1:" "$2"
 }
 
-have() { command -v "$1" >/dev/null; }
+has() { command -v "$1" >/dev/null; }
 
 # Guess which boot loader an EFI binary is, from its path.
 efi_label() {
@@ -100,7 +100,7 @@ linux_secureboot() {
       0) field "Secure Boot" disabled ;;
       *) field "Secure Boot" "unknown ($sb)" ;;
     esac
-  elif have mokutil; then
+  elif has mokutil; then
     field "Secure Boot" "$(mokutil --sb-state 2>&1 | head -n1)"
   else
     field "Secure Boot" "unknown (SecureBoot variable not present)"
@@ -121,7 +121,7 @@ linux_secureboot() {
 linux_bootentries() {
   [ -d /sys/firmware/efi ] || return
   section "UEFI boot entries"
-  if have efibootmgr; then
+  if has efibootmgr; then
     efibootmgr 2>&1 | sed 's/^/  /'
   else
     echo "  (install efibootmgr to list boot entries)"
@@ -130,7 +130,7 @@ linux_bootentries() {
 
 linux_disks() {
   section "Boot media"
-  if ! have lsblk; then
+  if ! has lsblk; then
     echo "  (lsblk not found)"
     return
   fi
@@ -182,7 +182,7 @@ linux_loaders() {
   for d in /boot/grub /boot/grub2; do
     [ -f "$d/grub.cfg" ] && { echo "  GRUB: $d/grub.cfg"; found=1; }
   done
-  if have bootctl && bootctl is-installed >/dev/null 2>&1; then
+  if has bootctl && bootctl is-installed >/dev/null 2>&1; then
     echo "  systemd-boot: installed"; found=1
   fi
   [ -d /boot/loader/entries ] && { echo "  systemd-boot entries: /boot/loader/entries"; found=1; }
@@ -206,7 +206,7 @@ macos_report() {
 
   section "Secure Boot"
   if [ "$arch" = arm64 ]; then
-    if is_root && have bputil; then
+    if is_root && has bputil; then
       bputil -d 2>/dev/null | grep -i -E 'security mode|secure boot|kext|mdm' | sed 's/^ */  /'
     else
       echo "  (run as root to query boot policy via bputil)"
@@ -222,17 +222,17 @@ macos_report() {
       *)   field "Secure Boot" "unknown ($policy)" ;;
     esac
   fi
-  have csrutil && field SIP "$(csrutil status 2>/dev/null | sed 's/^System Integrity Protection status: //')"
+  has csrutil && field SIP "$(csrutil status 2>/dev/null | sed 's/^System Integrity Protection status: //')"
 
   section "Startup disk"
-  if have bless; then
+  if has bless; then
     field "Boot device" "$(bless --info --getBoot 2>/dev/null)"
   fi
   bootargs=$(nvram boot-args 2>/dev/null | cut -f2-)
   [ "$bootargs" ] && field "Boot args" "$bootargs"
 
   section "Boot media"
-  if have diskutil; then
+  if has diskutil; then
     diskutil list 2>/dev/null | grep -E '^/dev/|EFI|Apple_Boot|Microsoft Basic|Linux' | sed 's/^/  /'
   fi
 }

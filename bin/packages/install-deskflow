@@ -14,12 +14,14 @@
 
 set -eu
 
+has() { command -v "$1" >/dev/null; }
+
 app=org.deskflow.deskflow
 
 if [ "${1:-}" = --check ]; then
   case "$(uname)" in
     Darwin) brew list --cask deskflow >/dev/null 2>&1 ;;
-    Linux) command -v deskflow >/dev/null || flatpak info "$app" >/dev/null 2>&1 ;;
+    Linux) has deskflow || flatpak info "$app" >/dev/null 2>&1 ;;
     *) false ;;
   esac
   exit
@@ -35,11 +37,11 @@ case "$(uname)" in
     brew install --cask deskflow
     ;;
   Linux)
-    if command -v apt-cache >/dev/null &&
+    if has apt-cache &&
       apt-cache policy deskflow 2>/dev/null | grep -q 'Candidate: [0-9]'
     then
       $SUDO apt-get install -y deskflow
-    elif command -v flatpak >/dev/null; then
+    elif has flatpak; then
       flatpak remote-add --user --if-not-exists flathub \
         https://dl.flathub.org/repo/flathub.flatpakrepo
       flatpak install --user -y flathub "$app"

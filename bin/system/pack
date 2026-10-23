@@ -16,6 +16,8 @@ export DOTFILES="${DOTFILES:-$(cd "$here/../.." && pwd)}"
 
 . "$DOTFILES/lib/node.sh"
 
+has() { command -v "$1" >/dev/null; }
+
 usage() {
   cat <<EOF
 Usage: pack [-n | -l] [--with SECTION]... [--without SECTION]...
@@ -87,18 +89,18 @@ esac
 KINDS=
 case $os in
   windows)
-    command -v scoop >/dev/null && KINDS=scoop
-    command -v winget >/dev/null && KINDS="$KINDS winget"
+    has scoop && KINDS=scoop
+    has winget && KINDS="$KINDS winget"
     ;;
   linux)
-    if command -v apt-get >/dev/null; then
+    if has apt-get; then
       KINDS=apt
-    elif command -v brew >/dev/null; then
+    elif has brew; then
       KINDS="brew cask"
     fi
     ;;
   macos)
-    command -v brew >/dev/null && KINDS="brew cask"
+    has brew && KINDS="brew cask"
     ;;
   freebsd)
     echo "Note: pkg is not supported yet; installing only npm, uv and custom packages." >&2
@@ -199,7 +201,7 @@ installed() {
         "$tmp/winget.json" 2>/dev/null ;;
     npm)  global_npm ls -g --depth=0 --parseable 2>/dev/null |
             sed -n 's|.*/node_modules/||p' ;;
-    uv)   command -v uv >/dev/null &&
+    uv)   has uv &&
             uv tool list 2>/dev/null | awk '!/^-/ && NF {print $1}' ;;
   esac
 }

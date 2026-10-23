@@ -69,6 +69,8 @@ STREAM_PID=""
 
 echo $$ > /tmp/monitor-nsurlsessiond.pid
 
+has() { command -v "$1" >/dev/null; }
+
 # --- logging helpers ---
 ts() { date '+%Y-%m-%d %H:%M:%S'; }
 
@@ -108,7 +110,7 @@ trap cleanup EXIT INT TERM
 
 # --- start log stream ---
 start_log_stream() {
-    if command -v log >/dev/null; then
+    if has log; then
         log "starting log stream -> $STREAM_LOG"
         # --info includes Info-level messages where bundle IDs appear
         log stream \
@@ -139,7 +141,7 @@ snapshot_pids() {
 snapshot_lsof() {
     local pids="$1"
     [[ -z "$pids" ]] && return
-    if ! command -v lsof >/dev/null; then
+    if ! has lsof; then
         log "lsof not available"
         return
     fi
@@ -172,7 +174,7 @@ snapshot_tasks_sqlite() {
         log "tasks.sqlite: empty (download may have finished)"
         return
     fi
-    if ! command -v sqlite3 >/dev/null; then
+    if ! has sqlite3; then
         log "sqlite3 not available; skipping tasks.sqlite"
         return
     fi
@@ -194,7 +196,7 @@ snapshot_tasks_sqlite() {
 }
 
 snapshot_nettop() {
-    if ! command -v nettop >/dev/null; then
+    if ! has nettop; then
         log "nettop not available"
         return
     fi

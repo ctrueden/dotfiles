@@ -4,10 +4,12 @@
 # Displays a fancy deprecation message.
 #
 
+has() { command -v "$1" >/dev/null; }
+
 lines=$(for arg in "$@"; do echo "$arg"; done)
 fancy=
 
-if command -v toilet >/dev/null
+if has toilet
 then
   # Use the wonderful toilet utility (http://caca.zoy.org/wiki/toilet).
   font=$(echo ascii12 ascii9 bigascii12 bigascii9 bigmono12 bigmono9 \
@@ -17,7 +19,7 @@ then
   fancy=1
 fi
 
-if command -v boxes >/dev/null
+if has boxes
 then
   # Use the fabulous boxes utility (https://boxes.thomasjensen.com/).
   design=$(echo parchment simple dog peek shell | tr ' ' '\n' | sort -R | head -n1)

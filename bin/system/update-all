@@ -12,6 +12,8 @@ case "$(uname)" in
   *) echo "Unsupported OS: $(uname)" >&2; exit 1 ;;
 esac
 
+has() { command -v "$1" >/dev/null; }
+
 exit_code=0
 
 if [ -d "$DOTFILES" ]
@@ -28,7 +30,7 @@ then
   test $code -eq 0 || echo "=> returned $code"
 fi
 
-if command -v zpm >/dev/null
+if has zpm
 then
   echo
   echo "--== Updating zsh plugins ==--"
@@ -46,7 +48,7 @@ then
   test $code -eq 0 || echo "=> returned $code"
 fi
 
-if [ -d "$HOME/.password-store" ] && command -v pass >/dev/null
+if [ -d "$HOME/.password-store" ] && has pass
 then
   echo
   echo "--== Updating password store ==--"
@@ -55,7 +57,7 @@ then
   test $code -eq 0 || echo "=> returned $code"
 fi
 
-if command -v fwupdmgr >/dev/null; then
+if has fwupdmgr; then
   echo
   echo "--== Updating firmware ==--"
   fwupdmgr get-updates
@@ -66,7 +68,7 @@ if command -v fwupdmgr >/dev/null; then
   test $code -eq 0 || echo "=> returned $code"
 fi
 
-if command -v apt-get >/dev/null; then
+if has apt-get; then
   echo
   echo "--== Updating apt packages ==--"
   sudo apt-get update
@@ -75,7 +77,7 @@ if command -v apt-get >/dev/null; then
   test $code -eq 0 || echo "=> returned $code"
 fi
 
-if command -v flatpak >/dev/null; then
+if has flatpak; then
   echo
   echo "--== Updating Flatpak packages ==--"
   sudo flatpak update --noninteractive
@@ -83,7 +85,7 @@ if command -v flatpak >/dev/null; then
   test $code -eq 0 || echo "=> returned $code"
 fi
 
-if command -v snap >/dev/null
+if has snap
 then
   echo
   echo "--== Updating Snap packages ==--"
@@ -93,7 +95,7 @@ then
   test $code -eq 0 || echo "=> returned $code"
 fi
 
-if [ -d "$BREW" ] && command -v brew >/dev/null; then
+if [ -d "$BREW" ] && has brew; then
   echo
   echo "--== Updating Homebrew packages ==--"
   brew update
@@ -101,7 +103,7 @@ if [ -d "$BREW" ] && command -v brew >/dev/null; then
   code=$?; test $code -lt $exit_code || exit_code=$code
   test $code -eq 0 || echo "=> returned $code"
 
-  if [ "$(uname)" = Darwin ] && command -v fixapps >/dev/null; then
+  if [ "$(uname)" = Darwin ] && has fixapps; then
     echo
     echo "--== Resetting stale TCC grants ==--"
     fixapps
@@ -110,7 +112,7 @@ if [ -d "$BREW" ] && command -v brew >/dev/null; then
   fi
 fi
 
-if command -v scoop >/dev/null; then
+if has scoop; then
   echo
   echo "--== Updating Scoop packages ==--"
   scoop update && scoop update '*'
@@ -118,7 +120,7 @@ if command -v scoop >/dev/null; then
   test $code -eq 0 || echo "=> returned $code"
 fi
 
-if command -v winget >/dev/null; then
+if has winget; then
   echo
   echo "--== Updating winget packages ==--"
   winget upgrade --all --silent --accept-package-agreements \
@@ -147,7 +149,7 @@ if [ -f "${XDG_CONFIG_HOME:-$HOME/.config}/uv/uv-receipt.json" ]; then
   test $code -eq 0 || echo "=> returned $code"
 fi
 
-if command -v uv >/dev/null; then
+if has uv; then
   echo
   echo "--== Updating uv tools ==--"
   uv tool upgrade --all

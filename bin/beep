@@ -2,15 +2,17 @@
 
 # Emit an audible alert tone. Works on macOS and Linux.
 
+has() { command -v "$1" >/dev/null; }
+
 count=${1:-1}
 i=0
 while [ "$i" -lt "$count" ]; do
-  if command -v afplay >/dev/null; then
+  if has afplay; then
     for sound in /System/Library/Sounds/*.aiff
     do
       afplay "$sound" &
     done
-  elif command -v paplay >/dev/null; then
+  elif has paplay; then
     paplay /usr/share/sounds/freedesktop/stereo/complete.oga 2>/dev/null ||
     printf '\a'
   else
