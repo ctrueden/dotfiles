@@ -52,7 +52,9 @@ What does this configuration include?
     -   See the [vimrc](vimrc) and [nvim/](nvim/) for details.
 
 3.  A **terminal multiplexer setup** using [byobu] on top of [tmux]:
-    -   Byobu launches automatically, for login shells and local terminals.
+    -   Byobu launches automatically, for login shells and local terminals;
+        `autolaunch off` stops that on one machine, `LC_BYOBU=0 ssh <host>`
+        for one login.
     -   Ctrl+A as the prefix key, leaving F12 free for a drop-down terminal.
     -   Ctrl+B instead over SSH, so nested sessions each have their own prefix.
     -   Prefix + Space opens a fuzzy-find command palette (via [fzf]).

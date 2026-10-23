@@ -4,64 +4,9 @@ test "$DEBUG" && echo "[zshrc] Initializing..."
 # https://youtrack.jetbrains.com/articles/SUPPORT-A-1727/Shell-Environment-Loading
 test -z "$INTELLIJ_ENVIRONMENT_READER" || return
 
-# --== byobu ==--
+# --== terminal multiplexer ==--
 
-# Note: byobu-enable hooks only login shells, but local terminals on Linux
-# start non-login shells, so launch byobu here too. It runs before anything
-# else, so the outer shell (which just waits on byobu) starts up fast.
-# byobu-launch itself skips the launch if .zprofile already did it.
-is_embedded_terminal() {
-	[[ -n "$NVIM" ]] ||                              # Neovim's :terminal.
-	[[ -n "$VIM_TERMINAL" ]] ||                      # Vim's :terminal.
-	[[ "$TERM_PROGRAM" == vscode ]] ||               # VS Code and its forks.
-	[[ "$TERMINAL_EMULATOR" == JetBrains-JediTerm ]] # IntelliJ and friends.
-}
-
-wants_multiplexer() {
-	[[ -o interactive ]] || return 1        # Scripts and commands (zsh -c).
-	[[ -z "$TMUX" ]] || return 1            # Already inside tmux.
-	! is_embedded_terminal                  # Editors and IDEs host their own.
-}
-
-should_launch_byobu() {
-	wants_multiplexer || return 1
-	(( $+commands[byobu-launch] ))          # Byobu is installed.
-}
-
-# Note: Where byobu is unavailable (e.g. TrueNAS), fall back to plain tmux,
-# but only for SSH logins; locally, the terminal is the session.
-should_launch_tmux() {
-	wants_multiplexer || return 1
-	[[ -n "$SSH_CONNECTION" ]] || return 1  # Logged in over SSH.
-	(( $+commands[tmux] ))                  # tmux is installed.
-}
-
-# Note: On Windows, launch psmux (tmux for Windows) locally, as byobu elsewhere.
-# Git's zsh, an MSYS2 build, reports its OSTYPE as cygwin.
-should_launch_psmux() {
-	wants_multiplexer || return 1
-	[[ "$OSTYPE" == (cygwin|msys)* ]] || return 1  # Git Bash on Windows.
-	(( $+commands[psmux] ))                 # psmux is installed.
-}
-
-# Note: The tmux server keeps the PATH of the shell that starts it, for the
-# commands it runs itself (e.g. the palette's fzf, or the editor that opens
-# scrollback), and the plugins have yet to add the user bin dirs to it.
-# Duplicates are harmless; path_update filters them out.
-if should_launch_byobu; then
-	export PATH="$HOME/bin:$HOME/.local/bin:$PATH"
-	_byobu_sourced=1 . "$commands[byobu-launch]"
-elif should_launch_tmux; then
-	# Note: exec, so that leaving tmux (exit or detach) ends the SSH session.
-	export PATH="$HOME/bin:$HOME/.local/bin:$PATH"
-	exec tmux new-session -A -s main
-elif should_launch_psmux; then
-	# Note: exec, so that leaving psmux (exit or detach) closes the terminal tab.
-	# Join any existing session, whatever its name, so that tabs stay together.
-	export PATH="$HOME/bin:$HOME/.local/bin:$PATH"
-	psmux has-session 2>/dev/null && exec psmux attach-session
-	exec psmux new-session
-fi
+source "$DOTFILES"/lib/multiplexer.sh
 
 # --== progress bar ==--
 

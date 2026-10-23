@@ -1,8 +1,14 @@
 #!/bin/sh
 
-# Configures Byobu to launch on login shells.
-# Note: byobu-enable hooks only login shells (e.g. ssh, iTerm2 on macOS);
-# zshrc launches byobu for non-login local terminals (e.g. kitty on Linux).
+# Strips the byobu launch lines that byobu-enable adds to the shell profiles,
+# since zshrc and bashrc launch byobu themselves (see lib/multiplexer.sh).
+# Note: Not byobu-launcher-uninstall, which also turns auto-launch off.
 
-command -v byobu-enable >/dev/null || exit 0
-env -u BYOBU_PREFIX byobu-enable
+for f in .profile .bashrc .bash_profile .bash_login .zprofile .zshrc; do
+  p="$HOME/$f"
+  test -w "$p" && grep -q '^[^#]*byobu-launch' "$p" || continue
+  # Note: cat over the original keeps its permissions (and any symlink).
+  grep -v '^[^#]*byobu-launch' "$p" > "$p.tmp"
+  cat "$p.tmp" > "$p"
+  rm -f "$p.tmp"
+done

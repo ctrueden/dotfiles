@@ -1,0 +1,14 @@
+#!/bin/sh
+
+# Turn the terminal multiplexer's auto-launch on or off for new shells on this
+# machine (see lib/multiplexer.sh), or with no argument, show which it is.
+# Note: The flag is byobu's own, so byobu-launch honors it too.
+
+flag="$HOME/.config/byobu/disable-autolaunch"
+case "$1" in
+  on) rm -f "$flag" ;;
+  off) mkdir -p "${flag%/*}" && touch "$flag" ;;
+  '') ;;
+  *) echo "Usage: autolaunch [on|off]" >&2; exit 2 ;;
+esac
+test -e "$flag" && echo "Auto-launch is off." || echo "Auto-launch is on."
