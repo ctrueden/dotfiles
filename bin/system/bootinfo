@@ -21,7 +21,7 @@ field() {
   printf '%-16s %s\n' "$1:" "$2"
 }
 
-have() { command -v "$1" >/dev/null 2>&1; }
+have() { command -v "$1" >/dev/null; }
 
 # Guess which boot loader an EFI binary is, from its path.
 efi_label() {

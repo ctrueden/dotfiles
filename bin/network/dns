@@ -3,7 +3,7 @@
 emit() {
 	if [ "$1" -a -n "$(echo "$1" | grep -v CNAME)" ]
 	then
-		if command -v boxes >/dev/null 2>&1
+		if command -v boxes >/dev/null
 		then
 			echo "$1" | boxes -d ansi-rounded
 		else

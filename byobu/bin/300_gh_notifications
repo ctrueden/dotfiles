@@ -17,7 +17,7 @@ if [ "${total:-0}" -gt 0 ]; then
   printf '✉%s\n' "$total"
 fi
 
-command -v gh >/dev/null 2>&1 || exit 0
+command -v gh >/dev/null || exit 0
 mkdir -p "$(dirname "$cache")"
 (
   gh api 'notifications?per_page=100' --jq '"\(length) \(map(select(.reason |

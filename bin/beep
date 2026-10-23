@@ -5,12 +5,12 @@
 count=${1:-1}
 i=0
 while [ "$i" -lt "$count" ]; do
-  if command -v afplay > /dev/null 2>&1; then
+  if command -v afplay >/dev/null; then
     for sound in /System/Library/Sounds/*.aiff
     do
       afplay "$sound" &
     done
-  elif command -v paplay > /dev/null 2>&1; then
+  elif command -v paplay >/dev/null; then
     paplay /usr/share/sounds/freedesktop/stereo/complete.oga 2>/dev/null ||
     printf '\a'
   else

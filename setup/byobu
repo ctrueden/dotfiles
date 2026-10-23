@@ -4,5 +4,5 @@
 # Note: byobu-enable hooks only login shells (e.g. ssh, iTerm2 on macOS);
 # zshrc launches byobu for non-login local terminals (e.g. kitty on Linux).
 
-command -v byobu-enable >/dev/null 2>&1 || exit 0
+command -v byobu-enable >/dev/null || exit 0
 env -u BYOBU_PREFIX byobu-enable

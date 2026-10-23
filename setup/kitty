@@ -6,7 +6,7 @@
 
 _mk=org.gnome.settings-daemon.plugins.media-keys
 if [ -x "$HOME/.local/bin/kitten" ] &&
-  command -v gsettings >/dev/null 2>&1 &&
+  command -v gsettings >/dev/null &&
   gsettings list-schemas 2>/dev/null | grep -qx "$_mk"; then
   _mk_path=$(echo "/$_mk/custom-keybindings/kitty-quick-access/" | tr . /)
   # Remove other custom shortcuts bound to F12 (e.g. Guake's, which outlives

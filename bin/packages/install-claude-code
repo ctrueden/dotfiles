@@ -8,7 +8,7 @@
 # With --check, reports via exit code whether claude is installed.
 
 if [ "${1:-}" = --check ]; then
-  command -v claude >/dev/null 2>&1
+  command -v claude >/dev/null
   exit
 fi
 

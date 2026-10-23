@@ -108,7 +108,7 @@ trap cleanup EXIT INT TERM
 
 # --- start log stream ---
 start_log_stream() {
-    if command -v log >/dev/null 2>&1; then
+    if command -v log >/dev/null; then
         log "starting log stream -> $STREAM_LOG"
         # --info includes Info-level messages where bundle IDs appear
         log stream \
@@ -139,7 +139,7 @@ snapshot_pids() {
 snapshot_lsof() {
     local pids="$1"
     [[ -z "$pids" ]] && return
-    if ! command -v lsof >/dev/null 2>&1; then
+    if ! command -v lsof >/dev/null; then
         log "lsof not available"
         return
     fi
@@ -172,7 +172,7 @@ snapshot_tasks_sqlite() {
         log "tasks.sqlite: empty (download may have finished)"
         return
     fi
-    if ! command -v sqlite3 >/dev/null 2>&1; then
+    if ! command -v sqlite3 >/dev/null; then
         log "sqlite3 not available; skipping tasks.sqlite"
         return
     fi
@@ -194,7 +194,7 @@ snapshot_tasks_sqlite() {
 }
 
 snapshot_nettop() {
-    if ! command -v nettop >/dev/null 2>&1; then
+    if ! command -v nettop >/dev/null; then
         log "nettop not available"
         return
     fi

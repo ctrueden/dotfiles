@@ -46,7 +46,7 @@ then
   test $code -eq 0 || echo "=> returned $code"
 fi
 
-if [ -d "$HOME/.password-store" -a -x "$(command -v pass)" ]
+if [ -d "$HOME/.password-store" ] && command -v pass >/dev/null
 then
   echo
   echo "--== Updating password store ==--"
@@ -55,7 +55,7 @@ then
   test $code -eq 0 || echo "=> returned $code"
 fi
 
-if [ -x "$(command -v fwupdmgr)" ]; then
+if command -v fwupdmgr >/dev/null; then
   echo
   echo "--== Updating firmware ==--"
   fwupdmgr get-updates
@@ -66,7 +66,7 @@ if [ -x "$(command -v fwupdmgr)" ]; then
   test $code -eq 0 || echo "=> returned $code"
 fi
 
-if [ -x "$(command -v apt-get)" ]; then
+if command -v apt-get >/dev/null; then
   echo
   echo "--== Updating apt packages ==--"
   sudo apt-get update
@@ -75,7 +75,7 @@ if [ -x "$(command -v apt-get)" ]; then
   test $code -eq 0 || echo "=> returned $code"
 fi
 
-if [ -x "$(command -v flatpak)" ]; then
+if command -v flatpak >/dev/null; then
   echo
   echo "--== Updating Flatpak packages ==--"
   sudo flatpak update --noninteractive
@@ -83,7 +83,7 @@ if [ -x "$(command -v flatpak)" ]; then
   test $code -eq 0 || echo "=> returned $code"
 fi
 
-if [ -x "$(command -v snap)" ]
+if command -v snap >/dev/null
 then
   echo
   echo "--== Updating Snap packages ==--"
@@ -93,7 +93,7 @@ then
   test $code -eq 0 || echo "=> returned $code"
 fi
 
-if [ -d "$BREW" -a -x "$(command -v brew)" ]; then
+if [ -d "$BREW" ] && command -v brew >/dev/null; then
   echo
   echo "--== Updating Homebrew packages ==--"
   brew update
@@ -110,7 +110,7 @@ if [ -d "$BREW" -a -x "$(command -v brew)" ]; then
   fi
 fi
 
-if [ -x "$(command -v scoop)" ]; then
+if command -v scoop >/dev/null; then
   echo
   echo "--== Updating Scoop packages ==--"
   scoop update && scoop update '*'
@@ -118,7 +118,7 @@ if [ -x "$(command -v scoop)" ]; then
   test $code -eq 0 || echo "=> returned $code"
 fi
 
-if [ -x "$(command -v winget)" ]; then
+if command -v winget >/dev/null; then
   echo
   echo "--== Updating winget packages ==--"
   winget upgrade --all --silent --accept-package-agreements \
@@ -147,7 +147,7 @@ if [ -f "${XDG_CONFIG_HOME:-$HOME/.config}/uv/uv-receipt.json" ]; then
   test $code -eq 0 || echo "=> returned $code"
 fi
 
-if [ -x "$(command -v uv)" ]; then
+if command -v uv >/dev/null; then
   echo
   echo "--== Updating uv tools ==--"
   uv tool upgrade --all

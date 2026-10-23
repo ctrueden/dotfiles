@@ -7,7 +7,7 @@
 # directory, as palette-<client-pid>, for the caller to source once the popup
 # has closed and the keys can reach the client again.
 
-command -v fzf >/dev/null 2>&1 || {
+command -v fzf >/dev/null || {
   echo "palette.sh: fzf is not installed."
   sleep 3
   exit 1
