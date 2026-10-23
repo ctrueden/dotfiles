@@ -3,6 +3,12 @@
 
 test "$DEBUG" && echo "[bashrc] Initializing..."
 
+# --== PATH ==--
+
+# Note: The multiplexer below starts its server with this PATH, for the
+# commands that server runs itself.
+source "$DOTFILES"/lib/path.sh
+
 # --== terminal multiplexer ==--
 
 source "$DOTFILES"/lib/multiplexer.sh

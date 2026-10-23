@@ -167,12 +167,10 @@ alias j64='jswitch "^64\."'   # 2045-03
 # 2045-05: Curtis turns 65 and retires ;_;
 
 # Preset JAVA_HOME to the most preferred installed Java LTS version.
-# NB: Call jhome by explicit path: at plugin load time the dotfiles PATH has
-# not been assembled yet (zzz_path.sh runs last), so bin/java is not yet on it.
 for v in 21 25 17 11 '1\.8'
 do
   test -z "$JAVA_HOME" || break
-  jhome=$("$DOTFILES/bin/java/jhome" "^$v\.")
+  jhome=$(jhome "^$v\.")
   test -z "$jhome" || export JAVA_HOME="$jhome"
 done
 

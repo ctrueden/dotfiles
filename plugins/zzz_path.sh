@@ -1,14 +1,2 @@
-# prepend Homebrew bin directories to the path, if applicable
-if [ -d "$BREW" ]
-then
-	for dir in bin sbin opt/ruby/bin opt/util-linux/bin opt/util-linux/sbin
-	do
-		path_prepend "$BREW/$dir"
-	done
-fi
-
-path_prepend /snap/bin
-path_prepend /usr/local/bin
-path_prepend "$HOME/bin"     # Let personal bin scripts override others.
-
-path_update
+# Put the dirs from lib/path.sh back ahead of those the plugins prepended.
+. "$DOTFILES"/lib/path.sh

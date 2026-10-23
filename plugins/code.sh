@@ -8,19 +8,8 @@ alias goctr='cd $CODE_PERSONAL'
 # configuration files
 alias gocfg='cd $DOTFILES'
 
-# useful scripts
+# useful scripts (on the PATH via lib/path.sh)
 export CODE_SCRIPTS="$DOTFILES/bin"
-for d in "$CODE_SCRIPTS"/*
-do
-  [ -d "$d" ] || continue
-  case "${d##*/}" in
-    linux) [ "$(uname)" != Linux ] || path_prepend "$d" ;;
-    macos) [ "$(uname)" != Darwin ] || path_prepend "$d" ;;
-    windows) [ -z "$IS_WINDOWS" ] || path_prepend "$d" ;;
-    *) path_prepend "$d" ;;
-  esac
-done
-path_prepend "$CODE_SCRIPTS"
 alias gosc='cd $CODE_SCRIPTS'
 
 # second brain

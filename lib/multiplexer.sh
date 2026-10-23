@@ -33,14 +33,9 @@ _mux_wanted() {
 	! _mux_embedded_terminal                            # Editors and IDEs host their own.
 }
 
-# Note: The tmux server keeps the PATH of the shell that starts it, for the
-# commands it runs itself (e.g. the palette's fzf, or the editor that opens
-# scrollback), and the plugins have yet to add the user bin dirs to it.
-# Duplicates are harmless; path_update filters them out.
 if _mux_wanted; then
 	_byobu_launch=$(command -v byobu-launch)
 	if test -n "$_byobu_launch"; then
-		export PATH="$HOME/bin:$HOME/.local/bin:$PATH"
 		# Note: byobu-launch is POSIX sh, and fails under zsh's own rules: e.g.
 		# with nomatch, a glob for a missing /dev/shm/byobu-* run directory
 		# aborts its setup, leaving it to mkdir /cache.tmux.
@@ -52,13 +47,11 @@ if _mux_wanted; then
 	elif test -n "$SSH_CONNECTION" && command -v tmux >/dev/null; then
 		# Note: Plain tmux is only for SSH logins; locally, the terminal is the
 		# session. And exec, so that leaving tmux (exit or detach) ends the SSH session.
-		export PATH="$HOME/bin:$HOME/.local/bin:$PATH"
 		exec tmux new-session -A -s main
 	elif _mux_windows && command -v psmux >/dev/null; then
 		# Note: psmux is tmux for Windows, launched locally as byobu is elsewhere.
 		# And exec, so that leaving psmux (exit or detach) closes the terminal tab.
 		# Join any existing session, whatever its name, so that tabs stay together.
-		export PATH="$HOME/bin:$HOME/.local/bin:$PATH"
 		psmux has-session 2>/dev/null && exec psmux attach-session
 		exec psmux new-session
 	fi

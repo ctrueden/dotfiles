@@ -4,6 +4,13 @@ test "$DEBUG" && echo "[zshrc] Initializing..."
 # https://youtrack.jetbrains.com/articles/SUPPORT-A-1727/Shell-Environment-Loading
 test -z "$INTELLIJ_ENVIRONMENT_READER" || return
 
+# --== PATH ==--
+
+# Note: ~/.zshenv did this already, but on macOS, /etc/zprofile has since
+# reordered the PATH for login shells. And the multiplexer below starts its
+# server with this PATH, for the commands that server runs itself.
+source "$DOTFILES"/lib/path.sh
+
 # --== terminal multiplexer ==--
 
 source "$DOTFILES"/lib/multiplexer.sh

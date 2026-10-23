@@ -33,7 +33,7 @@ echo "--> Linking up your dotfiles..."
 # files as they desire without dirtying the dotfiles working copy.
 
 # ~/.bashrc
-for cfgFile in bashrc bash_profile zshrc
+for cfgFile in bashrc bash_profile zshrc zshenv
 do
   # Skip if the file already sources the dotfiles -- it may have tool-managed
   # blocks appended (conda init, nvm, etc.) that we must not clobber.

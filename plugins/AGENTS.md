@@ -35,19 +35,24 @@ done
 
 ### Loading Order
 
-1. **000_init.sh** - Core utility functions (`shell_name`, `has`, `path_*` functions)
+0. **lib/path.sh** - PATH assembly and `path_*` functions, sourced before any plugin
+   (and by the `~/.zshenv` stub for every zsh, so non-interactive shells get it too)
+1. **000_init.sh** - Core utility functions (`shell_name`, `has`, `path`)
 2. **000_os.sh** - OS detection (`$IS_MACOS`, `$IS_LINUX`, `$IS_WINDOWS`)
 3. **000_vars.sh** - Environment variables (Homebrew, Python sphinx, less)
 4. All other plugins (alphabetical)
-5. **zzz_path.sh** - Final PATH assembly (Homebrew, Python bins, user bins)
+5. **zzz_path.sh** - Re-sources lib/path.sh, putting its dirs back ahead of the plugins' ones
 
 ## Key Components
 
 ### Core Initialization (000_*.sh)
 
-**000_init.sh** - Path manipulation functions:
+**000_init.sh** - Core utility functions:
 - `shell_name()` - Detect current shell (zsh/bash)
 - `has <cmd>` - Succeed if a command is available (executable, function, alias or builtin)
+- `path` - List the PATH entries, one per line
+
+**lib/path.sh** - PATH assembly (user, Homebrew and dotfiles bin dirs) and functions:
 - `path_prepend <dir>` - Add directory to PATH_PREPEND
 - `path_append <dir>` - Add directory to PATH_APPEND
 - `path_update` - Apply changes, filter duplicates/missing dirs
@@ -243,7 +248,7 @@ done
 path_prepend /some/bin
 path_append /some/other/bin
 
-# zzz_path.sh calls path_update at the end
+# zzz_path.sh calls path_update at the end, via lib/path.sh
 ```
 
 ### Function Documentation
@@ -320,7 +325,7 @@ bash -n plugins/java.sh
 ### Common Issues
 
 1. **Plugin not loading**: Check file permissions, syntax errors
-2. **PATH issues**: Ensure path_update called in zzz_path.sh
+2. **PATH issues**: Dirs every shell needs (even `zsh -c`) belong in lib/path.sh
 3. **Alias conflicts**: Use `which <cmd>` to see what's defined
 4. **Function conflicts**: Use `declare -f <name>` to see definition
 5. **Compiled files (.zwc) stale**: Delete them, zsh will recompile
@@ -339,7 +344,7 @@ From this directory's plugins:
 
 - `$IS_MACOS`, `$IS_LINUX`, `$IS_WINDOWS` - OS detection (000_os.sh)
 - `$OS_NAME` - Output of `uname` (000_os.sh)
-- `$BREW` - Homebrew prefix (000_vars.sh)
+- `$BREW` - Homebrew prefix (lib/path.sh, else 000_vars.sh)
 - `$JAVA_HOME` - Active Java installation (java.sh)
 - `$J8` - Java 8 installation path (java.sh)
 - `$SYSTEM_JAVA_BIN` - System Java bin directory (java.sh)
@@ -417,7 +422,7 @@ plugins/
 ├── nav.sh                # Navigation utilities
 ├── python.sh             # Python and uv integration
 ├── myrepos.sh            # Repository management
-├── zzz_path.sh           # Final PATH assembly
+├── zzz_path.sh           # Final PATH assembly (re-sources lib/path.sh)
 ├── <language>.sh         # Language-specific configs
 ├── <tool>.sh             # Tool-specific configs
 ├── *.zwc                 # Compiled zsh (gitignored)

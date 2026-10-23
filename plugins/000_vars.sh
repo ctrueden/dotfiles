@@ -1,24 +1,7 @@
-# --== Early PATH update ==--
-#
-# Plugins load alphabetically, with zzz_path.sh running last to do the final
-# PATH assembly. But some plugins (python.sh, etc.) need to discover tools via
-# `command -v`, which requires those tools to already be on PATH. We therefore
-# add user-local bin dirs here and flush them immediately, so all subsequent
-# plugins can find tools installed there.
-#
-# Only unconditional, variable-free dirs belong here -- dirs that depend on a
-# variable (e.g. $MAMBA_DIR, $BREW) must be handled in the plugin that sets
-# that variable. System/Homebrew dirs stay in zzz_path.sh where load order
-# relative to other plugins doesn't matter.
-path_prepend "$HOME/.local/bin"                 # pip --user, uv (Linux)
-macPythonDir=$(echo "$HOME"/Library/Python/*/bin | head -n1) 2>/dev/null
-path_prepend "$macPythonDir"                    # pip --user (macOS)
-path_prepend "$HOME/bin"                        # personal scripts
-path_update
-
 # --== Homebrew ==--
 
-if has brew; then
+# Note: lib/path.sh finds Homebrew in its usual places.
+if [ -z "$BREW" ] && has brew; then
 	export BREW="$(brew --prefix)"
 fi
 

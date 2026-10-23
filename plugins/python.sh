@@ -37,7 +37,6 @@ fi
 
 # --== uv ==--
 
-# Note: 000_vars.sh has already put ~/.local/bin and Homebrew on the PATH.
 UV=$(command -v uv)
 
 if [ -n "$UV" ]; then
