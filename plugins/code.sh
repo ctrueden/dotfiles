@@ -140,7 +140,7 @@ then
 fi
 z() {
   local d=""
-  if command -v _z >/dev/null
+  if has _z
   then
     if [ $# -eq 0 ]
     then

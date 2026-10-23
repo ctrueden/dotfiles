@@ -48,7 +48,7 @@ download-on-demand (e.g. jswitch zulu:21).
 DOC
   local result
   result=$(jhome "$@")
-  if [ -z "$result" ] && command -v cjdk >/dev/null 2>&1
+  if [ -z "$result" ] && has cjdk
   then
     result=$(cjdk --jdk "$*" java-home 2>/dev/null)
   fi
@@ -75,7 +75,7 @@ DOC
   else
     result=$(jhome "^graalvm-")
   fi
-  if [ -z "$result" ] && command -v cjdk >/dev/null 2>&1
+  if [ -z "$result" ] && has cjdk
   then
     result=$(cjdk --jdk "graalvm-java${n:-21}" java-home 2>/dev/null)
   fi

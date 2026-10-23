@@ -1,16 +1,16 @@
 # Set up vim command aliases.
-if [ "$(command -v nvim)" ]
+if has nvim
 then
 	alias vi='nvim'
 	alias vim='nvim'
 	alias :e='nvim'
 	export EDITOR=nvim
-elif [ "$(command -v vim)" ]
+elif has vim
 then
 	alias vi='vim'
 	alias :e='vim'
 	export EDITOR=vim
-elif [ "$(command -v vi)" ]
+elif has vi
 then
 	alias vim='vi'
 	alias :e='vi'

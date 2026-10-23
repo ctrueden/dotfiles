@@ -68,11 +68,11 @@ alias offon='shutdown -r now'
 
 # report details of the OS using 'version'
 version() {
-	test -x "$(command -v sw_vers)" && sw_vers
+	has sw_vers && sw_vers
 	test -e /proc/version && cat /proc/version
-	test -x "$(command -v lsb_release)" && lsb_release -a
+	has lsb_release && lsb_release -a
 	test -e /etc/redhat-release && cat /etc/redhat-release
-	test -x "$(command -v ver)" && ver
+	has ver && ver
 }
 
 # --== counting occurrences ==--
@@ -81,13 +81,13 @@ alias count='LC_ALL=C sort | uniq -c | LC_ALL=C sort -nr'
 
 # --== eject ==--
 
-if [ -x "$(command -v diskutil)" ]; then
+if has diskutil; then
 	alias eject='diskutil eject'
 fi
 
 # --== ldd ==--
 
-if [ ! -x "$(command -v ldd)" ]; then
+if ! has ldd; then
 	# make 'ldd' work on OS X
 	alias ldd='otool -L'
 fi
@@ -95,7 +95,7 @@ fi
 # --== hex editor ==--
 
 # open a graphical hex editor using 'hex'
-if [ -x "$(command -v ghex2)" ]; then
+if has ghex2; then
 	alias hex='ghex2'
 elif [ -d '/Applications/Hex Fiend.app' ]; then
 	alias hex="'/Applications/Hex Fiend.app/Contents/MacOS/Hex Fiend'"

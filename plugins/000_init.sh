@@ -9,6 +9,9 @@ shell_name() {
   fi
 }
 
+# Succeeds if the given command is available (executable, function, alias or builtin).
+has() { command -v "$1" >/dev/null; }
+
 # Path interrogation and manipulation functions.
 spath() { echo "$1" | sed -e 's/:/\n/g'; }
 path() { spath "$PATH"; }

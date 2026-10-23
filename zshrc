@@ -165,7 +165,7 @@ done
 _progress_done
 unset _plugins
 
-if command -v starship >/dev/null; then
+if has starship; then
 	eval "$(starship init zsh)"
 else
 	source "$DOTFILES"/themes/curtis.zsh-theme

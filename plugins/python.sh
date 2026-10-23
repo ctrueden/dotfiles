@@ -1,7 +1,7 @@
 py() {
-  if command -v python >/dev/null 2>&1; then
+  if has python; then
     python "$@"
-  elif command -v python3 >/dev/null 2>&1; then
+  elif has python3; then
     python3 "$@"
   else
     >&2 echo "[ERROR] No python binary found on the path."
@@ -28,7 +28,7 @@ else
   # Some pip installations will probably not be on the path yet,
   # so we'll look for them explicitly here to improve our chances.
   for pip in "$MAMBA_DIR/bin/pip"; do
-    if [ -x "$(command -v "$pip")" ]; then
+    if [ -x "$pip" ]; then
       export PIP="$pip"
       break
     fi

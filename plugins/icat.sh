@@ -1,6 +1,6 @@
 # icat - https://github.com/atextor/icat
 
-if [ -x "$(command -v icat)" -a -x "$(command -v convert)" ]
+if has icat && has convert
 then
   svgcat() {
     while [ $# -gt 0 ]

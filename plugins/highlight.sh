@@ -5,7 +5,7 @@
 
 # Setup on macOS: "brew install highlight"
 
-if command -v highlight >/dev/null
+if has highlight
 then
   # pipe highlight to less
   export LESSOPEN="| highlight %s --out-format xterm256 --line-numbers --quiet --force --style solarized-light"

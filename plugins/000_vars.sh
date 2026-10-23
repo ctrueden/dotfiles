@@ -18,7 +18,7 @@ path_update
 
 # --== Homebrew ==--
 
-if [ -x "$(command -v brew)" ]; then
+if has brew; then
 	export BREW="$(brew --prefix)"
 fi
 

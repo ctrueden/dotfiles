@@ -35,7 +35,7 @@ done
 
 ### Loading Order
 
-1. **000_init.sh** - Core utility functions (`shell_name`, `path_*` functions)
+1. **000_init.sh** - Core utility functions (`shell_name`, `has`, `path_*` functions)
 2. **000_os.sh** - OS detection (`$IS_MACOS`, `$IS_LINUX`, `$IS_WINDOWS`)
 3. **000_vars.sh** - Environment variables (Homebrew, Python sphinx, less)
 4. All other plugins (alphabetical)
@@ -47,6 +47,7 @@ done
 
 **000_init.sh** - Path manipulation functions:
 - `shell_name()` - Detect current shell (zsh/bash)
+- `has <cmd>` - Succeed if a command is available (executable, function, alias or builtin)
 - `path_prepend <dir>` - Add directory to PATH_PREPEND
 - `path_append <dir>` - Add directory to PATH_APPEND
 - `path_update` - Apply changes, filter duplicates/missing dirs
@@ -226,9 +227,9 @@ done
 
 1. **Shell Detection**: Use `shell_name()` from 000_init.sh
 2. **OS Detection**: Check `$IS_MACOS`, `$IS_LINUX`, `$IS_WINDOWS` from 000_os.sh
-3. **Command Availability**: Always check before aliasing:
+3. **Command Availability**: Use `has()` from 000_init.sh; always check before aliasing:
    ```sh
-   if [ -x "$(command -v foo)" ]; then
+   if has foo; then
      alias bar='foo'
    fi
    ```
