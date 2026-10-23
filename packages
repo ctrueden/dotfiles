@@ -102,7 +102,7 @@ apt:python-is-python3
 
 # java
 uv:cjdk
-uv:jgo
+uv:jgo[cli]
 
 # other
 apt|brew:ca-certificates
