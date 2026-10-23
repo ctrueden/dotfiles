@@ -112,6 +112,9 @@ command -v shoehorn >/dev/null ||
 command -v llama-server >/dev/null ||
   fail "llama.cpp is not installed; run 'pack --with ai' first"
 command -v curl >/dev/null || fail "curl is required"
+# Note: checked up front, since a missing checksum tool must not be mistaken
+# for a checksum mismatch and delete a downloaded shard.
+command -v sha256sum >/dev/null || fail "sha256sum is required"
 command -v node >/dev/null ||
   fail "Node.js is required to configure Qwen Code; run 'pack' first"
 
@@ -225,6 +228,23 @@ tier_kv() {
 }
 
 flash_base_dir="$models/qwen38-flash-next"
+# Note: pinned to a commit, so that a resumed download can never splice two
+# revisions of a shard together the way a mutable branch would.
+flash_commit=766911a6b7369840a91dbcd95f9f997acaab6cd6
+flash_base_url="https://huggingface.co/unsloth/Qwen3.8-Flash-Next-GGUF/resolve/$flash_commit"
+
+# One entry per file as "<path> <size> <sha256>". Refresh the sizes and hashes
+# from the tree API, whose lfs.oid is the file's sha256:
+#   curl -fsS "https://huggingface.co/api/models/unsloth/Qwen3.8-Flash-Next-GGUF/tree/$flash_commit/UD-Q3_K_XL" |
+#     jq -r '.[] | [.path, .size, .lfs.oid] | "@ \"\(.path) \(.size) \(.lfs.oid)\""'
+flash_manifest() {
+  cat <<'EOF'
+UD-Q3_K_XL/Qwen3.8-Flash-Next-UD-Q3_K_XL-00001-of-00003.gguf 10946624 f2ef4328929d8b8c8930e2856eef52128dd4ce3425302f04bc3c657431cc4c49
+UD-Q3_K_XL/Qwen3.8-Flash-Next-UD-Q3_K_XL-00002-of-00003.gguf 49983253824 7d230e7c9421d868b89eebaf23033af0ea1a4e046956df00fb156814fb62346e
+UD-Q3_K_XL/Qwen3.8-Flash-Next-UD-Q3_K_XL-00003-of-00003.gguf 39992153376 21d4f90f9cd7b7c3a1582667c20cb22f7b03de895b88a23bb20aaeaa44f2c199
+EOF
+  # MTP: add MTP/mtp-Qwen3.8-Flash-Next-shared-Q8_0.gguf 2786568256 5ff54097406a905cf3a724c709124ceb0e3e10235ee862298969e91c96fa96e6
+}
 
 tier_model() {
   case "$1" in
@@ -240,8 +260,9 @@ tier_model() {
 # Note: MTP is disabled until stock llama.cpp can load the shared MTP GGUF.
 # It omits token_embd.weight (shared with the main model), which needs the
 # custom branch https://github.com/danielhanchen/llama.cpp (qwen4exp/mtp).
-# To re-enable once llama.cpp supports it: restore the case below, restore the
-# MTP lines in flash_models_installed, download_flash_models and show_status.
+# To re-enable once llama.cpp supports it: restore the case below, and uncomment
+# the MTP entry in flash_manifest, which both the install check and the download
+# loop read.
 tier_mtp_model() {
   printf '\n'
   # case "$1" in
@@ -252,13 +273,25 @@ tier_mtp_model() {
   # esac
 }
 
-flash_models_installed() {
-  test -f "$flash_base_dir/UD-Q3_K_XL/Qwen3.8-Flash-Next-UD-Q3_K_XL-00001-of-00003.gguf" &&
-  test -f "$flash_base_dir/UD-Q3_K_XL/Qwen3.8-Flash-Next-UD-Q3_K_XL-00002-of-00003.gguf" &&
-  test -f "$flash_base_dir/UD-Q3_K_XL/Qwen3.8-Flash-Next-UD-Q3_K_XL-00003-of-00003.gguf"
-  # && test -f "$flash_base_dir/MTP/mtp-Qwen3.8-Flash-Next-shared-Q8_0.gguf"
+flash_size() { # path -- 0 when the file is absent
+  test -f "$1" && wc -c < "$1" | tr -d ' ' || printf '0'
 }
 
+flash_shard_complete() { # path size
+  test "$(flash_size "$flash_base_dir/$1")" = "$2"
+}
+
+flash_models_installed() {
+  while read -r file size sha; do
+    flash_shard_complete "$file" "$size" || return 1
+  done <<EOF
+$(flash_manifest)
+EOF
+  # MTP: the entry in flash_manifest covers the MTP file once it is enabled.
+}
+
+# Note: checksums are only spent on bytes fetched now; a file that already has
+# its pinned size is trusted, so --status and startup stay fast on full installs.
 download_flash_models() {
   flash_models_installed && return 0
 
@@ -270,23 +303,25 @@ download_flash_models() {
   fi
 
   mkdir -p "$flash_base_dir"
-  if command -v uvx >/dev/null 2>&1; then
-    # MTP: also pass --include "MTP/mtp-Qwen3.8-Flash-Next-shared-Q8_0.gguf".
-    uvx --from huggingface_hub hf download "unsloth/Qwen3.8-Flash-Next-GGUF" \
-      --include "UD-Q3_K_XL/*" \
-      --local-dir "$flash_base_dir"
-  else
-    base_url="https://huggingface.co/unsloth/Qwen3.8-Flash-Next-GGUF/resolve/main"
-    # MTP: also fetch MTP/mtp-Qwen3.8-Flash-Next-shared-Q8_0.gguf.
-    for file in \
-      UD-Q3_K_XL/Qwen3.8-Flash-Next-UD-Q3_K_XL-00001-of-00003.gguf \
-      UD-Q3_K_XL/Qwen3.8-Flash-Next-UD-Q3_K_XL-00002-of-00003.gguf \
-      UD-Q3_K_XL/Qwen3.8-Flash-Next-UD-Q3_K_XL-00003-of-00003.gguf
-    do
-      mkdir -p "$flash_base_dir/$(dirname "$file")"
-      curl -fL -C - --progress-bar -o "$flash_base_dir/$file" "$base_url/$file"
-    done
-  fi
+  while read -r file size sha; do
+    dest="$flash_base_dir/$file"
+    flash_shard_complete "$file" "$size" && continue
+    mkdir -p "$(dirname "$dest")"
+    # Note: a shard longer than the pinned one cannot be resumed from, since
+    # curl would ask for a range past the end of the file and fail on every rerun.
+    test "$(flash_size "$dest")" -le "$size" || rm -f "$dest"
+    # Note: -C - resumes a partial shard. Stitching resumed bytes onto a
+    # re-uploaded file is the risk the pinned commit and checksum below rule out.
+    curl -fL -C - --progress-bar -o "$dest" "$flash_base_url/$file" ||
+      fail "interrupted; rerun qcode to resume $file"
+    flash_shard_complete "$file" "$size" || fail "unexpected size for $file"
+    test "$(sha256sum "$dest" | cut -d' ' -f1)" = "$sha" || {
+      rm -f "$dest"
+      fail "checksum mismatch for $file"
+    }
+  done <<EOF
+$(flash_manifest)
+EOF
 }
 
 fit_missing_models() {
