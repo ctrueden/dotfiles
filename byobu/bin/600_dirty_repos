@@ -4,8 +4,8 @@
 #
 # A repo counts if it has uncommitted changes to tracked files, or a branch
 # with commits its upstream lacks. Untracked files, stashes, and branches with
-# no upstream are ignored, being too common to be worth a nag. Run mrcu for
-# the full picture.
+# no upstream are ignored, being too common to be worth a nag. Press prefix R
+# (or run mrcu) for the full picture.
 #
 # Note: Scanning ~1000 repos takes a while, so this prints the previous
 # result and refreshes it in the background. Byobu reruns it every 600s.

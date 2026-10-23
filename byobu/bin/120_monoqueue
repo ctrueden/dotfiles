@@ -1,0 +1,33 @@
+#!/bin/sh
+
+# 120_monoqueue - Byobu status widget: monoqueue items needing attention.
+#
+# Shows how many alerts there are (⚠), such as a failing monoqueue source,
+# and how many items are due within a day or overdue (⏰); or ⚠stale when
+# the queue has not been updated for 3 hours, i.e. updates are not running.
+# Shows nothing when all is well. Press prefix Q to open the queue.
+#
+# Note: The monoqueue hub, where "mq up" runs, has the status locally;
+# other machines fetch it from the hub ($MONOQUEUE_HUB, default worf).
+# Fetching prints the previous result and refreshes it in the background,
+# so a slow or offline network never stalls the status bar.
+
+status="$HOME/.local/share/monoqueue/status"
+if [ ! -f "$status" ]; then
+  cache="${XDG_CACHE_HOME:-$HOME/.cache}/byobu/monoqueue"
+  mkdir -p "$(dirname "$cache")"
+  (
+    ssh -o BatchMode=yes -o ConnectTimeout=5 "${MONOQUEUE_HUB:-worf}" \
+      cat .local/share/monoqueue/status > "$cache.tmp" &&
+    mv "$cache.tmp" "$cache"
+  ) </dev/null >/dev/null 2>&1 &
+  status=$cache
+fi
+
+read -r alerts due active written 2>/dev/null < "$status" || exit 0
+out=
+test "$(( $(date +%s) - ${written:-0} ))" -gt 10800 && out="⚠stale "
+test "${alerts:-0}" -gt 0 && out="$out⚠$alerts "
+test "${due:-0}" -gt 0 && out="$out⏰$due "
+test -n "$out" && printf '%s\n' "${out% }"
+exit 0

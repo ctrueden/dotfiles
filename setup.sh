@@ -102,6 +102,7 @@ if [ -z "$WINDOWS" ]; then
   link_file "$CONFIG_DIR/byobu/status" .config/byobu/status
   link_file "$CONFIG_DIR/byobu/statusrc" .config/byobu/statusrc
   mkdir -p .config/byobu/bin
+  unlink_file .config/byobu/bin/300_gh_notifications
   for f in "$CONFIG_DIR"/byobu/bin/*; do
     link_file "$f" ".config/byobu/bin/$(basename "$f")"
   done

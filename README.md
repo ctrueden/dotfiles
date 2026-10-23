@@ -59,8 +59,8 @@ What does this configuration include?
     -   Ctrl+B instead over SSH, so nested sessions each have their own prefix.
     -   Prefix + Space opens a fuzzy-find command palette (via [fzf]).
     -   Prefix + h opens the current pane's full scrollback in your editor.
-    -   Custom status bar widgets counting unread GitHub notifications
-        and local repositories with unpushed changes.
+    -   Custom status bar widgets for monitoring [monoqueue] tasks
+        and for flagging local repositories with unpushed changes.
     -   Where byobu is missing, plain tmux (over SSH) and [psmux] (on Windows)
         read the same [tmux.conf](tmux/tmux.conf), plus byobu's main function
         keys from [fkeys.conf](tmux/fkeys.conf).
@@ -147,6 +147,7 @@ everything [POSIX]-friendly&mdash;but I haven't tested them.
 [fzf]: https://github.com/junegunn/fzf
 [jgo]: https://jgo.apposed.org/
 [kickstart.nvim]: https://github.com/nvim-lua/kickstart.nvim
+[monoqueue]: https://github.com/ctrueden/monoqueue
 [myrepos]: https://myrepos.branchable.com/
 [nvim-cmp]: https://github.com/hrsh7th/nvim-cmp
 [nvim-dap]: https://github.com/mfussenegger/nvim-dap
