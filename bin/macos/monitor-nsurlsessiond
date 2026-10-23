@@ -69,8 +69,6 @@ STREAM_PID=""
 
 echo $$ > /tmp/monitor-nsurlsessiond.pid
 
-has() { command -v "$1" >/dev/null; }
-
 # --- logging helpers ---
 ts() { date '+%Y-%m-%d %H:%M:%S'; }
 
@@ -110,18 +108,15 @@ trap cleanup EXIT INT TERM
 
 # --- start log stream ---
 start_log_stream() {
-    if has log; then
-        log "starting log stream -> $STREAM_LOG"
-        # --info includes Info-level messages where bundle IDs appear
-        log stream \
-            --predicate 'process == "nsurlsessiond"' \
-            --info \
-            >> "$STREAM_LOG" 2>&1 &
-        STREAM_PID=$!
-        log "log stream PID: $STREAM_PID"
-    else
-        log "WARNING: 'log' command not found; skipping log stream"
-    fi
+    log "starting log stream -> $STREAM_LOG"
+    # Note: The full path avoids calling the log() function above.
+    # --info includes Info-level messages where bundle IDs appear
+    /usr/bin/log stream \
+        --predicate 'process == "nsurlsessiond"' \
+        --info \
+        >> "$STREAM_LOG" 2>&1 &
+    STREAM_PID=$!
+    log "log stream PID: $STREAM_PID"
 }
 
 # --- snapshot functions ---
@@ -141,10 +136,6 @@ snapshot_pids() {
 snapshot_lsof() {
     local pids="$1"
     [[ -z "$pids" ]] && return
-    if ! has lsof; then
-        log "lsof not available"
-        return
-    fi
     for pid in $pids; do
         # -i: internet files, -n: no hostname resolution, -P: no port name resolution
         log_cmd "lsof -p $pid (internet)" lsof -p "$pid" -i -n -P
@@ -174,10 +165,6 @@ snapshot_tasks_sqlite() {
         log "tasks.sqlite: empty (download may have finished)"
         return
     fi
-    if ! has sqlite3; then
-        log "sqlite3 not available; skipping tasks.sqlite"
-        return
-    fi
     # First discover schema defensively, then query what we can
     {
         echo "[$(ts)] --- tasks.sqlite schema ---"
@@ -196,10 +183,6 @@ snapshot_tasks_sqlite() {
 }
 
 snapshot_nettop() {
-    if ! has nettop; then
-        log "nettop not available"
-        return
-    fi
     echo "[$(ts)] --- nettop (1 sample, all interfaces) ---" >> "$MAIN_LOG"
     # -l 1: one sample then exit; -P: per-process; -x: wide output
     # nettop exits non-zero sometimes; tolerate that
