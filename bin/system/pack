@@ -201,8 +201,17 @@ installed() {
         "$tmp/winget.json" 2>/dev/null ;;
     npm)  global_npm ls -g --depth=0 --parseable 2>/dev/null |
             sed -n 's|.*/node_modules/||p' ;;
-    uv)   has uv &&
-            uv tool list 2>/dev/null | awk '!/^-/ && NF {print $1}' ;;
+    uv)   has uv || return 0
+          uv tool list 2>/dev/null | awk '!/^-/ && NF {print $1}'
+          # Note: uv tool list omits extras, which manifest names may carry,
+          # as in jgo[cli]; the receipt of each tool records them.
+          for f in "$(uv tool dir 2>/dev/null)"/*/uv-receipt.toml; do
+            test -f "$f" || continue
+            tool=${f%/uv-receipt.toml}; tool=${tool##*/}
+            sed -n 's/^requirements = \[//p' "$f" | tr '}' '\n' |
+              sed -n "s/.*name = \"$tool\", extras = \[\([^]]*\)\].*/$tool[\1]/p" |
+              tr -d '" '
+          done ;;
   esac
 }
 
@@ -503,7 +512,9 @@ list_packages() {
         missing) status=inactive ;;
       esac
     fi
-    checkout=$(devlink_checkout "$name") && echo "$name" >> "$tmp/devlinked"
+    # Note: Extras, as in jgo[cli], are not part of the command name.
+    checkout=$(devlink_checkout "${name%%\[*}") &&
+      echo "${name%%\[*}" >> "$tmp/devlinked"
     case "$status" in
       installed*) c=32 ;; missing) c=33 ;; extra*) c=36 ;; inactive) c=2 ;;
       *) c=31 ;;
@@ -515,7 +526,9 @@ list_packages() {
   # Devlinks that no entry names.
   awk '{
     for (i = 3; i <= NF; i++)
-      if ($i !~ /^replaces=/) { n = $i; sub(/^[^:]*:/, "", n); print n }
+      if ($i !~ /^replaces=/) {
+        n = $i; sub(/^[^:]*:/, "", n); sub(/\[.*/, "", n); print n
+      }
   }' "$tmp/entries" | sort -u > "$tmp/names"
   for f in "$HOME"/bin/*; do
     name=${f##*/}
