@@ -6,7 +6,7 @@ set -eu
 
 usage() {
   cat <<EOF
-Usage: qcode [--tier large|medium|small|flash-large|flash-medium] [-y|--yes] [--force] [--setup] [--status] [-- QWEN_ARGS...]
+Usage: qcode [--tier large|medium|small|flash-large|flash-medium] [-y|--yes] [--force] [--setup] [--status] [--cleanup] [-- QWEN_ARGS...]
 
 Runs Qwen Code with a local Qwen model. On first use of standard tiers,
 prompts for the machine type and usable model memory, then fits missing
@@ -24,6 +24,7 @@ Options:
   --force      Allow another local Qwen session to use the same server.
   --setup      Fit missing models, then exit.
   --status     Show the configured tiers and llama-server status.
+  --cleanup    Delete cached unquantized source models, keeping imatrix data.
 EOF
 }
 
@@ -38,6 +39,8 @@ state_home=${XDG_STATE_HOME:-$HOME/.local/state}
 config_dir="$config_home/qwen-local"
 config="$config_dir/config"
 models="$data_home/llm/models"
+# Note: shoehorn hardcodes $HOME/.cache/shoehorn and ignores XDG_CACHE_HOME.
+cache_dir="$HOME/.cache/shoehorn"
 state_dir="$state_home/qwen-local"
 pid_file="$state_dir/llama-server.pid"
 model_file="$state_dir/llama-server.model"
@@ -48,6 +51,7 @@ yes=
 force=
 setup=
 status=
+cleanup=
 
 while [ $# -gt 0 ]; do
   case "$1" in
@@ -59,6 +63,7 @@ while [ $# -gt 0 ]; do
     --force) force=1 ;;
     --setup) setup=1 ;;
     --status) status=1 ;;
+    --cleanup) cleanup=1 ;;
     -h|--help) usage; exit ;;
     --) shift; break ;;
     *) break ;;
@@ -273,12 +278,12 @@ tier_mtp_model() {
   # esac
 }
 
-flash_size() { # path -- 0 when the file is absent
+file_size() { # path -- 0 when the file is absent
   test -f "$1" && wc -c < "$1" | tr -d ' ' || printf '0'
 }
 
 flash_shard_complete() { # path size
-  test "$(flash_size "$flash_base_dir/$1")" = "$2"
+  test "$(file_size "$flash_base_dir/$1")" = "$2"
 }
 
 flash_models_installed() {
@@ -309,7 +314,7 @@ download_flash_models() {
     mkdir -p "$(dirname "$dest")"
     # Note: a shard longer than the pinned one cannot be resumed from, since
     # curl would ask for a range past the end of the file and fail on every rerun.
-    test "$(flash_size "$dest")" -le "$size" || rm -f "$dest"
+    test "$(file_size "$dest")" -le "$size" || rm -f "$dest"
     # Note: -C - resumes a partial shard. Stitching resumed bytes onto a
     # re-uploaded file is the risk the pinned commit and checksum below rule out.
     curl -fL -C - --progress-bar -o "$dest" "$flash_base_url/$file" ||
@@ -482,6 +487,91 @@ fs.renameSync(temporary, settings);
 EOF
 }
 
+human_size() { # bytes -- human readable size
+  awk -v bytes="$1" 'BEGIN {
+    n = split("B KiB MiB GiB TiB", units, " ")
+    unit = 1
+    while (bytes >= 1024 && unit < n) { bytes /= 1024; unit += 1 }
+    if (unit == 1) printf "%d %s\n", bytes, units[unit]
+    else printf "%.1f %s\n", bytes, units[unit]
+  }'
+}
+
+# Note: recomputing an imatrix means llama-imatrix re-reads the source GGUF, so
+# a cached imatrix is the cheap part of a re-fit. Keep it while freeing sources.
+dir_source_bytes() { # dir -- bytes of unquantized GGUFs directly inside it
+  bytes=0
+  for file in "$1"/*.gguf; do
+    test -f "$file" || continue
+    case "$file" in *.imatrix.gguf) continue ;; esac
+    bytes=$((bytes + $(file_size "$file")))
+  done
+  printf '%s\n' "$bytes"
+}
+
+remove_dir_sources() { # dir -- delete unquantized GGUFs, keep imatrix data
+  for file in "$1"/*.gguf; do
+    test -f "$file" || continue
+    case "$file" in *.imatrix.gguf) continue ;; esac
+    rm -f "$file"
+  done
+  rmdir "$1" 2>/dev/null || true
+}
+
+cache_source_bytes() { # -- unquantized source bytes in the shoehorn cache
+  bytes=0
+  test -d "$cache_dir" || { printf '0\n'; return; }
+  for dir in "$cache_dir"/*/; do
+    test -d "$dir" || continue
+    bytes=$((bytes + $(dir_source_bytes "${dir%/}")))
+  done
+  printf '%s\n' "$bytes"
+}
+
+# Note: shoehorn keeps no record of which source backs which fit, so the source
+# of an interrupted fit is indistinguishable from a consumed one; prompting per
+# repo leaves that judgement to the user. Deleting one only costs a resumed
+# re-download, since shoehorn fetches its sources with curl -C -.
+cleanup_cache() {
+  if ! test -d "$cache_dir"; then
+    printf 'No shoehorn cache at %s\n' "$cache_dir"
+    return
+  fi
+  command -v pgrep >/dev/null 2>&1 &&
+    pgrep -f 'shoehorn fit' >/dev/null 2>&1 &&
+    fail "a shoehorn fit is running; wait for it to finish"
+  total=$(cache_source_bytes)
+  if test "$total" -eq 0; then
+    printf 'Nothing to reclaim in %s\n' "$cache_dir"
+    return
+  fi
+  printf 'Reclaimable: %s of unquantized sources in %s\n' \
+    "$(human_size "$total")" "$cache_dir"
+  freed=0
+  for dir in "$cache_dir"/*/; do
+    test -d "$dir" || continue
+    dir=${dir%/}
+    bytes=$(dir_source_bytes "$dir")
+    test "$bytes" -gt 0 || continue
+    printf '\n%s (%s)\n' "$dir" "$(human_size "$bytes")"
+    if [ -z "$yes" ]; then
+      test -t 0 || fail "cleanup needs an interactive terminal; rerun with -y"
+      printf '  Delete? [y/N] ' >&2
+      read -r answer </dev/tty
+      case "$answer" in y|Y|yes|YES) ;; *) printf '  kept\n'; continue ;; esac
+    fi
+    remove_dir_sources "$dir"
+    freed=$((freed + bytes))
+    printf '  freed %s\n' "$(human_size "$bytes")"
+  done
+  if test "$freed" -eq 0; then
+    printf 'Nothing deleted.\n'
+  else
+    printf '\nFreed %s; kept imatrix and calibration data to speed up re-fits.\n' \
+      "$(human_size "$freed")"
+  fi
+}
+
 show_status() {
   printf 'Backend: %s, model memory: %s GiB, reserve: %s\n' \
     "$backend" "$memory_gib" "$reserve"
@@ -509,6 +599,11 @@ show_status() {
         ;;
     esac
   done
+  cache_bytes=$(cache_source_bytes)
+  if test "$cache_bytes" -gt 0; then
+    printf 'Cache: %s of unquantized sources in %s (qcode --cleanup)\n' \
+      "$(human_size "$cache_bytes")" "$cache_dir"
+  fi
   if test -f "$pid_file" && server_healthy; then
     printf 'Server: running (PID %s, %s)\n' "$(cat "$pid_file")" "$(cat "$model_file")"
   else
@@ -518,6 +613,11 @@ show_status() {
 
 if [ -n "$status" ]; then
   show_status
+  exit
+fi
+
+if [ -n "$cleanup" ]; then
+  cleanup_cache
   exit
 fi
 
