@@ -165,7 +165,10 @@ done
 _progress_done
 unset _plugins
 
-#source "$DOTFILES"/themes/curtis.zsh-theme
-eval "$(starship init zsh)"
+if command -v starship >/dev/null; then
+	eval "$(starship init zsh)"
+else
+	source "$DOTFILES"/themes/curtis.zsh-theme
+fi
 
 test "$DEBUG" && echo "[zshrc] Done!"
