@@ -57,7 +57,10 @@ foreach ($dir in 'WindowsPowerShell', 'PowerShell') {
 }
 
 # Install a stub psmux (tmux for Windows) config, which sources the shared
-# tmux/tmux.conf, then tmux/fkeys.conf, and binds F5 to reload itself.
+# tmux/tmux.conf, then tmux/fkeys.conf and tmux/psmux.conf, and binds F5 to
+# reload itself.
+# Note: psmux leaves #{current_file} empty while reading the config at startup,
+# so the stub sets the @tmux-dir that tmux.conf derives from it.
 # Note: Its panes start Git's zsh (else bash) directly, without the launcher
 # that Git Bash uses, so the stub sets what that launcher would: the full
 # Windows PATH, and the MSYSTEM matching this build of Git.
@@ -73,7 +76,9 @@ Write-Host "Writing $psmuxConf"
     'set-environment -g MSYS2_PATH_TYPE inherit'
     "set-environment -g MSYSTEM $msystem"
     "source-file `"$unixDotfiles/tmux/tmux.conf`""
+    "set -g @tmux-dir `"$unixDotfiles/tmux`""
     "source-file `"$unixDotfiles/tmux/fkeys.conf`""
+    "source-file `"$unixDotfiles/tmux/psmux.conf`""
     'bind-key -N "Reload the tmux configuration" -n F5 source-file ~/.psmux.conf'
 ) -join "`n") + "`n"))
 
