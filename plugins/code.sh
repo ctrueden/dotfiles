@@ -16,6 +16,7 @@ do
   case "${d##*/}" in
     linux) [ "$(uname)" != Linux ] || path_prepend "$d" ;;
     macos) [ "$(uname)" != Darwin ] || path_prepend "$d" ;;
+    windows) [ -z "$IS_WINDOWS" ] || path_prepend "$d" ;;
     *) path_prepend "$d" ;;
   esac
 done

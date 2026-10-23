@@ -1,0 +1,397 @@
+#!/bin/sh
+
+#
+# privacy-checkup - report Windows settings that send data to Microsoft
+#
+# Usage: privacy-checkup [--fix]
+#
+# Checks each setting below and reports whether it is in the private state.
+# With --fix, applies whatever can be applied from the command line, then
+# re-checks. Finally prints the settings that still need toggling by hand in
+# the GUI.
+#
+# Settings under HKLM or HKCU\Software\Policies, and system services, can
+# only be fixed with administrator rights. When Windows' sudo is enabled in
+# inline mode (Settings › System › Advanced › Enable sudo), --fix reruns
+# itself under sudo, so one UAC prompt covers everything; otherwise, run it
+# from an elevated terminal.
+#
+# Run this after every Windows feature update, since upgrades sometimes flip
+# these back on. Microsoft's guide to the connections Windows makes is the
+# main reference for what each setting does:
+# https://learn.microsoft.com/en-us/windows/privacy/manage-connections-from-windows-operating-system-components-to-microsoft-services
+# The privacy.sexy collection (https://github.com/undergroundwires/privacy.sexy,
+# src/application/collections/windows.yaml) documents the registry keys behind
+# many of these, and is a good place to cross-check.
+#
+# Note: cloud clipboard, settings sync, Find My Device and cloud content
+# search all need a Microsoft account, so the local account check covers them.
+#
+
+fix=
+case "$1" in
+  --fix) fix=1 ;;
+  "") ;;
+  *) echo "Usage: privacy-checkup [--fix]" >&2; exit 1 ;;
+esac
+
+# Note: stop MSYS from rewriting reg.exe's /v-style switches into paths.
+export MSYS_NO_PATHCONV=1 MSYS2_ARG_CONV_EXCL='*'
+
+elevated=
+net session >/dev/null 2>&1 && elevated=1
+
+# Note: sudo runs only Windows executables, so hand it sh and this script
+# by their Windows paths. In its other modes, sudo opens a new window that
+# closes when done, taking the report with it.
+if [ "$fix" ] && [ -z "$elevated" ] && sudo config 2>/dev/null | grep -q Inline; then
+  exec sudo --preserve-env "$(cygpath -w "$(command -v sh)")" "$(cygpath -w "$0")" --fix
+fi
+todo=$(mktemp) || exit 1
+trap 'rm -f "$todo"' EXIT
+fixable=0
+needadmin=0
+adminfix=0
+
+# Print a registry value (DWORDs in decimal), or nothing if unset.
+rd() {
+  v=$(reg query "$1" /v "$2" 2>/dev/null | tr -d '\r' | awk -v name="$2" '
+    tolower($1) == tolower(name) && $2 ~ /^REG_/ {
+      sub(/^[[:space:]]*[^[:space:]]+[[:space:]]+REG_[A-Z_]+[[:space:]]*/, "")
+      print
+    }')
+  case "$v" in
+    0x*) printf '%d\n' "$v" ;;
+    *) echo "$v" ;;
+  esac
+}
+
+# Succeed if a registry value equals the given value.
+is() { [ "$(rd "$1" "$2")" = "$3" ]; }
+
+# Succeed if elevated; otherwise note that a fix needed it.
+admin() { [ "$elevated" ] && return; needadmin=1; return 1; }
+
+# Write a DWORD registry value, elevation permitting.
+dw() {
+  case "$1" in
+    HKLM*|'HKCU\Software\Policies'*) admin || return ;;
+  esac
+  reg add "$1" /v "$2" /t REG_DWORD /d "$3" /f
+}
+
+# Run a PowerShell command and print its output.
+psh() { powershell.exe -NoProfile -NonInteractive -Command "$1" 2>/dev/null | tr -d '\r'; }
+
+# Usage: check <label> <gui-hint> <check-fn> [fix-fn]
+# The check function returns 0 if the setting is private, 1 if not, and 2
+# if its state cannot be determined from the command line.
+check() {
+  label=$1 hint=$2 chk=$3 fx=$4
+  $chk; status=$?
+  if [ $status -eq 0 ]; then
+    echo "  ✓ $label"
+    return
+  fi
+  if [ $status -eq 1 ] && [ "$fx" ] && [ "$fix" ]; then
+    needadmin=0
+    $fx >/dev/null 2>&1
+    if $chk; then
+      echo "  ✓ $label (fixed)"
+      return
+    fi
+    if [ $needadmin -eq 1 ]; then
+      echo "  ✗ $label (needs an elevated terminal)"
+      adminfix=$((adminfix + 1))
+      return
+    fi
+  fi
+  if [ $status -eq 2 ]; then
+    echo "  ? $label (cannot be checked)"
+    echo "- $hint (verify)" >> "$todo"
+  elif [ "$fx" ] && [ -z "$fix" ]; then
+    echo "  ✗ $label (fixable with --fix)"
+    fixable=$((fixable + 1))
+  else
+    echo "  ✗ $label"
+    echo "- $hint" >> "$todo"
+  fi
+}
+
+HKCU_CV='HKCU\Software\Microsoft\Windows\CurrentVersion'
+CDM="$HKCU_CV\\ContentDeliveryManager"
+ADV="$HKCU_CV\\Explorer\\Advanced"
+POL='HKLM\SOFTWARE\Policies\Microsoft\Windows'
+EDGE='HKLM\SOFTWARE\Policies\Microsoft\Edge'
+
+# -- Accounts --
+
+chk_local_account() { [ "$(psh '(Get-LocalUser $env:USERNAME).PrincipalSource')" = Local ]; }
+
+# Note: 1 stops anyone adding a Microsoft account or switching a local
+# account to one; 3 also stops existing Microsoft accounts signing in.
+chk_block_msa() {
+  case "$(rd 'HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System' NoConnectedUser)" in
+    1|3) ;;
+    *) return 1 ;;
+  esac
+}
+fix_block_msa() { dw 'HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System' NoConnectedUser 1; }
+
+chk_onedrive() {
+  [ ! -e "$(cygpath "$LOCALAPPDATA")/Microsoft/OneDrive/OneDrive.exe" ] &&
+    [ ! -e "$(cygpath "$PROGRAMFILES")/Microsoft OneDrive/OneDrive.exe" ]
+}
+fix_onedrive() { winget uninstall --id Microsoft.OneDrive -e --silent --accept-source-agreements; }
+
+chk_onedrive_policy() { is "$POL\\OneDrive" DisableFileSyncNGSC 1; }
+fix_onedrive_policy() { dw "$POL\\OneDrive" DisableFileSyncNGSC 1; }
+
+# -- Diagnostics & feedback --
+
+# Note: the Settings app records its choice in the second key; the policy
+# key overrides it. 0 (Security) only exists on Enterprise and Education;
+# other editions treat it as 1 (Required).
+chk_diagnostic_data() {
+  case "$(rd "$POL\\DataCollection" AllowTelemetry)" in
+    0|1) return 0 ;;
+    '') ;;
+    *) return 1 ;;
+  esac
+  is 'HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\DataCollection' AllowTelemetry 1
+}
+fix_diagnostic_data() { dw "$POL\\DataCollection" AllowTelemetry 0; }
+
+chk_improve_inking() { is 'HKCU\Software\Microsoft\Input\TIPC' Enabled 0; }
+fix_improve_inking() { dw 'HKCU\Software\Microsoft\Input\TIPC' Enabled 0; }
+
+chk_tailored() { is "$HKCU_CV\\Privacy" TailoredExperiencesWithDiagnosticDataEnabled 0; }
+fix_tailored() { dw "$HKCU_CV\\Privacy" TailoredExperiencesWithDiagnosticDataEnabled 0; }
+
+chk_feedback() { is 'HKCU\Software\Microsoft\Siuf\Rules' NumberOfSIUFInPeriod 0; }
+fix_feedback() { dw 'HKCU\Software\Microsoft\Siuf\Rules' NumberOfSIUFInPeriod 0; }
+
+chk_error_reporting() { is "$POL\\Windows Error Reporting" Disabled 1; }
+fix_error_reporting() { dw "$POL\\Windows Error Reporting" Disabled 1; }
+
+# The Connected User Experiences and Telemetry service uploads diagnostic data.
+chk_diagtrack() { sc.exe qc DiagTrack | grep -q 'START_TYPE.*DISABLED'; }
+fix_diagtrack() {
+  admin && sc.exe config DiagTrack start= disabled && { sc.exe stop DiagTrack; :; }
+}
+
+# -- General --
+
+chk_ad_id() { is "$HKCU_CV\\AdvertisingInfo" Enabled 0; }
+fix_ad_id() { dw "$HKCU_CV\\AdvertisingInfo" Enabled 0; }
+
+chk_language_list() { is 'HKCU\Control Panel\International\User Profile' HttpAcceptLanguageOptOut 1; }
+fix_language_list() { dw 'HKCU\Control Panel\International\User Profile' HttpAcceptLanguageOptOut 1; }
+
+chk_settings_suggestions() {
+  is "$CDM" SubscribedContent-338393Enabled 0 &&
+    is "$CDM" SubscribedContent-353694Enabled 0 &&
+    is "$CDM" SubscribedContent-353696Enabled 0
+}
+fix_settings_suggestions() {
+  dw "$CDM" SubscribedContent-338393Enabled 0 &&
+    dw "$CDM" SubscribedContent-353694Enabled 0 &&
+    dw "$CDM" SubscribedContent-353696Enabled 0
+}
+
+# -- Speech & inking --
+
+# Online speech recognition is opt-in, so it is off until accepted.
+chk_online_speech() { ! is 'HKCU\Software\Microsoft\Speech_OneCore\Settings\OnlineSpeechPrivacy' HasAccepted 1; }
+fix_online_speech() { dw 'HKCU\Software\Microsoft\Speech_OneCore\Settings\OnlineSpeechPrivacy' HasAccepted 0; }
+
+chk_inking_personalization() {
+  is 'HKCU\Software\Microsoft\InputPersonalization' RestrictImplicitInkCollection 1 &&
+    is 'HKCU\Software\Microsoft\InputPersonalization' RestrictImplicitTextCollection 1 &&
+    is 'HKCU\Software\Microsoft\InputPersonalization\TrainedDataStore' HarvestContacts 0
+}
+fix_inking_personalization() {
+  dw 'HKCU\Software\Microsoft\InputPersonalization' RestrictImplicitInkCollection 1 &&
+    dw 'HKCU\Software\Microsoft\InputPersonalization' RestrictImplicitTextCollection 1 &&
+    dw 'HKCU\Software\Microsoft\InputPersonalization\TrainedDataStore' HarvestContacts 0
+}
+
+# -- Search & activity --
+
+# Note: on Windows 11, the old BingSearchEnabled key is ignored; only this
+# policy keeps typed searches from going to Bing.
+chk_web_search() { is 'HKCU\Software\Policies\Microsoft\Windows\Explorer' DisableSearchBoxSuggestions 1; }
+fix_web_search() { dw 'HKCU\Software\Policies\Microsoft\Windows\Explorer' DisableSearchBoxSuggestions 1; }
+
+chk_search_highlights() { is "$HKCU_CV\\SearchSettings" IsDynamicSearchBoxEnabled 0; }
+fix_search_highlights() { dw "$HKCU_CV\\SearchSettings" IsDynamicSearchBoxEnabled 0; }
+
+chk_activity_history() {
+  is "$POL\\System" PublishUserActivities 0 && is "$POL\\System" UploadUserActivities 0
+}
+fix_activity_history() {
+  dw "$POL\\System" PublishUserActivities 0 && dw "$POL\\System" UploadUserActivities 0
+}
+
+# -- Start & lock screen --
+
+# Note: the CloudContent policy (DisableWindowsConsumerFeatures) does the
+# same, but only on Enterprise and Education.
+chk_promoted_apps() { is "$CDM" SilentInstalledAppsEnabled 0; }
+fix_promoted_apps() { dw "$CDM" SilentInstalledAppsEnabled 0; }
+
+chk_start_recommendations() { is "$ADV" Start_IrisRecommendations 0; }
+fix_start_recommendations() { dw "$ADV" Start_IrisRecommendations 0; }
+
+chk_account_notifications() { is "$ADV" Start_AccountNotifications 0; }
+fix_account_notifications() { dw "$ADV" Start_AccountNotifications 0; }
+
+chk_tips() { is "$CDM" SubscribedContent-338389Enabled 0 && is "$CDM" SoftLandingEnabled 0; }
+fix_tips() { dw "$CDM" SubscribedContent-338389Enabled 0 && dw "$CDM" SoftLandingEnabled 0; }
+
+chk_welcome() { is "$CDM" SubscribedContent-310093Enabled 0; }
+fix_welcome() { dw "$CDM" SubscribedContent-310093Enabled 0; }
+
+chk_finish_setup() { is "$HKCU_CV\\UserProfileEngagement" ScoobeSystemSettingEnabled 0; }
+fix_finish_setup() { dw "$HKCU_CV\\UserProfileEngagement" ScoobeSystemSettingEnabled 0; }
+
+chk_lock_screen_tips() {
+  is "$CDM" RotatingLockScreenOverlayEnabled 0 && is "$CDM" SubscribedContent-338387Enabled 0
+}
+fix_lock_screen_tips() {
+  dw "$CDM" RotatingLockScreenOverlayEnabled 0 && dw "$CDM" SubscribedContent-338387Enabled 0
+}
+
+# -- Location --
+
+LOC='HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\CapabilityAccessManager\ConsentStore\location'
+chk_location() { is "$LOC" Value Deny; }
+fix_location() { admin && reg add "$LOC" /v Value /t REG_SZ /d Deny /f; }
+
+# -- Windows Update --
+
+# Note: 0 downloads over HTTP only; 1 also allows peers on the local network;
+# 99 and 100 bypass Delivery Optimization altogether.
+chk_delivery_optimization() {
+  case "$(rd "$POL\\DeliveryOptimization" DODownloadMode)" in
+    0|1|99|100) ;;
+    *) return 1 ;;
+  esac
+}
+fix_delivery_optimization() { dw "$POL\\DeliveryOptimization" DODownloadMode 0; }
+
+# -- AI --
+
+chk_recall() {
+  is "$POL\\WindowsAI" AllowRecallEnablement 0 && is "$POL\\WindowsAI" DisableAIDataAnalysis 1
+}
+fix_recall() {
+  dw "$POL\\WindowsAI" AllowRecallEnablement 0 && dw "$POL\\WindowsAI" DisableAIDataAnalysis 1
+}
+
+# Note: Copilot is opt-in per machine, installed with winget (an MSI); this
+# flags the Store package that Windows preinstalls.
+chk_copilot_appx() { [ -z "$(psh 'Get-AppxPackage Microsoft.Copilot | % Name')" ]; }
+fix_copilot_appx() { psh 'Get-AppxPackage Microsoft.Copilot | Remove-AppxPackage'; }
+
+# Copilot keeps its privacy settings in the app, out of reach of the registry.
+chk_copilot_training() {
+  chk_copilot_appx || return 2
+  winget list --id Microsoft.Copilot -e --accept-source-agreements >/dev/null 2>&1 && return 2
+  return 0
+}
+
+# -- Edge --
+
+# Note: setting any Edge policy makes Edge say it is managed by your
+# organization; edge://policy lists what is set.
+chk_edge_diagnostics() { is "$EDGE" DiagnosticData 0; }
+fix_edge_diagnostics() { dw "$EDGE" DiagnosticData 0; }
+
+chk_edge_personalization() { is "$EDGE" PersonalizationReportingEnabled 0; }
+fix_edge_personalization() { dw "$EDGE" PersonalizationReportingEnabled 0; }
+
+chk_edge_suggestions() { is "$EDGE" SearchSuggestEnabled 0; }
+fix_edge_suggestions() { dw "$EDGE" SearchSuggestEnabled 0; }
+
+chk_edge_shopping() { is "$EDGE" EdgeShoppingAssistantEnabled 0; }
+fix_edge_shopping() { dw "$EDGE" EdgeShoppingAssistantEnabled 0; }
+
+
+SS='Settings ›'
+PS="$SS Privacy & security ›"
+DF="$PS Diagnostics & feedback ›"
+ST="$SS Personalization › Start ›"
+NA="$SS System › Notifications › Additional settings ›"
+
+echo "Accounts:"
+check 'Local account' "$SS Accounts › Your info › Sign in with a local account instead" chk_local_account
+check 'Microsoft accounts blocked' "(policy) Accounts: Block Microsoft accounts" chk_block_msa fix_block_msa
+check 'OneDrive not installed' "winget uninstall Microsoft.OneDrive" chk_onedrive fix_onedrive
+check 'OneDrive sync disabled' "(policy) Prevent the usage of OneDrive for file storage" chk_onedrive_policy fix_onedrive_policy
+
+echo "Diagnostics & feedback:"
+check 'Optional diagnostic data off' "$DF Diagnostic data › Send optional diagnostic data" chk_diagnostic_data fix_diagnostic_data
+check 'Improve inking & typing off' "$DF Improve inking and typing" chk_improve_inking fix_improve_inking
+check 'Tailored experiences off' "$DF Tailored experiences" chk_tailored fix_tailored
+check 'Feedback requests off' "$DF Feedback frequency › Never" chk_feedback fix_feedback
+check 'Error reporting off' "(policy) Disable Windows Error Reporting" chk_error_reporting fix_error_reporting
+check 'Telemetry service disabled' "services.msc › Connected User Experiences and Telemetry › Disabled" chk_diagtrack fix_diagtrack
+
+echo "General:"
+check 'Advertising ID off' "$PS General › Let apps show me personalized ads" chk_ad_id fix_ad_id
+check 'Language list hidden from websites' "$PS General › Let websites show me locally relevant content" chk_language_list fix_language_list
+check 'Suggested content in Settings off' "$PS General › Show me suggested content in the Settings app" chk_settings_suggestions fix_settings_suggestions
+
+echo "Speech & inking:"
+check 'Online speech recognition off' "$PS Speech › Online speech recognition" chk_online_speech fix_online_speech
+check 'Inking & typing personalization off' "$PS Inking & typing personalization › Custom inking and typing dictionary" chk_inking_personalization fix_inking_personalization
+
+echo "Search & activity:"
+check 'Web results in search off' "(policy) Turn off display of recent search entries" chk_web_search fix_web_search
+check 'Search highlights off' "$PS Search permissions › Show search highlights" chk_search_highlights fix_search_highlights
+check 'Activity history off' "$PS Activity history › Store my activity history on this device" chk_activity_history fix_activity_history
+
+echo "Start & lock screen:"
+check 'Promoted app installs off' "(hidden) ContentDeliveryManager SilentInstalledAppsEnabled = 0" chk_promoted_apps fix_promoted_apps
+check 'Start recommendations off' "$ST Show recommendations for tips, shortcuts, new apps, and more" chk_start_recommendations fix_start_recommendations
+check 'Start account notifications off' "$ST Show account-related notifications" chk_account_notifications fix_account_notifications
+check 'Tips & suggestions off' "$NA Get tips and suggestions when using Windows" chk_tips fix_tips
+check 'Welcome experience off' "$NA Show the Windows welcome experience after updates" chk_welcome fix_welcome
+check 'Finish setting up nags off' "$NA Suggest ways to get the most out of Windows" chk_finish_setup fix_finish_setup
+check 'Lock screen fun facts off' "$SS Personalization › Lock screen › Get fun facts, tips, tricks, and more" chk_lock_screen_tips fix_lock_screen_tips
+
+echo "Location:"
+check 'Location services off' "$PS Location › Location services" chk_location fix_location
+
+echo "Windows Update:"
+check 'Internet peering off' "$SS Windows Update › Advanced options › Delivery Optimization" chk_delivery_optimization fix_delivery_optimization
+
+echo "AI:"
+check 'Recall disabled' "(policy) WindowsAI › AllowRecallEnablement = 0" chk_recall fix_recall
+check 'Preinstalled Copilot removed' "$SS Apps › Installed apps › Copilot › Uninstall" chk_copilot_appx fix_copilot_appx
+check 'Copilot model training off' "Copilot › Settings › Privacy › Model training and Personalization" chk_copilot_training
+
+echo "Edge:"
+check 'Optional diagnostic data off' "edge://settings/privacy › Optional diagnostic data" chk_edge_diagnostics fix_edge_diagnostics
+check 'Browsing-based personalization off' "edge://settings/privacy › Personalization & advertising" chk_edge_personalization fix_edge_personalization
+check 'Search suggestions off' "edge://settings/privacy/services › Show me search and site suggestions" chk_edge_suggestions fix_edge_suggestions
+check 'Shopping assistant off' "edge://settings/privacy/services › Shopping in Microsoft Edge" chk_edge_shopping fix_edge_shopping
+
+echo
+if [ $fixable -gt 0 ]; then
+  echo "$fixable setting(s) can be fixed by running: privacy-checkup --fix"
+  if [ -z "$elevated" ]; then
+    echo "(Some need administrator rights: enable sudo in inline mode, or use an elevated terminal.)"
+  fi
+fi
+if [ $adminfix -gt 0 ]; then
+  echo "$adminfix setting(s) need administrator rights: set Settings › System ›"
+  echo "Advanced › Enable sudo › Inline, or rerun --fix from an elevated terminal."
+fi
+if [ -s "$todo" ]; then
+  echo "Toggle off in the GUI:"
+  cat "$todo"
+else
+  echo "Nothing to toggle in the GUI."
+fi
