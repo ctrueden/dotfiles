@@ -64,7 +64,7 @@ What does this configuration include?
         keys from [fkeys.conf](tmux/fkeys.conf).
     -   See [tmux/](tmux/) and [byobu/](byobu/) for details.
 
-4.  A **curated set of packages**, installed by `pack`:
+4.  A **curated set of packages**, installed by `pack install`:
     -   One declarative [packages](packages) manifest lists tools for apt
         (Debian/Ubuntu), Homebrew (macOS), scoop and winget (Windows), plus
         npm and uv; each entry names its alternatives in order of preference,
@@ -74,7 +74,8 @@ What does this configuration include?
         chosen per machine when `setup.sh` first runs and saved in
         `~/.config/dotfiles/sections`.
     -   Installs only what is missing, in as few package manager
-        invocations as possible; use `--dry-run` to preview.
+        invocations as possible; use `pack install -n` to preview, and
+        `pack list` to see the status of each package.
     -   Custom installers in [bin/packages/](bin/packages/) for things no
         package manager supplies well, each pinned to a release and verified
         against a recorded checksum.

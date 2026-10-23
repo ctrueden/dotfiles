@@ -1,7 +1,8 @@
 #!/bin/sh
 
-# Installs the packages listed in $DOTFILES/packages that are not yet present,
-# using as few package manager invocations as possible. See --help for usage.
+# Manages the packages listed in $DOTFILES/packages: installs those not yet
+# present, using as few package manager invocations as possible, or lists
+# their status. See pack help for usage.
 
 set -u
 
@@ -20,17 +21,21 @@ has() { command -v "$1" >/dev/null; }
 
 usage() {
   cat <<EOF
-Usage: pack [-n | -l] [--with SECTION]... [--without SECTION]...
+Usage: pack COMMAND [OPTIONS]
 
-Installs the packages listed in \$DOTFILES/packages that are not yet present.
+Manages the packages listed in \$DOTFILES/packages.
+
+Commands:
+  install             Install the packages that are not yet present.
+  list                List every package relevant to this OS: its status, how
+                      it installs, and its sections. Installs nothing.
+  help                Show this help.
 
 Options:
-  -n, --dry-run       Report what would be installed, without installing it.
-  -l, --list          List every package relevant to this OS: its status, how
-                      it installs, and its sections. Installs nothing.
+  -n, --dry-run       With install, report what would be installed,
+                      without installing it.
   --with SECTION      Also enable an opt-in section (see packages manifest).
   --without SECTION   Skip a section, even a default one (e.g. gui on a desktop).
-  -h, --help          Show this help.
 
 The core section is always enabled; gui is enabled when a desktop is detected.
 The opt-in sections this machine wants are read from the profile file,
@@ -38,7 +43,7 @@ $profile, which setup.sh writes.
 A section may require others, which are then enabled too.
 See the header of the packages file for its syntax.
 
-Statuses shown by --list:
+Statuses shown by list:
   installed       installed, and in an enabled section
   installed-dep   installed only as another package's dependency, and in an
                   enabled section (a run marks it as wanted, so autoremove
@@ -56,21 +61,30 @@ which shadows any installed version.
 EOF
 }
 
-# -- Parse flags --
+# -- Parse arguments --
 
 dry_run=
 list=
 with=$(cat "$profile" 2>/dev/null | tr '\n' ' ')
 without=
 
+case "${1:-}" in
+  install) ;;
+  list) list=1 ;;
+  help|-h|--help) usage; exit ;;
+  '') usage >&2; exit 1 ;;
+  *) echo "Unknown command: $1 (see pack help)" >&2; exit 1 ;;
+esac
+shift
+
 while [ $# -gt 0 ]; do
   case "$1" in
-    -n|--dry-run) dry_run=1 ;;
-    -l|--list) list=1 ;;
-    -h|--help) usage; exit ;;
+    -n|--dry-run)
+      test -z "$list" || { echo "--dry-run applies only to install" >&2; exit 1; }
+      dry_run=1 ;;
     --with) shift; with="$with ${1:?--with needs a section}" ;;
     --without) shift; without="$without ${1:?--without needs a section}" ;;
-    *) echo "Unknown option: $1 (see --help)" >&2; exit 1 ;;
+    *) echo "Unknown option: $1 (see pack help)" >&2; exit 1 ;;
   esac
   shift
 done

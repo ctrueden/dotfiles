@@ -134,7 +134,7 @@ fi
 if [ -d "$DOTFILES" ]; then
   echo
   echo "--== Installing packages from the manifest ==--"
-  "$DOTFILES/bin/system/pack"
+  "$DOTFILES/bin/system/pack" install
   code=$?; test $code -lt $exit_code || exit_code=$code
   test $code -eq 0 || echo "=> returned $code"
 fi

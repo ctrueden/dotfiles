@@ -112,14 +112,14 @@ find_qwen() {
   return 1
 }
 
-qwen_bin=$(find_qwen) || fail "Qwen Code is not installed; run 'pack --with ai' first"
-has shoehorn || fail "shoehorn is not installed; run 'pack --with ai' first"
-has llama-server || fail "llama.cpp is not installed; run 'pack --with ai' first"
+qwen_bin=$(find_qwen) || fail "Qwen Code is not installed; run 'pack install --with ai' first"
+has shoehorn || fail "shoehorn is not installed; run 'pack install --with ai' first"
+has llama-server || fail "llama.cpp is not installed; run 'pack install --with ai' first"
 has curl || fail "curl is required"
 # Note: checked up front, since a missing checksum tool must not be mistaken
 # for a checksum mismatch and delete a downloaded shard.
 has sha256sum || fail "sha256sum is required"
-has node || fail "Node.js is required to configure Qwen Code; run 'pack' first"
+has node || fail "Node.js is required to configure Qwen Code; run 'pack install' first"
 
 prompt() { # prompt default
   test -t 0 || fail "initial hardware setup needs an interactive terminal"

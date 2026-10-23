@@ -223,7 +223,7 @@ echo "--> Installing tools..."
 
 # Packages from the manifest (neovim, starship, byobu, fzf, AI TUIs, etc.).
 # Note: The rest of setup does not depend on these, so a failure is not fatal.
-"$CONFIG_DIR/bin/system/pack" ||
+"$CONFIG_DIR/bin/system/pack" install ||
   echo "Warning: package installation failed; continuing setup." >&2
 
 echo
