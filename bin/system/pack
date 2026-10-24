@@ -213,7 +213,8 @@ installed() {
         --accept-source-agreements --disable-interactivity >/dev/null 2>&1
       sed -n 's/.*"PackageIdentifier" *: *"\([^"]*\)".*/\1/p' \
         "$tmp/winget.json" 2>/dev/null ;;
-    npm)  global_npm ls -g --depth=0 --parseable 2>/dev/null |
+    # Note: On Windows, npm prints its paths with backslashes.
+    npm)  global_npm ls -g --depth=0 --parseable 2>/dev/null | tr '\\' / |
             sed -n 's|.*/node_modules/||p' ;;
     uv)   has uv || return 0
           uv tool list 2>/dev/null | awk '!/^-/ && NF {print $1}'

@@ -1,13 +1,18 @@
 # Global npm package helpers, shared by pack and update-all.
 
 # Prints the bin folder of the Node that owns global npm packages: our own
-# (see bin/packages/install-node), or else Homebrew's. Never an nvm-managed
-# one, which keeps its globals per Node version. Prints nothing if neither.
+# (see bin/packages/install-node), or else Homebrew's, or else scoop's. Never
+# an nvm-managed one, which keeps its globals per Node version. Prints nothing
+# if none.
+# Note: scoop's Node keeps its globals in scoop's persist folder, so they
+# survive its upgrades.
 global_node_bin() {
   if [ -x "$HOME/.local/bin/node" ]; then
     echo "$HOME/.local/bin"
   elif command -v brew >/dev/null && [ -x "$(brew --prefix)/bin/node" ]; then
     echo "$(brew --prefix)/bin"
+  elif [ -x "${SCOOP:-$HOME/scoop}/apps/nodejs/current/node" ]; then
+    echo "${SCOOP:-$HOME/scoop}/apps/nodejs/current"
   fi
 }
 
