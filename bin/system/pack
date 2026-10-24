@@ -279,8 +279,12 @@ install_kind() { # kind names...
       for p in "$@"; do
         run scoop install "$p" || echo "Failed: scoop install $p" >&2
       done ;;
+    # Note: winget's export, which installed() reads, leaves out some Store
+    # apps (e.g. Windows Notepad), so ask winget list about each one first.
     winget)
       for p in "$@"; do
+        winget list --id "$p" --exact --accept-source-agreements \
+          --disable-interactivity >/dev/null 2>&1 && continue
         run winget install --id "$p" --exact --silent \
           --accept-package-agreements --accept-source-agreements \
           --disable-interactivity || echo "Failed: winget install $p" >&2

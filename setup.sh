@@ -235,6 +235,8 @@ for _s in "$CONFIG_DIR/setup"/*; do
   "$_s"
 done
 
+# Note: On Windows, setup.ps1 carries on from here, and says when it is done.
+test -n "${DOTFILES_SETUP_PS1:-}" && exit
 
 echo
 echo "--> Done! Now open a new terminal. :-)"

@@ -41,6 +41,9 @@ $env:DOTFILES_SETUP_PS1 = 1
 & "$git\bin\bash.exe" "$($dotfiles -replace '\\', '/')/setup.sh"
 Remove-Item Env:DOTFILES_SETUP_PS1
 
+Write-Host
+Write-Host '--> Configuring PowerShell and Windows Terminal...'
+
 # Install stub profiles (CurrentUserAllHosts) which source the profile.ps1 here,
 # for both Windows PowerShell 5.1 and PowerShell 7+.
 # Note: Documents may be redirected (e.g. by OneDrive), so ask for its real location.
@@ -120,3 +123,6 @@ Write-Host "Writing $fragment"
 [IO.File]::WriteAllText($fragment, (@{ profiles = $profiles } | ConvertTo-Json -Depth 4))
 Write-Host "In Windows Terminal's settings, you may wish to make Git Bash or Zsh"
 Write-Host "the default profile, and Hack Nerd Font the default font."
+
+Write-Host
+Write-Host '--> Done! Now open a new terminal. :-)'
