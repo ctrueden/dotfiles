@@ -180,6 +180,8 @@ brew|apt:ninja
 
 [dev: build]
 apt|brew|scoop:ruby
+apt:bundler
+apt:ruby-dev
 npm:pnpm  scripts  # Links its native binary.
 uv:prysk
 uv:pydeps

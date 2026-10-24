@@ -1,11 +1,10 @@
 # --== Ruby ==--
 
-# I know I "should" be using rbenv or RVM... but I already use one
-# virtual environment management tool, conda, and don't want to add
-# another Ruby-specific one to the mix.
+# System Ruby is enough here: I use Ruby mainly for local Jekyll previews,
+# where each site's Gemfile.lock pins its gems, so no version manager is needed.
 #
-# I'm happy with system Ruby for now, and the config below makes
-# bundler install gems without root access, rather than system-wide.
-
-export GEM_HOME="$HOME/.gem/ruby/default"
-path_prepend "$GEM_HOME/bin"
+# Note: Bundler installs gems here, without root, instead of system-wide.
+# It appends ruby/<ABI version> itself, so upgrading Ruby gets
+# a fresh directory rather than breaking native extensions.
+# Gems are not on the PATH; run them via "bundle exec".
+export BUNDLE_PATH="$HOME/.local/share/bundle"
