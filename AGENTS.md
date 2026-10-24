@@ -6,6 +6,11 @@
 - Dotfiles: `~/code/ctrueden/dotfiles`
 - Projects: `~/code/<org>/<repo>` cloned from `git@github.com:<org>/<repo>`
 
+## Environment variables
+
+Before adding or moving an exported variable, read `docs/environment.md`:
+which file it goes in depends on which contexts need it.
+
 ## Sub-rules
 
 Read the relevant file(s) before working in that domain:

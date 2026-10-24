@@ -1,5 +1,6 @@
 # Note: Bash has no file it reads for every shell, as zsh has ~/.zshenv; so
 # for non-interactive login shells, this is where the PATH gets assembled.
+. "$DOTFILES"/lib/env.sh
 . "$DOTFILES"/lib/path.sh
 
 case $- in

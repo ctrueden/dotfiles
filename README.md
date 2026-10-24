@@ -23,6 +23,14 @@ in Git Bash, then sets up PowerShell and Windows Terminal. Later, rerun
 `setup.ps1` (or `setup.sh`, which defers to it) from the clone.
 
 
+Environment variables
+---------------------
+
+Variables that relocate tools' files (the XDG-style ones) live in `lib/env.conf`,
+shared by the shells and, via systemd, by desktop launches.
+See [docs/environment.md](docs/environment.md) before adding any.
+
+
 LICENSE
 -------
 

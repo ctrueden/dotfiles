@@ -78,6 +78,16 @@ fi
 
 mkdir -p .config
 
+# ~/.config/environment.d/50-dotfiles.conf [Linux, where systemd reads it]
+# NB: This is how non-shell programs (desktop launchers, Alt+F2, user services)
+# get the variables in lib/env.conf. It takes effect at the next login.
+case "$(uname)" in
+  Linux)
+    mkdir -p .config/environment.d
+    link_file "$CONFIG_DIR/lib/env.conf" .config/environment.d/50-dotfiles.conf
+    ;;
+esac
+
 # ~/.config/starship.toml
 # NB: The shells set STARSHIP_CONFIG to the dotfiles' copy instead.
 unlink_file .config/starship.toml

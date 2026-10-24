@@ -3,6 +3,11 @@
 
 test "$DEBUG" && echo "[bashrc] Initializing..."
 
+# --== environment ==--
+
+# Note: A non-login bash gets nothing from ~/.bash_profile.
+source "$DOTFILES"/lib/env.sh
+
 # --== PATH ==--
 
 # Note: The multiplexer below starts its server with this PATH, for the
