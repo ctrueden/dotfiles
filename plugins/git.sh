@@ -124,21 +124,3 @@ gtagsv() {
 
 clsg() { /usr/bin/clear; pwd; div; ls "$@"; div; if git status >/dev/null 2>&1; then git status; fi; }
 alias c=clsg
-
-# --== git-svn ==--
-
-# tell git-svn where to find SVN authors
-export SVN_AUTHORS="$CODE_CFG_PRIVATE/authors.txt"
-
-# --== Git-Mediawiki (https://github.com/moy/Git-Mediawiki/wiki) ==--
-
-# Install prerequisites:
-# cpan MediaWiki::API
-# cpan DateTime::Format::ISO8601
-
-# Put git-remote-mediawiki and git-mw somewhere on your PATH:
-# ln -s "$CODE_GIT/contrib/mw-to-git/git-remote-mediawiki.perl" \
-#       ~/bin/git-remote-mediawiki
-# ln -s "$CODE_GIT/contrib/mw-to-git/git-mw" ~/bin
-
-export PERL5LIB="$CODE_GIT/perl:$CODE_GIT/contrib/mw-to-git"

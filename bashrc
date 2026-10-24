@@ -94,8 +94,6 @@ done
 _progress_done
 unset _plugins f
 
-export PERL5LIB="$CODE_GIT/perl:$CODE_GIT/contrib/mw-to-git"
-
 # Note: This replaces the prompt set above, where starship is installed;
 # it comes after the plugins, keeping their PROMPT_COMMAND.
 has starship && eval "$(starship init bash)"
