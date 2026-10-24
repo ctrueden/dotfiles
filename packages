@@ -10,7 +10,7 @@
 # Managers:
 # - apt     | Debian-based packages
 # - brew    | Homebrew bottles
-# - cask    | Homebrew GUI apps (macOS)
+# - cask    | Homebrew GUI apps (macOS); TAP/NAME for a tap other than core
 # - scoop   | Windows CLI tools; BUCKET/NAME for a bucket other than main
 # - winget  | Windows apps, by package ID, including Microsoft Store ones
 # - npm     | tools from the JavaScript world
@@ -123,7 +123,7 @@ winget:Microsoft.WindowsTerminal
 winget:9MSMLRH6LZF3  # Windows Notepad, from the Microsoft Store.
 winget:Microsoft.PowerToys
 cask:firefox | winget:Mozilla.Firefox
-custom:deskflow | winget:Deskflow.Deskflow
+cask:deskflow/tap/deskflow | flatpak:org.deskflow.deskflow | winget:Deskflow.Deskflow
 apt|cask:libreoffice | winget:TheDocumentFoundation.LibreOffice
 apt:diodon
 cask:maccy
