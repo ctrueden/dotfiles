@@ -25,18 +25,18 @@
 # which npm otherwise warns about, and will someday refuse to run.
 # A uv entry followed by python=VERSION installs its tool on that Python,
 # e.g. when the newest Python lacks wheels the tool needs.
+# Any entry may be followed by the word gui, to install it only on desktops.
 # Any entry may be followed by replaces=MANAGER:NAME[,MANAGER:NAME...],
 # naming packages it supersedes when another of its alternatives installs it,
 # e.g. distro packages too old to use; pack warns about any of
 # those still installed, and suggests how to remove them.
 #
-# [sections]: core always installs. gui installs on desktops only.
+# [sections]: core always installs.
 # The rest are opt-in, via --with SECTION or the machine's profile file
 # (~/.config/dotfiles/sections, written by setup.sh):
 #   build    compilers and build tools, for building software from source
 #   dev      development tools beyond the basics
 #   ai       agentic coding assistants
-#   heavy    large installs (hundreds of MB)
 #   media    tools for working with and converting media files
 #   primary  tools to install only on main machines
 #   games    games and their launchers
@@ -103,44 +103,35 @@ brew|scoop|custom:gh
 # python
 apt:python-is-python3
 
-# java
-uv:cjdk
-uv:jgo[cli]
-
 # other
 apt|brew:ca-certificates
 apt|brew|scoop:gettext
 apt|brew:shared-mime-info
 apt|brew|scoop:zstd
 
-[gui]
-brew:duti
-apt:dconf-editor
-apt|brew:fontconfig
-cask|custom:font-hack-nerd-font | scoop:nerd-fonts/Hack-NF
-cask|custom:kitty
-winget:Microsoft.WindowsTerminal
-winget:9MSMLRH6LZF3  # Windows Notepad, from the Microsoft Store.
-winget:Microsoft.PowerToys
-cask:firefox | winget:Mozilla.Firefox | custom:firefox
-cask:deskflow/tap/deskflow | flatpak:org.deskflow.deskflow | winget:Deskflow.Deskflow
-apt|cask:libreoffice | winget:TheDocumentFoundation.LibreOffice
-apt:diodon
-cask:maccy
-apt:gnome-shell-extension-manager
-apt:gnome-system-monitor
-apt:gnome-tweaks
-cask:kid3 | apt:kid3-qt | winget:KDE.Kid3
-cask:musicbrainz-picard | apt:picard | winget:MusicBrainz.Picard
-apt|cask:gimp | winget:GIMP.GIMP.3
-apt|cask:vlc | winget:VideoLAN.VLC
-cask:claude | winget:Anthropic.Claude | custom:claude-desktop
-cask:1password | winget:AgileBits.1Password | custom:1password
-cask:hammerspoon
-cask:rectangle
-cask:stats
-cask:xquartz
-cask:zulip | winget:Zulip.Zulip
+# desktop
+brew:duti  gui  # for setting default document and URL handlers
+apt:dconf-editor  gui
+apt|brew:fontconfig  gui
+cask|custom:font-hack-nerd-font | scoop:nerd-fonts/Hack-NF  gui
+cask|custom:kitty  gui
+winget:Microsoft.WindowsTerminal  gui
+winget:9MSMLRH6LZF3  gui  # Windows Notepad, from the Microsoft Store.
+winget:Microsoft.PowerToys  gui
+apt:gnome-shell-extension-manager  gui
+apt:gnome-system-monitor  gui
+apt:gnome-tweaks  gui
+cask:firefox | winget:Mozilla.Firefox | custom:firefox  gui
+cask:deskflow/tap/deskflow | flatpak:org.deskflow.deskflow | winget:Deskflow.Deskflow  gui
+apt|cask:libreoffice | winget:TheDocumentFoundation.LibreOffice  gui
+apt:diodon  gui  # clipboard manager
+cask:maccy  gui  # clipboard manager
+apt|cask:vlc | winget:VideoLAN.VLC  gui
+cask:1password | winget:AgileBits.1Password | custom:1password  gui
+cask:hammerspoon  gui  # for F12 key toggling kitty quick-access-terminal
+cask:rectangle  gui
+cask:stats  gui
+cask:xquartz  gui
 
 [media]
 apt|brew|scoop:ffmpeg
@@ -153,6 +144,10 @@ apt:libtiff-tools | brew|scoop:libtiff
 brew|scoop:exiftool | apt:libimage-exiftool-perl
 apt|brew|scoop:mediainfo
 #npm:svg-term-cli  # Unmaintained since 2018.
+apt|cask:gimp | winget:GIMP.GIMP.3  gui
+cask:kid3 | apt:kid3-qt | winget:KDE.Kid3  gui
+cask:musicbrainz-picard | apt:picard | winget:MusicBrainz.Picard  gui
+cask|apt:meshlab | winget:CNR-ISTI.MeshLab  gui
 
 [ai]
 cask|scoop:claude-code | custom:claude-code
@@ -169,6 +164,12 @@ brew|custom:qwen-code
 #npm:@kilocode/cli  scripts  # npm installer fetches its binary.
 #npm:@nanocollective/nanocoder
 #npm:@vibe-kit/grok-cli
+cask:claude | winget:Anthropic.Claude | custom:claude-desktop  gui
+
+[java]
+uv:cjdk
+uv:jgo[cli]
+apt:openjdk-21-jdk | cask:zulu@21 | scoop:java/zulu21-jdk
 
 [build]
 apt|brew|scoop:cmake
@@ -180,7 +181,9 @@ apt:build-essential
 apt|scoop:make
 brew:ninja | apt:ninja-build
 
-[dev: build]
+[dev: build, java]
+brew:cfr-decompiler
+brew:procyon-decompiler
 apt|brew|scoop:ruby
 apt:bundler
 apt:ruby-dev
@@ -189,31 +192,24 @@ uv:prysk
 uv:pydeps
 uv:twine
 uv:yamllint  replaces=apt:yamllint
-cask:google-chrome | winget:Google.Chrome  # For dev testing, not my daily driver.
-
-[heavy]
-cask:jetbrains-toolbox | winget:JetBrains.Toolbox
-cask:visual-studio-code | winget:Microsoft.VisualStudioCode
-cask|apt:meshlab | winget:CNR-ISTI.MeshLab
+cask:jetbrains-toolbox | winget:JetBrains.Toolbox  gui
+cask:visual-studio-code | winget:Microsoft.VisualStudioCode  gui
+cask:google-chrome | winget:Google.Chrome  gui  # For dev testing, not my daily driver.
 
 [primary]
-cask:logseq-og | flatpak:com.logseq.Logseq
-cask:discord | winget:Discord.Discord
-cask:nextcloud | apt:nextcloud-desktop | winget:Nextcloud.NextcloudDesktop  # My Nextcloud only works with Wireguard.
-cask:zoom | winget:Zoom.Zoom | flatpak:us.zoom.Zoom
+cask:logseq-og | flatpak:com.logseq.Logseq  gui
+cask:discord | winget:Discord.Discord  gui
+cask:zulip | winget:Zulip.Zulip  gui
+cask:nextcloud | apt:nextcloud-desktop | winget:Nextcloud.NextcloudDesktop  gui  # My Nextcloud only works with Wireguard.
+cask:zoom | winget:Zoom.Zoom | flatpak:us.zoom.Zoom  gui
 apt|brew:wireguard-tools | winget:WireGuard.WireGuard
 
 [games]
-flatpak:io.github.wivrn.wivrn  # WiVRN, for VR games
-flatpak:io.mrarm.mcpelauncher  # Minecraft Bedrock
-flatpak:org.prismlauncher.PrismLauncher  # Minecraft Java
-flatpak:org.citra_emu.citra  # Nintendo 3DS
-flatpak:org.vinegarhq.Sober  # Roblox
-
-[java]
-brew:cfr-decompiler
-brew:procyon-decompiler
-apt:openjdk-21-jdk | cask:zulu@21 | scoop:java/zulu21-jdk
+flatpak:io.github.wivrn.wivrn  gui  # WiVRN, for VR games
+flatpak:io.mrarm.mcpelauncher  gui  # Minecraft Bedrock
+flatpak:org.prismlauncher.PrismLauncher  gui  # Minecraft Java
+flatpak:org.citra_emu.citra  gui  # Nintendo 3DS
+flatpak:org.vinegarhq.Sober  gui  # Roblox
 
 [system]
 apt:lm-sensors

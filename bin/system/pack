@@ -35,9 +35,12 @@ Options:
   -n, --dry-run       With install, report what would be installed,
                       without installing it.
   --with SECTION      Also enable an opt-in section (see packages manifest).
-  --without SECTION   Skip a section, even a default one (e.g. gui on a desktop).
+  --without SECTION   Skip a section, even core.
+  --gui               Include entries marked gui, even with no desktop detected.
+  --no-gui            Skip entries marked gui, even on a desktop.
 
-The core section is always enabled; gui is enabled when a desktop is detected.
+The core section is always enabled. Entries marked gui count only on
+desktops, unless --gui or --no-gui says otherwise.
 The opt-in sections this machine wants are read from the profile file,
 $profile, which setup.sh writes.
 A section may require others, which are then enabled too.
@@ -67,6 +70,7 @@ dry_run=
 list=
 with=$(cat "$profile" 2>/dev/null | tr '\n' ' ')
 without=
+gui=
 
 case "${1:-}" in
   i|install) ;;
@@ -84,6 +88,8 @@ while [ $# -gt 0 ]; do
       dry_run=1 ;;
     --with) shift; with="$with ${1:?--with needs a section}" ;;
     --without) shift; without="$without ${1:?--without needs a section}" ;;
+    --gui) gui=1 ;;
+    --no-gui) gui=0 ;;
     *) echo "Unknown option: $1 (see pack help)" >&2; exit 1 ;;
   esac
   shift
@@ -145,7 +151,9 @@ is_desktop() {
 }
 
 sections=" core $with "
-is_desktop && sections="$sections gui "
+if [ -z "$gui" ]; then
+  if is_desktop; then gui=1; else gui=0; fi
+fi
 
 # Add the sections that enabled ones require, per headers like [dev: build].
 while read -r name deps; do
@@ -336,9 +344,11 @@ queue_custom() { # name
 # that of the next one with a name, so apt:fd-find | brew|scoop:fd yields
 # brew:fd. Spaces around each | are only for legibility.
 # An entry's replaces= token, if any, follows its alternatives.
+# An entry marked gui is enabled only when $gui is 1, and its section
+# reads as SECTION+gui.
 # $tmp/uv.python pairs uv tools with the Python their entries ask for.
 sed -e 's/#.*//' -e 's/[[:space:]]*|[[:space:]]*/|/g' "$manifest" |
-awk -v kinds=" $KINDS $LATE_KINDS custom " -v enabled="$sections" \
+awk -v kinds=" $KINDS $LATE_KINDS custom " -v enabled="$sections" -v gui="$gui" \
   -v unsupported=" $(unsupported_customs | tr '\n' ' ') " \
   -v pyfile="$tmp/uv.python" '
   BEGIN { printf "" > pyfile }
@@ -367,9 +377,14 @@ awk -v kinds=" $KINDS $LATE_KINDS custom " -v enabled="$sections" \
         for (j = 2; j <= NF; j++)
           if ($j ~ /^python=/) print named[i], substr($j, 8) > pyfile
     }
-    if (out != "")
-      for (j = 2; j <= NF; j++) if ($j ~ /^replaces=/) out = out " " $j
-    if (out != "") print section, (index(enabled, " " section " ") ? 1 : 0) out
+    if (out == "") next
+    marked = 0
+    for (j = 2; j <= NF; j++) {
+      if ($j ~ /^replaces=/) out = out " " $j
+      if ($j == "gui") marked = 1
+    }
+    on = index(enabled, " " section " ") && (!marked || gui)
+    print section (marked ? "+gui" : ""), (on ? 1 : 0) out
   }
 ' > "$tmp/entries"
 
