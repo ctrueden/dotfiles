@@ -8,14 +8,15 @@
 #   apt:fd-find | brew|scoop:fd
 #
 # Managers:
-# - apt    | Debian-based packages
-# - brew   | Homebrew bottles
-# - cask   | Homebrew GUI apps (macOS)
-# - scoop  | Windows CLI tools; BUCKET/NAME for a bucket other than main
-# - winget | Windows apps, by package ID, including Microsoft Store ones
-# - npm    | tools from the JavaScript world
-# - uv     | tools from the Python world
-# - custom | runs the script bin/packages/install-NAME
+# - apt     | Debian-based packages
+# - brew    | Homebrew bottles
+# - cask    | Homebrew GUI apps (macOS)
+# - scoop   | Windows CLI tools; BUCKET/NAME for a bucket other than main
+# - winget  | Windows apps, by package ID, including Microsoft Store ones
+# - npm     | tools from the JavaScript world
+# - uv      | tools from the Python world
+# - flatpak | Linux desktop apps from Flathub, by app ID
+# - custom  | runs the script bin/packages/install-NAME
 #
 # Each custom script must support --check, exiting 0 when its tool is
 # installed and current. A "# Platforms:" line in its header (linux, macos,
@@ -44,6 +45,7 @@
 
 [core]
 # package managers
+apt:flatpak
 brew|custom:node | scoop:nodejs  replaces=apt:nodejs,apt:npm
 brew|scoop|custom:uv
 
@@ -111,7 +113,6 @@ apt|brew:shared-mime-info
 apt|brew|scoop:zstd
 
 [gui]
-apt:flatpak
 brew:duti
 apt:dconf-editor
 apt|brew:fontconfig
@@ -197,7 +198,7 @@ cask|apt:meshlab | winget:CNR-ISTI.MeshLab
 [primary]
 cask:discord | winget:Discord.Discord
 cask:nextcloud | apt:nextcloud-desktop | winget:Nextcloud.NextcloudDesktop  # My Nextcloud only works with Wireguard.
-cask:zoom | winget:Zoom.Zoom
+cask:zoom | winget:Zoom.Zoom | flatpak:us.zoom.Zoom
 apt|brew:wireguard-tools | winget:WireGuard.WireGuard
 
 [system]

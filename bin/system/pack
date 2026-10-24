@@ -127,6 +127,11 @@ fi
 
 scoop_dir=${SCOOP:-$HOME/scoop}
 
+# The package managers that may be installed only during the run,
+# so their packages install after those of $KINDS.
+LATE_KINDS="npm uv"
+test $os = linux && LATE_KINDS="$LATE_KINDS flatpak"
+
 SUDO=sudo
 test "$(id -u)" -eq 0 && SUDO=
 
@@ -227,6 +232,8 @@ installed() {
               sed -n "s/.*name = \"$tool\", extras = \[\([^]]*\)\].*/$tool[\1]/p" |
               tr -d '" '
           done ;;
+    flatpak) has flatpak || return 0
+             flatpak list --app --columns=application ;;
   esac
 }
 
@@ -296,6 +303,10 @@ install_kind() { # kind names...
         py=$(awk -v p="$p" '$1 == p { print $2 }' "$tmp/uv.python")
         run uv tool install ${py:+--python $py} "$p"
       done ;;
+    flatpak)
+      run flatpak remote-add --user --if-not-exists flathub \
+        https://dl.flathub.org/repo/flathub.flatpakrepo &&
+        run flatpak install --user -y --noninteractive flathub "$@" ;;
   esac
 }
 
@@ -325,7 +336,7 @@ queue_custom() { # name
 # An entry's replaces= token, if any, follows its alternatives.
 # $tmp/uv.python pairs uv tools with the Python their entries ask for.
 sed -e 's/#.*//' -e 's/[[:space:]]*|[[:space:]]*/|/g' "$manifest" |
-awk -v kinds=" $KINDS npm uv custom " -v enabled="$sections" \
+awk -v kinds=" $KINDS $LATE_KINDS custom " -v enabled="$sections" \
   -v unsupported=" $(unsupported_customs | tr '\n' ' ') " \
   -v pyfile="$tmp/uv.python" '
   BEGIN { printf "" > pyfile }
@@ -404,8 +415,8 @@ done >> "$tmp/ok"
 # it can supply it (1 or 0).
 # $tmp/superseded lists, as KIND:NAME, the packages that the replaces= tokens
 # of enabled entries name, other than the alternative chosen for each.
-# Note: npm and uv may be installed only during the run, so they always can.
-awk -v superseded="$tmp/superseded" '
+# Note: Late kinds may be installed only during the run, so they always can.
+awk -v superseded="$tmp/superseded" -v late=" $LATE_KINDS " '
   BEGIN { printf "" > superseded }
   FNR == NR { ok[$1] = 1; next }
   {
@@ -413,7 +424,7 @@ awk -v superseded="$tmp/superseded" '
     for (i = 3; i <= NF; i++) {
       if ($i ~ /^replaces=/) { replaces = substr($i, 10); continue }
       k = substr($i, 1, index($i, ":") - 1)
-      if (!can && (k == "npm" || k == "uv" || ($i in ok))) { pick = $i; can = 1 }
+      if (!can && (index(late, " " k " ") || ($i in ok))) { pick = $i; can = 1 }
     }
     if ($2 && can) {
       n = split(replaces, r, ",")
@@ -471,7 +482,7 @@ devlink_checkout() { # name
 
 # Prints each package relevant to this OS, with its status, kind and sections.
 list_packages() {
-  for kind in npm uv; do
+  for kind in $LATE_KINDS; do
     grep -q "^$kind " "$tmp/chosen" || continue
     installed "$kind" | sort -u > "$tmp/$kind.have"
     requested "$kind" | sort -u > "$tmp/$kind.requested"
@@ -618,10 +629,10 @@ if [ -s "$tmp/custom.run" ]; then
   did=1
 fi
 
-# npm and uv come after, as the managers themselves may have just been installed.
-for kind in npm uv; do
+# Late kinds come after, as the managers themselves may have just been installed.
+for kind in $LATE_KINDS; do
   test -f "$tmp/$kind.want" || continue
-  # Note: in dry-run mode a not-yet-installed npm/uv yields no listing.
+  # Note: In dry-run mode, a manager not yet installed yields no listing.
   installed "$kind" | sort -u > "$tmp/$kind.have"
   subtract "$kind" > "$tmp/$kind.missing"
   test -s "$tmp/$kind.missing" || continue

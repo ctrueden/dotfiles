@@ -68,9 +68,9 @@ What does this configuration include?
 
 4.  A **curated set of packages**, installed by `pack install`:
     -   One declarative [packages](packages) manifest lists tools for apt
-        (Debian/Ubuntu), Homebrew (macOS), scoop and winget (Windows), plus
-        npm and uv; each entry names its alternatives in order of preference,
-        e.g. `apt:fd-find | brew|scoop:fd`.
+        (Debian/Ubuntu), Homebrew (macOS), scoop and winget (Windows),
+        flatpak (Linux), plus npm and uv; each entry names its alternatives
+        in order of preference, e.g. `apt:fd-find | brew|scoop:fd`.
     -   Sections for core tools (always), GUI apps (desktops only), and
         opt-in groups (build, dev, heavy, primary, java, system),
         chosen per machine when `setup.sh` first runs and saved in
