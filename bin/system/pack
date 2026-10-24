@@ -69,9 +69,9 @@ with=$(cat "$profile" 2>/dev/null | tr '\n' ' ')
 without=
 
 case "${1:-}" in
-  install) ;;
-  list) list=1 ;;
-  help|-h|--help) usage; exit ;;
+  i|install) ;;
+  l|list) list=1 ;;
+  h|help|-h|--help) usage; exit ;;
   '') usage >&2; exit 1 ;;
   *) echo "Unknown command: $1 (see pack help)" >&2; exit 1 ;;
 esac
