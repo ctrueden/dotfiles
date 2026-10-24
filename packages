@@ -122,7 +122,7 @@ cask|custom:kitty
 winget:Microsoft.WindowsTerminal
 winget:9MSMLRH6LZF3  # Windows Notepad, from the Microsoft Store.
 winget:Microsoft.PowerToys
-cask:firefox | winget:Mozilla.Firefox
+cask:firefox | winget:Mozilla.Firefox | custom:firefox
 cask:deskflow/tap/deskflow | flatpak:org.deskflow.deskflow | winget:Deskflow.Deskflow
 apt|cask:libreoffice | winget:TheDocumentFoundation.LibreOffice
 apt:diodon

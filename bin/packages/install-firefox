@@ -1,0 +1,53 @@
+#!/bin/sh
+
+# Installs Firefox from Mozilla's apt repository, as Ubuntu's firefox package
+# is only a stub that installs the snap, which is slow to start, among other
+# issues. Pins keep apt from ever choosing Ubuntu's stub over Mozilla's build.
+# Adapted from:
+# https://support.mozilla.org/kb/install-firefox-linux#w_install-firefox-deb-package-for-debian-based-distributions
+#
+# Platforms: linux
+#
+# With --check, reports via exit code whether Mozilla's Firefox is installed
+# with its repository and pins configured; once it is, apt keeps it up to date.
+
+set -eu
+
+. "${DOTFILES:?}/lib/apt-repo.sh"
+
+keyring=/etc/apt/keyrings/packages.mozilla.org.asc
+sources=/etc/apt/sources.list.d/mozilla.list
+pin=/etc/apt/preferences.d/mozilla
+no_snap=/etc/apt/preferences.d/firefox-no-snap
+
+if [ "${1:-}" = --check ]; then
+  # Note: Ubuntu's stub has a version like 1:1snap1-0ubuntu5.
+  version=$(dpkg-query -W -f='${db:Status-Abbrev}${Version}' firefox 2>/dev/null) &&
+    case "$version" in ii*snap*) false ;; ii*) true ;; *) false ;; esac &&
+    test -e "$keyring" -a -e "$sources" -a -e "$pin" -a -e "$no_snap"
+  exit
+fi
+
+apt_repo_require
+
+# Known-good fingerprint: see the Mozilla page above.
+apt_repo_key https://packages.mozilla.org/apt/repo-signing-key.gpg "$keyring" \
+  35BAA0B33E9EB396F59CA838C0BA5CE6DC6315A3
+apt_repo_file "$sources" \
+  "deb [signed-by=$keyring] https://packages.mozilla.org/apt mozilla main"
+# Note: Priority 1000 lets Mozilla's build replace an installed Ubuntu stub,
+# whose epoch makes it look newer.
+apt_repo_file "$pin" "Package: *
+Pin: origin packages.mozilla.org
+Pin-Priority: 1000"
+apt_repo_file "$no_snap" "Package: firefox*
+Pin: release o=Ubuntu*
+Pin-Priority: -1"
+$SUDO apt-get update
+$SUDO apt-get install -y firefox
+
+if command -v snap >/dev/null && snap list firefox >/dev/null 2>&1; then
+  echo "Note: The firefox snap is still installed. Once its profile is no" >&2
+  echo "longer needed (~/snap/firefox/common/.mozilla/firefox), remove it" >&2
+  echo "with: sudo snap remove firefox" >&2
+fi
