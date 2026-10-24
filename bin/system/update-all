@@ -80,8 +80,14 @@ fi
 if has flatpak; then
   echo
   echo "--== Updating Flatpak packages ==--"
-  sudo flatpak update --noninteractive
-  code=$?; test $code -lt $exit_code || exit_code=$code
+  # Note: Under sudo, --user means root's installation, not ours.
+  flatpak update --user --noninteractive
+  code=$?
+  if [ -n "$(flatpak list --system --columns=ref)" ]; then
+    sudo flatpak update --system --noninteractive
+    c=$?; test $c -lt $code || code=$c
+  fi
+  test $code -lt $exit_code || exit_code=$code
   test $code -eq 0 || echo "=> returned $code"
 fi
 
