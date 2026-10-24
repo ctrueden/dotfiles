@@ -72,8 +72,10 @@ class Repo:
 
 def detect_mainline(path: Path) -> Optional[str]:
     ref = git_out(path, "symbolic-ref", "refs/remotes/origin/HEAD")
-    if ref:
-        return ref.split("/")[-1]
+    # Note: origin/HEAD is only recorded at clone time, so it can dangle after
+    # the remote deletes or renames its default branch; see --refresh-heads.
+    if ref and git(path, "rev-parse", "--verify", "-q", ref).returncode == 0:
+        return ref.removeprefix("refs/remotes/origin/")
     for line in git_out(path, "branch", "-vv").splitlines():
         parts = line.lstrip("* ").split()
         if parts and parts[0] in MAINLINE_NAMES:
@@ -510,9 +512,18 @@ def main() -> None:
         "-F", dest="execute_likely", action="store_true",
         help="execute safe + likely-safe recommendations for the given repo(s)",
     )
+    parser.add_argument(
+        "-r", "--refresh-heads", action="store_true",
+        help="query each remote for its current default branch before analyzing (slow)",
+    )
     args = parser.parse_args()
 
     repo_paths = [p.resolve() for p in args.paths] if args.paths else load_mr_repos()
+
+    if args.refresh_heads:
+        with ThreadPoolExecutor(max_workers=16) as pool:
+            cloned = [p for p in repo_paths if (p / ".git").is_dir()]
+            list(pool.map(lambda p: git(p, "remote", "set-head", "origin", "--auto"), cloned))
 
     repos: list[Repo] = []
     with ThreadPoolExecutor(max_workers=16) as pool:
