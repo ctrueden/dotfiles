@@ -135,7 +135,7 @@ cask:musicbrainz-picard | apt:picard | winget:MusicBrainz.Picard
 apt|cask:gimp | winget:GIMP.GIMP.3
 apt|cask:vlc | winget:VideoLAN.VLC
 cask:claude | winget:Anthropic.Claude
-cask:1password | winget:AgileBits.1Password
+cask:1password | winget:AgileBits.1Password | custom:1password
 cask:hammerspoon
 cask:rectangle
 cask:stats

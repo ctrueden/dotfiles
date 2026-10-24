@@ -13,8 +13,20 @@ apt_repo_require() {
   return 1
 }
 
+# Succeeds if the named package is installed.
+apt_installed() { # package
+  dpkg-query -W -f='${db:Status-Abbrev}' "$1" 2>/dev/null | grep -q '^ii'
+}
+
+# Succeeds if an active sources entry, in either format, names the given URL.
+# Note: Some packages, such as 1Password's, rewrite their own entries.
+apt_repo_has() { # url
+  grep -qs "^[^#]*$1" /etc/apt/sources.list.d/*.list /etc/apt/sources.list.d/*.sources
+}
+
 # Installs the signing key at a URL as the given keyring, unless it is already
 # there, after checking that the key carries each of the given fingerprints.
+# A keyring named *.gpg gets the key in binary form, as older apt requires.
 apt_repo_key() { # url keyring fingerprint...
   _url=$1 _keyring=$2; shift 2
   test -e "$_keyring" && return
@@ -28,6 +40,13 @@ apt_repo_key() { # url keyring fingerprint...
         return 1
       }
   done
+  case "$_keyring" in
+    *.gpg)
+      if grep -q 'BEGIN PGP' "$_key"; then
+        gpg --dearmor < "$_key" > "$_key.gpg" && mv "$_key.gpg" "$_key" ||
+          { rm -f "$_key" "$_key.gpg"; return 1; }
+      fi ;;
+  esac
   $SUDO mkdir -p -m 755 "${_keyring%/*}" &&
     $SUDO tee "$_keyring" < "$_key" >/dev/null &&
     $SUDO chmod go+r "$_keyring"
