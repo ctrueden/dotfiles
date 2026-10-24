@@ -178,7 +178,7 @@ apt|brew|scoop:pkgconf
 scoop:maven | custom:mvn  replaces=apt:maven
 apt:build-essential
 apt|scoop:make
-brew|apt:ninja
+brew:ninja | apt:ninja-build
 
 [dev: build]
 apt|brew|scoop:ruby
