@@ -15,8 +15,8 @@ set -eu
 
 . "${DOTFILES:?}/lib/apt-repo.sh"
 
+repo=https://packages.mozilla.org/apt
 keyring=/etc/apt/keyrings/packages.mozilla.org.asc
-sources=/etc/apt/sources.list.d/mozilla.list
 pin=/etc/apt/preferences.d/mozilla
 no_snap=/etc/apt/preferences.d/firefox-no-snap
 
@@ -24,7 +24,7 @@ if [ "${1:-}" = --check ]; then
   # Note: Ubuntu's stub has a version like 1:1snap1-0ubuntu5.
   version=$(dpkg-query -W -f='${db:Status-Abbrev}${Version}' firefox 2>/dev/null) &&
     case "$version" in ii*snap*) false ;; ii*) true ;; *) false ;; esac &&
-    test -e "$keyring" -a -e "$sources" -a -e "$pin" -a -e "$no_snap"
+    test -e "$keyring" -a -e "$pin" -a -e "$no_snap" && apt_repo_has "$repo"
   exit
 fi
 
@@ -33,8 +33,7 @@ apt_repo_require
 # Known-good fingerprint: see the Mozilla page above.
 apt_repo_key https://packages.mozilla.org/apt/repo-signing-key.gpg "$keyring" \
   35BAA0B33E9EB396F59CA838C0BA5CE6DC6315A3
-apt_repo_file "$sources" \
-  "deb [signed-by=$keyring] https://packages.mozilla.org/apt mozilla main"
+apt_repo_has "$repo" || apt_repo_sources mozilla "$repo" mozilla main "$keyring"
 # Note: Priority 1000 lets Mozilla's build replace an installed Ubuntu stub,
 # whose epoch makes it look newer.
 apt_repo_file "$pin" "Package: *

@@ -27,7 +27,10 @@ apt_repo_require
 # Known-good fingerprint: see the Anthropic page above.
 apt_repo_key https://downloads.claude.ai/claude-desktop/key.asc "$keyring" \
   31DDDE24DDFAB679F42D7BD2BAA929FF1A7ECACE
+# Note: The package manages a sources file whose first line is its marker,
+# and then also adds its unattended-upgrades config; it leaves any other alone.
 apt_repo_has "$repo" || apt_repo_file /etc/apt/sources.list.d/claude-desktop.list \
-  "deb [arch=amd64,arm64 signed-by=$keyring] $repo stable main"
+  "### Managed by the claude-desktop package.
+deb [arch=amd64,arm64 signed-by=$keyring] $repo stable main"
 $SUDO apt-get update
 $SUDO apt-get install -y claude-desktop

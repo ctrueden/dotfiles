@@ -14,11 +14,11 @@ set -eu
 
 . "${DOTFILES:?}/lib/apt-repo.sh"
 
+repo=https://cli.github.com/packages
 keyring=/etc/apt/keyrings/githubcli-archive-keyring.gpg
-sources=/etc/apt/sources.list.d/github-cli.list
 
 if [ "${1:-}" = --check ]; then
-  command -v gh >/dev/null && test -e "$keyring" -a -e "$sources"
+  command -v gh >/dev/null && test -e "$keyring" && apt_repo_has "$repo"
   exit
 fi
 
@@ -28,7 +28,7 @@ apt_repo_require
 apt_repo_key https://cli.github.com/packages/githubcli-archive-keyring.gpg "$keyring" \
   2C6106201985B60E6C7AC87323F3D4EA75716059 \
   7F38BBB59D064DBCB3D84D725612B36462313325
-apt_repo_file "$sources" \
-  "deb [arch=$(dpkg --print-architecture) signed-by=$keyring] https://cli.github.com/packages stable main"
+apt_repo_has "$repo" || apt_repo_sources github-cli "$repo" stable main \
+  "$keyring" "$(dpkg --print-architecture)"
 $SUDO apt-get update
 $SUDO apt-get install -y gh

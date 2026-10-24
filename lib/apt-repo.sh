@@ -60,3 +60,14 @@ apt_repo_file() { # path content
   $SUDO mkdir -p -m 755 "${1%/*}" &&
     printf '%s\n' "$2" | $SUDO tee "$1" >/dev/null
 }
+
+# Writes /etc/apt/sources.list.d/NAME.sources, in apt's deb822 format,
+# for a repository signed by the given keyring.
+apt_repo_sources() { # name uri suites components keyring [architectures]
+  apt_repo_file "/etc/apt/sources.list.d/$1.sources" "Types: deb
+URIs: $2
+Suites: $3
+Components: $4
+${6:+Architectures: $6
+}Signed-By: $5"
+}
