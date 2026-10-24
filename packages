@@ -201,6 +201,15 @@ cask:nextcloud | apt:nextcloud-desktop | winget:Nextcloud.NextcloudDesktop  # My
 cask:zoom | winget:Zoom.Zoom | flatpak:us.zoom.Zoom
 apt|brew:wireguard-tools | winget:WireGuard.WireGuard
 
+[java]
+brew:cfr-decompiler
+brew:procyon-decompiler
+apt:openjdk-8-jdk | cask:zulu@8 | scoop:java/zulu8-jdk
+apt:openjdk-11-jdk | cask:zulu@11 | scoop:java/zulu11-jdk
+apt:openjdk-17-jdk | cask:zulu@17 | scoop:java/zulu17-jdk
+apt:openjdk-21-jdk | cask:zulu@21 | scoop:java/zulu21-jdk
+apt:openjdk-25-jdk | cask:zulu@25 | scoop:java/zulu25-jdk
+
 [system]
 apt:lm-sensors
 apt:nfs-common
@@ -210,12 +219,3 @@ apt:dmidecode
 apt:lshw
 apt:pciutils  # for lspci
 apt:usbutils  # for lsusb
-
-[java]
-brew:cfr-decompiler
-brew:procyon-decompiler
-apt:openjdk-8-jdk | cask:zulu@8 | scoop:java/zulu8-jdk
-apt:openjdk-11-jdk | cask:zulu@11 | scoop:java/zulu11-jdk
-apt:openjdk-17-jdk | cask:zulu@17 | scoop:java/zulu17-jdk
-apt:openjdk-21-jdk | cask:zulu@21 | scoop:java/zulu21-jdk
-apt:openjdk-25-jdk | cask:zulu@25 | scoop:java/zulu25-jdk
