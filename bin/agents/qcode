@@ -16,8 +16,8 @@ Options:
   --tier TIER  Select tier:
                  flash-large   Qwen3.8-Flash-Next 125B MoE (128k context)
                  flash-medium  Qwen3.8-Flash-Next 125B MoE (64k context)
-                 large         Local fit (128k context; default)
-                 medium        Local fit (64k context)
+                 large         Local fit (up to 128k context; default)
+                 medium        Local fit (up to 64k context)
                  small         Local fit (32k context; short answers)
                Aliases: flash, flash-128k -> flash-large; flash-64k -> flash-medium
   -y, --yes    Do not ask before fitting missing models.
@@ -139,46 +139,7 @@ configure_hardware() {
   memory_gib=$(prompt "$memory_prompt" "")
   case "$memory_gib" in *[!0-9]*|'') fail "memory must be a whole number of GiB" ;; esac
 
-  case "$backend" in
-    macos)
-      if [ "$memory_gib" -ge 64 ]; then
-        large_repo=empero-ai/Qwen3.8-35B-A3B-Distill-GGUF
-        medium_repo=empero-ai/Qwen3.8-9B-Distill-GGUF
-        small_repo=empero-ai/Qwen3.8-4B-Distill-GGUF
-      else
-        large_repo=empero-ai/Qwen3.8-9B-Distill-GGUF
-        medium_repo=empero-ai/Qwen3.8-4B-Distill-GGUF
-        small_repo=empero-ai/Qwen3.8-2B-Distill-GGUF
-      fi
-      kv=f16
-      medium_budget=
-      reserve=12GiB
-      ;;
-    nvidia)
-      if [ "$memory_gib" -le 8 ]; then
-        large_repo=empero-ai/Qwen3.8-4B-Distill-GGUF
-        medium_repo=empero-ai/Qwen3.8-4B-Distill-GGUF
-        small_repo=empero-ai/Qwen3.8-2B-Distill-GGUF
-        kv=q8_0
-        medium_budget=6GiB
-        reserve=1GiB
-      elif [ "$memory_gib" -le 15 ]; then
-        large_repo=empero-ai/Qwen3.8-4B-Distill-GGUF
-        medium_repo=empero-ai/Qwen3.8-4B-Distill-GGUF
-        small_repo=empero-ai/Qwen3.8-2B-Distill-GGUF
-        kv=q8_0
-        medium_budget=
-        reserve=1GiB
-      else
-        large_repo=empero-ai/Qwen3.8-9B-Distill-GGUF
-        medium_repo=empero-ai/Qwen3.8-4B-Distill-GGUF
-        small_repo=empero-ai/Qwen3.8-2B-Distill-GGUF
-        kv=q8_0
-        medium_budget=
-        reserve=1GiB
-      fi
-      ;;
-  esac
+  hardware_defaults
 
   cat > "$config.tmp" <<EOF
 backend=$backend
@@ -186,6 +147,9 @@ memory_gib=$memory_gib
 large_repo=$large_repo
 medium_repo=$medium_repo
 small_repo=$small_repo
+large_context=$large_context
+medium_context=$medium_context
+small_context=$small_context
 kv=$kv
 medium_budget=$medium_budget
 reserve=$reserve
@@ -193,14 +157,59 @@ EOF
   mv "$config.tmp" "$config"
 }
 
+# Fills in any settings not already set, according to backend and memory_gib.
+hardware_defaults() {
+  case "$backend" in
+    macos)
+      if [ "$memory_gib" -ge 64 ]; then
+        : "${large_repo:=empero-ai/Qwen3.8-35B-A3B-Distill-GGUF}"
+        : "${medium_repo:=empero-ai/Qwen3.8-9B-Distill-GGUF}"
+        : "${small_repo:=empero-ai/Qwen3.8-4B-Distill-GGUF}"
+      else
+        : "${large_repo:=empero-ai/Qwen3.8-9B-Distill-GGUF}"
+        : "${medium_repo:=empero-ai/Qwen3.8-4B-Distill-GGUF}"
+        : "${small_repo:=empero-ai/Qwen3.8-2B-Distill-GGUF}"
+      fi
+      : "${kv:=f16}"
+      : "${reserve:=12GiB}"
+      ;;
+    nvidia)
+      if [ "$memory_gib" -le 15 ]; then
+        : "${large_repo:=empero-ai/Qwen3.8-4B-Distill-GGUF}"
+        : "${medium_repo:=empero-ai/Qwen3.8-4B-Distill-GGUF}"
+      else
+        : "${large_repo:=empero-ai/Qwen3.8-9B-Distill-GGUF}"
+        : "${medium_repo:=empero-ai/Qwen3.8-4B-Distill-GGUF}"
+      fi
+      : "${small_repo:=empero-ai/Qwen3.8-2B-Distill-GGUF}"
+      # Note: a 4B model's q8_0 KV cache needs ~8.8 GiB at 128k and ~4.4 GiB
+      # at 64k, so smaller cards must trade context for weight precision.
+      if [ "$memory_gib" -le 8 ]; then
+        : "${large_context:=49152}"
+        : "${medium_context:=32768}"
+        : "${medium_budget:=6GiB}"
+      elif [ "$memory_gib" -le 15 ]; then
+        : "${large_context:=65536}"
+      fi
+      : "${kv:=q8_0}"
+      : "${reserve:=1GiB}"
+      ;;
+  esac
+  : "${large_context:=131072}"
+  : "${medium_context:=65536}"
+  : "${small_context:=32768}"
+  : "${medium_budget:=}"
+}
+
 test -f "$config" || configure_hardware
 . "$config"
 
-large_repo=${large_repo:-${smart_repo:-empero-ai/Qwen3.8-35B-A3B-Distill-GGUF}}
-medium_repo=${medium_repo:-${balanced_repo:-empero-ai/Qwen3.8-9B-Distill-GGUF}}
-small_repo=${small_repo:-${fast_repo:-empero-ai/Qwen3.8-4B-Distill-GGUF}}
+# Note: configs written before the tier rename use the old setting names.
+large_repo=${large_repo:-${smart_repo:-}}
+medium_repo=${medium_repo:-${balanced_repo:-}}
+small_repo=${small_repo:-${fast_repo:-}}
 medium_budget=${medium_budget:-${balanced_budget:-}}
-reserve=${reserve:-12GiB}
+hardware_defaults
 
 tier_repo() {
   case "$1" in
@@ -217,9 +226,11 @@ tier_budget() {
 
 tier_context() {
   case "$1" in
-    large|flash-large) printf '%s\n' 131072 ;;
-    medium|flash-medium) printf '%s\n' 65536 ;;
-    small) printf '%s\n' 32768 ;;
+    flash-large) printf '%s\n' 131072 ;;
+    flash-medium) printf '%s\n' 65536 ;;
+    large) printf '%s\n' "$large_context" ;;
+    medium) printf '%s\n' "$medium_context" ;;
+    small) printf '%s\n' "$small_context" ;;
   esac
 }
 
