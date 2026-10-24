@@ -1,0 +1,33 @@
+#!/bin/sh
+
+# Installs Claude Desktop from Anthropic's official apt repository. Adapted from:
+# https://code.claude.com/docs/en/desktop-linux
+#
+# Platforms: linux
+#
+# With --check, reports via exit code whether Claude Desktop is installed with
+# Anthropic's repository configured; once it is, apt keeps it up to date.
+# Note: The community claude-desktop-debian repository once served a package
+# of the same name, from the same sources file, which this then replaces.
+
+set -eu
+
+. "${DOTFILES:?}/lib/apt-repo.sh"
+
+repo=https://downloads.claude.ai/claude-desktop/apt/stable
+keyring=/usr/share/keyrings/claude-desktop-archive-keyring.asc
+
+if [ "${1:-}" = --check ]; then
+  apt_installed claude-desktop && test -e "$keyring" && apt_repo_has "$repo"
+  exit
+fi
+
+apt_repo_require
+
+# Known-good fingerprint: see the Anthropic page above.
+apt_repo_key https://downloads.claude.ai/claude-desktop/key.asc "$keyring" \
+  31DDDE24DDFAB679F42D7BD2BAA929FF1A7ECACE
+apt_repo_has "$repo" || apt_repo_file /etc/apt/sources.list.d/claude-desktop.list \
+  "deb [arch=amd64,arm64 signed-by=$keyring] $repo stable main"
+$SUDO apt-get update
+$SUDO apt-get install -y claude-desktop
