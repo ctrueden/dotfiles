@@ -2,10 +2,11 @@
 
 # Installs the pinned Qwen Code standalone Linux bundle into ~/.local/opt,
 # verified against the SHA-256 GitHub records for the release asset.
+# The pin is only the initial version: Qwen Code then updates itself in place.
 #
 # Platforms: linux
 #
-# With --check, reports via exit code whether the pinned version is linked.
+# With --check, reports via exit code whether Qwen Code is linked.
 
 . "${DOTFILES:?}/lib/download.sh"
 
@@ -25,10 +26,12 @@ case "$(uname)-$(uname -m)" in
     exit 1 ;;
 esac
 
-dir="$opt/qwen-code-$qwen_ver-linux-$target"
+# Note: the directory name carries no version, since the self-updater replaces
+# its contents in place (keeping the previous version as qwen-code.old).
+dir="$opt/qwen-code"
 
 if [ "${1:-}" = --check ]; then
-  test -x "$bin/qwen" &&
+  test -x "$bin/qwen" && test -f "$dir/manifest.json" &&
   grep -qxF "exec \"$dir/bin/qwen\" \"\$@\"" "$bin/qwen"
   exit
 fi
@@ -41,3 +44,6 @@ tar -xzf "$downloaded" -C "$dir" --strip-components=1 &&
   echo "exec \"$dir/bin/qwen\" \"\$@\""
 } > "$bin/qwen" &&
 chmod +x "$bin/qwen" || exit 1
+
+# Remove installs from when the directory name carried the pinned version.
+rm -rf "$opt"/qwen-code-v*-linux-*

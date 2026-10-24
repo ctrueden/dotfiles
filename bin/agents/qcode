@@ -90,11 +90,13 @@ esac
 script_dir=$(CDPATH= cd -- "$(dirname "$0")" && pwd)
 
 find_qwen() {
-  for candidate in "$HOME"/.local/opt/qwen-code-*/bin/qwen; do
-    test -x "$candidate" || continue
+  # Note: not a glob, which would also match the self-updater's qwen-code.old
+  # rollback copy, and launching that would make each update undo itself.
+  candidate="$HOME/.local/opt/qwen-code/bin/qwen"
+  if test -x "$candidate"; then
     printf '%s\n' "$candidate"
     return 0
-  done
+  fi
 
   saved_ifs=$IFS
   IFS=:
