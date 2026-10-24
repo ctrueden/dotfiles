@@ -184,7 +184,7 @@ npm:pnpm  scripts  # Links its native binary.
 uv:prysk
 uv:pydeps
 uv:twine
-uv:yamllint
+uv:yamllint  replaces=apt:yamllint
 cask:google-chrome | winget:Google.Chrome  # For dev testing, not my daily driver.
 
 [heavy]
