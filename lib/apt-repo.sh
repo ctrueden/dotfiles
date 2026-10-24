@@ -21,7 +21,11 @@ apt_installed() { # package
 # Succeeds if an active sources entry, in either format, names the given URL.
 # Note: Some packages, such as 1Password's, rewrite their own entries.
 apt_repo_has() { # url
-  grep -qs "^[^#]*$1" /etc/apt/sources.list.d/*.list /etc/apt/sources.list.d/*.sources
+  for _f in $(grep -ls "^[^#]*$1" /etc/apt/sources.list.d/*.list \
+    /etc/apt/sources.list.d/*.sources); do
+    grep -qi '^Enabled: *no' "$_f" || return 0
+  done
+  return 1
 }
 
 # Installs the signing key at a URL as the given keyring, unless it is already
