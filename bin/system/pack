@@ -400,6 +400,7 @@ for kind in $KINDS; do
     if [ -z "$list" ]; then
       case "$kind" in
         apt) run $SUDO apt-get update ;;
+        brew) run brew update ;;
         # Note: Stale buckets have stale hashes, which fail installs.
         scoop) run scoop update; add_buckets "$tmp/$kind.absent" ;;
       esac
