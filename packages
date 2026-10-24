@@ -39,6 +39,7 @@
 #   heavy    large installs (hundreds of MB)
 #   media    tools for working with and converting media files
 #   primary  tools to install only on main machines
+#   games    games and their launchers
 #   java     JDKs and Java tooling
 #   system   hardware and network utilities
 # A section header may name sections it requires, e.g. [dev: build].
@@ -200,6 +201,13 @@ cask:discord | winget:Discord.Discord
 cask:nextcloud | apt:nextcloud-desktop | winget:Nextcloud.NextcloudDesktop  # My Nextcloud only works with Wireguard.
 cask:zoom | winget:Zoom.Zoom | flatpak:us.zoom.Zoom
 apt|brew:wireguard-tools | winget:WireGuard.WireGuard
+
+[games]
+flatpak:io.github.wivrn.wivrn  # WiVRN, for VR games
+flatpak:io.mrarm.mcpelauncher  # Minecraft Bedrock
+flatpak:org.prismlauncher.PrismLauncher  # Minecraft Java
+flatpak:org.citra_emu.citra  # Nintendo 3DS
+flatpak:org.vinegarhq.Sober  # Roblox
 
 [java]
 brew:cfr-decompiler

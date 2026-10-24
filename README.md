@@ -72,7 +72,7 @@ What does this configuration include?
         flatpak (Linux), plus npm and uv; each entry names its alternatives
         in order of preference, e.g. `apt:fd-find | brew|scoop:fd`.
     -   Sections for core tools (always), GUI apps (desktops only), and
-        opt-in groups (build, dev, heavy, primary, java, system),
+        opt-in groups (build, dev, heavy, primary, games, java, system),
         chosen per machine when `setup.sh` first runs and saved in
         `~/.config/dotfiles/sections`.
     -   Installs only what is missing, in as few package manager
