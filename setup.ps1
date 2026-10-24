@@ -66,7 +66,8 @@ foreach ($dir in 'WindowsPowerShell', 'PowerShell') {
 # Windows PATH, and the MSYSTEM matching this build of Git.
 $shell = "$git\usr\bin\zsh.exe"
 if (-not (Test-Path $shell)) { $shell = "$git\usr\bin\bash.exe" }
-$msystem = if (Test-Path "$git\ucrt64") { 'UCRT64' } else { 'MINGW64' }
+$msystem = if (Test-Path "$git\clangarm64") { 'CLANGARM64' }
+    elseif (Test-Path "$git\ucrt64") { 'UCRT64' } else { 'MINGW64' }
 $unixDotfiles = $dotfiles -replace '\\', '/'
 $psmuxConf = "$HOME\.psmux.conf"
 Write-Host "Writing $psmuxConf"
