@@ -1,0 +1,38 @@
+#!/bin/sh
+
+# Sets up WineHQ's apt repository, for entries naming repo=winehq, along with
+# the i386 architecture that Wine needs. Adapted from:
+# https://gitlab.winehq.org/wine/wine/-/wikis/Debian-Ubuntu
+#
+# With --check, reports via exit code whether the repository is set up.
+
+set -eu
+
+. "${DOTFILES:?}/lib/apt-repo.sh"
+
+# Note: Derivatives such as Mint name their Ubuntu base in UBUNTU_CODENAME.
+. /etc/os-release
+if [ -n "${UBUNTU_CODENAME:-}" ]; then
+  distro=ubuntu codename=$UBUNTU_CODENAME
+else
+  distro=$ID codename=$VERSION_CODENAME
+fi
+repo=https://dl.winehq.org/wine-builds/$distro
+keyring=/etc/apt/keyrings/winehq-archive.key
+
+if [ "${1:-}" = --check ]; then
+  test -e "$keyring" && apt_repo_has "$repo" &&
+    dpkg --print-foreign-architectures | grep -qx i386
+  exit
+fi
+
+apt_repo_require
+dpkg --print-foreign-architectures | grep -qx i386 ||
+  $SUDO dpkg --add-architecture i386
+
+# Known-good fingerprint: gpg --show-keys on the key at the URL below,
+# as recorded when this script was written.
+apt_repo_key https://dl.winehq.org/wine-builds/winehq.key "$keyring" \
+  D43F640145369C51D786DDEA76F1A20FF987672F
+apt_repo_has "$repo" || apt_repo_sources "winehq-$codename" "$repo" \
+  "$codename" main "$keyring" "amd64 i386"

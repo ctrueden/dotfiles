@@ -16,6 +16,7 @@ profile="${XDG_CONFIG_HOME:-$HOME/.config}/dotfiles/sections"
 export DOTFILES="${DOTFILES:-$(cd "$here/../.." && pwd)}"
 
 . "$DOTFILES/lib/node.sh"
+. "$DOTFILES/lib/apt-repo.sh"
 
 has() { command -v "$1" >/dev/null; }
 
@@ -278,6 +279,23 @@ available() {
   esac
 }
 
+# Succeeds if an apt source, as ppa:OWNER/NAME or repo:NAME, is set up.
+apt_source_ready() { # source
+  case "$1" in
+    ppa:*) apt_repo_has "launchpad[a-z]*\.net/${1#ppa:}/" ;;
+    repo:*) sh "$custom_dir/repo-${1#repo:}" --check ;;
+  esac
+}
+
+# Sets up an apt source, as ppa:OWNER/NAME or repo:NAME.
+# Note: pack updates the package lists itself, once all sources are set up.
+add_apt_source() { # source
+  case "$1" in
+    ppa:*) run $SUDO add-apt-repository -y -n "$1" ;;
+    repo:*) run sh "$custom_dir/repo-${1#repo:}" ;;
+  esac
+}
+
 # Adds the scoop buckets that BUCKET/NAME entries in file $1 come from.
 add_buckets() {
   for b in $(sed -n 's|/.*||p' "$1" | sort -u); do
@@ -346,12 +364,14 @@ queue_custom() { # name
 # An entry's replaces= token, if any, follows its alternatives.
 # An entry marked gui is enabled only when $gui is 1, and its section
 # reads as SECTION+gui.
-# $tmp/uv.python pairs uv tools with the Python their entries ask for.
+# $tmp/uv.python pairs uv tools with the Python their entries ask for, and
+# $tmp/apt.src apt packages with the source, ppa:OWNER/NAME or repo:NAME,
+# that their entries ask for.
 sed -e 's/#.*//' -e 's/[[:space:]]*|[[:space:]]*/|/g' "$manifest" |
 awk -v kinds=" $KINDS $LATE_KINDS custom " -v enabled="$sections" -v gui="$gui" \
   -v unsupported=" $(unsupported_customs | tr '\n' ' ') " \
-  -v pyfile="$tmp/uv.python" '
-  BEGIN { printf "" > pyfile }
+  -v pyfile="$tmp/uv.python" -v srcfile="$tmp/apt.src" '
+  BEGIN { printf "" > pyfile; printf "" > srcfile }
   /^\[/ {
     section = $1
     sub(/^\[/, "", section); sub(/:$/, "", section); sub(/\]$/, "", section)
@@ -376,6 +396,11 @@ awk -v kinds=" $KINDS $LATE_KINDS custom " -v enabled="$sections" -v gui="$gui" 
       if (kind[i] == "uv")
         for (j = 2; j <= NF; j++)
           if ($j ~ /^python=/) print named[i], substr($j, 8) > pyfile
+      if (kind[i] == "apt")
+        for (j = 2; j <= NF; j++)
+          if ($j ~ /^(ppa|repo)=/) {
+            src = $j; sub(/=/, ":", src); print named[i], src > srcfile
+          }
     }
     if (out == "") next
     marked = 0
@@ -412,15 +437,34 @@ for kind in $KINDS; do
   difference "$tmp/$kind.cand" "$tmp/$kind.have" > "$tmp/$kind.absent"
   : > "$tmp/$kind.avail"
   if [ -s "$tmp/$kind.absent" ]; then
+    # $tmp/apt.pending pairs absent apt packages with the sources they need
+    # that are not set up yet.
+    if [ "$kind" = apt ]; then
+      awk 'FNR == NR { absent[$1] = 1; next } $1 in absent' \
+        "$tmp/apt.absent" "$tmp/apt.src" |
+        while read -r name src; do
+          apt_source_ready "$src" || echo "$name $src"
+        done > "$tmp/apt.pending"
+    fi
     if [ -z "$list" ]; then
       case "$kind" in
-        apt) run $SUDO apt-get update ;;
+        apt)
+          for src in $(cut -d' ' -f2 "$tmp/apt.pending" | sort -u); do
+            add_apt_source "$src" || echo "Failed to set up $src" >&2
+          done
+          run $SUDO apt-get update ;;
         brew) run brew update ;;
         # Note: Stale buckets have stale hashes, which fail installs.
         scoop) run scoop update; add_buckets "$tmp/$kind.absent" ;;
       esac
     fi
-    available "$kind" "$tmp/$kind.absent" | sort -u > "$tmp/$kind.avail"
+    {
+      available "$kind" "$tmp/$kind.absent"
+      # Note: A source not yet set up cannot be checked; assume the best.
+      if [ "$kind" = apt ] && [ -n "$list$dry_run" ]; then
+        cut -d' ' -f1 "$tmp/apt.pending"
+      fi
+    } | sort -u > "$tmp/$kind.avail"
   fi
   cat "$tmp/$kind.have" "$tmp/$kind.avail" | sed "s|^|$kind:|" >> "$tmp/ok"
 done

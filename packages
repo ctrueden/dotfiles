@@ -25,6 +25,9 @@
 # which npm otherwise warns about, and will someday refuse to run.
 # A uv entry followed by python=VERSION installs its tool on that Python,
 # e.g. when the newest Python lacks wheels the tool needs.
+# An apt entry followed by ppa=OWNER/NAME needs that Launchpad PPA, and one
+# followed by repo=NAME needs the repository that bin/packages/repo-NAME sets
+# up (supporting --check, as custom scripts do); pack sets up either first.
 # Any entry may be followed by the word gui, to install it only on desktops.
 # Any entry may be followed by replaces=MANAGER:NAME[,MANAGER:NAME...],
 # naming packages it supersedes when another of its alternatives installs it,
@@ -195,6 +198,7 @@ uv:yamllint  replaces=apt:yamllint
 cask:jetbrains-toolbox | winget:JetBrains.Toolbox  gui
 cask:visual-studio-code | winget:Microsoft.VisualStudioCode  gui
 cask:google-chrome | winget:Google.Chrome  gui  # For dev testing, not my daily driver.
+apt:turtle-nautilus  ppa=philippun/turtle  gui  # git integration for Nautilus
 
 [primary]
 cask:logseq-og | flatpak:com.logseq.Logseq  gui
@@ -203,6 +207,8 @@ cask:zulip | winget:Zulip.Zulip  gui
 cask:nextcloud | apt:nextcloud-desktop | winget:Nextcloud.NextcloudDesktop  gui  # My Nextcloud only works with Wireguard.
 cask:zoom | winget:Zoom.Zoom | flatpak:us.zoom.Zoom  gui
 apt|brew:wireguard-tools | winget:WireGuard.WireGuard
+apt:winehq-devel  repo=winehq  gui  # The default wine.
+apt:wine-stable  repo=winehq  gui  # In /opt/wine-stable, for when devel breaks.
 
 [games]
 flatpak:io.github.wivrn.wivrn  gui  # WiVRN, for VR games
@@ -210,6 +216,7 @@ flatpak:io.mrarm.mcpelauncher  gui  # Minecraft Bedrock
 flatpak:org.prismlauncher.PrismLauncher  gui  # Minecraft Java
 flatpak:org.citra_emu.citra  gui  # Nintendo 3DS
 flatpak:org.vinegarhq.Sober  gui  # Roblox
+apt:retroarch  ppa=libretro/stable  gui
 
 [system]
 apt:lm-sensors
