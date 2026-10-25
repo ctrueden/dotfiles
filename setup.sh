@@ -240,7 +240,7 @@ echo "--> Installing tools..."
 echo
 echo "--> Configuring tools..."
 
-for _s in "$CONFIG_DIR/setup"/*; do
+for _s in "$CONFIG_DIR/configure"/*; do
   test -x "$_s" || continue
   "$_s"
 done
