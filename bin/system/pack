@@ -210,8 +210,9 @@ installed() {
   case "$1" in
     apt)  dpkg-query -W -f='${db:Status-Abbrev}${Package}\n' 2>/dev/null |
             sed -n 's/^ii  *//p' ;;
-    brew) brew list --formula -1 ;;
-    # Note: Casks from other taps are listed as TAP/NAME, as entries name them.
+    # Note: Formulae and casks from other taps are listed as TAP/NAME,
+    # as entries name them.
+    brew) brew list --formula --full-name -1 ;;
     cask) brew list --cask --full-name -1 ;;
     scoop)
       for f in "$scoop_dir"/apps/*/current/*install.json; do
@@ -251,7 +252,7 @@ installed() {
 requested() {
   case "$1" in
     apt)  apt-mark showmanual 2>/dev/null ;;
-    brew) brew list --formula --installed-on-request -1 ;;
+    brew) brew list --formula --installed-on-request --full-name -1 ;;
     # Note: Callers list what is installed first; reuse that (winget is slow).
     *)    cat "$tmp/$1.have" ;;
   esac
