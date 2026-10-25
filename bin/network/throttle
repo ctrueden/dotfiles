@@ -1,0 +1,171 @@
+#!/bin/sh
+
+# throttle - Limit a network interface's bandwidth, via the CAKE qdisc,
+# until turned off or the machine reboots.
+#
+# Usage: throttle [-d <dev>] on <down> <up>
+#        throttle [-d <dev>] off
+#        throttle [-d <dev>] status [-v]
+#        throttle -h
+#
+# Example: throttle on 50Mbit 20Mbit
+#
+# Rates are a number and unit, with b for bits and B for bytes per second:
+# 500kbit, 50M, 50Mbps or 50Mb (megabits); 5MB, 5MB/s or 5MBps (megabytes);
+# 5MiB (mebibytes). A bare number is rejected to avoid surprising behavior.
+#
+# Without -d, uses the machine's sole active wired ethernet interface.
+# With -v, status shows tc's raw output; -h shows this help.
+
+error() { >&2 echo '[ERROR]' "$@"; }
+die() { error "$@"; exit 1; }
+ensureUser() { test "$(whoami)" = "$1" || die "Please run as $1."; }
+
+test "$(uname)" = Linux || die "Sorry, throttle only works on Linux (it uses tc)."
+# Note: Debian leaves sbin directories off non-root users' PATH.
+command -v tc >/dev/null || PATH=$PATH:/usr/sbin:/sbin
+command -v tc >/dev/null || die "tc not found; please install iproute2."
+
+# Prints the header comment above as help, then exits with the given status:
+# 0 (to stdout) when help was asked for, or 1 (to stderr) for bad usage.
+usage() {
+  status=${1:-1}
+  test "$status" = 0 && fd=1 || fd=2
+  sed -n '3,/^$/s/^# \{0,1\}//p' "$0" >&$fd
+  exit "$status"
+}
+
+# Prints the active wired ethernet interface, preferring the default route's.
+wired_device() {
+  wired=
+  for d in /sys/class/net/*; do
+    test "$(cat "$d/type")" = 1 || continue        # ethernet
+    test -e "$d/device" || continue                # physical
+    test -e "$d/wireless" -o -e "$d/phy80211" && continue
+    test "$(cat "$d/operstate")" = up || continue
+    wired="$wired ${d##*/}"
+  done
+  set -- $wired
+  case $# in
+    0) die "No active wired ethernet interface; use -d to pick one." ;;
+    1) echo "$1"; return ;;
+  esac
+  route=$(ip -o -c=never route show default | sed -n 's/.* dev \([^ ]*\).*/\1/p')
+  for d in $wired; do
+    for r in $route; do
+      test "$d" = "$r" && echo "$d" && return
+    done
+  done
+  die "Multiple wired interfaces ($*); use -d to pick one."
+}
+
+# Converts a rate like 50Mbps or 5MB/s to tc's syntax, like 50mbit or 5mbps.
+# Note: tc itself reads "mbps" as megabytes, so we must not pass it through.
+tc_rate() {
+  num=${1%%[!0-9.]*} unit=${1#"${1%%[!0-9.]*}"} prefix=
+  test "$num" -a "$unit" || die "Rate needs a unit, e.g. 50Mbit: $1"
+  case "$unit" in
+    [kKmMgGtT]*)
+      prefix=$(printf %s "$unit" | cut -c1 | tr A-Z a-z)
+      unit=${unit#?}
+      case "$unit" in i*) prefix=${prefix}i; unit=${unit#i} ;; esac
+      ;;
+  esac
+  case "$unit" in
+    ''|b|bps|b/s|[bB][iI][tT]|[bB][iI][tT][sS]) echo "$num${prefix}bit" ;;
+    B|Bps|B/s|[bB][yY][tT][eE]|[bB][yY][tT][eE][sS]) echo "$num${prefix}bps" ;;
+    *) die "Unknown rate unit: $1" ;;
+  esac
+}
+
+# Summarizes a device's CAKE limit and traffic in plain terms, if it has one.
+describe() { # dev label verb
+  tc -s qdisc show dev "$1" 2>/dev/null | awk -v label="$2" -v verb="$3" '
+    function human(n, units,   u, i) {
+      split(units, u, " ")
+      for (i = 1; n >= 1000 && i < 5; i++) n /= 1000
+      return sprintf(n < 10 && i > 1 ? "%.1f %s" : "%.0f %s", n, u[i])
+    }
+    /^qdisc cake .* root / {
+      for (i = 1; i < NF; i++) if ($i == "bandwidth") bw = $(i + 1)
+      cake = 1; next
+    }
+    cake && /^ Sent / {
+      if (bw == "unlimited") { printf "  %-9s unlimited\n", label ":"; exit }
+      bits = bw + 0
+      k = bw ~ /[KMGT]i/ ? 1024 : 1000
+      if (bw ~ /^[0-9.]+K/) bits *= k
+      if (bw ~ /^[0-9.]+M/) bits *= k ^ 2
+      if (bw ~ /^[0-9.]+G/) bits *= k ^ 3
+      if (bw ~ /^[0-9.]+T/) bits *= k ^ 4
+      printf "  %-9s limited to %s (%s/s); %s %s so far\n", label ":",
+        human(bits, "bit/s kbit/s Mbit/s Gbit/s Tbit/s"),
+        human(bits / 8, "B kB MB GB TB"),
+        human($2, "bytes kB MB GB TB"), verb
+      exit
+    }
+  '
+}
+
+dev= verbose=
+while [ $# -gt 0 ]; do
+  case "$1" in
+    -d|--device) dev=$2; shift 2 ;;
+    --device=*) dev=${1#*=}; shift ;;
+    -v|--verbose) verbose=1; shift ;;
+    -h|--help) usage 0 ;;
+    -*) usage ;;
+    *) break ;;
+  esac
+done
+cmd=$1
+test "$cmd" || usage
+case "$cmd" in help) usage 0 ;; esac
+test "$dev" || dev=$(wired_device) || exit 1
+test -e "/sys/class/net/$dev" || die "No such interface: $dev"
+
+case "$cmd" in
+  on)
+    test $# -eq 3 || usage
+    down=$(tc_rate "$2") || exit 1
+    up=$(tc_rate "$3") || exit 1
+    ensureUser root
+    set -e
+    tc qdisc replace dev "$dev" root cake bandwidth "$up"
+    modprobe ifb
+    ip link add ifb0 type ifb 2>/dev/null || true
+    ip link set ifb0 up
+    tc qdisc replace dev "$dev" handle ffff: ingress
+    tc filter replace dev "$dev" parent ffff: matchall action mirred egress redirect dev ifb0
+    tc qdisc replace dev ifb0 root cake bandwidth "$down" ingress
+    echo "Throttled $dev: down $2, up $3."
+    ;;
+  off)
+    ensureUser root
+    tc qdisc del dev "$dev" root 2>/dev/null
+    tc qdisc del dev "$dev" ingress 2>/dev/null
+    ip link del ifb0 2>/dev/null
+    echo "Unthrottled $dev."
+    ;;
+  status)
+    case "$2" in -v|--verbose) verbose=1 ;; esac
+    if [ "$verbose" ]; then
+      tc -s qdisc show dev "$dev"
+      if [ -e /sys/class/net/ifb0 ]; then tc -s qdisc show dev ifb0; fi
+      exit
+    fi
+    down=
+    if tc qdisc show dev "$dev" | grep -q '^qdisc ingress'; then
+      down=$(describe ifb0 Download received)
+    fi
+    up=$(describe "$dev" Upload sent)
+    if [ -z "$down$up" ]; then
+      echo "$dev: not throttled"
+    else
+      echo "$dev: throttled"
+      echo "${down:-  Download: unlimited}"
+      echo "${up:-  Upload:   unlimited}"
+    fi
+    ;;
+  *) usage ;;
+esac
