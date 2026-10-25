@@ -35,7 +35,7 @@ apt_repo_key https://packages.mozilla.org/apt/repo-signing-key.gpg "$keyring" \
   35BAA0B33E9EB396F59CA838C0BA5CE6DC6315A3
 apt_repo_has "$repo" || apt_repo_sources mozilla "$repo" mozilla main "$keyring"
 # Note: Priority 1000 lets Mozilla's build replace an installed Ubuntu stub,
-# whose epoch makes it look newer.
+# whose epoch makes it look newer; apt-get still needs --allow-downgrades.
 apt_repo_file "$pin" "Package: *
 Pin: origin packages.mozilla.org
 Pin-Priority: 1000"
@@ -43,7 +43,7 @@ apt_repo_file "$no_snap" "Package: firefox*
 Pin: release o=Ubuntu*
 Pin-Priority: -1"
 $SUDO apt-get update
-$SUDO apt-get install -y firefox
+$SUDO apt-get install -y --allow-downgrades firefox
 
 if command -v snap >/dev/null && snap list firefox >/dev/null 2>&1; then
   echo "Note: The firefox snap is still installed. Once its profile is no" >&2
