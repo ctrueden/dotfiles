@@ -140,14 +140,14 @@ case "$cmd" in
     tc qdisc replace dev ifb0 root cake bandwidth "$down" ingress
     echo "Throttled $dev: down $2, up $3."
     ;;
-  off)
+  off|of)
     ensureUser root
     tc qdisc del dev "$dev" root 2>/dev/null
     tc qdisc del dev "$dev" ingress 2>/dev/null
     ip link del ifb0 2>/dev/null
     echo "Unthrottled $dev."
     ;;
-  status)
+  status|st)
     case "$2" in -v|--verbose) verbose=1 ;; esac
     if [ "$verbose" ]; then
       tc -s qdisc show dev "$dev"
