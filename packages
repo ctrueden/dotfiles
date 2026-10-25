@@ -136,7 +136,7 @@ apt|brew|scoop:pandoc
 apt|brew:webp | scoop:libwebp
 apt:libtiff-tools | brew|scoop:libtiff
 brew|scoop:exiftool | apt:libimage-exiftool-perl
-apt|brew|scoop:mediainfo
+brew:media-info | apt|scoop:mediainfo
 #npm:svg-term-cli  # Unmaintained since 2018.
 apt|cask:gimp | winget:GIMP.GIMP.3  gui
 cask:kid3 | apt:kid3-qt | winget:KDE.Kid3  gui
