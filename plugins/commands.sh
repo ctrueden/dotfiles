@@ -66,7 +66,7 @@ if [ -x /usr/bin/clear ]; then
 	# ncurses overrides it with its own inferior one.
 	clr() { /usr/bin/clear; pwd; div; }
 else
-  # NB: To get clear on Cygwin, install ncurses.
+	# NB: To get clear on Cygwin, install ncurses.
 	clr() { clear; pwd; div; }
 fi
 
