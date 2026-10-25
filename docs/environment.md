@@ -1,8 +1,8 @@
 Environment management
 ======================
 
-Where an environment variable is set decides which programs see it. This is
-the policy for choosing, written down so it need not be rediscovered.
+Where an environment variable is set decides which programs see it.
+This is the policy for choosing.
 
 Contexts
 --------
@@ -39,8 +39,8 @@ What to relocate
 
 Ask what happens when a context misses the variable:
 
-- **Caches and logs** (npm cache): relocate freely. A miss creates a stray
-  directory, which is harmless.
+- **Caches and logs** (npm cache): relocate freely.
+  A miss creates a stray directory, which is harmless.
 - **Config, credentials, state, data**: relocate only if every context in
   which the tool runs is covered. A miss means a lost token, split state or
   a failed publish, so otherwise leave it where the tool puts it.
