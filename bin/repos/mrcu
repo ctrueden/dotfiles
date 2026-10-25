@@ -396,7 +396,8 @@ def print_report(repos: list[Repo]) -> None:
             clean += 1
 
     names = display_names(repos)
-    w = max((len(n) for n in names.values()), default=20)
+    shown = {r.path for r, _ in renames + safe + likely + manual} | {r.path for r in wip_repos}
+    w = max((len(names[p]) for p in shown), default=0)
 
     def branch_row(repo: Repo, branch: Branch, extra: str = "") -> None:
         print(f"  {names[repo.path]:>{w}} : {branch.name}  {extra}")
