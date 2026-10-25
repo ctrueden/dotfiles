@@ -9,7 +9,7 @@
 #
 # Managers:
 # - apt     | Debian-based packages
-# - brew    | Homebrew bottles
+# - brew    | Homebrew bottles; TAP/NAME for a tap other than core
 # - cask    | Homebrew GUI apps (macOS); TAP/NAME for a tap other than core
 # - scoop   | Windows CLI tools; BUCKET/NAME for a bucket other than main
 # - winget  | Windows apps, by package ID, including Microsoft Store ones

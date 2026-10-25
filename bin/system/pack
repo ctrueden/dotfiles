@@ -264,9 +264,7 @@ available() {
     apt)  apt-cache policy $(cat "$2") 2>/dev/null |
             awk '/^[^ ]/ {p=$1; sub(/:$/, "", p)}
                  /Candidate:/ && $2 != "(none)" {print p}' ;;
-    brew) brew formulae | grep -xFf "$2" ;;
-    # Note: A tap not yet added cannot be checked; assume the best.
-    cask) grep / "$2"; brew casks | grep -xFf "$2" ;;
+    brew|cask) brew_available "$@" ;;
     scoop)
       while IFS= read -r name; do
         case "$name" in
@@ -295,6 +293,60 @@ add_apt_source() { # source
     ppa:*) run $SUDO add-apt-repository -y -n "$1" ;;
     repo:*) run sh "$custom_dir/repo-${1#repo:}" ;;
   esac
+}
+
+# Lists which of the names in file $2 brew can install as kind $1.
+# Note: brew update deletes the name lists that brew formulae and brew casks
+# read, until another command fetches them again, as brew info does.
+brew_available() { # kind file
+  flag=--formula; test "$1" = cask && flag=--cask
+  : > "$tmp/$1.query"
+  while IFS= read -r name; do
+    case "$name" in
+      # Note: A tap not yet added or trusted cannot be checked; assume the best.
+      */*) brew_ready "$name" || { echo "$name"; continue; } ;;
+    esac
+    echo "$name" >> "$tmp/$1.query"
+  done < "$2"
+  test -s "$tmp/$1.query" || return 0
+  # Note: brew info fails outright if any name is unknown, so ask about
+  # all at once first, then one at a time.
+  if brew info $flag --json=v2 $(cat "$tmp/$1.query") >/dev/null 2>&1; then
+    cat "$tmp/$1.query"
+  else
+    while IFS= read -r name; do
+      brew info $flag --json=v2 "$name" >/dev/null 2>&1 && echo "$name"
+    done < "$tmp/$1.query"
+  fi
+}
+
+# Records which taps are added and which taps, formulae and casks brew trusts.
+brew_state() {
+  brew_taps=$(brew tap)
+  # Note: Homebrew versions before brew trust load anything.
+  brew_trust=$(brew trust --json=v1 2>/dev/null) || brew_trust=
+}
+
+brew_tapped() { printf '%s\n' "$brew_taps" | grep -qxF "$1"; } # tap
+
+# Succeeds if brew trusts a tap, or a formula or cask as TAP/NAME.
+brew_trusts() { # name
+  test -z "$brew_trust" || printf '%s\n' "$brew_trust" | grep -qF "\"$1\""
+}
+
+# Succeeds if the tap of a TAP/NAME formula or cask is added and trusted.
+brew_ready() { # name
+  brew_tapped "${1%/*}" && { brew_trusts "${1%/*}" || brew_trusts "$1"; }
+}
+
+# Adds and trusts the taps that TAP/NAME entries in file $1 come from,
+# as brew refuses to load formulae and casks from untrusted taps.
+setup_taps() { # file
+  for tap in $(sed -n 's|/[^/]*$||p' "$1" | sort -u); do
+    brew_tapped "$tap" || run brew tap "$tap"
+    brew_trusts "$tap" || run brew trust --tap "$tap"
+  done
+  test -n "$dry_run" || brew_state
 }
 
 # Adds the scoop buckets that BUCKET/NAME entries in file $1 come from.
@@ -432,6 +484,12 @@ for kind in $KINDS; do
       if (index($i, k) == 1) print substr($i, length(k) + 1)
   }' "$tmp/entries" | sort -u > "$tmp/$kind.cand"
   test -s "$tmp/$kind.cand" || continue
+
+  # Note: Installed formulae and casks need their taps trusted too,
+  # e.g. for brew tab to mark them as wanted.
+  case "$kind" in
+    brew|cask) brew_state; test -n "$list" || setup_taps "$tmp/$kind.cand" ;;
+  esac
 
   installed "$kind" | sort -u > "$tmp/$kind.have"
   requested "$kind" | sort -u > "$tmp/$kind.requested"
