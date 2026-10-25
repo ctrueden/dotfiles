@@ -60,7 +60,6 @@ done
 
 **000_os.sh** - OS-specific configuration:
 - Sets `$IS_MACOS`, `$IS_LINUX`, `$IS_FREEBSD`, or `$IS_WINDOWS`
-- Configures `ls` colors for each OS
 - Defines `sedi` alias for cross-platform in-place sed editing
 
 **000_vars.sh** - Environment variables:
@@ -133,7 +132,7 @@ done
 - `gri [ref|num]` - Interactive rebase against ref/upstream/N commits back
 - `gtagsv` - Verbose tag listing with commit hashes and remotes
 - `ghelp <term>` - Search git aliases/functions for pattern
-- `clsg` / `c` - Clear, pwd, ls, git status combo
+- `clsg` / `c` - `clr`, ls, div, git status combo (uses `clr` and `div` from commands.sh)
 
 **Notable Aliases** (complement oh-my-zsh git plugin):
 - `gs` - `git status` (covers up Ghostscript)
@@ -171,10 +170,20 @@ done
 
 **Utilities**:
 - `div [len] [symbol]` - Print dividing line (default: terminal width, em-dash)
+- `clr` - Clear screen, then print pwd and a dividing line
+- `lhelp` / `lh` - Show the `ls` alias matrix
 - `version` - Report OS version info (sw_vers, /proc/version, lsb_release, etc.)
 
+**`ls` configuration**: the `ls` alias and `LS_COLORS`/`LSCOLORS` per OS.
+
+**`ls` alias matrix** (see `lhelp`): `ls`/`ll` (columnar/long) × none/`A`/`a`
+hidden files (`A` excludes `.` and `..`, `a` includes them), with optional
+`t` (time) or `S` (size) suffix, a lowercase `s` synonym for `S`, and a `c`
+prefix to `clr` first. Examples: `lsA`, `llat`, `clsS`, `cla`. Short forms
+`l`, `la`, `lt`, `lS`, etc. are the long variants. Bash lacks omz, so
+commands.bash defines `ll`, which the rest builds on.
+
 **Aliases**:
-- `cls` / `cll` - Clear, pwd, div, ls (la for cll)
 - `mv='mv -i'` - Interactive move
 - `cdiff` - colordiff if available
 - `grep='grep --color=auto'`

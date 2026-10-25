@@ -122,5 +122,8 @@ gtagsv() {
   done
 }
 
-clsg() { /usr/bin/clear; pwd; div; ls "$@"; div; if git status >/dev/null 2>&1; then git status; fi; }
+# NB: Relies on commands.sh plugin for cls and div aliases.
+clsg() { cls "$@"; div; if git status >/dev/null 2>&1; then git status; fi; }
 alias c=clsg
+alias cA='c -A'
+alias ca='c -a'

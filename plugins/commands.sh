@@ -35,22 +35,88 @@ elif [ "$IS_MACOS" ] || [ "$IS_FREEBSD" ]; then
 	export LSCOLORS="ExGxBxDxCxEgedabagacad"
 fi
 
-# Note: Aliases from oh-my-zsh include:
-# alias l='ls -lah'
-# alias la='ls -lAh'
-# alias ll='ls -lh'
-# alias lsa='ls -lah'
+lhelp() {
+	echo "
+    Command   Style    Hidden
+    -------   -----    ------
+    ls        column   none
+    lsA       column   most
+    lsa       column   all
+    ll        long     none
+    llA       long     most
+    lla       long     all
 
-# Add one more: include hidden files, but not in a long listing.
-alias lsA='ls -A'
+    A = hidden excluding . and ..
+    a = hidden including . and ..
 
-# NB: To get clear on Cygwin, install ncurses.
-alias cl='clear;pwd;div;l'
-alias cla='clear;pwd;div;la'
-alias cll='clear;pwd;div;ll'
-alias cls='clear;pwd;div;ls'
-alias clsa='clear;pwd;div;lsa'
-alias clsA='clear;pwd;div;lsA'
+    c prefix: clear screen before listing
+    t suffix: sort by last modified time
+    S suffix: sort by file size
+
+    Aliases: s for S, l for ll (mostly)
+"
+}
+alias lh=lhelp
+
+# -- File listing shortcuts, assigned with consistency! --
+
+if [ -x /usr/bin/clear ]; then
+	# NB: We hardcode the path to the clear command if possible,
+	# because in some scenarios (e.g. in a conda environment),
+	# ncurses overrides it with its own inferior one.
+	clr() { /usr/bin/clear; pwd; div; }
+else
+  # NB: To get clear on Cygwin, install ncurses.
+	clr() { clear; pwd; div; }
+fi
+
+# columnar, no hidden files
+                     alias cls='clr;ls'      # ls is the base command ;-)
+alias lst='ls -t';   alias clst='clr;lst'
+alias lsS='ls -S';   alias clsS='clr;lsS'
+alias lss=lsS;       alias clss=clsS
+
+# columnar, most hidden files
+alias lsA='ls -A';   alias clsA='clr;lsA'
+alias lsAt='lsA -t'; alias clsAt='clr;lsAt'
+alias lsAS='lsA -S'; alias clsAS='clr;lsAS'
+alias lsAs=lsAS;     alias clsAs=clsAS
+
+# columnar, all hidden files
+alias lsa='ls -a';   alias clsa='clr;lsa'    # Overrides omz lsa='ls -lah'
+alias lsat='lsa -t'; alias clsat='clr;lsat'
+alias lsaS='lsa -S'; alias clsaS='clr;lsaS'
+alias lsas=lsaS;     alias clsas=clsaS
+
+# long, no hidden files
+alias ll='ls -lh';   alias cll='clr;ll'      # Overrides omz ll='ls -lh'
+alias llt='ll -t';   alias cllt='clr;llt'
+alias llS='ll -S';   alias cllS='clr;llS'
+alias lls=llS;       alias clls=cllS
+alias l=ll;          alias cl=cll            # Overrides omz l='ls -lah'
+alias lt=llt;        alias clt=cllt
+alias lS=llS;        alias clS=cllS
+#alias ls=lls;       alias cls=clls          # ls and cls would name clash
+
+# long, most hidden files
+alias llA='ll -A';   alias cllA='clr;llA'
+alias llAt='llA -t'; alias cllAt='clr;llAt'
+alias llAS='llA -S'; alias cllAS='clr;llAS'
+alias llAs=llAS;     alias cllAs=cllAS
+alias lA=llA;        alias clA=cllA
+alias lAt=llAt;      alias clAt=cllAt
+alias lAS=llAS;      alias clAS=cllAS
+alias lAs=llAs;      alias clAs=cllAs
+
+# long, all hidden files
+alias lla='ll -a';   alias clla='clr;lla'
+alias llat='lla -t'; alias cllat='clr;llat'
+alias llaS='lla -S'; alias cllaS='clr;llaS'
+alias llas=llaS;     alias cllas=cllaS
+alias la=lla;        alias cla=clla          # Overrides omz la='ls -lAh'
+alias lat=llat;      alias clat=cllat
+alias laS=llaS;      alias claS=cllaS
+alias las=llas;      alias clas=cllas
 
 # --== various ==--
 
