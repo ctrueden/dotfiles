@@ -34,18 +34,9 @@
 # e.g. distro packages too old to use; pack warns about any of
 # those still installed, and suggests how to remove them.
 #
-# [sections]: core always installs.
-# The rest are opt-in, via --with SECTION or the machine's profile file
-# (~/.config/dotfiles/sections, written by setup.sh):
-#   build    compilers and build tools, for building software from source
-#   dev      development tools beyond the basics
-#   ai       agentic coding assistants
-#   media    tools for working with and converting media files
-#   primary  tools to install only on main machines
-#   games    games and their launchers
-#   java     JDKs and Java tooling
-#   system   hardware and network utilities
-# A section header may name sections it requires, e.g. [dev: build].
+# [sections]: core always installs. The rest are opt-in, via --with SECTION
+# or the machine's profile file (~/.config/dotfiles/sections, written by
+# setup.sh). A section header may name sections it requires, e.g. [dev: build].
 
 [core]
 # package managers
@@ -136,7 +127,7 @@ cask:rectangle  gui
 cask:stats  gui
 cask:xquartz  gui
 
-[media]
+[media]  # tools for working with and converting media files
 apt|brew|scoop:ffmpeg
 apt|brew|scoop:graphviz
 apt|brew|scoop:imagemagick
@@ -152,7 +143,7 @@ cask:kid3 | apt:kid3-qt | winget:KDE.Kid3  gui
 cask:musicbrainz-picard | apt:picard | winget:MusicBrainz.Picard  gui
 cask|apt:meshlab | winget:CNR-ISTI.MeshLab  gui
 
-[ai]
+[ai]  # agentic coding assistants
 cask|scoop:claude-code | custom:claude-code
 winget:GitHub.Copilot | npm:@github/copilot
 cask:antigravity-cli
@@ -169,12 +160,13 @@ brew|custom:qwen-code
 #npm:@vibe-kit/grok-cli
 cask:claude | winget:Anthropic.Claude | custom:claude-desktop  gui
 
-[java]
+[java]  # JDKs and Java tooling
 uv:cjdk
 uv:jgo[cli]
 apt:openjdk-21-jdk | cask:zulu@21 | scoop:java/zulu21-jdk
 
-[build]
+
+[build]  # compilers and build tools, for building software from source
 apt|brew|scoop:cmake
 apt|brew|scoop:gcc
 apt|brew:libtool
@@ -184,7 +176,7 @@ apt:build-essential
 apt|scoop:make
 brew:ninja | apt:ninja-build
 
-[dev: build, java]
+[dev: build, java]  # development tools beyond the basics
 brew:cfr-decompiler
 brew:procyon-decompiler
 apt|brew|scoop:ruby
@@ -200,7 +192,7 @@ cask:visual-studio-code | winget:Microsoft.VisualStudioCode  gui
 cask:google-chrome | winget:Google.Chrome  gui  # For dev testing, not my daily driver.
 apt:turtle-nautilus  ppa=philippun/turtle  gui  # git integration for Nautilus
 
-[primary]
+[primary]  # tools to install only on main machines
 cask:logseq-og | flatpak:com.logseq.Logseq  gui
 cask:discord | winget:Discord.Discord  gui
 cask:zulip | winget:Zulip.Zulip  gui
@@ -210,7 +202,7 @@ apt|brew:wireguard-tools | winget:WireGuard.WireGuard
 apt:winehq-devel  repo=winehq  gui  # The default wine.
 apt:wine-stable  repo=winehq  gui  # In /opt/wine-stable, for when devel breaks.
 
-[games]
+[games]  # games and their launchers
 flatpak:io.github.wivrn.wivrn  gui  # WiVRN, for VR games
 flatpak:io.mrarm.mcpelauncher  gui  # Minecraft Bedrock
 flatpak:org.prismlauncher.PrismLauncher  gui  # Minecraft Java
@@ -218,7 +210,7 @@ flatpak:org.citra_emu.citra  gui  # Nintendo 3DS
 flatpak:org.vinegarhq.Sober  gui  # Roblox
 apt:retroarch  ppa=libretro/stable  gui
 
-[system]
+[system]  # hardware and network utilities
 apt:lm-sensors
 apt:nfs-common
 apt:inxi
