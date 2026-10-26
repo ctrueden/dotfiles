@@ -1,0 +1,84 @@
+#!/bin/sh
+
+# git-newer - tell which side of a diverged branch is newer: local or remote
+#
+# Usage: git newer [local-ref [remote-ref]]
+#
+# Defaults to the current branch and its upstream. Useful after someone
+# (often you, on another computer) rewrote history and force-pushed.
+#
+# The verdict compares the newest committer date among the commits unique
+# to each side. Rebasing, amending and fixup autosquashing all refresh the
+# committer date, so a rewritten history looks newer than its stale ancestor.
+
+set -e
+
+local=${1:-HEAD}
+remote=${2:-}
+
+if [ -z "$remote" ]
+then
+  remote=$(git rev-parse --abbrev-ref --symbolic-full-name "$local@{upstream}" 2>/dev/null) || {
+    echo "No upstream for '$local'; specify a remote ref explicitly." >&2
+    exit 2
+  }
+fi
+
+git rev-parse --verify --quiet "$local^{commit}" >/dev/null || { echo "Unknown ref: $local" >&2; exit 2; }
+git rev-parse --verify --quiet "$remote^{commit}" >/dev/null || { echo "Unknown ref: $remote" >&2; exit 2; }
+
+counts=$(git rev-list --left-right --count "$local...$remote")
+ahead=${counts%%[!0-9]*}
+behind=${counts##*[!0-9]}
+
+if [ "$ahead" = 0 ] && [ "$behind" = 0 ]
+then
+  echo "$local and $remote are identical."
+  exit 0
+elif [ "$behind" = 0 ]
+then
+  echo "$local is ahead of $remote by $ahead commit(s); not diverged (push would fast-forward)."
+  exit 0
+elif [ "$ahead" = 0 ]
+then
+  echo "$local is behind $remote by $behind commit(s); not diverged (pull would fast-forward)."
+  exit 0
+fi
+
+base=$(git merge-base "$local" "$remote")
+echo "Diverged at $(git log -1 --format='%h %s' "$base")"
+echo
+
+show_side() { # label, range, count
+  echo "$1-only: $3 commit(s)"
+  git log --format='  %h %cI %s' "$2" | head -n 8
+  [ "$3" -le 8 ] || echo "  ... ($(($3 - 8)) more)"
+}
+show_side local  "$remote..$local" "$ahead"
+echo
+show_side remote "$local..$remote" "$behind"
+echo
+
+# Patch-equivalent commits on both sides are rewrites of each other.
+same=$(git cherry "$remote" "$local" | grep -c '^-' || true)
+[ "$same" = 0 ] || echo "Note: $same local-only commit(s) have a patch-identical twin on the remote (rewritten, not changed)."
+
+reflog_time() { # ref -> "date  message" of the latest reflog entry
+  git reflog show --date=iso --format='%gd  %gs' -n 1 "$1" 2>/dev/null | sed 's/^[^{]*{\([^}]*\)}/\1/'
+}
+echo "Last local ref update:  $(reflog_time "$local")"
+echo "Last remote ref update: $(reflog_time "$remote")  (when this clone last saw it)"
+echo
+
+local_ts=$(git log -1 --format=%ct "$remote..$local")
+remote_ts=$(git log -1 --format=%ct "$local..$remote")
+
+if [ "$local_ts" -gt "$remote_ts" ]
+then
+  echo "Verdict: LOCAL is newer ($((local_ts - remote_ts))s later). The remote is probably stale."
+elif [ "$remote_ts" -gt "$local_ts" ]
+then
+  echo "Verdict: REMOTE is newer ($((remote_ts - local_ts))s later). Your local branch is probably stale."
+else
+  echo "Verdict: unclear -- newest commits on both sides share the same timestamp."
+fi
