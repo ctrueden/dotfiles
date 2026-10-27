@@ -6,7 +6,7 @@
 
 out=~/.claude/transcripts
 mkdir -p "$out"
-find ~/.claude/ -name '*.jsonl' | while read p
+find -L ~/.claude/projects -name '*.jsonl' | while read p
 do
 	md="$out/$(basename "$p" .jsonl).md"
 	test "$md" -nt "$p" && continue
