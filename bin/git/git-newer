@@ -2,16 +2,33 @@
 
 # git-newer - tell which side of a diverged branch is newer: local or remote
 #
-# Usage: git newer [local-ref [remote-ref]]
+# Usage: git newer [--base <ref>]... [local-ref [remote-ref]]
 #
 # Defaults to the current branch and its upstream. Useful after someone
 # (often you, on another computer) rewrote history and force-pushed.
 #
-# The verdict compares the newest committer date among the commits unique
-# to each side. Rebasing, amending and fixup autosquashing all refresh the
+# Commits already on the mainline (the remote's HEAD branch and its local
+# counterpart, or each --base ref) are set aside, so a branch rebased onto a
+# newer main is not mistaken for new work. Each remaining commit is matched
+# against the other side, first by patch-id, then by author, author date and
+# subject: rebasing keeps those even when conflicts change the patch.
+#
+# The verdict compares the newest committer date among each side's own
+# commits. Rebasing, amending and fixup autosquashing all refresh the
 # committer date, so a rewritten history looks newer than its stale ancestor.
 
 set -e
+
+bases=
+while [ $# -gt 0 ]
+do
+  case "$1" in
+    --base) bases="$bases $2"; shift 2 ;;
+    --base=*) bases="$bases ${1#--base=}"; shift ;;
+    -*) echo "Unknown option: $1" >&2; exit 2 ;;
+    *) break ;;
+  esac
+done
 
 local=${1:-HEAD}
 remote=${2:-}
@@ -26,6 +43,10 @@ fi
 
 git rev-parse --verify --quiet "$local^{commit}" >/dev/null || { echo "Unknown ref: $local" >&2; exit 2; }
 git rev-parse --verify --quiet "$remote^{commit}" >/dev/null || { echo "Unknown ref: $remote" >&2; exit 2; }
+for b in $bases
+do
+  git rev-parse --verify --quiet "$b^{commit}" >/dev/null || { echo "Unknown ref: $b" >&2; exit 2; }
+done
 
 counts=$(git rev-list --left-right --count "$local...$remote")
 ahead=${counts%%[!0-9]*}
@@ -45,40 +66,120 @@ then
   exit 0
 fi
 
+# Guess the mainline from the remote's HEAD, unless given explicitly.
+if [ -z "$bases" ]
+then
+  rname=${remote%%/*}
+  git remote | grep -qx "$rname" || rname=origin
+  if rhead=$(git symbolic-ref -q --short "refs/remotes/$rname/HEAD")
+  then
+    candidates="$rhead ${rhead#*/}"
+  else
+    candidates="$rname/main $rname/master main master"
+  fi
+  local_full=$(git rev-parse --symbolic-full-name "$local")
+  remote_full=$(git rev-parse --symbolic-full-name "$remote")
+  for c in $candidates
+  do
+    git rev-parse --verify --quiet "$c^{commit}" >/dev/null || continue
+    c_full=$(git rev-parse --symbolic-full-name "$c")
+    [ "$c_full" = "$local_full" ] || [ "$c_full" = "$remote_full" ] || bases="$bases $c"
+  done
+fi
+bases=${bases# }
+
+tmp=$(mktemp -d)
+trap 'rm -rf "$tmp"' EXIT
+
+describe() { # rev-list args -> "sha<TAB>patch-id<TAB>author-key" per commit, newest first
+  git log --no-merges -p --no-ext-diff --format='commit %H' "$@" | git patch-id --stable > "$tmp/pids"
+  git log --format='%H%x09%an <%ae> %at %s' "$@" |
+    awk 'NR == FNR { pid[$2] = $1; next }
+      { t = index($0, "\t"); sha = substr($0, 1, t - 1)
+        print sha "\t" (sha in pid ? pid[sha] : "-") "\t" substr($0, t + 1) }' "$tmp/pids" -
+}
+
+match() { # mine theirs -> mine's lines prefixed with "=" if twinned on theirs, else "+"
+  awk -F '\t' 'NR == FNR { if ($2 != "-") pid[$2] = 1; key[$3] = 1; next }
+    { print (($2 != "-" && $2 in pid) || $3 in key ? "=" : "+") "\t" $1 }' "$2" "$1"
+}
+
+# shellcheck disable=SC2086
+describe "$local" --not "$remote" $bases > "$tmp/local"
+# shellcheck disable=SC2086
+describe "$remote" --not "$local" $bases > "$tmp/remote"
+match "$tmp/local" "$tmp/remote" > "$tmp/local.match"
+match "$tmp/remote" "$tmp/local" > "$tmp/remote.match"
+
+local_own=$(wc -l < "$tmp/local" | tr -d ' ')
+remote_own=$(wc -l < "$tmp/remote" | tr -d ' ')
+local_main=$((ahead - local_own))
+remote_main=$((behind - remote_own))
+local_unique=$(grep -c '^+' "$tmp/local.match" || true)
+remote_unique=$(grep -c '^+' "$tmp/remote.match" || true)
+
 base=$(git merge-base "$local" "$remote")
 echo "Diverged at $(git log -1 --format='%h %s' "$base")"
+[ -z "$bases" ] || echo "Mainline:   $bases (commits on it are set aside below)"
 echo
 
-show_side() { # label, range, count
-  echo "$1-only: $3 commit(s)"
-  git log --format='  %h %cI %s' "$2" | head -n 8
-  [ "$3" -le 8 ] || echo "  ... ($(($3 - 8)) more)"
+show_side() { # label, own count, mainline count, unique count, match file
+  printf '%s-only: %s commit(s)' "$1" "$2"
+  [ "$3" = 0 ] || printf ', plus %s already on the mainline' "$3"
+  [ "$2" = 0 ] || printf ' -- %s without a twin (+), %s rewritten (=)' "$4" "$(($2 - $4))"
+  echo
+  head -n 8 "$5" | while IFS="$(printf '\t')" read -r mark sha
+  do
+    echo "  $mark $(git log -1 --format='%h %cI %s' "$sha")"
+  done
+  [ "$2" -le 8 ] || echo "  ... ($(($2 - 8)) more)"
 }
-show_side local  "$remote..$local" "$ahead"
+show_side local "$local_own" "$local_main" "$local_unique" "$tmp/local.match"
 echo
-show_side remote "$local..$remote" "$behind"
+show_side remote "$remote_own" "$remote_main" "$remote_unique" "$tmp/remote.match"
 echo
-
-# Patch-equivalent commits on both sides are rewrites of each other.
-same=$(git cherry "$remote" "$local" | grep -c '^-' || true)
-[ "$same" = 0 ] || echo "Note: $same local-only commit(s) have a patch-identical twin on the remote (rewritten, not changed)."
 
 reflog_time() { # ref -> "date  message" of the latest reflog entry
-  git reflog show --date=iso --format='%gd  %gs' -n 1 "$1" 2>/dev/null | sed 's/^[^{]*{\([^}]*\)}/\1/'
+  entry=$(git reflog show --date=iso --format='%gd  %gs' -n 1 "$1" 2>/dev/null | sed 's/^[^{]*{\([^}]*\)}/\1/')
+  echo "${entry:-(no reflog entries)}"
 }
 echo "Last local ref update:  $(reflog_time "$local")"
 echo "Last remote ref update: $(reflog_time "$remote")  (when this clone last saw it)"
 echo
 
-local_ts=$(git log -1 --format=%ct "$remote..$local")
-remote_ts=$(git log -1 --format=%ct "$local..$remote")
+mainline=${bases%% *}
+if [ "$local_unique" = 0 ] && [ "$remote_unique" = 0 ]
+then
+  if [ "$remote_main" -gt 0 ] && [ "$local_main" = 0 ]
+  then
+    echo "Shape: REMOTE is LOCAL rebased onto a newer $mainline."
+  elif [ "$local_main" -gt 0 ] && [ "$remote_main" = 0 ]
+  then
+    echo "Shape: LOCAL is REMOTE rebased onto a newer $mainline."
+  else
+    echo "Shape: both sides hold the same commits, rewritten (amended, reworded or reordered)."
+  fi
+elif [ "$local_unique" = 0 ]
+then
+  echo "Shape: REMOTE supersedes LOCAL -- every local commit has a twin there, plus $remote_unique new one(s)."
+elif [ "$remote_unique" = 0 ]
+then
+  echo "Shape: LOCAL supersedes REMOTE -- every remote commit has a twin here, plus $local_unique new one(s)."
+else
+  echo "Shape: genuinely diverged -- each side has commits without a twin on the other."
+fi
+
+local_ts=$(git log -1 --format=%ct "$(head -n 1 "$tmp/local" | cut -f 1)" 2>/dev/null || echo 0)
+remote_ts=$(git log -1 --format=%ct "$(head -n 1 "$tmp/remote" | cut -f 1)" 2>/dev/null || echo 0)
 
 if [ "$local_ts" -gt "$remote_ts" ]
 then
   echo "Verdict: LOCAL is newer ($((local_ts - remote_ts))s later). The remote is probably stale."
+  [ "$remote_unique" != 0 ] || echo "Nothing unique on the remote; to publish: git push --force-with-lease"
 elif [ "$remote_ts" -gt "$local_ts" ]
 then
   echo "Verdict: REMOTE is newer ($((remote_ts - local_ts))s later). Your local branch is probably stale."
+  [ "$local_unique" != 0 ] || echo "Nothing unique locally; to update: git reset --hard $remote"
 else
   echo "Verdict: unclear -- newest commits on both sides share the same timestamp."
 fi
