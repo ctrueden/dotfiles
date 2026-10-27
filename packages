@@ -179,6 +179,7 @@ brew:ninja | apt:ninja-build
 [dev: build, java]  # development tools beyond the basics
 brew:cfr-decompiler
 brew:procyon-decompiler
+apt|brew|scoop:shellcheck
 apt|brew|scoop:ruby
 apt:bundler
 apt:ruby-dev
