@@ -76,13 +76,21 @@ if [ -d "$NVIM_CONFIG_DIR" ]; then
   # Uncomment the custom plugins import line (idempotent).
   perl -i -pe "s/-- ((require|\{ import =) 'custom\.plugins')/\$1/" "$NVIM_CONFIG"
 
-  # Enable the pyright LSP server (idempotent).
-  perl -i -pe "s/-- (pyright = \{\},)/\$1/" "$NVIM_CONFIG"
+  # Disable the pyright LSP server, enabled by earlier versions of this
+  # script, in favor of ty (idempotent).
+  perl -i -pe "s/^(\s*)(pyright = \{\},)/\$1-- \$2/" "$NVIM_CONFIG"
+
+  # Enable the ty and bash LSP servers (idempotent).
+  grep -qF 'ty = {},' "$NVIM_CONFIG" || \
+    perl -i -pe "s|(-- pyright = \{\},)|\$1\n    ty = {},\n    bashls = {},|" "$NVIM_CONFIG"
+
+  # Remove Mason tool entries that the servers table above now covers.
+  perl -i -ne "print unless /^\s*'(ty|bash-language-server)',\$/" "$NVIM_CONFIG"
 
   # Have mason-tool-installer install the Java toolchain (jdtls + debug/test
-  # bundles used by ftplugin/java.lua) and bash-language-server (idempotent).
+  # bundles used by ftplugin/java.lua) (idempotent).
   grep -qF "'java-debug-adapter'" "$NVIM_CONFIG" || \
-    perl -i -pe "s|(-- You can add other tools here that you want Mason to install)|\$1\n    'jdtls',\n    'java-debug-adapter',\n    'java-test',\n    'bash-language-server',|" "$NVIM_CONFIG"
+    perl -i -pe "s|(-- You can add other tools here that you want Mason to install)|\$1\n    'jdtls',\n    'java-debug-adapter',\n    'java-test',|" "$NVIM_CONFIG"
 
   # Disable delve plugin auto-install (idempotent).
   perl -i -pe "s/^(\s*)('delve',)/\$1-- \$2/" "$NVIM_CONFIG_DIR/lua/kickstart/plugins/debug.lua"
