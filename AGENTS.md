@@ -8,7 +8,7 @@
 
 ## Environment variables
 
-Before adding or moving an exported variable, read `docs/environment.md`:
+Before adding or moving an exported variable, read `$DOTFILES/docs/environment.md`:
 which file it goes in depends on which contexts need it.
 
 ## Sub-rules
@@ -33,7 +33,7 @@ Maintained orgs: scijava, imglib, scifio, apposed, imagej, fiji, trackmate, trak
 **Kotlin**: Maven for standard projects; Gradle only for KMP/Native (e.g., appose/jaunch).
 
 **Shell**: POSIX-compatible `.sh` unless zsh-specific (`.zsh`) or bash-specific (`.bash`).
-See `plugins/AGENTS.md` for dotfiles plugin conventions.
+See `$DOTFILES/plugins/AGENTS.md` for dotfiles plugin conventions.
 
 ## Git
 
