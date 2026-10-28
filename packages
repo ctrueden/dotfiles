@@ -55,7 +55,7 @@ brew:gnu-sed
 brew:gnu-tar
 apt:openssh-client
 apt|brew:byobu | winget:marlocarlo.psmux
-apt|brew|scoop|custom:starship
+brew|scoop|custom|apt:starship
 apt|brew:ansiweather
 apt|brew|scoop:aspell
 apt|brew|scoop:boxes
