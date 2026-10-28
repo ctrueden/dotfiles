@@ -13,6 +13,7 @@ source "$DOTFILES"/lib/path.sh
 
 # --== terminal multiplexer ==--
 
+source "$DOTFILES"/lib/editor.sh
 source "$DOTFILES"/lib/multiplexer.sh
 
 # --== progress bar ==--

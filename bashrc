@@ -16,6 +16,7 @@ source "$DOTFILES"/lib/path.sh
 
 # --== terminal multiplexer ==--
 
+source "$DOTFILES"/lib/editor.sh
 source "$DOTFILES"/lib/multiplexer.sh
 
 # check the window size after each command and, if necessary,

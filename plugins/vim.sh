@@ -1,24 +1,19 @@
 # Set up vim command aliases.
+# Note: lib/editor.sh sets EDITOR and VISUAL, before the multiplexer starts.
 if has nvim
 then
 	alias vi='nvim'
 	alias vim='nvim'
 	alias :e='nvim'
-	export EDITOR=nvim
 elif has vim
 then
 	alias vi='vim'
 	alias :e='vim'
-	export EDITOR=vim
 elif has vi
 then
 	alias vim='vi'
 	alias :e='vi'
-	export EDITOR=vi
 fi
-
-# use nvim/vim/vi to edit commit messages
-test -z "$EDITOR" || export VISUAL="$EDITOR"
 
 # search for the given filename in the current subtree and open in vim
 # Requires: plugins/nav
