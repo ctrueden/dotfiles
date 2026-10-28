@@ -30,6 +30,7 @@ install_file() {
 }
 
 # Symlinks the given source to the specified destination.
+# Does nothing if the destination already links there.
 # Note: Windows restricts creating symlinks, so there it copies the file
 # instead. A hard link would be no better: it detaches silently whenever git
 # replaces the file in the working copy.
@@ -40,6 +41,7 @@ link_file() {
     install_file "$src" "$dest"
     return
   fi
+  test -h "$dest" && test "$(readlink "$dest")" = "$src" && return
   clear_file "$dest"
   (set -x; ln -sf "$src" "$dest")
 }
