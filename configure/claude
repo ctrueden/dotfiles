@@ -1,0 +1,36 @@
+#!/bin/sh
+
+# ~/.claude -- Claude Code config from dotfiles, plus synced conversation data
+
+here=$(cd "$(dirname "$0")" && pwd)
+export DOTFILES="${DOTFILES:-$(cd "$here/.." && pwd)}"
+
+. "$DOTFILES/lib/files.sh"
+
+mkdir -p "$HOME/.claude"
+cd "$HOME/.claude"
+
+link_file "$DOTFILES/claude/settings.json" settings.json
+
+# NB: A stub, since Claude Code's @ imports cannot expand $DOTFILES.
+stub_file CLAUDE.md "@$DOTFILES/claude/CLAUDE.md"
+
+# Link in each item synced via Nextcloud (e.g. projects, with its sessions).
+# Note: A real directory here holds local data, which must first be merged
+# into the synced copy by hand, so we leave it be.
+sync_dir="$HOME/Cloud/AI/Claude"
+test -d "$sync_dir" || exit 0
+if [ -n "$WINDOWS" ]; then
+  echo "Warning: cannot link synced Claude data on Windows; skipping." >&2
+  exit 0
+fi
+for src in "$sync_dir"/*; do
+  test -e "$src" || continue
+  dest=$(basename "$src")
+  if [ -d "$dest" ] && [ ! -h "$dest" ]; then
+    echo "Warning: ~/.claude/$dest is a real directory; merge it into" \
+      "$src, then rerun." >&2
+    continue
+  fi
+  link_file "$src" "$dest"
+done
