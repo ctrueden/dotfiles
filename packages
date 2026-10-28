@@ -87,7 +87,7 @@ apt|brew|scoop:highlight
 brew|scoop|custom:neovim  replaces=apt:neovim
 apt|brew:vim
 brew|scoop:tree-sitter | npm:tree-sitter-cli  scripts  # npm installer fetches its binary.
-apt|scoop:gcc  # Note: Neovim's tree-sitter parsers and telescope-fzf-native compile C.
+apt|brew|scoop:gcc  # Note: Neovim's tree-sitter parsers and telescope-fzf-native compile C.
 apt|scoop:make
 
 # git
@@ -170,7 +170,6 @@ apt:openjdk-21-jdk | cask:zulu@21 | scoop:java/zulu21-jdk
 
 [build]  # compilers and build tools, for building software from source
 apt|brew|scoop:cmake
-brew:gcc
 apt|brew:libtool
 apt|brew|scoop:pkgconf
 scoop:maven | custom:mvn  replaces=apt:maven
