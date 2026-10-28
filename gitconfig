@@ -89,6 +89,7 @@
 [diff]
 	color = auto
 	tool = meld
+	wordRegex = [A-Za-z0-9_]+|[^[:space:]]
 
 [diff "spaceman-diff"]
 	command = spaceman-diff
