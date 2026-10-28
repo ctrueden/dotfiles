@@ -4,19 +4,25 @@ test "$DEBUG" && echo "[zshrc] Initializing..."
 # https://youtrack.jetbrains.com/articles/SUPPORT-A-1727/Shell-Environment-Loading
 test -z "$INTELLIJ_ENVIRONMENT_READER" || return
 
-# --== PATH ==--
-
-# Note: ~/.zshenv did this already, but on macOS, /etc/zprofile has since
-# reordered the PATH for login shells. And the multiplexer below starts its
-# server with this PATH, for the commands that server runs itself.
-source "$DOTFILES"/lib/path.sh
-
 # --== terminal multiplexer ==--
 
+test "$DEBUG" && echo "[zshrc] Configuring terminal multiplexer..."
+
+# Note: ~/.zshenv did this already, but on macOS, /etc/zprofile has since
+# reordered the PATH for login shells. And the multiplexer below starts
+# its server with this PATH, for the commands that server runs itself.
+source "$DOTFILES"/lib/path.sh
+
+# Note: This is sourced before lib/multiplexer.sh so that the tmux
+# client sends EDITOR and VISUAL on attach (see update-environment in
+# tmux/tmux.conf), for programs opening an editor in a new window.
 source "$DOTFILES"/lib/editor.sh
+
 source "$DOTFILES"/lib/multiplexer.sh
 
 # --== progress bar ==--
+
+test "$DEBUG" && echo "[zshrc] Initializing progress bar..."
 
 source "$DOTFILES"/lib/progress.sh
 _plugins=("$DOTFILES"/plugins/*.sh "$DOTFILES"/plugins/*.zsh)

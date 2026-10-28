@@ -8,16 +8,24 @@ test "$DEBUG" && echo "[bashrc] Initializing..."
 # Note: A non-login bash gets nothing from ~/.bash_profile.
 source "$DOTFILES"/lib/env.sh
 
-# --== PATH ==--
-
-# Note: The multiplexer below starts its server with this PATH, for the
-# commands that server runs itself.
-source "$DOTFILES"/lib/path.sh
-
 # --== terminal multiplexer ==--
 
+test "$DEBUG" && echo "[bashrc] Configuring terminal multiplexer..."
+
+# Note: The multiplexer below starts its server with this PATH,
+# for the commands that server runs itself.
+source "$DOTFILES"/lib/path.sh
+
+# Note: This is sourced before lib/multiplexer.sh so that the tmux
+# client sends EDITOR and VISUAL on attach (see update-environment in
+# tmux/tmux.conf), for programs opening an editor in a new window.
 source "$DOTFILES"/lib/editor.sh
+
 source "$DOTFILES"/lib/multiplexer.sh
+
+# --== miscellaneous early setup ==--
+
+test "$DEBUG" && echo "[bashrc] Configuring miscellaneous things..."
 
 # check the window size after each command and, if necessary,
 # update the values of LINES and COLUMNS.
@@ -89,6 +97,8 @@ set -o vi
 
 # --== shell plugins ==--
 
+test "$DEBUG" && echo "[bashrc] Sourcing plugins..."
+
 source "$DOTFILES"/lib/progress.sh
 _plugins=("$DOTFILES"/plugins/*.sh "$DOTFILES"/plugins/*.bash)
 _progress_init ${#_plugins[@]}
@@ -100,9 +110,16 @@ done
 _progress_done
 unset _plugins f
 
+# --== fancier shell prompt! ==--
+
 # Note: This replaces the prompt set above, where starship is installed;
 # it comes after the plugins, keeping their PROMPT_COMMAND.
-has starship && eval "$(starship init bash)"
+has starship && {
+	test "$DEBUG" && echo "[bashrc] Configuring starship prompt..."
+	eval "$(starship init bash)"
+}
+
+# --== local configuration ==--
 
 # Local customized path and environment settings, etc.
 if [ -f ~/.bash_local ]; then
