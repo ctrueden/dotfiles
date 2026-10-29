@@ -1,6 +1,6 @@
 #!/bin/sh
 
-# Emit an audible alert tone. Works on macOS and Linux.
+# Emit an audible alert tone. Cases for Linux, macOS, and Windows.
 
 has() { command -v "$1" >/dev/null; }
 
@@ -15,6 +15,8 @@ while [ "$i" -lt "$count" ]; do
   elif has paplay; then
     paplay /usr/share/sounds/freedesktop/stereo/complete.oga 2>/dev/null ||
     printf '\a'
+  elif has powershell.exe; then
+    powershell.exe -NoProfile -c '[System.Media.SystemSounds]::Asterisk.Play()'
   else
     printf '\a'
   fi
