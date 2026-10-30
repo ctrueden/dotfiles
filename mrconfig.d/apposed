@@ -19,6 +19,9 @@ checkout = git clone git@github.com:apposed/apposed.org
 checkout = git clone git@github.com:apposed/codezoom
 fixups = devlink
 
+[code/apposed/fiji-skopkit]
+checkout = git clone git@github.com:apposed/fiji-skopkit
+
 [code/apposed/jaunch]
 checkout = git clone git@github.com:apposed/jaunch
 
@@ -26,14 +29,11 @@ checkout = git clone git@github.com:apposed/jaunch
 checkout = git clone git@github.com:apposed/jgo
 fixups = devlink
 
+[code/apposed/napari-skopkit]
+checkout = git clone git@github.com:apposed/napari-skopkit
+
 [code/apposed/scikit-ops]
 checkout = git clone git@github.com:apposed/scikit-ops
-
-[code/apposed/skop-fiji]
-checkout = git clone git@github.com:apposed/skop-fiji
-
-[code/apposed/skop-napari]
-checkout = git clone git@github.com:apposed/skop-napari
 
 [code/apposed/starfun3d]
 checkout = git clone git@github.com:ctrueden/starfun3d
