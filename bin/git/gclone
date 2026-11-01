@@ -7,16 +7,54 @@
 #
 # Browser-style URLs (e.g. https://github.com/org/repo/tree/main/src) and
 # "www." hosts are also accepted, and the scheme may be omitted entirely
-# (e.g. "github.com/org/repo"). All other arguments pass through untouched.
+# (e.g. "github.com/org/repo"). A bare "org/repo" is treated as GitHub too,
+# provided it is the repository argument (the first non-option argument) and
+# no local path of that name exists. All other arguments pass through untouched.
 
 # Note: GitLab requires the .git suffix, whereas GitHub does not need it.
 
 n=$#
 i=0
+seen_repo=
+skip_value=
 while [ "$i" -lt "$n" ]
 do
   arg=$1
   shift
+  i=$((i + 1))
+  # Pass option values through untouched (e.g. "-b feature/x").
+  if [ -n "$skip_value" ]; then
+    skip_value=
+    set -- "$@" "$arg"
+    continue
+  fi
+  case "$arg" in
+    -b|--branch|-o|--origin|-c|--config|-u|--upload-pack|-j|--jobs|\
+    --depth|--reference|--reference-if-able|--separate-git-dir|--template|\
+    --shallow-since|--shallow-exclude|--filter|--server-option|--bundle-uri|\
+    --ref-format|--revision)
+      skip_value=1
+      set -- "$@" "$arg"
+      continue
+      ;;
+    -*)
+      set -- "$@" "$arg"
+      continue
+      ;;
+  esac
+  # Only the first positional argument is the repository; any later one is
+  # the destination directory, which must not be rewritten.
+  if [ -n "$seen_repo" ]; then
+    set -- "$@" "$arg"
+    continue
+  fi
+  seen_repo=1
+  # Expand bare "org/repo" to a GitHub URL, unless it names a local path.
+  if [ ! -e "$arg" ] &&
+    printf '%s' "$arg" | grep -Eq '^[A-Za-z0-9][A-Za-z0-9-]*/[A-Za-z0-9._-]+$'
+  then
+    arg="github.com/$arg"
+  fi
   # Normalize for matching: drop any scheme and "www." prefix.
   bare=${arg#http://}
   bare=${bare#https://}
@@ -37,7 +75,6 @@ do
       ;;
   esac
   set -- "$@" "$arg"
-  i=$((i + 1))
 done
 
 # Show what is actually being run, in case the rewrite surprises anyone.
