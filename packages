@@ -85,6 +85,7 @@ apt|brew|scoop:highlight
 
 # editors
 brew|scoop|custom:neovim  replaces=apt:neovim
+uv:ty  # Python LSP server for Neovim.
 apt|brew:vim
 brew|scoop:tree-sitter | npm:tree-sitter-cli  scripts  # npm installer fetches its binary.
 apt|brew|scoop:gcc  # Note: Neovim's tree-sitter parsers and telescope-fzf-native compile C.

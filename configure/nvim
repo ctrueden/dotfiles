@@ -80,9 +80,14 @@ if [ -d "$NVIM_CONFIG_DIR" ]; then
   # script, in favor of ty (idempotent).
   perl -i -pe "s/^(\s*)(pyright = \{\},)/\$1-- \$2/" "$NVIM_CONFIG"
 
-  # Enable the ty and bash LSP servers (idempotent).
-  grep -qF 'ty = {},' "$NVIM_CONFIG" || \
-    perl -i -pe "s|(-- pyright = \{\},)|\$1\n    ty = {},\n    bashls = {},|" "$NVIM_CONFIG"
+  # Remove the ty LSP server, added by earlier versions of this script, from
+  # the servers table, whose entries Mason installs. Instead, the dotfiles
+  # Neovim config enables ty, which the packages file installs (idempotent).
+  perl -i -ne "print unless /^\s*ty = \{\},\$/" "$NVIM_CONFIG"
+
+  # Enable the bash LSP server (idempotent).
+  grep -qF 'bashls = {},' "$NVIM_CONFIG" || \
+    perl -i -pe "s|(-- pyright = \{\},)|\$1\n    bashls = {},|" "$NVIM_CONFIG"
 
   # Remove Mason tool entries that the servers table above now covers.
   perl -i -ne "print unless /^\s*'(ty|bash-language-server)',\$/" "$NVIM_CONFIG"
