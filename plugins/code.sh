@@ -24,6 +24,7 @@ alias gomq='cd $CODE_PERSONAL/monoqueue'
 export CODE_PRIVATE="$CODE_PERSONAL/unsorted-junk"
 alias gop='cd $CODE_PRIVATE'
 alias gouj='cd $CODE_PRIVATE'
+alias gohs='cd /opt/home-servers'
 
 # LOCI projects - https://github.com/uw-loci
 export CODE_LOCI="$CODE_BASE/loci"
