@@ -185,6 +185,7 @@ apt|brew|scoop:ruby
 apt:bundler
 apt:ruby-dev
 npm:pnpm  scripts  # Links its native binary.
+brew|scoop|custom:juliaup  # Julia version manager; provides julia.
 uv:prysk
 uv:pydeps
 uv:twine
