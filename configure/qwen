@@ -1,0 +1,30 @@
+#!/bin/sh
+
+# ~/.zshrc, ~/.bashrc -- keeps Qwen Code's self-updater out of them.
+# Note: Each self-update appends a block to the shell rc that puts ~/.local/bin
+# ahead of ~/bin, unless the rc already has the block's begin and end markers.
+# So we add those markers with nothing between them; lib/path.sh already puts
+# ~/.local/bin on the PATH. If Qwen Code ever changes its markers, the block
+# will come back, and this needs updating to match.
+
+command -v qwen >/dev/null || test -d "$HOME/.qwen" || exit 0
+
+begin='# Qwen Code PATH block begin'
+end='# Qwen Code PATH block end'
+
+mark_rc() {
+  test -f "$1" || return 0
+  grep -qxF "$begin" "$1" && grep -qxF "$end" "$1" && return 0
+  printf '\n%s\n%s\n%s\n%s\n' "$begin" \
+    '# Empty on purpose: lib/path.sh in the dotfiles adds ~/.local/bin, and these' \
+    "# markers stop Qwen Code's updater from prepending it ahead of ~/bin." \
+    "$end" >> "$1"
+}
+
+mark_rc "$HOME/.zshrc"
+# Note: Qwen Code picks ~/.bashrc, or else ~/.bash_profile if that exists.
+if [ -f "$HOME/.bashrc" ]; then
+  mark_rc "$HOME/.bashrc"
+else
+  mark_rc "$HOME/.bash_profile"
+fi

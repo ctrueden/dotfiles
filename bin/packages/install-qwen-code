@@ -3,6 +3,7 @@
 # Installs the pinned Qwen Code standalone Linux bundle into ~/.local/opt,
 # verified against the SHA-256 GitHub records for the release asset.
 # The pin is only the initial version: Qwen Code then updates itself in place.
+# Note: configure/qwen keeps its self-updater from editing the shell rc files.
 #
 # Platforms: linux
 #
@@ -10,17 +11,17 @@
 
 . "${DOTFILES:?}/lib/download.sh"
 
-qwen_ver=v0.25.3
+qwen_ver=v0.26.6
 opt="$HOME/.local/opt"
 bin="$HOME/.local/bin"
 
 case "$(uname)-$(uname -m)" in
   Linux-x86_64)
     target=x64
-    sha=6c33d85044eac409a2cceee25aad3ec54f3cd36240711cecbc264c9e7967f4d3 ;;
+    sha=7369c335d169be67479feedd8f8600b89adcdae3186ff63b2650b4b28fad2d23 ;;
   Linux-aarch64|Linux-arm64)
     target=arm64
-    sha=d3e2d94f00b521175ca4f6ebeeef64c5e0a09ead85e1f1e67229754c5fc30180 ;;
+    sha=c77241b7011e9e59b4e3d3685e8fdf9a0ac72b75c3b0121a37138fdafe13ada4 ;;
   *)
     echo "Unsupported platform for Qwen Code: $(uname) $(uname -m)" >&2
     exit 1 ;;
