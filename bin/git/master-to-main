@@ -1,5 +1,68 @@
 #!/bin/sh
-git branch -m master main
-git fetch origin
+
+# master-to-main - rename the master branch to main
+#
+# Usage: master-to-main [-r|--remote]
+#
+# Renames the local master branch to main and resyncs it with origin, after
+# the branch has been renamed on the remote side.
+#
+# With --remote, first renames the branch on GitHub too, via the gh CLI.
+# GitHub then retargets open pull requests, updates branch protection rules,
+# and redirects links to the old branch name. This requires admin access to
+# the repository.
+
+set -e
+
+remote=
+while [ $# -gt 0 ]
+do
+  case "$1" in
+    -r|--remote) remote=1; shift ;;
+    -*) echo "Unknown option: $1" >&2; exit 2 ;;
+    *) echo "Unexpected argument: $1" >&2; exit 2 ;;
+  esac
+done
+
+if [ "$remote" ]
+then
+  url=$(git remote get-url origin)
+  case "$url" in
+    git@github.com:*) slug=${url#git@github.com:} ;;
+    ssh://git@github.com/*) slug=${url#ssh://git@github.com/} ;;
+    https://github.com/*) slug=${url#https://github.com/} ;;
+    *) echo "Not a GitHub remote: $url" >&2; exit 1 ;;
+  esac
+  slug=${slug%/}
+  slug=${slug%.git}
+
+  if git ls-remote --exit-code --heads origin main >/dev/null
+  then
+    echo "[$slug] Remote main branch already exists; skipping rename."
+  elif git ls-remote --exit-code --heads origin master >/dev/null
+  then
+    echo "[$slug] Renaming remote master branch to main..."
+    gh api --silent -X POST "repos/$slug/branches/master/rename" -f new_name=main
+    # Note: GitHub applies the rename asynchronously, so a fetch right
+    # away may still see the old master branch and HEAD.
+    tries=0
+    until git ls-remote --symref origin HEAD | grep -q 'refs/heads/main' &&
+      ! git ls-remote --exit-code --heads origin master >/dev/null
+    do
+      tries=$((tries + 1))
+      test "$tries" -le 30 || { echo "[$slug] Timed out waiting for rename" >&2; exit 1; }
+      sleep 1
+    done
+  else
+    echo "[$slug] Remote has neither master nor main branch." >&2
+    exit 1
+  fi
+fi
+
+if git show-ref --verify --quiet refs/heads/master
+then
+  git branch -m master main
+fi
+git fetch --prune origin
 git branch -u origin/main main
 git remote set-head origin -a
