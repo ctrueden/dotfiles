@@ -1,15 +1,10 @@
 #!/bin/sh
 
 emit() {
-	if [ "$1" -a -n "$(echo "$1" | grep -v CNAME)" ]
+	if printf '%s' "$1" | grep -qv CNAME
 	then
-		if command -v boxes >/dev/null
-		then
-			echo "$1" | boxes -d ansi-rounded
-		else
-			echo "$1"
-			echo "--------------------"
-		fi
+		echo "$1"
+		echo "--------------------"
 	fi
 }
 
