@@ -1,0 +1,303 @@
+#!/bin/sh
+
+# scijava-upgrade - bring a SciJava-style repository up to current practices
+#
+# Usage: scijava-upgrade [-l|--local] [-v|--version <pom-scijava-version>] [dir]
+#
+# Performs three steps, each of which is skipped when already done:
+#
+# 1. Renames master to main, on GitHub too unless --local is given.
+# 2. Updates the pom-scijava parent (default: 45.1.0), choosing the lowest
+#    target Java version (8, 11, 17 or 21) that yields a passing build, and
+#    commits the change.
+# 3. Runs github-actionify.sh to update the CI configuration to match,
+#    unless that would discard customizations of the CI configuration.
+#
+# Steps 2 and 3 apply only to Maven projects with a pom-scijava parent.
+# Nothing is pushed. Build logs are kept in a temporary directory.
+#
+# The JDK used to build for Java N can be overridden via the JDK_N variable,
+# e.g. JDK_17=/path/to/jdk17.
+#
+# Exit code: 0 = success; 1 = error; 2 = CI update skipped due to
+# customizations, which must be updated by hand.
+
+set -e
+
+pomVersion=45.1.0
+# Note: This is the scijava.jvm.version value inherited from pom-scijava-base.
+parentJvmDefault=11
+candidates="8 11 17 21"
+remoteFlag=-r
+
+while [ $# -gt 0 ]
+do
+  case "$1" in
+    -l|--local) remoteFlag=; shift ;;
+    -v|--version) pomVersion=$2; shift 2 ;;
+    --version=*) pomVersion=${1#--version=}; shift ;;
+    -*) echo "Unknown option: $1" >&2; exit 2 ;;
+    *) break ;;
+  esac
+done
+test $# -le 1 || { echo "Too many arguments" >&2; exit 2; }
+cd "${1:-.}"
+
+name=$(basename "$(pwd)")
+info() { echo "[$name] $*"; }
+warn() { echo "[$name] WARNING: $*" >&2; }
+die() { echo "[$name] ERROR: $*" >&2; exit 1; }
+
+# Returns success iff version $1 is strictly less than version $2.
+versionLessThan() {
+  awk -v a="$1" -v b="$2" 'BEGIN {
+    na = split(a, x, "."); nb = split(b, y, ".")
+    n = na > nb ? na : nb
+    for (i = 1; i <= n; i++) {
+      if (x[i] + 0 < y[i] + 0) exit 0
+      if (x[i] + 0 > y[i] + 0) exit 1
+    }
+    exit 1
+  }'
+}
+
+# Converts a Java version string (e.g. 1.8, 11.0.2) to its major version.
+javaMajor() {
+  case "$1" in
+    1.*) v=${1#1.} ;;
+    *) v=$1 ;;
+  esac
+  echo "${v%%.*}"
+}
+
+# Prints the smallest candidate Java version at least $1.
+roundUp() {
+  for c in $candidates
+  do
+    test "$c" -ge "$1" && { echo "$c"; return; }
+  done
+  return 1
+}
+
+# Prints the path to a JDK able to build for Java $1.
+jdkFor() {
+  for c in $candidates
+  do
+    test "$c" -ge "$1" || continue
+    eval "jdk=\${JDK_$c:-}"
+    if [ -z "$jdk" ]
+    then
+      case "$c" in
+        8) jdk=$HOME/Java/zulu-fx-8u422 ;;
+        11) jdk=$HOME/Java/zulu-fx-11.0.17 ;;
+        *) jdk=$(jhome "^$c\\.") ;;
+      esac
+    fi
+    test -n "$jdk" -a -d "$jdk" && { echo "$jdk"; return; }
+  done
+  return 1
+}
+
+# Prints the pom-scijava parent version, or nothing if not a pom-scijava child.
+parentVersion() {
+  perl -0777 -ne '
+    m{<parent>(.*?)</parent>}s or exit;
+    my $p = $1;
+    print $1 if $p =~ m{<groupId>org\.scijava</groupId>} &&
+      $p =~ m{<artifactId>pom-scijava</artifactId>} &&
+      $p =~ m{<version>([^<]*)</version>};
+  ' pom.xml
+}
+
+# Sets the pom-scijava parent version to $1.
+setParentVersion() {
+  V=$1 perl -0777 -pi -e '
+    s{(<parent>.*?</parent>)}{
+      my $p = $1;
+      $p =~ s{(<version>)[^<]*}{$1$ENV{V}};
+      $p;
+    }se' pom.xml
+  test "$(parentVersion)" = "$1" || die "Could not update parent version"
+}
+
+# Prints the value of the POM's own scijava.jvm.version property, if any.
+explicitJvm() {
+  grep -o '<scijava\.jvm\.version>[^<]*' pom.xml | head -n1 | sed 's;.*>;;'
+}
+
+# Prints the effective scijava.jvm.version, as evaluated by Maven.
+effectiveJvm() {
+  # Note: The sed expression strips stray ANSI escape sequences.
+  JAVA_HOME=$(jdkFor 11) mvn -B -q -Denforcer.skip=true \
+    org.apache.maven.plugins:maven-help-plugin:3.5.1:evaluate \
+    -Dexpression=scijava.jvm.version -DforceStdout 2>/dev/null |
+    sed 's;.\[[0-9;]*m;;g'
+}
+
+# Sets the POM's scijava.jvm.version property to $1, removing it when that is
+# what the parent provides anyway, and adding it as the first property if
+# absent. An existing value naming the same version (e.g. 1.8 for 8) is kept.
+# Blank lines around a removed property are tidied up.
+setJvm() {
+  current=$(explicitJvm)
+  if [ -n "$current" ]
+  then
+    if [ "$(javaMajor "$current")" = "$1" ]
+    then
+      # Note: Keep the existing spelling, since e.g. Kotlin needs 1.8, not 8.
+      return
+    elif [ "$1" = "$parentJvmDefault" ]
+    then
+      perl -0777 -pi -e '
+        s{^([^\n]*)\n[ \t]*<scijava\.jvm\.version>[^<]*</scijava\.jvm\.version>[ \t]*\n((?:[ \t]*\n)?)([^\n]*)}{
+          my ($p, $b, $n) = ($1, $2, $3);
+          my $pBlank = $p =~ /^\s*$/;
+          if (($pBlank || $p =~ /<properties>\s*$/) && $b) { $b = ""; }
+          if ($pBlank && !$b && $n =~ m{</properties>}) { $p = undef; }
+          (defined $p ? "$p\n" : "") . $b . $n;
+        }me' pom.xml
+    else
+      V=$1 perl -0777 -pi -e 's{(<scijava\.jvm\.version>)[^<]*}{$1$ENV{V}}' pom.xml
+    fi
+  elif [ "$1" != "$parentJvmDefault" ]
+  then
+    V=$1 perl -0777 -pi -e 's{^([ \t]*)<properties>\n([ \t]*)}{$1<properties>\n$2<scijava.jvm.version>$ENV{V}</scijava.jvm.version>\n$2}m' pom.xml
+    test -n "$(explicitJvm)" || die "Could not add scijava.jvm.version property"
+  fi
+}
+
+# Prints the highest Java version targeted by dependencies, according to
+# bytecode-related errors in the given build log.
+neededJvm() {
+  {
+    # Enforcer: "... contains org/foo/Bar.class targeted to JDK 11"
+    grep -o 'targeted to JDK [0-9.]*' "$1" | sed 's/.* //' |
+      while read -r v; do javaMajor "$v"; done
+    # Compiler: "class file has wrong version 55.0, should be 52.0"
+    grep -o 'wrong version [0-9]*' "$1" | sed 's/.* //' |
+      while read -r v; do echo $((v - 44)); done
+  } | sort -n | tail -n1
+}
+
+# Prints the minimum JDK version required to run the build, according to
+# requireJavaVersion errors in the given build log.
+neededBuildJvm() {
+  # Enforcer: "Detected JDK version 1.8.0-422 ... is not in the allowed range [11,)."
+  v=$(grep -o 'not in the allowed range \[[0-9.]*' "$1" | head -n1 | sed 's/.*\[//')
+  test -z "$v" || javaMajor "$v"
+}
+
+# -- Sanity checks --
+
+git rev-parse --git-dir >/dev/null 2>&1 || die "Not a git repository"
+git diff-index --quiet HEAD -- || die "Dirty working copy"
+case "$(git symbolic-ref --short -q HEAD)" in
+  master|main) ;;
+  *) die "Not on the master or main branch" ;;
+esac
+
+# -- Step 1: rename master to main --
+
+master-to-main $remoteFlag
+git merge -q --ff-only '@{u}' || die "Cannot fast-forward main to its upstream"
+
+if [ ! -f pom.xml ]
+then
+  info "No pom.xml; skipping POM and CI updates."
+  exit 0
+fi
+oldParent=$(parentVersion)
+if [ -z "$oldParent" ]
+then
+  info "Parent is not pom-scijava; skipping POM and CI updates."
+  exit 0
+fi
+
+# -- Step 2: update the pom-scijava parent --
+
+if versionLessThan "$oldParent" "$pomVersion"
+then
+  oldJvm=$(effectiveJvm)
+  case "$oldJvm" in
+    [0-9]*) ;;
+    *) oldJvm=$(explicitJvm) ;;
+  esac
+  oldJvm=$(javaMajor "${oldJvm:-8}")
+  jvm=$(roundUp "$oldJvm") || die "Unsupported Java version: $oldJvm"
+  startJvm=$jvm
+  buildJvm=$jvm
+
+  info "Updating pom-scijava parent from $oldParent to $pomVersion"
+  setParentVersion "$pomVersion"
+
+  logDir=$(mktemp -d "${TMPDIR:-/tmp}/scijava-upgrade-$name.XXXXXX")
+  while :
+  do
+    setJvm "$jvm"
+    jdk=$(jdkFor "$buildJvm") || die "No JDK found for Java $buildJvm"
+    log=$logDir/build-java$jvm.log
+    info "Building for Java $jvm with $jdk"
+    if JAVA_HOME=$jdk mvn -B clean test >"$log" 2>&1
+    then
+      break
+    fi
+    need=$(neededJvm "$log")
+    needBuild=$(neededBuildJvm "$log")
+    if [ -n "$need" ] && [ "$need" -gt "$jvm" ]
+    then
+      jvm=$(roundUp "$need") || die "Dependencies need unsupported Java $need; see $log"
+      test "$buildJvm" -ge "$jvm" || buildJvm=$jvm
+      info "Dependencies target Java $need"
+    elif [ -n "$needBuild" ] && [ "$needBuild" -gt "$buildJvm" ]
+    then
+      buildJvm=$(roundUp "$needBuild") || die "Build needs unsupported Java $needBuild; see $log"
+      info "Build requires JDK $needBuild+"
+    else
+      grep -E '^\[ERROR\]' "$log" | head -n 20 >&2
+      die "Build failed for reasons other than Java version; see $log"
+    fi
+  done
+  rm -rf "$logDir"
+
+  # Warn about a comment left orphaned above a removed property.
+  if [ -z "$(explicitJvm)" ] &&
+    git diff -U1 pom.xml | grep -B1 '^-.*<scijava\.jvm\.version>' | grep -q -- '-->'
+  then
+    warn "A comment may describe the removed scijava.jvm.version property; please review pom.xml"
+  fi
+
+  msg="POM: update parent to pom-scijava $pomVersion"
+  if [ "$jvm" != "$startJvm" ]
+  then
+    msg="$msg
+
+This updates the target Java version from $oldJvm to $jvm,
+due to some dependencies targeting Java $jvm."
+  elif [ "$jvm" != "$oldJvm" ]
+  then
+    msg="$msg
+
+This updates the target Java version from $oldJvm to $jvm."
+  fi
+  git commit -q -m "$msg" pom.xml
+  info "Committed: POM: update parent to pom-scijava $pomVersion (Java $jvm)"
+else
+  info "Parent pom-scijava $oldParent is already up to date"
+  jvm=$(javaMajor "$(effectiveJvm)")
+  buildJvm=$jvm
+fi
+
+# -- Step 3: update the CI configuration --
+
+jdk=$(jdkFor "$buildJvm") || die "No JDK found for Java $buildJvm"
+# Note: A dry run first reveals whether CI customizations would be lost.
+status=0
+JAVA_HOME=$jdk github-actionify.sh || status=$?
+case "$status" in
+  0) ;;
+  2) warn "CI configuration is customized; skipping CI update, which would discard the customizations"; exit 2 ;;
+  *) die "github-actionify.sh dry run failed" ;;
+esac
+info "Updating CI configuration"
+JAVA_HOME=$jdk github-actionify.sh -f || die "github-actionify.sh failed"
+info "Done"
