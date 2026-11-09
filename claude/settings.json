@@ -32,6 +32,8 @@
   },
   "alwaysThinkingEnabled": true,
   "effortLevel": "medium",
+  "editorMode": "vim",
+  "promptSuggestionEnabled": false,
   "skipDangerousModePermissionPrompt": true,
   "model": "opus",
   "statusLine": {
