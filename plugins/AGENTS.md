@@ -63,7 +63,7 @@ done
 - Defines `sedi` alias for cross-platform in-place sed editing
 
 **000_vars.sh** - Environment variables:
-- `$BREW` - Homebrew prefix
+- `$BREW` - Homebrew prefix, plus a `brew` wrapper (lib/brew.sh) that runs it as the installation's owner
 - `$LESS=-RX` - Keep content on screen after quit
 - `$SPHINXOPTS=-W` - Fail sphinx builds on warnings
 - `$XMLLINT_INDENT` - Use tabs for XML indentation

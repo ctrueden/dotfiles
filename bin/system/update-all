@@ -102,6 +102,7 @@ then
 fi
 
 if [ -d "$BREW" ] && has brew; then
+  . "$DOTFILES/lib/brew.sh"
   echo
   echo "--== Updating Homebrew packages ==--"
   brew update

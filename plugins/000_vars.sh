@@ -4,6 +4,7 @@
 if [ -z "$BREW" ] && has brew; then
 	export BREW="$(brew --prefix)"
 fi
+test -d "$BREW" && . "$DOTFILES/lib/brew.sh"
 
 # --== starship ==--
 
