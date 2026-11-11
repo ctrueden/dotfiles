@@ -7,6 +7,11 @@
 # Linux update-java-alternatives, and Homebrew. An optional filter pattern is
 # matched against the version column (first column) only.
 #
+# Usage: jlist [--jdk | --jre] [pattern]
+#
+# By default both JDKs and JREs are listed; --jdk lists only installations
+# with a javac compiler, and --jre only those without one.
+#
 # This is a pure query with no side effects, so it lives in bin/ (on PATH) and
 # is usable from any context -- scripts, CI, non-interactive shells. The
 # shell-state-mutating commands that build on it (jswitch, jgswitch) remain
@@ -27,11 +32,26 @@ jver() {
   fi
 }
 
+kind=
+case "$1" in
+  --jdk|--jre) kind=${1#--}; shift ;;
+esac
+
 _jinfo() {
   # Emit a tab-separated version+path line for the given JDK directory, if it
-  # contains a java executable and a readable release file.
+  # contains a java executable and a readable release file, and is of the
+  # requested kind.
   local d="$1" ver
   [ -x "$d/bin/java" ] || [ -x "$d/bin/java.exe" ] || return
+  if [ "$kind" ]
+  then
+    if [ -x "$d/bin/javac" ] || [ -x "$d/bin/javac.exe" ]
+    then
+      [ "$kind" = jdk ] || return
+    else
+      [ "$kind" = jre ] || return
+    fi
+  fi
   ver=$(jver "$d")
   [ "$ver" ] && printf '%s\t%s\n' "$ver" "$d"
 }
@@ -107,4 +127,4 @@ _jinfo() {
       _jinfo "$d"
     done
   done
-} | sort -u | if [ $# -gt 0 ]; then PAT="$*" awk '$1 ~ ENVIRON["PAT"]'; else cat; fi
+} | sort -u -V | if [ $# -gt 0 ]; then PAT="$*" awk '$1 ~ ENVIRON["PAT"]'; else cat; fi
