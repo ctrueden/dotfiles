@@ -74,8 +74,8 @@ done
 
 **Key Functions**:
 - `jexec <cmd> [args...]` - Run Java commands from $JAVA_HOME/bin
-- `jlist [filter]` - List all available Java installations
-- `jhome [filter]` - Get JAVA_HOME path (current or matching filter)
+- `jlist [--jdk|--jre] [filter]` - List available Java installations
+- `jhome [--jdk|--jre] [filter]` - Get JAVA_HOME path (current, or newest JDK matching filter)
 - `jswitch <filter>` - Switch to Java version matching filter
 - Shortcuts: `j8`, `j11`, `j17`, `j21`, etc. for specific Java versions
 

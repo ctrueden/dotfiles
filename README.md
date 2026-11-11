@@ -105,8 +105,9 @@ What does this configuration include?
 
 6.  A **toolbox for managing and working with Java**:
     -   `jlist` lists the Java installations, found beneath `~/Java`,
-        the [cjdk] cache, macOS `java_home`, Linux alternatives, and Homebrew.
-    -   `jhome` prints the path of a matching installation, for one-off use
+        the [cjdk] cache, macOS `java_home`, Linux alternatives, and Homebrew,
+        optionally only JDKs (`--jdk`) or JREs (`--jre`).
+    -   `jhome` prints the path of the newest matching JDK, for one-off use
         without changing the shell, e.g. `JAVA_HOME=$(jhome "^17") mvn ...`.
     -   `jswitch` changes the current shell's Java, downloading it via
         [cjdk] if needed, e.g. `jswitch zulu:21`; or use shortcuts like
