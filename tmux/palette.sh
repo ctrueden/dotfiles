@@ -81,7 +81,7 @@ bindings() {
 choice=$(
   { bindings prefix; bindings root; } |
   grep -v -E "^root${tab}[^${tab}]*(Mouse|Wheel|Drag|Click)" |
-  fzf --reverse --delimiter="$tab" --with-nth=3 --prompt='tmux> '
+  fzf --reverse --delimiter="$tab" --with-nth=3 --prompt="$(hostname) tmux> "
 ) || exit 0
 
 # Note: send-keys -K, which presses a key as the client would, needs tmux 3.4;
