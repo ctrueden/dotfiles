@@ -26,9 +26,8 @@ in Git Bash, then sets up PowerShell and Windows Terminal. Later, rerun
 Environment variables
 ---------------------
 
-Variables that relocate tools' files (the XDG-style ones) live in `lib/env.conf`,
-shared by the shells and, via systemd, by desktop launches.
-See [docs/environment.md](docs/environment.md) before adding any.
+Variables that relocate tools' files (the XDG-style ones) live in
+`lib/env.conf`, shared by the shells and, via systemd, by desktop launches.
 
 
 LICENSE
@@ -115,7 +114,8 @@ What does this configuration include?
     -   `java`, `javac`, etc. follow `JAVA_HOME`, which defaults to an
         installed LTS release, preferring Java 21.
     -   Utilities for inspecting JAR files: `catjar`, `jar-manifest`,
-        `jardiff`, `find-class`, `list-classes`, and more in [bin/java/](bin/java/).
+        `jardiff`, `find-class`, `list-classes`, and more in
+        [bin/java/](bin/java/).
     -   Configuration for using [jgo] to easily launch useful Java code,
         particularly SciJava-related code, including [ImageJ], [Fiji],
         [Bio-Formats], [SCIFIO], and script REPLs including [Jython],
