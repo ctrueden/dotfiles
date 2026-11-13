@@ -112,32 +112,38 @@ case "$(uname)" in
   *) echo "Unsupported OS: $(uname)" >&2; exit 1 ;;
 esac
 
+# Fails for want of a package manager, unless upgrading,
+# which still has npm and uv to upgrade.
+no_manager() { # names
+  test -n "$upgrade" && return
+  echo "No supported package manager ($1) found." >&2
+  exit 1
+}
+
 # The package managers to use, in install order.
 KINDS=
 case $os in
   windows)
     has scoop && KINDS=scoop
     has winget && KINDS="$KINDS winget"
+    test -n "$KINDS" || no_manager "scoop or winget"
     ;;
   linux)
     if has apt-get; then
       KINDS=apt
     elif has brew; then
       KINDS="brew cask"
+    else
+      no_manager "apt-get or brew"
     fi
     ;;
   macos)
-    has brew && KINDS="brew cask"
+    if has brew; then KINDS="brew cask"; else no_manager brew; fi
     ;;
   freebsd)
     echo "Note: pkg is not supported yet; installing only npm, uv and custom packages." >&2
     ;;
 esac
-# Note: Upgrading still has npm and uv to upgrade, if nothing else.
-if [ -z "$KINDS" ] && [ $os != freebsd ] && [ -z "$upgrade" ]; then
-  echo "No supported package manager (apt-get, brew, scoop or winget) found." >&2
-  exit 1
-fi
 
 scoop_dir=${SCOOP:-$HOME/scoop}
 
