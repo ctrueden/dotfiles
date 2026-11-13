@@ -580,10 +580,16 @@ fi
 # those installed or available from their manager, and existing custom ones.
 # Note: Its first line is a placeholder, so that awk can tell it is first.
 echo - > "$tmp/ok"
+customs=$(for f in "$custom_dir"/install-*; do echo "custom:${f##*/install-}"; done)
 for kind in $KINDS; do
-  awk -v k="$kind:" '{
-    for (i = 3; i <= NF; i++)
+  # Note: Alternatives after one that can always supply its package (a late
+  # kind, or an existing custom installer) are never chosen, so are skipped.
+  awk -v k="$kind:" -v late=" $LATE_KINDS " -v customs=" $(echo $customs) " '{
+    for (i = 3; i <= NF; i++) {
       if (index($i, k) == 1) print substr($i, length(k) + 1)
+      if (index(late, " " substr($i, 1, index($i, ":") - 1) " ") ||
+          index(customs, " " $i " ")) break
+    }
   }' "$tmp/entries" | sort -u > "$tmp/$kind.cand"
   test -s "$tmp/$kind.cand" || continue
 
@@ -629,9 +635,7 @@ for kind in $KINDS; do
   fi
   cat "$tmp/$kind.have" "$tmp/$kind.avail" | sed "s|^|$kind:|" >> "$tmp/ok"
 done
-for f in "$custom_dir"/install-*; do
-  echo "custom:${f##*/install-}"
-done >> "$tmp/ok"
+echo "$customs" >> "$tmp/ok"
 
 # Each line of $tmp/chosen is an entry's first alternative that can supply it,
 # or else its first alternative: kind, name, section, enabled, and whether
