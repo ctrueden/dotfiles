@@ -128,7 +128,9 @@ alias rgrep='grep -IR --exclude="*\.svn*"'
 alias f='find . -name'
 alias o=open
 alias off='shutdown -h now'
+alias off!='sudo shutdown -h now'
 alias offon='shutdown -r now'
+alias offon!='sudo shutdown -r now'
 
 # --== version reporting ==--
 
