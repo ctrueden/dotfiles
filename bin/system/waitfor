@@ -1,0 +1,90 @@
+#!/bin/sh
+
+# waitfor - Block until the given processes have all exited.
+#
+# Each argument is a PID or a process name. A name matches a process whose
+# program, or script run by an interpreter, has that name: "waitfor update-all"
+# catches both "update-all" and "/bin/sh /path/to/update-all". Names are
+# rechecked on every poll, so a matching process started while waiting also
+# extends the wait.
+
+set -u
+
+usage() {
+  cat <<EOF
+Usage: waitfor [OPTIONS] (PID|NAME)...
+
+Blocks until every process identified by the arguments has exited.
+A numeric argument is a PID; anything else is a process name.
+
+Options:
+  -i SECONDS  Poll interval (default: 1).
+  -t SECONDS  Give up after this long, exiting with status 1.
+  -q          Do not report what is being waited for.
+  -h          Show this help.
+EOF
+}
+
+interval=1
+timeout=
+quiet=
+while getopts 'i:t:qh' opt; do
+  case "$opt" in
+    i) interval=$OPTARG ;;
+    t) timeout=$OPTARG ;;
+    q) quiet=1 ;;
+    h) usage; exit 0 ;;
+    *) usage >&2; exit 2 ;;
+  esac
+done
+shift $((OPTIND - 1))
+if [ $# -eq 0 ]; then
+  usage >&2
+  exit 2
+fi
+
+# Lists the PIDs of live processes with the given name.
+find_name() {
+  if command -v pgrep >/dev/null; then
+    # Note: Only the first two command line words (program, or interpreter
+    # plus script) are checked, so that our own command line, which mentions
+    # the name later on, never matches.
+    pgrep -f "^([^ ]+ )?([^ ]*/)?$1( |\$)"
+  else
+    # Note: This is for Windows Git Bash, which lacks pgrep;
+    # its ps -W lists native Windows processes too.
+    ps -W | awk -v name="$1" 'NR > 1 {
+      cmd = $NF; sub(/.*[\\\/]/, "", cmd); sub(/\.exe$/, "", cmd)
+      if (cmd == name) print $1
+    }'
+  fi
+}
+
+alive() {
+  for arg in "$@"; do
+    case "$arg" in
+      ''|*[!0-9]*) find_name "$arg" ;;
+      *) ps -p "$arg" >/dev/null 2>&1 && echo "$arg" ;;
+    esac
+  done
+}
+
+if [ -n "$timeout" ]; then
+  deadline=$(( $(date +%s) + timeout ))
+fi
+
+reported=
+while :; do
+  pids=$(alive "$@" | sort -nu | tr '\n' ' ')
+  pids=${pids% }
+  [ -n "$pids" ] || exit 0
+  if [ -z "$quiet" ] && [ "$pids" != "$reported" ]; then
+    echo "Waiting for: $pids" >&2
+    reported=$pids
+  fi
+  if [ -n "$timeout" ] && [ "$(date +%s)" -ge "$deadline" ]; then
+    echo "Timed out; still running: $pids" >&2
+    exit 1
+  fi
+  sleep "$interval"
+done
