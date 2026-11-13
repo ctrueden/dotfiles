@@ -1,4 +1,4 @@
-# Homebrew helper, shared by the shell plugins, pack and update-all.
+# Homebrew helper, shared by the shell plugins and pack.
 
 # Prints the user who owns the Homebrew installation at $BREW.
 # Note: On Intel macOS, $BREW is /usr/local, which root owns; the Homebrew

@@ -2,7 +2,8 @@
 
 # Manages the packages listed in $DOTFILES/packages: installs those not yet
 # present, using as few package manager invocations as possible, or lists
-# their status. See pack help for usage.
+# their status. Also includes a function to upgrade everything installed
+# through the package managers it supports. See pack help for usage.
 
 set -u
 
@@ -31,11 +32,13 @@ Commands:
   install             Install the packages that are not yet present.
   list                List every package relevant to this OS: its status, how
                       it installs, and its sections. Installs nothing.
+  upgrade             Upgrade everything installed through each package
+                      manager present, whether the manifest lists it or not.
   help                Show this help.
 
 Options:
-  -n, --dry-run       With install, report what would be installed,
-                      without installing it.
+  -n, --dry-run       With install or upgrade, report the commands that
+                      would run, without running them.
   --with SECTION      Also enable an opt-in section (see packages manifest).
   --without SECTION   Skip a section, even core.
   --gui               Include entries marked gui, even with no desktop detected.
@@ -70,6 +73,7 @@ EOF
 
 dry_run=
 list=
+upgrade=
 with=$(cat "$profile" 2>/dev/null | tr '\n' ' ')
 without=
 gui=
@@ -77,6 +81,7 @@ gui=
 case "${1:-}" in
   i|install) ;;
   l|list) list=1 ;;
+  u|upgrade) upgrade=1 ;;
   h|help|-h|--help) usage; exit ;;
   '') usage >&2; exit 1 ;;
   *) echo "Unknown command: $1 (see pack help)" >&2; exit 1 ;;
@@ -86,7 +91,7 @@ shift
 while [ $# -gt 0 ]; do
   case "$1" in
     -n|--dry-run)
-      test -z "$list" || { echo "--dry-run applies only to install" >&2; exit 1; }
+      test -z "$list" || { echo "--dry-run does not apply to list" >&2; exit 1; }
       dry_run=1 ;;
     --with) shift; with="$with ${1:?--with needs a section}" ;;
     --without) shift; without="$without ${1:?--without needs a section}" ;;
@@ -128,7 +133,8 @@ case $os in
     echo "Note: pkg is not supported yet; installing only npm, uv and custom packages." >&2
     ;;
 esac
-if [ -z "$KINDS" ] && [ $os != freebsd ]; then
+# Note: Upgrading still has npm and uv to upgrade, if nothing else.
+if [ -z "$KINDS" ] && [ $os != freebsd ] && [ -z "$upgrade" ]; then
   echo "No supported package manager (apt-get, brew, scoop or winget) found." >&2
   exit 1
 fi
@@ -416,6 +422,81 @@ mark_kind() { # kind names...
 queue_custom() { # name
   sh "$custom_dir/install-$1" --check || echo "$1" >> "$tmp/custom.run"
 }
+
+# -- Upgrade --
+
+upgrade_code=0
+
+upgrading() { echo; echo "--== Upgrading $1 ==--"; }
+
+# Runs a command, reporting a failure, and remembering the worst exit code.
+try() {
+  run "$@"; c=$?
+  test $c -eq 0 || echo "=> returned $c"
+  test $c -lt $upgrade_code || upgrade_code=$c
+  return $c
+}
+
+# Upgrades everything installed through each package manager present,
+# whether or not the manifest lists it.
+upgrade_all() {
+  if has apt-get; then
+    upgrading "apt packages"
+    try $SUDO apt-get update
+    try $SUDO apt-get dist-upgrade -y
+  fi
+
+  if has flatpak; then
+    upgrading "Flatpak packages"
+    # Note: Under sudo, --user means root's installation, not ours.
+    try flatpak update --user --noninteractive
+    if [ -n "$(flatpak list --system --columns=ref)" ]; then
+      try $SUDO flatpak update --system --noninteractive
+    fi
+  fi
+
+  if has snap; then
+    upgrading "Snap packages"
+    # Note: snap refresh cannot update the Snap Store while it runs.
+    pgrep -x snap-store >/dev/null && run $SUDO killall snap-store
+    try $SUDO snap refresh
+  fi
+
+  if has brew; then
+    upgrading "Homebrew packages"
+    try brew update && try brew upgrade
+  fi
+
+  if has scoop; then
+    upgrading "Scoop packages"
+    try scoop update && try scoop update '*'
+  fi
+
+  if has winget; then
+    upgrading "winget packages"
+    try winget upgrade --all --silent --accept-package-agreements \
+      --accept-source-agreements --disable-interactivity
+  fi
+
+  # Note: Only an installer-made uv can update itself;
+  # a Homebrew or scoop uv is upgraded along with the rest of its manager's.
+  if [ -f "${XDG_CONFIG_HOME:-$HOME/.config}/uv/uv-receipt.json" ]; then
+    upgrading uv
+    try uv self update
+  fi
+
+  if has uv; then
+    upgrading "uv tools"
+    try uv tool upgrade --all
+  fi
+
+  if [ -n "$(global_node_bin)" ]; then
+    upgrading "global npm packages"
+    try global_npm update -g $(allow_scripts_option)
+  fi
+}
+
+test -n "$upgrade" && { upgrade_all; exit $upgrade_code; }
 
 # -- Read the manifest --
 

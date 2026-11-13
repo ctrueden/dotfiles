@@ -89,8 +89,10 @@ What does this configuration include?
     -   Custom installers in [bin/packages/](bin/packages/) for things no
         package manager supplies well, each pinned to a release and verified
         against a recorded checksum.
-    -   `update-all` reruns it, so new manifest entries and bumped pins
-        reach existing machines, then upgrades uv tools and npm packages.
+    -   `pack upgrade` upgrades everything those package managers have
+        installed, listed in the manifest or not.
+    -   `update-all` runs `pack upgrade`, then `pack install`, so new
+        manifest entries and bumped pins reach existing machines.
 
 5.  A **managed set of SCM repositories** for the [SciJava] ecosystem:
     -   Sensible defaults for an extensible source code folder structure,

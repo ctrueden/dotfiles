@@ -14,166 +14,78 @@ esac
 
 has() { command -v "$1" >/dev/null; }
 
+heading() { echo; echo "--== $1 ==--"; }
+
 exit_code=0
+
+# Reports a failure of the command just run, and remembers the worst exit code.
+# Note: It reads that command's exit code from $?, so call it right after.
+tally() {
+  code=$?
+  test $code -eq 0 || echo "=> returned $code"
+  test $code -lt $exit_code || exit_code=$code
+}
 
 if [ -d "$DOTFILES" ]
 then
-  echo
-  echo "--== Updating dotfiles ==--"
-
+  heading "Updating dotfiles"
   # Only use fast-forward merge, not rebase. If dotfiles
   # have diverged from remote, this returns non-zero by design.
   (cd "$DOTFILES" &&
     git fetch --all --tags --prune --jobs=10 &&
     git merge --ff --ff-only 'HEAD@{u}')
-  code=$?; test $code -lt $exit_code || exit_code=$code
-  test $code -eq 0 || echo "=> returned $code"
+  tally
 fi
 
 if has zpm
 then
-  echo
-  echo "--== Updating zsh plugins ==--"
+  heading "Updating zsh plugins"
   zpm up
-  code=$?; test $code -lt $exit_code || exit_code=$code
-  test $code -eq 0 || echo "=> returned $code"
+  tally
 fi
 
 if [ -d "$CODE_SCIJAVA/scijava-scripts" ]
 then
-  echo
-  echo "--== Updating SciJava scripts ==--"
+  heading "Updating SciJava scripts"
   (cd "$CODE_SCIJAVA/scijava-scripts" && git pull --rebase)
-  code=$?; test $code -lt $exit_code || exit_code=$code
-  test $code -eq 0 || echo "=> returned $code"
+  tally
 fi
 
 if [ -d "$HOME/.password-store" ] && has pass
 then
-  echo
-  echo "--== Updating password store ==--"
+  heading "Updating password store"
   pass git pull --rebase
-  code=$?; test $code -lt $exit_code || exit_code=$code
-  test $code -eq 0 || echo "=> returned $code"
+  tally
 fi
 
+# Note: fwupdmgr fails when there is nothing to update,
+# so its exit codes are reported, but not remembered.
 if has fwupdmgr; then
-  echo
-  echo "--== Updating firmware ==--"
+  heading "Updating firmware"
   fwupdmgr get-updates
-  code=$? #; test $code -lt $exit_code || exit_code=$code
-  test $code -eq 0 || echo "=> returned $code"
+  code=$?; test $code -eq 0 || echo "=> returned $code"
   fwupdmgr update -y --no-reboot-check
-  code=$? #; test $code -lt $exit_code || exit_code=$code
-  test $code -eq 0 || echo "=> returned $code"
+  code=$?; test $code -eq 0 || echo "=> returned $code"
 fi
 
-if has apt-get; then
-  echo
-  echo "--== Updating apt packages ==--"
-  sudo apt-get update
-  sudo apt-get dist-upgrade -y
-  code=$?; test $code -lt $exit_code || exit_code=$code
-  test $code -eq 0 || echo "=> returned $code"
-fi
-
-if has flatpak; then
-  echo
-  echo "--== Updating Flatpak packages ==--"
-  # Note: Under sudo, --user means root's installation, not ours.
-  flatpak update --user --noninteractive
-  code=$?
-  if [ -n "$(flatpak list --system --columns=ref)" ]; then
-    sudo flatpak update --system --noninteractive
-    c=$?; test $c -lt $code || code=$c
-  fi
-  test $code -lt $exit_code || exit_code=$code
-  test $code -eq 0 || echo "=> returned $code"
-fi
-
-if has snap
-then
-  echo
-  echo "--== Updating Snap packages ==--"
-  sudo killall snap-store
-  sudo snap refresh
-  code=$?; test $code -lt $exit_code || exit_code=$code
-  test $code -eq 0 || echo "=> returned $code"
-fi
-
-if [ -d "$BREW" ] && has brew; then
-  . "$DOTFILES/lib/brew.sh"
-  echo
-  echo "--== Updating Homebrew packages ==--"
-  brew update
-  brew upgrade
-  code=$?; test $code -lt $exit_code || exit_code=$code
-  test $code -eq 0 || echo "=> returned $code"
-
-  if [ "$(uname)" = Darwin ] && has fixapps; then
-    echo
-    echo "--== Resetting stale TCC grants ==--"
-    fixapps
-    code=$?; test $code -lt $exit_code || exit_code=$code
-    test $code -eq 0 || echo "=> returned $code"
-  fi
-fi
-
-if has scoop; then
-  echo
-  echo "--== Updating Scoop packages ==--"
-  scoop update && scoop update '*'
-  code=$?; test $code -lt $exit_code || exit_code=$code
-  test $code -eq 0 || echo "=> returned $code"
-fi
-
-if has winget; then
-  echo
-  echo "--== Updating winget packages ==--"
-  winget upgrade --all --silent --accept-package-agreements \
-    --accept-source-agreements --disable-interactivity
-  code=$?; test $code -lt $exit_code || exit_code=$code
-  test $code -eq 0 || echo "=> returned $code"
-fi
-
-# Note: This picks up packages newly added to the manifest,
-# and reruns custom installers whose pinned versions were bumped.
 if [ -d "$DOTFILES" ]; then
-  echo
-  echo "--== Installing packages from the manifest ==--"
+  # Note: pack prints a heading for each package manager it upgrades.
+  "$DOTFILES/bin/system/pack" upgrade
+  tally
+
+  # Note: This picks up packages newly added to the manifest,
+  # and reruns custom installers whose pinned versions were bumped.
+  heading "Installing packages from the manifest"
   "$DOTFILES/bin/system/pack" install
-  code=$?; test $code -lt $exit_code || exit_code=$code
-  test $code -eq 0 || echo "=> returned $code"
+  tally
 fi
 
-# Note: Only an installer-made uv can update itself;
-# a Homebrew uv is upgraded along with the other formulae.
-if [ -f "${XDG_CONFIG_HOME:-$HOME/.config}/uv/uv-receipt.json" ]; then
-  echo
-  echo "--== Updating uv ==--"
-  uv self update
-  code=$?; test $code -lt $exit_code || exit_code=$code
-  test $code -eq 0 || echo "=> returned $code"
+if [ "$(uname)" = Darwin ] && has fixapps; then
+  heading "Resetting stale TCC grants"
+  fixapps
+  tally
 fi
 
-if has uv; then
-  echo
-  echo "--== Updating uv tools ==--"
-  uv tool upgrade --all
-  code=$?; test $code -lt $exit_code || exit_code=$code
-  test $code -eq 0 || echo "=> returned $code"
-fi
-
-. "$DOTFILES/lib/node.sh"
-if [ -n "$(global_node_bin)" ]; then
-  echo
-  echo "--== Updating global npm packages ==--"
-  global_npm update -g $(allow_scripts_option)
-  code=$?; test $code -lt $exit_code || exit_code=$code
-  test $code -eq 0 || echo "=> returned $code"
-fi
-
-echo
-echo "--== Done ==--"
+heading "Done"
 
 exit $exit_code
