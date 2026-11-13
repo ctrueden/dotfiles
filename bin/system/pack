@@ -138,7 +138,7 @@ scoop_dir=${SCOOP:-$HOME/scoop}
 # The package managers that may be installed only during the run,
 # so their packages install after those of $KINDS.
 LATE_KINDS="npm uv"
-test $os = linux && LATE_KINDS="$LATE_KINDS flatpak"
+test $os = linux && LATE_KINDS="$LATE_KINDS flatpak snap"
 
 SUDO=sudo
 test "$(id -u)" -eq 0 && SUDO=
@@ -246,6 +246,8 @@ installed() {
           done ;;
     flatpak) has flatpak || return 0
              flatpak list --app --columns=application ;;
+    snap) has snap || return 0
+          snap list 2>/dev/null | awk 'NR > 1 {print $1}' ;;
   esac
 }
 
@@ -389,6 +391,13 @@ install_kind() { # kind names...
       run flatpak remote-add --user --if-not-exists flathub \
         https://dl.flathub.org/repo/flathub.flatpakrepo &&
         run flatpak install --user -y --noninteractive flathub "$@" ;;
+    snap)
+      strict=$(printf '%s\n' "$@" | grep -vxFf "$tmp/snap.classic")
+      test -z "$strict" || run $SUDO snap install $strict
+      # Note: snap installs classic snaps only one at a time.
+      for p in $(printf '%s\n' "$@" | grep -xFf "$tmp/snap.classic"); do
+        run $SUDO snap install --classic "$p"
+      done ;;
   esac
 }
 
@@ -418,14 +427,16 @@ queue_custom() { # name
 # An entry's replaces= token, if any, follows its alternatives.
 # An entry marked gui is enabled only when $gui is 1, and its section
 # reads as SECTION+gui.
-# $tmp/uv.python pairs uv tools with the Python their entries ask for, and
+# $tmp/uv.python pairs uv tools with the Python their entries ask for,
 # $tmp/apt.src apt packages with the source, ppa:OWNER/NAME or repo:NAME,
-# that their entries ask for.
+# that their entries ask for, and $tmp/snap.classic lists the snaps whose
+# entries ask for classic confinement.
 sed -e 's/#.*//' -e 's/[[:space:]]*|[[:space:]]*/|/g' "$manifest" |
 awk -v kinds=" $KINDS $LATE_KINDS custom " -v enabled="$sections" -v gui="$gui" \
   -v unsupported=" $(unsupported_customs | tr '\n' ' ') " \
-  -v pyfile="$tmp/uv.python" -v srcfile="$tmp/apt.src" '
-  BEGIN { printf "" > pyfile; printf "" > srcfile }
+  -v pyfile="$tmp/uv.python" -v srcfile="$tmp/apt.src" \
+  -v classicfile="$tmp/snap.classic" '
+  BEGIN { printf "" > pyfile; printf "" > srcfile; printf "" > classicfile }
   /^\[/ {
     section = $1
     sub(/^\[/, "", section); sub(/:$/, "", section); sub(/\]$/, "", section)
@@ -455,6 +466,9 @@ awk -v kinds=" $KINDS $LATE_KINDS custom " -v enabled="$sections" -v gui="$gui" 
           if ($j ~ /^(ppa|repo)=/) {
             src = $j; sub(/=/, ":", src); print named[i], src > srcfile
           }
+      if (kind[i] == "snap")
+        for (j = 2; j <= NF; j++)
+          if ($j == "classic") print named[i] > classicfile
     }
     if (out == "") next
     marked = 0

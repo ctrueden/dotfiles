@@ -16,6 +16,7 @@
 # - npm     | tools from the JavaScript world
 # - uv      | tools from the Python world
 # - flatpak | Linux desktop apps from Flathub, by app ID
+# - snap    | Linux apps from the Snap Store
 # - custom  | runs the script bin/packages/install-NAME
 #
 # Each custom script must support --check, exiting 0 when its tool is
@@ -23,6 +24,8 @@
 # freebsd, windows) limits the OSes where it counts as an alternative.
 # An npm entry followed by the word scripts may run its install scripts,
 # which npm otherwise warns about, and will someday refuse to run.
+# A snap entry followed by the word classic installs with classic
+# confinement, as snaps that need broad access to the system require.
 # A uv entry followed by python=VERSION installs its tool on that Python,
 # e.g. when the newest Python lacks wheels the tool needs.
 # An apt entry followed by ppa=OWNER/NAME needs that Launchpad PPA, and one
