@@ -22,7 +22,7 @@ div() {
 	local symbol=$2
 	test "$symbol" || symbol=—
 	local div=
-	for i in $(seq "$len"); do div="$div$symbol"; done
+	for _i in $(seq "$len"); do div="$div$symbol"; done
 	echo "$div"
 }
 
