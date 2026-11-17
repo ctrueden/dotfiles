@@ -86,7 +86,7 @@ apt:fd-find | brew|scoop:fd  # for file searching
 apt|brew|scoop:ripgrep  # for file content searching
 brew|scoop|custom:fzf  replaces=apt:fzf  # for quick file subtree navigation
 apt|brew|scoop:zoxide  # for historical directories navigation
-apt|brew|scoop:resvg  # for SVG preview
+apt|brew|scoop|custom:resvg  # for SVG preview
 # Note: ImageMagick dependency is in media section.
 apt:xclip  # for Linux clipboard support
 apt:xsel  # for Linux clipboard support

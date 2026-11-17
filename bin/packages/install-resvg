@@ -1,0 +1,39 @@
+#!/bin/sh
+
+# Installs a pinned resvg release binary into ~/.local/bin, verified against a
+# SHA-256 recorded here. Used where the OS package is unavailable (e.g. Ubuntu
+# 24.04). To upgrade, bump resvg_ver and both hashes together; the hashes are
+# shown as digests beside each release asset on GitHub.
+#
+# Note: resvg 0.50.0's x86_64 build needs glibc 2.43, newer than Ubuntu 24.04
+# has, whereas 0.49.0 needs only 2.35, so check the glibc each new build needs.
+# See https://github.com/linebender/resvg/issues/1247 for the relevant issue.
+#
+# Platforms: linux
+#
+# With --check, reports via exit code whether the pinned version is installed.
+
+. "${DOTFILES:?}/lib/download.sh"
+
+resvg_ver=0.49.0
+
+if [ "${1:-}" = --check ]; then
+  "$HOME/.local/bin/resvg" --version 2>/dev/null | grep -qF "$resvg_ver"
+  exit
+fi
+
+case "$(uname)-$(uname -m)" in
+  Linux-x86_64)
+    target=linux-x86_64
+    sha=216637e75e909e53e3098b0875cd5f7da2fdc8b4359771b4a29b539afff9d3f5 ;;
+  Linux-aarch64)
+    target=linux-aarch64
+    sha=00356cb6984836d7638fe10597a01ec4776b0c356e164538f165eca067f0d982 ;;
+  *)
+    echo "Unsupported platform for resvg: $(uname) $(uname -m)" >&2
+    exit 1 ;;
+esac
+
+download_verified "https://github.com/linebender/resvg/releases/download/v$resvg_ver/resvg-$target.tar.gz" "$sha" &&
+mkdir -p "$HOME/.local/bin" &&
+tar -xzf "$downloaded" -C "$HOME/.local/bin" resvg
