@@ -31,6 +31,8 @@
 # An apt entry followed by ppa=OWNER/NAME needs that Launchpad PPA, and one
 # followed by repo=NAME needs the repository that bin/packages/repo-NAME sets
 # up (supporting --check, as custom scripts do); pack sets up either first.
+# An apt entry followed by the word norecommends installs without the
+# packages it recommends, e.g. when this file lists the ones wanted itself.
 # Any entry may be followed by the word gui, to install it only on desktops.
 # Any entry may be followed by replaces=MANAGER:NAME[,MANAGER:NAME...],
 # naming packages it supersedes when another of its alternatives installs it,

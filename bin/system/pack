@@ -375,7 +375,12 @@ add_buckets() {
 install_kind() { # kind names...
   kind=$1; shift
   case "$kind" in
-    apt)  run $SUDO apt-get install -y "$@" ;;
+    apt)
+      full=$(printf '%s\n' "$@" | grep -vxFf "$tmp/apt.norec")
+      lean=$(printf '%s\n' "$@" | grep -xFf "$tmp/apt.norec")
+      test -z "$full" || run $SUDO apt-get install -y $full || return
+      test -z "$lean" ||
+        run $SUDO apt-get install -y --no-install-recommends $lean ;;
     brew) run brew install "$@" ;;
     cask) run brew install --cask "$@" ;;
     # Note: One at a time, as scoop abandons the rest when one fails.
@@ -516,14 +521,18 @@ test -n "$upgrade" && { upgrade_all; exit $upgrade_code; }
 # reads as SECTION+gui.
 # $tmp/uv.python pairs uv tools with the Python their entries ask for,
 # $tmp/apt.src apt packages with the source, ppa:OWNER/NAME or repo:NAME,
-# that their entries ask for, and $tmp/snap.classic lists the snaps whose
-# entries ask for classic confinement.
+# that their entries ask for, $tmp/apt.norec the apt packages whose entries
+# ask to leave out recommended packages, and $tmp/snap.classic the snaps
+# whose entries ask for classic confinement.
 sed -e 's/#.*//' -e 's/[[:space:]]*|[[:space:]]*/|/g' "$manifest" |
 awk -v kinds=" $KINDS $LATE_KINDS custom " -v enabled="$sections" -v gui="$gui" \
   -v unsupported=" $(unsupported_customs | tr '\n' ' ') " \
   -v pyfile="$tmp/uv.python" -v srcfile="$tmp/apt.src" \
-  -v classicfile="$tmp/snap.classic" '
-  BEGIN { printf "" > pyfile; printf "" > srcfile; printf "" > classicfile }
+  -v norecfile="$tmp/apt.norec" -v classicfile="$tmp/snap.classic" '
+  BEGIN {
+    printf "" > pyfile; printf "" > srcfile
+    printf "" > norecfile; printf "" > classicfile
+  }
   /^\[/ {
     section = $1
     sub(/^\[/, "", section); sub(/:$/, "", section); sub(/\]$/, "", section)
@@ -552,7 +561,7 @@ awk -v kinds=" $KINDS $LATE_KINDS custom " -v enabled="$sections" -v gui="$gui" 
         for (j = 2; j <= NF; j++)
           if ($j ~ /^(ppa|repo)=/) {
             src = $j; sub(/=/, ":", src); print named[i], src > srcfile
-          }
+          } else if ($j == "norecommends") print named[i] > norecfile
       if (kind[i] == "snap")
         for (j = 2; j <= NF; j++)
           if ($j == "classic") print named[i] > classicfile
