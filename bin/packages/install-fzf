@@ -2,10 +2,11 @@
 
 # Installs a pinned fzf release binary into ~/.local/bin, verified against a
 # SHA-256 recorded here. Used where the OS package is unavailable (FreeBSD
-# without pkg, e.g. TrueNAS). To upgrade, bump fzf_ver and the hash together;
-# the hashes are published in fzf_VERSION_checksums.txt beside the assets.
+# without pkg, e.g. TrueNAS) or too old (Debian and Ubuntu, for yazi's needs).
+# To upgrade, bump fzf_ver and the hashes together; the hashes are published
+# in fzf_VERSION_checksums.txt beside the assets.
 #
-# Platforms: freebsd
+# Platforms: freebsd linux
 #
 # With --check, reports via exit code whether the pinned version is installed.
 
@@ -22,6 +23,12 @@ case "$(uname)-$(uname -m)" in
   FreeBSD-amd64)
     target=freebsd_amd64
     sha=a1740d86e8e061d99d13925ba85432948d23d9cf9d0a9d0f7ab547931a2d6fdb ;;
+  Linux-x86_64)
+    target=linux_amd64
+    sha=d47d7f882972c7d674dbbba998ffa4116e68379616ffac7695d0671e9a722c5f ;;
+  Linux-aarch64)
+    target=linux_arm64
+    sha=cf058001da21724a469b714a29cf4aab9cbe860d218a0d6c1b5b661efad7784c ;;
   *)
     echo "Unsupported platform for fzf: $(uname) $(uname -m)" >&2
     exit 1 ;;
