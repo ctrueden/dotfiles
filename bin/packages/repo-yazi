@@ -1,0 +1,26 @@
+#!/bin/sh
+
+# Sets up yazi's apt repository, for entries naming repo=yazi. Adapted from:
+# https://yazi-rs.github.io/docs/installation#debian
+#
+# With --check, reports via exit code whether the repository is set up.
+
+set -eu
+
+. "${DOTFILES:?}/lib/apt-repo.sh"
+
+repo=https://yazi-rs.github.io/builds
+keyring=/etc/apt/keyrings/yazi-keyring.gpg
+
+if [ "${1:-}" = --check ]; then
+  test -e "$keyring" && apt_repo_has "$repo"
+  exit
+fi
+
+apt_repo_require
+
+# Known-good fingerprint: gpg --show-keys on the key at the URL below,
+# as recorded when this script was written.
+apt_repo_key "$repo/yazi-keyring.gpg" "$keyring" \
+  B77B412E5B653539B78695DC9243857960560E6C
+apt_repo_has "$repo" || apt_repo_sources yazi "$repo" stable main "$keyring"

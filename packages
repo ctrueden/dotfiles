@@ -64,22 +64,32 @@ brew|scoop|custom|apt:starship
 apt|brew:ansiweather
 apt|brew|scoop:aspell
 apt|brew|scoop:boxes
-apt|brew|scoop|custom:fzf
 apt|brew:gnupg
 apt|brew:htop
 apt|brew:pwgen
-apt|brew|scoop:ripgrep
 apt|brew:toilet
 apt|brew:tree
 apt|brew|scoop:xmlstarlet
 apt:exuberant-ctags
-apt:fd-find | brew|scoop:fd
-apt|scoop:jq  # Note: on macOS, jq comes preinstalled.
 brew|scoop:fastfetch
 brew|scoop:tlrc
 npm:emoj
 apt:xsel  # dependency of emoj on Linux
-apt:xclip
+
+# yazi: terminal-based file management
+apt:yazi | brew|scoop:yazi  repo=yazi norecommends
+# Note: ffmpeg dependency is in media section.
+apt:7zip | brew:sevenzip | scoop:7zip  # for archive extraction and preview
+apt|scoop:jq  # for JSON preview; macOS has it preinstalled
+apt:poppler-utils | brew|scoop:poppler  # for PDF preview
+apt:fd-find | brew|scoop:fd  # for file searching
+apt|brew|scoop:ripgrep  # for file content searching
+brew|scoop|custom:fzf  replaces=apt:fzf  # for quick file subtree navigation
+apt|brew|scoop:zoxide  # for historical directories navigation
+apt|brew|scoop:resvg  # for SVG preview
+# Note: ImageMagick dependency is in media section.
+apt:xclip  # for Linux clipboard support
+apt:xsel  # for Linux clipboard support
 #apt:wl-clipboard  # Wayland clipboard support
 
 # text reading, highlighting, and paging

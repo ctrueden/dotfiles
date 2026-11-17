@@ -180,6 +180,10 @@ gravhash() {
 	php -r "echo md5(strtolower(trim('$@'))) . \"\n\";"
 }
 
+# --== yazi ==--
+
+alias yz=yazi
+
 # --== yt-dlp ==--
 
 alias dlv='yt-dlp -i --sleep-interval 3 --max-sleep-interval 10'
