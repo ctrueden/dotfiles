@@ -1,0 +1,40 @@
+#!/bin/sh
+
+# Installs a pinned Apache Ant release into ~/.local/opt, verified against
+# a SHA-512 recorded here, and links ant into ~/.local/bin. Used instead of
+# the OS packages: apt's ant drags in dozens of Debian-packaged JARs, and
+# Homebrew's drags in openjdk, whereas a JDK comes from cjdk or the java
+# section. To upgrade, bump ant_ver and the hash together; the hash is
+# published as a .sha512 file beside the release archive.
+#
+# Platforms: linux macos freebsd
+# Note: Not Windows, where Git Bash's ln -s copies rather than links, and the
+# copied ant script then cannot find the rest of Ant.
+#
+# With --check, reports via exit code whether the pinned version is linked.
+
+. "${DOTFILES:?}/lib/download.sh"
+
+ant_ver=1.10.18
+sha=c036f1e2b753cd02b351c9b9925b56a0cbe31212d344080c4a9ec703509c29ca663590e623499bafa83f0dbb5f50d1b047577453e49562b75cbf216571a43e08
+
+opt="$HOME/.local/opt"
+bin="$HOME/.local/bin"
+
+# Note: This checks the link rather than running ant -version.
+if [ "${1:-}" = --check ]; then
+  test "$(readlink "$bin/ant")" = "$opt/apache-ant-$ant_ver/bin/ant"
+  exit
+fi
+
+# Note: archive.apache.org keeps every release, whereas the
+# dlcdn.apache.org mirrors drop all but the latest few.
+download_verified "https://archive.apache.org/dist/ant/binaries/apache-ant-$ant_ver-bin.tar.bz2" "$sha" &&
+mkdir -p "$opt" "$bin" &&
+tar -xjf "$downloaded" -C "$opt" &&
+ln -sfn "$opt/apache-ant-$ant_ver/bin/ant" "$bin/ant" || exit 1
+
+# Remove any versions this one replaces.
+for d in "$opt"/apache-ant-*; do
+  test "$d" = "$opt/apache-ant-$ant_ver" || rm -rf "$d"
+done

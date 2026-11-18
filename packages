@@ -189,7 +189,7 @@ apt|brew|scoop:cmake
 apt|brew:libtool
 apt|brew|scoop:pkgconf
 scoop:maven | custom:mvn  replaces=apt:maven
-brew:ant
+scoop:ant | custom:ant  replaces=apt:ant
 apt:build-essential
 brew:ninja | apt:ninja-build
 
