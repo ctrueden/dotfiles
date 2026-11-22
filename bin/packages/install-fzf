@@ -1,10 +1,11 @@
 #!/bin/sh
 
 # Installs a pinned fzf release binary into ~/.local/bin, verified against a
-# SHA-256 recorded here. Used where the OS package is unavailable (FreeBSD
-# without pkg, e.g. TrueNAS) or too old (Debian and Ubuntu, for yazi's needs).
-# To upgrade, bump fzf_ver and the hashes together; the hashes are published
-# in fzf_VERSION_checksums.txt beside the assets.
+# SHA-256 recorded here. Used instead of apt's fzf, which is too old for
+# yazi's needs on Debian and Ubuntu, and on FreeBSD without pkg, e.g. TrueNAS.
+#
+# To upgrade, bump fzf_ver and the hashes together; the hashes
+# are published in fzf_VERSION_checksums.txt beside the assets.
 #
 # Platforms: freebsd linux
 #

@@ -1,10 +1,11 @@
 #!/bin/sh
 
 # Installs a pinned starship release binary into ~/.local/bin, verified against
-# a SHA-256 recorded here. Used where the OS package is unavailable (Ubuntu
-# older than 25.04, or FreeBSD without pkg, e.g. TrueNAS). To upgrade, bump
-# starship_ver and all hashes together; the hashes are published as .sha256
-# files beside each release asset.
+# a SHA-256 recorded here. Used instead of apt's starship, which Ubuntu lacks
+# before 25.04, and on FreeBSD without pkg, e.g. TrueNAS.
+#
+# To upgrade, bump starship_ver and all hashes together; the hashes are
+# published as .sha256 files beside each release asset.
 #
 # Platforms: linux freebsd
 #

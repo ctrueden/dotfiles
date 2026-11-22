@@ -60,7 +60,7 @@ brew:gnu-sed
 brew:gnu-tar
 apt:openssh-client
 apt|brew:byobu | winget:marlocarlo.psmux
-brew|scoop|custom|apt:starship
+brew|scoop|custom:starship  replaces=apt:starship
 apt|brew:ansiweather
 apt|brew|scoop:aspell
 apt|brew|scoop:boxes
@@ -86,7 +86,7 @@ apt:fd-find | brew|scoop:fd  # for file searching
 apt|brew|scoop:ripgrep  # for file content searching
 brew|scoop|custom:fzf  replaces=apt:fzf  # for quick file subtree navigation
 apt|brew|scoop:zoxide  # for historical directories navigation
-apt|brew|scoop|custom:resvg  # for SVG preview
+brew|scoop|custom:resvg  replaces=apt:resvg  # for SVG preview
 # Note: ImageMagick dependency is in media section.
 apt:xclip  # for Linux clipboard support
 apt:xsel  # for Linux clipboard support

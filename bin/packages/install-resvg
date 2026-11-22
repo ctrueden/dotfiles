@@ -1,9 +1,10 @@
 #!/bin/sh
 
 # Installs a pinned resvg release binary into ~/.local/bin, verified against a
-# SHA-256 recorded here. Used where the OS package is unavailable (e.g. Ubuntu
-# 24.04). To upgrade, bump resvg_ver and both hashes together; the hashes are
-# shown as digests beside each release asset on GitHub.
+# SHA-256 recorded here. Used instead of apt's resvg, which Ubuntu 24.04 lacks.
+#
+# To upgrade, bump resvg_ver and both hashes together;
+# the hashes are shown as digests beside each release asset.
 #
 # Note: resvg 0.50.0's x86_64 build needs glibc 2.43, newer than Ubuntu 24.04
 # has, whereas 0.49.0 needs only 2.35, so check the glibc each new build needs.
