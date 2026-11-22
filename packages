@@ -78,7 +78,9 @@ apt:xsel  # dependency of emoj on Linux
 
 # yazi: terminal-based file management
 apt|brew|scoop:yazi  repo=yazi norecommends
-# Note: ffmpeg dependency is in media section.
+# Note: The remaining entries in this section are optional yazi dependencies.
+# Duplication from elsewhere is intentional to declare the yazi relationship.
+# Note: ffmpeg dependency is in the media section only, due to weight.
 brew:sevenzip | apt|scoop:7zip  # for archive extraction and preview
 apt|scoop:jq  # for JSON preview; macOS has it preinstalled
 apt:poppler-utils | brew|scoop:poppler  # for PDF preview
@@ -87,10 +89,10 @@ apt|brew|scoop:ripgrep  # for file content searching
 brew|scoop|custom:fzf  replaces=apt:fzf  # for quick file subtree navigation
 apt|brew|scoop:zoxide  # for historical directories navigation
 brew|scoop|custom:resvg  replaces=apt:resvg  # for SVG preview
-# Note: ImageMagick dependency is in media section.
+# Note: ImageMagick dependency is in the media section only, due to weight.
 apt:xclip  # for Linux clipboard support
 apt:xsel  # for Linux clipboard support
-#apt:wl-clipboard  # Wayland clipboard support
+apt:wl-clipboard  # for Wayland clipboard support
 
 # text reading, highlighting, and paging
 apt|brew|scoop:bat
