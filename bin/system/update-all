@@ -37,10 +37,23 @@ then
   tally
 fi
 
-if has zpm
+# Note: zpm is a zsh function, so it runs in an interactive zsh, which loads it.
+# But with zpm's startup cache, zpm is a no-op stub until the first prompt,
+# which then sources the deferred half of the cache (with the plugin list),
+# then zpm's init.zsh (with the real zpm). A command never gets a prompt,
+# so it runs those two steps itself. And after upgrading, zpm's @zpm-clean
+# deletes the cache, then does "exec zsh" to rebuild it, which would leave
+# this script waiting on a new interactive shell. So @zpm-clean is replaced
+# with one that only deletes the cache; the next shell rebuilds it.
+if [ -f "$HOME/.zpm/zpm.zsh" ] && has zsh
 then
   heading "Updating zsh plugins"
-  zpm up
+  BYOBU_DISABLE=1 zsh -ic '
+    if [[ -f $_ZPM_CACHE_ASYNC ]]; then
+      source "$_ZPM_CACHE_ASYNC" && source "$_ZPM_DIR/lib/init.zsh"
+    fi &&
+    @zpm-clean() { [[ -n $ZSH_TMP_DIR ]] && rm -rf "$ZSH_TMP_DIR"; } &&
+    zpm up'
   tally
 fi
 
