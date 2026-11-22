@@ -77,9 +77,9 @@ npm:emoj
 apt:xsel  # dependency of emoj on Linux
 
 # yazi: terminal-based file management
-apt:yazi | brew|scoop:yazi  repo=yazi norecommends
+apt|brew|scoop:yazi  repo=yazi norecommends
 # Note: ffmpeg dependency is in media section.
-apt:7zip | brew:sevenzip | scoop:7zip  # for archive extraction and preview
+brew:sevenzip | apt|scoop:7zip  # for archive extraction and preview
 apt|scoop:jq  # for JSON preview; macOS has it preinstalled
 apt:poppler-utils | brew|scoop:poppler  # for PDF preview
 apt:fd-find | brew|scoop:fd  # for file searching
@@ -133,13 +133,13 @@ winget:Microsoft.PowerToys  gui
 apt:gnome-shell-extension-manager  gui
 apt:gnome-system-monitor  gui
 apt:gnome-tweaks  gui
-cask:firefox | winget:Mozilla.Firefox | custom:firefox  gui
+winget:Mozilla.Firefox | cask|custom:firefox  gui
 cask:deskflow/tap/deskflow | flatpak:org.deskflow.deskflow | winget:Deskflow.Deskflow  gui
 apt|cask:libreoffice | winget:TheDocumentFoundation.LibreOffice  gui
 apt:diodon  gui  # clipboard manager
 cask:maccy  gui  # clipboard manager
 apt|cask:vlc | winget:VideoLAN.VLC  gui
-cask:1password | winget:AgileBits.1Password | custom:1password  gui
+winget:AgileBits.1Password | cask|custom:1password  gui
 cask:hammerspoon  gui  # for F12 key toggling kitty quick-access-terminal
 cask:rectangle  gui
 cask:stats  gui
@@ -162,7 +162,7 @@ cask:musicbrainz-picard | apt:picard | winget:MusicBrainz.Picard  gui
 cask|apt:meshlab | winget:CNR-ISTI.MeshLab  gui
 
 [ai]  # agentic coding assistants
-cask|scoop:claude-code | custom:claude-code
+cask|scoop|custom:claude-code
 winget:GitHub.Copilot | npm:@github/copilot
 cask:antigravity-cli
 brew:opencode | scoop:versions/opencode2 | npm:opencode-ai  scripts  # npm installer fetches its binary.
@@ -189,7 +189,7 @@ apt|brew|scoop:cmake
 apt|brew:libtool
 apt|brew|scoop:pkgconf
 scoop:maven | custom:mvn  replaces=apt:maven
-scoop:ant | custom:ant  replaces=apt:ant
+scoop|custom:ant  replaces=apt:ant
 apt:build-essential
 brew:ninja | apt:ninja-build
 
