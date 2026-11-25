@@ -190,8 +190,8 @@ apt:openjdk-21-jdk | cask:zulu@21 | scoop:java/zulu21-jdk
 apt|brew|scoop:cmake
 apt|brew:libtool
 apt|brew|scoop:pkgconf
-scoop:maven | custom:mvn  replaces=apt:maven
-scoop|custom:ant  replaces=apt:ant
+scoop:maven | custom:mvn  replaces=apt:maven,brew:maven
+scoop|custom:ant  replaces=apt:ant,brew:ant
 apt:build-essential
 brew:ninja | apt:ninja-build
 
