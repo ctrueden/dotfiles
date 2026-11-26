@@ -53,8 +53,14 @@ vim.keymap.set("n", "<leader>z", function()
 		vim.notify("No treesitter parser for this buffer", vim.log.levels.WARN)
 		return
 	end
+	local lines = vim.api.nvim_buf_line_count(0)
+	vim.api.nvim_echo({ { ("Parsing %d lines to compute folds..."):format(lines) } }, false, {})
+	vim.cmd.redraw() -- Note: Otherwise the message would not show until after the parse.
+	local start = vim.uv.hrtime()
 	parser:parse(true)
 	vim.cmd("normal! zx")
+	local secs = (vim.uv.hrtime() - start) / 1e9
+	vim.api.nvim_echo({ { ("Folds refreshed: parsed %d lines in %.1f s"):format(lines, secs) } }, false, {})
 end, { desc = "Refresh folds via full treesitter parse ([z])" })
 
 -- Search only visible text: matches inside closed folds are skipped,
