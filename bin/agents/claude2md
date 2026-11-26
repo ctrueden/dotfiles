@@ -28,6 +28,11 @@ h1 {
   padding-bottom: 0.4rem;
   margin-bottom: 1.5rem;
 }
+.meta {
+  color: #666;
+  font-size: 0.85rem;
+  margin: -1rem 0 1.5rem 0;
+}
 .turn {
   border-radius: 8px;
   padding: 1rem 1.25rem;
@@ -298,6 +303,10 @@ def jsonl_to_md(path: Path) -> str:
                         tool_results[uid] = str(inner).strip()
 
     parts = [STYLE, f"# Conversation: {path.stem}\n"]
+    # Note: cwd can drift mid-session; the first one is the project directory.
+    cwd = next((r["cwd"] for r in records if r.get("cwd")), None)
+    if cwd:
+        parts.append(f"::: {{.meta}}\nProject: `{cwd}`\n:::")
 
     messages = [
         r for r in records
