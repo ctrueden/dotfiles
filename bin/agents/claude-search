@@ -215,9 +215,10 @@ def view_results(results, args, ignore):
     if bat:
         # Note: Rather than piping bat into less, which would merge the files
         # into one stream, less opens each file itself (so :n and :p work)
-        # and has bat highlight it on the way in.
-        width = shutil.get_terminal_size().columns
-        env["LESSOPEN"] = f"|{shlex.quote(bat)} --color=always --paging=never --decorations=always --terminal-width={width} %s"
+        # and has bat highlight it on the way in. Plain style without
+        # wrapping keeps the lines as they are, so ^ anchors in searches
+        # and copying text still work, and less wraps to the window.
+        env["LESSOPEN"] = f"|{shlex.quote(bat)} --color=always --paging=never --style=plain --wrap=never %s"
         env.pop("LESSCLOSE", None)
     os.execvpe(less[0], less + files, env)
 
