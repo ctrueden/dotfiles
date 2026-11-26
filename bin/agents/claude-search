@@ -1,0 +1,206 @@
+#!/usr/bin/env python3
+
+"""
+Search Claude Code conversation histories.
+
+Scans the raw .jsonl session files under ~/.claude/projects directly, so it
+needs no prior claude-transcripts run, and reports for each matching
+conversation its session UUID, project path, date and title, followed by
+context snippets of the matches.
+"""
+
+import argparse
+import json
+import os
+import re
+import sys
+from pathlib import Path
+
+PROJECTS = Path.home() / ".claude" / "projects"
+
+META_TAGS = re.compile(
+    r"<(local-command-caveat|local-command-stdout|command-name|command-message"
+    r"|command-args|system-reminder)>.*?</\1>",
+    re.DOTALL,
+)
+
+
+def read_records(path):
+    """Yield the JSON records of a .jsonl file, skipping malformed ones."""
+    decoder = json.JSONDecoder()
+    with open(path, errors="replace") as f:
+        for line in f:
+            line = line.strip()
+            pos = 0
+            # Note: interrupted writes can truncate a record or run two
+            # together on one line, so decode object by object.
+            while pos < len(line):
+                try:
+                    obj, pos = decoder.raw_decode(line, pos)
+                except json.JSONDecodeError:
+                    pos = line.find('{"', pos + 1)
+                    if pos < 0:
+                        break
+                    continue
+                if isinstance(obj, dict):
+                    yield obj
+                while pos < len(line) and line[pos].isspace():
+                    pos += 1
+
+
+def tool_result_text(block):
+    inner = block.get("content", "")
+    if isinstance(inner, list):
+        inner = "\n".join(b.get("text", "") for b in inner if b.get("type") == "text")
+    return str(inner)
+
+
+def message_texts(record, tools):
+    """Yield (kind, text) pairs for the searchable parts of a message record."""
+    role = record["type"]
+    content = record["message"].get("content", "")
+    if isinstance(content, str):
+        content = [{"type": "text", "text": content}]
+    if not isinstance(content, list):
+        return
+    for block in content:
+        if not isinstance(block, dict):
+            continue
+        btype = block.get("type")
+        if btype == "text":
+            text = block.get("text", "")
+            if role == "user":
+                text = META_TAGS.sub("", text)
+            yield role, text
+        elif tools and btype == "tool_use":
+            inp = block.get("input", {})
+            text = inp.get("command") or json.dumps(inp, ensure_ascii=False)
+            yield f"tool:{block.get('name', '?')}", text
+        elif tools and btype == "tool_result":
+            yield "result", tool_result_text(block)
+
+
+def snippet(text, m, width):
+    """Return a one-line excerpt of text around match m."""
+    start = max(0, m.start() - width)
+    end = min(len(text), m.end() + width)
+    pre, hit, post = text[start:m.start()], text[m.start():m.end()], text[m.end():end]
+    flat = lambda s: re.sub(r"\s+", " ", s)
+    pre, hit, post = flat(pre), flat(hit), flat(post)
+    if start > 0:
+        pre = "…" + pre.lstrip()
+    if end < len(text):
+        post = post.rstrip() + "…"
+    return pre, hit, post
+
+
+def search_file(path, regex, args):
+    """Return a summary dict for one session file, or None if nothing matched."""
+    session = cwd = title = None
+    first = last = ""
+    hits = []
+    nhits = 0
+    for r in read_records(path):
+        session = session or r.get("sessionId")
+        cwd = cwd or r.get("cwd")
+        if r.get("aiTitle"):
+            title = r["aiTitle"]  # Note: The last one is the most current.
+        ts = r.get("timestamp", "")
+        if ts:
+            first = first or ts
+            last = max(last, ts)
+        if r.get("type") not in ("user", "assistant") or r.get("isMeta"):
+            continue
+        if not isinstance(r.get("message"), dict):
+            continue
+        for kind, text in message_texts(r, args.tools):
+            for m in regex.finditer(text):
+                nhits += 1
+                if len(hits) < args.max_count:
+                    hits.append((ts, kind, snippet(text, m, args.context)))
+    if not nhits:
+        return None
+    return {
+        "session": session or path.stem,
+        "cwd": cwd or "?",
+        "title": title or "",
+        "first": first,
+        "last": last,
+        "file": str(path),
+        "subagent": "subagents" in path.parts,
+        "count": nhits,
+        "hits": hits,
+    }
+
+
+def session_files(args):
+    for path in PROJECTS.glob("**/*.jsonl"):
+        if not args.subagents and "subagents" in path.parts:
+            continue
+        yield path
+
+
+def main():
+    p = argparse.ArgumentParser(
+        description="Search Claude Code conversation histories.",
+        epilog="Searches ~/.claude/projects/**/*.jsonl. Case-insensitive "
+        "unless the pattern contains an uppercase letter.",
+    )
+    p.add_argument("pattern", help="regular expression to search for")
+    p.add_argument("-F", "--fixed", action="store_true", help="treat pattern as a literal string")
+    p.add_argument("-i", "--ignore-case", action="store_true", help="always ignore case")
+    p.add_argument("-s", "--case-sensitive", action="store_true", help="always match case")
+    p.add_argument("-p", "--project", metavar="SUBSTR", help="only conversations whose project path contains SUBSTR")
+    p.add_argument("-t", "--tools", action="store_true", help="also search tool calls and their output")
+    p.add_argument("-a", "--subagents", action="store_true", help="also search subagent conversations")
+    p.add_argument("-C", "--context", type=int, default=80, metavar="N", help="characters of context around each match (default 80)")
+    p.add_argument("-m", "--max-count", type=int, default=3, metavar="N", help="snippets shown per conversation (default 3)")
+    p.add_argument("-l", "--list", action="store_true", help="list matching conversations only, no snippets")
+    p.add_argument("--json", action="store_true", help="output results as JSON lines")
+    p.add_argument("--color", choices=("auto", "always", "never"), default="auto")
+    args = p.parse_args()
+
+    pattern = re.escape(args.pattern) if args.fixed else args.pattern
+    ignore = args.ignore_case or (not args.case_sensitive and args.pattern == args.pattern.lower())
+    try:
+        regex = re.compile(pattern, re.IGNORECASE if ignore else 0)
+    except re.error as e:
+        sys.exit(f"claude-search: invalid pattern: {e}")
+
+    results = []
+    for path in session_files(args):
+        res = search_file(path, regex, args)
+        if res and (not args.project or args.project in res["cwd"]):
+            results.append(res)
+    results.sort(key=lambda r: r["last"])
+
+    if args.json:
+        for r in results:
+            print(json.dumps(r, ensure_ascii=False))
+        return 0 if results else 1
+
+    color = args.color == "always" or (args.color == "auto" and sys.stdout.isatty() and not os.environ.get("NO_COLOR"))
+    c = lambda code, s: f"\033[{code}m{s}\033[0m" if color else s
+
+    for i, r in enumerate(results):
+        if i and not args.list:
+            print()
+        date = r["last"][:10]
+        sub = c("35", " [subagent]") if r["subagent"] else ""
+        print(f"{c('1;33', r['session'])}  {c('36', r['cwd'])}  {c('2', date)}{sub}  {r['title']}")
+        if args.list:
+            continue
+        for ts, kind, (pre, hit, post) in r["hits"]:
+            label = c("32" if kind == "user" else "34" if kind == "assistant" else "2", f"{kind:>9}")
+            print(f"  {label} {pre}{c('1;31', hit)}{post}")
+        more = r["count"] - len(r["hits"])
+        if more > 0:
+            print(c("2", f"  … {more} more match{'es' if more > 1 else ''}"))
+    return 0 if results else 1
+
+
+if __name__ == "__main__":
+    try:
+        sys.exit(main())
+    except (BrokenPipeError, KeyboardInterrupt):
+        sys.exit(1)
