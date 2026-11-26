@@ -7,16 +7,24 @@ Scans the raw .jsonl session files under ~/.claude/projects directly, so it
 needs no prior claude-transcripts run, and reports for each matching
 conversation its session UUID, project path, date and title, followed by
 context snippets of the matches.
+
+With --open, the matching conversations are converted to Markdown with
+claude2md (into ~/.claude/transcripts, the same place claude-transcripts
+writes) and opened in $VISUAL or $EDITOR (default nvim), most recent first.
 """
 
 import argparse
 import json
 import os
 import re
+import shlex
+import shutil
+import subprocess
 import sys
 from pathlib import Path
 
 PROJECTS = Path.home() / ".claude" / "projects"
+TRANSCRIPTS = Path.home() / ".claude" / "transcripts"
 
 META_TAGS = re.compile(
     r"<(local-command-caveat|local-command-stdout|command-name|command-message"
@@ -140,6 +148,44 @@ def session_files(args):
         yield path
 
 
+def vim_pattern(args, ignore):
+    """Translate the search pattern into a Vim search pattern, best effort."""
+    case = r"\c" if ignore else r"\C"
+    if args.fixed or not re.search(r"[\\^$.|?*+()\[\]{}]", args.pattern):
+        return case + r"\V" + args.pattern.replace("\\", "\\\\").replace("/", "\\/")
+    # Note: Very magic mode is close to Python syntax for common patterns,
+    # but some constructs (e.g. \b, lookarounds) have no direct equivalent.
+    pat = re.sub(r"(?<!\\)([/<>=@%&~])", r"\\\1", args.pattern)
+    return case + r"\v" + pat.replace(r"\b", "(<|>)")
+
+
+def open_results(results, args, ignore):
+    """Convert matching conversations to Markdown and open them in an editor."""
+    TRANSCRIPTS.mkdir(parents=True, exist_ok=True)
+    files, stale = [], []
+    for r in reversed(results):
+        src = Path(r["file"])
+        md = TRANSCRIPTS / (src.stem + ".md")
+        files.append(str(md))
+        if not md.exists() or md.stat().st_mtime < src.stat().st_mtime:
+            stale.append(str(src))
+    if stale:
+        sibling = Path(__file__).resolve().parent / "claude2md"
+        claude2md = str(sibling) if sibling.exists() else shutil.which("claude2md")
+        if not claude2md:
+            sys.exit("claude-search: claude2md not found")
+        subprocess.run([claude2md, *stale, "-o", str(TRANSCRIPTS)], stdout=subprocess.DEVNULL)
+    files = [f for f in files if Path(f).exists()]
+    if not files:
+        sys.exit("claude-search: no transcripts could be converted")
+
+    editor = shlex.split(os.environ.get("VISUAL") or os.environ.get("EDITOR") or "nvim")
+    cmd = editor[:]
+    if Path(editor[0]).name in ("vi", "vim", "nvim"):
+        cmd.append("+/" + vim_pattern(args, ignore))
+    os.execvp(cmd[0], cmd + files)
+
+
 def main():
     p = argparse.ArgumentParser(
         description="Search Claude Code conversation histories.",
@@ -156,6 +202,7 @@ def main():
     p.add_argument("-C", "--context", type=int, default=80, metavar="N", help="characters of context around each match (default 80)")
     p.add_argument("-m", "--max-count", type=int, default=3, metavar="N", help="snippets shown per conversation (default 3)")
     p.add_argument("-l", "--list", action="store_true", help="list matching conversations only, no snippets")
+    p.add_argument("-o", "--open", action="store_true", help="open matching conversations as Markdown in $VISUAL or $EDITOR")
     p.add_argument("--json", action="store_true", help="output results as JSON lines")
     p.add_argument("--color", choices=("auto", "always", "never"), default="auto")
     args = p.parse_args()
@@ -173,6 +220,11 @@ def main():
         if res and (not args.project or args.project in res["cwd"]):
             results.append(res)
     results.sort(key=lambda r: r["last"])
+
+    if args.open:
+        if not results:
+            return 1
+        open_results(results, args, ignore)
 
     if args.json:
         for r in results:
