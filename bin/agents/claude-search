@@ -11,8 +11,8 @@ context snippets of the matches.
 With --open, the matching conversations are converted to Markdown with
 claude2md (into ~/.claude/transcripts, the same place claude-transcripts
 writes) and opened in $VISUAL or $EDITOR (default nvim), most recent first.
-With --view, they are instead shown read-only in bat (or plain less), paged
-by less starting at the first match.
+With --view, they are instead paged read-only through less, starting at the
+first match, with bat (when available) highlighting each file.
 """
 
 import argparse
@@ -164,13 +164,14 @@ def vim_pattern(args, ignore):
 def less_pattern(args, ignore):
     """Translate the search pattern into a less search command, best effort."""
     case = ["-I"] if ignore else ["-+i", "-+I"]
+    # Note: Ctrl-E makes less search on into the following files.
     if args.fixed or not re.search(r"[\\^$.|?*+()\[\]{}]", args.pattern):
         # Note: Ctrl-R tells less not to interpret regex metacharacters.
-        return case + ["+/\x12" + args.pattern]
+        return case + ["+/\x05\x12" + args.pattern]
     # Note: less uses GNU regular expressions here, which lack \d and \D.
     pat = re.sub(r"(?<!\\)\\d", "[0-9]", args.pattern)
     pat = re.sub(r"(?<!\\)\\D", "[^0-9]", pat)
-    return case + ["+/" + pat]
+    return case + ["+/\x05" + pat]
 
 
 def transcript_files(results):
@@ -209,12 +210,16 @@ def view_results(results, args, ignore):
     """Page through the matching conversations as highlighted Markdown."""
     files = transcript_files(results)
     less = ["less", "-R", *less_pattern(args, ignore)]
+    env = dict(os.environ)
     bat = shutil.which("bat") or shutil.which("batcat")
-    if not bat:
-        os.execvp(less[0], less + files)
-    # Note: bat cannot start at a match itself, but the pager it uses can.
-    pager = shlex.join(less)
-    os.execvp(bat, [bat, "--paging=always", "--pager", pager, *files])
+    if bat:
+        # Note: Rather than piping bat into less, which would merge the files
+        # into one stream, less opens each file itself (so :n and :p work)
+        # and has bat highlight it on the way in.
+        width = shutil.get_terminal_size().columns
+        env["LESSOPEN"] = f"|{shlex.quote(bat)} --color=always --paging=never --decorations=always --terminal-width={width} %s"
+        env.pop("LESSCLOSE", None)
+    os.execvpe(less[0], less + files, env)
 
 
 def main():
