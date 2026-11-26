@@ -32,8 +32,18 @@ export SPHINXOPTS=-W
 
 # --== less ==--
 
-# enable syntax highlighting in less, and disable page clearing on quit
+# pass color codes through in less, and disable page clearing on quit
 export LESS=-RX
+
+# let less show the contents of archives, packages, and documents
+# Note: Plain text passes through untouched; for highlighting, use bat.
+if has lesspipe; then
+	# Debian/Ubuntu (part of the less package); also sets LESSCLOSE.
+	eval "$(SHELL=/bin/sh lesspipe)"
+elif has lesspipe.sh; then
+	# Homebrew's lesspipe, a different program with the same purpose.
+	export LESSOPEN="|lesspipe.sh %s"
+fi
 
 # --== xmllint ==--
 

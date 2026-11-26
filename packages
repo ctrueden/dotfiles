@@ -97,6 +97,7 @@ apt:wl-clipboard  # for Wayland clipboard support
 # text reading, highlighting, and paging
 apt|brew|scoop:bat
 apt|brew|scoop:grc  # dependency of zpm-zsh/colorize
+brew:lesspipe  # for viewing archives in less; apt's less package has its own
 
 # editors
 brew|scoop|custom:neovim  replaces=apt:neovim
