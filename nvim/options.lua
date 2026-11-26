@@ -44,6 +44,19 @@ vim.o.foldexpr = "v:lua.vim.treesitter.foldexpr()"
 vim.o.foldlevel = 99 -- start with everything open
 vim.o.foldenable = true
 
+-- Note: In very large buffers (e.g. 40K-line Markdown), treesitter's async
+-- parse may never complete, leaving no folds at all. This parses the whole
+-- buffer synchronously (a second or so of blocking), then recomputes folds.
+vim.keymap.set("n", "<leader>z", function()
+	local ok, parser = pcall(vim.treesitter.get_parser)
+	if not ok or not parser then
+		vim.notify("No treesitter parser for this buffer", vim.log.levels.WARN)
+		return
+	end
+	parser:parse(true)
+	vim.cmd("normal! zx")
+end, { desc = "Refresh folds via full treesitter parse ([z])" })
+
 -- Let :term terminals start in insert mode
 vim.api.nvim_create_autocmd("TermOpen", {
 	callback = function()
