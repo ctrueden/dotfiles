@@ -96,9 +96,7 @@ apt:wl-clipboard  # for Wayland clipboard support
 
 # text reading, highlighting, and paging
 apt|brew|scoop:bat
-npm:@rivolink/leaf
-brew|scoop:glow
-apt|brew|scoop:highlight
+apt|brew|scoop:grc  # dependency of zpm-zsh/colorize
 
 # editors
 brew|scoop|custom:neovim  replaces=apt:neovim

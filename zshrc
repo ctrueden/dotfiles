@@ -95,7 +95,6 @@ _progress "zpm plugins"
 zsh_plugins=(
 	@omz/vi-mode                          # vi mode CLI instead of emacs
 	@omz/brew                             # homebrew completion
-	@omz/colorize                         # highlight files based on type with pygmentize
 	@omz/cp                               # cpv shows progress while file is copying
 	@omz/encode64                         # e64 and d64 for base64 encoding and decoding
 	@omz/extract                          # extract command for unpacking many archives
@@ -116,7 +115,7 @@ zsh_plugins=(
 	micrenda/zsh-nohup                    # add nohup to command by pressing ctrl+H
 	zpm-zsh/check-deps                    # check for needed but missing dependencies
 	zpm-zsh/clipboard                     # add pbcopy, pbpaste, and clip functions
-	zpm-zsh/colorize                      # colorize the output of various commands
+	zpm-zsh/colorize                      # use grc to colorize various command output
 	zpm-zsh/command-not-found             # suggest packages if a command is not found
 	zpm-zsh/fast-syntax-highlighting      # syntax highlighting at the prompt
 	zpm-zsh/history-search-multi-word     # make ^R search multiple ANDed keywords

@@ -34,11 +34,6 @@ export SPHINXOPTS=-W
 
 # enable syntax highlighting in less, and disable page clearing on quit
 export LESS=-RX
-if [ -d /usr/share/source-highlight ]; then
-	export LESSOPEN="| /usr/share/source-highlight/src-hilite-lesspipe.sh %s"
-elif [ -d $HOME/brew/Cellar/source-highlight ]; then
-	export LESSOPEN="| $HOME/brew/Cellar/source-highlight/*/bin/src-hilite-lesspipe.sh %s"
-fi
 
 # --== xmllint ==--
 
