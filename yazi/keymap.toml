@@ -1,0 +1,25 @@
+[[mgr.prepend_keymap]]
+on   = "s"
+run  = "plugin search-jump -- fd"
+desc = "Search files by name via fd"
+
+[[mgr.prepend_keymap]]
+on   = "S"
+run  = "plugin search-jump -- rg"
+desc = "Search files by content via ripgrep"
+
+[[mgr.prepend_keymap]]
+on   = "<Enter>"
+run  = "plugin search-jump"
+desc = "Open selected files, at the first match in rg search results"
+
+[[mgr.prepend_keymap]]
+on   = "o"
+run  = "plugin search-jump"
+desc = "Open selected files, at the first match in rg search results"
+
+[[mgr.prepend_keymap]]
+on   = [ "F", "G" ]
+# Note: yafg runs in the cwd, so leave search results, whose cwd is virtual.
+run  = [ "escape --search", "plugin yafg" ]
+desc = "Grep file contents via fzf, opening matches at their line"

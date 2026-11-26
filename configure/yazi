@@ -1,0 +1,21 @@
+#!/bin/sh
+
+# ~/.config/yazi -- linked whole, so `ya pkg add` records new packages in the
+# dotfiles' package.toml; yazi/.gitignore excludes the fetched plugins.
+# NB: Yazi on Windows reads %AppData%\yazi\config instead.
+
+here=$(cd "$(dirname "$0")" && pwd)
+export DOTFILES="${DOTFILES:-$(cd "$here/.." && pwd)}"
+
+. "$DOTFILES/lib/files.sh"
+
+test -z "$WINDOWS" || exit 0
+command -v yazi >/dev/null || exit 0
+
+if [ -d "$HOME/.config/yazi" ] && [ ! -h "$HOME/.config/yazi" ]; then
+  echo "Warning: not linking ~/.config/yazi over an existing directory." >&2
+  exit 0
+fi
+mkdir -p "$HOME/.config"
+link_file "$DOTFILES/yazi" "$HOME/.config/yazi"
+(set -x; ya pkg install)

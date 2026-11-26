@@ -1,0 +1,17 @@
+#!/bin/sh
+
+# ~/.local/bin/{bat,fd} -- Debian renames these to batcat and fdfind, to avoid
+# name clashes; a shell alias is not enough, as tools like yazi run them.
+
+here=$(cd "$(dirname "$0")" && pwd)
+export DOTFILES="${DOTFILES:-$(cd "$here/.." && pwd)}"
+
+. "$DOTFILES/lib/files.sh"
+
+for _pair in bat:batcat fd:fdfind; do
+  _name=${_pair%%:*}
+  _deb=$(command -v "${_pair#*:}") || continue
+  command -v "$_name" >/dev/null && continue
+  mkdir -p "$HOME/.local/bin"
+  link_file "$_deb" "$HOME/.local/bin/$_name"
+done

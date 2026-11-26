@@ -1,0 +1,4 @@
+# Note: Packages from package.toml are fetched by `ya pkg install`.
+/plugins/*
+!/plugins/search-jump.yazi/
+/flavors/
