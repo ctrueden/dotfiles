@@ -13,15 +13,18 @@
 
 # Path manipulation functions.
 path_filter() {
+  # For each path entry, include it only if the directory exists.
+  # Remove duplicate entries using awk, and join lines with colons using tr.
   filtered=$(
     echo "$@" | tr ':' '\n' | while read p; do
-      test ! -d "$p" ||    # Does the directory exist?
-      echo "$p"            # Include it!
+      test ! -d "$p" ||
+      echo "$p"
     done |
-      awk '!seen[$0]++' |  # Remove duplicate entries
-      tr '\n' ':'          # Join lines with colon separator
+      awk '!seen[$0]++' |
+      tr '\n' ':'
   )
-  echo "${filtered%:}"     # Remove trailing colon
+  # Print the result, removing the trailing colon.
+  echo "${filtered%:}"
 }
 path_prepend() {
   export PATH_PREPEND="$1:$PATH_PREPEND"

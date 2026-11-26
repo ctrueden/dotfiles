@@ -116,7 +116,7 @@
 	#diffFilter = delta --color-only
 
 [merge]
-	conflictStyle = zdiff3
+	conflictStyle = diff3
 	#tool = meld
 
 [mergetool "meld"]
