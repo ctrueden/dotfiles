@@ -1,14 +1,12 @@
 # use ctrl+~ (ctrl+shift+` on USA keyboard layout) for paging stdout+stderr
 pipeless () {
 	[[ -z $BUFFER ]] && zle up-history
-	pager=$PAGER
-	test "$pager" || pager=less
-	SUFFIX=" 2>&1 | $pager"
-	if [[ $BUFFER == *"$SUFFIX" ]]
+	local suffix=" 2>&1 | ${PAGER:-less}"
+	if [[ $BUFFER == *"$suffix" ]]
 	then
-		BUFFER="${BUFFER%$SUFFIX}"
+		BUFFER="${BUFFER%$suffix}"
 	else
-		BUFFER="$BUFFER$SUFFIX"
+		BUFFER="$BUFFER$suffix"
 	fi
 }
 zle -N pipeless
