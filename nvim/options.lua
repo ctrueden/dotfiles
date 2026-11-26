@@ -57,6 +57,67 @@ vim.keymap.set("n", "<leader>z", function()
 	vim.cmd("normal! zx")
 end, { desc = "Refresh folds via full treesitter parse ([z])" })
 
+-- Search only visible text: matches inside closed folds are skipped,
+-- rather than opening the fold or stopping on it.
+vim.opt.foldopen:remove("search")
+
+-- If the cursor is in a closed fold, jump past it and search again,
+-- until landing on a visible match. If there is none (the same fold comes
+-- around twice), return the cursor to origin, where the search started.
+local function skip_closed_folds(forward, origin)
+	local seen = {}
+	while true do
+		local first = vim.fn.foldclosed(".")
+		if first == -1 then
+			return
+		end
+		if seen[first] then
+			vim.api.nvim_win_set_cursor(0, origin)
+			vim.api.nvim_echo({ { "No visible match: " .. vim.fn.getreg("/"), "WarningMsg" } }, false, {})
+			return
+		end
+		seen[first] = true
+		if forward then
+			vim.api.nvim_win_set_cursor(0, { vim.fn.foldclosedend("."), vim.v.maxcol })
+		else
+			vim.api.nvim_win_set_cursor(0, { first, 0 })
+		end
+		-- Note: n/N rather than / or ?, to keep the direction and offset.
+		local key = (vim.v.searchforward == 1) == forward and "n" or "N"
+		if not pcall(vim.cmd, "normal! " .. key) then
+			return
+		end
+	end
+end
+
+for _, key in ipairs({ "n", "N" }) do
+	vim.keymap.set("n", key, function()
+		local forward = (vim.v.searchforward == 1) == (key == "n")
+		local origin = vim.api.nvim_win_get_cursor(0)
+		local ok, err = pcall(vim.cmd, "normal! " .. vim.v.count1 .. key)
+		if not ok then
+			vim.api.nvim_echo({ { err:gsub("^Vim[^:]*:", ""), "ErrorMsg" } }, false, {})
+			return
+		end
+		skip_closed_folds(forward, origin)
+	end, { desc = "Next/previous search match, skipping closed folds" })
+end
+
+vim.api.nvim_create_autocmd("CmdlineLeave", {
+	pattern = { "/", "?" },
+	callback = function()
+		if vim.v.event.abort then
+			return
+		end
+		local forward = vim.fn.expand("<afile>") == "/"
+		-- Note: The search has not moved the cursor yet when this fires.
+		local origin = vim.api.nvim_win_get_cursor(0)
+		vim.schedule(function()
+			skip_closed_folds(forward, origin)
+		end)
+	end,
+})
+
 -- Let :term terminals start in insert mode
 vim.api.nvim_create_autocmd("TermOpen", {
 	callback = function()
