@@ -1,6 +1,12 @@
 #!/usr/bin/env python3
 
-"""Convert Claude Code .jsonl conversation files to Markdown."""
+"""
+Convert Claude Code .jsonl conversation files to Markdown.
+
+The Markdown uses pandoc fenced divs for styling hooks; the matching CSS,
+printed by --style, is kept out of the Markdown itself so it does not
+clutter reading it in an editor.
+"""
 
 import html as html_lib
 import json
@@ -302,7 +308,7 @@ def jsonl_to_md(path: Path) -> str:
                     if uid:
                         tool_results[uid] = str(inner).strip()
 
-    parts = [STYLE, f"# Conversation: {path.stem}\n"]
+    parts = [f"# Conversation: {path.stem}\n"]
     # Note: cwd can drift mid-session; the first one is the project directory.
     cwd = next((r["cwd"] for r in records if r.get("cwd")), None)
     if cwd:
@@ -343,9 +349,13 @@ def jsonl_to_md(path: Path) -> str:
 def main():
     if len(sys.argv) < 2:
         print("Usage: claude2md <file.jsonl> [file2.jsonl ...] [-o outdir]")
+        print("       claude2md --style   (print the CSS for rendered HTML)")
         sys.exit(1)
 
     args = sys.argv[1:]
+    if args == ["--style"]:
+        print(STYLE, end="")
+        return
     outdir = None
     if "-o" in args:
         idx = args.index("-o")

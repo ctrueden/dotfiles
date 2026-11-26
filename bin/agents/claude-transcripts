@@ -21,7 +21,10 @@ do
 		echo "Skipping $p: conversion failed" >&2
 		continue
 	}
-	pandoc "$md" -f 'markdown-tex_math_dollars' --quiet -o "$out/$title.html" || {
+	{
+		claude2md --style &&
+		pandoc "$md" -f 'markdown-tex_math_dollars' --quiet
+	} > "$out/$title.html" || {
 		# Note: Remove the Markdown so the conversion is retried next time.
 		rm -f "$md"
 		echo "Skipping $p: HTML rendering failed" >&2
