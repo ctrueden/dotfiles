@@ -11,6 +11,8 @@ context snippets of the matches.
 With --open, the matching conversations are converted to Markdown with
 claude2md (into ~/.claude/transcripts, the same place claude-transcripts
 writes) and opened in $VISUAL or $EDITOR (default nvim), most recent first.
+With --view, they are instead shown read-only in bat (or plain less), paged
+by less starting at the first match.
 """
 
 import argparse
@@ -159,8 +161,20 @@ def vim_pattern(args, ignore):
     return case + r"\v" + pat.replace(r"\b", "(<|>)")
 
 
-def open_results(results, args, ignore):
-    """Convert matching conversations to Markdown and open them in an editor."""
+def less_pattern(args, ignore):
+    """Translate the search pattern into a less search command, best effort."""
+    case = ["-I"] if ignore else ["-+i", "-+I"]
+    if args.fixed or not re.search(r"[\\^$.|?*+()\[\]{}]", args.pattern):
+        # Note: Ctrl-R tells less not to interpret regex metacharacters.
+        return case + ["+/\x12" + args.pattern]
+    # Note: less uses GNU regular expressions here, which lack \d and \D.
+    pat = re.sub(r"(?<!\\)\\d", "[0-9]", args.pattern)
+    pat = re.sub(r"(?<!\\)\\D", "[^0-9]", pat)
+    return case + ["+/" + pat]
+
+
+def transcript_files(results):
+    """Convert matching conversations to Markdown, most recent first."""
     TRANSCRIPTS.mkdir(parents=True, exist_ok=True)
     files, stale = [], []
     for r in reversed(results):
@@ -178,12 +192,29 @@ def open_results(results, args, ignore):
     files = [f for f in files if Path(f).exists()]
     if not files:
         sys.exit("claude-search: no transcripts could be converted")
+    return files
 
+
+def open_results(results, args, ignore):
+    """Open the matching conversations as Markdown in an editor."""
+    files = transcript_files(results)
     editor = shlex.split(os.environ.get("VISUAL") or os.environ.get("EDITOR") or "nvim")
     cmd = editor[:]
     if Path(editor[0]).name in ("vi", "vim", "nvim"):
         cmd.append("+/" + vim_pattern(args, ignore))
     os.execvp(cmd[0], cmd + files)
+
+
+def view_results(results, args, ignore):
+    """Page through the matching conversations as highlighted Markdown."""
+    files = transcript_files(results)
+    less = ["less", "-R", *less_pattern(args, ignore)]
+    bat = shutil.which("bat") or shutil.which("batcat")
+    if not bat:
+        os.execvp(less[0], less + files)
+    # Note: bat cannot start at a match itself, but the pager it uses can.
+    pager = shlex.join(less)
+    os.execvp(bat, [bat, "--paging=always", "--pager", pager, *files])
 
 
 def main():
@@ -203,6 +234,7 @@ def main():
     p.add_argument("-m", "--max-count", type=int, default=3, metavar="N", help="snippets shown per conversation (default 3)")
     p.add_argument("-l", "--list", action="store_true", help="list matching conversations only, no snippets")
     p.add_argument("-o", "--open", action="store_true", help="open matching conversations as Markdown in $VISUAL or $EDITOR")
+    p.add_argument("-v", "--view", action="store_true", help="page through matching conversations with bat and less")
     p.add_argument("--json", action="store_true", help="output results as JSON lines")
     p.add_argument("--color", choices=("auto", "always", "never"), default="auto")
     args = p.parse_args()
@@ -221,10 +253,10 @@ def main():
             results.append(res)
     results.sort(key=lambda r: r["last"])
 
-    if args.open:
+    if args.open or args.view:
         if not results:
             return 1
-        open_results(results, args, ignore)
+        (open_results if args.open else view_results)(results, args, ignore)
 
     if args.json:
         for r in results:
